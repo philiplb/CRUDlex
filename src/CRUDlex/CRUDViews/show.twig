@@ -1,0 +1,43 @@
+{#
+ # This file is part of the Crudlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+
+{%extends layout %}
+
+{% block content %}
+    {% set fields = definition.getPublicFieldNames() %}
+    <table class="table table-striped">
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+
+        {% for field in fields %}
+            <tr>
+                <td>{{ field }}</td>
+                <td>
+                    {% include '@crud/renderField.twig' with {
+                        entity: entity,
+                        definition: definition,
+                        field: field
+                    } only %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2">
+                <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-xs btn-success">List</a>
+                <a href="{{ app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-warning">Edit</a>
+                <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this entity {{ entity.get('id') }}?');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+                    <input type="submit" class="btn btn-default btn-xs btn-danger" value="Delete" />
+                </form>
+            </td>
+        </tr>
+
+    </table>
+{% endblock %}

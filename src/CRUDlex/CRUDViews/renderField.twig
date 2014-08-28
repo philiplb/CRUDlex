@@ -1,0 +1,18 @@
+{#
+ # This file is part of the Crudlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+
+{% set type = definition.getType(field) %}
+{% if type == 'date' %}
+    {{ app.crud.formatDate(entity.get(field)) }}
+{% elseif type == 'reference' and entity.get(field) %}
+    {% set reference = entity.get(field) %}
+    <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">{{ reference['id'] }}: {{ reference['name'] }}</a>
+{% else %}
+    {{ entity.get(field) }}
+{% endif %}

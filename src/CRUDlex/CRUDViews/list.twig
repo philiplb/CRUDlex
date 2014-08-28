@@ -1,0 +1,49 @@
+{#
+ # This file is part of the Crudlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+
+{%extends layout %}
+
+{% block content %}
+    {% set fields = definition.getPublicFieldNames() %}
+    <a href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success" style="margin: 5px 5px 5px 5px">Create New</a>
+
+    <div class="table-responsive">
+    <table class="table table-striped">
+
+        <tr>
+            {% for field in fields %}
+                <th>{{ field }}</th>
+            {% endfor %}
+            <th>Action</th>
+        </tr>
+
+        {% for entity in entities %}
+            <tr>
+                {% for field in fields %}
+                    <td>
+                        {% include '@crud/renderField.twig' with {
+                            entity: entity,
+                            definition: definition,
+                            field: field
+                        } only %}
+                    </td>
+                {% endfor %}
+                <td>
+                    <a href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-success">Show</a>
+                    <a href="{{ app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-warning">Edit</a>
+                    <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this entity {{ entity.get('id') }}?');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+                        <input type="submit" class="btn btn-default btn-xs btn-danger" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    </div>
+{% endblock %}

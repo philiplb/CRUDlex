@@ -1,0 +1,20 @@
+{#
+ # This file is part of the Crudlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+
+<label for="{{ field }}" class="control-label">
+    {{ field }}
+    {% set markers = [] %}
+    {% if definition.isRequired(field) %}
+        {% set markers = markers|merge(['*']) %}
+    {% endif %}
+    {% if definition.isUnique(field) %}
+        {% set markers = markers|merge(['must be unique']) %}
+    {% endif %}
+    {{ markers|join(', ') }}
+</label>

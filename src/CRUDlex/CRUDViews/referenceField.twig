@@ -1,0 +1,20 @@
+{#
+ # This file is part of the Crudlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+
+{% include '@crud/fieldLabel.twig' with {
+    field: field,
+    definition: crudData.getDefinition()
+} only %}
+<select class="form-control" id="{{ field }}" name="{{ field }}">
+    <option value=""></option>
+    {% set values = crudData.getReferences(crudData.getDefinition().getReferenceTable(field), crudData.getDefinition().getReferenceNameField(field)) %}
+    {% for id, value in values %}
+        <option value="{{ id }}" {% if entity.get(field) and id == entity.get(field) %}selected="selected" {% endif %}>{{ value }}</option>
+    {% endfor %}
+</select>

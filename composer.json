@@ -1,0 +1,23 @@
+{
+    "name": "philiplb/crudlex",
+    "type": "library",
+    "description": "An easy to use CRUD generator for Silex.",
+    "keywords": ["silex", "crud", "admin generator"],
+    "homepage": "https://github.com/philiplb/CRUDlex",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Philip Lehmann-Böhm",
+            "email": "philip@philiplb.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "silex/silex": "1.2.1",
+        "symfony/twig-bridge": "2.5.3",
+        "doctrine/dbal": "2.4.2"
+    },
+    "autoload": {
+        "psr-0": { "CRUDlex": "src" }
+    }
+}

@@ -1,0 +1,17 @@
+#
+# This file is part of the Crudlex package.
+#
+# (c) Philip Lehmann-Böhm <philip@philiplb.de>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+entityNotFound: 'Entity not found.'
+instanceNotFound: 'Instance not found.'
+create.error: 'Could not create, see the red marked fields.'
+create.success: '{0} created with id {1}'
+edit.error: 'Could not edit, see the red marked fields.'
+edit.success: '{0} edited with id {1}'
+delete.error: 'Could not delete {0} as it is still referenced by another entity.'
+delete.success: '{0} deleted.'

@@ -1,0 +1,48 @@
+{#
+ # This file is part of the Crudlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+
+{%extends layout %}
+
+{% block content %}
+{% set fields = definition.getEditableFieldNames() %}
+<form role="form" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+
+    {% if mode == 'edit' %}
+        <div class="form-group">
+            <strong>id: </strong> {{ entity.get('id') }}
+        </div>
+        <div class="form-group">
+            <strong>created_at: </strong> {{ entity.get('created_at') }}
+        </div>
+        <div class="form-group">
+            <strong>updated_at: </strong> {{ entity.get('updated_at') }}
+        </div>
+    {% endif %}
+
+    {% for field in fields %}
+
+        <div class="form-group {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
+            {% include '@crud/' ~ definition.getType(field) ~ 'Field.twig' with {
+                field: field,
+                crudData: crudData,
+                entity: entity
+            } only %}
+        </div>
+
+    {% endfor %}
+
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+<div style="margin-top: 15px">
+    <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-xs btn-success">List</a>
+    {% if mode == 'edit' %}
+        <a href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-success">Show</a>
+    {% endif %}
+</div>
+{% endblock %}
