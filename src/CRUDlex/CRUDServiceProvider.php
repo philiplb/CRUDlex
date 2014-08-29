@@ -25,7 +25,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
     protected $strings;
 
-    protected function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile) {
+    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile) {
         $cruds = Yaml::parse(file_get_contents($crudFile));
         $this->datas = array();
         foreach ($cruds as $name => $crud) {
