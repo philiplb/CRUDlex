@@ -1,10 +1,16 @@
-CRUDlexTmp
+CRUDlex
 ==========
 
 CRUDlex is an easy to use CRUD generator for Silex.
 
-## Roadmap for 1.0
+## Roadmap for 0.9.1
+* Layouts per entity definable
+* Unit Tests
+* CI (Travis) integration
 * Label for the fields
+* Label for the entities
+
+## Roadmap for 1.0
 * New types
     * DateTime
     * Floating point
@@ -13,8 +19,6 @@ CRUDlex is an easy to use CRUD generator for Silex.
 * Optional version field
 * Optional created_at and updated_at fields
 * Soft delete via deleted_at optional
-* Unit Tests
-* CI (Travis) integration
 * Pagination
 * Logo
 * A homepage
