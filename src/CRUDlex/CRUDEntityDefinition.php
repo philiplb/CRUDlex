@@ -16,6 +16,8 @@ class CRUDEntityDefinition {
 
     protected $fields;
 
+    protected $label;
+
     protected $parents;
 
     protected function getFilteredFieldNames($exclude) {
@@ -55,10 +57,11 @@ class CRUDEntityDefinition {
      *  The field id is always expected. So are updated_at, created_at,
      *  deleted_at and version.
      */
-    public function __construct($table, $fields) {
+    public function __construct($table, $fields, $label) {
         $this->table = $table;
         $this->fields = $fields;
         $this->parents = array();
+        $this->label = $label;
     }
 
     public function getFieldNames() {
@@ -118,6 +121,10 @@ class CRUDEntityDefinition {
 
     public function getTable() {
         return $this->table;
+    }
+
+    public function getLabel() {
+        return $this->label;
     }
 
     public function addParent($entity, $field) {

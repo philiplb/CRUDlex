@@ -69,7 +69,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $app['session']->getFlashBag()->add('danger', $app['crud']->translate('create.error'));
             } else {
                 $id = $crudData->create($instance);
-                $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($entity, $id)));
+                $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }
         }
@@ -147,7 +147,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $errors = $validation['errors'];
             } else {
                 $crudData->update($instance);
-                $app['session']->getFlashBag()->add('success', $app['crud']->translate('edit.success', array($entity, $id)));
+                $app['session']->getFlashBag()->add('success', $app['crud']->translate('edit.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }
         }
@@ -170,10 +170,10 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
         $deleted = $crudData->delete($id);
         if ($deleted) {
-            $app['session']->getFlashBag()->add('success', $app['crud']->translate('delete.success', array($entity)));
+            $app['session']->getFlashBag()->add('success', $app['crud']->translate('delete.success', array($crudData->getDefinition()->getLabel())));
             return $app->redirect($app['url_generator']->generate('crudList', array('entity' => $entity)));
         } else {
-            $app['session']->getFlashBag()->add('danger', $app['crud']->translate('delete.error', array($entity)));
+            $app['session']->getFlashBag()->add('danger', $app['crud']->translate('delete.error', array($crudData->getDefinition()->getLabel())));
             return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
     }

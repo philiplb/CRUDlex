@@ -29,7 +29,8 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         $cruds = Yaml::parse(file_get_contents($crudFile));
         $this->datas = array();
         foreach ($cruds as $name => $crud) {
-            $definition = new CRUDEntityDefinition($crud['table'], $crud['fields']);
+            $label = key_exists('label', $crud) ? $crud['label'] : $name;
+            $definition = new CRUDEntityDefinition($crud['table'], $crud['fields'], $label);
             $this->datas[$name] = $dataFactory->createData($definition);
         }
 
