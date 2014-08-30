@@ -34,6 +34,14 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $read = $entity->get('test');
         $expected = 'testdata';
         $this->assertSame($read, $expected);
+
+        $entity->set('test', 'testdata2');
+        $read = $entity->get('test');
+        $expected = 'testdata2';
+        $this->assertSame($read, $expected);
+
+        $read = $entity->get('testNull');
+        $this->assertNull($read);
     }
 
 }

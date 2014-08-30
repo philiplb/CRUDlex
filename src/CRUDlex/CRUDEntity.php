@@ -30,6 +30,9 @@ class CRUDEntity {
     }
 
     public function get($field) {
+        if (!key_exists($field, $this->entity)) {
+            return null;
+        }
         return $this->entity[$field];
     }
 
