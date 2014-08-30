@@ -9,6 +9,7 @@
 
 language: php
 before_script:
+    - mysql -e 'CREATE DATABASE crudTest;'
     - composer install --dev --prefer-source
 script: vendor/bin/phpunit
 php:

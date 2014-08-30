@@ -44,9 +44,6 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $app['db']->executeUpdate('SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";');
         $app['db']->executeUpdate('SET time_zone = "+00:00"');
 
-        $app['db']->executeUpdate('CREATE DATABASE IF NOT EXISTS `crudTest` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
-        $app['db']->executeUpdate('USE `crudTest`;');
-
         $sql = 'CREATE TABLE IF NOT EXISTS `book` ('.
             '  `id` int(11) NOT NULL AUTO_INCREMENT,'.
             '  `created_at` datetime NOT NULL,'.
