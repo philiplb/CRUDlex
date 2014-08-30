@@ -7,6 +7,7 @@ Released: Upcoming
 - Added the missing requirement "symfony/yaml" to the composer.json
 - Reorganized source and resources like templates
 - The entities can have labels now
+- The fields can have labels now
 
 ## 0.9
 Released: 2014-08-29

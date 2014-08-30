@@ -8,7 +8,7 @@
  #}
 
 <label for="{{ field }}" class="control-label">
-    {{ field }}
+    {{ definition.getFieldLabel(field) }}
     {% set markers = [] %}
     {% if definition.isRequired(field) %}
         {% set markers = markers|merge(['*']) %}

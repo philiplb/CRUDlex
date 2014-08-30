@@ -26,11 +26,18 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     protected $strings;
 
     public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile) {
+        $this->strings = Yaml::parse(file_get_contents($stringsFile));
+
         $cruds = Yaml::parse(file_get_contents($crudFile));
         $this->datas = array();
         foreach ($cruds as $name => $crud) {
             $label = key_exists('label', $crud) ? $crud['label'] : $name;
-            $definition = new CRUDEntityDefinition($crud['table'], $crud['fields'], $label);
+            $standardFieldLabels = array(
+                'id' => $this->translate('label.id'),
+                'created_at' => $this->translate('label.created_at'),
+                'updated_at' => $this->translate('label.updated_at')
+            );
+            $definition = new CRUDEntityDefinition($crud['table'], $crud['fields'], $label, $standardFieldLabels);
             $this->datas[$name] = $dataFactory->createData($definition);
         }
 
@@ -43,7 +50,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             }
         }
 
-        $this->strings = Yaml::parse(file_get_contents($stringsFile));
     }
 
     public function register(Application $app) {

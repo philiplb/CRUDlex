@@ -19,7 +19,7 @@
 
         {% for field in fields %}
             <tr>
-                <td>{{ field }}</td>
+                <td>{{ definition.getFieldLabel(field) }}</td>
                 <td>
                     {% include '@crud/renderField.twig' with {
                         entity: entity,
