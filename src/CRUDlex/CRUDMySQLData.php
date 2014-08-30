@@ -52,11 +52,7 @@ class CRUDMySQLData extends CRUDData {
         for ($i = 0; $i < count($formFields); ++$i) {
             $placeHolders[] = '?';
             $val = $entity->get($formFields[$i]);
-            if ($this->definition->getType($formFields[$i]) === 'reference' && is_array($val) && key_exists('id', $val)) {
-                $value = $val['id'] ? $val : null;
-            } else {
-                $value = $val ? $val : null;
-            }
+            $value = $val ? $val : null;
             $values[] = $value;
         }
         $sql = 'INSERT INTO '.$this->definition->getTable().' (`'.implode('`,`', $fields).'`) VALUES (NOW(), NOW(), 0, '.implode(',', $placeHolders).')';
