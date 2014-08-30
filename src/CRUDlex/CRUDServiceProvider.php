@@ -26,9 +26,17 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     protected $strings;
 
     public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile) {
-        $this->strings = Yaml::parse(file_get_contents($stringsFile));
+        $stringsContent = @file_get_contents($stringsFile);
+        if ($stringsContent === false) {
+            throw new \Exception('Could not open CRUD strings file');
+        }
+        $this->strings = Yaml::parse($stringsContent);
 
-        $cruds = Yaml::parse(file_get_contents($crudFile));
+        $crudsContent = @file_get_contents($crudFile);
+        if ($crudsContent === false) {
+            throw new \Exception('Could not open CRUD definition file');
+        }
+        $cruds = Yaml::parse($crudsContent);
         $this->datas = array();
         foreach ($cruds as $name => $crud) {
             $label = key_exists('label', $crud) ? $crud['label'] : $name;
