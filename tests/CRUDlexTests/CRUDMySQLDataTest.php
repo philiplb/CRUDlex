@@ -81,7 +81,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testCreate() {
-        $entity = new CRUDEntity($this->dataBook->getDefinition());
+        $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'name');
         $id = $this->dataLibrary->create($entity);
         $this->assertNotNull($id);
@@ -89,7 +89,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testList() {
-        $entity = new CRUDEntity($this->dataBook->getDefinition());
+        $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameA');
         $this->dataLibrary->create($entity);
         $entity = new CRUDEntity($this->dataBook->getDefinition());
@@ -102,13 +102,27 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGet() {
-        $entity = new CRUDEntity($this->dataBook->getDefinition());
+        $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameC');
         $id = $this->dataLibrary->create($entity);
         $entityRead = $this->dataLibrary->get($id);
         $read = $entityRead->get('name');
         $expected = 'nameC';
         $this->assertSame($read, $expected);
+
+        $entity = $this->dataLibrary->get(666);
+        $this->assertNull($entity);
+    }
+
+    public function testGetDefinition() {
+        $definition = $this->dataLibrary->getDefinition();
+        $this->assertNotNull($definition);
+    }
+
+    public function testCreateEmpty() {
+        $entity = $this->dataLibrary->createEmpty();
+        $read = $entity->get('id');
+        $this->assertNull($read);
     }
 
 }
