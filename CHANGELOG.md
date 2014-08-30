@@ -8,6 +8,7 @@ Released: Upcoming
 - Reorganized source and resources like templates
 - The entities can have labels now
 - The fields can have labels now
+- Added first PHPUnit tests
 
 ## 0.9
 Released: 2014-08-29

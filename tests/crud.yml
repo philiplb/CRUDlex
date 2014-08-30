@@ -1,0 +1,37 @@
+library:
+  label: Library
+  table: library
+  fields:
+    name:
+      type: text
+      label: Name
+      required: true
+      unique: true
+
+book:
+  label: Book
+  table: book
+  fields:
+    title:
+      type: text
+      label: Title
+      required: true
+    author:
+      type: text
+      label: Author
+      required: true
+    pages:
+      type: int
+      label: Pages
+      required: true
+    release:
+      type: date
+      label: Release
+    library:
+      type: reference
+      label: Library
+      reference:
+        table: library
+        nameField: name
+        entity: library
+      required: true
