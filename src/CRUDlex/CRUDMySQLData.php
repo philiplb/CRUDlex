@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Crudlex package.
+ * This file is part of the CRUDlex package.
  *
  * (c) Philip Lehmann-Böhm <philip@philiplb.de>
  *
