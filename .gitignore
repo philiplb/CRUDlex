@@ -2,4 +2,4 @@ composer.lock
 vendor/
 composer.phar
 coverageReport/
-coverage.xml
+build/logs/clover.xml
