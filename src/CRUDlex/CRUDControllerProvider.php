@@ -28,7 +28,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
     public function connect (Application $app) {
         if ($app->offsetExists('twig.loader.filesystem')) {
-            $app['twig.loader.filesystem']->addPath(__DIR__ . '/../CRUDViews/', 'crud');
+            $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
         }
 
         if (!$app->offsetExists('crud.layout')) {
