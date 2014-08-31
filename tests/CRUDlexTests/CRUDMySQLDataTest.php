@@ -169,4 +169,26 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($deleted);
     }
 
+    public function testGetReferences() {
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'A');
+        $this->dataLibrary->create($library);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'B');
+        $this->dataLibrary->create($library);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'C');
+        $this->dataLibrary->create($library);
+
+        $table = $this->dataBook->getDefinition()->getReferenceTable('library');
+        $nameField = $this->dataBook->getDefinition()->getReferenceNameField('library');
+        $read = $this->dataBook->getReferences($table, $nameField);
+        $expected = array(
+            '1' => 'A',
+            '2' => 'B',
+            '3' => 'C',
+        );
+        $this->assertSame($read, $expected);
+    }
+
 }
