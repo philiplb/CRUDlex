@@ -57,7 +57,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
             '  `library` int(11) NOT NULL,'.
             '  PRIMARY KEY (`id`),'.
             '  KEY `library` (`library`)'.
-            ') ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
+            ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
         $app['db']->executeUpdate($sql);
 
         $sql = 'CREATE TABLE IF NOT EXISTS `library` ('.
@@ -68,7 +68,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
             '  `version` int(11) NOT NULL,'.
             '  `name` varchar(255) NOT NULL,'.
             '  PRIMARY KEY (`id`)'.
-            ') ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
+            ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
         $app['db']->executeUpdate($sql);
 
         $crudServiceProvider = new CRUDServiceProvider();
