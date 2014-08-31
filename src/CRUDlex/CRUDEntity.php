@@ -73,7 +73,7 @@ class CRUDEntity {
             }
 
             // Check for date type
-            if ($type == 'date' && $this->entity[$field] !== '' && \DateTime::createFromFormat('Y-m-d', $this->entity[$field]) === false) {
+            if ($type == 'date' && $this->entity[$field] && \DateTime::createFromFormat('Y-m-d', $this->entity[$field]) === false) {
                 $errors[$field]['input'] = true;
                 $valid = false;
             }
