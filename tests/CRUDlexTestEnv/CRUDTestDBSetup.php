@@ -9,7 +9,7 @@ use CRUDlex\CRUDServiceProvider;
 
 class CRUDTestDBSetup {
 
-    public static function createCRUDServiceProvider() {
+    public static function createAppAndDB() {
         $app = new Application();
         $app->register(new DoctrineServiceProvider(), array(
             'dbs.options' => array(
@@ -55,7 +55,11 @@ class CRUDTestDBSetup {
             '  PRIMARY KEY (`id`)'.
             ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
         $app['db']->executeUpdate($sql);
+        return $app;
+    }
 
+    public static function createCRUDServiceProvider() {
+        $app = self::createAppAndDB();
         $crudServiceProvider = new CRUDServiceProvider();
         $dataFactory = new CRUDMySQLDataFactory($app['db']);
         $crudFile = __DIR__.'/../crud.yml';
