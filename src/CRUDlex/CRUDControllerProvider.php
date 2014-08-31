@@ -96,7 +96,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $entitiesRaw = $crudData->listEntries();
         $entities = array();
         foreach ($entitiesRaw as $curEntity) {
-            $entities[] = $crudData->fetchReferences($curEntity);
+            $crudData->fetchReferences($curEntity);
+            $entities[] = $curEntity;
         }
         $definition = $crudData->getDefinition();
         return $app['twig']->render('@crud/list.twig', array(
@@ -112,7 +113,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         if (!$crudData) {
             return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
         }
-        $instance = $crudData->fetchReferences($crudData->get($id));
+        $instance = $crudData->get($id);
+        $crudData->fetchReferences($instance);
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }

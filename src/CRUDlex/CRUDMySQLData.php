@@ -123,7 +123,7 @@ class CRUDMySQLData extends CRUDData {
 
     public function fetchReferences($entity) {
         if (!$entity) {
-            return null;
+            return;
         }
         foreach ($this->definition->getFieldNames() as $field) {
             if ($this->definition->getType($field) !== 'reference') {
@@ -140,7 +140,6 @@ class CRUDMySQLData extends CRUDData {
                 $entity->set($field, null);
             }
         }
-        return $entity;
     }
 
 }
