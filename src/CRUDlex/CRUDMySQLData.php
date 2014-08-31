@@ -136,8 +136,6 @@ class CRUDMySQLData extends CRUDData {
             if ($result) {
                 $entity->set($field,
                     array('id' => $entity->get($field), 'name' => $result[$nameField]));
-            } else {
-                $entity->set($field, null);
             }
         }
     }
