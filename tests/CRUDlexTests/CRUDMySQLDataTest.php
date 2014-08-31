@@ -127,4 +127,17 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+    public function testUpdate() {
+        $entity = $this->dataLibrary->createEmpty();
+        $entity->set('name', 'nameUpdate');
+        $this->dataLibrary->create($entity);
+
+        $entity->set('name', 'nameUpdated!');
+        $this->dataLibrary->update($entity);
+        $entityWritten = $this->dataLibrary->get($entity->get('id'));
+        $read = $entityWritten->get('name');
+        $expected = 'nameUpdated!';
+        $this->assertSame($read, $expected);
+    }
+
 }
