@@ -191,4 +191,74 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testCountBy() {
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'A');
+        $this->dataLibrary->create($library);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'B');
+        $this->dataLibrary->create($library);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'C');
+        $this->dataLibrary->create($library);
+
+        $this->dataLibrary->delete($library->get('id'));
+
+        $table = $this->dataLibrary->getDefinition()->getTable();
+
+        $read = $this->dataLibrary->countBy(
+                $table,
+                array('id' => 1),
+                array('id' => '='),
+                false
+            );
+        $expected = 1;
+        $this->assertSame($read, $expected);
+
+        $read = $this->dataLibrary->countBy(
+                $table,
+                array('id' => 1),
+                array('id' => '!='),
+                false
+            );
+        $expected = 2;
+        $this->assertSame($read, $expected);
+
+        $read = $this->dataLibrary->countBy(
+                $table,
+                array('id' => 1, 'name' => 'A'),
+                array('id' => '=', 'name' => '='),
+                false
+            );
+        $expected = 1;
+        $this->assertSame($read, $expected);
+
+        $read = $this->dataLibrary->countBy(
+                $table,
+                array('id' => 1, 'name' => 'B'),
+                array('id' => '=', 'name' => '='),
+                false
+            );
+        $expected = 0;
+        $this->assertSame($read, $expected);
+
+        $read = $this->dataLibrary->countBy(
+                $table,
+                array('id' => 3),
+                array('id' => '='),
+                false
+            );
+        $expected = 1;
+        $this->assertSame($read, $expected);
+
+        $read = $this->dataLibrary->countBy(
+                $table,
+                array('id' => 3),
+                array('id' => '='),
+                true
+            );
+        $expected = 0;
+        $this->assertSame($read, $expected);
+    }
+
 }
