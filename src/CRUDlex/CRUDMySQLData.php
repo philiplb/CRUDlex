@@ -129,12 +129,13 @@ class CRUDMySQLData extends CRUDData {
             if ($this->definition->getType($field) !== 'reference') {
                 continue;
             }
-            $sql = 'SELECT '.$this->definition->getReferenceNameField($field).' FROM ';
+            $nameField = $this->definition->getReferenceNameField($field);
+            $sql = 'SELECT '.$nameField.' FROM ';
             $sql .= $this->definition->getReferenceTable($field).' WHERE id = ? AND deleted_at IS NULL';
             $result = $this->db->fetchAssoc($sql, array($entity->get($field)));
             if ($result) {
                 $entity->set($field,
-                    array('id' => $entity->get($field), 'name' => $this->definition->getReferenceNameField($field)));
+                    array('id' => $entity->get($field), 'name' => $result[$nameField]));
             } else {
                 $entity->set($field, null);
             }
