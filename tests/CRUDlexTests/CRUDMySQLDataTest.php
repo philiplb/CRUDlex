@@ -140,4 +140,33 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testDelete() {
+        $entity = $this->dataLibrary->createEmpty();
+        $entity->set('name', 'nameDelete');
+        $this->dataLibrary->create($entity);
+
+        $deleted = $this->dataLibrary->delete($entity->get('id'));
+        $read = $this->dataLibrary->get($entity->get('id'));
+        $this->assertTrue($deleted);
+        $this->assertNull($read);
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'nameParentTestDelete');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
+        $this->assertFalse($deleted);
+        $deleted = $this->dataBook->delete($entityBook->get('id'));
+        $this->assertTrue($deleted);
+        $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
+        $this->assertTrue($deleted);
+    }
+
 }
