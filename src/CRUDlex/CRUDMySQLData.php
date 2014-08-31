@@ -118,7 +118,7 @@ class CRUDMySQLData extends CRUDData {
             $sql .= ' AND deleted_at IS NULL';
         }
         $result = $this->db->fetchAssoc($sql, $paramValues);
-        return $result['amount'];
+        return intval($result['amount']);
     }
 
     public function fetchReferences($entity) {
