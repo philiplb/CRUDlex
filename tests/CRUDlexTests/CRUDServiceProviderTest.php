@@ -12,8 +12,9 @@
 namespace CRUDlexTests;
 
 use CRUDlex\CRUDServiceProvider;
-use CRUDlexTestEnv\CRUDTestDataFactory;
+use CRUDlex\CRUDMySQLDataFactory;
 use Silex\Application;
+use Silex\Provider\DoctrineServiceProvider;
 
 class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
@@ -24,9 +25,21 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
     protected $dataFactory;
 
     protected function setUp() {
+        $app = new Application();
+        $app->register(new DoctrineServiceProvider(), array(
+            'dbs.options' => array(
+                'default' => array(
+                    'host'      => '127.0.0.1',
+                    'dbname'    => 'crudTest',
+                    'user'      => 'root',
+                    'password'  => '',
+                    'charset'   => 'utf8',
+                )
+            ),
+        ));
         $this->crudFile = __DIR__.'/../crud.yml';
         $this->stringsFile = __DIR__.'/../../src/strings.yml';
-        $this->dataFactory = new CRUDTestDataFactory();
+        $this->dataFactory = new CRUDMySQLDataFactory($app['db']);
     }
 
     public function testBoot() {

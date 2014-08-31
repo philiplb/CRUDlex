@@ -11,20 +11,21 @@
 
 namespace CRUDlexTests;
 
-use CRUDlex\CRUDServiceProvider;
+use CRUDlexTestEnv\CRUDTestDBSetup;
 use CRUDlex\CRUDEntity;
-use CRUDlexTestEnv\CRUDTestDataFactory;
 
 class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
 
     protected $crudServiceProvider;
 
+    protected $dataBook;
+
+    protected $dataLibrary;
+
     protected function setUp() {
-        $this->crudServiceProvider = new CRUDServiceProvider();
-        $dataFactory = new CRUDTestDataFactory();
-        $crudFile = __DIR__.'/../crud.yml';
-        $stringsFile = __DIR__.'/../../src/strings.yml';
-        $this->crudServiceProvider->init($dataFactory, $crudFile, $stringsFile);
+        $this->crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider();
+        $this->dataBook = $this->crudServiceProvider->getData('book');
+        $this->dataLibrary = $this->crudServiceProvider->getData('library');
     }
 
     public function testGetSet() {
