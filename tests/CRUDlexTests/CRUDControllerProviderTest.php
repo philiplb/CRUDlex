@@ -191,4 +191,40 @@ class CRUDControllerProviderTest extends WebTestCase {
 
     }
 
+    public function testDelete() {
+        $client = $this->createClient();
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleA');
+        $entityBook->set('author', 'authorA');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $crawler = $client->request('POST', '/crud/foo/'.$entityBook->get('id').'/delete');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
+
+        $crawler = $client->request('POST', '/crud/book/666/delete');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
+
+        $crawler = $client->request('POST', '/crud/library/'.$library->get('id').'/delete');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Could not delete Library as it is still referenced by another entity.")'));
+
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/delete');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Book deleted.")'));
+
+        $bookDeleted = $this->dataBook->get($entityBook->get('id'));
+        $this->assertNull($bookDeleted);
+
+    }
+
 }
