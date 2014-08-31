@@ -75,7 +75,39 @@ class CRUDControllerProviderTest extends WebTestCase {
 
         $books = $this->dataBook->listEntries();
         $this->assertCount(1, $books);
+    }
 
+    public function testShowList() {
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $entityBook1 = $this->dataBook->createEmpty();
+        $entityBook1->set('title', 'titleA');
+        $entityBook1->set('author', 'author');
+        $entityBook1->set('pages', 111);
+        $entityBook1->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook1);
+
+        $entityBook2 = $this->dataBook->createEmpty();
+        $entityBook2->set('title', 'titleB');
+        $entityBook2->set('author', 'author');
+        $entityBook2->set('pages', 111);
+        $entityBook2->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook2);
+
+        $client = $this->createClient();
+
+        $crawler = $client->request('GET', '/crud/foo');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
+
+        $crawler = $client->request('GET', '/crud/book');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("lib a")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleA")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB")'));
     }
 
 }
