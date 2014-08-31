@@ -58,7 +58,7 @@ class CRUDMySQLData extends CRUDData {
         $sql = 'INSERT INTO '.$this->definition->getTable().' (`'.implode('`,`', $fields).'`) VALUES (NOW(), NOW(), 0, '.implode(',', $placeHolders).')';
         $this->db->executeUpdate($sql, $values);
 
-        return $this->db->lastInsertId();
+        $entity->set('id', $this->db->lastInsertId());
     }
 
     public function update(CRUDEntity $entity) {

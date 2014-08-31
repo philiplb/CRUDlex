@@ -83,7 +83,8 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     public function testCreate() {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'name');
-        $id = $this->dataLibrary->create($entity);
+        $this->dataLibrary->create($entity);
+        $id = $entity->get('id');
         $this->assertNotNull($id);
         $this->assertTrue($id > 0);
     }
@@ -104,7 +105,8 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     public function testGet() {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameC');
-        $id = $this->dataLibrary->create($entity);
+        $this->dataLibrary->create($entity);
+        $id = $entity->get('id');
         $entityRead = $this->dataLibrary->get($id);
         $read = $entityRead->get('name');
         $expected = 'nameC';

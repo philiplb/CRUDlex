@@ -68,7 +68,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $errors = $validation['errors'];
                 $app['session']->getFlashBag()->add('danger', $app['crud']->translate('create.error'));
             } else {
-                $id = $crudData->create($instance);
+                $crudData->create($instance);
+                $id = $instance->get('id');
                 $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }

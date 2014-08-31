@@ -1,6 +1,10 @@
 CRUDlex Changelog
 =================
 
+## 0.9.2
+Released: Upcoming
+- Creating an entity with the DB-layer doesn't return the id anymore but updates the entity field "id"
+
 ## 0.9.1
 Released: 2014-08-31
 - Fixed an exception in PHP 5.3.3 coming from the visibility of an internal function being called from a closure
