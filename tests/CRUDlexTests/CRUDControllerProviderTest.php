@@ -15,11 +15,18 @@ use CRUDlexTestEnv\CRUDTestDBSetup;
 
 class CRUDControllerProviderTest extends WebTestCase {
 
+    protected $dataBook;
+
+    protected $dataLibrary;
+
     public function createApplication() {
 
         $app = CRUDTestDBSetup::createAppAndDB();
 
         $app->register(new Silex\Provider\SessionServiceProvider());
+        $app['session.test'] = true;
+        $app['debug'] = true;
+        $app['exception_handler']->disable();
 
         $dataFactory = new CRUDlex\CRUDMySQLDataFactory($app['db']);
         $app->register(new CRUDlex\CRUDServiceProvider(), array(
@@ -30,11 +37,45 @@ class CRUDControllerProviderTest extends WebTestCase {
         $app->register(new Silex\Provider\TwigServiceProvider());
 
         $app->mount('/crud', new CRUDlex\CRUDControllerProvider());
+
+        $this->dataBook = $app['crud']->getData('book');
+        $this->dataLibrary = $app['crud']->getData('library');
         return $app;
     }
 
     public function testCreate() {
-        
+        $client = $this->createClient();
+
+        $crawler = $client->request('GET', '/crud/foo/create');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
+
+        $crawler = $client->request('GET', '/crud/book/create');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Submit")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Author")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Pages")'));
+
+        $crawler = $client->request('POST', '/crud/book/create');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Could not create, see the red marked fields.")'));
+        $this->assertRegExp('/has-error/', $client->getResponse()->getContent());
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $crawler = $client->request('POST', '/crud/book/create', array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $library->get('id')
+        ));
+        $this->assertCount(1, $crawler->filter('html:contains("Book created with id ")'));
+
+        $books = $this->dataBook->listEntries();
+        $this->assertCount(1, $books);
+
     }
 
 }
