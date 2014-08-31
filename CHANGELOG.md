@@ -6,6 +6,7 @@ Released: Upcoming
 - Creating an entity with the DB-layer doesn't return the id anymore but updates the entity field "id"
 - Correctly displaying the name of the referenced entities in the list and details page
 - 100% test coverage!
+- 404 if trying to delete a non existant entity
 
 ## 0.9.1
 Released: 2014-08-31
