@@ -143,4 +143,52 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("2014-08-31")'));
     }
 
+    public function testEdit() {
+        $client = $this->createClient();
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleA');
+        $entityBook->set('author', 'authorA');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $crawler = $client->request('GET', '/crud/foo/'.$entityBook->get('id').'/edit');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
+
+        $crawler = $client->request('GET', '/crud/book/666/edit');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
+
+        $crawler = $client->request('GET', '/crud/book/'.$entityBook->get('id').'/edit');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertRegExp('/titleA/', $client->getResponse()->getContent());
+        $this->assertCount(1, $crawler->filter('html:contains("Submit")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Author")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Pages")'));
+
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Could not edit, see the red marked fields.")'));
+        $this->assertRegExp('/has-error/', $client->getResponse()->getContent());
+
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+            'title' => 'titleEdited',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $library->get('id')
+        ));
+        $this->assertCount(1, $crawler->filter('html:contains("Book edited with id '.$entityBook->get('id').'")'));
+
+        $bookEdited = $this->dataBook->get($entityBook->get('id'));
+        $this->assertSame($bookEdited->get('title'), 'titleEdited');
+
+    }
+
 }
