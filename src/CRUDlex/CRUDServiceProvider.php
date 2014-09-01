@@ -45,7 +45,12 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 'created_at' => $this->translate('label.created_at'),
                 'updated_at' => $this->translate('label.updated_at')
             );
-            $definition = new CRUDEntityDefinition($crud['table'], $crud['fields'], $label, $standardFieldLabels);
+            $listFields = key_exists('listFields', $crud) ? $crud['listFields'] : null;
+            $definition = new CRUDEntityDefinition($crud['table'],
+                $crud['fields'],
+                $label,
+                $listFields,
+                $standardFieldLabels);
             $this->datas[$name] = $dataFactory->createData($definition);
         }
 

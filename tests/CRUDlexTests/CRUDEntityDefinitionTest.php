@@ -70,6 +70,24 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testGetListFieldNames() {
+        $read = $this->definition->getListFieldNames();
+        $expected = array(
+            'author',
+            'title',
+            'library',
+        );
+        $this->assertSame($read, $expected);
+        $read = $this->definitionLibrary->getListFieldNames();
+        $expected = array(
+            'id',
+            'created_at',
+            'updated_at',
+            'name',
+        );
+        $this->assertSame($read, $expected);
+    }
+
     public function testIsRequired() {
         $read = $this->definition->isRequired('title');
         $this->assertTrue($read);

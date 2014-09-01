@@ -22,6 +22,8 @@ class CRUDEntityDefinition {
 
     protected $standardFieldLabels;
 
+    protected $listFields;
+
     protected function getFilteredFieldNames($exclude) {
         $fieldNames = $this->getFieldNames();
         $result = array();
@@ -59,10 +61,11 @@ class CRUDEntityDefinition {
      *  The field id is always expected. So are updated_at, created_at,
      *  deleted_at and version.
      */
-    public function __construct($table, $fields, $label, $standardFieldLabels) {
+    public function __construct($table, $fields, $label, $listFields, $standardFieldLabels) {
         $this->table = $table;
         $this->fields = $fields;
         $this->parents = array();
+        $this->listFields = $listFields;
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
     }
@@ -73,6 +76,13 @@ class CRUDEntityDefinition {
             $fieldNames[] = $field;
         }
         return $fieldNames;
+    }
+
+    public function getListFieldNames() {
+        if ($this->listFields) {
+            return $this->listFields;
+        }
+        return $this->getPublicFieldNames();
     }
 
     public function getPublicFieldNames() {

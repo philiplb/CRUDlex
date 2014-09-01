@@ -11,6 +11,7 @@ library:
 book:
   label: Book
   table: book
+  listFields: [author, title, library]
   fields:
     title:
       type: text
