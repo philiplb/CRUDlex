@@ -45,6 +45,13 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+    public function testGetDefinition() {
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $read = $entityLibrary->getDefinition();
+        $expected = $this->dataLibrary->getDefinition();
+        $this->assertSame($read, $expected);
+    }
+
     public function testValidate() {
 
         $entityLibrary1 = $this->dataLibrary->createEmpty();

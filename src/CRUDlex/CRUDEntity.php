@@ -36,6 +36,10 @@ class CRUDEntity {
         return $this->entity[$field];
     }
 
+    public function getDefinition() {
+        return $this->definition;
+    }
+
     public function validate(CRUDData $data) {
 
         $fields = $this->definition->getEditableFieldNames();
