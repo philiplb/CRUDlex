@@ -79,7 +79,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         return $app['twig']->render('@crud/form.twig', array(
             'crudEntity' => $entity,
-            'definition' => $definition,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => 'create',
@@ -154,10 +153,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }
         }
-        $definition = $crudData->getDefinition();
+
         return $app['twig']->render('@crud/form.twig', array(
             'crudEntity' => $entity,
-            'definition' => $definition,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => 'edit',
@@ -175,7 +173,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }
-        
+
         $deleted = $crudData->delete($id);
         if ($deleted) {
             $app['session']->getFlashBag()->add('success', $app['crud']->translate('delete.success', array($crudData->getDefinition()->getLabel())));
