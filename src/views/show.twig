@@ -10,6 +10,7 @@
 {%extends layout %}
 
 {% block content %}
+    {% set definition = entity.getDefinition() %}
     {% set fields = definition.getPublicFieldNames() %}
     <table class="table table-striped">
         <tr>

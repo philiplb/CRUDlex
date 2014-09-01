@@ -120,7 +120,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $definition = $crudData->getDefinition();
         return $app['twig']->render('@crud/show.twig', array(
             'crudEntity' => $entity,
-            'definition' => $definition,
             'entity' => $instance,
             'layout' => $app['crud.layout']
         ));
