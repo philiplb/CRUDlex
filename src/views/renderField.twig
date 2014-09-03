@@ -13,6 +13,8 @@
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
     <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">{{ reference['id'] }}: {{ reference['name'] }}</a>
+{% elseif type == 'multiline' %}
+    <pre>{{ entity.get(field) }}</pre>
 {% else %}
     {{ entity.get(field) }}
 {% endif %}

@@ -9,6 +9,7 @@ Released: Upcoming
 - 404 if trying to delete a non existant entity
 - Added the possibility to define the fields shown in the list view
 - Added a getter for the definition of an entity
+- Supporting multiline text fields.
 
 ## 0.9.1
 Released: 2014-08-31
