@@ -12,6 +12,7 @@ Released: Upcoming
 - Supporting multiline text fields
 - New datetime picker, used for dates and datetimes
 - Supporting datetime fields
+- Supporting set fields
 
 ## 0.9.1
 Released: 2014-08-31

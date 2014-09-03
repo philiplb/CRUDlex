@@ -124,6 +124,10 @@ class CRUDEntityDefinition {
         return $this->getReferenceValue($fieldName, 'entity');
     }
 
+    public function getSetItems($fieldName) {
+        return $this->getFieldValue($fieldName, 'setitems');
+    }
+
     public function isUnique($fieldName) {
         $result = $this->getFieldValue($fieldName, 'unique');
         if ($result === null) {

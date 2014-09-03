@@ -69,6 +69,16 @@ class CRUDEntity {
                 }
             }
 
+            // Check for set type
+            $type = $this->definition->getType($field);
+            if ($type == 'set' && $this->entity[$field] !== '') {
+                $setItems = $this->definition->getSetItems($field);
+                if (!in_array($this->entity[$field], $setItems)) {
+                    $errors[$field]['input'] = true;
+                    $valid = false;
+                }
+            }
+
             // Check for int type
             $type = $this->definition->getType($field);
             if ($type == 'int' && $this->entity[$field] !== '' && (string)(int)$this->entity[$field] != $this->entity[$field]) {
