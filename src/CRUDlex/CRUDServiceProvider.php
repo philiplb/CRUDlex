@@ -92,8 +92,28 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         if (!$value) {
             return '';
         }
-        $dateTime = new \DateTime($value);
-        return $dateTime->format('Y-m-d');
+        $result = \DateTime::createFromFormat('Y-m-d', $value);
+        if ($result === false) {
+            $result = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+        }
+        if ($result === false) {
+            return $value;
+        }
+        return $result->format('Y-m-d');
+    }
+
+    public function formatDateTime($value) {
+        if (!$value) {
+            return '';
+        }
+        $result = \DateTime::createFromFormat('Y-m-d H:i', $value);
+        if ($result === false) {
+            $result = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+        }
+        if ($result === false) {
+            return $value;
+        }
+        return $result->format('Y-m-d H:i');
     }
 
     public function translate($key, array $placeholders = array()) {

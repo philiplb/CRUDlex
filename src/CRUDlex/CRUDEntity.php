@@ -82,6 +82,12 @@ class CRUDEntity {
                 $valid = false;
             }
 
+            // Check for datetime type
+            if ($type == 'datetime' && $this->entity[$field] && \DateTime::createFromFormat('Y-m-d H:i', $this->entity[$field]) === false) {
+                $errors[$field]['input'] = true;
+                $valid = false;
+            }
+
             // Check for reference type
             if ($type == 'reference' && $this->entity[$field] !== '') {
                 $params = array('id' => $this->entity[$field]);
