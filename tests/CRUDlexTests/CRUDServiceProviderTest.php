@@ -109,6 +109,10 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $expected = '2014-08-30';
         $this->assertSame($read, $expected);
 
+        $read = $crudServiceProvider->formatDate('2014-08-30');
+        $expected = '2014-08-30';
+        $this->assertSame($read, $expected);
+
         $read = $crudServiceProvider->formatDate('');
         $expected = '';
         $this->assertSame($read, $expected);
@@ -117,15 +121,9 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $expected = '';
         $this->assertSame($read, $expected);
 
-        $failed = false;
-        try {
-            $crudServiceProvider->formatDate('foo');
-            $failed = true;
-        } catch (\Exception $e) {
-        }
-        if ($failed) {
-            $this->fail('Expected exception');
-        }
+        $read = $crudServiceProvider->formatDate('foo');
+        $expected = 'foo';
+        $this->assertSame($read, $expected);
     }
 
     public function testTranslate() {
