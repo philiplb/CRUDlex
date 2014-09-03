@@ -57,7 +57,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         foreach($this->datas as $name => $data) {
             $fields = $data->getDefinition()->getFieldNames();
             foreach ($fields as $field) {
-                if ($definition->getType($field) == 'reference') {
+                if ($data->getDefinition()->getType($field) == 'reference') {
                     $this->datas[$data->getDefinition()->getReferenceEntity($field)]->getDefinition()->addParent($data->getDefinition()->getTable(), $field);
                 }
             }
