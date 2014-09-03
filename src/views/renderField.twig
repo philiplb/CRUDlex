@@ -10,6 +10,8 @@
 {% set type = definition.getType(field) %}
 {% if type == 'date' %}
     {{ app.crud.formatDate(entity.get(field)) }}
+{% elseif type == 'datetime' and entity.get(field) %}
+    {{ app.crud.formatDateTime(entity.get(field)) }}
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
     <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">{{ reference['id'] }}: {{ reference['name'] }}</a>
