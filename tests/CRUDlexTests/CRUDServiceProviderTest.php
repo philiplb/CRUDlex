@@ -126,6 +126,31 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testFormatDateTime() {
+        $crudServiceProvider = new CRUDServiceProvider();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile);
+
+        $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00:00');
+        $expected = '2014-08-30 12:00';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00');
+        $expected = '2014-08-30 12:00';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->formatDateTime('');
+        $expected = '';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->formatDateTime(null);
+        $expected = '';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->formatDateTime('foo');
+        $expected = 'foo';
+        $this->assertSame($read, $expected);
+    }
+
     public function testTranslate() {
         $crudServiceProvider = new CRUDServiceProvider();
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile);
