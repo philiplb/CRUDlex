@@ -15,13 +15,13 @@
 
     {% if mode == 'edit' %}
         <div class="form-group">
-            <strong>id: </strong> {{ entity.get('id') }}
+            <strong>{{ crudData.getDefinition().getFieldLabel('id') }}: </strong> {{ entity.get('id') }}
         </div>
         <div class="form-group">
-            <strong>created_at: </strong> {{ entity.get('created_at') }}
+            <strong>{{ crudData.getDefinition().getFieldLabel('created_at') }}: </strong> {{ entity.get('created_at') }}
         </div>
         <div class="form-group">
-            <strong>updated_at: </strong> {{ entity.get('updated_at') }}
+            <strong>{{ crudData.getDefinition().getFieldLabel('updated_at') }}: </strong> {{ entity.get('updated_at') }}
         </div>
     {% endif %}
 
