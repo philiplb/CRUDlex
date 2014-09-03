@@ -9,10 +9,10 @@
 
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//vitalets.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+<script type="text/javascript" src="//rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript">
-$('.crudDates').datepicker({
-    format: "yyyy-mm-dd",
-    autoclose: true,
+$('.crudDates').datetimepicker({
+    pickTime: false
 });
 </script>

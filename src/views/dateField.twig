@@ -11,4 +11,9 @@
     field: field,
     definition: crudData.getDefinition()
 } only %}
-<input type="text" class="crudDates form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ app.crud.formatDate(entity.get(field)) }}" name="{{ field }}" />
+<div class='input-group date crudDates'>
+    <input type='text' class="form-control" id="{{ field }}" value="{{ app.crud.formatDate(entity.get(field)) }}" name="{{ field }}" data-date-format="YYYY-MM-DD"/>
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+</div>

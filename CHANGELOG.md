@@ -10,6 +10,7 @@ Released: Upcoming
 - Added the possibility to define the fields shown in the list view
 - Added a getter for the definition of an entity
 - Supporting multiline text fields.
+- New datetime picker, used for dates and datetimes
 
 ## 0.9.1
 Released: 2014-08-31
