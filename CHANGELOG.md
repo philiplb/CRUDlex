@@ -1,8 +1,11 @@
 CRUDlex Changelog
 =================
 
-## 0.9.2
+## 0.9.3
 Released: Upcoming
+
+## 0.9.2
+Released: 2014-09-04
 - Creating an entity with the DB-layer doesn't return the id anymore but updates the entity field "id"
 - Correctly displaying the name of the referenced entities in the list and details page
 - 100% test coverage!
@@ -13,6 +16,7 @@ Released: Upcoming
 - New datetime picker, used for dates and datetimes
 - Supporting datetime fields
 - Supporting set fields
+- Supporting URL fields
 
 ## 0.9.1
 Released: 2014-08-31
