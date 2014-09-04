@@ -150,6 +150,21 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
         $entityLibrary1->set('type', null);
 
+        $entityLibrary1->set('opening', '2014-08-31 12:00');
+        $read = $entityLibrary1->validate($this->dataLibrary);
+        $expected = $validLibrary;
+        $this->assertSame($read, $expected);
+        $entityLibrary1->set('opening', '2014-08-31 12:00:00');
+        $read = $entityLibrary1->validate($this->dataLibrary);
+        $expected = $validLibrary;
+        $this->assertSame($read, $expected);
+        $entityLibrary1->set('opening', 'foo');
+        $read = $entityLibrary1->validate($this->dataLibrary);
+        $expected = $invalidLibrary;
+        $expected['errors']['opening']['input'] = true;
+        $this->assertSame($read, $expected);
+        $entityLibrary1->set('opening', null);
+
         $read = $entityLibrary1->validate($this->dataLibrary);
         $expected = $validLibrary;
         $this->assertSame($read, $expected);
