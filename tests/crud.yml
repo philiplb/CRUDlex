@@ -11,6 +11,9 @@ library:
       type: set
       label: Type
       setitems: [small,medium,large]
+    opening:
+      type: datetime
+      label: Opening
 
 book:
   label: Book
