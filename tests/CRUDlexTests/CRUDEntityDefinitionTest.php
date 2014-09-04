@@ -136,6 +136,21 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+    public function testGetSetItems() {
+        $read = $this->definitionLibrary->getSetItems('type');
+        $expected = array('small', 'medium', 'large');
+        $this->assertSame($read, $expected);
+
+        $read = $this->definitionLibrary->getSetItems('name');
+        $this->assertNull($read);
+
+        $read = $this->definitionLibrary->getSetItems('foo');
+        $this->assertNull($read);
+
+        $read = $this->definitionLibrary->getSetItems(null);
+        $this->assertNull($read);
+    }
+
     public function testIsUnique() {
         $read = $this->definitionLibrary->isUnique('name');
         $this->assertTrue($read);

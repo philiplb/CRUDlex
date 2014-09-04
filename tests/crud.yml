@@ -10,7 +10,7 @@ library:
     type:
       type: set
       label: Type
-      setitems: [small,medium,big]
+      setitems: [small,medium,large]
 
 book:
   label: Book
