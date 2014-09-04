@@ -52,6 +52,7 @@ class CRUDTestDBSetup {
             '  `deleted_at` datetime DEFAULT NULL,'.
             '  `version` int(11) NOT NULL,'.
             '  `name` varchar(255) NOT NULL,'.
+            '  `type` varchar(255) DEFAULT NULL,'.
             '  PRIMARY KEY (`id`)'.
             ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
         $app['db']->executeUpdate($sql);

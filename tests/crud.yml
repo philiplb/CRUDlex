@@ -7,6 +7,10 @@ library:
       label: Name
       required: true
       unique: true
+    type:
+      type: set
+      label: Type
+      setitems: [small,medium,big]
 
 book:
   label: Book

@@ -84,6 +84,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'created_at',
             'updated_at',
             'name',
+            'type'
         );
         $this->assertSame($read, $expected);
     }
