@@ -71,7 +71,7 @@ class CRUDEntity {
 
             // Check for set type
             $type = $this->definition->getType($field);
-            if ($type == 'set' && $this->entity[$field] !== '') {
+            if ($type == 'set' && $this->entity[$field]) {
                 $setItems = $this->definition->getSetItems($field);
                 if (!in_array($this->entity[$field], $setItems)) {
                     $errors[$field]['input'] = true;
