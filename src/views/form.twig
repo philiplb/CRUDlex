@@ -10,39 +10,39 @@
 {%extends layout %}
 
 {% block content %}
-{% set fields = crudData.getDefinition().getEditableFieldNames() %}
-<form role="form" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
 
+    {% set fields = crudData.getDefinition().getEditableFieldNames() %}
+    <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-success btn-crudlex">List</a>
     {% if mode == 'edit' %}
-        <div class="form-group">
-            <strong>{{ crudData.getDefinition().getFieldLabel('id') }}: </strong> {{ entity.get('id') }}
-        </div>
-        <div class="form-group">
-            <strong>{{ crudData.getDefinition().getFieldLabel('created_at') }}: </strong> {{ entity.get('created_at') }}
-        </div>
-        <div class="form-group">
-            <strong>{{ crudData.getDefinition().getFieldLabel('updated_at') }}: </strong> {{ entity.get('updated_at') }}
-        </div>
+        <a href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-success btn-crudlex">Show</a>
+        <a href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">Create New</a>
     {% endif %}
+    <form role="form" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
 
-    {% for field in fields %}
+        {% if mode == 'edit' %}
+            <div class="form-group">
+                <strong>{{ crudData.getDefinition().getFieldLabel('id') }}: </strong> {{ entity.get('id') }}
+            </div>
+            <div class="form-group">
+                <strong>{{ crudData.getDefinition().getFieldLabel('created_at') }}: </strong> {{ entity.get('created_at') }}
+            </div>
+            <div class="form-group">
+                <strong>{{ crudData.getDefinition().getFieldLabel('updated_at') }}: </strong> {{ entity.get('updated_at') }}
+            </div>
+        {% endif %}
 
-        <div class="form-group {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
-            {% include '@crud/' ~ crudData.getDefinition().getType(field) ~ 'Field.twig' with {
-                field: field,
-                crudData: crudData,
-                entity: entity
-            } only %}
-        </div>
+        {% for field in fields %}
 
-    {% endfor %}
+            <div class="form-group {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
+                {% include '@crud/' ~ crudData.getDefinition().getType(field) ~ 'Field.twig' with {
+                    field: field,
+                    crudData: crudData,
+                    entity: entity
+                } only %}
+            </div>
 
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
-<div style="margin-top: 15px">
-    <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-xs btn-success">List</a>
-    {% if mode == 'edit' %}
-        <a href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-success">Show</a>
-    {% endif %}
-</div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-default btn-success">Submit</button>
+    </form>
 {% endblock %}

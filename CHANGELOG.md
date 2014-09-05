@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.9.3
 Released: Upcoming
+- Rearranged the button positions, sizes and colors
 
 ## 0.9.2
 Released: 2014-09-04
