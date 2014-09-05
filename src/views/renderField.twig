@@ -8,17 +8,34 @@
  #}
 
 {% set type = definition.getType(field) %}
+
 {% if type == 'date' %}
     {{ app.crud.formatDate(entity.get(field)) }}
+
 {% elseif type == 'datetime' and entity.get(field) %}
     {{ app.crud.formatDateTime(entity.get(field)) }}
+
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
     <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">{{ reference['id'] }}: {{ reference['name'] }}</a>
+
 {% elseif type == 'multiline' %}
-    {{ entity.get(field)|nl2br }}
+    {% if mode == 'list' %}
+        {% set value = entity.get(field) %}
+        {% if value|length > 27 %}
+            <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
+                <u>{{ entity.get(field)|slice(0, 27)|nl2br }}...</u>
+            </span>
+        {% else %}
+            {{ entity.get(field)|nl2br }}
+        {% endif %}
+    {% else %}
+        {{ entity.get(field)|nl2br }}
+    {% endif %}
+
 {% elseif type == 'url' and entity.get(field) %}
     <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field) }}</a>
+
 {% else %}
     {{ entity.get(field) }}
 {% endif %}

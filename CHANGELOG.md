@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.9.3
 Released: Upcoming
 - Rearranged the button positions, sizes and colors
+- Multiline fields get cut after 27 characters now with "..." at the end, the full text is still available as tooltip
 
 ## 0.9.2
 Released: 2014-09-04

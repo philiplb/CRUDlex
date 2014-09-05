@@ -28,7 +28,8 @@
                     {% include '@crud/renderField.twig' with {
                         entity: entity,
                         definition: definition,
-                        field: field
+                        field: field,
+                        mode: 'show'
                     } only %}
                 </td>
             </tr>
