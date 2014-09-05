@@ -175,4 +175,24 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $expected = 'test';
         $this->assertSame($read, $expected);
     }
+
+    public function testBasename() {
+        $crudServiceProvider = new CRUDServiceProvider();
+
+        $read = $crudServiceProvider->basename('http://www.philiplb.de/foo.txt');
+        $expected = 'foo.txt';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->basename('foo.txt');
+        $expected = 'foo.txt';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->basename('');
+        $expected = '';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->basename(null);
+        $expected = '';
+        $this->assertSame($read, $expected);
+    }
 }

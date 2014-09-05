@@ -34,7 +34,11 @@
     {% endif %}
 
 {% elseif type == 'url' and entity.get(field) %}
-    <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field) }}</a>
+    {% if mode == 'list' %}
+        <a href="{{ entity.get(field) }}" target="_blank">{{ app.crud.basename(entity.get(field)) }}</a>
+    {% else %}
+        <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field) }}</a>
+    {% endif %}
 
 {% else %}
     {{ entity.get(field) }}

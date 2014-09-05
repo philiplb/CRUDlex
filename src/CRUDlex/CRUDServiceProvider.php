@@ -128,4 +128,8 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         return $result;
     }
 
+    public function basename($value) {
+        return basename($value);
+    }
+
 }
