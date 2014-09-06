@@ -26,6 +26,13 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         )), 404);
     }
 
+    protected function getLayout($app, $action) {
+        if ($app->offsetExists('crud.layout.'.$action)) {
+            return $app['crud.layout.'.$action];
+        }
+        return $app['crud.layout'];
+    }
+
     public function connect (Application $app) {
         if ($app->offsetExists('twig.loader.filesystem')) {
             $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
@@ -83,7 +90,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'entity' => $instance,
             'mode' => 'create',
             'errors' => $errors,
-            'layout' => $app['crud.layout']
+            'layout' => $this->getLayout($app, 'create')
         ));
     }
 
@@ -103,7 +110,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'crudEntity' => $entity,
             'definition' => $definition,
             'entities' => $entities,
-            'layout' => $app['crud.layout']
+            'layout' => $this->getLayout($app, 'list')
         ));
     }
 
@@ -121,7 +128,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         return $app['twig']->render('@crud/show.twig', array(
             'crudEntity' => $entity,
             'entity' => $instance,
-            'layout' => $app['crud.layout']
+            'layout' => $this->getLayout($app, 'show')
         ));
     }
 
@@ -159,7 +166,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'entity' => $instance,
             'mode' => 'edit',
             'errors' => $errors,
-            'layout' => $app['crud.layout']
+            'layout' => $this->getLayout($app, 'edit')
         ));
     }
 
