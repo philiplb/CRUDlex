@@ -8,7 +8,7 @@
  #}
 
 <label>
-    <input type="checkbox" id="{{ field }}" value="1" {% if entity.get(field) == '1' %} checked="checked" {% endif %} name="{{ field }}" />
+    <input type="checkbox" id="{{ field }}" value="1" {% if entity.get(field) %} checked="checked" {% endif %} name="{{ field }}" />
     {% include '@crud/fieldLabel.twig' with {
         field: field,
         definition: crudData.getDefinition()

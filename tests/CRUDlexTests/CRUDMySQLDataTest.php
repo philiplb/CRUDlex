@@ -238,8 +238,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->create($libraryA);
 
         $read = $this->dataLibrary->get($libraryA->get('id'))->get('isOpenOnSundays');
-        $expected = '0';
-        $this->assertSame($read, $expected);
+        $this->assertFalse($read);
 
         $libraryB = $this->dataLibrary->createEmpty();
         $libraryB->set('name', 'lib');
@@ -247,22 +246,19 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->create($libraryB);
 
         $read = $this->dataLibrary->get($libraryB->get('id'))->get('isOpenOnSundays');
-        $expected = '1';
-        $this->assertSame($read, $expected);
+        $this->assertTrue($read);
 
         $libraryA->set('isOpenOnSundays', '1');
         $this->dataLibrary->update($libraryA);
 
         $read = $this->dataLibrary->get($libraryA->get('id'))->get('isOpenOnSundays');
-        $expected = '1';
-        $this->assertSame($read, $expected);
+        $this->assertTrue($read);
 
         $libraryB->set('isOpenOnSundays', null);
         $this->dataLibrary->update($libraryB);
 
         $read = $this->dataLibrary->get($libraryB->get('id'))->get('isOpenOnSundays');
-        $expected = '0';
-        $this->assertSame($read, $expected);
+        $this->assertFalse($read);
     }
 
 }

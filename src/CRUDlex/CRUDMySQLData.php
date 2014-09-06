@@ -52,8 +52,8 @@ class CRUDMySQLData extends CRUDData {
         for ($i = 0; $i < count($formFields); ++$i) {
             $placeHolders[] = '?';
             $value = $entity->get($formFields[$i]);
-            if ($value === null && $this->definition->getType($formFields[$i]) == 'bool') {
-                $value = 0;
+            if ($this->definition->getType($formFields[$i]) == 'bool') {
+                $value = $value ? 1 : 0;
             }
             $values[] = $value;
         }
@@ -71,8 +71,8 @@ class CRUDMySQLData extends CRUDData {
         $sets = array();
         for ($i = 0; $i < count($formFields); ++$i) {
             $value = $entity->get($formFields[$i]);
-            if ($value === null && $this->definition->getType($formFields[$i]) == 'bool') {
-                $value = 0;
+            if ($this->definition->getType($formFields[$i]) == 'bool') {
+                $value = $value ? 1 : 0;
             }
             $values[] = $value;
             $sets[] = '`'.$formFields[$i].'`=?';

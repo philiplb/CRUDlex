@@ -33,7 +33,16 @@ class CRUDEntity {
         if (!key_exists($field, $this->entity)) {
             return null;
         }
-        return $this->entity[$field];
+        $value = $this->entity[$field];
+        switch ($this->definition->getType($field)) {
+            case 'int':
+                $value = intval($value);
+                break;
+            case 'bool':
+                $value = $value && $value !== '0';
+                break;
+        }
+        return $value;
     }
 
     public function getDefinition() {

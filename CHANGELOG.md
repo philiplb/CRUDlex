@@ -10,6 +10,7 @@ Released: Upcoming
 - Custom layouts for the sections create, list, show and edit of specific entities
 - Custom layouts for specific entities
 - Supporting bool fields
+- CRUDEntitity::get($fieldName) casts the fields now to int and booleans if the type is int or bool
 
 ## 0.9.2
 Released: 2014-09-04
