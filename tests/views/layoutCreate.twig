@@ -1,0 +1,76 @@
+{#
+ # This file is part of the CRUDlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>CRUDlex</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% include '@crud/header.twig' %}
+
+        <style type="text/css">
+            body {
+                padding-top: 70px;
+            }
+            .btn-crudlex {
+                margin: 5px 5px 5px 5px;
+            }
+            .tooltip-crudlex {
+                cursor: pointer;
+            }
+        </style>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        </head>
+    <body>
+      <h1>Create layout</h1>
+      <div id="page">
+
+            {% if app.session.flashBag is defined %}
+                {% set flashTypeAvailable = [ 'success', 'danger'] %}
+                {% for flashType in flashTypeAvailable %}
+                    {% for flash in app.session.flashBag.get(flashType) %}
+                      <div class="alert alert-{{ flashType }}" >
+                          <button class="close" data-dismiss="alert">×</button>
+                          {{ flash }}
+                      </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            {% for entity in app.crud.getEntities() %}
+                                <li {% if crudEntity == entity %} class="active" {% endif%}><a href="{{ app.url_generator.generate('crudList', {'entity': entity}) }}">{{ app.crud.getData(entity).getDefinition().getLabel() }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+
+            {% include '@crud/footer.twig' %}
+
+            <script type="text/javascript">
+                {% block js %}{% endblock %}
+            </script>
+        </div>
+    </body>
+</html>

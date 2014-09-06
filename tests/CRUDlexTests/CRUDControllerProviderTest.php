@@ -34,7 +34,9 @@ class CRUDControllerProviderTest extends WebTestCase {
             'crud.datafactory' => $dataFactory
         ));
         $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-        $app->register(new Silex\Provider\TwigServiceProvider());
+        $app->register(new Silex\Provider\TwigServiceProvider(), array(
+            'twig.path' => __DIR__.'/../views'
+        ));
 
         $app->mount('/crud', new CRUDlex\CRUDControllerProvider());
 
@@ -225,6 +227,35 @@ class CRUDControllerProviderTest extends WebTestCase {
         $bookDeleted = $this->dataBook->get($entityBook->get('id'));
         $this->assertNull($bookDeleted);
 
+    }
+
+    public function testLayouts() {
+        $client = $this->createClient();
+
+        $this->app['crud.layout'] = 'layout.twig';
+        $this->app['crud.layout.book'] = 'layoutBook.twig';
+        $this->app['crud.layout.create'] = 'layoutCreate.twig';
+        $this->app['crud.layout.show.library'] = 'layoutLibraryShow.twig';
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $crawler = $client->request('GET', '/crud/library');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Base layout")'));
+
+        $crawler = $client->request('GET', '/crud/book');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Book layout")'));
+
+        $crawler = $client->request('GET', '/crud/library/create');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Create layout")'));
+
+        $crawler = $client->request('GET', '/crud/library/1');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Library show layout")'));
     }
 
 }
