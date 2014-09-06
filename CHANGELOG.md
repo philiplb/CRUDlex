@@ -7,6 +7,8 @@ Released: Upcoming
 - Multiline fields get cut after 27 characters now with "..." at the end, the full text is still available as tooltip
 - URL fields show only their base name in the list view, but are still clickable to the full URL
 - Custom layouts for the sections create, list, show and edit
+- Custom layouts for the sections create, list, show and edit of specific entities
+- Custom layouts for specific entities
 
 ## 0.9.2
 Released: 2014-09-04

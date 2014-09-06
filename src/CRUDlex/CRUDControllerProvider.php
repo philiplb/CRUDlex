@@ -26,7 +26,13 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         )), 404);
     }
 
-    protected function getLayout($app, $action) {
+    protected function getLayout($app, $action, $entity) {
+        if ($app->offsetExists('crud.layout.'.$action.'.'.$entity)) {
+            return $app['crud.layout.'.$action.'.'.$entity];
+        }
+        if ($app->offsetExists('crud.layout.'.$entity)) {
+            return $app['crud.layout.'.$entity];
+        }
         if ($app->offsetExists('crud.layout.'.$action)) {
             return $app['crud.layout.'.$action];
         }
@@ -90,7 +96,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'entity' => $instance,
             'mode' => 'create',
             'errors' => $errors,
-            'layout' => $this->getLayout($app, 'create')
+            'layout' => $this->getLayout($app, 'create', $entity)
         ));
     }
 
@@ -110,7 +116,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'crudEntity' => $entity,
             'definition' => $definition,
             'entities' => $entities,
-            'layout' => $this->getLayout($app, 'list')
+            'layout' => $this->getLayout($app, 'list', $entity)
         ));
     }
 
@@ -128,7 +134,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         return $app['twig']->render('@crud/show.twig', array(
             'crudEntity' => $entity,
             'entity' => $instance,
-            'layout' => $this->getLayout($app, 'show')
+            'layout' => $this->getLayout($app, 'show', $entity)
         ));
     }
 
@@ -166,7 +172,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'entity' => $instance,
             'mode' => 'edit',
             'errors' => $errors,
-            'layout' => $this->getLayout($app, 'edit')
+            'layout' => $this->getLayout($app, 'edit', $entity)
         ));
     }
 
