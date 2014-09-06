@@ -9,6 +9,7 @@ Released: Upcoming
 - Custom layouts for the sections create, list, show and edit
 - Custom layouts for the sections create, list, show and edit of specific entities
 - Custom layouts for specific entities
+- Supporting bool fields
 
 ## 0.9.2
 Released: 2014-09-04

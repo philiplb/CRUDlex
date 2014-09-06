@@ -85,7 +85,8 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'updated_at',
             'name',
             'type',
-            'opening'
+            'opening',
+            'isOpenOnSundays'
         );
         $this->assertSame($read, $expected);
     }

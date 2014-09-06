@@ -54,6 +54,7 @@ class CRUDTestDBSetup {
             '  `name` varchar(255) NOT NULL,'.
             '  `type` varchar(255) DEFAULT NULL,'.
             '  `opening` datetime DEFAULT NULL,'.
+            '  `isOpenOnSundays` tinyint(1) NOT NULL,'.
             '  PRIMARY KEY (`id`)'.
             ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
         $app['db']->executeUpdate($sql);

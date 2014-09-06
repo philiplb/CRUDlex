@@ -14,6 +14,9 @@ library:
     opening:
       type: datetime
       label: Opening
+    isOpenOnSundays:
+      type: bool
+      label: 'Is open on sundays'
 
 book:
   label: Book

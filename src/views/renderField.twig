@@ -40,6 +40,9 @@
         <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field) }}</a>
     {% endif %}
 
+{% elseif type == 'bool' %}
+    {{ entity.get(field) ? 'true' : 'false' }}
+
 {% else %}
     {{ entity.get(field) }}
 {% endif %}

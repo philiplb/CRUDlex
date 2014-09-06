@@ -33,8 +33,10 @@
 
         {% for field in fields %}
 
-            <div class="form-group {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
-                {% include '@crud/' ~ crudData.getDefinition().getType(field) ~ 'Field.twig' with {
+            {% set type = crudData.getDefinition().getType(field) %}
+            {% set class = type == 'bool' ? 'checkbox' : 'form-group' %}
+            <div class="{{ class }} {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
+                {% include '@crud/' ~ type ~ 'Field.twig' with {
                     field: field,
                     crudData: crudData,
                     entity: entity
