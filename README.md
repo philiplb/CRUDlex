@@ -5,7 +5,7 @@ CRUDlex is an easy to use CRUD generator for Silex.
 
 Read the manual:
 
-[Manual](docs/manual.md)
+[Manual](docs/0_manual.md)
 
 Make sure to checkout the sample:
 
