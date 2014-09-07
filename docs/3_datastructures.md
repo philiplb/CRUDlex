@@ -16,6 +16,65 @@ library:
 book:
 ```
 
+In this case, the entities would be available under this URLs (assuming you
+mounted the CRUDController under "/crud"):
+
+http://.../crud/library
+
+http://.../crud/book
+
+Now we declare the labels and the tables. The label is used for displaying
+links in the navigation:
+
+```yml
+library:
+    label: Library
+    table: library
+book:
+    label: Book
+    table: book
+```
+
+So far, so good. In our minimal example, a library has a name and a Book has
+an author and a title as fields, both are simple single line strings.
+
+```yml
+library:
+    label: Library
+    table: library
+    fields:
+        name:
+            type: text
+            label: Name
+book:
+    label: Book
+    table: book
+    fields:
+        author:
+            type: text
+            label: Author
+        title:
+            type: text
+            label: Title
+```
+
+Note that the yml keys "name", "author" and "title" directly name the database
+column names. Each one has a type and a label here. The type defines the
+database type and the label is used in various places to display the field.
+
+Beside this fields, the CRUDlex MySQL implementation assumes that you have some
+more fields per table:
+
+- `id` int(11) NOT NULL AUTO_INCREMENT: the id of each row
+- `created_at` datetime NOT NULL: a timestamp when the row was created
+- `updated_at` datetime NOT NULL: a timestamp when the row was the last time
+updated
+- `deleted_at` datetime DEFAULT NULL: defines when this entry was deleted.
+CRUDlex uses a soft delete mechanism hiding all rows where this is not null
+- `version` int(11) NOT NULL: (will be) used for optimistic locking
+
+See the CRUDlexSample.sql for the exact table creation.
+
 ---
 
 Previous: [Setup](2_setup.md)
