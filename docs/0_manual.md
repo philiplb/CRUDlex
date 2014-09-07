@@ -12,5 +12,6 @@ Here is the table of contents:
 - [Data Types](4_datatypes.md)
 - [Constraints](5_constraints.md)
 - [Overriding Layouts](6_layouts.md)
+- [The CRUDServiceProvider](7_crudserviceprovider.md)
 
 Next: [Introduction](1_introduction.md)
