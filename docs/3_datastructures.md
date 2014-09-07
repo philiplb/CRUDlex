@@ -36,7 +36,7 @@ book:
 ```
 
 So far, so good. In our minimal example, a library has a name and a Book has
-an author and a title as fields, both are simple single line strings.
+an author, a title and the amount of pages as fields.
 
 ```yml
 library:
@@ -56,11 +56,16 @@ book:
         title:
             type: text
             label: Title
+        pages:
+            type: int
+            label: Title
 ```
 
 Note that the yml keys "name", "author" and "title" directly name the database
 column names. Each one has a type and a label here. The type defines the
-database type and the label is used in various places to display the field.
+database type and the label is used in various places to display the field. In
+this example, only simple string types are used and an integer for the book
+pages.
 
 Beside this fields, the CRUDlex MySQL implementation assumes that you have some
 more fields per table:
@@ -74,6 +79,39 @@ CRUDlex uses a soft delete mechanism hiding all rows where this is not null
 - `version` int(11) NOT NULL: (will be) used for optimistic locking
 
 See the CRUDlexSample.sql for the exact table creation.
+
+As a last addition, we only want to show the author and title in the big list
+view of the books. We can do it by using the listFields entry:
+
+```yml
+library:
+    label: Library
+    table: library
+    fields:
+        name:
+            type: text
+            label: Name
+book:
+    label: Book
+    table: book
+    listFields: [id, created_at, updated_at, author, title]
+    fields:
+        author:
+            type: text
+            label: Author
+        title:
+            type: text
+            label: Title
+        pages:
+            type: int
+            label: Title
+```
+
+It is a simple list referencing the fields. Note the usage of the internal
+fields "id", "created_at" and "update_at".
+
+Only strings and integers are boring, so in the next chapter, all possible
+data types are presented.
 
 ---
 
