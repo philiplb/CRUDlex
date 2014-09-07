@@ -70,13 +70,13 @@ pages.
 Beside this fields, the CRUDlex MySQL implementation assumes that you have some
 more fields per table:
 
-- `id` int(11) NOT NULL AUTO_INCREMENT: the id of each row
-- `created_at` datetime NOT NULL: a timestamp when the row was created
-- `updated_at` datetime NOT NULL: a timestamp when the row was the last time
+- id int(11) NOT NULL AUTO_INCREMENT: the id of each row
+- created_at datetime NOT NULL: a timestamp when the row was created
+- updated_at datetime NOT NULL: a timestamp when the row was the last time
 updated
-- `deleted_at` datetime DEFAULT NULL: defines when this entry was deleted.
+- deleted_at datetime DEFAULT NULL: defines when this entry was deleted.
 CRUDlex uses a soft delete mechanism hiding all rows where this is not null
-- `version` int(11) NOT NULL: (will be) used for optimistic locking
+- version int(11) NOT NULL: (will be) used for optimistic locking
 
 See the CRUDlexSample.sql for the exact table creation.
 
@@ -108,7 +108,9 @@ book:
 ```
 
 It is a simple list referencing the fields. Note the usage of the internal
-fields "id", "created_at" and "update_at".
+fields "id", "created_at" and "update_at". "version" is not yet used and
+every row where "deleted_at" is not null is marked as deleted, so this field
+would make no sense to display.
 
 Only strings and integers are boring, so in the next chapter, all possible
 data types are presented.
