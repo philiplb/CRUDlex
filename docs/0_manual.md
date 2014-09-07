@@ -1,7 +1,8 @@
 CRUDlex Manual
 ==============
 
-This is the manual of CRUDlex. It describes every feature being available.
+This is the manual of CRUDlex, an easy to use CRUD generator for [Silex](http://silex.sensiolabs.org/).
+It describes every feature being available.
 
 Here is the table of contents:
 
