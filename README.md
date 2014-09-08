@@ -7,7 +7,9 @@ Read the manual:
 
 [Manual](docs/0_manual.md)
 
-Make sure to checkout the sample:
+
+The manual is a reference describing every feature of CRUDlex. For a complete
+example, checkout the sample project with the classic libraries and books:
 
 [CRUDlex Sample](https://github.com/philiplb/CRUDlexSample)
 
