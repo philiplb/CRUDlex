@@ -164,18 +164,18 @@ book:
         author:
             type: text
         library:
-        type: reference
-        reference:
-          table: lib
-          nameField: name
-          entity: library
+            type: reference
+            reference:
+              table: lib
+              nameField: name
+              entity: library
 ```
 
 Don't forget to set the MySQL foreign key.
 
 ```sql
 ALTER TABLE `book`
-ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`library`) REFERENCES `library` (`id`);
+ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`library`) REFERENCES `lib` (`id`);
 ```
 
 If a book still references a library, CRUDlex refuses to delete the library if
