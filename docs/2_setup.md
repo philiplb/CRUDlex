@@ -58,6 +58,10 @@ $app->register(new CRUDlex\CRUDServiceProvider(), array(
 ));
 ```
 
+You can also give the parameter "crud.stringsfile" pointing to your own messages
+if you want to translate them for example. For reference, it defaults to this one:
+"vendor/philiplb/src/strings.yml"
+
 The content of the crud.yml (or whatever you name it) will be discussed in the
 next chapter.
 
