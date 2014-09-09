@@ -14,6 +14,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => _ _DIR_ _.'/../views'
 ));
 ```
+
 A good starting point is the layout template coming with CRUDlex:
 src/views/layout.twig
 
@@ -66,14 +67,18 @@ $app['crud.layout.create.book'] = 'myCreateBookLayout.twig';
 
 ## Your own Layout from Scratch
 
-If you want to start from scratch, you have to define a block called "content".
+If you want to start from scratch, it is recommended to use the layout coming
+with CRUDlex as a starting point:
+"vendor/philiplb/crudlex/src/views/layout.twig"
+
+This one shows a menu with all defined entities linking to their list view.
+
+First, you have to define a block called "content".
 This is where CRUDlex renders itself into:
 
 ```twig
 {% block content %}{% endblock %}
 ```
-
-This one shows a menu with all defined entities linking to their list view.
 
 In the head-section, you should include the template "@crud/header.twig":
 

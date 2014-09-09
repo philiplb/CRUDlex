@@ -8,8 +8,8 @@ CRUD is an abbreviation standing for
 - **U**pdate
 - **D**elete
 
-Those are the standard actions you always do with your data.
-Often, you have a database where you are in need of an administration application.
+Often, you have a database where you are in need of an administration
+application.
 You have some database tables you need to manage with exactly this actions:
 - A list of entries in each table
 - To be able to create entries

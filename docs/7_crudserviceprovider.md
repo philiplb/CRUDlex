@@ -2,7 +2,7 @@ CRUDServiceProvider
 ===================
 
 The CRUDServiceProvider registers itself under $app['crud'] and offers some
-methods you might find usefull on other places.
+methods you might find useful on other places.
 
 ## getData($name)
 

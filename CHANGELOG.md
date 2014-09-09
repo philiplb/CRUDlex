@@ -2,7 +2,7 @@ CRUDlex Changelog
 =================
 
 ## 0.9.3
-Released: Upcoming
+Released: 2014-09-09
 - Rearranged the button positions, sizes and colors
 - Multiline fields get cut after 27 characters now with "..." at the end, the full text is still available as tooltip
 - URL fields show only their base name in the list view, but are still clickable to the full URL
@@ -11,6 +11,7 @@ Released: Upcoming
 - Custom layouts for specific entities
 - Supporting bool fields
 - CRUDEntitity::get($fieldName) casts the fields now to int and booleans if the type is int or bool
+- Added a manual
 
 ## 0.9.2
 Released: 2014-09-04

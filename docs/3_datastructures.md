@@ -24,7 +24,7 @@ http://.../crud/library
 http://.../crud/book
 
 Now we declare the labels and the tables. The label is used for displaying
-links in the navigation:
+links in the navigation and in some messages:
 
 ```yml
 library:
@@ -78,7 +78,7 @@ updated
 CRUDlex uses a soft delete mechanism hiding all rows where this is not null
 - version int(11) NOT NULL: (will be) used for optimistic locking
 
-See the CRUDlexSample.sql for the exact table creation.
+See the CRUDlexSample.sql in the sample project for the exact table creation.
 
 As a last addition, we only want to show the author and title in the big list
 view of the books. We can do it by using the listFields entry:

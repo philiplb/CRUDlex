@@ -26,9 +26,9 @@ type: multiline
 
 A multi text line allowing linebreaks, no further parameters. Related MySQL-types:
 - CHAR
-- VARCHAR (recommended)
+- VARCHAR
 - TINYTEXT
-- TEXT
+- TEXT (recommended)
 - MEDIUMTEXT
 - LONGTEXT
 
@@ -48,7 +48,8 @@ Would be shown in the list view as:
 type: url
 ```
 
-A single text line representing an URL, no further parameters. Related MySQL-types:
+A single text line representing an URL, no further parameters. Related
+MySQL-types:
 - CHAR
 - VARCHAR (recommended)
 - TINYTEXT
@@ -121,8 +122,8 @@ A fixed set of elements to be chosen from, stored as text. Related MySQL-types:
 - MEDIUMTEXT
 - LONGTEXT
 
-In this example, the user has the choice between the three colors "red",
-"green" and "blue".
+In this example, the user has the choice between the three colors "red", "green"
+and "blue".
 
 ## Reference
 
@@ -134,14 +135,14 @@ reference:
   entity: otherEntity
 ```
 
-A fixed set of elements to be chosen from, stored as text. Related MySQL-type:
+This is the 1-side of a one-to-many relation. Related MySQL-type:
 - INT
 
-This is the 1-side of a one-to-many relation. In order to display a proper
-selection UI and represent the the value from the other table, a few more fields
-are needed. Those are the table telling CRUDlex where to look for the,
-representation, the nameField describing which field to use from the other table
-to display the selected value and last, the referenced entity.
+In order to display a proper selection UI and represent the the value from the
+other table, a few more fields are needed. Those are the __table__ telling
+CRUDlex where to look for the, representation, the __nameField__ describing
+which field to use from the other table to display the selected value and last,
+the referenced __entity__.
 
 Think about a book in a library. The library is stored in the table "lib" and
 has a field "name". A book belongs to a library, so it has an integer field
