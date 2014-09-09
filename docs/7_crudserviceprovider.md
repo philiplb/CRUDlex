@@ -49,3 +49,5 @@ returns it's result.
 ---
 
 Previous: [Overriding Layouts](6_layouts.md)
+
+[Table of Contents](0_manual.md)

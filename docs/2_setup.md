@@ -81,3 +81,5 @@ http://.../crud/book
 Previous: [Introduction](1_introduction.md)
 
 Next: [Data Structure Definition](3_datastructures.md)
+
+[Table of Contents](0_manual.md)

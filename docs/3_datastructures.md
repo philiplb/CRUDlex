@@ -120,3 +120,5 @@ data types are presented.
 Previous: [Setup](2_setup.md)
 
 Next: [Data Types](4_datatypes.md)
+
+[Table of Contents](0_manual.md)

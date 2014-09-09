@@ -31,3 +31,5 @@ In the next chapter, a most basic setup is described.
 Previous: [Table of Contents](0_manual.md)
 
 Next: [Setup](2_setup.md)
+
+[Table of Contents](0_manual.md)

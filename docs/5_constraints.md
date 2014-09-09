@@ -46,3 +46,5 @@ the entity "library".
 Previous: [Data Types](4_datatypes.md)
 
 Next: [Overriding Layouts](6_layouts.md)
+
+[Table of Contents](0_manual.md)

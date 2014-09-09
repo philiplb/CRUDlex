@@ -186,3 +186,5 @@ you try.
 Previous: [Data Structure Definition](3_datastructures.md)
 
 Next: [Constraints](5_constraints.md)
+
+[Table of Contents](0_manual.md)
