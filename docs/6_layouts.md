@@ -75,7 +75,7 @@ This is where CRUDlex renders itself into:
 
 This one shows a menu with all defined entities linking to their list view.
 
-In the <head>-section, you should include the template "@crud/header.twig":
+In the head-section, you should include the template "@crud/header.twig":
 
 ```twig
 {% include '@crud/header.twig' %}
@@ -84,7 +84,7 @@ In the <head>-section, you should include the template "@crud/header.twig":
 This one includes all needed CSS files like Bootstrap 3 and the CSS of the
 datetime picker. Have a look at its content if you already include Bootstrap.
 
-At the bottom of the page before the closing </body>, you include the template
+At the bottom of the page before the closing body tag, you include the template
 "@crud/footer.twig":
 
 ```twig
