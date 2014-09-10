@@ -25,6 +25,20 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
     protected $strings;
 
+    protected function formatTime($value, $pattern) {
+        if (!$value) {
+            return '';
+        }
+        $result = \DateTime::createFromFormat($pattern, $value);
+        if ($result === false) {
+            $result = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+        }
+        if ($result === false) {
+            return $value;
+        }
+        return $result->format($pattern);
+    }
+
     public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile) {
         $stringsContent = @file_get_contents($stringsFile);
         if ($stringsContent === false) {
@@ -89,31 +103,11 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     public function formatDate($value) {
-        if (!$value) {
-            return '';
-        }
-        $result = \DateTime::createFromFormat('Y-m-d', $value);
-        if ($result === false) {
-            $result = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
-        }
-        if ($result === false) {
-            return $value;
-        }
-        return $result->format('Y-m-d');
+        return $this->formatTime($value, 'Y-m-d');
     }
 
     public function formatDateTime($value) {
-        if (!$value) {
-            return '';
-        }
-        $result = \DateTime::createFromFormat('Y-m-d H:i', $value);
-        if ($result === false) {
-            $result = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
-        }
-        if ($result === false) {
-            return $value;
-        }
-        return $result->format('Y-m-d H:i');
+        return $this->formatTime($value, 'Y-m-d H:i');
     }
 
     public function translate($key, array $placeholders = array()) {
