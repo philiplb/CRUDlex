@@ -11,4 +11,4 @@
     field: field,
     definition: crudData.getDefinition()
 } only %}
-<input type="text" class="form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ entity.get(field) }}" name="{{ field }}" />
+<input type="text" class="form-control" id="{{ field }}" placeholder="{{ crudData.getDefinition().getFieldLabel(field) }}" value="{{ entity.get(field) }}" name="{{ field }}" />

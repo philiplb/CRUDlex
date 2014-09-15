@@ -1,6 +1,10 @@
 CRUDlex Changelog
 =================
 
+## 0.9.4
+Released: Upcoming
+- The input placeholders now use the field label as well and don't use just the fieldlabel anymore
+
 ## 0.9.3
 Released: 2014-09-09
 - Rearranged the button positions, sizes and colors
