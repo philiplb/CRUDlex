@@ -39,7 +39,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         return $app['crud.layout'];
     }
 
-    public function connect (Application $app) {
+    public function connect(Application $app) {
         if ($app->offsetExists('twig.loader.filesystem')) {
             $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
         }
@@ -70,11 +70,17 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $errors = array();
         $instance = $crudData->createEmpty();
-        $fields = $crudData->getDefinition()->getEditableFieldNames();
+        $definition = $crudData->getDefinition();
+        $fields = $definition->getEditableFieldNames();
 
         if ($app['request']->getMethod() == 'POST') {
             foreach ($fields as $field) {
-                $instance->set($field, $app['request']->get($field));
+                if ($definition->getType($field) == 'file') {
+                    $file = $app['request']->files->get($field);
+                    $instance->set($field, $file->getClientOriginalName());
+                } else {
+                    $instance->set($field, $app['request']->get($field));
+                }
             }
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
@@ -83,6 +89,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             } else {
                 $crudData->create($instance);
                 $id = $instance->get('id');
+                $crudData->storeFiles($app['request'], $entity, $instance);
+
                 $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }

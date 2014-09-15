@@ -49,6 +49,13 @@ class CRUDEntityDefinition {
         return $this->fields[$fieldName]['reference'][$key];
     }
 
+    protected function getFileValue($fieldName, $key) {
+        if ($this->getType($fieldName) != 'file') {
+            return null;
+        }
+        return $this->fields[$fieldName]['file'][$key];
+    }
+
     /**
      *
      * @param type $db the Doctrine DB connection
@@ -122,6 +129,10 @@ class CRUDEntityDefinition {
 
     public function getReferenceEntity($fieldName) {
         return $this->getReferenceValue($fieldName, 'entity');
+    }
+
+    public function getFilePath($fieldName) {
+        return $this->getFileValue($fieldName, 'path');
     }
 
     public function getSetItems($fieldName) {

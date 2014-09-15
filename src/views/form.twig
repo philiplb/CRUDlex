@@ -17,7 +17,7 @@
         <a href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-success btn-crudlex">Show</a>
         <a href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">Create New</a>
     {% endif %}
-    <form role="form" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+    <form role="form" enctype="multipart/form-data" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
 
         {% if mode == 'edit' %}
             <div class="form-group">
