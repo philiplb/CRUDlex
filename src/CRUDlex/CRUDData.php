@@ -65,7 +65,7 @@ abstract class CRUDData {
         foreach ($fields as $field) {
             if ($this->definition->getType($field) == 'file') {
                 $file = $request->files->get($field);
-                $targetPath = $this->definition->getFilePath($field).'/'.$entityName.'/'.$entity->get('id');
+                $targetPath = $this->definition->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
                 mkdir($targetPath, 0777, true);
                 $file->move($targetPath, $file->getClientOriginalName());
             }

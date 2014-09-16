@@ -48,7 +48,7 @@
     {% endif %}
 
 {% elseif type == 'file' %}
-    {% set url = app.url_generator.generate(definition.getFileBaseRoute(field))~'/'~definition.getFilePath(field)~'/'~crudEntity~'/'~entity.get('id')~'/'~entity.get(field) %}
+    {% set url = app.url_generator.generate(definition.getFileBaseRoute(field))~'/'~definition.getFilePath(field)~'/'~crudEntity~'/'~entity.get('id')~'/'~field~'/'~entity.get(field) %}
     {% if mode == 'list' %}
         {% set value = entity.get(field) %}
         {% set basename = app.crud.basename(entity.get(field)) %}
