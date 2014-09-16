@@ -30,6 +30,10 @@ abstract class CRUDData {
         return $entity;
     }
 
+    protected function getPath($entityName, $entity, $field) {
+        return $this->definition->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
+    }
+
     public abstract function get($id);
 
     public abstract function listEntries();
@@ -65,11 +69,22 @@ abstract class CRUDData {
         foreach ($fields as $field) {
             if ($this->definition->getType($field) == 'file') {
                 $file = $request->files->get($field);
-                $targetPath = $this->definition->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
+                $targetPath = $this->getPath($entityName, $entity, $field);
                 mkdir($targetPath, 0777, true);
                 $file->move($targetPath, $file->getClientOriginalName());
             }
         }
+    }
+
+    public function deleteFile($entity, $entityName, $field) {
+        $targetPath = $this->getPath($entityName, $entity, $field);
+        $fileName = $entity->get($field);
+        $file = $targetPath.'/'.$fileName;
+        if ($fileName && file_exists($file)) {
+            unlink($file);
+        }
+        $entity->set($field, '');
+        $this->update($entity);
     }
 
 }

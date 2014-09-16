@@ -48,19 +48,24 @@
     {% endif %}
 
 {% elseif type == 'file' %}
-    {% set url = app.url_generator.generate(definition.getFileBaseRoute(field))~'/'~definition.getFilePath(field)~'/'~crudEntity~'/'~entity.get('id')~'/'~field~'/'~entity.get(field) %}
-    {% if mode == 'list' %}
-        {% set value = entity.get(field) %}
-        {% set basename = app.crud.basename(entity.get(field)) %}
-        {% if value|length > 27 %}
-            <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
-                <u><a href="{{ url }}" target="_blank">{{ basename|slice(0, 27) }}...</a></u>
-            </span>
+    {% if entity.get(field) %}
+        {% set url = app.url_generator.generate(definition.getFileBaseRoute(field))~'/'~definition.getFilePath(field)~'/'~crudEntity~'/'~entity.get('id')~'/'~field~'/'~entity.get(field) %}
+        {% if mode == 'list' %}
+            {% set value = entity.get(field) %}
+            {% set basename = app.crud.basename(entity.get(field)) %}
+            {% if value|length > 27 %}
+                <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
+                    <u><a href="{{ url }}" target="_blank">{{ basename|slice(0, 27) }}...</a></u>
+                </span>
+            {% else %}
+                <a href="{{ url }}" target="_blank">{{ basename }}</a>
+            {% endif %}
         {% else %}
-            <a href="{{ url }}" target="_blank">{{ basename }}</a>
+            <a href="{{ url }}" target="_blank">{{ entity.get(field) }}</a>
+            <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this file {{ entity.get(field) }}?');" method="POST" action="{{ app.url_generator.generate('crudDeleteFile', {entity: crudEntity, field: field, id: entity.get('id')}) }}">
+                <input type="submit" class="btn btn-default btn-xs btn-danger" value="Delete" />
+            </form>
         {% endif %}
-    {% else %}
-        <a href="{{ url }}" target="_blank">{{ entity.get(field) }}</a>
     {% endif %}
 
 {% elseif type == 'bool' %}
