@@ -135,10 +135,6 @@ class CRUDEntityDefinition {
         return $this->getFileValue($fieldName, 'path');
     }
 
-    public function getFileBaseRoute($fieldName) {
-        return $this->getFileValue($fieldName, 'baseroute');
-    }
-
     public function getSetItems($fieldName) {
         return $this->getFieldValue($fieldName, 'setitems');
     }
