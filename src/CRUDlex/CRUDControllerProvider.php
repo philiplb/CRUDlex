@@ -77,7 +77,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             foreach ($fields as $field) {
                 if ($definition->getType($field) == 'file') {
                     $file = $app['request']->files->get($field);
-                    $instance->set($field, $file->getClientOriginalName());
+                    if ($file) {
+                        $instance->set($field, $file->getClientOriginalName());
+                    }
                 } else {
                     $instance->set($field, $app['request']->get($field));
                 }
