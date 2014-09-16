@@ -160,12 +160,22 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }
 
+        $definition = $crudData->getDefinition();
+
         $errors = array();
-        $fields = $crudData->getDefinition()->getEditableFieldNames();
+        $fields = $definition->getEditableFieldNames();
+
 
         if ($app['request']->getMethod() == 'POST') {
             foreach ($fields as $field) {
-                $instance->set($field, $app['request']->get($field));
+                if ($definition->getType($field) == 'file') {
+                    $file = $app['request']->files->get($field);
+                    if ($file) {
+                        $instance->set($field, $file->getClientOriginalName());
+                    }
+                } else {
+                    $instance->set($field, $app['request']->get($field));
+                }
             }
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
@@ -173,6 +183,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $errors = $validation['errors'];
             } else {
                 $crudData->update($instance);
+                $crudData->storeFiles($app['request'], $entity, $instance);
                 $app['session']->getFlashBag()->add('success', $app['crud']->translate('edit.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }

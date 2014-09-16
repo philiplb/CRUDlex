@@ -70,7 +70,9 @@ abstract class CRUDData {
             if ($this->definition->getType($field) == 'file') {
                 $file = $request->files->get($field);
                 $targetPath = $this->getPath($entityName, $entity, $field);
-                mkdir($targetPath, 0777, true);
+                if (!file_exists($targetPath)) {
+                    mkdir($targetPath, 0777, true);
+                }
                 $file->move($targetPath, $file->getClientOriginalName());
             }
         }
