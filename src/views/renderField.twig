@@ -36,9 +36,9 @@
 {% elseif type == 'url' and entity.get(field) %}
     {% if mode == 'list' %}
         {% set value = entity.get(field) %}
-        {% if value|length > 27 %}
+        {% if value|length > 12 %}
             <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
-                <u><a href="{{ entity.get(field) }}" target="_blank">{{ app.crud.basename(entity.get(field))|slice(0, 27) }}...</a></u>
+                <u><a href="{{ entity.get(field) }}" target="_blank">{{ app.crud.basename(entity.get(field))|slice(0, 12) }}...</a></u>
             </span>
         {% else %}
             <a href="{{ entity.get(field) }}" target="_blank">{{ app.crud.basename(entity.get(field)) }}</a>
@@ -53,9 +53,9 @@
         {% if mode == 'list' %}
             {% set value = entity.get(field) %}
             {% set basename = app.crud.basename(entity.get(field)) %}
-            {% if value|length > 27 %}
+            {% if value|length > 12 %}
                 <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
-                    <u><a href="{{ url }}" target="_blank">{{ basename|slice(0, 27) }}...</a></u>
+                    <u><a href="{{ url }}" target="_blank">{{ basename|slice(0, 12) }}...</a></u>
                 </span>
             {% else %}
                 <a href="{{ url }}" target="_blank">{{ basename }}</a>
