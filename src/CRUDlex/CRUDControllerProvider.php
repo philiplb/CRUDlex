@@ -228,8 +228,12 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }
-        $crudData->deleteFile($instance, $entity, $field);
-        $app['session']->getFlashBag()->add('success', $app['crud']->translate('file.deleted'));
+        if (!$crudData->getDefinition()->isRequired($field)) {
+            $crudData->deleteFile($instance, $entity, $field);
+            $app['session']->getFlashBag()->add('success', $app['crud']->translate('file.deleted'));
+        } else {
+            $app['session']->getFlashBag()->add('danger', $app['crud']->translate('file.notdeleted'));
+        }
         return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
     }
 }
