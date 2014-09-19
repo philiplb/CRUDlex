@@ -25,4 +25,7 @@ class CRUDNullFileProcessor implements CRUDFileProcessorInterface {
 
     public function deleteFile(CRUDEntity $entity, $entityName, $field) {
     }
+
+    public function renderFile(CRUDEntity $entity, $entityName, $field) {
+    }
 }
