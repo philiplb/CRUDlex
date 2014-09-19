@@ -58,7 +58,9 @@ class CRUDEntity {
             $errors[$field] = array('required' => false, 'unique' => false, 'input' => false);
 
             // Check for required
-            if ($this->definition->isRequired($field) && (!key_exists($field, $this->entity) || !$this->entity[$field])) {
+            if ($this->definition->isRequired($field) && (!key_exists($field, $this->entity)
+                || $this->entity[$field] === null
+                || $this->entity[$field] === '')) {
                 $errors[$field]['required'] = true;
                 $valid = false;
             }
