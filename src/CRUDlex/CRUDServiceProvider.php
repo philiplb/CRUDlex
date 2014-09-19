@@ -85,7 +85,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         $app['crud'] = $app->share(function() use ($app) {
             $result = new CRUDServiceProvider();
             $stringsFile = $app->offsetExists('crud.stringsfile') ? $app['crud.stringsfile'] : __DIR__.'/../strings.yml';
-            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app->offsetExists('crud.fileprocessor') : new CRUDSimpleFilesystemFileProcessor();
+            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new CRUDSimpleFilesystemFileProcessor();
             $result->init($app['crud.datafactory'], $app['crud.file'], $stringsFile, $fileProcessor);
             return $result;
         });
