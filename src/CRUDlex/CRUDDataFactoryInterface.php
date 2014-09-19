@@ -13,9 +13,10 @@ namespace CRUDlex;
 
 use CRUDlex\CRUDData;
 use CRUDlex\CRUDEntityDefinition;
+use CRUDlex\CRUDFileProcessorInterface;
 
 interface CRUDDataFactoryInterface {
 
-    public function createData(CRUDEntityDefinition $definition);
+    public function createData(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor);
 
 }

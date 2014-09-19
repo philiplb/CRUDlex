@@ -13,14 +13,16 @@ namespace CRUDlex;
 
 use CRUDlex\CRUDEntity;
 use CRUDlex\CRUDData;
+use CRUDlex\CRUDFileProcessorInterface;
 
 class CRUDMySQLData extends CRUDData {
 
     protected $db;
 
-    public function __construct(CRUDEntityDefinition $definition, $db) {
-        $this->db = $db;
+    public function __construct(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor, $db) {
         $this->definition = $definition;
+        $this->fileProcessor = $fileProcessor;
+        $this->db = $db;
     }
 
     public function get($id) {

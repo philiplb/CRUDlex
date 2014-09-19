@@ -19,6 +19,8 @@ abstract class CRUDData {
 
     protected $definition;
 
+    protected $fileProcessor;
+
     protected function hydrate($row) {
         if (!$row) {
             return null;

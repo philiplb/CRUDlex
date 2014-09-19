@@ -22,8 +22,8 @@ class CRUDMySQLDataFactory implements CRUDDataFactoryInterface {
         $this->db = $db;
     }
 
-    public function createData(CRUDEntityDefinition $definition) {
-        return new CRUDMySQLData($definition, $this->db);
+    public function createData(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor) {
+        return new CRUDMySQLData($definition, $fileProcessor, $this->db);
     }
 
 }

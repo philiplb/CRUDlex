@@ -18,6 +18,8 @@ use Symfony\Component\Yaml\Yaml;
 use CRUDlex\CRUDEntityDefinition;
 use CRUDlex\CRUDDataFactoryInterface;
 use CRUDlex\CRUDEntity;
+use CRUDlex\CRUDFileProcessorInterface;
+use CRUDlex\CRUDSimpleFilesystemFileProcessor;
 
 class CRUDServiceProvider implements ServiceProviderInterface {
 
@@ -39,7 +41,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         return $result->format($pattern);
     }
 
-    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile) {
+    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile, CRUDFileProcessorInterface $fileProcessor) {
         $stringsContent = @file_get_contents($stringsFile);
         if ($stringsContent === false) {
             throw new \Exception('Could not open CRUD strings file');
@@ -65,7 +67,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 $label,
                 $listFields,
                 $standardFieldLabels);
-            $this->datas[$name] = $dataFactory->createData($definition);
+            $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }
 
         foreach($this->datas as $name => $data) {
@@ -83,7 +85,8 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         $app['crud'] = $app->share(function() use ($app) {
             $result = new CRUDServiceProvider();
             $stringsFile = $app->offsetExists('crud.stringsfile') ? $app['crud.stringsfile'] : __DIR__.'/../strings.yml';
-            $result->init($app['crud.datafactory'], $app['crud.file'], $stringsFile);
+            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app->offsetExists('crud.fileprocessor') : new CRUDSimpleFilesystemFileProcessor();
+            $result->init($app['crud.datafactory'], $app['crud.file'], $stringsFile, $fileProcessor);
             return $result;
         });
     }
