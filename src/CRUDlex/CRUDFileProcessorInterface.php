@@ -21,4 +21,6 @@ interface CRUDFileProcessorInterface {
     public function updateFile(Request $request, CRUDEntity $entity, $entityName, $field);
 
     public function deleteFile(CRUDEntity $entity, $entityName, $field);
+
+    public function renderFile(CRUDEntity $entity, $entityName, $field);
 }

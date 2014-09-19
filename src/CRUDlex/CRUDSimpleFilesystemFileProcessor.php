@@ -48,4 +48,32 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         }
         */
     }
+
+    public function renderFile(CRUDEntity $entity, $entityName, $field) {
+        $targetPath = $this->getPath($entityName, $entity, $field);
+        $fileName = $entity->get($field);
+        $file = $targetPath.'/'.$fileName;
+        if ($fileName && file_exists($file)) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $file);
+            finfo_close($finfo);
+
+            header('Content-Type: '.$mimeType);
+            header('Content-Disposition: attachment; filename="'.$fileName.'"');
+
+            set_time_limit(0);
+            $handle = fopen($file,"rb");
+            if ($handle === false) {
+                return;
+            }
+            $chunkSize = 1024 * 1024;
+            while (!feof($handle)) {
+                $buffer = fread($handle, $chunkSize);
+                echo $buffer;
+                ob_flush();
+                flush();
+            }
+            fclose($handle);
+        }
+    }
 }

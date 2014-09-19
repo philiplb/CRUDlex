@@ -49,7 +49,7 @@
 
 {% elseif type == 'file' %}
     {% if entity.get(field) %}
-        {% set url = app.request.uriForPath('/'~definition.getFilePath(field)~'/'~crudEntity~'/'~entity.get('id')~'/'~field~'/'~entity.get(field)) %}
+        {% set url = app.url_generator.generate('crudRenderFile', {entity: crudEntity, field: field, id: entity.get('id')}) %}
         {% if mode == 'list' %}
             {% set value = entity.get(field) %}
             {% set basename = app.crud.basename(entity.get(field)) %}

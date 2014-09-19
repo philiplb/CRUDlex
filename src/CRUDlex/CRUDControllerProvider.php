@@ -59,6 +59,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 ->bind('crudEdit');
         $factory->post('/{entity}/{id}/delete', 'CRUDlex\CRUDControllerProvider::delete')
                 ->bind('crudDelete');
+        $factory->match('/{entity}/{id}/{field}/file', 'CRUDlex\CRUDControllerProvider::renderFile')
+                ->bind('crudRenderFile');
         $factory->post('/{entity}/{id}/{field}/delete', 'CRUDlex\CRUDControllerProvider::deleteFile')
                 ->bind('crudDeleteFile');
         return $factory;
@@ -218,6 +220,23 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $app['session']->getFlashBag()->add('danger', $app['crud']->translate('delete.error', array($crudData->getDefinition()->getLabel())));
             return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
+    }
+
+    public function renderFile(Application $app, $entity, $id, $field) {
+        $crudData = $app['crud']->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+        }
+        $instance = $crudData->get($id);
+        $definition = $crudData->getDefinition();
+        if (!$instance) {
+            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+        }
+        if ($definition->getType($field) != 'file' || !$instance->get($field)) {
+            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+        }
+        $crudData->renderFile($instance, $entity, $field);
+        return '';
     }
 
     public function deleteFile(Application $app, $entity, $id, $field) {
