@@ -64,7 +64,7 @@ abstract class CRUDData {
         return $entity;
     }
 
-    public function storeFiles($request, $entityName, $entity) {
+    public function createFiles($request, $entityName, $entity) {
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             if ($this->definition->getType($field) == 'file') {
@@ -80,8 +80,12 @@ abstract class CRUDData {
         }
     }
 
-    // For now, we are defensive and don't delete ever.
+    public function updateFiles($request, $entityName, $entity) {
+        $this->createFiles($request, $entityName, $entity);
+    }
+
     public function deleteFile($entity, $entityName, $field) {
+        // For now, we are defensive and don't delete ever.
         /*
         $targetPath = $this->getPath($entityName, $entity, $field);
         $fileName = $entity->get($field);
@@ -90,8 +94,10 @@ abstract class CRUDData {
             unlink($file);
         }
         */
-        $entity->set($field, '');
-        $this->update($entity);
+    }
+
+    public function deleteFiles($instance, $entity) {
+        // For now, we are defensive and don't delete ever.
     }
 
 }

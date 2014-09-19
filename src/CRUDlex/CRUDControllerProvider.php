@@ -93,7 +93,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             } else {
                 $crudData->create($instance);
                 $id = $instance->get('id');
-                $crudData->storeFiles($app['request'], $entity, $instance);
+                $crudData->createFiles($app['request'], $entity, $instance);
 
                 $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
@@ -183,7 +183,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $errors = $validation['errors'];
             } else {
                 $crudData->update($instance);
-                $crudData->storeFiles($app['request'], $entity, $instance);
+                $crudData->updateFiles($app['request'], $entity, $instance);
                 $app['session']->getFlashBag()->add('success', $app['crud']->translate('edit.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }
@@ -209,6 +209,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }
 
+        $crudData->deleteFiles($instance, $entity);
         $deleted = $crudData->delete($id);
         if ($deleted) {
             $app['session']->getFlashBag()->add('success', $app['crud']->translate('delete.success', array($crudData->getDefinition()->getLabel())));
@@ -230,6 +231,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
         if (!$crudData->getDefinition()->isRequired($field)) {
             $crudData->deleteFile($instance, $entity, $field);
+            $instance->set($field, '');
+            $crudData->update($instance);
             $app['session']->getFlashBag()->add('success', $app['crud']->translate('file.deleted'));
         } else {
             $app['session']->getFlashBag()->add('danger', $app['crud']->translate('file.notdeleted'));
