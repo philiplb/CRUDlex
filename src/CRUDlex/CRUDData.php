@@ -33,10 +33,6 @@ abstract class CRUDData {
         return $entity;
     }
 
-    protected function getPath($entityName, $entity, $field) {
-        return $this->definition->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
-    }
-
     public abstract function get($id);
 
     public abstract function listEntries();
@@ -71,36 +67,31 @@ abstract class CRUDData {
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             if ($this->definition->getType($field) == 'file') {
-                $file = $request->files->get($field);
-                if ($file) {
-                    $targetPath = $this->getPath($entityName, $entity, $field);
-                    if (!file_exists($targetPath)) {
-                        mkdir($targetPath, 0777, true);
-                    }
-                    $file->move($targetPath, $file->getClientOriginalName());
-                }
+                $this->fileProcessor->createFile($request, $entity, $entityName, $field);
             }
         }
     }
 
     public function updateFiles(Request $request, CRUDEntity $entity, $entityName) {
-        $this->createFiles($request, $entity, $entityName);
+        $fields = $this->definition->getEditableFieldNames();
+        foreach ($fields as $field) {
+            if ($this->definition->getType($field) == 'file') {
+                $this->fileProcessor->updateFile($request, $entity, $entityName, $field);
+            }
+        }
     }
 
     public function deleteFile(CRUDEntity $entity, $entityName, $field) {
-        // For now, we are defensive and don't delete ever.
-        /*
-        $targetPath = $this->getPath($entityName, $entity, $field);
-        $fileName = $entity->get($field);
-        $file = $targetPath.'/'.$fileName;
-        if ($fileName && file_exists($file)) {
-            unlink($file);
-        }
-        */
+        $this->fileProcessor->deleteFile($entity, $entityName, $field);
     }
 
-    public function deleteFiles(CRUDEntity $instance, $entityName) {
-        // For now, we are defensive and don't delete ever.
+    public function deleteFiles(CRUDEntity $entity, $entityName) {
+        $fields = $this->definition->getEditableFieldNames();
+        foreach ($fields as $field) {
+            if ($this->definition->getType($field) == 'file') {
+                $this->fileProcessor->deleteFile($entity, $entityName, $field);
+            }
+        }
     }
 
 }

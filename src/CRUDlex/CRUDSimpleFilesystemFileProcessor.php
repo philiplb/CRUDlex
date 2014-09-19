@@ -17,6 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
 
+    protected function getPath($entityName, $entity, $field) {
+        return $entity->getDefinition()->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
+    }
+
     public function createFile(Request $request, CRUDEntity $entity, $entityName, $field) {
         $file = $request->files->get($field);
         if ($file) {
@@ -35,5 +39,13 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
 
     public function deleteFile(CRUDEntity $entity, $entityName, $field) {
         // For now, we are defensive and don't delete ever.
+        /*
+        $targetPath = $this->getPath($entityName, $entity, $field);
+        $fileName = $entity->get($field);
+        $file = $targetPath.'/'.$fileName;
+        if ($fileName && file_exists($file)) {
+            unlink($file);
+        }
+        */
     }
 }
