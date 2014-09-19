@@ -93,7 +93,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             } else {
                 $crudData->create($instance);
                 $id = $instance->get('id');
-                $crudData->createFiles($app['request'], $entity, $instance);
+                $crudData->createFiles($app['request'], $instance, $entity);
 
                 $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
@@ -183,7 +183,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $errors = $validation['errors'];
             } else {
                 $crudData->update($instance);
-                $crudData->updateFiles($app['request'], $entity, $instance);
+                $crudData->updateFiles($app['request'], $instance, $entity);
                 $app['session']->getFlashBag()->add('success', $app['crud']->translate('edit.success', array($crudData->getDefinition()->getLabel(), $id)));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }

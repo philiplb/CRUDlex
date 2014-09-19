@@ -13,6 +13,7 @@ namespace CRUDlex;
 
 use CRUDlex\CRUDEntityDefinition;
 use CRUDlex\CRUDEntity;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class CRUDData {
 
@@ -64,7 +65,7 @@ abstract class CRUDData {
         return $entity;
     }
 
-    public function createFiles($request, $entityName, $entity) {
+    public function createFiles(Request $request, CRUDEntity $entity, $entityName) {
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             if ($this->definition->getType($field) == 'file') {
@@ -80,11 +81,11 @@ abstract class CRUDData {
         }
     }
 
-    public function updateFiles($request, $entityName, $entity) {
-        $this->createFiles($request, $entityName, $entity);
+    public function updateFiles(Request $request, CRUDEntity $entity, $entityName) {
+        $this->createFiles($request, $entity, $entityName);
     }
 
-    public function deleteFile($entity, $entityName, $field) {
+    public function deleteFile(CRUDEntity $entity, $entityName, $field) {
         // For now, we are defensive and don't delete ever.
         /*
         $targetPath = $this->getPath($entityName, $entity, $field);
@@ -96,7 +97,7 @@ abstract class CRUDData {
         */
     }
 
-    public function deleteFiles($instance, $entity) {
+    public function deleteFiles(CRUDEntity $instance, $entityName) {
         // For now, we are defensive and don't delete ever.
     }
 
