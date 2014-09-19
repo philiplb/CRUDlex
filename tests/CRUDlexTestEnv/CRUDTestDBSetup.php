@@ -6,6 +6,7 @@ use Silex\Provider\DoctrineServiceProvider;
 
 use CRUDlex\CRUDMySQLDataFactory;
 use CRUDlex\CRUDServiceProvider;
+use CRUDlexTestEnv\CRUDNullFileProcessor;
 
 class CRUDTestDBSetup {
 
@@ -67,7 +68,7 @@ class CRUDTestDBSetup {
         $dataFactory = new CRUDMySQLDataFactory($app['db']);
         $crudFile = __DIR__.'/../crud.yml';
         $stringsFile = __DIR__.'/../../src/strings.yml';
-        $crudServiceProvider->init($dataFactory, $crudFile, $stringsFile);
+        $crudServiceProvider->init($dataFactory, $crudFile, $stringsFile, new CRUDNullFileProcessor());
         return $crudServiceProvider;
     }
 
