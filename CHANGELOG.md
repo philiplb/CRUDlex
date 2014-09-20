@@ -6,6 +6,7 @@ Released: Upcoming
 - The input placeholders now use the field label as well and don't use just the fieldlabel anymore
 - url fields in the list view get cut after 27 characters now with "..." at the end, the full url is still available as tooltip
 - A first version of file uploads
+- Introducing the addons repository with Amazon S3 file support
 
 ## 0.9.3
 Released: 2014-09-09
