@@ -39,7 +39,8 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'author',
             'pages',
             'release',
-            'library'
+            'library',
+            'cover'
         );
         $this->assertSame($read, $expected);
     }
@@ -65,7 +66,8 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'author',
             'pages',
             'release',
-            'library'
+            'library',
+            'cover'
         );
         $this->assertSame($read, $expected);
     }
@@ -197,6 +199,18 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             array('foo', 'bar')
         );
         $this->assertSame($read, $expected);
+    }
+
+    public function testGetFilePath() {
+        $read = $this->definition->getFilePath('cover');
+        $expected = 'uploads';
+        $this->assertSame($read, $expected);
+        $read = $this->definition->getFilePath('title');
+        $this->assertNull($read);
+        $read = $this->definition->getFilePath('foo');
+        $this->assertNull($read);
+        $read = $this->definition->getFilePath(null);
+        $this->assertNull($read);
     }
 
 }

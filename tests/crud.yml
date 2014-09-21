@@ -46,3 +46,7 @@ book:
         nameField: name
         entity: library
       required: true
+    cover:
+      type: file
+      filepath: uploads
+      label: 'Cover Image'

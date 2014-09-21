@@ -91,6 +91,11 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
                     'required' => false,
                     'unique' => false,
                     'input' => false
+                ),
+                'cover' => array(
+                    'required' => false,
+                    'unique' => false,
+                    'input' => false
                 )
             )
         );
