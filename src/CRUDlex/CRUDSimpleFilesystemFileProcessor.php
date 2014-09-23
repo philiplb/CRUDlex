@@ -60,6 +60,8 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
 
             header('Content-Type: '.$mimeType);
             header('Content-Disposition: attachment; filename="'.$fileName.'"');
+            $size = filesize($file);
+            header('Content-length: '.$size);
 
             set_time_limit(0);
             $handle = fopen($file,"rb");
