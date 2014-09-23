@@ -11,6 +11,9 @@
 
 namespace CRUDlexTests;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use CRUDlexTestEnv\CRUDTestDBSetup;
 use CRUDlex\CRUDEntity;
 
@@ -259,6 +262,41 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->get($libraryB->get('id'))->get('isOpenOnSundays');
         $this->assertFalse($read);
+    }
+
+    public function testCreateFiles() {
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $request = new Request(array(), array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $entityLibrary->get('id')
+        ), array(), array(), array(
+            'cover' => new UploadedFile(__DIR__.'/../test.xml', 'test.xml')
+        ));
+
+        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor->reset();
+        
+        $this->dataBook->createFiles($request, $entityBook, 'book');
+
+        $this->assertTrue($fileProcessor->isCreateFileCalled());
+        $this->assertFalse($fileProcessor->isUpdateFileCalled());
+        $this->assertFalse($fileProcessor->isDeleteFileCalled());
+        $this->assertFalse($fileProcessor->isRenderFileCalled());
+
+        $fileProcessor->reset();
     }
 
 }

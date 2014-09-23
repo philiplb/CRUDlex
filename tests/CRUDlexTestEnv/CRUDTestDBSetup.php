@@ -10,6 +10,8 @@ use CRUDlexTestEnv\CRUDNullFileProcessor;
 
 class CRUDTestDBSetup {
 
+    private static $fileProcessor;
+
     public static function createAppAndDB() {
         $app = new Application();
         $app->register(new DoctrineServiceProvider(), array(
@@ -64,13 +66,18 @@ class CRUDTestDBSetup {
     }
 
     public static function createCRUDServiceProvider() {
+        self::$fileProcessor = new CRUDNullFileProcessor();
         $app = self::createAppAndDB();
         $crudServiceProvider = new CRUDServiceProvider();
         $dataFactory = new CRUDMySQLDataFactory($app['db']);
         $crudFile = __DIR__.'/../crud.yml';
         $stringsFile = __DIR__.'/../../src/strings.yml';
-        $crudServiceProvider->init($dataFactory, $crudFile, $stringsFile, new CRUDNullFileProcessor());
+        $crudServiceProvider->init($dataFactory, $crudFile, $stringsFile, self::$fileProcessor);
         return $crudServiceProvider;
+    }
+
+    public static function getFileProcessor() {
+        return self::$fileProcessor;
     }
 
 }
