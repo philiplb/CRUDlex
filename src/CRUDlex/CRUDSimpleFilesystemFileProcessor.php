@@ -69,6 +69,7 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
                 return;
             }
             $chunkSize = 1024 * 1024;
+            ob_start();
             while (!feof($handle)) {
                 $buffer = fread($handle, $chunkSize);
                 echo $buffer;
