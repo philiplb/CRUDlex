@@ -288,13 +288,126 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $fileProcessor = CRUDTestDBSetup::getFileProcessor();
         $fileProcessor->reset();
-        
+
         $this->dataBook->createFiles($request, $entityBook, 'book');
 
         $this->assertTrue($fileProcessor->isCreateFileCalled());
         $this->assertFalse($fileProcessor->isUpdateFileCalled());
         $this->assertFalse($fileProcessor->isDeleteFileCalled());
         $this->assertFalse($fileProcessor->isRenderFileCalled());
+
+        $fileProcessor->reset();
+    }
+
+    public function testUpdateFiles() {
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $request = new Request(array(), array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $entityLibrary->get('id')
+        ), array(), array(), array(
+            'cover' => new UploadedFile(__DIR__.'/../test.xml', 'test.xml')
+        ));
+
+        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor->reset();
+
+        $this->dataBook->updateFiles($request, $entityBook, 'book');
+
+        $this->assertFalse($fileProcessor->isCreateFileCalled());
+        $this->assertTrue($fileProcessor->isUpdateFileCalled());
+        $this->assertFalse($fileProcessor->isDeleteFileCalled());
+        $this->assertFalse($fileProcessor->isRenderFileCalled());
+
+        $fileProcessor->reset();
+    }
+
+    public function testDeleteFile() {
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor->reset();
+
+        $this->dataBook->deleteFile($entityBook, 'book', 'cover');
+
+        $this->assertFalse($fileProcessor->isCreateFileCalled());
+        $this->assertFalse($fileProcessor->isUpdateFileCalled());
+        $this->assertTrue($fileProcessor->isDeleteFileCalled());
+        $this->assertFalse($fileProcessor->isRenderFileCalled());
+
+        $fileProcessor->reset();
+    }
+
+    public function testDeleteFiles() {
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor->reset();
+
+        $this->dataBook->deleteFiles($entityBook, 'book');
+
+        $this->assertFalse($fileProcessor->isCreateFileCalled());
+        $this->assertFalse($fileProcessor->isUpdateFileCalled());
+        $this->assertTrue($fileProcessor->isDeleteFileCalled());
+        $this->assertFalse($fileProcessor->isRenderFileCalled());
+
+        $fileProcessor->reset();
+    }
+
+    public function testRenderFile() {
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor->reset();
+
+        $this->dataBook->renderFile($entityBook, 'book', 'cover');
+
+        $this->assertFalse($fileProcessor->isCreateFileCalled());
+        $this->assertFalse($fileProcessor->isUpdateFileCalled());
+        $this->assertFalse($fileProcessor->isDeleteFileCalled());
+        $this->assertTrue($fileProcessor->isRenderFileCalled());
 
         $fileProcessor->reset();
     }
