@@ -48,5 +48,5 @@ book:
       required: true
     cover:
       type: file
-      filepath: uploads
+      filepath: 'tests/uploads'
       label: 'Cover Image'

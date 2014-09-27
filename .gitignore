@@ -3,3 +3,4 @@ vendor/
 composer.phar
 coverageReport/
 build/logs/clover.xml
+tests/uploads/

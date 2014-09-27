@@ -203,7 +203,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetFilePath() {
         $read = $this->definition->getFilePath('cover');
-        $expected = 'uploads';
+        $expected = 'tests/uploads';
         $this->assertSame($read, $expected);
         $read = $this->definition->getFilePath('title');
         $this->assertNull($read);
