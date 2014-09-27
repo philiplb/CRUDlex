@@ -29,6 +29,16 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
 
     private $file2;
 
+    protected function cleanUpFiles() {
+        if (file_exists($this->file1)) {
+            unlink($this->file1);
+            rmdir(dirname($this->file1));
+        }
+        if (file_exists($this->file2)) {
+            unlink($this->file2);
+        }
+    }
+
     protected function setUp() {
         $this->fileProcessor = new CRUDSimpleFilesystemFileProcessor();
         $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider();
@@ -38,13 +48,12 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
         $this->file1 = __DIR__.'/../uploads/book/1/cover/test1A.xml';
         $this->file2 = __DIR__.'/../uploads/book/1/cover/test2A.xml';
 
-        if (file_exists($this->file1)) {
-            unlink($this->file1);
-        }
-
+        $this->cleanUpFiles();
     }
 
     public function testCreateFile() {
+
+        $this->cleanUpFiles();
 
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib');
@@ -81,6 +90,53 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
         ));
 
         $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
+    }
+
+    public function testUpdateFile() {
+
+        $this->cleanUpFiles();
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $file = __DIR__.'/../test1A.xml';
+        copy(__DIR__.'/../test1.xml', $file);
+
+        $request = new Request(array(), array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $entityLibrary->get('id')
+        ), array(), array(), array(
+            'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
+        ));
+
+        $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
+
+        $file2 = __DIR__.'/../test2A.xml';
+        copy(__DIR__.'/../test2.xml', $file2);
+
+        $request = new Request(array(), array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $entityLibrary->get('id')
+        ), array(), array(), array(
+            'cover' => new UploadedFile($file2, 'test2A.xml', 'application/xml', filesize($file2), null, true)
+        ));
+
+        $this->fileProcessor->updateFile($request, $entityBook, 'book', 'cover');
+
+        $this->assertTrue(file_exists($this->file1));
+        $this->assertTrue(file_exists($this->file2));
     }
 
 
