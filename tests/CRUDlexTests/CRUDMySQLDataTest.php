@@ -283,7 +283,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
             'pages' => 111,
             'library' => $entityLibrary->get('id')
         ), array(), array(), array(
-            'cover' => new UploadedFile(__DIR__.'/../test.xml', 'test.xml')
+            'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
         ));
 
         $fileProcessor = CRUDTestDBSetup::getFileProcessor();
@@ -318,7 +318,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
             'pages' => 111,
             'library' => $entityLibrary->get('id')
         ), array(), array(), array(
-            'cover' => new UploadedFile(__DIR__.'/../test.xml', 'test.xml')
+            'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
         ));
 
         $fileProcessor = CRUDTestDBSetup::getFileProcessor();

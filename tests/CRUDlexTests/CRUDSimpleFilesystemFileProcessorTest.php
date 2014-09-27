@@ -11,8 +11,19 @@
 
 namespace CRUDlexTests;
 
+use CRUDlex\CRUDSimpleFilesystemFileProcessor;
+
 class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase {
 
+    private $fileProcessor;
+
+    protected function setUp() {
+        $fileProcessor = new CRUDSimpleFilesystemFileProcessor();
+    }
+
+    public function testCreateFile() {
+        
+    }
 
 
 }
