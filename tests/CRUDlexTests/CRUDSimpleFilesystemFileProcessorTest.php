@@ -30,12 +30,17 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
     private $file2;
 
     protected function cleanUpFiles() {
+        $dir = null;
         if (file_exists($this->file1)) {
             unlink($this->file1);
-            rmdir(dirname($this->file1));
+            $dir = dirname($this->file1);
         }
         if (file_exists($this->file2)) {
             unlink($this->file2);
+            $dir = dirname($this->file2);
+        }
+        if ($dir) {
+            rmdir($dir);
         }
     }
 
@@ -137,6 +142,39 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
 
         $this->assertTrue(file_exists($this->file1));
         $this->assertTrue(file_exists($this->file2));
+    }
+
+    public function testDeleteFile() {
+
+        $this->cleanUpFiles();
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $file = __DIR__.'/../test1A.xml';
+        copy(__DIR__.'/../test1.xml', $file);
+
+        $request = new Request(array(), array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $entityLibrary->get('id')
+        ), array(), array(), array(
+            'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
+        ));
+
+        $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
+        $this->fileProcessor->deleteFile($entityBook, 'book', 'cover');
+        // This file processor is defensive, so the file should still exist.
+        $this->assertTrue(file_exists($this->file1));
     }
 
 
