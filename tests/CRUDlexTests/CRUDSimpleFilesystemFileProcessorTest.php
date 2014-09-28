@@ -190,6 +190,7 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
         $entityBook->set('author', 'author');
         $entityBook->set('pages', 111);
         $entityBook->set('library', $entityLibrary->get('id'));
+        $entityBook->set('cover', 'test1A.xml');
         $this->dataBook->create($entityBook);
 
         $file = __DIR__.'/../test1A.xml';
@@ -206,11 +207,12 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
 
         $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
 
-//        ob_start();
-        $this->fileProcessor->renderFile($entityBook, 'book', 'cover');
-//        $read = ob_get_contents();
-//        ob_end_clean();
-//        var_dump($read);
+        ob_start();
+        $response = $this->fileProcessor->renderFile($entityBook, 'book', 'cover');
+        $read = ob_get_clean();
+        $expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        $expected .= "<test>test1</test>\n";
+        $this->assertSame($read, $expected);
     }
 
 
