@@ -235,8 +235,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         if ($definition->getType($field) != 'file' || !$instance->get($field)) {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }
-        $crudData->renderFile($instance, $entity, $field);
-        return '';
+        return $crudData->renderFile($instance, $entity, $field);
     }
 
     public function deleteFile(Application $app, $entity, $id, $field) {

@@ -14,6 +14,8 @@ namespace CRUDlex;
 use CRUDlex\CRUDFileProcessorInterface;
 use CRUDlex\CRUDEntity;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
 
@@ -53,30 +55,31 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         $targetPath = $this->getPath($entityName, $entity, $field);
         $fileName = $entity->get($field);
         $file = $targetPath.'/'.$fileName;
+        $response = new Response('');
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $file);
+        finfo_close($finfo);
+        $size = filesize($file);
         if ($fileName && file_exists($file)) {
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mimeType = finfo_file($finfo, $file);
-            finfo_close($finfo);
-
-            header('Content-Type: '.$mimeType);
-            header('Content-Disposition: attachment; filename="'.$fileName.'"');
-            $size = filesize($file);
-            header('Content-length: '.$size);
-
-            set_time_limit(0);
-            $handle = fopen($file,"rb");
-            if ($handle === false) {
-                return;
-            }
-            $chunkSize = 1024 * 1024;
-            ob_start();
-            while (!feof($handle)) {
-                $buffer = fread($handle, $chunkSize);
-                echo $buffer;
-                ob_flush();
-                flush();
-            }
-            fclose($handle);
+            $response = new StreamedResponse(function () use ($file) {
+                set_time_limit(0);
+                $handle = fopen($file,"rb");
+                if ($handle !== false) {
+                    $chunkSize = 1024 * 1024;
+                    while (!feof($handle)) {
+                        $buffer = fread($handle, $chunkSize);
+                        echo $buffer;
+                        flush();
+                    }
+                    fclose($handle);
+                }
+            }, 200, array(
+                'Content-Type' => $mimeType,
+                'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
+                'Content-length' => $size
+            ));
+            $response->send();
         }
+        return $response;
     }
 }
