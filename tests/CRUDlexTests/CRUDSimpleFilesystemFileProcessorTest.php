@@ -177,5 +177,41 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
         $this->assertTrue(file_exists($this->file1));
     }
 
+    public function testRenderFile() {
+
+        $this->cleanUpFiles();
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $file = __DIR__.'/../test1A.xml';
+        copy(__DIR__.'/../test1.xml', $file);
+
+        $request = new Request(array(), array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $entityLibrary->get('id')
+        ), array(), array(), array(
+            'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
+        ));
+
+        $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
+
+//        ob_start();
+        $this->fileProcessor->renderFile($entityBook, 'book', 'cover');
+//        $read = ob_get_contents();
+//        ob_end_clean();
+//        var_dump($read);
+    }
+
 
 }
