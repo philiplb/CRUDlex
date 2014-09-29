@@ -210,6 +210,7 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
         ob_start();
         $response = $this->fileProcessor->renderFile($entityBook, 'book', 'cover');
         $read = ob_get_clean();
+        $read = str_replace("\r", '', $read); // For testing under Windows.
         $expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         $expected .= "<test>test1</test>\n";
         $this->assertSame($read, $expected);
