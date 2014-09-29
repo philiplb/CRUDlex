@@ -75,7 +75,6 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->dataLibrary->create($library);
 
         $file = __DIR__.'/../test1.xml';
-
         $this->fileProcessor->reset();
 
         $crawler = $client->request('POST', '/crud/book/create', array(
@@ -199,16 +198,27 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("Could not edit, see the red marked fields.")'));
         $this->assertRegExp('/has-error/', $client->getResponse()->getContent());
 
+        $file = __DIR__.'/../test1.xml';
+        $this->fileProcessor->reset();
+
         $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
             'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ));
         $this->assertCount(1, $crawler->filter('html:contains("Book edited with id '.$entityBook->get('id').'")'));
 
         $bookEdited = $this->dataBook->get($entityBook->get('id'));
         $this->assertSame($bookEdited->get('title'), 'titleEdited');
+
+
+        $this->assertFalse($this->fileProcessor->isCreateFileCalled());
+        $this->assertTrue($this->fileProcessor->isUpdateFileCalled());
+        $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
+        $this->assertFalse($this->fileProcessor->isRenderFileCalled());
 
     }
 
