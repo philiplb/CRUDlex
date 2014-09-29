@@ -74,8 +74,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $library->set('name', 'lib a');
         $this->dataLibrary->create($library);
 
-        $file = __DIR__.'/../test1A.xml';
-        copy(__DIR__.'/../test1.xml', $file);
+        $file = __DIR__.'/../test1.xml';
 
         $this->fileProcessor->reset();
 
@@ -85,7 +84,7 @@ class CRUDControllerProviderTest extends WebTestCase {
             'pages' => 111,
             'library' => $library->get('id')
         ), array(
-            'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ));
         $this->assertCount(1, $crawler->filter('html:contains("Book created with id ")'));
 
