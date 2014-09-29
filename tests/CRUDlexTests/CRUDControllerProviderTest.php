@@ -10,14 +10,18 @@
  */
 
 use Silex\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use CRUDlexTestEnv\CRUDTestDBSetup;
+use CRUDlexTestEnv\CRUDNullFileProcessor;
 
 class CRUDControllerProviderTest extends WebTestCase {
 
     protected $dataBook;
 
     protected $dataLibrary;
+
+    protected $fileProcessor;
 
     public function createApplication() {
 
@@ -28,10 +32,13 @@ class CRUDControllerProviderTest extends WebTestCase {
         $app['debug'] = true;
         $app['exception_handler']->disable();
 
+        $this->fileProcessor =  new CRUDNullFileProcessor();
+
         $dataFactory = new CRUDlex\CRUDMySQLDataFactory($app['db']);
         $app->register(new CRUDlex\CRUDServiceProvider(), array(
             'crud.file' => __DIR__ . '/../crud.yml',
-            'crud.datafactory' => $dataFactory
+            'crud.datafactory' => $dataFactory,
+            'crud.fileprocessor' => $this->fileProcessor
         ));
         $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
         $app->register(new Silex\Provider\TwigServiceProvider(), array(
@@ -67,16 +74,29 @@ class CRUDControllerProviderTest extends WebTestCase {
         $library->set('name', 'lib a');
         $this->dataLibrary->create($library);
 
+        $file = __DIR__.'/../test1A.xml';
+        copy(__DIR__.'/../test1.xml', $file);
+
+        $this->fileProcessor->reset();
+
         $crawler = $client->request('POST', '/crud/book/create', array(
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
         ));
         $this->assertCount(1, $crawler->filter('html:contains("Book created with id ")'));
 
         $books = $this->dataBook->listEntries();
         $this->assertCount(1, $books);
+
+        $this->assertTrue($this->fileProcessor->isCreateFileCalled());
+        $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
+        $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
+        $this->assertFalse($this->fileProcessor->isRenderFileCalled());
+
     }
 
     public function testShowList() {
