@@ -56,6 +56,13 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testSetType() {
+        $read = $this->definitionLibrary->setType('name', 'multiline');
+        $read = $this->definitionLibrary->getType('name');
+        $expected = 'multiline';
+        $this->assertSame($read, $expected);
+    }
+
     public function testGetPublicFieldNames() {
         $read = $this->definition->getPublicFieldNames();
         $expected = array(

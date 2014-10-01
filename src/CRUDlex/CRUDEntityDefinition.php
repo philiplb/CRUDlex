@@ -110,6 +110,10 @@ class CRUDEntityDefinition {
         return $this->getFieldValue($fieldName, 'type');
     }
 
+    public function setType($fieldName, $value) {
+        return $this->setFieldValue($fieldName, 'type', $value);
+    }
+
     public function isRequired($fieldName) {
         $result = $this->getFieldValue($fieldName, 'required');
         if ($result === null) {
