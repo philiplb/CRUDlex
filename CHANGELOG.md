@@ -7,6 +7,7 @@ Released: Upcoming
 - url fields in the list view get cut after 27 characters now with "..." at the end, the full url is still available as tooltip
 - A first version of file uploads
 - Introducing the addons repository with Amazon S3 file support
+- Added the possibility to extend the CRUDControllerProvider which had a hard coded reference to itself before
 
 ## 0.9.3
 Released: 2014-09-09

@@ -48,20 +48,21 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $app['crud.layout'] = '@crud/layout.twig';
         }
 
+        $class = get_class($this);
         $factory = $app['controllers_factory'];
-        $factory->match('/{entity}/create', 'CRUDlex\CRUDControllerProvider::create')
+        $factory->match('/{entity}/create', $class.'::create')
                 ->bind('crudCreate');
-        $factory->match('/{entity}', 'CRUDlex\CRUDControllerProvider::showList')
+        $factory->match('/{entity}', $class.'::showList')
                 ->bind('crudList');
-        $factory->match('/{entity}/{id}', 'CRUDlex\CRUDControllerProvider::show')
+        $factory->match('/{entity}/{id}', $class.'::show')
                 ->bind('crudShow');
-        $factory->match('/{entity}/{id}/edit', 'CRUDlex\CRUDControllerProvider::edit')
+        $factory->match('/{entity}/{id}/edit', $class.'::edit')
                 ->bind('crudEdit');
-        $factory->post('/{entity}/{id}/delete', 'CRUDlex\CRUDControllerProvider::delete')
+        $factory->post('/{entity}/{id}/delete', $class.'::delete')
                 ->bind('crudDelete');
-        $factory->match('/{entity}/{id}/{field}/file', 'CRUDlex\CRUDControllerProvider::renderFile')
+        $factory->match('/{entity}/{id}/{field}/file', $class.'::renderFile')
                 ->bind('crudRenderFile');
-        $factory->post('/{entity}/{id}/{field}/delete', 'CRUDlex\CRUDControllerProvider::deleteFile')
+        $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')
                 ->bind('crudDeleteFile');
         return $factory;
     }
