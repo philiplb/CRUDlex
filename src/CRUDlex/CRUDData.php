@@ -57,7 +57,11 @@ abstract class CRUDData {
         $entity = new CRUDEntity($this->definition);
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
-            $entity->set($field, null);
+            $value = null;
+            if ($this->definition->getType($field) == 'fixed') {
+                $value = $this->definition->getFixedValue($field);
+            }
+            $entity->set($field, $value);
         }
         $entity->set('id', null);
         return $entity;

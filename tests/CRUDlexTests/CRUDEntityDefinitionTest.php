@@ -88,7 +88,8 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'name',
             'type',
             'opening',
-            'isOpenOnSundays'
+            'isOpenOnSundays',
+            'planet'
         );
         $this->assertSame($read, $expected);
     }
@@ -210,6 +211,18 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definition->getFilePath('foo');
         $this->assertNull($read);
         $read = $this->definition->getFilePath(null);
+        $this->assertNull($read);
+    }
+
+    public function testGetFixedValue() {
+        $read = $this->definitionLibrary->getFixedValue('planet');
+        $expected = 'Earth';
+        $this->assertSame($read, $expected);
+        $read = $this->definitionLibrary->getFixedValue('title');
+        $this->assertNull($read);
+        $read = $this->definitionLibrary->getFixedValue('foo');
+        $this->assertNull($read);
+        $read = $this->definitionLibrary->getFixedValue(null);
         $this->assertNull($read);
     }
 

@@ -8,6 +8,7 @@ Released: Upcoming
 - A first version of file uploads
 - Introducing the addons repository with Amazon S3 file support
 - Added the possibility to extend the CRUDControllerProvider which had a hard coded reference to itself before
+- Added the type "fixed" which always has a fixed value
 
 ## 0.9.3
 Released: 2014-09-09

@@ -128,6 +128,10 @@ class CRUDEntityDefinition {
         return $this->getFieldValue($fieldName, 'filepath');
     }
 
+    public function getFixedValue($fieldName) {
+        return $this->getFieldValue($fieldName, 'fixedvalue');
+    }
+
     public function getSetItems($fieldName) {
         return $this->getFieldValue($fieldName, 'setitems');
     }

@@ -17,6 +17,10 @@ library:
     isOpenOnSundays:
       type: bool
       label: 'Is open on sundays'
+    planet:
+      type: fixed
+      fixedvalue: Earth
+      label: 'Planet of this library'
 
 book:
   label: Book

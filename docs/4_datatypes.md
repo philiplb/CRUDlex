@@ -225,6 +225,27 @@ There is an implementation available for storing and retrieving the files at
 Amazon S3 within the [CRUDlex Addons](https://github.com/philiplb/CRUDlexAddons)
 package.
 
+
+## Fixed
+
+```yml
+type: fixed
+fixedvalue: abc
+```
+
+Fills the db always with the defined, fixed value, not editable. Related MySQL-types:
+- CHAR
+- VARCHAR (recommended)
+- TINYTEXT
+- TEXT
+- MEDIUMTEXT
+- LONGTEXT
+- TINYINT
+- SMALLINT
+- MEDIUMINT
+- INT
+- BIGINT
+
 ---
 
 Previous: [Data Structure Definition](3_datastructures.md)
