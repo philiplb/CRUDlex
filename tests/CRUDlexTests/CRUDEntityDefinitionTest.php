@@ -226,4 +226,11 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+    public function testSetFixedValue() {
+        $read = $this->definitionLibrary->setFixedValue('planet', 'Mars');
+        $read = $this->definitionLibrary->getFixedValue('planet');
+        $expected = 'Mars';
+        $this->assertSame($read, $expected);
+    }
+
 }
