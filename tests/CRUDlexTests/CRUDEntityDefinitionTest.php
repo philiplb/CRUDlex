@@ -234,18 +234,18 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetFixedValue() {
-        $read = $this->definitionLibrary->setFixedValue('planet', 'Mars');
+        $this->definitionLibrary->setFixedValue('planet', 'Mars');
         $read = $this->definitionLibrary->getFixedValue('planet');
         $expected = 'Mars';
         $this->assertSame($read, $expected);
     }
 
     public function testSetRequired() {
-        $read = $this->definition->setRequired('cover', false);
+        $this->definition->setRequired('cover', false);
         $read = $this->definition->isRequired('cover');
         $expected = false;
         $this->assertSame($read, $expected);
-        $read = $this->definition->setRequired('cover', true);
+        $this->definition->setRequired('cover', true);
         $read = $this->definition->isRequired('cover');
         $expected = true;
         $this->assertSame($read, $expected);
