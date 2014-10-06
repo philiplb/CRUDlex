@@ -99,7 +99,7 @@ abstract class CRUDData {
     }
 
     public function renderFile(CRUDEntity $entity, $entityName, $field) {
-        $this->fileProcessor->renderFile($entity, $entityName, $field);
+        return $this->fileProcessor->renderFile($entity, $entityName, $field);
     }
 
 }
