@@ -10,6 +10,7 @@ Released: Upcoming
 - Added the possibility to extend the CRUDControllerProvider which had a hard coded reference to itself before
 - Added the type "fixed" which always has a fixed value
 - A type of a field can be changed in runtime now via a setter of the CRUDEntityDefinition
+- A required constraint of a field can be changed in runtime now via a setter of the CRUDEntityDefinition
 
 ## 0.9.3
 Released: 2014-09-09
