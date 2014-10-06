@@ -240,4 +240,15 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testSetRequired() {
+        $read = $this->definition->setRequired('cover', false);
+        $read = $this->definition->isRequired('cover');
+        $expected = false;
+        $this->assertSame($read, $expected);
+        $read = $this->definition->setRequired('cover', true);
+        $read = $this->definition->isRequired('cover');
+        $expected = true;
+        $this->assertSame($read, $expected);
+    }
+
 }

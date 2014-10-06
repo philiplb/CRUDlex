@@ -122,6 +122,10 @@ class CRUDEntityDefinition {
         return $result;
     }
 
+    public function setRequired($fieldName, $value) {
+        return $this->setFieldValue($fieldName, 'required', $value);
+    }
+
     public function getReferenceTable($fieldName) {
         return $this->getReferenceValue($fieldName, 'table');
     }
