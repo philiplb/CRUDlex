@@ -287,7 +287,6 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("Library show layout")'));
     }
 
-
     public function testRenderFile() {
         $client = $this->createClient();
 
@@ -330,6 +329,53 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
         $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
         $this->assertTrue($this->fileProcessor->isRenderFileCalled());
+
+    }
+
+    public function testDeleteFile() {
+        $client = $this->createClient();
+
+        $crawler = $client->request('POST', '/crud/foo/1/cover/delete');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
+
+        $crawler = $client->request('POST', '/crud/book/666/cover/delete');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $file = __DIR__.'/../test1.xml';
+
+        $crawler = $client->request('POST', '/crud/book/create', array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ));
+
+        $this->fileProcessor->reset();
+
+        $crawler = $client->request('POST', '/crud/book/1/cover/delete');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("File could not be deleted.")'));
+
+        $this->dataBook->getDefinition()->setRequired('cover', false);
+
+        $this->fileProcessor->reset();
+
+        $crawler = $client->request('POST', '/crud/book/1/cover/delete');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("File deleted.")'));
+
+        $this->assertFalse($this->fileProcessor->isCreateFileCalled());
+        $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
+        $this->assertTrue($this->fileProcessor->isDeleteFileCalled());
+        $this->assertFalse($this->fileProcessor->isRenderFileCalled());
 
     }
 

@@ -54,3 +54,4 @@ book:
       type: file
       filepath: 'tests/uploads'
       label: 'Cover Image'
+      required: true
