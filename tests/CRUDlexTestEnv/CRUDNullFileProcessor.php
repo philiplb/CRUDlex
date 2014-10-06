@@ -14,6 +14,7 @@ namespace CRUDlexTestEnv;
 use CRUDlex\CRUDFileProcessorInterface;
 use CRUDlex\CRUDEntity;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CRUDNullFileProcessor implements CRUDFileProcessorInterface {
 
@@ -50,6 +51,7 @@ class CRUDNullFileProcessor implements CRUDFileProcessorInterface {
 
     public function renderFile(CRUDEntity $entity, $entityName, $field) {
         $this->renderFileCalled = true;
+        return 'rendered file';
     }
 
     public function isCreateFileCalled() {

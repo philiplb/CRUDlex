@@ -287,4 +287,50 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("Library show layout")'));
     }
 
+
+    public function testRenderFile() {
+        $client = $this->createClient();
+
+        $crawler = $client->request('GET', '/crud/foo/1/cover/file');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
+
+        $crawler = $client->request('GET', '/crud/book/666/cover/file');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $file = __DIR__.'/../test1.xml';
+
+        $crawler = $client->request('POST', '/crud/book/create', array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ));
+
+        $this->fileProcessor->reset();
+
+        $crawler = $client->request('GET', '/crud/book/1/title/file');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
+
+        $this->fileProcessor->reset();
+
+        $crawler = $client->request('GET', '/crud/book/1/cover/file');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("rendered file")'));
+
+        $this->assertFalse($this->fileProcessor->isCreateFileCalled());
+        $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
+        $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
+        $this->assertTrue($this->fileProcessor->isRenderFileCalled());
+
+    }
+
 }
