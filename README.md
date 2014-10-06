@@ -36,7 +36,7 @@ The project roadmap is organized via milestones:
 
 ```json
 "require": {
-    "philiplb/crudlex": "0.9.3"
+    "philiplb/crudlex": "0.9.4"
 }
 ```
 

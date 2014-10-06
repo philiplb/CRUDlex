@@ -7,7 +7,7 @@ templates are discussed in later sections.
 First, you have to add CRUDlex to your composer.json:
 
 ```json
-"philiplb/crudlex": "0.9.3"
+"philiplb/crudlex": "0.9.4"
 ```
 
 Then comes the actual setup. Currently, only MySQL is supported. Although the
