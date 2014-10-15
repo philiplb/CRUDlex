@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>CRUDlex\CRUDServiceProvider | CRUDlex API</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../traits.html">Traits</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">CRUDlex API</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../CRUDlex.html">CRUDlex</a>\CRUDServiceProvider</h1>
+    </div>
+        <div class="content">
+                <p>    class
+    <strong>CRUDServiceProvider</strong>        implements
+        <abbr title="Silex\ServiceProviderInterface">ServiceProviderInterface</abbr></p>
+
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_init">init</a>(<a href="../CRUDlex/CRUDDataFactoryInterface.html"><abbr title="CRUDlex\CRUDDataFactoryInterface">CRUDDataFactoryInterface</abbr></a> $dataFactory, $crudFile, $stringsFile, <a href="../CRUDlex/CRUDFileProcessorInterface.html"><abbr title="CRUDlex\CRUDFileProcessorInterface">CRUDFileProcessorInterface</abbr></a> $fileProcessor)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_register">register</a>(<abbr title="Silex\Application">Application</abbr> $app)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_boot">boot</a>(<abbr title="Silex\Application">Application</abbr> $app)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getData">getData</a>($name)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getEntities">getEntities</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_formatDate">formatDate</a>($value)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_formatDateTime">formatDateTime</a>($value)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_translate">translate</a>($key, array $placeholders = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_basename">basename</a>($value)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_init">
+        <div class="location">at line 44</div>
+        <code>            public            
+    <strong>init</strong>(<a href="../CRUDlex/CRUDDataFactoryInterface.html"><abbr title="CRUDlex\CRUDDataFactoryInterface">CRUDDataFactoryInterface</abbr></a> $dataFactory, $crudFile, $stringsFile, <a href="../CRUDlex/CRUDFileProcessorInterface.html"><abbr title="CRUDlex\CRUDFileProcessorInterface">CRUDFileProcessorInterface</abbr></a> $fileProcessor)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../CRUDlex/CRUDDataFactoryInterface.html"><abbr title="CRUDlex\CRUDDataFactoryInterface">CRUDDataFactoryInterface</abbr></a></td>
+                <td>$dataFactory</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$crudFile</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$stringsFile</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><a href="../CRUDlex/CRUDFileProcessorInterface.html"><abbr title="CRUDlex\CRUDFileProcessorInterface">CRUDFileProcessorInterface</abbr></a></td>
+                <td>$fileProcessor</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_register">
+        <div class="location">at line 84</div>
+        <code>            public            
+    <strong>register</strong>(<abbr title="Silex\Application">Application</abbr> $app)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Silex\Application">Application</abbr></td>
+                <td>$app</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_boot">
+        <div class="location">at line 94</div>
+        <code>            public            
+    <strong>boot</strong>(<abbr title="Silex\Application">Application</abbr> $app)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Silex\Application">Application</abbr></td>
+                <td>$app</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getData">
+        <div class="location">at line 97</div>
+        <code>            public            
+    <strong>getData</strong>($name)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getEntities">
+        <div class="location">at line 104</div>
+        <code>            public            
+    <strong>getEntities</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_formatDate">
+        <div class="location">at line 108</div>
+        <code>            public            
+    <strong>formatDate</strong>($value)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_formatDateTime">
+        <div class="location">at line 112</div>
+        <code>            public            
+    <strong>formatDateTime</strong>($value)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_translate">
+        <div class="location">at line 116</div>
+        <code>            public            
+    <strong>translate</strong>($key, array $placeholders = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$key</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$placeholders</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_basename">
+        <div class="location">at line 128</div>
+        <code>            public            
+    <strong>basename</strong>($value)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>
