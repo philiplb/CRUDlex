@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CRUDlex\CRUDServiceProvider | CRUDlex API</title>
+
+	<link rel="stylesheet" href="resources/style.css?1648332946">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-CRUDlex.html">CRUDlex</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDControllerProvider.html">CRUDControllerProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDData.html">CRUDData</a></li>
+				<li><a href="class-CRUDlex.CRUDEntity.html">CRUDEntity</a></li>
+				<li><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDEntityDefinition</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLData.html">CRUDMySQLData</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLDataFactory.html">CRUDMySQLDataFactory</a></li>
+				<li class="active"><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDServiceProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html">CRUDSimpleFilesystemFileProcessor</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDDataFactoryInterface</a></li>
+				<li><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDFileProcessorInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CRUDlex.html" title="Summary of CRUDlex"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CRUDServiceProvider</h1>
+
+
+	<div class="description">
+	<p>The CRUDServiceProvider setups and initializes the whole CRUD system.
+After adding it to your Silex-setup, it offers access to <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code>
+instances, one for each defined entity off the CRUD yml file.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>CRUDlex\CRUDServiceProvider</span></b>			
+			 implements 
+<span>Silex\ServiceProviderInterface</span>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> CRUDlex<br>
+		
+
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDServiceProvider.html#24-137" title="Go to source code">CRUDServiceProvider.php</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="formatTime" id="_formatTime">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_formatTime">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#35-47" title="Go to source code">formatTime</a>( <span>mixed <var>$value</var></span>, <span>mixed <var>$pattern</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#49-87" title="Go to source code">init</a>( <span><code><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></code> <var>$dataFactory</var></span>, <span>mixed <var>$crudFile</var></span>, <span>mixed <var>$stringsFile</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="register" id="_register">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_register">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#89-97" title="Go to source code">register</a>( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="boot" id="_boot">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_boot">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#99-100" title="Go to source code">boot</a>( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getData" id="_getData">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getData">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#102-107" title="Go to source code">getData</a>( <span>mixed <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEntities" id="_getEntities">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEntities">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#109-111" title="Go to source code">getEntities</a>( )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="formatDate" id="_formatDate">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_formatDate">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#113-115" title="Go to source code">formatDate</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="formatDateTime" id="_formatDateTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_formatDateTime">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#117-119" title="Go to source code">formatDateTime</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="translate" id="_translate">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_translate">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#121-131" title="Go to source code">translate</a>( <span>mixed <var>$key</var></span>, <span>array <var>$placeholders</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="basename" id="_basename">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_basename">#</a>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#133-135" title="Go to source code">basename</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="datas" id="$datas">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CRUDlex.CRUDServiceProvider.html#31" title="Go to source code"><var>$datas</var></a>
+
+			<div class="description short">
+				
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$datas" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="strings" id="$strings">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CRUDlex.CRUDServiceProvider.html#33" title="Go to source code"><var>$strings</var></a>
+
+			<div class="description short">
+				
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$strings" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?721046668"></script>
+<script src="elementlist.js?3245384063"></script>
+</body>
+</html>

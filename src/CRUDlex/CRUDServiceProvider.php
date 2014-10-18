@@ -21,6 +21,11 @@ use CRUDlex\CRUDEntity;
 use CRUDlex\CRUDFileProcessorInterface;
 use CRUDlex\CRUDSimpleFilesystemFileProcessor;
 
+/**
+ * The CRUDServiceProvider setups and initializes the whole CRUD system.
+ * After adding it to your Silex-setup, it offers access to {@see CRUDData}
+ * instances, one for each defined entity off the CRUD yml file.
+ */
 class CRUDServiceProvider implements ServiceProviderInterface {
 
     protected $datas;

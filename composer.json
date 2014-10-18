@@ -22,7 +22,8 @@
         "phpunit/phpunit": "~4.0",
         "satooshi/php-coveralls": "dev-master",
         "symfony/browser-kit": ">=2.3,<2.4-dev",
-        "symfony/css-selector": ">=2.3,<2.4-dev"
+        "symfony/css-selector": ">=2.3,<2.4-dev",
+        "apigen/apigen": "4.0.0-RC3"
     },
     "autoload": {
         "psr-0": { "CRUDlex": "src" }
