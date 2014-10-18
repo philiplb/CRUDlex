@@ -24,11 +24,20 @@ Checkout the CRUDlex addons project for more features:
 
 [CRUDlex Addons](https://github.com/philiplb/CRUDlexAddons)
 
+### API Documentation
+
+The CRUDlex API itself is documented here:
+
+* [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
+
 ### Roadmap
 
 The project roadmap is organized via milestones:
 
 [CRUDlex Milestones](https://github.com/philiplb/CRUDlex/milestones)
+
+Beware that not each new feature will get its own ticket there. Some are
+implemented on the fly when needed.
 
 ## Package
 
