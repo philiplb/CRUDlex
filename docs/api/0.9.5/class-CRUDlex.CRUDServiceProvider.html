@@ -89,7 +89,7 @@
 	<div class="description">
 	<p>The CRUDServiceProvider setups and initializes the whole CRUD system.
 After adding it to your Silex-setup, it offers access to <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code>
-instances, one for each defined entity off the CRUD yml file.</p>
+instances, one for each defined entity off the CRUD YAML file.</p>
 
 	</div>
 
@@ -116,7 +116,7 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<b>Namespace:</b> CRUDlex<br>
 		
 
-		<b>Located at</b> <a href="source-class-CRUDlex.CRUDServiceProvider.html#24-137" title="Go to source code">CRUDServiceProvider.php</a><br>
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDServiceProvider.html#24-246" title="Go to source code">CRUDServiceProvider.php</a><br>
 	</div>
 
 
@@ -128,26 +128,49 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<td class="attributes"><code>
 			 protected 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_formatTime">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#35-47" title="Go to source code">formatTime</a>( <span>mixed <var>$value</var></span>, <span>mixed <var>$pattern</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#41-72" title="Go to source code">formatTime</a>( <span>string <var>$value</var></span>, <span>string <var>$pattern</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Formats the given time value to a timestring defined by the $pattern
+parameter.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Formats the given time value to a timestring defined by the $pattern
+parameter.</p>
+
+<p>If the value is false (like null), an empty string is
+returned. Else, the value is tried to be parsed as datetime via the
+given pattern. If that fails, it is tried to be parsed with the pattern
+'Y-m-d H:i:s'. If that fails, the value is returned unchanged. Else, it
+is returned formatted with the given pattern. The effect is to shorten
+'Y-m-d H:i:s' to 'Y-m-d' for example.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value to be formatted
+</dd>
+					<dt><var>$pattern</var></dt>
+					<dd>the pattern with which the value is parsed and formatted
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the formatted value
+
+				</div>
 
 
 
@@ -167,18 +190,33 @@ instances, one for each defined entity off the CRUD yml file.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_init">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#49-87" title="Go to source code">init</a>( <span><code><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></code> <var>$dataFactory</var></span>, <span>mixed <var>$crudFile</var></span>, <span>mixed <var>$stringsFile</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#74-124" title="Go to source code">init</a>( <span><code><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></code> <var>$dataFactory</var></span>, <span>string <var>$crudFile</var></span>, <span>string <var>$stringsFile</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Initializes the instance.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Initializes the instance.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dataFactory</var></dt>
+					<dd>the factory to create the concrete CRUDData instances
+</dd>
+					<dt><var>$crudFile</var></dt>
+					<dd>the CRUD YAML file to parse
+</dd>
+					<dt><var>$stringsFile</var></dt>
+					<dd>the YAML file containing the displayed strings
+</dd>
+					<dt><var>$fileProcessor</var></dt>
+					<dd>the file processor used for file fields
+</dd>
+				</dl></div>
 
 
 
@@ -199,18 +237,26 @@ instances, one for each defined entity off the CRUD yml file.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_register">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#89-97" title="Go to source code">register</a>( <span>Silex\Application <var>$app</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#126-141" title="Go to source code">register</a>( <span>Silex\Application <var>$app</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Implements ServiceProviderInterface::register() registering $app['crud'].
+$app['crud'] contains an instance of the CRUDServiceProvider afterwards.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Implements ServiceProviderInterface::register() registering $app['crud'].
+$app['crud'] contains an instance of the CRUDServiceProvider afterwards.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Application instance of the Silex application
+</dd>
+				</dl></div>
 
 
 
@@ -231,18 +277,24 @@ instances, one for each defined entity off the CRUD yml file.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_boot">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#99-100" title="Go to source code">boot</a>( <span>Silex\Application <var>$app</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#144-151" title="Go to source code">boot</a>( <span>Silex\Application <var>$app</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Implements ServiceProviderInterface::boot().</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Implements ServiceProviderInterface::boot().</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Application instance of the Silex application
+</dd>
+				</dl></div>
 
 
 
@@ -256,26 +308,37 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getData">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#102-107" title="Go to source code">getData</a>( <span>mixed <var>$name</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#153-167" title="Go to source code">getData</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Getter for the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Getter for the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>the entity name of the desired CRUDData instance
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code></code><br>the CRUDData instance or null on invalid name
+
+				</div>
 
 
 
@@ -288,26 +351,31 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEntities">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#109-111" title="Go to source code">getEntities</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#169-177" title="Go to source code">getEntities</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Getter for all available entity names.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Getter for all available entity names.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>a list of all available entity names
+
+				</div>
 
 
 
@@ -320,26 +388,37 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_formatDate">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#113-115" title="Go to source code">formatDate</a>( <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#179-190" title="Go to source code">formatDate</a>( <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Formats the given value to a date of the format 'Y-m-d'.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Formats the given value to a date of the format 'Y-m-d'.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value, might be of the format 'Y-m-d H:i' or 'Y-m-d'
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the formatted result or an empty string on null value
+
+				</div>
 
 
 
@@ -352,26 +431,37 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_formatDateTime">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#117-119" title="Go to source code">formatDateTime</a>( <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#193-204" title="Go to source code">formatDateTime</a>( <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Formats the given value to a date of the format 'Y-m-d H:i'.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Formats the given value to a date of the format 'Y-m-d H:i'.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value, might be of the format 'Y-m-d H:i'
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the formatted result or an empty string on null value
+
+				</div>
 
 
 
@@ -384,26 +474,44 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_translate">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#121-131" title="Go to source code">translate</a>( <span>mixed <var>$key</var></span>, <span>array <var>$placeholders</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#206-229" title="Go to source code">translate</a>( <span>string <var>$key</var></span>, <span>array <var>$placeholders</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
-			
+			<p>Picks up the string of the given key from the strings and returns the
+value. Optionally replaces placeholder from "{0}" to "{n}" with the values given via
+the array $placeholders.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Picks up the string of the given key from the strings and returns the
+value. Optionally replaces placeholder from "{0}" to "{n}" with the values given via
+the array $placeholders.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>the key
+</dd>
+					<dt><var>$placeholders</var></dt>
+					<dd>the optional placeholders
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the string value or the key in case there was no string found for the key
+
+				</div>
 
 
 
@@ -416,26 +524,41 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_basename">#</a>
-		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#133-135" title="Go to source code">basename</a>( <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDServiceProvider.html#231-244" title="Go to source code">basename</a>( <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Calls PHPs
+<a href="http://php.net/manual/en/function.basename.php">basename</a> and
+returns it's result.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Calls PHPs
+<a href="http://php.net/manual/en/function.basename.php">basename</a> and
+returns it's result.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value to be handed to basename
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the result of basename
+
+				</div>
 
 
 
@@ -465,15 +588,15 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDServiceProvider.html#31" title="Go to source code"><var>$datas</var></a>
+				<a href="source-class-CRUDlex.CRUDServiceProvider.html#31-34" title="Go to source code"><var>$datas</var></a>
 
 			<div class="description short">
-				
+				<p>Holds the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Holds the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
 
 
 			</div>
@@ -492,15 +615,15 @@ instances, one for each defined entity off the CRUD yml file.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDServiceProvider.html#33" title="Go to source code"><var>$strings</var></a>
+				<a href="source-class-CRUDlex.CRUDServiceProvider.html#36-39" title="Go to source code"><var>$strings</var></a>
 
 			<div class="description short">
-				
+				<p>Holds the translation map.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Holds the translation map.</p>
 
 
 			</div>
