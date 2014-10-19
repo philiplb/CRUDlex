@@ -16,9 +16,39 @@ use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use CRUDlex\CRUDEntity;
 
+/**
+ * This is the ControllerProvider offering all CRUD pages.
+ *
+ * It offers this routes:
+ *
+ * "/{entity}/create" creation page of the entity
+ *
+ * "/{entity}" list page of the entity
+ *
+ * "/{entity}/{id}" details page of a single entity instance
+ *
+ * "/{entity}/{id}/edit" edit page of a single entity instance
+ *
+ * "/{entity}/{id}/delete" POST only deletion route for an entity instance
+ *
+ * "/{entity}/{id}/{field}/file" renders a file field of an entity instance
+ *
+ * "/{entity}/{id}/{field}/delete" POST only deletion of a file field of an entity instance
+ */
 class CRUDControllerProvider implements ControllerProviderInterface {
 
-    protected function getNotFoundPage($app, $error) {
+    /**
+     * Generates the not found page.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $error
+     * the cause of the not found error
+     *
+     * @return Response
+     * the rendered not found page with the status code 404
+     */
+    protected function getNotFoundPage(Application $app, $error) {
         return new Response($app['twig']->render('@crud/notFound.twig', array(
             'error' => $error,
             'crudEntity' => '',

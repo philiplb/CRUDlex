@@ -87,7 +87,23 @@
 
 
 	<div class="description">
-	
+	<p>This is the ControllerProvider offering all CRUD pages.</p>
+
+<p>It offers this routes:</p>
+
+<p>"/{entity}/create" creation page of the entity</p>
+
+<p>"/{entity}" list page of the entity</p>
+
+<p>"/{entity}/{id}" details page of a single entity instance</p>
+
+<p>"/{entity}/{id}/edit" edit page of a single entity instance</p>
+
+<p>"/{entity}/{id}/delete" POST only deletion route for an entity instance</p>
+
+<p>"/{entity}/{id}/{field}/file" renders a file field of an entity instance</p>
+
+<p>"/{entity}/{id}/{field}/delete" POST only deletion of a file field of an entity instance</p>
 
 	</div>
 
@@ -114,7 +130,7 @@
 		<b>Namespace:</b> CRUDlex<br>
 		
 
-		<b>Located at</b> <a href="source-class-CRUDlex.CRUDControllerProvider.html#19-261" title="Go to source code">CRUDControllerProvider.php</a><br>
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDControllerProvider.html#19-291" title="Go to source code">CRUDControllerProvider.php</a><br>
 	</div>
 
 
@@ -126,26 +142,40 @@
 		<td class="attributes"><code>
 			 protected 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNotFoundPage">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#21-27" title="Go to source code">getNotFoundPage</a>( <span>mixed <var>$app</var></span>, <span>mixed <var>$error</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#40-57" title="Go to source code">getNotFoundPage</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$error</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Generates the not found page.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Generates the not found page.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$error</var></dt>
+					<dd>the cause of the not found error
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>the rendered not found page with the status code 404
+
+				</div>
 
 
 
@@ -165,7 +195,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLayout">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#29-40" title="Go to source code">getLayout</a>( <span>mixed <var>$app</var></span>, <span>mixed <var>$action</var></span>, <span>mixed <var>$entity</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#59-70" title="Go to source code">getLayout</a>( <span>mixed <var>$app</var></span>, <span>mixed <var>$action</var></span>, <span>mixed <var>$entity</var></span> )</code>
 
 		<div class="description short">
 			
@@ -197,7 +227,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connect">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#42-68" title="Go to source code">connect</a>( <span>Silex\Application <var>$app</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#72-98" title="Go to source code">connect</a>( <span>Silex\Application <var>$app</var></span> )</code>
 
 		<div class="description short">
 			
@@ -229,7 +259,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#70-116" title="Go to source code">create</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#100-146" title="Go to source code">create</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span> )</code>
 
 		<div class="description short">
 			
@@ -261,7 +291,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_showList">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#118-136" title="Go to source code">showList</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#148-166" title="Go to source code">showList</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span> )</code>
 
 		<div class="description short">
 			
@@ -293,7 +323,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_show">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#138-154" title="Go to source code">show</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#168-184" title="Go to source code">show</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -325,7 +355,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_edit">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#156-203" title="Go to source code">edit</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#186-233" title="Go to source code">edit</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -357,7 +387,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#205-224" title="Go to source code">delete</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#235-254" title="Go to source code">delete</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -389,7 +419,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#226-240" title="Go to source code">renderFile</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#256-270" title="Go to source code">renderFile</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span>, <span>mixed <var>$field</var></span> )</code>
 
 		<div class="description short">
 			
@@ -421,7 +451,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#242-260" title="Go to source code">deleteFile</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#272-290" title="Go to source code">deleteFile</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span>, <span>mixed <var>$field</var></span> )</code>
 
 		<div class="description short">
 			
