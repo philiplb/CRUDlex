@@ -22,9 +22,6 @@ abstract class CRUDData {
     protected $fileProcessor;
 
     protected function hydrate($row) {
-        if (!$row) {
-            return null;
-        }
         $fieldNames = $this->definition->getFieldNames();
         $entity = new CRUDEntity($this->definition);
         foreach ($fieldNames as $fieldName) {
