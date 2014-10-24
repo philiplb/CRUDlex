@@ -18,7 +18,7 @@ class CRUDEntityDefinition {
 
     protected $label;
 
-    protected $parents;
+    protected $children;
 
     protected $standardFieldLabels;
 
@@ -72,7 +72,7 @@ class CRUDEntityDefinition {
     public function __construct($table, $fields, $label, $listFields, $standardFieldLabels, $showChildren) {
         $this->table = $table;
         $this->fields = $fields;
-        $this->parents = array();
+        $this->children = array();
         $this->listFields = $listFields;
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
@@ -188,11 +188,11 @@ class CRUDEntityDefinition {
         return $this->label;
     }
 
-    public function addParent($entity, $fieldName) {
-        $this->parents[] = array($entity, $fieldName);
+    public function addChild($entity, $fieldName) {
+        $this->children[] = array($entity, $fieldName);
     }
 
-    public function getParents() {
-        return $this->parents;
+    public function getChildren() {
+        return $this->children;
     }
 }

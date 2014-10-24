@@ -88,7 +88,7 @@ class CRUDMySQLData extends CRUDData {
     }
 
     public function delete($id) {
-        foreach ($this->definition->getParents() as $parent) {
+        foreach ($this->definition->getChildren() as $parent) {
             $sql = 'SELECT COUNT(id) AS amount FROM '.$parent[0].' WHERE ';
             $sql .= $parent[1].' = ? AND deleted_at IS NULL';
             $result = $this->db->fetchAssoc($sql, array($id));

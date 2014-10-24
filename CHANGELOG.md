@@ -1,6 +1,10 @@
 CRUDlex Changelog
 =================
 
+## 0.9.5
+Released: Upcoming
+- Changed CRUDEntityDefinition::addParent() to CRUDEntityDefinition::addChild() and CRUDEntityDefinition::getParents() to CRUDEntityDefinition::getChildren() as it was confusing
+
 ## 0.9.4
 Released: 2014-10-07
 - The input placeholders now use the field label as well and don't use just the fieldlabel anymore
