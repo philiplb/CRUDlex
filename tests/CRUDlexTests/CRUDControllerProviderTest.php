@@ -161,6 +161,10 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("authorA")'));
         $this->assertCount(1, $crawler->filter('html:contains("111")'));
         $this->assertCount(1, $crawler->filter('html:contains("2014-08-31")'));
+
+        $crawler = $client->request('GET', '/crud/library/'.$library->get('id'));
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("titleA")'));
     }
 
     public function testEdit() {
