@@ -26,11 +26,11 @@ class CRUDMySQLData extends CRUDData {
     }
 
     public function get($id) {
-        $sql = 'SELECT `'.implode('`,`', $this->definition->getFieldNames()).'` FROM '.$this->definition->getTable();
-        $sql .= ' WHERE id = ? AND deleted_at IS NULL';
-        $row = $this->db->fetchAssoc($sql, array($id));
-        $entity = $this->hydrate($row);
-        return $entity;
+        $entities = $this->listEntries(array('id' => $id));
+        if (count($entities) == 0) {
+            return null;
+        }
+        return $entities[0];
     }
 
     public function listEntries(array $selection = array()) {
