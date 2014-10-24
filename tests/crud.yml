@@ -1,6 +1,7 @@
 library:
   label: Library
   table: library
+  showChildren: true
   fields:
     name:
       type: text
