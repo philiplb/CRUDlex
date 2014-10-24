@@ -35,7 +35,7 @@ abstract class CRUDData {
 
     public abstract function get($id);
 
-    public abstract function listEntries();
+    public abstract function listEntries(array $selection = array());
 
     public abstract function create(CRUDEntity $entity);
 
