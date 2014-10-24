@@ -188,8 +188,8 @@ class CRUDEntityDefinition {
         return $this->label;
     }
 
-    public function addChild($entity, $fieldName) {
-        $this->children[] = array($entity, $fieldName);
+    public function addChild($table, $fieldName, $entity) {
+        $this->children[] = array($table, $fieldName, $entity);
     }
 
     public function getChildren() {

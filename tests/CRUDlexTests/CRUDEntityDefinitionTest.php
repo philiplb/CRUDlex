@@ -201,10 +201,10 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testAddAndGetChild() {
-        $this->definition->addChild('foo', 'bar');
+        $this->definition->addChild('foo', 'bar', 'bla');
         $read = $this->definition->getChildren();
         $expected = array(
-            array('foo', 'bar')
+            array('foo', 'bar', 'bla')
         );
         $this->assertSame($read, $expected);
     }
