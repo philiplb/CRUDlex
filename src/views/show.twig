@@ -45,4 +45,25 @@
         </tr>
 
     </table>
+
+    {% for child in children %}
+        <h2>{{ child[0] }}</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            {% for childEntity in child[3] %}
+                <tr>
+                    <td>
+                        {{ childEntity.get(child[2]) }}
+                    </td>
+                    <td>
+                        <a href="{{ app.url_generator.generate('crudShow', {'entity': child[1], 'id': childEntity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-success">Show</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+
 {% endblock %}

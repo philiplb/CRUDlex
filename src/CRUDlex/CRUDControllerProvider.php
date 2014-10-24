@@ -176,9 +176,28 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }
         $definition = $crudData->getDefinition();
+
+        $childrenLabelFields = $definition->getChildrenLabelFields();
+        $children = array();
+        if (count($childrenLabelFields) > 0) {
+            foreach ($definition->getChildren() as $child) {
+                $childField = $child[1];
+                $childEntity = $child[2];
+                $childLabelField = key_exists($childEntity, $childrenLabelFields) ? $childrenLabelFields[$childEntity] : 'id';
+                $childCrud = $app['crud']->getData($childEntity);
+                $children[] = array(
+                    $childCrud->getDefinition()->getLabel(),
+                    $childEntity,
+                    $childLabelField,
+                    $childCrud->listEntries(array($childField => $instance->get('id')))
+                );
+            }
+        }
+
         return $app['twig']->render('@crud/show.twig', array(
             'crudEntity' => $entity,
             'entity' => $instance,
+            'children' => $children,
             'layout' => $this->getLayout($app, 'show', $entity)
         ));
     }

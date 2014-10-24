@@ -1,7 +1,8 @@
 library:
   label: Library
   table: library
-  showChildren: true
+  childrenLabelFields:
+      book: title
   fields:
     name:
       type: text

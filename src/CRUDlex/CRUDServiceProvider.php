@@ -104,13 +104,13 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 'updated_at' => $this->translate('label.updated_at')
             );
             $listFields = key_exists('listFields', $crud) ? $crud['listFields'] : null;
-            $showChildren = key_exists('showChildren', $crud) ? $crud['showChildren'] : false;
+            $childrenLabelFields = key_exists('childrenLabelFields', $crud) ? $crud['childrenLabelFields'] : array();
             $definition = new CRUDEntityDefinition($crud['table'],
                 $crud['fields'],
                 $label,
                 $listFields,
                 $standardFieldLabels,
-                $showChildren);
+                $childrenLabelFields);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }
 

@@ -251,9 +251,9 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testShowChildren() {
-        $read = $this->definitionLibrary->showChildren();
-        $expected = true;
+    public function testChildrenLabelFields() {
+        $read = $this->definitionLibrary->getChildrenLabelFields();
+        $expected = array('book' => 'title');
         $this->assertSame($read, $expected);
     }
 
