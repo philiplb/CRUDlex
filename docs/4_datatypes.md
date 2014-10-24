@@ -172,6 +172,38 @@ book:
               entity: library
 ```
 
+If you want to show the children (books in this case) on the details page of the
+parent (library), you can activate it via the childrenLabelFields:
+
+```yml
+library:
+    table: lib
+    label: Library
+    childrenLabelFields:
+        book: title
+    fields:
+        name:
+            type: text
+book:
+    table: book
+    label: Book
+    fields:
+        title:
+            type: text
+        author:
+            type: text
+        library:
+            type: reference
+            reference:
+              table: lib
+              nameField: name
+              entity: library
+```
+
+On a details page of a library, all of its books are now displayed by their
+title field. If a library had more children and their label fields are not
+defined, it falls back to the id field.
+
 Don't forget to set the MySQL foreign key.
 
 ```sql
