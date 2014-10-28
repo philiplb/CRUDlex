@@ -130,7 +130,7 @@
 		<b>Namespace:</b> CRUDlex<br>
 		
 
-		<b>Located at</b> <a href="source-class-CRUDlex.CRUDControllerProvider.html#19-291" title="Go to source code">CRUDControllerProvider.php</a><br>
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDControllerProvider.html#19-427" title="Go to source code">CRUDControllerProvider.php</a><br>
 	</div>
 
 
@@ -188,26 +188,45 @@
 		<td class="attributes"><code>
 			 protected 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLayout">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#59-70" title="Go to source code">getLayout</a>( <span>mixed <var>$app</var></span>, <span>mixed <var>$action</var></span>, <span>mixed <var>$entity</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#59-84" title="Go to source code">getLayout</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$action</var></span>, <span>string <var>$entity</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Delivers the layout for the page in the way it is described in the
+manual.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Delivers the layout for the page in the way it is described in the
+manual.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$action</var></dt>
+					<dd>the current calling action like "create" or "show"
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current calling entity
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the best fitting layout
+
+				</div>
 
 
 
@@ -220,26 +239,39 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			SilexController\Collection
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connect">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#72-98" title="Go to source code">connect</a>( <span>Silex\Application <var>$app</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#87-123" title="Go to source code">connect</a>( <span>Silex\Application <var>$app</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Implements ControllerProviderInterface::connect() connecting this
+controller.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Implements ControllerProviderInterface::connect() connecting this
+controller.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Application instance of the Silex application
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>SilexController\Collection</code><br>this method is expected to return the used ControllerCollection instance
+
+				</div>
 
 
 
@@ -252,26 +284,40 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#100-146" title="Go to source code">create</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#125-182" title="Go to source code">create</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>The controller for the "create" action.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>The controller for the "create" action.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>the HTTP response of this action
+
+				</div>
 
 
 
@@ -284,26 +330,40 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_showList">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#148-166" title="Go to source code">showList</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#184-213" title="Go to source code">showList</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>The controller for the "show list" action.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>The controller for the "show list" action.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>the HTTP response of this action or 404 on invalid input
+
+				</div>
 
 
 
@@ -316,26 +376,43 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_show">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#168-184" title="Go to source code">show</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#215-263" title="Go to source code">show</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>The controller for the "show" action.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>The controller for the "show" action.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity
+</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id to show
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>the HTTP response of this action or 404 on invalid input
+
+				</div>
 
 
 
@@ -348,26 +425,43 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_edit">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#186-233" title="Go to source code">edit</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#265-325" title="Go to source code">edit</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>The controller for the "edit" action.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>The controller for the "edit" action.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity
+</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id to edit
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>the HTTP response of this action or 404 on invalid input
+
+				</div>
 
 
 
@@ -380,26 +474,43 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#235-254" title="Go to source code">delete</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#327-359" title="Go to source code">delete</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>The controller for the "delete" action.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>The controller for the "delete" action.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity
+</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id to delete
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>redirects to the entity list page or 404 on invalid input
+
+				</div>
 
 
 
@@ -412,26 +523,46 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#256-270" title="Go to source code">renderFile</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#361-390" title="Go to source code">renderFile</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>The controller for the "render file" action.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>The controller for the "render file" action.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity
+</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id
+</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the file to render of the instance
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>the rendered file
+
+				</div>
 
 
 
@@ -444,26 +575,46 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#272-290" title="Go to source code">deleteFile</a>( <span>Silex\Application <var>$app</var></span>, <span>mixed <var>$entity</var></span>, <span>mixed <var>$id</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDControllerProvider.html#393-426" title="Go to source code">deleteFile</a>( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>The controller for the "delete file" action.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>The controller for the "delete file" action.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity
+</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id
+</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the file to delete of the instance
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>redirects to the instance details page or 404 on invalid input
+
+				</div>
 
 
 

@@ -56,7 +56,21 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         )), 404);
     }
 
-    protected function getLayout($app, $action, $entity) {
+    /**
+     * Delivers the layout for the page in the way it is described in the
+     * manual.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $action
+     * the current calling action like "create" or "show"
+     * @param string $entity
+     * the current calling entity
+     *
+     * @return string
+     * the best fitting layout
+     */
+    protected function getLayout(Application $app, $action, $entity) {
         if ($app->offsetExists('crud.layout.'.$action.'.'.$entity)) {
             return $app['crud.layout.'.$action.'.'.$entity];
         }
@@ -69,6 +83,17 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         return $app['crud.layout'];
     }
 
+
+    /**
+     * Implements ControllerProviderInterface::connect() connecting this
+     * controller.
+     *
+     * @param Application $app
+     * the Application instance of the Silex application
+     *
+     * @return SilexController\Collection
+     * this method is expected to return the used ControllerCollection instance
+     */
     public function connect(Application $app) {
         if ($app->offsetExists('twig.loader.filesystem')) {
             $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
@@ -97,6 +122,17 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         return $factory;
     }
 
+    /**
+     * The controller for the "create" action.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $entity
+     * the current entity
+     *
+     * @return Response
+     * the HTTP response of this action
+     */
     public function create(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
@@ -145,6 +181,17 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         ));
     }
 
+    /**
+     * The controller for the "show list" action.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $entity
+     * the current entity
+     *
+     * @return Response
+     * the HTTP response of this action or 404 on invalid input
+     */
     public function showList(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
@@ -165,6 +212,19 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         ));
     }
 
+    /**
+     * The controller for the "show" action.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $entity
+     * the current entity
+     * @param string $id
+     * the instance id to show
+     *
+     * @return Response
+     * the HTTP response of this action or 404 on invalid input
+     */
     public function show(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
@@ -202,6 +262,19 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         ));
     }
 
+    /**
+     * The controller for the "edit" action.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $entity
+     * the current entity
+     * @param string $id
+     * the instance id to edit
+     *
+     * @return Response
+     * the HTTP response of this action or 404 on invalid input
+     */
     public function edit(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
@@ -251,6 +324,19 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         ));
     }
 
+    /**
+     * The controller for the "delete" action.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $entity
+     * the current entity
+     * @param string $id
+     * the instance id to delete
+     *
+     * @return Response
+     * redirects to the entity list page or 404 on invalid input
+     */
     public function delete(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
@@ -272,6 +358,21 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
     }
 
+    /**
+     * The controller for the "render file" action.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $entity
+     * the current entity
+     * @param string $id
+     * the instance id
+     * @param string $field
+     * the field of the file to render of the instance
+     *
+     * @return Response
+     * the rendered file
+     */
     public function renderFile(Application $app, $entity, $id, $field) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
@@ -288,6 +389,22 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         return $crudData->renderFile($instance, $entity, $field);
     }
 
+
+    /**
+     * The controller for the "delete file" action.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $entity
+     * the current entity
+     * @param string $id
+     * the instance id
+     * @param string $field
+     * the field of the file to delete of the instance
+     *
+     * @return Response
+     * redirects to the instance details page or 404 on invalid input
+     */
     public function deleteFile(Application $app, $entity, $id, $field) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
