@@ -133,7 +133,7 @@ class CRUDMySQLData extends CRUDData {
         return intval($result['amount']);
     }
 
-    public function fetchReferences($entity) {
+    public function fetchReferences(CRUDEntity $entity = null) {
         if (!$entity) {
             return;
         }

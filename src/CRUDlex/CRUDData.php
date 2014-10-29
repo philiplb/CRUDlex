@@ -138,7 +138,7 @@ abstract class CRUDData {
      * @param CRUDEntity $entity
      * the entity to fetch the references for
      */
-    public abstract function fetchReferences(CRUDEntity $entity);
+    public abstract function fetchReferences(CRUDEntity $entity = null);
 
     /**
      * Gets the {@see CRUDEntityDefinition} instance.
