@@ -33,12 +33,12 @@ class CRUDMySQLData extends CRUDData {
         return $entities[0];
     }
 
-    public function listEntries(array $selection = array()) {
+    public function listEntries(array $filter = array()) {
         $fieldNames = $this->definition->getFieldNames();
         $sql = 'SELECT `'.implode('`,`', $fieldNames).'`';
         $sql .= ' FROM '.$this->definition->getTable().' WHERE deleted_at IS NULL';
         $values = array();
-        foreach ($selection as $field => $value) {
+        foreach ($filter as $field => $value) {
             $sql .= ' AND `'.$field.'` = ?';
             $values[] = $value;
         }

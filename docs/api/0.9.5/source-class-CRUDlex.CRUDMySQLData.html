@@ -119,12 +119,12 @@
 </span><span id="33" class="l"><a class="l" href="#33"> 33: </a>        <span class="php-keyword1">return</span> <span class="php-var">$entities</span>[<span class="php-num">0</span>];
 </span><span id="34" class="l"><a class="l" href="#34"> 34: </a>    }
 </span><span id="35" class="l"><a class="l" href="#35"> 35: </a>
-</span><span id="36" class="l"><a class="l" href="#36"> 36: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_listEntries" href="#_listEntries">listEntries</a>(<span class="php-keyword1">array</span> <span class="php-var">$selection</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="36" class="l"><a class="l" href="#36"> 36: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_listEntries" href="#_listEntries">listEntries</a>(<span class="php-keyword1">array</span> <span class="php-var">$filter</span> = <span class="php-keyword1">array</span>()) {
 </span><span id="37" class="l"><a class="l" href="#37"> 37: </a>        <span class="php-var">$fieldNames</span> = <span class="php-var">$this</span>-&gt;definition-&gt;getFieldNames();
 </span><span id="38" class="l"><a class="l" href="#38"> 38: </a>        <span class="php-var">$sql</span> = <span class="php-quote">'SELECT `'</span>.<span class="php-keyword2">implode</span>(<span class="php-quote">'`,`'</span>, <span class="php-var">$fieldNames</span>).<span class="php-quote">'`'</span>;
 </span><span id="39" class="l"><a class="l" href="#39"> 39: </a>        <span class="php-var">$sql</span> .= <span class="php-quote">' FROM '</span>.<span class="php-var">$this</span>-&gt;definition-&gt;getTable().<span class="php-quote">' WHERE deleted_at IS NULL'</span>;
 </span><span id="40" class="l"><a class="l" href="#40"> 40: </a>        <span class="php-var">$values</span> = <span class="php-keyword1">array</span>();
-</span><span id="41" class="l"><a class="l" href="#41"> 41: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$selection</span> <span class="php-keyword1">as</span> <span class="php-var">$field</span> =&gt; <span class="php-var">$value</span>) {
+</span><span id="41" class="l"><a class="l" href="#41"> 41: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$filter</span> <span class="php-keyword1">as</span> <span class="php-var">$field</span> =&gt; <span class="php-var">$value</span>) {
 </span><span id="42" class="l"><a class="l" href="#42"> 42: </a>            <span class="php-var">$sql</span> .= <span class="php-quote">' AND `'</span>.<span class="php-var">$field</span>.<span class="php-quote">'` = ?'</span>;
 </span><span id="43" class="l"><a class="l" href="#43"> 43: </a>            <span class="php-var">$values</span>[] = <span class="php-var">$value</span>;
 </span><span id="44" class="l"><a class="l" href="#44"> 44: </a>        }
