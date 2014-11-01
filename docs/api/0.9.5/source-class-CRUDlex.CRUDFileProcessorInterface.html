@@ -101,17 +101,68 @@
 </span><span id="15" class="l"><a class="l" href="#15">15: </a>
 </span><span id="16" class="l"><a class="l" href="#16">16: </a><span class="php-keyword1">use</span> CRUDlex\CRUDEntity;
 </span><span id="17" class="l"><a class="l" href="#17">17: </a>
-</span><span id="18" class="l"><a class="l" href="#18">18: </a><span class="php-keyword1">interface</span> <a id="CRUDFileProcessorInterface" href="#CRUDFileProcessorInterface">CRUDFileProcessorInterface</a> {
-</span><span id="19" class="l"><a class="l" href="#19">19: </a>
-</span><span id="20" class="l"><a class="l" href="#20">20: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_createFile" href="#_createFile">createFile</a>(Request <span class="php-var">$request</span>, CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
-</span><span id="21" class="l"><a class="l" href="#21">21: </a>
-</span><span id="22" class="l"><a class="l" href="#22">22: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_updateFile" href="#_updateFile">updateFile</a>(Request <span class="php-var">$request</span>, CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
-</span><span id="23" class="l"><a class="l" href="#23">23: </a>
-</span><span id="24" class="l"><a class="l" href="#24">24: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteFile" href="#_deleteFile">deleteFile</a>(CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
-</span><span id="25" class="l"><a class="l" href="#25">25: </a>
-</span><span id="26" class="l"><a class="l" href="#26">26: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_renderFile" href="#_renderFile">renderFile</a>(CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
-</span><span id="27" class="l"><a class="l" href="#27">27: </a>}
-</span><span id="28" class="l"><a class="l" href="#28">28: </a></span></code></pre>
+</span><span id="18" class="l"><a class="l" href="#18">18: </a><span class="php-comment">/**
+</span></span><span id="19" class="l"><a class="l" href="#19">19: </a><span class="php-comment"> * This interface is used to handle file uploads.
+</span></span><span id="20" class="l"><a class="l" href="#20">20: </a><span class="php-comment"> */</span>
+</span><span id="21" class="l"><a class="l" href="#21">21: </a><span class="php-keyword1">interface</span> <a id="CRUDFileProcessorInterface" href="#CRUDFileProcessorInterface">CRUDFileProcessorInterface</a> {
+</span><span id="22" class="l"><a class="l" href="#22">22: </a>
+</span><span id="23" class="l"><a class="l" href="#23">23: </a>    <span class="php-comment">/**
+</span></span><span id="24" class="l"><a class="l" href="#24">24: </a><span class="php-comment">     * Creates the uploaded file of a newly created entity.
+</span></span><span id="25" class="l"><a class="l" href="#25">25: </a><span class="php-comment">     *
+</span></span><span id="26" class="l"><a class="l" href="#26">26: </a><span class="php-comment">     * @param Request $request
+</span></span><span id="27" class="l"><a class="l" href="#27">27: </a><span class="php-comment">     * the HTTP request containing the file data
+</span></span><span id="28" class="l"><a class="l" href="#28">28: </a><span class="php-comment">     * @param CRUDEntity $entity
+</span></span><span id="29" class="l"><a class="l" href="#29">29: </a><span class="php-comment">     * the just created entity
+</span></span><span id="30" class="l"><a class="l" href="#30">30: </a><span class="php-comment">     * @param string $entityName
+</span></span><span id="31" class="l"><a class="l" href="#31">31: </a><span class="php-comment">     * the name of the entity as this class here is not aware of it
+</span></span><span id="32" class="l"><a class="l" href="#32">32: </a><span class="php-comment">     * @param string $field
+</span></span><span id="33" class="l"><a class="l" href="#33">33: </a><span class="php-comment">     * the file field
+</span></span><span id="34" class="l"><a class="l" href="#34">34: </a><span class="php-comment">     */</span>
+</span><span id="35" class="l"><a class="l" href="#35">35: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_createFile" href="#_createFile">createFile</a>(Request <span class="php-var">$request</span>, CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
+</span><span id="36" class="l"><a class="l" href="#36">36: </a>
+</span><span id="37" class="l"><a class="l" href="#37">37: </a>    <span class="php-comment">/**
+</span></span><span id="38" class="l"><a class="l" href="#38">38: </a><span class="php-comment">     * Updates the uploaded file of an updated entity.
+</span></span><span id="39" class="l"><a class="l" href="#39">39: </a><span class="php-comment">     *
+</span></span><span id="40" class="l"><a class="l" href="#40">40: </a><span class="php-comment">     * @param Request $request
+</span></span><span id="41" class="l"><a class="l" href="#41">41: </a><span class="php-comment">     * the HTTP request containing the file data
+</span></span><span id="42" class="l"><a class="l" href="#42">42: </a><span class="php-comment">     * @param CRUDEntity $entity
+</span></span><span id="43" class="l"><a class="l" href="#43">43: </a><span class="php-comment">     * the updated entity
+</span></span><span id="44" class="l"><a class="l" href="#44">44: </a><span class="php-comment">     * @param string $entityName
+</span></span><span id="45" class="l"><a class="l" href="#45">45: </a><span class="php-comment">     * the name of the entity as this class here is not aware of it
+</span></span><span id="46" class="l"><a class="l" href="#46">46: </a><span class="php-comment">     * @param string $field
+</span></span><span id="47" class="l"><a class="l" href="#47">47: </a><span class="php-comment">     * the file field
+</span></span><span id="48" class="l"><a class="l" href="#48">48: </a><span class="php-comment">     */</span>
+</span><span id="49" class="l"><a class="l" href="#49">49: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_updateFile" href="#_updateFile">updateFile</a>(Request <span class="php-var">$request</span>, CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
+</span><span id="50" class="l"><a class="l" href="#50">50: </a>
+</span><span id="51" class="l"><a class="l" href="#51">51: </a>    <span class="php-comment">/**
+</span></span><span id="52" class="l"><a class="l" href="#52">52: </a><span class="php-comment">     * Deletes a specific file from an existing entity.
+</span></span><span id="53" class="l"><a class="l" href="#53">53: </a><span class="php-comment">     *
+</span></span><span id="54" class="l"><a class="l" href="#54">54: </a><span class="php-comment">     * @param CRUDEntity $entity
+</span></span><span id="55" class="l"><a class="l" href="#55">55: </a><span class="php-comment">     * the entity to delete the file from
+</span></span><span id="56" class="l"><a class="l" href="#56">56: </a><span class="php-comment">     * @param string $entityName
+</span></span><span id="57" class="l"><a class="l" href="#57">57: </a><span class="php-comment">     * the name of the entity as this class here is not aware of it
+</span></span><span id="58" class="l"><a class="l" href="#58">58: </a><span class="php-comment">     * @param string $field
+</span></span><span id="59" class="l"><a class="l" href="#59">59: </a><span class="php-comment">     * the field of the entity containing the file to be deleted
+</span></span><span id="60" class="l"><a class="l" href="#60">60: </a><span class="php-comment">     */</span>
+</span><span id="61" class="l"><a class="l" href="#61">61: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteFile" href="#_deleteFile">deleteFile</a>(CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
+</span><span id="62" class="l"><a class="l" href="#62">62: </a>
+</span><span id="63" class="l"><a class="l" href="#63">63: </a>    <span class="php-comment">/**
+</span></span><span id="64" class="l"><a class="l" href="#64">64: </a><span class="php-comment">     * Renders (outputs) a file of an entity. This includes setting headers
+</span></span><span id="65" class="l"><a class="l" href="#65">65: </a><span class="php-comment">     * like the file size, mimetype and name, too.
+</span></span><span id="66" class="l"><a class="l" href="#66">66: </a><span class="php-comment">     *
+</span></span><span id="67" class="l"><a class="l" href="#67">67: </a><span class="php-comment">     * @param CRUDEntity $entity
+</span></span><span id="68" class="l"><a class="l" href="#68">68: </a><span class="php-comment">     * the entity to render the file from
+</span></span><span id="69" class="l"><a class="l" href="#69">69: </a><span class="php-comment">     * @param string $entityName
+</span></span><span id="70" class="l"><a class="l" href="#70">70: </a><span class="php-comment">     * the name of the entity as this class here is not aware of it
+</span></span><span id="71" class="l"><a class="l" href="#71">71: </a><span class="php-comment">     * @param string $field
+</span></span><span id="72" class="l"><a class="l" href="#72">72: </a><span class="php-comment">     * the field of the entity containing the file to be rendered
+</span></span><span id="73" class="l"><a class="l" href="#73">73: </a><span class="php-comment">     *
+</span></span><span id="74" class="l"><a class="l" href="#74">74: </a><span class="php-comment">     * @return Response
+</span></span><span id="75" class="l"><a class="l" href="#75">75: </a><span class="php-comment">     * the HTTP response, likely to be a streamed one
+</span></span><span id="76" class="l"><a class="l" href="#76">76: </a><span class="php-comment">     */</span>
+</span><span id="77" class="l"><a class="l" href="#77">77: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_renderFile" href="#_renderFile">renderFile</a>(CRUDEntity <span class="php-var">$entity</span>, <span class="php-var">$entityName</span>, <span class="php-var">$field</span>);
+</span><span id="78" class="l"><a class="l" href="#78">78: </a>}
+</span><span id="79" class="l"><a class="l" href="#79">79: </a></span></code></pre>
 
 	<div id="footer">
 		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>

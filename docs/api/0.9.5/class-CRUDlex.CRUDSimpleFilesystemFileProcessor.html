@@ -87,7 +87,7 @@
 
 
 	<div class="description">
-	
+	<p>This interface is used to handle file uploads.</p>
 
 	</div>
 
@@ -165,18 +165,33 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#27-36" title="Go to source code">createFile</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>mixed <var>$entityName</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#27-36" title="Go to source code">createFile</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Creates the uploaded file of a newly created entity.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Creates the uploaded file of a newly created entity.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>the HTTP request containing the file data
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the just created entity
+</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it
+</dd>
+					<dt><var>$field</var></dt>
+					<dd>the file field
+</dd>
+				</dl></div>
 
 
 
@@ -199,18 +214,33 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#38-41" title="Go to source code">updateFile</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>mixed <var>$entityName</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#38-41" title="Go to source code">updateFile</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Updates the uploaded file of an updated entity.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Updates the uploaded file of an updated entity.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>the HTTP request containing the file data
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the updated entity
+</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it
+</dd>
+					<dt><var>$field</var></dt>
+					<dd>the file field
+</dd>
+				</dl></div>
 
 
 
@@ -233,18 +263,30 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#43-53" title="Go to source code">deleteFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>mixed <var>$entityName</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#43-53" title="Go to source code">deleteFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Deletes a specific file from an existing entity.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Deletes a specific file from an existing entity.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entity</var></dt>
+					<dd>the entity to delete the file from
+</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it
+</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the entity containing the file to be deleted
+</dd>
+				</dl></div>
 
 
 
@@ -260,26 +302,45 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Symfony\Component\HttpFoundation\Response
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#55-85" title="Go to source code">renderFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>mixed <var>$entityName</var></span>, <span>mixed <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#55-85" title="Go to source code">renderFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Renders (outputs) a file of an entity. This includes setting headers
+like the file size, mimetype and name, too.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Renders (outputs) a file of an entity. This includes setting headers
+like the file size, mimetype and name, too.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entity</var></dt>
+					<dd>the entity to render the file from
+</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it
+</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the entity containing the file to be rendered
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Symfony\Component\HttpFoundation\Response</code><br>the HTTP response, likely to be a streamed one
+
+				</div>
 
 
 
