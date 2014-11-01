@@ -117,7 +117,7 @@ class CRUDMySQLData extends CRUDData {
         return $result;
     }
 
-    public function countBy($table, $params, $paramsOperators, $includeDeleted) {
+    public function countBy($table, array $params, array $paramsOperators, $includeDeleted) {
         $sql = 'SELECT COUNT(id) AS amount FROM '.$table;
         $paramValues = array();
         $paramSQLs = array();

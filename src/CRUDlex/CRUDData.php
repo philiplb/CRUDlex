@@ -129,7 +129,7 @@ abstract class CRUDData {
      * @return int
      * the count fulfilling the given parameters
      */
-    public abstract function countBy($table, $params, $paramsOperators, $includeDeleted);
+    public abstract function countBy($table, array $params, array $paramsOperators, $includeDeleted);
 
     /**
      * Adds the id and name of referenced entities to the given entity. Each

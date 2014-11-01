@@ -27,7 +27,7 @@ class CRUDEntityDefinition {
 
     protected $childrenLabelFields;
 
-    protected function getFilteredFieldNames($exclude) {
+    protected function getFilteredFieldNames(array $exclude) {
         $fieldNames = $this->getFieldNames();
         $result = array();
         foreach ($fieldNames as $fieldName) {
