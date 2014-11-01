@@ -20,10 +20,27 @@ use CRUDlex\CRUDEntity;
 
 class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
 
-    protected function getPath($entityName, $entity, $field) {
+    /**
+     * Constructs a file system path for the given parameters for storing the
+     * file of the file field.
+     *
+     * @param string $entityName
+     * the entity name
+     * @param CRUDEntity $entity
+     * the entity
+     * @param string $field
+     * the file field in the entity
+     *
+     * @return string
+     * the constructed path for storing the file of the file field
+     */
+    protected function getPath($entityName, CRUDEntity $entity, $field) {
         return $entity->getDefinition()->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createFile(Request $request, CRUDEntity $entity, $entityName, $field) {
         $file = $request->files->get($field);
         if ($file) {
@@ -35,11 +52,19 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         }
     }
 
+    /**
+     * {@inheritdoc}
+     * For now, this implementation is defensive and doesn't delete ever.
+     */
     public function updateFile(Request $request, CRUDEntity $entity, $entityName, $field) {
         // We could first delete the old file, but for now, we are defensive and don't delete ever.
         $this->createFile($request, $entity, $entityName, $field);
     }
 
+    /**
+     * {@inheritdoc}
+     * For now, this implementation is defensive and doesn't delete ever.
+     */
     public function deleteFile(CRUDEntity $entity, $entityName, $field) {
         // For now, we are defensive and don't delete ever.
         /*
@@ -52,6 +77,9 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         */
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function renderFile(CRUDEntity $entity, $entityName, $field) {
         $targetPath = $this->getPath($entityName, $entity, $field);
         $fileName = $entity->get($field);

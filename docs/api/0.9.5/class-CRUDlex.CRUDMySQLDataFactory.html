@@ -87,10 +87,7 @@
 
 
 	<div class="description">
-	<p>An interface used by the <code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code> to construct
-<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances. By implementing this and handing it into
-the service provider, the user can control what database (-variation) he
-wants to use.</p>
+	<p>A factory implementation for <code><a href="class-CRUDlex.CRUDMySQLData.html">CRUDlex\CRUDMySQLData</a></code> instances.</p>
 
 	</div>
 
@@ -117,7 +114,7 @@ wants to use.</p>
 		<b>Namespace:</b> CRUDlex<br>
 		
 
-		<b>Located at</b> <a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#17-29" title="Go to source code">CRUDMySQLDataFactory.php</a><br>
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#17-44" title="Go to source code">CRUDMySQLDataFactory.php</a><br>
 	</div>
 
 
@@ -136,18 +133,24 @@ wants to use.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#21-23" title="Go to source code">__construct</a>( <span>mixed <var>$db</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#27-35" title="Go to source code">__construct</a>( <span>mixed <var>$db</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Constructor.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Constructor.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$db</var></dt>
+					<dd>Doctrine DBAL instance
+</dd>
+				</dl></div>
 
 
 
@@ -168,7 +171,7 @@ wants to use.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createData">#</a>
-		<code><a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#25-27" title="Go to source code">createData</a>( <span><code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> <var>$definition</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#37-42" title="Go to source code">createData</a>( <span><code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> <var>$definition</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates instances.</p>
@@ -226,15 +229,15 @@ wants to use.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#19" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-CRUDlex.CRUDMySQLDataFactory.html#22-25" title="Go to source code"><var>$db</var></a>
 
 			<div class="description short">
-				
+				<p>Holds the Doctrine DBAL instance.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Holds the Doctrine DBAL instance.</p>
 
 
 			</div>
