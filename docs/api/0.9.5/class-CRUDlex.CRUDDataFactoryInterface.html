@@ -87,7 +87,10 @@
 
 
 	<div class="description">
-	
+	<p>An interface used by the <code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code> to construct
+<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances. By implementing this and handing it into
+the service provider, the user can control what database (-variation) he
+wants to use.</p>
 
 	</div>
 
@@ -109,7 +112,7 @@
 		<b>Namespace:</b> CRUDlex<br>
 		
 
-		<b>Located at</b> <a href="source-class-CRUDlex.CRUDDataFactoryInterface.html#18-22" title="Go to source code">CRUDDataFactoryInterface.php</a><br>
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDDataFactoryInterface.html#18-39" title="Go to source code">CRUDDataFactoryInterface.php</a><br>
 	</div>
 
 
@@ -121,26 +124,40 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createData">#</a>
-		<code><a href="source-class-CRUDlex.CRUDDataFactoryInterface.html#20" title="Go to source code">createData</a>( <span><code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> <var>$definition</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDDataFactoryInterface.html#26-37" title="Go to source code">createData</a>( <span><code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> <var>$definition</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Creates instances.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Creates instances.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$definition</var></dt>
+					<dd>the definition of the entities managed by the to be created instance
+</dd>
+					<dt><var>$fileProcessor</var></dt>
+					<dd>the file processor managing uploaded files
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code></code><br>the newly created instance
+
+				</div>
 
 
 
