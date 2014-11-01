@@ -46,9 +46,10 @@ class CRUDEntityDefinition {
     }
 
     protected function setFieldValue($name, $key, $value) {
-        if (key_exists($name, $this->fields) && key_exists($key, $this->fields[$name])) {
-            $this->fields[$name][$key] = $value;
+        if (!key_exists($name, $this->fields)) {
+            $this->fields[$name] = array();
         }
+        $this->fields[$name][$key] = $value;
     }
 
     protected function getReferenceValue($fieldName, $key) {

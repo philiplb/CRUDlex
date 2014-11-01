@@ -1,7 +1,7 @@
 CRUDlex
 ==========
 
-CRUDlex is an easy to use CRUD generator for Silex.
+CRUDlex is an easy to use, well documented and tested CRUD generator for Silex.
 
 ## Documentation
 
