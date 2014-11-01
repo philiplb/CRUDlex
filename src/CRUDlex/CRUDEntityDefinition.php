@@ -145,7 +145,7 @@ class CRUDEntityDefinition {
      * The keys are the entity names as in the CRUD YAML and the values are the
      * field names
      */
-    public function __construct($table, array $fields, $label, array $listFields, array $standardFieldLabels, array $childrenLabelFields) {
+    public function __construct($table, $fields, $label, $listFields, $standardFieldLabels, $childrenLabelFields) {
         $this->table = $table;
         $this->fields = $fields;
         $this->children = array();
