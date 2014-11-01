@@ -203,7 +203,7 @@
 </span><span id="117" class="l"><a class="l" href="#117">117: </a>        <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
 </span><span id="118" class="l"><a class="l" href="#118">118: </a>    }
 </span><span id="119" class="l"><a class="l" href="#119">119: </a>
-</span><span id="120" class="l"><a class="l" href="#120">120: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_countBy" href="#_countBy">countBy</a>(<span class="php-var">$table</span>, <span class="php-var">$params</span>, <span class="php-var">$paramsOperators</span>, <span class="php-var">$includeDeleted</span>) {
+</span><span id="120" class="l"><a class="l" href="#120">120: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_countBy" href="#_countBy">countBy</a>(<span class="php-var">$table</span>, <span class="php-keyword1">array</span> <span class="php-var">$params</span>, <span class="php-keyword1">array</span> <span class="php-var">$paramsOperators</span>, <span class="php-var">$includeDeleted</span>) {
 </span><span id="121" class="l"><a class="l" href="#121">121: </a>        <span class="php-var">$sql</span> = <span class="php-quote">'SELECT COUNT(id) AS amount FROM '</span>.<span class="php-var">$table</span>;
 </span><span id="122" class="l"><a class="l" href="#122">122: </a>        <span class="php-var">$paramValues</span> = <span class="php-keyword1">array</span>();
 </span><span id="123" class="l"><a class="l" href="#123">123: </a>        <span class="php-var">$paramSQLs</span> = <span class="php-keyword1">array</span>();

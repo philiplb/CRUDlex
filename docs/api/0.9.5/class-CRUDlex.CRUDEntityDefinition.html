@@ -105,7 +105,7 @@
 		<b>Namespace:</b> CRUDlex<br>
 		
 
-		<b>Located at</b> <a href="source-class-CRUDlex.CRUDEntityDefinition.html#13-198" title="Go to source code">CRUDEntityDefinition.php</a><br>
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDEntityDefinition.html#14-464" title="Go to source code">CRUDEntityDefinition.php</a><br>
 	</div>
 
 
@@ -117,26 +117,37 @@
 		<td class="attributes"><code>
 			 protected 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilteredFieldNames">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#29-38" title="Go to source code">getFilteredFieldNames</a>( <span>mixed <var>$exclude</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#55-73" title="Go to source code">getFilteredFieldNames</a>( <span>array <var>$exclude</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the field names exluding the given ones.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the field names exluding the given ones.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$exclude</var></dt>
+					<dd>the field names to exclude
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>all field names excluding the given ones
+
+				</div>
 
 
 
@@ -149,26 +160,40 @@
 		<td class="attributes"><code>
 			 protected 
 
-			
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFieldValue">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#40-45" title="Go to source code">getFieldValue</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#75-91" title="Go to source code">getFieldValue</a>( <span>string <var>$name</var></span>, <span>string <var>$key</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the value of a field key.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the value of a field key.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>the name of the field
+</dd>
+					<dt><var>$key</var></dt>
+					<dd>the value of the key
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>the value of the field key or null if not existing
+
+				</div>
 
 
 
@@ -188,18 +213,32 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setFieldValue">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#47-51" title="Go to source code">setFieldValue</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#93-109" title="Go to source code">setFieldValue</a>( <span>string <var>$name</var></span>, <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Sets the value of a field key. If the field or the key in the field
+don't exist, they get created.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Sets the value of a field key. If the field or the key in the field
+don't exist, they get created.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>the name of the field
+</dd>
+					<dt><var>$key</var></dt>
+					<dd>the value of the key
+</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new value
+</dd>
+				</dl></div>
 
 
 
@@ -213,26 +252,40 @@
 		<td class="attributes"><code>
 			 protected 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReferenceValue">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#53-58" title="Go to source code">getReferenceValue</a>( <span>mixed <var>$fieldName</var></span>, <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#111-127" title="Go to source code">getReferenceValue</a>( <span>string <var>$fieldName</var></span>, <span>string <var>$key</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the value of a reference field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the value of a reference field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference
+</dd>
+					<dt><var>$key</var></dt>
+					<dd>the key of the reference value
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the value of the reference field
+
+				</div>
 
 
 
@@ -252,43 +305,40 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#60-80" title="Go to source code">__construct</a>( <span>type <var>$table</var></span>, <span>type <var>$fields</var></span>, <span>type <var>$label</var></span>, <span>mixed <var>$listFields</var></span>, <span>mixed <var>$standardFieldLabels</var></span>, <span>mixed <var>$childrenLabelFields</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#129-156" title="Go to source code">__construct</a>( <span>string <var>$table</var></span>, <span>array <var>$fields</var></span>, <span>string <var>$label</var></span>, <span>array <var>$listFields</var></span>, <span>array <var>$standardFieldLabels</var></span>, <span>array <var>$childrenLabelFields</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Constructor.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Constructor.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$table</var></dt>
-					<dd>$db the Doctrine DB connection
+					<dd>the table of the entity
 </dd>
 					<dt><var>$fields</var></dt>
-					<dd>$table the table to use
+					<dd>the fieldstructure just like the CRUD YAML
 </dd>
 					<dt><var>$label</var></dt>
-					<dd>&lt;p&gt;$fields map with key = fieldname, value = map with keys
- type = text, date, int, reference,
- reference = only if type is reference, then a map with keys "table", "nameField", "entity",
- required = true or false),
- unique = true or false)
- The field id is always expected. So are updated_at, created_at,
- deleted_at and version.&lt;/p&gt;
+					<dd>the label of the entity
 </dd>
 					<dt><var>$listFields</var></dt>
-					<dd>
+					<dd>&lt;p&gt;an array containing the fields which should appear in the list view of
+the entity&lt;/p&gt;
 </dd>
 					<dt><var>$standardFieldLabels</var></dt>
-					<dd>
+					<dd>labels for the fields "id", "created_at" and "updated_at"
 </dd>
 					<dt><var>$childrenLabelFields</var></dt>
-					<dd>
+					<dd>&lt;p&gt;the fields used to display the children on the details page of an entity;
+The keys are the entity names as in the CRUD YAML and the values are the
+field names&lt;/p&gt;
 </dd>
 				</dl></div>
 
@@ -304,26 +354,33 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFieldNames">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#82-88" title="Go to source code">getFieldNames</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#158-171" title="Go to source code">getFieldNames</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets all field names, including the implicit ones like "id" or
+"created_at".</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets all field names, including the implicit ones like "id" or
+"created_at".</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>the field names
+
+				</div>
 
 
 
@@ -336,26 +393,33 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getListFieldNames">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#90-95" title="Go to source code">getListFieldNames</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#173-185" title="Go to source code">getListFieldNames</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the field names to be used in the listview. If they were not specified in
+the constructor, all public field names are returned.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the field names to be used in the listview. If they were not specified in
+the constructor, all public field names are returned.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>the field names to be used in the listview
+
+				</div>
 
 
 
@@ -368,26 +432,35 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getChildrenLabelFields">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#97-99" title="Go to source code">getChildrenLabelFields</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#187-197" title="Go to source code">getChildrenLabelFields</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>the fields used to display the children on the details page
+
+				</div>
 
 
 
@@ -400,26 +473,33 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPublicFieldNames">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#101-105" title="Go to source code">getPublicFieldNames</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#199-210" title="Go to source code">getPublicFieldNames</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the public field names. The internal fields "version" and
+"deleted_at" are filtered.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the public field names. The internal fields "version" and
+"deleted_at" are filtered.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>the public field names
+
+				</div>
 
 
 
@@ -432,26 +512,33 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEditableFieldNames">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#107-110" title="Go to source code">getEditableFieldNames</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#212-222" title="Go to source code">getEditableFieldNames</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the field names which are editable. Not editable are fields like the
+id or the created_at.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the field names which are editable. Not editable are fields like the
+id or the created_at.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>the editable field names
+
+				</div>
 
 
 
@@ -464,26 +551,31 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReadOnlyFields">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#112-114" title="Go to source code">getReadOnlyFields</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#224-232" title="Go to source code">getReadOnlyFields</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the read only field names like the id or the created_at.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the read only field names like the id or the created_at.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>the read only field names
+
+				</div>
 
 
 
@@ -496,26 +588,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#116-118" title="Go to source code">getType</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#234-245" title="Go to source code">getType</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the type of a field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the type of a field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the type or null on invalid field name
+
+				</div>
 
 
 
@@ -535,18 +638,27 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setType">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#120-122" title="Go to source code">setType</a>( <span>mixed <var>$fieldName</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#247-257" title="Go to source code">setType</a>( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Sets the type of a field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Sets the type of a field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new field type
+</dd>
+				</dl></div>
 
 
 
@@ -560,26 +672,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isRequired">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#124-130" title="Go to source code">isRequired</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#259-274" title="Go to source code">isRequired</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets whether a field is required.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets whether a field is required.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if so
+
+				</div>
 
 
 
@@ -599,19 +722,72 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRequired">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#132-134" title="Go to source code">setRequired</a>( <span>mixed <var>$fieldName</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#277-287" title="Go to source code">setRequired</a>( <span>string <var>$fieldName</var></span>, <span>boolean <var>$value</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Sets whether a field is required.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
+			<p>Sets whether a field is required.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+					<dt><var>$value</var></dt>
+					<dd>&lt;p&gt;$fieldName
+the new required state&lt;/p&gt;
+</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isUnique" id="_isUnique">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
 			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isUnique">#</a>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#290-305" title="Go to source code">isUnique</a>( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets whether a field is unique.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets whether a field is unique.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if so
+
+				</div>
 
 
 
@@ -624,26 +800,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReferenceTable">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#136-138" title="Go to source code">getReferenceTable</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#307-318" title="Go to source code">getReferenceTable</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the table field of a reference.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the table field of a reference.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the table field of a reference or null on invalid field name
+
+				</div>
 
 
 
@@ -656,26 +843,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReferenceNameField">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#140-142" title="Go to source code">getReferenceNameField</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#320-331" title="Go to source code">getReferenceNameField</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the name field of a reference.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the name field of a reference.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the name field of a reference or null on invalid field name
+
+				</div>
 
 
 
@@ -688,26 +886,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReferenceEntity">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#144-146" title="Go to source code">getReferenceEntity</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#334-345" title="Go to source code">getReferenceEntity</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the entity field of a reference.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the entity field of a reference.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the entity field of a reference or null on invalid field name
+
+				</div>
 
 
 
@@ -720,26 +929,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilePath">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#148-150" title="Go to source code">getFilePath</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#347-358" title="Go to source code">getFilePath</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the file path of a field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the file path of a field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the file path of a field or null on invalid field name
+
+				</div>
 
 
 
@@ -752,26 +972,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFixedValue">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#152-154" title="Go to source code">getFixedValue</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#360-371" title="Go to source code">getFixedValue</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the value of a fixed field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the value of a fixed field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>the value of a fixed field or null on invalid field name
+
+				</div>
 
 
 
@@ -791,18 +1022,27 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setFixedValue">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#156-158" title="Go to source code">setFixedValue</a>( <span>mixed <var>$fieldName</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#373-383" title="Go to source code">setFixedValue</a>( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Sets the value of a fixed field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Sets the value of a fixed field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new value for the fixed field
+</dd>
+				</dl></div>
 
 
 
@@ -816,58 +1056,37 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSetItems">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#160-162" title="Go to source code">getSetItems</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#385-396" title="Go to source code">getSetItems</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the items of a set field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the items of a set field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>the items of the set field or null on invalid field name
 
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="isUnique" id="_isUnique">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_isUnique">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#164-170" title="Go to source code">isUnique</a>( <span>mixed <var>$fieldName</var></span> )</code>
-
-		<div class="description short">
-			
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
+				</div>
 
 
 
@@ -880,26 +1099,38 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFieldLabel">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#172-181" title="Go to source code">getFieldLabel</a>( <span>mixed <var>$fieldName</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#398-417" title="Go to source code">getFieldLabel</a>( <span>string <var>$fieldName</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the label of a field.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the label of a field.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br><p>the label of the field or the field name if no label is set in the CRUD
+YAML</p>
+
+				</div>
 
 
 
@@ -912,26 +1143,31 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			@string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getTable">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#183-185" title="Go to source code">getTable</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#419-427" title="Go to source code">getTable</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the table where the data is stored.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the table where the data is stored.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>@string</code><br>the table where the data is stored
+
+				</div>
 
 
 
@@ -944,26 +1180,31 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			@string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLabel">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#187-189" title="Go to source code">getLabel</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#429-437" title="Go to source code">getLabel</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the label for the entity.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the label for the entity.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>@string</code><br>the label for the entity
+
+				</div>
 
 
 
@@ -983,18 +1224,32 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addChild">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#191-193" title="Go to source code">addChild</a>( <span>mixed <var>$table</var></span>, <span>mixed <var>$fieldName</var></span>, <span>mixed <var>$entity</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#439-452" title="Go to source code">addChild</a>( <span>string <var>$table</var></span>, <span>string <var>$fieldName</var></span>, <span>string <var>$entity</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Adds a child to this definition in case the other
+definition has a reference to this one.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Adds a child to this definition in case the other
+definition has a reference to this one.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$table</var></dt>
+					<dd>the table of the referencing definition
+</dd>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the referencing definition
+</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the entity of the referencing definition
+</dd>
+				</dl></div>
 
 
 
@@ -1008,26 +1263,32 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getChildren">#</a>
-		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#195-197" title="Go to source code">getChildren</a>( )</code>
+		<code><a href="source-class-CRUDlex.CRUDEntityDefinition.html#454-463" title="Go to source code">getChildren</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Gets the referencing children to this definition.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the referencing children to this definition.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br><p>an array with the children referencing the entity. All entries are arrays
+with three referencing elements: table, fieldName, entity</p>
+
+				</div>
 
 
 
@@ -1057,15 +1318,15 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#15" title="Go to source code"><var>$table</var></a>
+				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#16-19" title="Go to source code"><var>$table</var></a>
 
 			<div class="description short">
-				
+				<p>The table where the data is stored.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>The table where the data is stored.</p>
 
 
 			</div>
@@ -1084,15 +1345,15 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#17" title="Go to source code"><var>$fields</var></a>
+				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#21-24" title="Go to source code"><var>$fields</var></a>
 
 			<div class="description short">
-				
+				<p>Holds all fields in the same structure as in the CRUD YAML file.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Holds all fields in the same structure as in the CRUD YAML file.</p>
 
 
 			</div>
@@ -1111,15 +1372,15 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#19" title="Go to source code"><var>$label</var></a>
+				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#26-29" title="Go to source code"><var>$label</var></a>
 
 			<div class="description short">
-				
+				<p>The label for the entity.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>The label for the entity.</p>
 
 
 			</div>
@@ -1138,15 +1399,17 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#21" title="Go to source code"><var>$children</var></a>
+				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#31-35" title="Go to source code"><var>$children</var></a>
 
 			<div class="description short">
-				
+				<p>An array with the children referencing the entity. All entries are
+arrays with three referencing elements: table, fieldName, entity</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>An array with the children referencing the entity. All entries are
+arrays with three referencing elements: table, fieldName, entity</p>
 
 
 			</div>
@@ -1165,15 +1428,15 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#23" title="Go to source code"><var>$standardFieldLabels</var></a>
+				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#37-40" title="Go to source code"><var>$standardFieldLabels</var></a>
 
 			<div class="description short">
-				
+				<p>Labels for the fields "id", "created_at" and "updated_at".</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Labels for the fields "id", "created_at" and "updated_at".</p>
 
 
 			</div>
@@ -1192,15 +1455,17 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#25" title="Go to source code"><var>$listFields</var></a>
+				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#42-46" title="Go to source code"><var>$listFields</var></a>
 
 			<div class="description short">
-				
+				<p>An array containing the fields which should appear in the list view
+of the entity.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>An array containing the fields which should appear in the list view
+of the entity.</p>
 
 
 			</div>
@@ -1219,15 +1484,19 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#27" title="Go to source code"><var>$childrenLabelFields</var></a>
+				<a href="source-class-CRUDlex.CRUDEntityDefinition.html#48-53" title="Go to source code"><var>$childrenLabelFields</var></a>
 
 			<div class="description short">
-				
+				<p>The fields used to display the children on the details page of an entity.
+The keys are the entity names as in the CRUD YAML and the values are the
+field names.</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>The fields used to display the children on the details page of an entity.
+The keys are the entity names as in the CRUD YAML and the values are the
+field names.</p>
 
 
 			</div>
