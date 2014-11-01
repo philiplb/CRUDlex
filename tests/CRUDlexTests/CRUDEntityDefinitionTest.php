@@ -249,6 +249,10 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definition->isRequired('cover');
         $expected = true;
         $this->assertSame($read, $expected);
+        $this->definition->setRequired('foo', true);
+        $read = $this->definition->isRequired('foo');
+        $expected = true;
+        $this->assertSame($read, $expected);
     }
 
     public function testChildrenLabelFields() {
