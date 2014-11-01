@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  */
 
+date_default_timezone_set('Europe/Berlin');
 $loader = require __DIR__.'/../vendor/autoload.php';
 $loader->add('CRUDlexTestEnv', __DIR__);
 $loader->add('CRUDlexTests', __DIR__);
