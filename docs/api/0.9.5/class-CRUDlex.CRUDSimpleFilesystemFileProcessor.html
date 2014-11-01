@@ -114,7 +114,7 @@
 		<b>Namespace:</b> CRUDlex<br>
 		
 
-		<b>Located at</b> <a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#21-113" title="Go to source code">CRUDSimpleFilesystemFileProcessor.php</a><br>
+		<b>Located at</b> <a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#21-114" title="Go to source code">CRUDSimpleFilesystemFileProcessor.php</a><br>
 	</div>
 
 
@@ -233,15 +233,17 @@ file of the file field.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#55-61" title="Go to source code">updateFile</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#55-62" title="Go to source code">updateFile</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
-			<p>Updates the uploaded file of an updated entity.</p>
+			<p>Updates the uploaded file of an updated entity.
+For now, this implementation is defensive and doesn't delete ever.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Updates the uploaded file of an updated entity.</p>
+			<p>Updates the uploaded file of an updated entity.
+For now, this implementation is defensive and doesn't delete ever.</p>
 
 
 
@@ -282,7 +284,7 @@ file of the file field.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#63-77" title="Go to source code">deleteFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#64-78" title="Go to source code">deleteFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
 			<p>Deletes a specific file from an existing entity.
@@ -330,7 +332,7 @@ For now, this implementation is defensive and doesn't delete ever.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderFile">#</a>
-		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#79-112" title="Go to source code">renderFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
+		<code><a href="source-class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html#80-113" title="Go to source code">renderFile</a>( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
 
 		<div class="description short">
 			<p>Renders (outputs) a file of an entity. This includes setting headers
