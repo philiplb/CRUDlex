@@ -11,8 +11,9 @@
 
 namespace CRUDlex;
 
-use CRUDlex\CRUDEntity;
 use Symfony\Component\HttpFoundation\Request;
+
+use CRUDlex\CRUDEntity;
 
 interface CRUDFileProcessorInterface {
 

@@ -12,7 +12,6 @@
 namespace CRUDlex;
 
 use CRUDlex\CRUDEntityDefinition;
-
 use CRUDlex\CRUDData;
 
 /**

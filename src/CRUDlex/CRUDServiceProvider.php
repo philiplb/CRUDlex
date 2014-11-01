@@ -13,8 +13,8 @@ namespace CRUDlex;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
 use Symfony\Component\Yaml\Yaml;
+
 use CRUDlex\CRUDEntityDefinition;
 use CRUDlex\CRUDDataFactoryInterface;
 use CRUDlex\CRUDEntity;

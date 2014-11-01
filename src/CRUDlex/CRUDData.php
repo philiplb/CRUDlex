@@ -11,10 +11,11 @@
 
 namespace CRUDlex;
 
-use CRUDlex\CRUDEntityDefinition;
-use CRUDlex\CRUDEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use CRUDlex\CRUDEntityDefinition;
+use CRUDlex\CRUDEntity;
 
 /**
  * The abstract class for reading and writing data.

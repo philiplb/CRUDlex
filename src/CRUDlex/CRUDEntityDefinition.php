@@ -10,6 +10,7 @@
  */
 
 namespace CRUDlex;
+
 class CRUDEntityDefinition {
 
     protected $table;
