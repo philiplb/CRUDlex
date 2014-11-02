@@ -450,9 +450,16 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['crud']->translate('resourceNotFound'));
         }
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $file);
-        finfo_close($finfo);
+        $extension = pathinfo($file, PATHINFO_EXTENSION);
+        $mimeType = '';
+        if (strtolower($extension)) {
+            $mimeType = 'text/css';
+        } else {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $file);
+            finfo_close($finfo);
+        }
+
         $size = filesize($file);
 
         $response = new StreamedResponse(function () use ($file) {
