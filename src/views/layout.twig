@@ -25,6 +25,13 @@
             .tooltip-crudlex {
                 cursor: pointer;
             }
+
+            @font-face {
+              font-family: 'Glyphicons Halflings';
+
+              src: url('{{ app.url_generator.generate('static', {file: 'fonts/vendor/bootstrap/glyphicons-halflings-regular.eot'}) }}');
+              src: url('{{ app.url_generator.generate('static', {file: 'fonts/vendor/bootstrap/glyphicons-halflings-regular.eot?'}) }}#iefix') format('embedded-opentype'), url('{{ app.url_generator.generate('static', {file: 'fonts/vendor/bootstrap/glyphicons-halflings-regular.woff'}) }}') format('woff'), url('{{ app.url_generator.generate('static', {file: 'fonts/vendor/bootstrap/glyphicons-halflings-regular.ttf'}) }}') format('truetype'), url('{{ app.url_generator.generate('static', {file: 'fonts/vendor/bootstrap/glyphicons-halflings-regular.svg'}) }}#glyphicons_halflingsregular') format('svg');
+            }
         </style>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
