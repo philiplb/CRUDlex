@@ -8,6 +8,7 @@ Released: Upcoming
 - Nicer requirements in the composer.json, less strict (~1.2 instead of 1.2.1 for example)
 - Modifications of the entity definition (changing the type) doesn't require the field to exist anymore; this prepares the runtime modification of the whole definition
 - API docs are written now
+- Updated dependencies to: Bootstrap 3.3.0
 
 ## 0.9.4
 Released: 2014-10-07
