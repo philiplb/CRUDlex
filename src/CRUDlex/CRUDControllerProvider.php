@@ -14,6 +14,7 @@ namespace CRUDlex;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 use CRUDlex\CRUDEntity;
 
@@ -21,6 +22,8 @@ use CRUDlex\CRUDEntity;
  * This is the ControllerProvider offering all CRUD pages.
  *
  * It offers this routes:
+ *
+ * "/resource/static" serving static resources
  *
  * "/{entity}/create" creation page of the entity
  *
@@ -106,6 +109,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $class = get_class($this);
         $factory = $app['controllers_factory'];
+        $factory->get('/resource/static', $class.'::staticFile')
+                ->bind('static');
         $factory->match('/{entity}/create', $class.'::create')
                 ->bind('crudCreate');
         $factory->match('/{entity}', $class.'::showList')
@@ -390,7 +395,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         return $crudData->renderFile($instance, $entity, $field);
     }
 
-
     /**
      * The controller for the "delete file" action.
      *
@@ -424,5 +428,52 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $app['session']->getFlashBag()->add('danger', $app['crud']->translate('file.notdeleted'));
         }
         return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+    }
+
+    /**
+     * The controller for serving static files.
+     *
+     * @param Application $app
+     * the Silex application
+     *
+     * @return Response
+     * redirects to the instance details page or 404 on invalid input
+     */
+    public function staticFile(Application $app) {
+        $fileParam = $app['request']->get('file');
+        if (!$fileParam) {
+            return $this->getNotFoundPage($app, $app['crud']->translate('resourceNotFound'));
+        }
+
+        $file = __DIR__.'/../static/'.$fileParam;
+        if (!file_exists($file)) {
+            return $this->getNotFoundPage($app, $app['crud']->translate('resourceNotFound'));
+        }
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $file);
+        finfo_close($finfo);
+        $size = filesize($file);
+
+        $response = new StreamedResponse(function () use ($file) {
+            set_time_limit(0);
+            $handle = fopen($file,"rb");
+            if ($handle !== false) {
+                $chunkSize = 1024 * 1024;
+                while (!feof($handle)) {
+                    $buffer = fread($handle, $chunkSize);
+                    echo $buffer;
+                    flush();
+                }
+                fclose($handle);
+            }
+        }, 200, array(
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'attachment; filename="'.basename($file).'"',
+            'Content-length' => $size
+        ));
+        $response->send();
+
+        return $response;
     }
 }

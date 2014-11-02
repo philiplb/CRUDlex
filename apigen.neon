@@ -1,5 +1,5 @@
 title: CRUDlex API
-destination: docs\api\0.9.5
+destination: docs/api/0.9.5
 source:
-	- src\CRUDlex
+	- src/CRUDlex
 	

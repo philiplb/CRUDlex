@@ -383,4 +383,22 @@ class CRUDControllerProviderTest extends WebTestCase {
 
     }
 
+    public function testStatic() {
+        $client = $this->createClient();
+
+        $crawler = $client->request('GET', '/crud/resource/static');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Resource not found")'));
+
+        $crawler = $client->request('GET', '/crud/resource/static?file=abc');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Resource not found")'));
+
+        ob_start();
+        $crawler = $client->request('GET', '/crud/resource/static?file=css/vendor/bootstrap/bootstrap.min.css');
+        $this->assertTrue($client->getResponse()->isOk());
+        $response = ob_get_clean();
+        $this->assertTrue(strpos($response, '* Bootstrap v') !== false);
+    }
+
 }
