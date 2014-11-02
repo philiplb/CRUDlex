@@ -452,7 +452,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
         $mimeType = '';
-        if (strtolower($extension)) {
+        if (strtolower($extension) === 'css') {
             $mimeType = 'text/css';
         } else {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
