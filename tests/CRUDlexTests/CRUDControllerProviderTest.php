@@ -399,6 +399,12 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $response = ob_get_clean();
         $this->assertTrue(strpos($response, '* Bootstrap v') !== false);
+
+        ob_start();
+        $crawler = $client->request('GET', '/crud/resource/static?file=js/vendor/bootstrap/bootstrap.min.js');
+        $this->assertTrue($client->getResponse()->isOk());
+        $response = ob_get_clean();
+        $this->assertTrue(strpos($response, '* Bootstrap v') !== false);
     }
 
 }

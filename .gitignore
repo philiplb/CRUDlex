@@ -1,5 +1,5 @@
 composer.lock
-vendor/
+/vendor/
 composer.phar
 coverageReport/
 build/logs/clover.xml
