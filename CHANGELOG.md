@@ -2,7 +2,7 @@ CRUDlex Changelog
 =================
 
 ## 0.9.5
-Released: Upcoming
+Released: 2014-11-07
 - Changed CRUDEntityDefinition::addParent() to CRUDEntityDefinition::addChild() and CRUDEntityDefinition::getParents() to CRUDEntityDefinition::getChildren() as it was confusing
 - Added the option to show the referencing children on the parents details page
 - Nicer requirements in the composer.json, less strict (~1.2 instead of 1.2.1 for example)
