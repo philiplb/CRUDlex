@@ -45,7 +45,7 @@ implemented on the fly when needed.
 
 ```json
 "require": {
-    "philiplb/crudlex": "0.9.4"
+    "philiplb/crudlex": "0.9.5"
 }
 ```
 
