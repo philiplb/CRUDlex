@@ -40,7 +40,8 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'pages',
             'release',
             'library',
-            'cover'
+            'cover',
+            'price'
         );
         $this->assertSame($read, $expected);
     }
@@ -74,7 +75,8 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'pages',
             'release',
             'library',
-            'cover'
+            'cover',
+            'price'
         );
         $this->assertSame($read, $expected);
     }
@@ -84,7 +86,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $expected = array(
             'author',
             'title',
-            'library',
+            'library'
         );
         $this->assertSame($read, $expected);
         $read = $this->definitionLibrary->getListFieldNames();
@@ -259,6 +261,18 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definitionLibrary->getChildrenLabelFields();
         $expected = array('book' => 'title');
         $this->assertSame($read, $expected);
+    }
+
+    public function testGetFloatStep() {
+        $read = $this->definition->getFloatStep('price');
+        $expected = 0.1;
+        $this->assertSame($read, $expected);
+        $read = $this->definition->getFloatStep('title');
+        $this->assertNull($read);
+        $read = $this->definition->getFloatStep('foo');
+        $this->assertNull($read);
+        $read = $this->definition->getFloatStep(null);
+        $this->assertNull($read);
     }
 
 }

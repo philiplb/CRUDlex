@@ -482,73 +482,86 @@
 </span><span id="396" class="l"><a class="l" href="#396">396: </a>    }
 </span><span id="397" class="l"><a class="l" href="#397">397: </a>
 </span><span id="398" class="l"><a class="l" href="#398">398: </a>    <span class="php-comment">/**
-</span></span><span id="399" class="l"><a class="l" href="#399">399: </a><span class="php-comment">     * Gets the label of a field.
+</span></span><span id="399" class="l"><a class="l" href="#399">399: </a><span class="php-comment">     * Gets the step size of a float field.
 </span></span><span id="400" class="l"><a class="l" href="#400">400: </a><span class="php-comment">     *
 </span></span><span id="401" class="l"><a class="l" href="#401">401: </a><span class="php-comment">     * @param string $fieldName
 </span></span><span id="402" class="l"><a class="l" href="#402">402: </a><span class="php-comment">     * the field name
 </span></span><span id="403" class="l"><a class="l" href="#403">403: </a><span class="php-comment">     *
-</span></span><span id="404" class="l"><a class="l" href="#404">404: </a><span class="php-comment">     * @return string
-</span></span><span id="405" class="l"><a class="l" href="#405">405: </a><span class="php-comment">     * the label of the field or the field name if no label is set in the CRUD
-</span></span><span id="406" class="l"><a class="l" href="#406">406: </a><span class="php-comment">     * YAML
-</span></span><span id="407" class="l"><a class="l" href="#407">407: </a><span class="php-comment">     */</span>
-</span><span id="408" class="l"><a class="l" href="#408">408: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getFieldLabel" href="#_getFieldLabel">getFieldLabel</a>(<span class="php-var">$fieldName</span>) {
-</span><span id="409" class="l"><a class="l" href="#409">409: </a>        <span class="php-var">$result</span> = <span class="php-var">$this</span>-&gt;getFieldValue(<span class="php-var">$fieldName</span>, <span class="php-quote">'label'</span>);
-</span><span id="410" class="l"><a class="l" href="#410">410: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$result</span> === <span class="php-keyword1">null</span> &amp;&amp; <span class="php-keyword2">key_exists</span>(<span class="php-var">$fieldName</span>, <span class="php-var">$this</span>-&gt;standardFieldLabels)) {
-</span><span id="411" class="l"><a class="l" href="#411">411: </a>            <span class="php-var">$result</span> = <span class="php-var">$this</span>-&gt;standardFieldLabels[<span class="php-var">$fieldName</span>];
-</span><span id="412" class="l"><a class="l" href="#412">412: </a>        }
-</span><span id="413" class="l"><a class="l" href="#413">413: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$result</span> === <span class="php-keyword1">null</span>) {
-</span><span id="414" class="l"><a class="l" href="#414">414: </a>            <span class="php-var">$result</span> = <span class="php-var">$fieldName</span>;
-</span><span id="415" class="l"><a class="l" href="#415">415: </a>        }
-</span><span id="416" class="l"><a class="l" href="#416">416: </a>        <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
-</span><span id="417" class="l"><a class="l" href="#417">417: </a>    }
-</span><span id="418" class="l"><a class="l" href="#418">418: </a>
-</span><span id="419" class="l"><a class="l" href="#419">419: </a>    <span class="php-comment">/**
-</span></span><span id="420" class="l"><a class="l" href="#420">420: </a><span class="php-comment">     * Gets the table where the data is stored.
-</span></span><span id="421" class="l"><a class="l" href="#421">421: </a><span class="php-comment">     *
-</span></span><span id="422" class="l"><a class="l" href="#422">422: </a><span class="php-comment">     * @return @string
-</span></span><span id="423" class="l"><a class="l" href="#423">423: </a><span class="php-comment">     * the table where the data is stored
-</span></span><span id="424" class="l"><a class="l" href="#424">424: </a><span class="php-comment">     */</span>
-</span><span id="425" class="l"><a class="l" href="#425">425: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getTable" href="#_getTable">getTable</a>() {
-</span><span id="426" class="l"><a class="l" href="#426">426: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;table;
-</span><span id="427" class="l"><a class="l" href="#427">427: </a>    }
-</span><span id="428" class="l"><a class="l" href="#428">428: </a>
-</span><span id="429" class="l"><a class="l" href="#429">429: </a>    <span class="php-comment">/**
-</span></span><span id="430" class="l"><a class="l" href="#430">430: </a><span class="php-comment">     * Gets the label for the entity.
-</span></span><span id="431" class="l"><a class="l" href="#431">431: </a><span class="php-comment">     *
-</span></span><span id="432" class="l"><a class="l" href="#432">432: </a><span class="php-comment">     * @return @string
-</span></span><span id="433" class="l"><a class="l" href="#433">433: </a><span class="php-comment">     * the label for the entity
-</span></span><span id="434" class="l"><a class="l" href="#434">434: </a><span class="php-comment">     */</span>
-</span><span id="435" class="l"><a class="l" href="#435">435: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getLabel" href="#_getLabel">getLabel</a>() {
-</span><span id="436" class="l"><a class="l" href="#436">436: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;label;
-</span><span id="437" class="l"><a class="l" href="#437">437: </a>    }
-</span><span id="438" class="l"><a class="l" href="#438">438: </a>
-</span><span id="439" class="l"><a class="l" href="#439">439: </a>    <span class="php-comment">/**
-</span></span><span id="440" class="l"><a class="l" href="#440">440: </a><span class="php-comment">     * Adds a child to this definition in case the other
-</span></span><span id="441" class="l"><a class="l" href="#441">441: </a><span class="php-comment">     * definition has a reference to this one.
-</span></span><span id="442" class="l"><a class="l" href="#442">442: </a><span class="php-comment">     *
-</span></span><span id="443" class="l"><a class="l" href="#443">443: </a><span class="php-comment">     * @param string $table
-</span></span><span id="444" class="l"><a class="l" href="#444">444: </a><span class="php-comment">     * the table of the referencing definition
-</span></span><span id="445" class="l"><a class="l" href="#445">445: </a><span class="php-comment">     * @param string $fieldName
-</span></span><span id="446" class="l"><a class="l" href="#446">446: </a><span class="php-comment">     * the field name of the referencing definition
-</span></span><span id="447" class="l"><a class="l" href="#447">447: </a><span class="php-comment">     * @param string $entity
-</span></span><span id="448" class="l"><a class="l" href="#448">448: </a><span class="php-comment">     * the entity of the referencing definition
-</span></span><span id="449" class="l"><a class="l" href="#449">449: </a><span class="php-comment">     */</span>
-</span><span id="450" class="l"><a class="l" href="#450">450: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_addChild" href="#_addChild">addChild</a>(<span class="php-var">$table</span>, <span class="php-var">$fieldName</span>, <span class="php-var">$entity</span>) {
-</span><span id="451" class="l"><a class="l" href="#451">451: </a>        <span class="php-var">$this</span>-&gt;children[] = <span class="php-keyword1">array</span>(<span class="php-var">$table</span>, <span class="php-var">$fieldName</span>, <span class="php-var">$entity</span>);
-</span><span id="452" class="l"><a class="l" href="#452">452: </a>    }
-</span><span id="453" class="l"><a class="l" href="#453">453: </a>
-</span><span id="454" class="l"><a class="l" href="#454">454: </a>    <span class="php-comment">/**
-</span></span><span id="455" class="l"><a class="l" href="#455">455: </a><span class="php-comment">     * Gets the referencing children to this definition.
-</span></span><span id="456" class="l"><a class="l" href="#456">456: </a><span class="php-comment">     *
-</span></span><span id="457" class="l"><a class="l" href="#457">457: </a><span class="php-comment">     * @return array
-</span></span><span id="458" class="l"><a class="l" href="#458">458: </a><span class="php-comment">     * an array with the children referencing the entity. All entries are arrays
-</span></span><span id="459" class="l"><a class="l" href="#459">459: </a><span class="php-comment">     * with three referencing elements: table, fieldName, entity
-</span></span><span id="460" class="l"><a class="l" href="#460">460: </a><span class="php-comment">     */</span>
-</span><span id="461" class="l"><a class="l" href="#461">461: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getChildren" href="#_getChildren">getChildren</a>() {
-</span><span id="462" class="l"><a class="l" href="#462">462: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;children;
-</span><span id="463" class="l"><a class="l" href="#463">463: </a>    }
-</span><span id="464" class="l"><a class="l" href="#464">464: </a>}
-</span><span id="465" class="l"><a class="l" href="#465">465: </a></span></code></pre>
+</span></span><span id="404" class="l"><a class="l" href="#404">404: </a><span class="php-comment">     * @return array
+</span></span><span id="405" class="l"><a class="l" href="#405">405: </a><span class="php-comment">     * the step size of a float field or null on invalid field name
+</span></span><span id="406" class="l"><a class="l" href="#406">406: </a><span class="php-comment">     */</span>
+</span><span id="407" class="l"><a class="l" href="#407">407: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getFloatStep" href="#_getFloatStep">getFloatStep</a>(<span class="php-var">$fieldName</span>) {
+</span><span id="408" class="l"><a class="l" href="#408">408: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;getFieldValue(<span class="php-var">$fieldName</span>, <span class="php-quote">'floatStep'</span>);
+</span><span id="409" class="l"><a class="l" href="#409">409: </a>    }
+</span><span id="410" class="l"><a class="l" href="#410">410: </a>
+</span><span id="411" class="l"><a class="l" href="#411">411: </a>    <span class="php-comment">/**
+</span></span><span id="412" class="l"><a class="l" href="#412">412: </a><span class="php-comment">     * Gets the label of a field.
+</span></span><span id="413" class="l"><a class="l" href="#413">413: </a><span class="php-comment">     *
+</span></span><span id="414" class="l"><a class="l" href="#414">414: </a><span class="php-comment">     * @param string $fieldName
+</span></span><span id="415" class="l"><a class="l" href="#415">415: </a><span class="php-comment">     * the field name
+</span></span><span id="416" class="l"><a class="l" href="#416">416: </a><span class="php-comment">     *
+</span></span><span id="417" class="l"><a class="l" href="#417">417: </a><span class="php-comment">     * @return string
+</span></span><span id="418" class="l"><a class="l" href="#418">418: </a><span class="php-comment">     * the label of the field or the field name if no label is set in the CRUD
+</span></span><span id="419" class="l"><a class="l" href="#419">419: </a><span class="php-comment">     * YAML
+</span></span><span id="420" class="l"><a class="l" href="#420">420: </a><span class="php-comment">     */</span>
+</span><span id="421" class="l"><a class="l" href="#421">421: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getFieldLabel" href="#_getFieldLabel">getFieldLabel</a>(<span class="php-var">$fieldName</span>) {
+</span><span id="422" class="l"><a class="l" href="#422">422: </a>        <span class="php-var">$result</span> = <span class="php-var">$this</span>-&gt;getFieldValue(<span class="php-var">$fieldName</span>, <span class="php-quote">'label'</span>);
+</span><span id="423" class="l"><a class="l" href="#423">423: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$result</span> === <span class="php-keyword1">null</span> &amp;&amp; <span class="php-keyword2">key_exists</span>(<span class="php-var">$fieldName</span>, <span class="php-var">$this</span>-&gt;standardFieldLabels)) {
+</span><span id="424" class="l"><a class="l" href="#424">424: </a>            <span class="php-var">$result</span> = <span class="php-var">$this</span>-&gt;standardFieldLabels[<span class="php-var">$fieldName</span>];
+</span><span id="425" class="l"><a class="l" href="#425">425: </a>        }
+</span><span id="426" class="l"><a class="l" href="#426">426: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$result</span> === <span class="php-keyword1">null</span>) {
+</span><span id="427" class="l"><a class="l" href="#427">427: </a>            <span class="php-var">$result</span> = <span class="php-var">$fieldName</span>;
+</span><span id="428" class="l"><a class="l" href="#428">428: </a>        }
+</span><span id="429" class="l"><a class="l" href="#429">429: </a>        <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
+</span><span id="430" class="l"><a class="l" href="#430">430: </a>    }
+</span><span id="431" class="l"><a class="l" href="#431">431: </a>
+</span><span id="432" class="l"><a class="l" href="#432">432: </a>    <span class="php-comment">/**
+</span></span><span id="433" class="l"><a class="l" href="#433">433: </a><span class="php-comment">     * Gets the table where the data is stored.
+</span></span><span id="434" class="l"><a class="l" href="#434">434: </a><span class="php-comment">     *
+</span></span><span id="435" class="l"><a class="l" href="#435">435: </a><span class="php-comment">     * @return @string
+</span></span><span id="436" class="l"><a class="l" href="#436">436: </a><span class="php-comment">     * the table where the data is stored
+</span></span><span id="437" class="l"><a class="l" href="#437">437: </a><span class="php-comment">     */</span>
+</span><span id="438" class="l"><a class="l" href="#438">438: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getTable" href="#_getTable">getTable</a>() {
+</span><span id="439" class="l"><a class="l" href="#439">439: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;table;
+</span><span id="440" class="l"><a class="l" href="#440">440: </a>    }
+</span><span id="441" class="l"><a class="l" href="#441">441: </a>
+</span><span id="442" class="l"><a class="l" href="#442">442: </a>    <span class="php-comment">/**
+</span></span><span id="443" class="l"><a class="l" href="#443">443: </a><span class="php-comment">     * Gets the label for the entity.
+</span></span><span id="444" class="l"><a class="l" href="#444">444: </a><span class="php-comment">     *
+</span></span><span id="445" class="l"><a class="l" href="#445">445: </a><span class="php-comment">     * @return @string
+</span></span><span id="446" class="l"><a class="l" href="#446">446: </a><span class="php-comment">     * the label for the entity
+</span></span><span id="447" class="l"><a class="l" href="#447">447: </a><span class="php-comment">     */</span>
+</span><span id="448" class="l"><a class="l" href="#448">448: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getLabel" href="#_getLabel">getLabel</a>() {
+</span><span id="449" class="l"><a class="l" href="#449">449: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;label;
+</span><span id="450" class="l"><a class="l" href="#450">450: </a>    }
+</span><span id="451" class="l"><a class="l" href="#451">451: </a>
+</span><span id="452" class="l"><a class="l" href="#452">452: </a>    <span class="php-comment">/**
+</span></span><span id="453" class="l"><a class="l" href="#453">453: </a><span class="php-comment">     * Adds a child to this definition in case the other
+</span></span><span id="454" class="l"><a class="l" href="#454">454: </a><span class="php-comment">     * definition has a reference to this one.
+</span></span><span id="455" class="l"><a class="l" href="#455">455: </a><span class="php-comment">     *
+</span></span><span id="456" class="l"><a class="l" href="#456">456: </a><span class="php-comment">     * @param string $table
+</span></span><span id="457" class="l"><a class="l" href="#457">457: </a><span class="php-comment">     * the table of the referencing definition
+</span></span><span id="458" class="l"><a class="l" href="#458">458: </a><span class="php-comment">     * @param string $fieldName
+</span></span><span id="459" class="l"><a class="l" href="#459">459: </a><span class="php-comment">     * the field name of the referencing definition
+</span></span><span id="460" class="l"><a class="l" href="#460">460: </a><span class="php-comment">     * @param string $entity
+</span></span><span id="461" class="l"><a class="l" href="#461">461: </a><span class="php-comment">     * the entity of the referencing definition
+</span></span><span id="462" class="l"><a class="l" href="#462">462: </a><span class="php-comment">     */</span>
+</span><span id="463" class="l"><a class="l" href="#463">463: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_addChild" href="#_addChild">addChild</a>(<span class="php-var">$table</span>, <span class="php-var">$fieldName</span>, <span class="php-var">$entity</span>) {
+</span><span id="464" class="l"><a class="l" href="#464">464: </a>        <span class="php-var">$this</span>-&gt;children[] = <span class="php-keyword1">array</span>(<span class="php-var">$table</span>, <span class="php-var">$fieldName</span>, <span class="php-var">$entity</span>);
+</span><span id="465" class="l"><a class="l" href="#465">465: </a>    }
+</span><span id="466" class="l"><a class="l" href="#466">466: </a>
+</span><span id="467" class="l"><a class="l" href="#467">467: </a>    <span class="php-comment">/**
+</span></span><span id="468" class="l"><a class="l" href="#468">468: </a><span class="php-comment">     * Gets the referencing children to this definition.
+</span></span><span id="469" class="l"><a class="l" href="#469">469: </a><span class="php-comment">     *
+</span></span><span id="470" class="l"><a class="l" href="#470">470: </a><span class="php-comment">     * @return array
+</span></span><span id="471" class="l"><a class="l" href="#471">471: </a><span class="php-comment">     * an array with the children referencing the entity. All entries are arrays
+</span></span><span id="472" class="l"><a class="l" href="#472">472: </a><span class="php-comment">     * with three referencing elements: table, fieldName, entity
+</span></span><span id="473" class="l"><a class="l" href="#473">473: </a><span class="php-comment">     */</span>
+</span><span id="474" class="l"><a class="l" href="#474">474: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getChildren" href="#_getChildren">getChildren</a>() {
+</span><span id="475" class="l"><a class="l" href="#475">475: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;children;
+</span><span id="476" class="l"><a class="l" href="#476">476: </a>    }
+</span><span id="477" class="l"><a class="l" href="#477">477: </a>}
+</span><span id="478" class="l"><a class="l" href="#478">478: </a></span></code></pre>
 
 	<div id="footer">
 		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>

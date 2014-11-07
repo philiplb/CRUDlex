@@ -73,6 +73,9 @@ class CRUDEntity {
             case 'int':
                 $value = intval($value);
                 break;
+            case 'float':
+                $value = floatval($value);
+                break;
             case 'bool':
                 $value = $value && $value !== '0';
                 break;
@@ -151,6 +154,13 @@ class CRUDEntity {
             // Check for int type
             $type = $this->definition->getType($field);
             if ($type == 'int' && $this->entity[$field] !== '' && (string)(int)$this->entity[$field] != $this->entity[$field]) {
+                $errors[$field]['input'] = true;
+                $valid = false;
+            }
+
+            // Check for float type
+            $type = $this->definition->getType($field);
+            if ($type == 'float' && $this->entity[$field] !== '' && (string)(float)$this->entity[$field] != $this->entity[$field]) {
                 $errors[$field]['input'] = true;
                 $valid = false;
             }

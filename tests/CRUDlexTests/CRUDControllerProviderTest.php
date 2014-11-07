@@ -81,6 +81,7 @@ class CRUDControllerProviderTest extends WebTestCase {
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
+            'price' => 3.99,
             'library' => $library->get('id')
         ), array(
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
@@ -107,6 +108,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $entityBook1->set('title', 'titleA');
         $entityBook1->set('author', 'author');
         $entityBook1->set('pages', 111);
+        $entityBook1->set('price', 3.99);
         $entityBook1->set('library', $library->get('id'));
         $this->dataBook->create($entityBook1);
 
@@ -114,6 +116,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $entityBook2->set('title', 'titleB');
         $entityBook2->set('author', 'author');
         $entityBook2->set('pages', 111);
+        $entityBook1->set('price', 3.99);
         $entityBook2->set('library', $library->get('id'));
         $this->dataBook->create($entityBook2);
 
@@ -209,6 +212,7 @@ class CRUDControllerProviderTest extends WebTestCase {
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
+            'price' => 3.99,
             'library' => $library->get('id')
         ), array(
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
@@ -312,6 +316,7 @@ class CRUDControllerProviderTest extends WebTestCase {
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
+            'price' => 3.99,
             'library' => $library->get('id')
         ), array(
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
@@ -357,6 +362,7 @@ class CRUDControllerProviderTest extends WebTestCase {
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
+            'price' => 3.99,
             'library' => $library->get('id')
         ), array(
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)

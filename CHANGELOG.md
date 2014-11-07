@@ -10,6 +10,7 @@ Released: Upcoming
 - API docs are written now
 - Updated dependencies to: Bootstrap 3.3.0, moment.js 2.8.3
 - Removed all usages of CDNs for CSS and JS resources and delivering them from the filesystem
+- Added support for float fields.
 
 ## 0.9.4
 Released: 2014-10-07

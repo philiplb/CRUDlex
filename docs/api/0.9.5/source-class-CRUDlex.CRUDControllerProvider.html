@@ -536,34 +536,41 @@
 </span><span id="450" class="l"><a class="l" href="#450">450: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;getNotFoundPage(<span class="php-var">$app</span>, <span class="php-var">$app</span>[<span class="php-quote">'crud'</span>]-&gt;translate(<span class="php-quote">'resourceNotFound'</span>));
 </span><span id="451" class="l"><a class="l" href="#451">451: </a>        }
 </span><span id="452" class="l"><a class="l" href="#452">452: </a>
-</span><span id="453" class="l"><a class="l" href="#453">453: </a>        <span class="php-var">$finfo</span> = <span class="php-keyword2">finfo_open</span>(FILEINFO_MIME_TYPE);
-</span><span id="454" class="l"><a class="l" href="#454">454: </a>        <span class="php-var">$mimeType</span> = <span class="php-keyword2">finfo_file</span>(<span class="php-var">$finfo</span>, <span class="php-var">$file</span>);
-</span><span id="455" class="l"><a class="l" href="#455">455: </a>        <span class="php-keyword2">finfo_close</span>(<span class="php-var">$finfo</span>);
-</span><span id="456" class="l"><a class="l" href="#456">456: </a>        <span class="php-var">$size</span> = <span class="php-keyword2">filesize</span>(<span class="php-var">$file</span>);
-</span><span id="457" class="l"><a class="l" href="#457">457: </a>
-</span><span id="458" class="l"><a class="l" href="#458">458: </a>        <span class="php-var">$response</span> = <span class="php-keyword1">new</span> StreamedResponse(<span class="php-keyword1">function</span> () <span class="php-keyword1">use</span> (<span class="php-var">$file</span>) {
-</span><span id="459" class="l"><a class="l" href="#459">459: </a>            <span class="php-keyword2">set_time_limit</span>(<span class="php-num">0</span>);
-</span><span id="460" class="l"><a class="l" href="#460">460: </a>            <span class="php-var">$handle</span> = <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>,<span class="php-quote">&quot;rb&quot;</span>);
-</span><span id="461" class="l"><a class="l" href="#461">461: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$handle</span> !== <span class="php-keyword1">false</span>) {
-</span><span id="462" class="l"><a class="l" href="#462">462: </a>                <span class="php-var">$chunkSize</span> = <span class="php-num">1024</span> * <span class="php-num">1024</span>;
-</span><span id="463" class="l"><a class="l" href="#463">463: </a>                <span class="php-keyword1">while</span> (!<span class="php-keyword2">feof</span>(<span class="php-var">$handle</span>)) {
-</span><span id="464" class="l"><a class="l" href="#464">464: </a>                    <span class="php-var">$buffer</span> = <span class="php-keyword2">fread</span>(<span class="php-var">$handle</span>, <span class="php-var">$chunkSize</span>);
-</span><span id="465" class="l"><a class="l" href="#465">465: </a>                    <span class="php-keyword1">echo</span> <span class="php-var">$buffer</span>;
-</span><span id="466" class="l"><a class="l" href="#466">466: </a>                    <span class="php-keyword2">flush</span>();
-</span><span id="467" class="l"><a class="l" href="#467">467: </a>                }
-</span><span id="468" class="l"><a class="l" href="#468">468: </a>                <span class="php-keyword2">fclose</span>(<span class="php-var">$handle</span>);
-</span><span id="469" class="l"><a class="l" href="#469">469: </a>            }
-</span><span id="470" class="l"><a class="l" href="#470">470: </a>        }, <span class="php-num">200</span>, <span class="php-keyword1">array</span>(
-</span><span id="471" class="l"><a class="l" href="#471">471: </a>            <span class="php-quote">'Content-Type'</span> =&gt; <span class="php-var">$mimeType</span>,
-</span><span id="472" class="l"><a class="l" href="#472">472: </a>            <span class="php-quote">'Content-Disposition'</span> =&gt; <span class="php-quote">'attachment; filename=&quot;'</span>.<span class="php-keyword2">basename</span>(<span class="php-var">$file</span>).<span class="php-quote">'&quot;'</span>,
-</span><span id="473" class="l"><a class="l" href="#473">473: </a>            <span class="php-quote">'Content-length'</span> =&gt; <span class="php-var">$size</span>
-</span><span id="474" class="l"><a class="l" href="#474">474: </a>        ));
-</span><span id="475" class="l"><a class="l" href="#475">475: </a>        <span class="php-var">$response</span>-&gt;send();
-</span><span id="476" class="l"><a class="l" href="#476">476: </a>
-</span><span id="477" class="l"><a class="l" href="#477">477: </a>        <span class="php-keyword1">return</span> <span class="php-var">$response</span>;
-</span><span id="478" class="l"><a class="l" href="#478">478: </a>    }
-</span><span id="479" class="l"><a class="l" href="#479">479: </a>}
-</span><span id="480" class="l"><a class="l" href="#480">480: </a></span></code></pre>
+</span><span id="453" class="l"><a class="l" href="#453">453: </a>        <span class="php-var">$extension</span> = <span class="php-keyword2">pathinfo</span>(<span class="php-var">$file</span>, PATHINFO_EXTENSION);
+</span><span id="454" class="l"><a class="l" href="#454">454: </a>        <span class="php-var">$mimeType</span> = <span class="php-quote">''</span>;
+</span><span id="455" class="l"><a class="l" href="#455">455: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">strtolower</span>(<span class="php-var">$extension</span>) === <span class="php-quote">'css'</span>) {
+</span><span id="456" class="l"><a class="l" href="#456">456: </a>            <span class="php-var">$mimeType</span> = <span class="php-quote">'text/css'</span>;
+</span><span id="457" class="l"><a class="l" href="#457">457: </a>        } <span class="php-keyword1">else</span> {
+</span><span id="458" class="l"><a class="l" href="#458">458: </a>            <span class="php-var">$finfo</span> = <span class="php-keyword2">finfo_open</span>(FILEINFO_MIME_TYPE);
+</span><span id="459" class="l"><a class="l" href="#459">459: </a>            <span class="php-var">$mimeType</span> = <span class="php-keyword2">finfo_file</span>(<span class="php-var">$finfo</span>, <span class="php-var">$file</span>);
+</span><span id="460" class="l"><a class="l" href="#460">460: </a>            <span class="php-keyword2">finfo_close</span>(<span class="php-var">$finfo</span>);
+</span><span id="461" class="l"><a class="l" href="#461">461: </a>        }
+</span><span id="462" class="l"><a class="l" href="#462">462: </a>
+</span><span id="463" class="l"><a class="l" href="#463">463: </a>        <span class="php-var">$size</span> = <span class="php-keyword2">filesize</span>(<span class="php-var">$file</span>);
+</span><span id="464" class="l"><a class="l" href="#464">464: </a>
+</span><span id="465" class="l"><a class="l" href="#465">465: </a>        <span class="php-var">$response</span> = <span class="php-keyword1">new</span> StreamedResponse(<span class="php-keyword1">function</span> () <span class="php-keyword1">use</span> (<span class="php-var">$file</span>) {
+</span><span id="466" class="l"><a class="l" href="#466">466: </a>            <span class="php-keyword2">set_time_limit</span>(<span class="php-num">0</span>);
+</span><span id="467" class="l"><a class="l" href="#467">467: </a>            <span class="php-var">$handle</span> = <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>,<span class="php-quote">&quot;rb&quot;</span>);
+</span><span id="468" class="l"><a class="l" href="#468">468: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$handle</span> !== <span class="php-keyword1">false</span>) {
+</span><span id="469" class="l"><a class="l" href="#469">469: </a>                <span class="php-var">$chunkSize</span> = <span class="php-num">1024</span> * <span class="php-num">1024</span>;
+</span><span id="470" class="l"><a class="l" href="#470">470: </a>                <span class="php-keyword1">while</span> (!<span class="php-keyword2">feof</span>(<span class="php-var">$handle</span>)) {
+</span><span id="471" class="l"><a class="l" href="#471">471: </a>                    <span class="php-var">$buffer</span> = <span class="php-keyword2">fread</span>(<span class="php-var">$handle</span>, <span class="php-var">$chunkSize</span>);
+</span><span id="472" class="l"><a class="l" href="#472">472: </a>                    <span class="php-keyword1">echo</span> <span class="php-var">$buffer</span>;
+</span><span id="473" class="l"><a class="l" href="#473">473: </a>                    <span class="php-keyword2">flush</span>();
+</span><span id="474" class="l"><a class="l" href="#474">474: </a>                }
+</span><span id="475" class="l"><a class="l" href="#475">475: </a>                <span class="php-keyword2">fclose</span>(<span class="php-var">$handle</span>);
+</span><span id="476" class="l"><a class="l" href="#476">476: </a>            }
+</span><span id="477" class="l"><a class="l" href="#477">477: </a>        }, <span class="php-num">200</span>, <span class="php-keyword1">array</span>(
+</span><span id="478" class="l"><a class="l" href="#478">478: </a>            <span class="php-quote">'Content-Type'</span> =&gt; <span class="php-var">$mimeType</span>,
+</span><span id="479" class="l"><a class="l" href="#479">479: </a>            <span class="php-quote">'Content-Disposition'</span> =&gt; <span class="php-quote">'attachment; filename=&quot;'</span>.<span class="php-keyword2">basename</span>(<span class="php-var">$file</span>).<span class="php-quote">'&quot;'</span>,
+</span><span id="480" class="l"><a class="l" href="#480">480: </a>            <span class="php-quote">'Content-length'</span> =&gt; <span class="php-var">$size</span>
+</span><span id="481" class="l"><a class="l" href="#481">481: </a>        ));
+</span><span id="482" class="l"><a class="l" href="#482">482: </a>        <span class="php-var">$response</span>-&gt;send();
+</span><span id="483" class="l"><a class="l" href="#483">483: </a>
+</span><span id="484" class="l"><a class="l" href="#484">484: </a>        <span class="php-keyword1">return</span> <span class="php-var">$response</span>;
+</span><span id="485" class="l"><a class="l" href="#485">485: </a>    }
+</span><span id="486" class="l"><a class="l" href="#486">486: </a>}
+</span><span id="487" class="l"><a class="l" href="#487">487: </a></span></code></pre>
 
 	<div id="footer">
 		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>

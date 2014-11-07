@@ -75,6 +75,21 @@ An integer, no further parameters. Related MySQL-types:
 - INT (recommended)
 - BIGINT
 
+## Float
+
+```yml
+type: float
+floatStep: 0.1
+```
+
+An float. Related MySQL-types:
+- FLOAT (recommended)
+- DECIMAL
+- DOUBLE (recommended)
+- REAL
+
+The parameter "floatStep" is to set the step size in the form field.
+
 ## Boolean
 
 ```yml

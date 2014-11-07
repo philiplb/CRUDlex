@@ -57,3 +57,7 @@ book:
       filepath: 'tests/uploads'
       label: 'Cover Image'
       required: true
+    price:
+      type: float
+      label: Price
+      floatStep: 0.1

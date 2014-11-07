@@ -396,6 +396,19 @@ class CRUDEntityDefinition {
     }
 
     /**
+     * Gets the step size of a float field.
+     *
+     * @param string $fieldName
+     * the field name
+     *
+     * @return array
+     * the step size of a float field or null on invalid field name
+     */
+    public function getFloatStep($fieldName) {
+        return $this->getFieldValue($fieldName, 'floatStep');
+    }
+
+    /**
      * Gets the label of a field.
      *
      * @param string $fieldName
