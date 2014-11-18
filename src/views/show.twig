@@ -24,7 +24,7 @@
         {% for field in fields %}
             <tr>
                 <td>{{ definition.getFieldLabel(field) }}</td>
-                <td>
+                <td id="crudField{{ field }}">
                     {% include '@crud/renderField.twig' with {
                         entity: entity,
                         crudEntity: crudEntity,
