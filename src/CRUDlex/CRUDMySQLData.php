@@ -26,6 +26,43 @@ class CRUDMySQLData extends CRUDData {
     protected $db;
 
     /**
+     * Performs the actual deletion.
+     *
+     * @param string $id
+     * the id of the entry to delete
+     *
+     * @param boolean $deleteCascade
+     * whether to delete children and subchildren
+     *
+     * @return boolean
+     * true on successful deletion
+     */
+    protected function doDelete($id, $deleteCascade) {
+        if ($deleteCascade) {
+            foreach ($this->definition->getChildren() as $childArray) {
+                $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
+                $children = $childData->listEntries(array($childArray[1] => $id));
+                foreach ($children as $child) {
+                    $childData->doDelete($child->get('id'), $deleteCascade);
+                }
+            }
+        } else {
+            foreach ($this->definition->getChildren() as $child) {
+                $sql = 'SELECT COUNT(id) AS amount FROM '.$child[0].' WHERE ';
+                $sql .= $child[1].' = ? AND deleted_at IS NULL';
+                $result = $this->db->fetchAssoc($sql, array($id));
+                if ($result['amount'] > 0) {
+                    return false;
+                }
+            }
+        }
+
+        $sql = 'UPDATE '.$this->definition->getTable().' SET deleted_at = NOW() WHERE id = ?';
+        $this->db->executeUpdate($sql, array($id));
+        return true;
+    }
+
+    /**
      * Constructor.
      *
      * @param CRUDEntityDefinition $definition
@@ -124,18 +161,7 @@ class CRUDMySQLData extends CRUDData {
      * {@inheritdoc}
      */
     public function delete($id) {
-        foreach ($this->definition->getChildren() as $parent) {
-            $sql = 'SELECT COUNT(id) AS amount FROM '.$parent[0].' WHERE ';
-            $sql .= $parent[1].' = ? AND deleted_at IS NULL';
-            $result = $this->db->fetchAssoc($sql, array($id));
-            if ($result['amount'] > 0) {
-                return false;
-            }
-        }
-
-        $sql = 'UPDATE '.$this->definition->getTable().' SET deleted_at = NOW() WHERE id = ?';
-        $this->db->executeUpdate($sql, array($id));
-        return true;
+        return $this->doDelete($id, $this->definition->isDeleteCascade());
     }
 
     /**

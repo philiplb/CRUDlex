@@ -187,6 +187,8 @@ book:
               entity: library
 ```
 
+### Show Children
+
 If you want to show the children (books in this case) on the details page of the
 parent (library), you can activate it via the childrenLabelFields:
 
@@ -218,6 +220,41 @@ book:
 On a details page of a library, all of its books are now displayed by their
 title field. If a library had more children and their label fields are not
 defined, it falls back to the id field.
+
+### Cascading Children Deletion
+
+The default setup is, that referenced entities can't be deleted until their
+children are deleted. In this case, a library can't be deleted until all of its
+books are gone. You can force children deletion by using the __deleteCascade__
+setting like this:
+
+```yml
+library:
+    table: lib
+    label: Library
+    childrenLabelFields:
+        book: title
+    deleteCascade: true
+    fields:
+        name:
+            type: text
+book:
+    table: book
+    label: Book
+    fields:
+        title:
+            type: text
+        author:
+            type: text
+        library:
+            type: reference
+            reference:
+              table: lib
+              nameField: name
+              entity: library
+```
+
+### MySQL Foreign Key Hint
 
 Don't forget to set the MySQL foreign key.
 

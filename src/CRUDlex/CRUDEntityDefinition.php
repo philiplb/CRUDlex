@@ -53,6 +53,16 @@ class CRUDEntityDefinition {
     protected $childrenLabelFields;
 
     /**
+     * Whether to delete its children when an instance is deleted.
+     */
+    protected $deleteCascade;
+
+    /**
+     * Holds the {@see CRUDServiceProvider}.
+     */
+    protected $serviceProvider;
+
+    /**
      * Gets the field names exluding the given ones.
      *
      * @param array $exclude
@@ -144,8 +154,12 @@ class CRUDEntityDefinition {
      * the fields used to display the children on the details page of an entity;
      * The keys are the entity names as in the CRUD YAML and the values are the
      * field names
+     * @param boolean $deleteCascade
+     * whether to delete its children when an instance is deleted
+     * @param CRUDServiceProvider $serviceProvider
+     * The current service provider
      */
-    public function __construct($table, $fields, $label, $listFields, $standardFieldLabels, $childrenLabelFields) {
+    public function __construct($table, $fields, $label, $listFields, $standardFieldLabels, $childrenLabelFields, $deleteCascade, $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->children = array();
@@ -153,6 +167,8 @@ class CRUDEntityDefinition {
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
         $this->childrenLabelFields = $childrenLabelFields;
+        $this->deleteCascade = $deleteCascade;
+        $this->serviceProvider = $serviceProvider;
     }
 
     /**
@@ -194,6 +210,36 @@ class CRUDEntityDefinition {
      */
     public function getChildrenLabelFields() {
         return $this->childrenLabelFields;
+    }
+
+    /**
+     * Gets whether to delete its children when an instance is deleted.
+     *
+     * @return boolean
+     * true if so
+     */
+    public function isDeleteCascade() {
+        return $this->deleteCascade;
+    }
+
+    /**
+     * Sets whether to delete its children when an instance is deleted.
+     *
+     * @param boolean $deleteCascade
+     * whether to delete its children when an instance is deleted
+     */
+    public function setDeleteCascade($deleteCascade) {
+        $this->deleteCascade = $deleteCascade;
+    }
+
+    /**
+     * Gets the service provider.
+     *
+     * @return CRUDServiceProvider
+     * the service provider
+     */
+    public function getServiceProvider() {
+        return $this->serviceProvider;
     }
 
     /**

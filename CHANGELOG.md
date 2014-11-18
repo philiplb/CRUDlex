@@ -1,6 +1,10 @@
 CRUDlex Changelog
 =================
 
+## 0.9.6
+Released: Upcoming
+- Added the possibility to cascade delete children
+
 ## 0.9.5
 Released: 2014-11-07
 - Changed CRUDEntityDefinition::addParent() to CRUDEntityDefinition::addChild() and CRUDEntityDefinition::getParents() to CRUDEntityDefinition::getChildren() as it was confusing

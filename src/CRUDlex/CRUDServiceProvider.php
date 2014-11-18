@@ -105,12 +105,15 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             );
             $listFields = key_exists('listFields', $crud) ? $crud['listFields'] : null;
             $childrenLabelFields = key_exists('childrenLabelFields', $crud) ? $crud['childrenLabelFields'] : array();
+            $deleteCascade = key_exists('deleteCascade', $crud) ? $crud['deleteCascade'] : false;
             $definition = new CRUDEntityDefinition($crud['table'],
                 $crud['fields'],
                 $label,
                 $listFields,
                 $standardFieldLabels,
-                $childrenLabelFields);
+                $childrenLabelFields,
+                $deleteCascade,
+                $this);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }
 
