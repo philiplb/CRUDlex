@@ -24,9 +24,9 @@
         </tr>
 
         {% for entity in entities %}
-            <tr>
+            <tr id="crudId{{ entity.get('id') }}">
                 {% for field in fields %}
-                    <td>
+                    <td class="crudField{{ field }}">
                         {% include '@crud/renderField.twig' with {
                             entity: entity,
                             crudEntity: crudEntity,
