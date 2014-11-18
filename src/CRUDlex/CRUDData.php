@@ -96,6 +96,9 @@ abstract class CRUDData {
      *
      * @param string $id
      * the id of the entry to delete
+     *
+     * @return boolean
+     * true on successful deletion
      */
     public abstract function delete($id);
 
