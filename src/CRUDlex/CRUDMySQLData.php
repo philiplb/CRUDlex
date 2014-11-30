@@ -125,7 +125,7 @@ class CRUDMySQLData extends CRUDData {
             if ($type == 'bool') {
                 $value = $value ? 1 : 0;
             }
-            if ($type == 'date' || $type == 'datetime') {
+            if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
                 $value = $value == '' ? null : $value;
             }
             $values[] = $value;
@@ -151,7 +151,7 @@ class CRUDMySQLData extends CRUDData {
             if ($type == 'bool') {
                 $value = $value ? 1 : 0;
             }
-            if ($type == 'date' || $type == 'datetime') {
+            if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
                 $value = $value == '' ? null : $value;
             }
             $values[] = $value;

@@ -8,6 +8,7 @@ Released: Upcoming
 - Added ids and classes to the rows and columns of the entity list page so they can be hooked easily with JavaScript
 - Added ids and classes all buttons so they can be hooked easily with JavaScript
 - Fixed a SQL error for not required date and datetime fields where no value was selected
+- Fixed a SQL error for not required reference fields where no value was selected
 
 ## 0.9.5
 Released: 2014-11-07
