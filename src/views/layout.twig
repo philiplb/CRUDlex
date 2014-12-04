@@ -42,7 +42,7 @@
         <![endif]-->
         </head>
     <body>
-      <div id="page">
+      <div id="crudPage{{ crudEntity is defined ? crudEntity : '' }}">
 
             {% if app.session.flashBag is defined %}
                 {% set flashTypeAvailable = [ 'success', 'danger'] %}
