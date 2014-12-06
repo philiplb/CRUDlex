@@ -77,7 +77,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $file = __DIR__.'/../test1.xml';
         $this->fileProcessor->reset();
 
-        $crawler = $client->request('POST', '/crud/book/create', array(
+        $client->request('POST', '/crud/book/create', array(
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
@@ -86,6 +86,9 @@ class CRUDControllerProviderTest extends WebTestCase {
         ), array(
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ));
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("Book created with id ")'));
 
         $books = $this->dataBook->listEntries();
@@ -217,6 +220,8 @@ class CRUDControllerProviderTest extends WebTestCase {
         ), array(
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ));
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/'.$entityBook->get('id')));
+        $crawler = $client->followRedirect();
         $this->assertCount(1, $crawler->filter('html:contains("Book edited with id '.$entityBook->get('id').'")'));
 
         $bookEdited = $this->dataBook->get($entityBook->get('id'));
@@ -254,10 +259,14 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
 
         $crawler = $client->request('POST', '/crud/library/'.$library->get('id').'/delete');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/library/'.$library->get('id')));
+        $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("Could not delete Library as it is still referenced by another entity.")'));
 
         $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/delete');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book'));
+        $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("Book deleted.")'));
 
@@ -371,6 +380,8 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->fileProcessor->reset();
 
         $crawler = $client->request('POST', '/crud/book/1/cover/delete');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
+        $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("File could not be deleted.")'));
 
@@ -379,6 +390,8 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->fileProcessor->reset();
 
         $crawler = $client->request('POST', '/crud/book/1/cover/delete');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
+        $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("File deleted.")'));
 

@@ -10,6 +10,8 @@ Released: Upcoming
 - Added an entity related id to the page wrapping div so everything can be hooked easily with JavaScript
 - Fixed a SQL error for not required date and datetime fields where no value was selected
 - Fixed a SQL error for not required reference fields where no value was selected
+- Updated all dependencies
+
 
 ## 0.9.5
 Released: 2014-11-07
