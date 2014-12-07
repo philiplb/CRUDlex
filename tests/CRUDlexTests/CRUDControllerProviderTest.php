@@ -119,7 +119,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $entityBook2->set('title', 'titleB');
         $entityBook2->set('author', 'author');
         $entityBook2->set('pages', 111);
-        $entityBook1->set('price', 3.99);
+        $entityBook2->set('price', 3.99);
         $entityBook2->set('library', $library->get('id'));
         $this->dataBook->create($entityBook2);
 
@@ -134,6 +134,31 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("lib a")'));
         $this->assertCount(1, $crawler->filter('html:contains("titleA")'));
         $this->assertCount(1, $crawler->filter('html:contains("titleB")'));
+
+        for ($i = 0; $i < 8; ++$i) {
+            $entityBookA = $this->dataBook->createEmpty();
+            $entityBookA->set('title', 'titleB'.$i);
+            $entityBookA->set('author', 'author'.$i);
+            $entityBookA->set('pages', 111);
+            $entityBookA->set('price', 3.99);
+            $entityBookA->set('library', $library->get('id'));
+            $this->dataBook->create($entityBookA);
+        }
+
+        $this->dataBook->getDefinition()->setPageSize(5);
+        $crawler = $client->request('GET', '/crud/book');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("titleA")'));
+        $this->assertRegExp('/\>1\</', $client->getResponse()->getContent());
+        $this->assertRegExp('/\>2\</', $client->getResponse()->getContent());
+        $this->assertSame(strpos('>3<', $client->getResponse()->getContent()), false);
+
+        $crawler = $client->request('GET', '/crud/book?crudPage=1');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("titleB3")'));
+        $crawler = $client->request('GET', '/crud/book?crudPage=10');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("titleB3")'));
     }
 
     public function testShow() {
