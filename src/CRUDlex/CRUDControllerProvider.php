@@ -203,17 +203,32 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         if (!$crudData) {
             return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
         }
-        $entitiesRaw = $crudData->listEntries();
+        $definition = $crudData->getDefinition();
+        $pageSize = $definition->getPageSize();
+        $total = $crudData->countBy($definition->getTable(), array(), array(), false);
+        $page = abs(intval($app['request']->get('crudPage', 0)));
+        $maxPage = intval($total / $pageSize);
+        if ($total == $pageSize) {
+            $maxPage--;
+        }
+        if ($page > $maxPage) {
+            $page = $maxPage;
+        }
+        $skip = $page * $pageSize;
+        $entitiesRaw = $crudData->listEntries(array(), $skip, $pageSize);
         $entities = array();
         foreach ($entitiesRaw as $curEntity) {
             $crudData->fetchReferences($curEntity);
             $entities[] = $curEntity;
         }
-        $definition = $crudData->getDefinition();
         return $app['twig']->render('@crud/list.twig', array(
             'crudEntity' => $entity,
             'definition' => $definition,
             'entities' => $entities,
+            'pageSize' => $pageSize,
+            'maxPage' => $maxPage,
+            'page' => $page,
+            'total' => $total,
             'layout' => $this->getLayout($app, 'list', $entity)
         ));
     }

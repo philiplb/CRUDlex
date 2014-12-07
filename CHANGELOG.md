@@ -21,6 +21,7 @@ Released: Upcoming
     - "symfony/browser-kit": "~2.6",
     - "symfony/css-selector": "~2.6",
     - "apigen/apigen": "4.0.0-RC4"
+- Added pagination to the list view
 
 ## 0.9.5
 Released: 2014-11-07

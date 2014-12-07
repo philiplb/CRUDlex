@@ -69,11 +69,15 @@ abstract class CRUDData {
      *
      * @param array $filter
      * the filter all resulting entities must fulfill, the keys as field names
+     * @param integer $skip
+     * if given and not null, it specifies the amount of rows to skip
+     * @param integer $amount
+     * if given and not null, it specifies the maximum amount of rows to retrieve
      *
      * @return array
      * the entities fulfilling the filter or all if no filter was given
      */
-    public abstract function listEntries(array $filter = array());
+    public abstract function listEntries(array $filter = array(), $skip = null, $amount = null);
 
     /**
      * Persists the given entity as new entry in the datasource.
@@ -126,13 +130,13 @@ abstract class CRUDData {
      * an array with the field names as keys and field values as values
      * @param array $paramOperators
      * the operators of the parameters like "=" defining the full condition of the field
-     * @param bool $includeDeleted
-     * true, if soft deleted entries in the datasource should be counted, too
+     * @param bool $excludeDeleted
+     * false, if soft deleted entries in the datasource should be counted, too
      *
      * @return int
      * the count fulfilling the given parameters
      */
-    public abstract function countBy($table, array $params, array $paramsOperators, $includeDeleted);
+    public abstract function countBy($table, array $params, array $paramsOperators, $excludeDeleted);
 
     /**
      * Adds the id and name of referenced entities to the given entity. Each

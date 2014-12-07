@@ -112,6 +112,35 @@ fields "id", "created_at" and "update_at". "version" is not yet used and
 every row where "deleted_at" is not null is marked as deleted, so this field
 would make no sense to display.
 
+Per default, 25 entities are listed per page on the list view. You can change
+this number by setting the __pageSize__ parameter like this:
+
+
+```yml
+library:
+    label: Library
+    table: library
+    pageSize: 5
+    fields:
+        name:
+            type: text
+            label: Name
+book:
+    label: Book
+    table: book
+    listFields: [id, created_at, updated_at, author, title]
+    fields:
+        author:
+            type: text
+            label: Author
+        title:
+            type: text
+            label: Title
+        pages:
+            type: int
+            label: Title
+```
+
 Only strings and integers are boring, so in the next chapter, all possible
 data types are presented.
 

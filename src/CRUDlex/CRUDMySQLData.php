@@ -92,7 +92,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function listEntries(array $filter = array()) {
+    public function listEntries(array $filter = array(), $skip = null, $amount = null) {
         $fieldNames = $this->definition->getFieldNames();
         $sql = 'SELECT `'.implode('`,`', $fieldNames).'`';
         $sql .= ' FROM '.$this->definition->getTable().' WHERE deleted_at IS NULL';
@@ -100,6 +100,13 @@ class CRUDMySQLData extends CRUDData {
         foreach ($filter as $field => $value) {
             $sql .= ' AND `'.$field.'` = ?';
             $values[] = $value;
+        }
+        if ($skip === null && $amount !== null) {
+            $sql .= ' LIMIT '.abs(intval($amount));
+        } else if ($skip !== null && $amount === null) {
+            $sql .= ' LIMIT '.abs(intval($skip)).', 9999999999';
+        } else if ($skip !== null && $amount !== null) {
+            $sql .= ' LIMIT '.abs(intval($skip)).', '.abs(intval($amount)).'';
         }
         $rows = $this->db->fetchAll($sql, $values);
         $entities = array();
@@ -188,17 +195,23 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function countBy($table, array $params, array $paramsOperators, $includeDeleted) {
+    public function countBy($table, array $params, array $paramsOperators, $excludeDeleted) {
         $sql = 'SELECT COUNT(id) AS amount FROM '.$table;
         $paramValues = array();
-        $paramSQLs = array();
-        foreach($params as $name => $value) {
-            $paramSQLs[] = '`'.$name.'`'.$paramsOperators[$name].'?';
-            $paramValues[] = $value;
-        }
-        $sql .= ' WHERE '.implode(' AND ', $paramSQLs);
-        if ($includeDeleted) {
-            $sql .= ' AND deleted_at IS NULL';
+        if (count($params) > 0) {
+            $paramSQLs = array();
+            foreach($params as $name => $value) {
+                $paramSQLs[] = '`'.$name.'`'.$paramsOperators[$name].'?';
+                $paramValues[] = $value;
+            }
+            $sql .= ' WHERE '.implode(' AND ', $paramSQLs);
+            if ($excludeDeleted) {
+                $sql .= ' AND deleted_at IS NULL';
+            }
+        } else {
+            if ($excludeDeleted) {
+                $sql .= ' WHERE deleted_at IS NULL';
+            }
         }
         $result = $this->db->fetchAssoc($sql, $paramValues);
         return intval($result['amount']);
