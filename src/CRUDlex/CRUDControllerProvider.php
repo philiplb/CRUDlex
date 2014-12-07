@@ -208,7 +208,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $total = $crudData->countBy($definition->getTable(), array(), array(), false);
         $page = abs(intval($app['request']->get('crudPage', 0)));
         $maxPage = intval($total / $pageSize);
-        if ($total == $pageSize) {
+        if ($total % $pageSize == 0) {
             $maxPage--;
         }
         if ($page > $maxPage) {
