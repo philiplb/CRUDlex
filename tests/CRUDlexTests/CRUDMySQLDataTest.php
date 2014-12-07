@@ -216,6 +216,15 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
 
         $read = $this->dataLibrary->countBy(
+            $table,
+            array(),
+            array(),
+            true
+        );
+        $expected = 2;
+        $this->assertSame($read, $expected);
+
+        $read = $this->dataLibrary->countBy(
                 $table,
                 array('id' => 1),
                 array('id' => '='),
