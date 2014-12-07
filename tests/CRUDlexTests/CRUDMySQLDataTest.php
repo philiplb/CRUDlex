@@ -124,6 +124,24 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($deleted);
         $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
         $this->assertTrue($deleted);
+
+        $this->dataLibrary->getDefinition()->setDeleteCascade(true);
+
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'nameParentTestDelete');
+        $this->dataLibrary->create($entityLibrary);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
+        $this->assertTrue($deleted);
+        $entityBook2 = $this->dataBook->get($entityBook->get('id'));
+        $this->assertNull($entityBook2);
     }
 
     public function testGetReferences() {
