@@ -294,4 +294,9 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testGetServiceProvider() {
+        $read = $this->definition->getServiceProvider();
+        $this->assertNotNull($read);
+    }
+
 }
