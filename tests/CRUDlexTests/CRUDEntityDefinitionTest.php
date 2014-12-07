@@ -275,4 +275,13 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+    public function testIsSetDeleteCascade() {
+        $this->definitionLibrary->setDeleteCascade(true);
+        $read = $this->definitionLibrary->isDeleteCascade();
+        $this->assertTrue($read);
+        $this->definitionLibrary->setDeleteCascade(false);
+        $read = $this->definitionLibrary->isDeleteCascade();
+        $this->assertFalse($read);
+    }
+
 }
