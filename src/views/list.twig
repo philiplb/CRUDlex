@@ -49,7 +49,7 @@
     </table>
 
     <p>Total: {{ total }}</p>
-    {% if total > pageSize or true %}
+    {% if total > pageSize %}
         <nav>
             <ul class="pagination">
                 <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': 0}) }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">First</span></a></li>
