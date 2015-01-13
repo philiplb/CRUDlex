@@ -1,5 +1,5 @@
-CRUDServiceProvider
-===================
+The CRUDServiceProvider
+=======================
 
 The CRUDServiceProvider registers itself under $app['crud'] and offers some
 methods you might find useful on other places.
@@ -48,6 +48,6 @@ returns it's result.
 
 ---
 
-Previous: [Overriding Layouts](6_layouts.md)
+Previous: [Various Other Features](7_miscfeatures.md)
 
 [Table of Contents](0_manual.md)

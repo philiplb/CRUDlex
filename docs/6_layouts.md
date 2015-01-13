@@ -136,6 +136,6 @@ And some CSS classes to implement:
 
 Previous: [Constraints](5_constraints.md)
 
-Next: [The CRUDServiceProvider](7_crudserviceprovider.md)
+Next: [Various Other Features](7_miscfeatures.md)
 
 [Table of Contents](0_manual.md)

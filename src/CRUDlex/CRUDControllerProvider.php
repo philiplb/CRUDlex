@@ -150,17 +150,17 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $definition = $crudData->getDefinition();
         $fields = $definition->getEditableFieldNames();
 
-        if ($app['request']->getMethod() == 'POST') {
-            foreach ($fields as $field) {
-                if ($definition->getType($field) == 'file') {
-                    $file = $app['request']->files->get($field);
-                    if ($file) {
-                        $instance->set($field, $file->getClientOriginalName());
-                    }
-                } else {
-                    $instance->set($field, $app['request']->get($field));
+        foreach ($fields as $field) {
+            if ($definition->getType($field) == 'file') {
+                $file = $app['request']->files->get($field);
+                if ($file) {
+                    $instance->set($field, $file->getClientOriginalName());
                 }
+            } else {
+                $instance->set($field, $app['request']->get($field));
             }
+        }
+        if ($app['request']->getMethod() == 'POST') {
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
                 $errors = $validation['errors'];
