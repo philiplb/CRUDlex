@@ -371,8 +371,23 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $crudData->deleteFiles($instance, $entity);
         $deleted = $crudData->delete($id);
         if ($deleted) {
+
+            $redirectPage = 'crudList';
+            $redirectParameters = array(
+                'entity' => $entity
+            );
+            $redirectEntity = $app['request']->get('redirectEntity');
+            $redirectId = $app['request']->get('redirectId');
+            if ($redirectEntity && $redirectId) {
+                $redirectPage = 'crudShow';
+                $redirectParameters = array(
+                    'entity' => $redirectEntity,
+                    'id' => $redirectId
+                );
+            }
+
             $app['session']->getFlashBag()->add('success', $app['crud']->translate('delete.success', array($crudData->getDefinition()->getLabel())));
-            return $app->redirect($app['url_generator']->generate('crudList', array('entity' => $entity)));
+            return $app->redirect($app['url_generator']->generate($redirectPage, $redirectParameters));
         } else {
             $app['session']->getFlashBag()->add('danger', $app['crud']->translate('delete.error', array($crudData->getDefinition()->getLabel())));
             return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));

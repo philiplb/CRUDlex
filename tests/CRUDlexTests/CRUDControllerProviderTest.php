@@ -298,6 +298,27 @@ class CRUDControllerProviderTest extends WebTestCase {
         $bookDeleted = $this->dataBook->get($entityBook->get('id'));
         $this->assertNull($bookDeleted);
 
+        // Test customizable redirection
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleA');
+        $entityBook->set('author', 'authorA');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/delete', array(
+            'redirectEntity' => 'library',
+            'redirectId' => $library->get('id')
+        ));
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/library/'.$library->get('id')));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Book deleted.")'));
+
+        $bookDeleted = $this->dataBook->get($entityBook->get('id'));
+        $this->assertNull($bookDeleted);
+
     }
 
     public function testLayouts() {
