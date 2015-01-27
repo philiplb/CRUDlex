@@ -61,7 +61,7 @@
                     <td>
                         <a id="crudBtnShow{{ childEntity.get('id') }}" href="{{ app.url_generator.generate('crudShow', {'entity': child[1], 'id': childEntity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-success">Show</a>
                         <a id="crudBtnEdit{{ childEntity.get('id') }}" href="{{ app.url_generator.generate('crudEdit', {'entity': child[1], 'id': childEntity.get('id')}) }}" type="button" class="crudBtnEdit btn btn-default btn-xs btn-warning">Edit</a>
-                        <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this entity {{ childEntity.get('id') }}?');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': childEntity.get('id').get('id')}) }}">
+                        <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this entity {{ childEntity.get('id') }}?');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': child[1], 'id': childEntity.get('id')}) }}">
                             <input type="hidden" name="redirectEntity" value="{{ crudEntity }}" />
                             <input type="hidden" name="redirectId" value="{{ entity.get('id') }}" />
                             <input id="crudBtnDelete{{ childEntity.get('id') }}" type="submit" class="crudBtnDelete btn btn-default btn-xs btn-danger" value="Delete" />
