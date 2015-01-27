@@ -23,6 +23,7 @@ Released: Upcoming
     - "apigen/apigen": "4.0.0-RC4"
 - Added pagination to the list view
 - Added the ability to hand in default values to the create form
+- Added edit and delete buttons to the children table of the entities show page
 
 ## 0.9.5
 Released: 2014-11-07
