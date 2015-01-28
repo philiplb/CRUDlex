@@ -98,7 +98,11 @@ class CRUDMySQLData extends CRUDData {
         $sql .= ' FROM '.$this->definition->getTable().' WHERE deleted_at IS NULL';
         $values = array();
         foreach ($filter as $field => $value) {
-            $sql .= ' AND `'.$field.'` = ?';
+            if ($value === null) {
+                $sql .= ' AND `'.$field.'` IS NULL';
+            } else {
+                $sql .= ' AND `'.$field.'` = ?';
+            }
             $values[] = $value;
         }
         if ($skip === null && $amount !== null) {
