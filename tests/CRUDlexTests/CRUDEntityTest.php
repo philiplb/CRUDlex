@@ -147,6 +147,15 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
         $entityBook->set('title', 'title');
 
+        // Fixed values should override this.
+        $entityBook->set('title', null);
+        $this->dataBook->getDefinition()->setFixedValue('title', 'abc');
+        $read = $entityBook->validate($this->dataBook);
+        $expected = $valid;
+        $this->assertSame($read, $expected);
+        $entityBook->set('title', 'title');
+        $this->dataBook->getDefinition()->setFixedValue('title', null);
+
         $validLibrary = array(
             'valid' => true,
             'errors' => array(
