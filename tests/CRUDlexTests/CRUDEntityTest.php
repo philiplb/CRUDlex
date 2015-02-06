@@ -54,6 +54,14 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $expected = 111;
         $this->assertSame($read, $expected);
 
+        // Fixed values override
+        $definition->setFixedValue('pages', 666);
+        $entity->set('pages', 111);
+        $read = $entity->get('pages');
+        $expected = 666;
+        $this->assertSame($read, $expected);
+
+
         $definition = $this->crudServiceProvider->getData('book')->getDefinition();
         $entity = new CRUDEntity($definition);
 

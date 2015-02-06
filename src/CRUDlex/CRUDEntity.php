@@ -65,6 +65,11 @@ class CRUDEntity {
      * else the raw value
      */
     public function get($field) {
+
+        if ($this->definition->getFixedValue($field) !== null) {
+            return $this->definition->getFixedValue($field);
+        }
+
         if (!key_exists($field, $this->entity)) {
             return null;
         }
