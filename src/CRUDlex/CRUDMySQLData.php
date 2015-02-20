@@ -224,21 +224,35 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function fetchReferences(CRUDEntity $entity = null) {
-        if (!$entity) {
+    public function fetchReferences(array &$entities = null) {
+        if (!$entities) {
             return;
         }
+
         foreach ($this->definition->getFieldNames() as $field) {
             if ($this->definition->getType($field) !== 'reference') {
                 continue;
             }
             $nameField = $this->definition->getReferenceNameField($field);
-            $sql = 'SELECT '.$nameField.' FROM ';
-            $sql .= $this->definition->getReferenceTable($field).' WHERE id = ? AND deleted_at IS NULL';
-            $result = $this->db->fetchAssoc($sql, array($entity->get($field)));
-            if ($result) {
-                $entity->set($field,
-                    array('id' => $entity->get($field), 'name' => $result[$nameField]));
+            $sql = 'SELECT id, '.$nameField.' FROM ';
+
+            $in = '?';
+            $amount = count($entities);
+            $ids = array($entities[0]->get($field));
+            for ($i = 1; $i < $amount; ++$i) {
+                $in .= ',?';
+                $ids[] = $entities[$i]->get($field);
+             }
+
+            $sql .= $this->definition->getReferenceTable($field).' WHERE id IN ('.$in.') AND deleted_at IS NULL';
+            $rows = $this->db->fetchAll($sql, $ids);
+            foreach ($rows as $row) {
+                for ($i = 0; $i < $amount; ++$i) {
+                    if ($entities[$i]->get($field) == $row['id']) {
+                        $entities[$i]->set($field,
+                            array('id' => $entities[$i]->get($field), 'name' => $row[$nameField]));
+                    }
+                }
             }
         }
     }

@@ -215,12 +215,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $page = $maxPage;
         }
         $skip = $page * $pageSize;
-        $entitiesRaw = $crudData->listEntries(array(), $skip, $pageSize);
-        $entities = array();
-        foreach ($entitiesRaw as $curEntity) {
-            $crudData->fetchReferences($curEntity);
-            $entities[] = $curEntity;
-        }
+        $entities = $crudData->listEntries(array(), $skip, $pageSize);
+        $crudData->fetchReferences($entities);
+
         return $app['twig']->render('@crud/list.twig', array(
             'crudEntity' => $entity,
             'definition' => $definition,
@@ -252,10 +249,12 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
         }
         $instance = $crudData->get($id);
-        $crudData->fetchReferences($instance);
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
         }
+        $instance = array($instance);
+        $crudData->fetchReferences($instance);
+        $instance = $instance[0];
         $definition = $crudData->getDefinition();
 
         $childrenLabelFields = $definition->getChildrenLabelFields();

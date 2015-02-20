@@ -300,12 +300,17 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $expected = '1';
         $this->assertSame($read, $expected);
 
-        $this->dataBook->fetchReferences($entityBook);
-        $read = $entityBook->get('library');
+        $books = array($entityBook);
+        $this->dataBook->fetchReferences($books);
+        $read = $books[0]->get('library');
         $expected = array('id' => '1', 'name' => 'lib');
         $this->assertSame($read, $expected);
 
-        $this->dataBook->fetchReferences(null);
+        $nullBooks = null;
+        $this->dataBook->fetchReferences($nullBooks);
+
+        $emptyBooks = array();
+        $this->dataBook->fetchReferences($emptyBooks);
     }
 
     public function testBoolHandling() {

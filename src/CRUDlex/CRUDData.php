@@ -139,14 +139,14 @@ abstract class CRUDData {
     public abstract function countBy($table, array $params, array $paramsOperators, $excludeDeleted);
 
     /**
-     * Adds the id and name of referenced entities to the given entity. Each
+     * Adds the id and name of referenced entities to the given entities. Each
      * reference field is before the raw id of the referenced entity and after
      * the fetch, it's an array with the keys id and name.
      *
-     * @param CRUDEntity $entity
-     * the entity to fetch the references for
+     * @param array $entities
+     * the entities to fetch the references for
      */
-    public abstract function fetchReferences(CRUDEntity $entity = null);
+    public abstract function fetchReferences(array &$entities = null);
 
     /**
      * Gets the {@see CRUDEntityDefinition} instance.

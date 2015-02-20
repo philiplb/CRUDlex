@@ -26,6 +26,7 @@ Released: Upcoming
 - Added edit and delete buttons to the children table of the entities show page
 - CRUDMySQLData::listEntries handles null filter values now correctly
 - Fixed values are also returned in CRUDEntity::get() now
+- Huge performance optimization when listing entities referencing other entities
 
 ## 0.9.5
 Released: 2014-11-07
