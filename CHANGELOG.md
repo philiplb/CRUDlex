@@ -19,11 +19,11 @@ Released: 2015-02-20
     - "symfony/twig-bridge": "~2.6"
     - "doctrine/dbal": "~2.5"
     - "symfony/yaml": "~2.6"
-    - "phpunit/phpunit": "~4.4",
+    - "phpunit/phpunit": "~4.5",
     - "satooshi/php-coveralls": "0.7.*@dev",
     - "symfony/browser-kit": "~2.6",
     - "symfony/css-selector": "~2.6",
-    - "apigen/apigen": "4.0.0-RC4"
+    - "apigen/apigen": "4.0.0"
 - Added pagination to the list view
 - Added the ability to hand in default values to the create form
 - Added edit and delete buttons to the children table of the entities show page
