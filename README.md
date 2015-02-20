@@ -28,6 +28,7 @@ Checkout the CRUDlex addons project for more features:
 
 The CRUDlex API itself is documented here:
 
+* [0.9.6](http://philiplb.github.io/CRUDlex/docs/api/0.9.6/)
 * [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
 
 ### Roadmap
@@ -45,7 +46,7 @@ implemented on the fly when needed.
 
 ```json
 "require": {
-    "philiplb/crudlex": "0.9.5"
+    "philiplb/crudlex": "0.9.6"
 }
 ```
 

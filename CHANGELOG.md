@@ -1,8 +1,11 @@
 CRUDlex Changelog
 =================
 
-## 0.9.6
+## 0.9.7
 Released: Upcoming
+
+## 0.9.6
+Released: 2015-02-20
 - Added the possibility to cascade delete children
 - Added ids to the rendered fields of an entity details page so they can be hooked easily with JavaScript
 - Added ids and classes to the rows and columns of the entity list page so they can be hooked easily with JavaScript
