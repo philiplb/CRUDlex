@@ -204,8 +204,22 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
         }
         $definition = $crudData->getDefinition();
+
+        $filter = array();
+        $filterActive = false;
+        $filterToUse = array();
+        $filterCountOperators = array();
+        foreach ($definition->getFilter() as $filterField) {
+            $filter[$filterField] = $app['request']->get('filter'.$filterField);
+            if ($filter[$filterField]) {
+                $filterActive = true;
+                $filterToUse[$filterField] = $filter[$filterField];
+                $filterCountOperators[$filterField] = '=';
+            }
+        }
+
         $pageSize = $definition->getPageSize();
-        $total = $crudData->countBy($definition->getTable(), array(), array(), true);
+        $total = $crudData->countBy($definition->getTable(), $filterToUse, $filterCountOperators, true);
         $page = abs(intval($app['request']->get('crudPage', 0)));
         $maxPage = intval($total / $pageSize);
         if ($total % $pageSize == 0) {
@@ -215,17 +229,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $page = $maxPage;
         }
         $skip = $page * $pageSize;
-        $entities = $crudData->listEntries(array(), $skip, $pageSize);
-        $crudData->fetchReferences($entities);
 
-        $filter = array();
-        $filterActive = false;
-        foreach ($definition->getFilter() as $filterField) {
-            $filter[$filterField] = $app['request']->get('filter'.$filterField);
-            if ($filter[$filterField]) {
-                $filterActive = true;
-            }
-        }
+        $entities = $crudData->listEntries($filterToUse, $skip, $pageSize);
+        $crudData->fetchReferences($entities);
 
         return $app['twig']->render('@crud/list.twig', array(
             'crudEntity' => $entity,
