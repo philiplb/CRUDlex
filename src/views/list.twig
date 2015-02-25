@@ -28,7 +28,7 @@
                                 definition: definition,
                                 annotations: false
                             } only %}
-                            <select class="form-control" id="{{ filterField }}" name="{{ 'filter' ~ filterField }}">
+                            <select class="form-control" id="{{ filterField }}" name="{{ 'crudFilter' ~ filterField }}">
                                 {% set values = ['', 'true', 'false'] %}
                                 {% for setValue in values %}
                                     <option value="{{ setValue }}" {% if filterValue and setValue == filterValue %}selected="selected" {% endif %}>{{ setValue }}</option>
