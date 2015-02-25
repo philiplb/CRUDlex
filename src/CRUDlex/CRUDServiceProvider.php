@@ -119,6 +119,9 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             if (key_exists('listFields', $crud)) {
                 $this->datas[$name]->getDefinition()->setListFieldNames($crud['listFields']);
             }
+            if (key_exists('filter', $crud)) {
+                $this->datas[$name]->getDefinition()->setFilter($crud['filter']);
+            }
 
         }
 

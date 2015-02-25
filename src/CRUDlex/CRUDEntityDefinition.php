@@ -63,6 +63,11 @@ class CRUDEntityDefinition {
     protected $pageSize;
 
     /**
+     * The fields offering to be filtered.
+     */
+    protected $filter;
+
+    /**
      * Holds the {@see CRUDServiceProvider}.
      */
     protected $serviceProvider;
@@ -166,13 +171,16 @@ class CRUDEntityDefinition {
     public function __construct($table, $fields, $label, $standardFieldLabels, $childrenLabelFields, $deleteCascade, $pageSize, $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
-        $this->children = array();
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
         $this->childrenLabelFields = $childrenLabelFields;
         $this->deleteCascade = $deleteCascade;
         $this->pageSize = $pageSize;
         $this->serviceProvider = $serviceProvider;
+
+        $this->children = array();
+        $this->listFields = array();
+        $this->filter = array();
     }
 
     /**
@@ -265,6 +273,26 @@ class CRUDEntityDefinition {
     */
     public function setPageSize($pageSize) {
         $this->pageSize = $pageSize;
+    }
+
+    /**
+     * Gets the fields offering a filter.
+     *
+     * @return array
+     * the fields to filter
+     */
+    public function getFilter() {
+        return $this->filter;
+    }
+
+    /**
+     * Sets the fields offering a filter.
+     *
+     * @param array $filter
+     * the fields to filter
+     */
+    public function setFilter($filter) {
+        $this->filter = $filter;
     }
 
     /**

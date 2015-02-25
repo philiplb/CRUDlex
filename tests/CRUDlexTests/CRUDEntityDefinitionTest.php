@@ -308,4 +308,22 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull($read);
     }
 
+    public function testGetSetFilter() {
+        $read = $this->definition->getFilter();
+        $expected = array(
+            'author',
+            'title',
+            'library'
+        );
+        $this->assertSame($read, $expected);
+        $old = $read;
+        $expected = array(
+            'author',
+            'title'
+        );
+        $this->definition->setFilter($expected);
+        $read = $this->definition->getFilter();
+        $this->assertSame($read, $expected);
+    }
+
 }

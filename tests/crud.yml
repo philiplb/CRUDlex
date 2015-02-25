@@ -28,6 +28,7 @@ book:
   label: Book
   table: book
   listFields: [author, title, library]
+  filter: [author, title, library]
   fields:
     title:
       type: text
