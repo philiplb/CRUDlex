@@ -1,15 +1,15 @@
 CRUDlex
 ==========
 
-CRUDlex is an easy to use, well documented and tested CRUD generator for Silex.
+CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. It is very useful to generate admin pages for example.
 
 ## Documentation
 
 ### Manual
 
-[Manual](docs/0_manual.md)
+The manual is a reference describing every feature of CRUDlex:
 
-The manual is a reference describing every feature of CRUDlex.
+[Manual](docs/0_manual.md)
 
 ### Sample Project
 
