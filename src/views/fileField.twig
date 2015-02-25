@@ -12,7 +12,6 @@
     definition: crudData.getDefinition()
 } only %}
 <input type="file" class="form-control" id="{{ field }}" name="{{ field }}" />
-{% set value = entity.get(field) %}
 {% if value %}
     <p class="help-block">{{ value }}</p>
 {% endif %}

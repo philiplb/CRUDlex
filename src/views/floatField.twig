@@ -11,4 +11,4 @@
     field: field,
     definition: crudData.getDefinition()
 } only %}
-<input type="number" step="{{ crudData.getDefinition().getFloatStep(field) }}" class="form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ entity.get(field) }}" name="{{ field }}" />
+<input type="number" step="{{ crudData.getDefinition().getFloatStep(field) }}" class="form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ value }}" name="{{ field }}" />
