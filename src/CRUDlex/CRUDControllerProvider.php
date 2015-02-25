@@ -218,14 +218,26 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $entities = $crudData->listEntries(array(), $skip, $pageSize);
         $crudData->fetchReferences($entities);
 
+        $filter = array();
+        $filterActive = false;
+        foreach ($definition->getFilter() as $filterField) {
+            $filter[$filterField] = $app['request']->get('filter'.$filterField);
+            if ($filter[$filterField]) {
+                $filterActive = true;
+            }
+        }
+
         return $app['twig']->render('@crud/list.twig', array(
             'crudEntity' => $entity,
+            'crudData' => $crudData,
             'definition' => $definition,
             'entities' => $entities,
             'pageSize' => $pageSize,
             'maxPage' => $maxPage,
             'page' => $page,
             'total' => $total,
+            'filter' => $filter,
+            'filterActive' => $filterActive,
             'layout' => $this->getLayout($app, 'list', $entity)
         ));
     }
