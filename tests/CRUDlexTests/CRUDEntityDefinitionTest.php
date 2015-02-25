@@ -27,7 +27,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definitionLibrary = $crudServiceProvider->getData('library')->getDefinition();
     }
 
-    public function testGetFieldNames() {
+    public function testGetSetFieldNames() {
         $read = $this->definition->getFieldNames();
         $expected = array(
             'id',
@@ -101,6 +101,15 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'planet'
         );
         $this->assertSame($read, $expected);
+        $old = $read;
+        $expected = array(
+            'id',
+            'name'
+        );
+        $this->definitionLibrary->setListFieldNames($expected);
+        $read = $this->definitionLibrary->getListFieldNames();
+        $this->assertSame($read, $expected);
+        $this->definitionLibrary->setListFieldNames($old);
     }
 
     public function testIsRequired() {

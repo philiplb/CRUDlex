@@ -150,9 +150,6 @@ class CRUDEntityDefinition {
      * the fieldstructure just like the CRUD YAML
      * @param string $label
      * the label of the entity
-     * @param array $listFields
-     * an array containing the fields which should appear in the list view of
-     * the entity
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
      * @param array $childrenLabelFields
@@ -166,11 +163,10 @@ class CRUDEntityDefinition {
      * @param CRUDServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, $fields, $label, $listFields, $standardFieldLabels, $childrenLabelFields, $deleteCascade, $pageSize, $serviceProvider) {
+    public function __construct($table, $fields, $label, $standardFieldLabels, $childrenLabelFields, $deleteCascade, $pageSize, $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->children = array();
-        $this->listFields = $listFields;
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
         $this->childrenLabelFields = $childrenLabelFields;
@@ -195,8 +191,18 @@ class CRUDEntityDefinition {
     }
 
     /**
-     * Gets the field names to be used in the listview. If they were not specified in
-     * the constructor, all public field names are returned.
+     * Sets the field names to be used in the listview.
+     *
+     * @param array $listFields
+     * the field names to be used in the listview
+     */
+    public function setListFieldNames($listFields) {
+        $this->listFields = $listFields;
+    }
+
+    /**
+     * Gets the field names to be used in the listview. If they were not specified,
+     * all public field names are returned.
      *
      * @return array
      * the field names to be used in the listview

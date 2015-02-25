@@ -103,20 +103,23 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 'created_at' => $this->translate('label.created_at'),
                 'updated_at' => $this->translate('label.updated_at')
             );
-            $listFields = key_exists('listFields', $crud) ? $crud['listFields'] : null;
             $childrenLabelFields = key_exists('childrenLabelFields', $crud) ? $crud['childrenLabelFields'] : array();
             $deleteCascade = key_exists('deleteCascade', $crud) ? $crud['deleteCascade'] : false;
             $pageSize = key_exists('pageSize', $crud) ? $crud['pageSize'] : 25;
             $definition = new CRUDEntityDefinition($crud['table'],
                 $crud['fields'],
                 $label,
-                $listFields,
                 $standardFieldLabels,
                 $childrenLabelFields,
                 $deleteCascade,
                 $pageSize,
                 $this);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
+
+            if (key_exists('listFields', $crud)) {
+                $this->datas[$name]->getDefinition()->setListFieldNames($crud['listFields']);
+            }
+
         }
 
         foreach($this->datas as $name => $data) {
