@@ -38,6 +38,7 @@
             <div class="{{ class }} {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
                 {% include '@crud/' ~ type ~ 'Field.twig' with {
                     field: field,
+                    fieldNamePrefix: '',
                     crudData: crudData,
                     value: entity.get(field),
                     annotations: true

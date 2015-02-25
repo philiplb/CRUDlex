@@ -12,5 +12,5 @@
     definition: crudData.getDefinition(),
     annotations: annotations
 } only %}
-<input type="hidden" class="form-control" id="{{ field }}" value="{{ value }}" name="{{ field }}" />
+<input type="hidden" class="form-control" id="{{ field }}" value="{{ value }}" name="{{ fieldNamePrefix ~ field }}" />
 {{ value }}

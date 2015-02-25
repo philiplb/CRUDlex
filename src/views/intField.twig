@@ -12,4 +12,4 @@
     definition: crudData.getDefinition(),
     annotations: annotations
 } only %}
-<input type="number" class="form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ value }}" name="{{ field }}" />
+<input type="number" class="form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ value }}" name="{{ fieldNamePrefix ~ field }}" />

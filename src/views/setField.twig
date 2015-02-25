@@ -12,7 +12,7 @@
     definition: crudData.getDefinition(),
     annotations: annotations
 } only %}
-<select class="form-control" id="{{ field }}" name="{{ field }}">
+<select class="form-control" id="{{ field }}" name="{{ fieldNamePrefix ~ field }}">
     <option value=""></option>
     {% set values = crudData.getDefinition().getSetItems(field) %}
     {% for setValue in values %}
