@@ -16,6 +16,6 @@
     <option value=""></option>
     {% set values = crudData.getDefinition().getSetItems(field) %}
     {% for setValue in values %}
-        <option value="{{ setValue }}" {% if value and value == value %}selected="selected" {% endif %}>{{ setValue }}</option>
+        <option value="{{ setValue }}" {% if value and setValue == value %}selected="selected" {% endif %}>{{ setValue }}</option>
     {% endfor %}
 </select>
