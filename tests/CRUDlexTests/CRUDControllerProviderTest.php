@@ -159,6 +159,27 @@ class CRUDControllerProviderTest extends WebTestCase {
         $crawler = $client->request('GET', '/crud/book?crudPage=10');
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("titleB3")'));
+        $crawler = $client->request('GET', '/crud/book?crudFiltertitle=titleB');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("titleB")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB0")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB1")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB2")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB3")'));
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib b1');
+        $library->set('isOpenOnSundays', true);
+        $this->dataLibrary->create($library);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib b2');
+        $library->set('isOpenOnSundays', true);
+        $this->dataLibrary->create($library);
+        $crawler = $client->request('GET', '/crud/library?crudFilterisOpenOnSundays=true');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("lib b1")'));
+        $this->assertCount(1, $crawler->filter('html:contains("lib b2")'));
+        $this->assertCount(0, $crawler->filter('html:contains("lib a")'));
     }
 
     public function testShow() {

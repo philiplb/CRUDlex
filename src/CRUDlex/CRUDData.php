@@ -69,6 +69,8 @@ abstract class CRUDData {
      *
      * @param array $filter
      * the filter all resulting entities must fulfill, the keys as field names
+     * @param array $filterOperators
+     * the operators of the filter like "=" defining the full condition of the field
      * @param integer $skip
      * if given and not null, it specifies the amount of rows to skip
      * @param integer $amount
@@ -77,7 +79,7 @@ abstract class CRUDData {
      * @return array
      * the entities fulfilling the filter or all if no filter was given
      */
-    public abstract function listEntries(array $filter = array(), $skip = null, $amount = null);
+    public abstract function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null);
 
     /**
      * Persists the given entity as new entry in the datasource.

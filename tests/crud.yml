@@ -3,6 +3,7 @@ library:
   table: library
   childrenLabelFields:
       book: title
+  filter: [isOpenOnSundays]
   fields:
     name:
       type: text

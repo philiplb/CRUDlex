@@ -41,7 +41,7 @@
                                 {% endif %}
                                 {% include '@crud/' ~ type ~ 'Field.twig' with {
                                     field: filterField,
-                                    fieldNamePrefix: 'filter',
+                                    fieldNamePrefix: 'crudFilter',
                                     crudData: crudData,
                                     value: filterValue,
                                     annotations: false
@@ -100,7 +100,7 @@
                 {% set paginationParams = {} %}
                 {% if filterActive %}
                     {% for filterField, filterValue in filter %}
-                        {% set paginationParams = paginationParams|merge({('filter' ~ filterField): filterValue}) %}
+                        {% set paginationParams = paginationParams|merge({('crudFilter' ~ filterField): filterValue}) %}
                     {% endfor %}
                 {% endif %}
 

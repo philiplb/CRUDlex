@@ -92,7 +92,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function listEntries(array $filter = array(), $skip = null, $amount = null) {
+    public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null) {
         $fieldNames = $this->definition->getFieldNames();
         $sql = 'SELECT `'.implode('`,`', $fieldNames).'`';
         $sql .= ' FROM '.$this->definition->getTable().' WHERE deleted_at IS NULL';
@@ -101,7 +101,8 @@ class CRUDMySQLData extends CRUDData {
             if ($value === null) {
                 $sql .= ' AND `'.$field.'` IS NULL';
             } else {
-                $sql .= ' AND `'.$field.'` = ?';
+                $operator = key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
+                $sql .= ' AND `'.$field.'` '.$operator.' ?';
             }
             $values[] = $value;
         }

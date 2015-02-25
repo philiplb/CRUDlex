@@ -208,18 +208,23 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $filter = array();
         $filterActive = false;
         $filterToUse = array();
-        $filterCountOperators = array();
+        $filterOperators = array();
         foreach ($definition->getFilter() as $filterField) {
-            $filter[$filterField] = $app['request']->get('filter'.$filterField);
+            $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
             if ($filter[$filterField]) {
                 $filterActive = true;
-                $filterToUse[$filterField] = $filter[$filterField];
-                $filterCountOperators[$filterField] = '=';
+                if ($definition->getType($filterField) == 'bool') {
+                    $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
+                    $filterOperators[$filterField] = '=';
+                } else {
+                    $filterToUse[$filterField] = '%'.$filter[$filterField].'%';
+                    $filterOperators[$filterField] = 'LIKE';
+                }
             }
         }
 
         $pageSize = $definition->getPageSize();
-        $total = $crudData->countBy($definition->getTable(), $filterToUse, $filterCountOperators, true);
+        $total = $crudData->countBy($definition->getTable(), $filterToUse, $filterOperators, true);
         $page = abs(intval($app['request']->get('crudPage', 0)));
         $maxPage = intval($total / $pageSize);
         if ($total % $pageSize == 0) {
@@ -230,7 +235,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
         $skip = $page * $pageSize;
 
-        $entities = $crudData->listEntries($filterToUse, $skip, $pageSize);
+        $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize);
         $crudData->fetchReferences($entities);
 
         return $app['twig']->render('@crud/list.twig', array(
