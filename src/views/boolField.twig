@@ -11,6 +11,7 @@
     <input type="checkbox" id="{{ field }}" value="1" {% if value %} checked="checked" {% endif %} name="{{ field }}" />
     {% include '@crud/fieldLabel.twig' with {
         field: field,
-        definition: crudData.getDefinition()
+        definition: crudData.getDefinition(),
+        annotations: annotations
     } only %}
 </label>

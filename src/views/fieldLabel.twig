@@ -9,12 +9,14 @@
 
 <label for="{{ field }}" class="control-label">
     {{ definition.getFieldLabel(field) }}
-    {% set markers = [] %}
-    {% if definition.isRequired(field) %}
-        {% set markers = markers|merge(['*']) %}
+    {% if annotations %}
+        {% set markers = [] %}
+        {% if definition.isRequired(field) %}
+            {% set markers = markers|merge(['*']) %}
+        {% endif %}
+        {% if definition.isUnique(field) %}
+            {% set markers = markers|merge(['must be unique']) %}
+        {% endif %}
+        {{ markers|join(', ') }}
     {% endif %}
-    {% if definition.isUnique(field) %}
-        {% set markers = markers|merge(['must be unique']) %}
-    {% endif %}
-    {{ markers|join(', ') }}
 </label>

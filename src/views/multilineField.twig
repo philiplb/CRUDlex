@@ -9,6 +9,7 @@
 
 {% include '@crud/fieldLabel.twig' with {
     field: field,
-    definition: crudData.getDefinition()
+    definition: crudData.getDefinition(),
+    annotations: annotations
 } only %}
 <textarea class="form-control" id="{{ field }}" placeholder="{{ field }}" name="{{ field }}">{{ value }}</textarea>

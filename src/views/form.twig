@@ -39,7 +39,8 @@
                 {% include '@crud/' ~ type ~ 'Field.twig' with {
                     field: field,
                     crudData: crudData,
-                    value: entity.get(field)
+                    value: entity.get(field),
+                    annotations: true
                 } only %}
             </div>
 

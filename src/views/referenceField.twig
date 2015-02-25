@@ -9,7 +9,8 @@
 
 {% include '@crud/fieldLabel.twig' with {
     field: field,
-    definition: crudData.getDefinition()
+    definition: crudData.getDefinition(),
+    annotations: annotations
 } only %}
 <select class="form-control" id="{{ field }}" name="{{ field }}">
     <option value=""></option>
