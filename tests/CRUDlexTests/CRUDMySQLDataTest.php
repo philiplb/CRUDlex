@@ -151,6 +151,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
+        $this->dataLibrary->getDefinition()->setDeleteCascade(false);
         $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
         $this->assertFalse($deleted);
         $deleted = $this->dataBook->delete($entityBook->get('id'));

@@ -4,6 +4,7 @@ library:
   childrenLabelFields:
       book: title
   filter: [isOpenOnSundays]
+  deleteCascade: true
   fields:
     name:
       type: text

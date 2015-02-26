@@ -304,6 +304,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isNotFound());
         $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
 
+        $this->dataLibrary->getDefinition()->setDeleteCascade(false);
         $crawler = $client->request('POST', '/crud/library/'.$library->get('id').'/delete');
         $this->assertTrue($client->getResponse()->isRedirect('/crud/library/'.$library->get('id')));
         $crawler = $client->followRedirect();
