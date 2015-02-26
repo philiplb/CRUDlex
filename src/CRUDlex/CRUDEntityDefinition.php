@@ -157,26 +157,22 @@ class CRUDEntityDefinition {
      * the label of the entity
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
-     * @param array $childrenLabelFields
-     * the fields used to display the children on the details page of an entity;
-     * The keys are the entity names as in the CRUD YAML and the values are the
-     * field names
      * @param integer $pageSize
      * the amount of items to display per page on the listview
      * @param CRUDServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, $fields, $label, $standardFieldLabels, $childrenLabelFields, $pageSize, $serviceProvider) {
+    public function __construct($table, $fields, $label, $standardFieldLabels, $pageSize, $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
-        $this->childrenLabelFields = $childrenLabelFields;
         $this->pageSize = $pageSize;
         $this->serviceProvider = $serviceProvider;
 
         $this->children = array();
         $this->listFields = array();
+        $this->childrenLabelFields = array();
         $this->filter = array();
         $this->deleteCascade = false;
     }
@@ -230,6 +226,18 @@ class CRUDEntityDefinition {
      */
     public function getChildrenLabelFields() {
         return $this->childrenLabelFields;
+    }
+
+    /**
+     * Sets the fields used to display the children on the details page of an
+     * entity. The keys are the entity names as in the CRUD YAML and the values
+     * are the field names.
+     *
+     * @param array $childrenLabelFields
+     * the fields used to display the children on the details page
+     */
+    public function setChildrenLabelFields(array $childrenLabelFields) {
+        $this->childrenLabelFields = $childrenLabelFields;
     }
 
     /**

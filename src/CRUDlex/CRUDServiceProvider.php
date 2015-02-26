@@ -103,13 +103,11 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 'created_at' => $this->translate('label.created_at'),
                 'updated_at' => $this->translate('label.updated_at')
             );
-            $childrenLabelFields = key_exists('childrenLabelFields', $crud) ? $crud['childrenLabelFields'] : array();
             $pageSize = key_exists('pageSize', $crud) ? $crud['pageSize'] : 25;
             $definition = new CRUDEntityDefinition($crud['table'],
                 $crud['fields'],
                 $label,
                 $standardFieldLabels,
-                $childrenLabelFields,
                 $pageSize,
                 $this);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
@@ -122,6 +120,9 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             }
             if (key_exists('filter', $crud)) {
                 $this->datas[$name]->getDefinition()->setFilter($crud['filter']);
+            }
+            if (key_exists('childrenLabelFields', $crud)) {
+                $this->datas[$name]->getDefinition()->setChildrenLabelFields($crud['childrenLabelFields']);
             }
 
         }
