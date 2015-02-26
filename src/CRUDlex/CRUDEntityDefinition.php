@@ -157,17 +157,14 @@ class CRUDEntityDefinition {
      * the label of the entity
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
-     * @param integer $pageSize
-     * the amount of items to display per page on the listview
      * @param CRUDServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, $fields, $label, $standardFieldLabels, $pageSize, $serviceProvider) {
+    public function __construct($table, $fields, $label, $standardFieldLabels, $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
-        $this->pageSize = $pageSize;
         $this->serviceProvider = $serviceProvider;
 
         $this->children = array();
@@ -175,6 +172,7 @@ class CRUDEntityDefinition {
         $this->childrenLabelFields = array();
         $this->filter = array();
         $this->deleteCascade = false;
+        $this->pageSize = 25;
     }
 
     /**

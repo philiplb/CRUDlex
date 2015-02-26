@@ -5,6 +5,7 @@ library:
       book: title
   filter: [isOpenOnSundays]
   deleteCascade: true
+  pageSize: 10
   fields:
     name:
       type: text
