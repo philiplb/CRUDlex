@@ -161,26 +161,24 @@ class CRUDEntityDefinition {
      * the fields used to display the children on the details page of an entity;
      * The keys are the entity names as in the CRUD YAML and the values are the
      * field names
-     * @param boolean $deleteCascade
-     * whether to delete its children when an instance is deleted
      * @param integer $pageSize
      * the amount of items to display per page on the listview
      * @param CRUDServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, $fields, $label, $standardFieldLabels, $childrenLabelFields, $deleteCascade, $pageSize, $serviceProvider) {
+    public function __construct($table, $fields, $label, $standardFieldLabels, $childrenLabelFields, $pageSize, $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->label = $label;
         $this->standardFieldLabels = $standardFieldLabels;
         $this->childrenLabelFields = $childrenLabelFields;
-        $this->deleteCascade = $deleteCascade;
         $this->pageSize = $pageSize;
         $this->serviceProvider = $serviceProvider;
 
         $this->children = array();
         $this->listFields = array();
         $this->filter = array();
+        $this->deleteCascade = false;
     }
 
     /**
