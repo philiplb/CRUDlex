@@ -160,7 +160,7 @@ class CRUDEntityDefinition {
      * @param CRUDServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, $fields, $label, $standardFieldLabels, $serviceProvider) {
+    public function __construct($table, array $fields, $label, array $standardFieldLabels, CRUDServiceProvider $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->label = $label;
@@ -196,7 +196,7 @@ class CRUDEntityDefinition {
      * @param array $listFields
      * the field names to be used in the listview
      */
-    public function setListFieldNames($listFields) {
+    public function setListFieldNames(array $listFields) {
         $this->listFields = $listFields;
     }
 
@@ -295,7 +295,7 @@ class CRUDEntityDefinition {
      * @param array $filter
      * the fields to filter
      */
-    public function setFilter($filter) {
+    public function setFilter(array $filter) {
         $this->filter = $filter;
     }
 
