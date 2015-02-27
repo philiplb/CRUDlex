@@ -44,7 +44,7 @@ class CRUDTestDBSetup {
             '  `release` datetime DEFAULT NULL,'.
             '  `library` int(11) NOT NULL,'.
             '  `cover` varchar(255) DEFAULT NULL,'.
-            '  `price` float NOT NULL,'.
+            '  `price` float DEFAULT NULL,'.
             '  PRIMARY KEY (`id`),'.
             '  KEY `library` (`library`)'.
             ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
