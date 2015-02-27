@@ -74,12 +74,13 @@ class CRUDEntity {
             return null;
         }
         $value = $this->entity[$field];
+
         switch ($this->definition->getType($field)) {
             case 'int':
-                $value = intval($value);
+                $value = $value !== '' && $value !== null ? intval($value) : null;
                 break;
             case 'float':
-                $value = floatval($value);
+                $value = $value !== '' && $value !== null ? floatval($value) : null;
                 break;
             case 'bool':
                 $value = $value && $value !== '0';

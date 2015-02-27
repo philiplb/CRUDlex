@@ -6,6 +6,7 @@ Released: Upcoming
 - CRUDData::listEntries() can take now operators for the filter parameter
 - Added filters for the list views
 - Big cleanup of the CRUDEntityDefinition constructor
+- Not required number fields not being entered by the user end up the database as NULL instead of as 0
 
 ## 0.9.6
 Released: 2015-02-20
