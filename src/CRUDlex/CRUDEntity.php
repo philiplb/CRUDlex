@@ -160,14 +160,14 @@ class CRUDEntity {
 
             // Check for int type
             $type = $this->definition->getType($field);
-            if ($type == 'int' && $this->entity[$field] !== '' && (string)(int)$this->entity[$field] != $this->entity[$field]) {
+            if ($type == 'int' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(int)$this->entity[$field] != $this->entity[$field]) {
                 $errors[$field]['input'] = true;
                 $valid = false;
             }
 
             // Check for float type
             $type = $this->definition->getType($field);
-            if ($type == 'float' && $this->entity[$field] !== '' && (string)(float)$this->entity[$field] != $this->entity[$field]) {
+            if ($type == 'float' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(float)$this->entity[$field] != $this->entity[$field]) {
                 $errors[$field]['input'] = true;
                 $valid = false;
             }
@@ -187,7 +187,7 @@ class CRUDEntity {
             }
 
             // Check for reference type
-            if ($type == 'reference' && $this->entity[$field] !== '') {
+            if ($type == 'reference' && $this->entity[$field] !== '' && $this->entity[$field] !== null) {
                 $params = array('id' => $this->entity[$field]);
                 $paramsOperators = array('id' => '=');
                 $amount = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
