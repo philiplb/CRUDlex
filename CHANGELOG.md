@@ -8,6 +8,7 @@ Released: Upcoming
 - Big cleanup of the CRUDEntityDefinition constructor
 - Not required number fields not being entered by the user end up the database as NULL instead of as 0
 - null is a valid value when validating an int, float or reference which is not required in an entity
+- Added classes to the delete-forms so they can be hooked easily with JavaScript
 
 ## 0.9.6
 Released: 2015-02-20

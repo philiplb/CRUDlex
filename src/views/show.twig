@@ -38,7 +38,7 @@
         <tr>
             <td colspan="2">
                 <a id="crudBtnEdit" href="{{ app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-warning">Edit</a>
-                <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this entity {{ entity.get('id') }}?');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+                <form class="crudFormDelete" style="display: inline-block" onSubmit="return confirm('Are you sure to delete this entity {{ entity.get('id') }}?');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
                     <input id="crudBtnDelete" type="submit" class="btn btn-default btn-danger" value="Delete" />
                 </form>
             </td>
