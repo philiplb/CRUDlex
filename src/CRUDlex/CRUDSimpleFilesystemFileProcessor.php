@@ -67,14 +67,6 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
      */
     public function deleteFile(CRUDEntity $entity, $entityName, $field) {
         // For now, we are defensive and don't delete ever.
-        /*
-        $targetPath = $this->getPath($entityName, $entity, $field);
-        $fileName = $entity->get($field);
-        $file = $targetPath.'/'.$fileName;
-        if ($fileName && file_exists($file)) {
-            unlink($file);
-        }
-        */
     }
 
     /**

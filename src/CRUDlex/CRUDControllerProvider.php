@@ -16,7 +16,6 @@ use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-use CRUDlex\CRUDEntity;
 
 /**
  * This is the ControllerProvider offering all CRUD pages.

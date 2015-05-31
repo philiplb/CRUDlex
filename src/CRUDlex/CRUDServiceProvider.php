@@ -84,13 +84,13 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the file processor used for file fields
      */
     public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile, CRUDFileProcessorInterface $fileProcessor) {
-        $stringsContent = @file_get_contents($stringsFile);
+        $stringsContent = file_get_contents($stringsFile);
         if ($stringsContent === false) {
             throw new \Exception('Could not open CRUD strings file');
         }
         $this->strings = Yaml::parse($stringsContent);
 
-        $crudsContent = @file_get_contents($crudFile);
+        $crudsContent = file_get_contents($crudFile);
         if ($crudsContent === false) {
             throw new \Exception('Could not open CRUD definition file');
         }

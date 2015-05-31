@@ -127,10 +127,10 @@ class CRUDMySQLData extends CRUDData {
         }
 
         $queryBuilder->setMaxResults(9999999999);
-        if ($amount != null) {
+        if ($amount !== null) {
             $queryBuilder->setMaxResults(abs(intval($amount)));
         }
-        if ($skip != null) {
+        if ($skip !== null) {
             $queryBuilder->setFirstResult(abs(intval($skip)));
         }
 
@@ -156,7 +156,8 @@ class CRUDMySQLData extends CRUDData {
             ->setValue('updated_at', 'NOW()')
             ->setValue('version', 0);
 
-        for ($i = 0; $i < count($formFields); ++$i) {
+        $count = count($formFields);
+        for ($i = 0; $i < $count; ++$i) {
             $value = $entity->get($formFields[$i]);
             $type = $this->definition->getType($formFields[$i]);
             if ($type == 'bool') {
@@ -184,7 +185,8 @@ class CRUDMySQLData extends CRUDData {
             ->set('updated_at', 'NOW()');
 
         $formFields = $this->definition->getEditableFieldNames();
-        for ($i = 0; $i < count($formFields); ++$i) {
+        $count = count($formFields);
+        for ($i = 0; $i < $count; ++$i) {
             $value = $entity->get($formFields[$i]);
             $type = $this->definition->getType($formFields[$i]);
             if ($type == 'bool') {
@@ -292,7 +294,8 @@ class CRUDMySQLData extends CRUDData {
                 ->from($this->definition->getReferenceTable($field))
                 ->where('id IN ('.$in.')')
                 ->andWhere('deleted_at IS NULL');
-            for ($i = 0; $i < count($ids); ++$i) {
+            $count = count($ids);
+            for ($i = 0; $i < $count; ++$i) {
                 $queryBuilder->setParameter($i, $ids[$i]);
             }
 
