@@ -48,17 +48,29 @@ class CRUDMySQLData extends CRUDData {
             }
         } else {
             foreach ($this->definition->getChildren() as $child) {
-                $sql = 'SELECT COUNT(id) AS amount FROM '.$child[0].' WHERE ';
-                $sql .= $child[1].' = ? AND deleted_at IS NULL';
-                $result = $this->db->fetchAssoc($sql, array($id));
-                if ($result['amount'] > 0) {
+                $query = $this->db->createQueryBuilder();
+                $query
+                    ->select('COUNT(id)')
+                    ->from($child[0])
+                    ->where($child[1].' = ?')
+                    ->andWhere('deleted_at IS NULL')
+                    ->setParameter(0, $id);
+                $queryResult = $query->execute();
+                $result = $queryResult->fetch(\PDO::FETCH_NUM);
+                if ($result[0] > 0) {
                     return false;
                 }
             }
         }
 
-        $sql = 'UPDATE '.$this->definition->getTable().' SET deleted_at = NOW() WHERE id = ?';
-        $this->db->executeUpdate($sql, array($id));
+        $query = $this->db->createQueryBuilder();
+        $query
+            ->update($this->definition->getTable())
+            ->set('deleted_at', 'NOW()')
+            ->where('id = ?')
+            ->setParameter(0, $id);
+
+        $query->execute();
         return true;
     }
 
