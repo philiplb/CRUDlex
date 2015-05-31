@@ -9,6 +9,7 @@ Released: Upcoming
 - Not required number fields not being entered by the user end up the database as NULL instead of as 0
 - null is a valid value when validating an int, float or reference which is not required in an entity
 - Added classes to the create, edit and delete forms so they can be hooked easily with JavaScript
+- Using the DBAL querybuilder in the CRUDMySQLData class instead of constructing the queries via string concatenation; this might solve some unknown security issues and is more readable
 
 ## 0.9.6
 Released: 2015-02-20

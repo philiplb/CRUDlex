@@ -48,14 +48,14 @@ class CRUDMySQLData extends CRUDData {
             }
         } else {
             foreach ($this->definition->getChildren() as $child) {
-                $query = $this->db->createQueryBuilder();
-                $query
+                $queryBuilder = $this->db->createQueryBuilder();
+                $queryBuilder
                     ->select('COUNT(id)')
                     ->from($child[0])
                     ->where($child[1].' = ?')
                     ->andWhere('deleted_at IS NULL')
                     ->setParameter(0, $id);
-                $queryResult = $query->execute();
+                $queryResult = $queryBuilder->execute();
                 $result = $queryResult->fetch(\PDO::FETCH_NUM);
                 if ($result[0] > 0) {
                     return false;
@@ -106,26 +106,36 @@ class CRUDMySQLData extends CRUDData {
      */
     public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null) {
         $fieldNames = $this->definition->getFieldNames();
-        $sql = 'SELECT `'.implode('`,`', $fieldNames).'`';
-        $sql .= ' FROM '.$this->definition->getTable().' WHERE deleted_at IS NULL';
-        $values = array();
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('`'.implode('`,`', $fieldNames).'`')
+            ->from($this->definition->getTable())
+            ->where('deleted_at IS NULL');
+
+        $i = 0;
         foreach ($filter as $field => $value) {
             if ($value === null) {
-                $sql .= ' AND `'.$field.'` IS NULL';
+                $queryBuilder->andWhere('`'.$field.'` IS NULL');
             } else {
                 $operator = key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
-                $sql .= ' AND `'.$field.'` '.$operator.' ?';
+                $queryBuilder
+                    ->andWhere('`'.$field.'` '.$operator.' ?')
+                    ->setParameter($i, $value);
             }
-            $values[] = $value;
+            $i++;
         }
-        if ($skip === null && $amount !== null) {
-            $sql .= ' LIMIT '.abs(intval($amount));
-        } else if ($skip !== null && $amount === null) {
-            $sql .= ' LIMIT '.abs(intval($skip)).', 9999999999';
-        } else if ($skip !== null && $amount !== null) {
-            $sql .= ' LIMIT '.abs(intval($skip)).', '.abs(intval($amount)).'';
+
+        $queryBuilder->setMaxResults(9999999999);
+        if ($amount != null) {
+            $queryBuilder->setMaxResults(abs(intval($amount)));
         }
-        $rows = $this->db->fetchAll($sql, $values);
+        if ($skip != null) {
+            $queryBuilder->setFirstResult(abs(intval($skip)));
+        }
+
+        $queryResult = $queryBuilder->execute();
+        $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $entities = array();
         foreach ($rows as $row) {
             $entities[] = $this->hydrate($row);
@@ -138,12 +148,15 @@ class CRUDMySQLData extends CRUDData {
      */
     public function create(CRUDEntity $entity) {
         $formFields = $this->definition->getEditableFieldNames();
-        $fields = array_merge(array('created_at', 'updated_at', 'version'),
-                $formFields);
-        $placeHolders = array();
-        $values = array();
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->insert($this->definition->getTable())
+            ->setValue('created_at', 'NOW()')
+            ->setValue('updated_at', 'NOW()')
+            ->setValue('version', 0);
+
         for ($i = 0; $i < count($formFields); ++$i) {
-            $placeHolders[] = '?';
             $value = $entity->get($formFields[$i]);
             $type = $this->definition->getType($formFields[$i]);
             if ($type == 'bool') {
@@ -152,11 +165,11 @@ class CRUDMySQLData extends CRUDData {
             if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
                 $value = $value == '' ? null : $value;
             }
-            $values[] = $value;
+            $queryBuilder
+                ->setValue('`'.$formFields[$i].'`', '?')
+                ->setParameter($i, $value);
         }
-        $sql = 'INSERT INTO '.$this->definition->getTable().' (`'.implode('`,`', $fields).'`) VALUES (NOW(), NOW(), 0, '.implode(',', $placeHolders).')';
-        $this->db->executeUpdate($sql, $values);
-
+        $queryBuilder->execute();
         $entity->set('id', $this->db->lastInsertId());
     }
 
@@ -164,11 +177,13 @@ class CRUDMySQLData extends CRUDData {
      * {@inheritdoc}
      */
     public function update(CRUDEntity $entity) {
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->update($this->definition->getTable())
+            ->set('updated_at', 'NOW()');
+
         $formFields = $this->definition->getEditableFieldNames();
-        $fields = array_merge(array('updated_at', 'version'),
-                $formFields);
-        $values = array();
-        $sets = array();
         for ($i = 0; $i < count($formFields); ++$i) {
             $value = $entity->get($formFields[$i]);
             $type = $this->definition->getType($formFields[$i]);
@@ -178,15 +193,17 @@ class CRUDMySQLData extends CRUDData {
             if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
                 $value = $value == '' ? null : $value;
             }
-            $values[] = $value;
-            $sets[] = '`'.$formFields[$i].'`=?';
+            $queryBuilder
+                ->set('`'.$formFields[$i].'`', '?')
+                ->setParameter($i, $value);
         }
-        $values[] = $entity->get('id');
-        $sql = 'UPDATE '.$this->definition->getTable().' SET updated_at = NOW(), ';
-        $sql .= implode(',', $sets).' WHERE id=?';
-        $this->db->executeUpdate($sql, $values);
 
-        return $this->db->lastInsertId();
+        $affected = $queryBuilder
+            ->where('id = ?')
+            ->setParameter(count($formFields), $entity->get('id'))
+            ->execute();
+
+        return $affected;
     }
 
     /**
@@ -200,8 +217,16 @@ class CRUDMySQLData extends CRUDData {
      * {@inheritdoc}
      */
     public function getReferences($table, $nameField) {
-        $sql = 'SELECT id, `'.$nameField.'` FROM '.$table.' WHERE deleted_at IS NULL ORDER BY `'.$nameField.'`';
-        $entries = $this->db->fetchAll($sql);
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('id', $nameField)
+            ->from($table)
+            ->where('deleted_at IS NULL')
+            ->orderBy($nameField);
+
+        $queryResult = $queryBuilder->execute();
+        $entries = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result = array();
         foreach ($entries as $entry) {
             $result[$entry['id']] = $entry[$nameField];
@@ -213,25 +238,31 @@ class CRUDMySQLData extends CRUDData {
      * {@inheritdoc}
      */
     public function countBy($table, array $params, array $paramsOperators, $excludeDeleted) {
-        $sql = 'SELECT COUNT(id) AS amount FROM '.$table;
-        $paramValues = array();
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('COUNT(id)')
+            ->from($table);
+
         if (count($params) > 0) {
-            $paramSQLs = array();
+            $i = 0;
             foreach($params as $name => $value) {
-                $paramSQLs[] = '`'.$name.'`'.$paramsOperators[$name].'?';
-                $paramValues[] = $value;
+                $queryBuilder
+                    ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
+                    ->setParameter($i, $value);
+                $i++;
             }
-            $sql .= ' WHERE '.implode(' AND ', $paramSQLs);
             if ($excludeDeleted) {
-                $sql .= ' AND deleted_at IS NULL';
+                $queryBuilder->andWhere('deleted_at IS NULL');
             }
         } else {
             if ($excludeDeleted) {
-                $sql .= ' WHERE deleted_at IS NULL';
+                $queryBuilder->where('deleted_at IS NULL');
             }
         }
-        $result = $this->db->fetchAssoc($sql, $paramValues);
-        return intval($result['amount']);
+
+        $queryResult = $queryBuilder->execute();
+        $result = $queryResult->fetch(\PDO::FETCH_NUM);
+        return intval($result[0]);
     }
 
     /**
@@ -247,7 +278,7 @@ class CRUDMySQLData extends CRUDData {
                 continue;
             }
             $nameField = $this->definition->getReferenceNameField($field);
-            $sql = 'SELECT id, '.$nameField.' FROM ';
+            $queryBuilder = $this->db->createQueryBuilder();
 
             $in = '?';
             $amount = count($entities);
@@ -255,10 +286,18 @@ class CRUDMySQLData extends CRUDData {
             for ($i = 1; $i < $amount; ++$i) {
                 $in .= ',?';
                 $ids[] = $entities[$i]->get($field);
-             }
+            }
+            $queryBuilder
+                ->select('id', $nameField)
+                ->from($this->definition->getReferenceTable($field))
+                ->where('id IN ('.$in.')')
+                ->andWhere('deleted_at IS NULL');
+            for ($i = 0; $i < count($ids); ++$i) {
+                $queryBuilder->setParameter($i, $ids[$i]);
+            }
 
-            $sql .= $this->definition->getReferenceTable($field).' WHERE id IN ('.$in.') AND deleted_at IS NULL';
-            $rows = $this->db->fetchAll($sql, $ids);
+            $queryResult = $queryBuilder->execute();
+            $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($rows as $row) {
                 for ($i = 0; $i < $amount; ++$i) {
                     if ($entities[$i]->get($field) == $row['id']) {
