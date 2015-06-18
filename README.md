@@ -31,6 +31,12 @@ The CRUDlex API itself is documented here:
 * [0.9.6](http://philiplb.github.io/CRUDlex/docs/api/0.9.6/)
 * [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
 
+### Requirements
+
+* PHP >= 5.3.2
+* For the MySQL driver: MySQL >= 5.1
+* For the file uploads: PECL fileinfo >= 0.1.0
+
 ### Roadmap
 
 The project roadmap is organized via milestones:
