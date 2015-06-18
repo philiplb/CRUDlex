@@ -309,6 +309,13 @@ There is an implementation available for storing and retrieving the files at
 Amazon S3 within the [CRUDlex Addons](https://github.com/philiplb/CRUDlexAddons)
 package.
 
+Related MySQL-types:
+- CHAR
+- VARCHAR (recommended)
+- TINYTEXT
+- TEXT
+- MEDIUMTEXT
+- LONGTEXT
 
 ## Fixed
 
