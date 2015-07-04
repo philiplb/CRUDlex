@@ -72,6 +72,24 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
+     * Reads and returns the contents of the given file. If
+     * it goes wrong, it throws an exception.
+     *
+     * @param string $fileName
+     * the file to read
+     *
+     * @return string
+     * the file contents
+     */
+    protected function readYaml($fileName) {
+        if (!file_exists($fileName) || !is_readable($fileName) || !is_file($fileName)) {
+            throw new \Exception('Could not open CRUD file '.$fileName);
+        }
+        $fileContent = file_get_contents($fileName);
+        return Yaml::parse($fileContent);
+    }
+
+    /**
      * Initializes the instance.
      *
      * @param CRUDDataFactoryInterface $dataFactory
@@ -84,17 +102,10 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the file processor used for file fields
      */
     public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile, CRUDFileProcessorInterface $fileProcessor) {
-        $stringsContent = file_get_contents($stringsFile);
-        if ($stringsContent === false) {
-            throw new \Exception('Could not open CRUD strings file');
-        }
-        $this->strings = Yaml::parse($stringsContent);
 
-        $crudsContent = file_get_contents($crudFile);
-        if ($crudsContent === false) {
-            throw new \Exception('Could not open CRUD definition file');
-        }
-        $cruds = Yaml::parse($crudsContent);
+        $this->strings = $this->readYaml($stringsFile);
+        $cruds = $this->readYaml($crudFile);
+
         $this->datas = array();
         foreach ($cruds as $name => $crud) {
             $label = key_exists('label', $crud) ? $crud['label'] : $name;
