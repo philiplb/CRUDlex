@@ -7,13 +7,13 @@
  # file that was distributed with this source code.
  #}
 
-<script src="{{ app.url_generator.generate('static', {file: 'js/vendor/jquery-2.1.1.min.js'}) }}"></script>
+<script src="{{ app.url_generator.generate('static', {file: 'js/vendor/jquery-2.1.4.min.js'}) }}"></script>
 <script src="{{ app.url_generator.generate('static', {file: 'js/vendor/bootstrap/bootstrap.min.js'}) }}"></script>
 <script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/moment.min.js'}) }}"></script>
 <script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/bootstrap-datetimepicker.min.js'}) }}"></script>
 <script type="text/javascript">
     $('.crudDates').datetimepicker({
-        pickTime: false
+        format: 'YYYY-MM-dd'
     });
     $('.crudDatetimes').datetimepicker();
     $('.tooltip-crudlex').tooltip({'placement': 'auto'});

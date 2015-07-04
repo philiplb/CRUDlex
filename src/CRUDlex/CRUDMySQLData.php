@@ -51,7 +51,7 @@ class CRUDMySQLData extends CRUDData {
                 $queryBuilder = $this->db->createQueryBuilder();
                 $queryBuilder
                     ->select('COUNT(id)')
-                    ->from($child[0])
+                    ->from($child[0], $child[0])
                     ->where($child[1].' = ?')
                     ->andWhere('deleted_at IS NULL')
                     ->setParameter(0, $id);
@@ -108,9 +108,10 @@ class CRUDMySQLData extends CRUDData {
         $fieldNames = $this->definition->getFieldNames();
 
         $queryBuilder = $this->db->createQueryBuilder();
+        $table = $this->definition->getTable();
         $queryBuilder
             ->select('`'.implode('`,`', $fieldNames).'`')
-            ->from($this->definition->getTable())
+            ->from($table, $table)
             ->where('deleted_at IS NULL');
 
         $i = 0;
@@ -223,7 +224,7 @@ class CRUDMySQLData extends CRUDData {
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->select('id', $nameField)
-            ->from($table)
+            ->from($table, $table)
             ->where('deleted_at IS NULL')
             ->orderBy($nameField);
 
@@ -243,7 +244,7 @@ class CRUDMySQLData extends CRUDData {
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->select('COUNT(id)')
-            ->from($table);
+            ->from($table, $table);
 
         if (count($params) > 0) {
             $i = 0;
@@ -289,9 +290,10 @@ class CRUDMySQLData extends CRUDData {
                 $in .= ',?';
                 $ids[] = $entities[$i]->get($field);
             }
+            $table = $this->definition->getReferenceTable($field);
             $queryBuilder
                 ->select('id', $nameField)
-                ->from($this->definition->getReferenceTable($field))
+                ->from($table, $table)
                 ->where('id IN ('.$in.')')
                 ->andWhere('deleted_at IS NULL');
             $count = count($ids);

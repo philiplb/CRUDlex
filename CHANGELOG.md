@@ -12,6 +12,18 @@ Released: Upcoming
 - Using the DBAL querybuilder in the CRUDMySQLData class instead of constructing the queries via string concatenation; this might solve some unknown security issues and is more readable
 - Fixed all issues revealed by SensioLabsInsight
 - The requirements are now mentioned in the README.md
+- Updated dependencies to:
+    - "silex/silex": "~1.3"
+    - "symfony/twig-bridge": "~2.7"
+    - "symfony/yaml": "~2.7"
+    - "phpunit/phpunit": "4.7.6"
+    - "symfony/browser-kit": "~2.7"
+    - "symfony/css-selector": "~2.7"
+    - "apigen/apigen": "4.1.1"
+    - Eonasdan/bootstrap-datetimepicker V4.14.30
+    - Bootstrap 3.3.5
+    - moment.js 2.10.3
+    - jQuery 2.1.4
 
 ## 0.9.6
 Released: 2015-02-20
