@@ -62,24 +62,18 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testInvalidInit() {
         $crudServiceProvider = new CRUDServiceProvider();
 
-        $failed = false;
         try {
             $crudServiceProvider->init($this->dataFactory, 'foo', $this->stringsFile, new CRUDNullFileProcessor());
-            $failed = true;
-        } catch (\Exception $e) {
-        }
-        if ($failed) {
             $this->fail('Expected exception');
+        } catch (\Exception $e) {
+            // Wanted.
         }
 
-        $failed = false;
         try {
             $crudServiceProvider->init($this->dataFactory, $this->crudFile, 'foo', new CRUDNullFileProcessor());
-            $failed = true;
-        } catch (\Exception $e) {
-        }
-        if ($failed) {
             $this->fail('Expected exception');
+        } catch (\Exception $e) {
+            // Wanted.
         }
     }
 
