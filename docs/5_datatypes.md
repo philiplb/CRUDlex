@@ -339,7 +339,7 @@ Fills the db always with the defined, fixed value, not editable. Related MySQL-t
 
 ---
 
-Previous: [Data Structure Definition](3_datastructures.md)
+Previous: [Extended Features](4_extendedfeatures.md)
 
 Next: [Constraints](5_constraints.md)
 
