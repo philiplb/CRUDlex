@@ -19,4 +19,7 @@
         {% endif %}
         {{ markers|join(', ') }}
     {% endif %}
+    {% if definition.getDescription(field) %}
+        <p><small>{{ definition.getDescription(field) }}</small></p>
+    {% endif %}
 </label>

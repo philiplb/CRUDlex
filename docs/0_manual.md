@@ -9,11 +9,12 @@ Here is the table of contents:
 - [Introduction](1_introduction.md)
 - [Setup](2_setup.md)
 - [Data Structure Definition](3_datastructures.md)
-- [Data Types](4_datatypes.md)
-- [Constraints](5_constraints.md)
-- [Overriding Layouts](6_layouts.md)
-- [Various Other Features](7_miscfeatures.md)
-- [The CRUDServiceProvider](8_crudserviceprovider.md)
+- [Extended Features](4_extendedfeatures.md)
+- [Data Types](5_datatypes.md)
+- [Constraints](6_constraints.md)
+- [Overriding Layouts](7_layouts.md)
+- [Various Other Features](8_miscfeatures.md)
+- [The CRUDServiceProvider](9_crudserviceprovider.md)
 
 ---
 

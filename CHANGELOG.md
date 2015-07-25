@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.9.7
 Released: Upcoming
+- Added an optional description per field
 - CRUDData::listEntries() can take now operators for the filter parameter
 - Added filters for the list views
 - Big cleanup of the CRUDEntityDefinition constructor
@@ -13,6 +14,7 @@ Released: Upcoming
 - Fixed all issues revealed by SensioLabsInsight
 - The requirements are now mentioned in the README.md
 - Set the preferred-install in the composer package
+- Moved some features to an own chapter in the documentation
 - Added setters to CRUDEntityDefinition:
     - setServiceProvider
     - setUnique

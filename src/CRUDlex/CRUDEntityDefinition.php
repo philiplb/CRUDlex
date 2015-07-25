@@ -573,7 +573,7 @@ class CRUDEntityDefinition {
      * the new step size of the float field
      */
     public function setFloatStep($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'floatStep', $value);
+        $this->setFieldValue($fieldName, 'floatStep', $value);
     }
 
     /**
@@ -647,6 +647,31 @@ class CRUDEntityDefinition {
      */
     public function setLabel($label) {
         $this->label = $label;
+    }
+
+    /**
+     * Gets the description of a field.
+     *
+     * @param string $fieldName
+     * the field name
+     *
+     * @return string
+     * the description of the field
+     */
+    public function getDescription($fieldName) {
+        return $this->getFieldValue($fieldName, 'description');
+    }
+
+    /**
+     * Sets the description of a field.
+     *
+     * @param string $fieldName
+     * the field name
+     * @param string $value
+     * the new description of the field
+     */
+    public function setDescription($fieldName, $value) {
+        $this->setFieldValue($fieldName, 'description', $value);
     }
 
     /**

@@ -23,7 +23,12 @@
 
         {% for field in fields %}
             <tr>
-                <td>{{ definition.getFieldLabel(field) }}</td>
+                <td>
+                    {{ definition.getFieldLabel(field) }}
+                    {% if definition.getDescription(field) %}
+                        <p><small>{{ definition.getDescription(field) }}</small></p>
+                    {% endif %}
+                </td>
                 <td id="crudField{{ field }}">
                     {% include '@crud/renderField.twig' with {
                         entity: entity,
