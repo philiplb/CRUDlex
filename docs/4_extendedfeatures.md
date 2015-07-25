@@ -135,8 +135,8 @@ book:
 
 ---
 
-Previous: [Data Structure Definition](2_setup.md)
+Previous: [Data Structure Definition](3_datastructures.md)
 
-Next: [Data Types](5_datatypes)
+Next: [Data Types](5_datatypes.md)
 
 [Table of Contents](0_manual.md)
