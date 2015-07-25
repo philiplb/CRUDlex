@@ -268,7 +268,6 @@ class CRUDEntityDefinition {
         return $this->pageSize;
     }
 
-
     /**
     * Sets the amount of items to display per page on the listview.
     *
@@ -307,6 +306,16 @@ class CRUDEntityDefinition {
      */
     public function getServiceProvider() {
         return $this->serviceProvider;
+    }
+
+    /**
+     * Sets the service provider.
+     *
+     * @param CRUDServiceProvider $serviceProvider
+     * the new service provider
+     */
+    public function setServiceProvider(CRUDServiceProvider $serviceProvider) {
+        return $this->serviceProvider = $serviceProvider;
     }
 
     /**
@@ -386,7 +395,6 @@ class CRUDEntityDefinition {
         return $result;
     }
 
-
     /**
      * Sets whether a field is required.
      *
@@ -398,7 +406,6 @@ class CRUDEntityDefinition {
     public function setRequired($fieldName, $value) {
         return $this->setFieldValue($fieldName, 'required', $value);
     }
-
 
     /**
      * Gets whether a field is unique.
@@ -415,6 +422,19 @@ class CRUDEntityDefinition {
             $result = false;
         }
         return $result;
+    }
+
+    /**
+     * Sets whether a field is unique.
+     *
+     * @param string $fieldName
+     * the field name
+     *
+     * @param bool $value
+     * true if so
+     */
+    public function setUnique($fieldName, $value) {
+        $this->setFieldValue($fieldName, 'unique', $value);
     }
 
     /**
@@ -443,7 +463,6 @@ class CRUDEntityDefinition {
         return $this->getReferenceValue($fieldName, 'nameField');
     }
 
-
     /**
      * Gets the entity field of a reference.
      *
@@ -468,6 +487,18 @@ class CRUDEntityDefinition {
      */
     public function getFilePath($fieldName) {
         return $this->getFieldValue($fieldName, 'filepath');
+    }
+
+    /**
+     * Sets the file path of a field.
+     *
+     * @param string $fieldName
+     * the field name
+     * @param string $value
+     * the file path of a field or null on invalid field name
+     */
+    public function setFilePath($fieldName, $value) {
+        $this->setFieldValue($fieldName, 'filepath', $value);
     }
 
     /**
@@ -509,6 +540,18 @@ class CRUDEntityDefinition {
     }
 
     /**
+     * Sets the items of a set field.
+     *
+     * @param string $fieldName
+     * the field name
+     * @param string $value
+     * the new items of the set field
+     */
+    public function setSetItems($fieldName, $value) {
+        return $this->setFieldValue($fieldName, 'setitems', $value);
+    }
+
+    /**
      * Gets the step size of a float field.
      *
      * @param string $fieldName
@@ -519,6 +562,18 @@ class CRUDEntityDefinition {
      */
     public function getFloatStep($fieldName) {
         return $this->getFieldValue($fieldName, 'floatStep');
+    }
+
+    /**
+     * Sets the step size of a float field.
+     *
+     * @param string $fieldName
+     * the field name
+     * @param string $value
+     * the new step size of the float field
+     */
+    public function setFloatStep($fieldName, $value) {
+        return $this->setFieldValue($fieldName, 'floatStep', $value);
     }
 
     /**
@@ -543,9 +598,21 @@ class CRUDEntityDefinition {
     }
 
     /**
+     * Gets the label of a field.
+     *
+     * @param string $fieldName
+     * the field name
+     * @param string $value
+     * the new label of the field
+     */
+    public function setFieldLabel($fieldName, $value) {
+        return $this->setFieldValue($fieldName, 'label', $value);
+    }
+
+    /**
      * Gets the table where the data is stored.
      *
-     * @return @string
+     * @return string
      * the table where the data is stored
      */
     public function getTable() {
@@ -553,13 +620,33 @@ class CRUDEntityDefinition {
     }
 
     /**
+     * Sets the table where the data is stored.
+     *
+     * @param string $table
+     * the new table where the data is stored
+     */
+    public function setTable($table) {
+        $this->table = $table;
+    }
+
+    /**
      * Gets the label for the entity.
      *
-     * @return @string
+     * @return string
      * the label for the entity
      */
     public function getLabel() {
         return $this->label;
+    }
+
+    /**
+     * Sets the label for the entity.
+     *
+     * @param string $label
+     * the new label for the entity
+     */
+    public function setLabel($label) {
+        $this->label = $label;
     }
 
     /**

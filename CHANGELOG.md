@@ -13,6 +13,15 @@ Released: Upcoming
 - Fixed all issues revealed by SensioLabsInsight
 - The requirements are now mentioned in the README.md
 - Set the preferred-install in the composer package
+- Added setters to CRUDEntityDefinition:
+    - setServiceProvider
+    - setUnique
+    - setFilePath
+    - setSetItems
+    - setFloatStep
+    - setFieldLabel
+    - setTable
+    - setLabel
 - Updated dependencies to:
     - "silex/silex": "~1.3"
     - "symfony/twig-bridge": "~2.7"
