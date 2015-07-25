@@ -1,8 +1,11 @@
 CRUDlex Changelog
 =================
 
-## 0.9.7
+## 0.9.8
 Released: Upcoming
+
+## 0.9.7
+Released: 2015-07-26
 - Added an optional description per field
 - CRUDData::listEntries() can take now operators for the filter parameter
 - Added filters for the list views
