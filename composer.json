@@ -27,5 +27,8 @@
     },
     "autoload": {
         "psr-0": { "CRUDlex": "src" }
+    },
+    "config": {
+        "preferred-install": "dist"
     }
 }

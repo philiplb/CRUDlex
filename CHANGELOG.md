@@ -12,6 +12,7 @@ Released: Upcoming
 - Using the DBAL querybuilder in the CRUDMySQLData class instead of constructing the queries via string concatenation; this might solve some unknown security issues and is more readable
 - Fixed all issues revealed by SensioLabsInsight
 - The requirements are now mentioned in the README.md
+- Set the preferred-install in the composer package
 - Updated dependencies to:
     - "silex/silex": "~1.3"
     - "symfony/twig-bridge": "~2.7"
