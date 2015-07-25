@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CRUDlex\CRUDControllerProvider | CRUDlex API</title>
+
+	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CRUDlex.html">
+						CRUDlex					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-CRUDlex.CRUDControllerProvider.html">CRUDControllerProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDData.html">CRUDData</a></li>
+				<li><a href="class-CRUDlex.CRUDEntity.html">CRUDEntity</a></li>
+				<li><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDEntityDefinition</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLData.html">CRUDMySQLData</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLDataFactory.html">CRUDMySQLDataFactory</a></li>
+				<li><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDServiceProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html">CRUDSimpleFilesystemFileProcessor</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDDataFactoryInterface</a></li>
+				<li><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDFileProcessorInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CRUDlex.html" title="Summary of CRUDlex"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CRUDControllerProvider</h1>
+
+
+	<div class="description">
+	<p>This is the ControllerProvider offering all CRUD pages.</p>
+
+<p>It offers this routes:</p>
+
+<p>"/resource/static" serving static resources</p>
+
+<p>"/{entity}/create" creation page of the entity</p>
+
+<p>"/{entity}" list page of the entity</p>
+
+<p>"/{entity}/{id}" details page of a single entity instance</p>
+
+<p>"/{entity}/{id}/edit" edit page of a single entity instance</p>
+
+<p>"/{entity}/{id}/delete" POST only deletion route for an entity instance</p>
+
+<p>"/{entity}/{id}/{field}/file" renders a file field of an entity instance</p>
+
+<p>"/{entity}/{id}/{field}/delete" POST only deletion of a file field of an entity instance</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>CRUDlex\CRUDControllerProvider</span></b>			
+			 implements 
+<span>Silex\ControllerProviderInterface</span>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CRUDlex.html">CRUDlex</a><br>
+		
+
+			<b>Located at</b> CRUDControllerProvider.php		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="getNotFoundPage" id="_getNotFoundPage">
+
+		<td class="attributes"><code>
+			 protected 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getNotFoundPage">#</a>
+		<code>getNotFoundPage( <span>Silex\Application <var>$app</var></span>, <span>string <var>$error</var></span> )</code>
+
+		<div class="description short">
+			<p>Generates the not found page.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generates the not found page.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$error</var></dt>
+					<dd>the cause of the not found error</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>the rendered not found page with the status code 404
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLayout" id="_getLayout">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLayout">#</a>
+		<code>getLayout( <span>Silex\Application <var>$app</var></span>, <span>string <var>$action</var></span>, <span>string <var>$entity</var></span> )</code>
+
+		<div class="description short">
+			<p>Delivers the layout for the page in the way it is described in the
+manual.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Delivers the layout for the page in the way it is described in the
+manual.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$action</var></dt>
+					<dd>the current calling action like "create" or "show"</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current calling entity</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the best fitting layout
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="connect" id="_connect">
+
+		<td class="attributes"><code>
+			 public 
+
+			SilexController\Collection
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_connect">#</a>
+		<code>connect( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>Implements ControllerProviderInterface::connect() connecting this
+controller.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Implements ControllerProviderInterface::connect() connecting this
+controller.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Application instance of the Silex application</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					SilexController\Collection<br>this method is expected to return the used ControllerCollection instance
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code>create( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for the "create" action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for the "create" action.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>the HTTP response of this action
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="showList" id="_showList">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_showList">#</a>
+		<code>showList( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for the "show list" action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for the "show list" action.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>the HTTP response of this action or 404 on invalid input
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="show" id="_show">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_show">#</a>
+		<code>show( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for the "show" action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for the "show" action.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id to show</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>the HTTP response of this action or 404 on invalid input
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="edit" id="_edit">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_edit">#</a>
+		<code>edit( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for the "edit" action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for the "edit" action.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id to edit</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>the HTTP response of this action or 404 on invalid input
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code>delete( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for the "delete" action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for the "delete" action.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id to delete</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>redirects to the entity list page or 404 on invalid input
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="renderFile" id="_renderFile">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_renderFile">#</a>
+		<code>renderFile( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span>, <span>string <var>$field</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for the "render file" action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for the "render file" action.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the file to render of the instance</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>the rendered file
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteFile" id="_deleteFile">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteFile">#</a>
+		<code>deleteFile( <span>Silex\Application <var>$app</var></span>, <span>string <var>$entity</var></span>, <span>string <var>$id</var></span>, <span>string <var>$field</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for the "delete file" action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for the "delete file" action.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current entity</dd>
+					<dt><var>$id</var></dt>
+					<dd>the instance id</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the file to delete of the instance</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>redirects to the instance details page or 404 on invalid input
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="staticFile" id="_staticFile">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_staticFile">#</a>
+		<code>staticFile( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>The controller for serving static files.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>The controller for serving static files.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>redirects to the instance details page or 404 on invalid input
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

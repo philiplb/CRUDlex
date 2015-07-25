@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CRUDlex\CRUDData | CRUDlex API</title>
+
+	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CRUDlex.html">
+						CRUDlex					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDControllerProvider.html">CRUDControllerProvider</a></li>
+				<li class="active"><a href="class-CRUDlex.CRUDData.html">CRUDData</a></li>
+				<li><a href="class-CRUDlex.CRUDEntity.html">CRUDEntity</a></li>
+				<li><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDEntityDefinition</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLData.html">CRUDMySQLData</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLDataFactory.html">CRUDMySQLDataFactory</a></li>
+				<li><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDServiceProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html">CRUDSimpleFilesystemFileProcessor</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDDataFactoryInterface</a></li>
+				<li><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDFileProcessorInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CRUDlex.html" title="Summary of CRUDlex"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CRUDData</h1>
+
+
+	<div class="description">
+	<p>The abstract class for reading and writing data.</p>
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CRUDlex.CRUDMySQLData.html">CRUDlex\CRUDMySQLData</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-CRUDlex.html">CRUDlex</a><br>
+		
+
+			<b>Located at</b> CRUDData.php		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="hydrate" id="_hydrate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hydrate">#</a>
+		<code>hydrate( <span>array <var>$row</var></span> )</code>
+
+		<div class="description short">
+			<p>Creates an <code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> from the raw data array with the field name
+as keys and field values as values.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates an <code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> from the raw data array with the field name
+as keys and field values as values.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$row</var></dt>
+					<dd>the array with the raw data</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code><br>the entity containing the array data then
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			<code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code>get( <span>string <var>$id</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the entity with the given id.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the entity with the given id.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd>the id</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code><br>the entity belonging to the id or null if not existant
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="listEntries" id="_listEntries">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_listEntries">#</a>
+		<code>listEntries( <span>array <var>$filter</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$filterOperators</var> = <span class="php-keyword1">array</span>()</span>, <span>integer <var>$skip</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$amount</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Gets a list of entities fullfilling the given filter or all if no
+selection was given.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets a list of entities fullfilling the given filter or all if no
+selection was given.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filter</var></dt>
+					<dd>the filter all resulting entities must fulfill, the keys as field names</dd>
+					<dt><var>$filterOperators</var></dt>
+					<dd>the operators of the filter like "=" defining the full condition of the field</dd>
+					<dt><var>$skip</var></dt>
+					<dd>if given and not null, it specifies the amount of rows to skip</dd>
+					<dt><var>$amount</var></dt>
+					<dd>if given and not null, it specifies the maximum amount of rows to retrieve</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the entities fulfilling the filter or all if no filter was given
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code>create( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span> )</code>
+
+		<div class="description short">
+			<p>Persists the given entity as new entry in the datasource.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Persists the given entity as new entry in the datasource.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entity</var></dt>
+					<dd>the entity to persist.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="update" id="_update">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_update">#</a>
+		<code>update( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span> )</code>
+
+		<div class="description short">
+			<p>Updates an existing entry in the datasource having the same id.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Updates an existing entry in the datasource having the same id.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entity</var></dt>
+					<dd>the entity with the new data</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code>delete( <span>string <var>$id</var></span> )</code>
+
+		<div class="description short">
+			<p>Deletes an entry from the datasource having the given id.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes an entry from the datasource having the given id.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd>the id of the entry to delete</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>true on successful deletion
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReferences" id="_getReferences">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReferences">#</a>
+		<code>getReferences( <span>string <var>$table</var></span>, <span>string <var>$nameField</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets ids and names of a table. Used for building up the dropdown box of
+reference type fields.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets ids and names of a table. Used for building up the dropdown box of
+reference type fields.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$table</var></dt>
+					<dd>the table</dd>
+					<dt><var>$nameField</var></dt>
+					<dd>the field defining the name of the rows</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>an array with the ids as key and the names as values
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="countBy" id="_countBy">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_countBy">#</a>
+		<code>countBy( <span>string <var>$table</var></span>, <span>array <var>$params</var></span>, <span>array <var>$paramsOperators</var></span>, <span>boolean <var>$excludeDeleted</var></span> )</code>
+
+		<div class="description short">
+			<p>Retrieves the amount of entities in the datasource fulfilling the given
+parameters.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieves the amount of entities in the datasource fulfilling the given
+parameters.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$table</var></dt>
+					<dd>the table to count in</dd>
+					<dt><var>$params</var></dt>
+					<dd>an array with the field names as keys and field values as values</dd>
+					<dt><var>$paramsOperators</var></dt>
+					<dd><p>$paramOperators
+the operators of the parameters like "=" defining the full condition of the field</p></dd>
+					<dt><var>$excludeDeleted</var></dt>
+					<dd>false, if soft deleted entries in the datasource should be counted, too</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>the count fulfilling the given parameters
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fetchReferences" id="_fetchReferences">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fetchReferences">#</a>
+		<code>fetchReferences( <span>array <var>&amp; $entities</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Adds the id and name of referenced entities to the given entities. Each
+reference field is before the raw id of the referenced entity and after
+the fetch, it's an array with the keys id and name.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds the id and name of referenced entities to the given entities. Each
+reference field is before the raw id of the referenced entity and after
+the fetch, it's an array with the keys id and name.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entities</var></dt>
+					<dd>the entities to fetch the references for</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDefinition" id="_getDefinition">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDefinition">#</a>
+		<code>getDefinition( )</code>
+
+		<div class="description short">
+			<p>Gets the <code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> instance.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the <code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> instance.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code><br>the definition instance
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createEmpty" id="_createEmpty">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createEmpty">#</a>
+		<code>createEmpty( )</code>
+
+		<div class="description short">
+			<p>Creates a new, empty entity instance having all fields prefilled with
+null or the defined value in case of fixed fields.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates a new, empty entity instance having all fields prefilled with
+null or the defined value in case of fixed fields.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code><br>the newly created entity
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createFiles" id="_createFiles">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createFiles">#</a>
+		<code>createFiles( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span> )</code>
+
+		<div class="description short">
+			<p>Creates the uploaded files of a newly created entity.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates the uploaded files of a newly created entity.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>the HTTP request containing the file data</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the just created entity</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="updateFiles" id="_updateFiles">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_updateFiles">#</a>
+		<code>updateFiles( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span> )</code>
+
+		<div class="description short">
+			<p>Updates the uploaded files of an updated entity.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Updates the uploaded files of an updated entity.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>the HTTP request containing the file data</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the updated entity</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteFile" id="_deleteFile">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteFile">#</a>
+		<code>deleteFile( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
+
+		<div class="description short">
+			<p>Deletes a specific file from an existing entity.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes a specific file from an existing entity.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entity</var></dt>
+					<dd>the entity to delete the file from</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the entity containing the file to be deleted</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteFiles" id="_deleteFiles">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteFiles">#</a>
+		<code>deleteFiles( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span> )</code>
+
+		<div class="description short">
+			<p>Deletes all files of an existing entity.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes all files of an existing entity.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entity</var></dt>
+					<dd>the entity to delete the files from</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="renderFile" id="_renderFile">
+
+		<td class="attributes"><code>
+			 public 
+
+			Symfony\Component\HttpFoundation\Response
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_renderFile">#</a>
+		<code>renderFile( <span><code><a href="class-CRUDlex.CRUDEntity.html">CRUDlex\CRUDEntity</a></code> <var>$entity</var></span>, <span>string <var>$entityName</var></span>, <span>string <var>$field</var></span> )</code>
+
+		<div class="description short">
+			<p>Renders (outputs) a file of an entity. This includes setting headers
+like the file size, mimetype and name, too.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Renders (outputs) a file of an entity. This includes setting headers
+like the file size, mimetype and name, too.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$entity</var></dt>
+					<dd>the entity to render the file from</dd>
+					<dt><var>$entityName</var></dt>
+					<dd>the name of the entity as this class here is not aware of it</dd>
+					<dt><var>$field</var></dt>
+					<dd>the field of the entity containing the file to be rendered</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Symfony\Component\HttpFoundation\Response<br>the HTTP response, likely to be a streamed one
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="definition" id="$definition">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$definition</var>
+			<div class="description short">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> entity definition.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> entity definition.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$definition" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="fileProcessor" id="$fileProcessor">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$fileProcessor</var>
+			<div class="description short">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> file processor.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> file processor.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$fileProcessor" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

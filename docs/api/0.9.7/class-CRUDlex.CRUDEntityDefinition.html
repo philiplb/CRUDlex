@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CRUDlex\CRUDEntityDefinition | CRUDlex API</title>
+
+	<link rel="stylesheet" href="resources/style.css?95ada9fb523b6ab4fd1c47bb375f713f2cc65542">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CRUDlex.html">
+						CRUDlex					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDControllerProvider.html">CRUDControllerProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDData.html">CRUDData</a></li>
+				<li><a href="class-CRUDlex.CRUDEntity.html">CRUDEntity</a></li>
+				<li class="active"><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDEntityDefinition</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLData.html">CRUDMySQLData</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLDataFactory.html">CRUDMySQLDataFactory</a></li>
+				<li><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDServiceProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html">CRUDSimpleFilesystemFileProcessor</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDDataFactoryInterface</a></li>
+				<li><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDFileProcessorInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CRUDlex.html" title="Summary of CRUDlex"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CRUDEntityDefinition</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CRUDlex.html">CRUDlex</a><br>
+		
+
+			<b>Located at</b> CRUDEntityDefinition.php		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="getFilteredFieldNames" id="_getFilteredFieldNames">
+
+		<td class="attributes"><code>
+			 protected 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFilteredFieldNames">#</a>
+		<code>getFilteredFieldNames( <span>array <var>$exclude</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the field names exluding the given ones.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the field names exluding the given ones.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$exclude</var></dt>
+					<dd>the field names to exclude</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>all field names excluding the given ones
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFieldValue" id="_getFieldValue">
+
+		<td class="attributes"><code>
+			 protected 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFieldValue">#</a>
+		<code>getFieldValue( <span>string <var>$name</var></span>, <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the value of a field key.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the value of a field key.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>the name of the field</dd>
+					<dt><var>$key</var></dt>
+					<dd>the value of the key</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>the value of the field key or null if not existing
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFieldValue" id="_setFieldValue">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFieldValue">#</a>
+		<code>setFieldValue( <span>string <var>$name</var></span>, <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the value of a field key. If the field or the key in the field
+don't exist, they get created.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the value of a field key. If the field or the key in the field
+don't exist, they get created.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>the name of the field</dd>
+					<dt><var>$key</var></dt>
+					<dd>the value of the key</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new value</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReferenceValue" id="_getReferenceValue">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReferenceValue">#</a>
+		<code>getReferenceValue( <span>string <var>$fieldName</var></span>, <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the value of a reference field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the value of a reference field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference</dd>
+					<dt><var>$key</var></dt>
+					<dd>the key of the reference value</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the value of the reference field
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code>__construct( <span>string <var>$table</var></span>, <span>array <var>$fields</var></span>, <span>string <var>$label</var></span>, <span>array <var>$standardFieldLabels</var></span>, <span><code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code> <var>$serviceProvider</var></span> )</code>
+
+		<div class="description short">
+			<p>Constructor.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructor.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$table</var></dt>
+					<dd>the table of the entity</dd>
+					<dt><var>$fields</var></dt>
+					<dd>the fieldstructure just like the CRUD YAML</dd>
+					<dt><var>$label</var></dt>
+					<dd>the label of the entity</dd>
+					<dt><var>$standardFieldLabels</var></dt>
+					<dd>labels for the fields "id", "created_at" and "updated_at"</dd>
+					<dt><var>$serviceProvider</var></dt>
+					<dd>The current service provider</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFieldNames" id="_getFieldNames">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFieldNames">#</a>
+		<code>getFieldNames( )</code>
+
+		<div class="description short">
+			<p>Gets all field names, including the implicit ones like "id" or
+"created_at".</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets all field names, including the implicit ones like "id" or
+"created_at".</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the field names
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setListFieldNames" id="_setListFieldNames">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setListFieldNames">#</a>
+		<code>setListFieldNames( <span>array <var>$listFields</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the field names to be used in the listview.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the field names to be used in the listview.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$listFields</var></dt>
+					<dd>the field names to be used in the listview</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getListFieldNames" id="_getListFieldNames">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getListFieldNames">#</a>
+		<code>getListFieldNames( )</code>
+
+		<div class="description short">
+			<p>Gets the field names to be used in the listview. If they were not specified,
+all public field names are returned.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the field names to be used in the listview. If they were not specified,
+all public field names are returned.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the field names to be used in the listview
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getChildrenLabelFields" id="_getChildrenLabelFields">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getChildrenLabelFields">#</a>
+		<code>getChildrenLabelFields( )</code>
+
+		<div class="description short">
+			<p>Gets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the fields used to display the children on the details page
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setChildrenLabelFields" id="_setChildrenLabelFields">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setChildrenLabelFields">#</a>
+		<code>setChildrenLabelFields( <span>array <var>$childrenLabelFields</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$childrenLabelFields</var></dt>
+					<dd>the fields used to display the children on the details page</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isDeleteCascade" id="_isDeleteCascade">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isDeleteCascade">#</a>
+		<code>isDeleteCascade( )</code>
+
+		<div class="description short">
+			<p>Gets whether to delete its children when an instance is deleted.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets whether to delete its children when an instance is deleted.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>true if so
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDeleteCascade" id="_setDeleteCascade">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDeleteCascade">#</a>
+		<code>setDeleteCascade( <span>boolean <var>$deleteCascade</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets whether to delete its children when an instance is deleted.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets whether to delete its children when an instance is deleted.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$deleteCascade</var></dt>
+					<dd>whether to delete its children when an instance is deleted</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPageSize" id="_getPageSize">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPageSize">#</a>
+		<code>getPageSize( )</code>
+
+		<div class="description short">
+			<p>Gets the amount of items to display per page on the listview.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the amount of items to display per page on the listview.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>the amount of items to display per page on the listview
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setPageSize" id="_setPageSize">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setPageSize">#</a>
+		<code>setPageSize( <span>integer <var>$pageSize</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the amount of items to display per page on the listview.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the amount of items to display per page on the listview.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$pageSize</var></dt>
+					<dd>the amount of items to display per page on the listview</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFilter" id="_getFilter">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFilter">#</a>
+		<code>getFilter( )</code>
+
+		<div class="description short">
+			<p>Gets the fields offering a filter.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the fields offering a filter.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the fields to filter
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFilter" id="_setFilter">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFilter">#</a>
+		<code>setFilter( <span>array <var>$filter</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the fields offering a filter.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the fields offering a filter.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filter</var></dt>
+					<dd>the fields to filter</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getServiceProvider" id="_getServiceProvider">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getServiceProvider">#</a>
+		<code>getServiceProvider( )</code>
+
+		<div class="description short">
+			<p>Gets the service provider.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the service provider.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code><br>the service provider
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setServiceProvider" id="_setServiceProvider">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setServiceProvider">#</a>
+		<code>setServiceProvider( <span><code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code> <var>$serviceProvider</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the service provider.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the service provider.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$serviceProvider</var></dt>
+					<dd>the new service provider</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPublicFieldNames" id="_getPublicFieldNames">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPublicFieldNames">#</a>
+		<code>getPublicFieldNames( )</code>
+
+		<div class="description short">
+			<p>Gets the public field names. The internal fields "version" and
+"deleted_at" are filtered.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the public field names. The internal fields "version" and
+"deleted_at" are filtered.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the public field names
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEditableFieldNames" id="_getEditableFieldNames">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEditableFieldNames">#</a>
+		<code>getEditableFieldNames( )</code>
+
+		<div class="description short">
+			<p>Gets the field names which are editable. Not editable are fields like the
+id or the created_at.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the field names which are editable. Not editable are fields like the
+id or the created_at.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the editable field names
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReadOnlyFields" id="_getReadOnlyFields">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReadOnlyFields">#</a>
+		<code>getReadOnlyFields( )</code>
+
+		<div class="description short">
+			<p>Gets the read only field names like the id or the created_at.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the read only field names like the id or the created_at.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the read only field names
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getType" id="_getType">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getType">#</a>
+		<code>getType( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the type of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the type of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the type or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setType" id="_setType">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setType">#</a>
+		<code>setType( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the type of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the type of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new field type</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isRequired" id="_isRequired">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isRequired">#</a>
+		<code>isRequired( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets whether a field is required.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets whether a field is required.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>true if so
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setRequired" id="_setRequired">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setRequired">#</a>
+		<code>setRequired( <span>string <var>$fieldName</var></span>, <span>boolean <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets whether a field is required.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets whether a field is required.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd><p>$fieldName
+the new required state</p></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isUnique" id="_isUnique">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isUnique">#</a>
+		<code>isUnique( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets whether a field is unique.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets whether a field is unique.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>true if so
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setUnique" id="_setUnique">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setUnique">#</a>
+		<code>setUnique( <span>string <var>$fieldName</var></span>, <span>boolean <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets whether a field is unique.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets whether a field is unique.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>true if so</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReferenceTable" id="_getReferenceTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReferenceTable">#</a>
+		<code>getReferenceTable( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the table field of a reference.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the table field of a reference.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the table field of a reference or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReferenceNameField" id="_getReferenceNameField">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReferenceNameField">#</a>
+		<code>getReferenceNameField( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the name field of a reference.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the name field of a reference.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the name field of a reference or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReferenceEntity" id="_getReferenceEntity">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReferenceEntity">#</a>
+		<code>getReferenceEntity( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the entity field of a reference.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the entity field of a reference.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the reference</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the entity field of a reference or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFilePath" id="_getFilePath">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFilePath">#</a>
+		<code>getFilePath( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the file path of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the file path of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the file path of a field or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFilePath" id="_setFilePath">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFilePath">#</a>
+		<code>setFilePath( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the file path of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the file path of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>the file path of a field or null on invalid field name</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFixedValue" id="_getFixedValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFixedValue">#</a>
+		<code>getFixedValue( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the value of a fixed field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the value of a fixed field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the value of a fixed field or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFixedValue" id="_setFixedValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFixedValue">#</a>
+		<code>setFixedValue( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the value of a fixed field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the value of a fixed field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new value for the fixed field</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSetItems" id="_getSetItems">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSetItems">#</a>
+		<code>getSetItems( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the items of a set field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the items of a set field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the items of the set field or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSetItems" id="_setSetItems">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSetItems">#</a>
+		<code>setSetItems( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the items of a set field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the items of a set field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new items of the set field</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFloatStep" id="_getFloatStep">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFloatStep">#</a>
+		<code>getFloatStep( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the step size of a float field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the step size of a float field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the step size of a float field or null on invalid field name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFloatStep" id="_setFloatStep">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFloatStep">#</a>
+		<code>setFloatStep( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the step size of a float field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the step size of a float field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new step size of the float field</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFieldLabel" id="_getFieldLabel">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFieldLabel">#</a>
+		<code>getFieldLabel( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the label of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the label of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br><p>the label of the field or the field name if no label is set in the CRUD
+YAML</p>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFieldLabel" id="_setFieldLabel">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFieldLabel">#</a>
+		<code>setFieldLabel( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the label of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the label of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new label of the field</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTable" id="_getTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTable">#</a>
+		<code>getTable( )</code>
+
+		<div class="description short">
+			<p>Gets the table where the data is stored.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the table where the data is stored.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the table where the data is stored
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTable" id="_setTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTable">#</a>
+		<code>setTable( <span>string <var>$table</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the table where the data is stored.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the table where the data is stored.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$table</var></dt>
+					<dd>the new table where the data is stored</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLabel" id="_getLabel">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLabel">#</a>
+		<code>getLabel( )</code>
+
+		<div class="description short">
+			<p>Gets the label for the entity.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the label for the entity.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the label for the entity
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setLabel" id="_setLabel">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setLabel">#</a>
+		<code>setLabel( <span>string <var>$label</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the label for the entity.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the label for the entity.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$label</var></dt>
+					<dd>the new label for the entity</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDescription" id="_getDescription">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDescription">#</a>
+		<code>getDescription( <span>string <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the description of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the description of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the description of the field
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDescription" id="_setDescription">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDescription">#</a>
+		<code>setDescription( <span>string <var>$fieldName</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the description of a field.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the description of a field.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name</dd>
+					<dt><var>$value</var></dt>
+					<dd>the new description of the field</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addChild" id="_addChild">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addChild">#</a>
+		<code>addChild( <span>string <var>$table</var></span>, <span>string <var>$fieldName</var></span>, <span>string <var>$entity</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds a child to this definition in case the other
+definition has a reference to this one.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a child to this definition in case the other
+definition has a reference to this one.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$table</var></dt>
+					<dd>the table of the referencing definition</dd>
+					<dt><var>$fieldName</var></dt>
+					<dd>the field name of the referencing definition</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the entity of the referencing definition</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getChildren" id="_getChildren">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getChildren">#</a>
+		<code>getChildren( )</code>
+
+		<div class="description short">
+			<p>Gets the referencing children to this definition.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the referencing children to this definition.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br><p>an array with the children referencing the entity. All entries are arrays
+with three referencing elements: table, fieldName, entity</p>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="table" id="$table">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$table</var>
+			<div class="description short">
+				<p>The table where the data is stored.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The table where the data is stored.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$table" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="fields" id="$fields">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$fields</var>
+			<div class="description short">
+				<p>Holds all fields in the same structure as in the CRUD YAML file.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds all fields in the same structure as in the CRUD YAML file.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$fields" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="label" id="$label">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$label</var>
+			<div class="description short">
+				<p>The label for the entity.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The label for the entity.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$label" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="children" id="$children">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$children</var>
+			<div class="description short">
+				<p>An array with the children referencing the entity. All entries are
+arrays with three referencing elements: table, fieldName, entity</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>An array with the children referencing the entity. All entries are
+arrays with three referencing elements: table, fieldName, entity</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$children" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="standardFieldLabels" id="$standardFieldLabels">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$standardFieldLabels</var>
+			<div class="description short">
+				<p>Labels for the fields "id", "created_at" and "updated_at".</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Labels for the fields "id", "created_at" and "updated_at".</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$standardFieldLabels" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="listFields" id="$listFields">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$listFields</var>
+			<div class="description short">
+				<p>An array containing the fields which should appear in the list view
+of the entity.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>An array containing the fields which should appear in the list view
+of the entity.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$listFields" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="childrenLabelFields" id="$childrenLabelFields">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$childrenLabelFields</var>
+			<div class="description short">
+				<p>The fields used to display the children on the details page of an entity.
+The keys are the entity names as in the CRUD YAML and the values are the
+field names.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The fields used to display the children on the details page of an entity.
+The keys are the entity names as in the CRUD YAML and the values are the
+field names.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$childrenLabelFields" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="deleteCascade" id="$deleteCascade">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$deleteCascade</var>
+			<div class="description short">
+				<p>Whether to delete its children when an instance is deleted.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Whether to delete its children when an instance is deleted.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$deleteCascade" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="pageSize" id="$pageSize">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$pageSize</var>
+			<div class="description short">
+				<p>The amount of items to display per page on the listview.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The amount of items to display per page on the listview.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$pageSize" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="filter" id="$filter">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$filter</var>
+			<div class="description short">
+				<p>The fields offering to be filtered.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The fields offering to be filtered.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$filter" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="serviceProvider" id="$serviceProvider">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$serviceProvider</var>
+			<div class="description short">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code>.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></code>.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$serviceProvider" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
