@@ -139,7 +139,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function create(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
 
         $errors = array();
@@ -161,13 +161,16 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
                 $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['crud']->translate('create.error'));
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.error'));
             } else {
                 $crudData->create($instance);
                 $id = $instance->get('id');
                 $crudData->createFiles($app['request'], $instance, $entity);
 
-                $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($crudData->getDefinition()->getLabel(), $id)));
+                $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.create.success', array(
+                    '%label%' => $crudData->getDefinition()->getLabel(),
+                    '%id%' => $id
+                )));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }
         }
@@ -198,7 +201,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function showList(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $definition = $crudData->getDefinition();
 
@@ -266,11 +269,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function show(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         $instance = array($instance);
         $crudData->fetchReferences($instance);
@@ -318,11 +321,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function edit(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
         $definition = $crudData->getDefinition();
@@ -344,12 +347,15 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             }
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
-                $app['session']->getFlashBag()->add('danger', $app['crud']->translate('edit.error'));
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.error'));
                 $errors = $validation['errors'];
             } else {
                 $crudData->update($instance);
                 $crudData->updateFiles($app['request'], $instance, $entity);
-                $app['session']->getFlashBag()->add('success', $app['crud']->translate('edit.success', array($crudData->getDefinition()->getLabel(), $id)));
+                $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.edit.success', array(
+                    '%label%' => $crudData->getDefinition()->getLabel(),
+                    '%id%' => $id
+                )));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
             }
         }
@@ -380,11 +386,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function delete(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
         $crudData->deleteFiles($instance, $entity);
@@ -405,10 +411,14 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 );
             }
 
-            $app['session']->getFlashBag()->add('success', $app['crud']->translate('delete.success', array($crudData->getDefinition()->getLabel())));
+            $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
+                '%label%' => $crudData->getDefinition()->getLabel()
+            )));
             return $app->redirect($app['url_generator']->generate($redirectPage, $redirectParameters));
         } else {
-            $app['session']->getFlashBag()->add('danger', $app['crud']->translate('delete.error', array($crudData->getDefinition()->getLabel())));
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
+                '%label%' => $crudData->getDefinition()->getLabel()
+            )));
             return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
     }
@@ -431,15 +441,15 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function renderFile(Application $app, $entity, $id, $field) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         $definition = $crudData->getDefinition();
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         if ($definition->getType($field) != 'file' || !$instance->get($field)) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         return $crudData->renderFile($instance, $entity, $field);
     }
@@ -462,19 +472,19 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function deleteFile(Application $app, $entity, $id, $field) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         if (!$crudData->getDefinition()->isRequired($field)) {
             $crudData->deleteFile($instance, $entity, $field);
             $instance->set($field, '');
             $crudData->update($instance);
-            $app['session']->getFlashBag()->add('success', $app['crud']->translate('file.deleted'));
+            $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.file.deleted'));
         } else {
-            $app['session']->getFlashBag()->add('danger', $app['crud']->translate('file.notdeleted'));
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.file.notdeleted'));
         }
         return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
     }
@@ -491,12 +501,12 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function staticFile(Application $app) {
         $fileParam = $app['request']->get('file');
         if (!$fileParam) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('resourceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
         }
 
         $file = __DIR__.'/../static/'.$fileParam;
         if (!file_exists($file)) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('resourceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
         }
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);

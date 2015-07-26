@@ -101,8 +101,27 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the YAML file containing the displayed strings
      * @param CRUDFileProcessorInterface $fileProcessor
      * the file processor used for file fields
+     * @param Application $app
+     * the application container
      */
-    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile, CRUDFileProcessorInterface $fileProcessor) {
+    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile, CRUDFileProcessorInterface $fileProcessor, Application $app) {
+
+        if (!$app->offsetExists('translator')) {
+            $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
+                'locale_fallbacks' => array('en'),
+            ));
+        }
+
+        $app['translator']->addLoader('yaml', new YamlFileLoader());
+        $localeDir = __DIR__.'/../locales';
+        $langFiles = scandir($localeDir);
+        foreach ($langFiles as $langFile) {
+            if ($langFile == '.' || $langFile == '..') {
+                continue;
+            }
+            $locale = substr($langFile, 0, strpos($langFile, '.yml'));
+            $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
+        }
 
         $this->strings = $this->readYaml($stringsFile);
         $cruds = $this->readYaml($crudFile);
@@ -111,9 +130,9 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         foreach ($cruds as $name => $crud) {
             $label = key_exists('label', $crud) ? $crud['label'] : $name;
             $standardFieldLabels = array(
-                'id' => $this->translate('label.id'),
-                'created_at' => $this->translate('label.created_at'),
-                'updated_at' => $this->translate('label.updated_at')
+                'id' => $app['translator']->trans('crudlex.label.id'),
+                'created_at' => $app['translator']->trans('crudlex.label.created_at'),
+                'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
             $definition = new CRUDEntityDefinition($crud['table'],
                 $crud['fields'],
@@ -160,28 +179,10 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function register(Application $app) {
         $app['crud'] = $app->share(function() use ($app) {
-
-            if (!$app->offsetExists('translator')) {
-                $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
-                    'locale_fallbacks' => array('en'),
-                ));
-            }
-
-            $app['translator']->addLoader('yaml', new YamlFileLoader());
-            $localeDir = __DIR__.'/../locales';
-            $langFiles = scandir($localeDir);
-            foreach ($langFiles as $langFile) {
-                if ($langFile == '.' || $langFile == '..') {
-                    continue;
-                }
-                $locale = substr($langFile, 0, strpos($langFile, '.yml'));
-                $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
-            }
-
             $result = new CRUDServiceProvider();
             $stringsFile = $app->offsetExists('crud.stringsfile') ? $app['crud.stringsfile'] : __DIR__.'/../strings.yml';
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new CRUDSimpleFilesystemFileProcessor();
-            $result->init($app['crud.datafactory'], $app['crud.file'], $stringsFile, $fileProcessor);
+            $result->init($app['crud.datafactory'], $app['crud.file'], $stringsFile, $fileProcessor, $app);
             return $result;
         });
     }
