@@ -159,6 +159,13 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function register(Application $app) {
         $app['crud'] = $app->share(function() use ($app) {
+
+            if (!$app->offsetExists('translator')) {
+                $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
+                    'locale_fallbacks' => array('en'),
+                ));
+            }
+
             $result = new CRUDServiceProvider();
             $stringsFile = $app->offsetExists('crud.stringsfile') ? $app['crud.stringsfile'] : __DIR__.'/../strings.yml';
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new CRUDSimpleFilesystemFileProcessor();
