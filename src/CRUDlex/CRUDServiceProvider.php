@@ -14,6 +14,7 @@ namespace CRUDlex;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
 
 use CRUDlex\CRUDEntityDefinition;
 use CRUDlex\CRUDDataFactoryInterface;
@@ -164,6 +165,17 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
                     'locale_fallbacks' => array('en'),
                 ));
+            }
+
+            $app['translator']->addLoader('yaml', new YamlFileLoader());
+            $localeDir = __DIR__.'/../locales';
+            $langFiles = scandir($localeDir);
+            foreach ($langFiles as $langFile) {
+                if ($langFile == '.' || $langFile == '..') {
+                    continue;
+                }
+                $locale = substr($langFile, 0, strpos($langFile, '.yml'));
+                $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
             }
 
             $result = new CRUDServiceProvider();
