@@ -62,7 +62,6 @@ abstract class CRUDData {
      */
     public abstract function get($id);
 
-
     /**
      * Gets a list of entities fullfilling the given filter or all if no
      * selection was given.

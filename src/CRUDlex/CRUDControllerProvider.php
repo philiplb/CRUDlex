@@ -16,7 +16,6 @@ use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-
 /**
  * This is the ControllerProvider offering all CRUD pages.
  *
@@ -85,7 +84,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
         return $app['crud.layout'];
     }
-
 
     /**
      * Implements ControllerProviderInterface::connect() connecting this

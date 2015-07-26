@@ -167,7 +167,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         });
     }
 
-
     /**
      * Implements ServiceProviderInterface::boot().
      *
@@ -215,7 +214,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     public function formatDate($value) {
         return $this->formatTime($value, 'Y-m-d');
     }
-
 
     /**
      * Formats the given value to a date of the format 'Y-m-d H:i'.
