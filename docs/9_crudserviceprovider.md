@@ -30,6 +30,6 @@ returns it's result.
 
 ---
 
-Previous: [Various Other Features](7_miscfeatures.md)
+Previous: [Various Other Features](8_miscfeatures.md)
 
 [Table of Contents](0_manual.md)

@@ -134,8 +134,8 @@ And some CSS classes to implement:
 
 ---
 
-Previous: [Constraints](5_constraints.md)
+Previous: [Constraints](6_constraints.md)
 
-Next: [Various Other Features](7_miscfeatures.md)
+Next: [Various Other Features](8_miscfeatures.md)
 
 [Table of Contents](0_manual.md)
