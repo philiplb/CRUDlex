@@ -18,9 +18,21 @@ crudlex:
     file:
         deleted: 'File deleted.'
         notdeleted: 'File could not be deleted.'
+    list:
+        buttonfilter: 'Filter'
+        buttondofilter: 'Do Filter'
+        buttonshow: 'Show'
+        buttonedit: 'Edit'
+        buttondelete: 'Delete'
+        total: 'Total: %total%'
+        buttonfirst: 'First'
+        buttonprevious: 'Previous'
+        buttonnext: 'Next'
+        buttonlast: 'Last'
     create:
         error: 'Could not create, see the red marked fields.'
         success: '%label% created with id %id%'
+        buttonnew: 'Create New'
     edit:
         error: 'Could not edit, see the red marked fields.'
         success: '%label% edited with id %id%'
