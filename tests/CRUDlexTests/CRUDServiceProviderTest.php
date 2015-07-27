@@ -21,8 +21,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     protected $crudFile;
 
-    protected $stringsFile;
-
     protected $dataFactory;
 
     protected function setUp() {
@@ -39,7 +37,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
             ),
         ));
         $this->crudFile = __DIR__.'/../crud.yml';
-        $this->stringsFile = __DIR__.'/../../src/strings.yml';
         $this->dataFactory = new CRUDMySQLDataFactory($app['db']);
     }
 
@@ -52,7 +49,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $app = new Application();
         $app->register(new CRUDServiceProvider(), array(
             'crud.file' => $this->crudFile,
-            'crud.stringsfile' => $this->stringsFile,
             'crud.datafactory' => $this->dataFactory
         ));
         $this->assertTrue($app->offsetExists('crud'));
@@ -64,24 +60,18 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $crudServiceProvider = new CRUDServiceProvider();
 
         try {
-            $crudServiceProvider->init($this->dataFactory, 'foo', $this->stringsFile, new CRUDNullFileProcessor(), $app);
+            $crudServiceProvider->init($this->dataFactory, 'foo', new CRUDNullFileProcessor(), $app);
             $this->fail('Expected exception');
         } catch (\Exception $e) {
             // Wanted.
         }
 
-        try {
-            $crudServiceProvider->init($this->dataFactory, $this->crudFile, 'foo', new CRUDNullFileProcessor(), $app);
-            $this->fail('Expected exception');
-        } catch (\Exception $e) {
-            // Wanted.
-        }
     }
 
     public function testGetEntities() {
         $crudServiceProvider = new CRUDServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor(), $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), $app);
         $expected = array('library', 'book');
         $read = $crudServiceProvider->getEntities();
         $this->assertSame($read, $expected);
@@ -90,7 +80,7 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testGetData() {
         $crudServiceProvider = new CRUDServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor(), $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), $app);
         $read = $crudServiceProvider->getData('book');
         $this->assertNotNull($read);
         $read = $crudServiceProvider->getData('library');
@@ -102,7 +92,7 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testFormatDate() {
         $crudServiceProvider = new CRUDServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor(), $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), $app);
 
         $read = $crudServiceProvider->formatDate('2014-08-30 12:00:00');
         $expected = '2014-08-30';
@@ -128,7 +118,7 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testFormatDateTime() {
         $crudServiceProvider = new CRUDServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor(), $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), $app);
 
         $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00:00');
         $expected = '2014-08-30 12:00';
@@ -148,32 +138,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
         $read = $crudServiceProvider->formatDateTime('foo');
         $expected = 'foo';
-        $this->assertSame($read, $expected);
-    }
-
-    public function testTranslate() {
-        $crudServiceProvider = new CRUDServiceProvider();
-        $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor(), $app);
-
-        $read = $crudServiceProvider->translate('label.created_at');
-        $expected = 'Created at';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('delete.success', array('fail'));
-        $expected = 'fail deleted.';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('delete.success', array('fail', 'foo'));
-        $expected = 'fail deleted.';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('delete.success', array());
-        $expected = '{0} deleted.';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('test');
-        $expected = 'test';
         $this->assertSame($read, $expected);
     }
 

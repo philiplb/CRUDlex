@@ -23,24 +23,6 @@ format "Y-m-d". If $value is empty, an empty string is returned.
 Converts the given date time string from the format "Y-m-d H:i:s" or "Y-m-d H:i"
 to the format "Y-m-d". If $value is empty, an empty string is returned.
 
-## translate($key, array $placeholders = array())
-
-Picks up the string of the given $key from the strings.yml and returns the
-value. Replaces placeholder from "{0}" to "{n}" with the values given via the
-array $placeholders. Example from the strings.yml:
-
-```yml
-create.success: '{0} created with id {1}'
-```
-
-This call:
-
-```php
-$app['crud']->translate('create.success', array('Book', 123));
-```
-
-Returns "Book created with id 123".
-
 ## basename($value)
 
 Calls PHPs "[basename](http://php.net/manual/en/function.basename.php)" and

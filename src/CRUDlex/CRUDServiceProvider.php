@@ -97,14 +97,12 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the factory to create the concrete CRUDData instances
      * @param string $crudFile
      * the CRUD YAML file to parse
-     * @param string $stringsFile
-     * the YAML file containing the displayed strings
      * @param CRUDFileProcessorInterface $fileProcessor
      * the file processor used for file fields
      * @param Application $app
      * the application container
      */
-    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile, CRUDFileProcessorInterface $fileProcessor, Application $app) {
+    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, Application $app) {
 
         if (!$app->offsetExists('translator')) {
             $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
@@ -123,7 +121,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
         }
 
-        $this->strings = $this->readYaml($stringsFile);
         $cruds = $this->readYaml($crudFile);
 
         $this->datas = array();
@@ -180,9 +177,8 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     public function register(Application $app) {
         $app['crud'] = $app->share(function() use ($app) {
             $result = new CRUDServiceProvider();
-            $stringsFile = $app->offsetExists('crud.stringsfile') ? $app['crud.stringsfile'] : __DIR__.'/../strings.yml';
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new CRUDSimpleFilesystemFileProcessor();
-            $result->init($app['crud.datafactory'], $app['crud.file'], $stringsFile, $fileProcessor, $app);
+            $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $app);
             return $result;
         });
     }
@@ -246,31 +242,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function formatDateTime($value) {
         return $this->formatTime($value, 'Y-m-d H:i');
-    }
-
-    /**
-     * Picks up the string of the given key from the strings and returns the
-     * value. Optionally replaces placeholder from "{0}" to "{n}" with the values given via
-     * the array $placeholders.
-     *
-     * @param string $key
-     * the key
-     * @param array $placeholders
-     * the optional placeholders
-     *
-     * @return string
-     * the string value or the key in case there was no string found for the key
-     */
-    public function translate($key, array $placeholders = array()) {
-        if (!key_exists($key, $this->strings)) {
-            return $key;
-        }
-        $result = $this->strings[$key];
-        $amount = count($placeholders);
-        for ($i = 0; $i < $amount; ++$i) {
-            $result = str_replace('{'.$i.'}', $placeholders[$i], $result);
-        }
-        return $result;
     }
 
     /**
