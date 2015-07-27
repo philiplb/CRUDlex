@@ -11,14 +11,19 @@ crudlex:
     entityNotFound: 'Entity not found.'
     instanceNotFound: 'Instance not found.'
     resourceNotFound: 'Resource not found.'
-    create.error: 'Could not create, see the red marked fields.'
-    create.success: '%label% created with id %id%'
-    edit.error: 'Could not edit, see the red marked fields.'
-    edit.success: '%label% edited with id %id%'
-    delete.error: 'Could not delete %label% as it is still referenced by another entity.'
-    delete.success: '%label% deleted.'
-    label.id: 'Id'
-    label.created_at: 'Created at'
-    label.updated_at: 'Updated at'
-    file.deleted: 'File deleted.'
-    file.notdeleted: 'File could not be deleted.'
+    label:
+        id: 'Id'
+        created_at: 'Created at'
+        updated_at: 'Updated at'
+    file:
+        deleted: 'File deleted.'
+        notdeleted: 'File could not be deleted.'
+    create:
+        error: 'Could not create, see the red marked fields.'
+        success: '%label% created with id %id%'
+    edit:
+        error: 'Could not edit, see the red marked fields.'
+        success: '%label% edited with id %id%'
+    delete:
+        error: 'Could not delete %label% as it is still referenced by another entity.'
+        success: '%label% deleted.'
