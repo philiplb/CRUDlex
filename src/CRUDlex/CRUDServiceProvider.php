@@ -110,6 +110,19 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             ));
         }
 
+        if (!$app->offsetExists('session')) {
+            $app->register(new \Silex\Provider\SessionServiceProvider());
+        }
+
+        if (!$app->offsetExists('url_generator')) {
+            $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
+        }
+
+        if (!$app->offsetExists('twig')) {
+            $app->register(new \Silex\Provider\TwigServiceProvider());
+            $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
+        }
+
         $app['translator']->addLoader('yaml', new YamlFileLoader());
         $localeDir = __DIR__.'/../locales';
         $langFiles = scandir($localeDir);
