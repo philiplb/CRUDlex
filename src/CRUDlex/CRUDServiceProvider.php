@@ -260,8 +260,14 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Delivers the template for the page in the way it is described in the
-     * manual.
+     * Determines the Twig template to use for the given parameters depending on
+     * the existance of certain keys in the Application $app in this order:
+     *
+     * crud.$section.$action.$entity
+     * crud.$section.$action
+     * crud.$section
+     *
+     * If nothing exists, this string is returned: "@crud/<action>.twig"
      *
      * @param Application $app
      * the Silex application
@@ -273,7 +279,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the current calling entity
      *
      * @return string
-     * the best fitting layout
+     * the best fitting template
      */
     public function getTemplate(Application $app, $section, $action, $entity) {
         if ($app->offsetExists('crud.'.$section.'.'.$action.'.'.$entity)) {

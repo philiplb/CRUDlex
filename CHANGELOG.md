@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.9.8
 Released: Upcoming
+- Added the possibility to override the exact templates of specific pages and not just only the layouts
 
 ## 0.9.7
 Released: 2015-07-26

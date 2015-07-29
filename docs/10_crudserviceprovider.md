@@ -28,8 +28,19 @@ to the format "Y-m-d". If $value is empty, an empty string is returned.
 Calls PHPs "[basename](http://php.net/manual/en/function.basename.php)" and
 returns it's result.
 
+## getTemplate(Application $app, $section, $action, $entity)
+
+Determines the Twig template to use for the given parameters depending on
+the existance of certain keys in the Application $app in this order:
+
+* crud.$section.$action.$entity
+* crud.$section.$action
+* crud.$section
+
+If nothing exists, this string is returned: "@crud/<action>.twig"
+
 ---
 
-Previous: [Various Other Features](8_miscfeatures.md)
+Previous: [Various Other Features](9_miscfeatures.md)
 
 [Table of Contents](0_manual.md)

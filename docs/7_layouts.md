@@ -136,6 +136,6 @@ And some CSS classes to implement:
 
 Previous: [Constraints](6_constraints.md)
 
-Next: [Various Other Features](8_miscfeatures.md)
+Next: [Overriding Templates](8_templates.md)
 
 [Table of Contents](0_manual.md)
