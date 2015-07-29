@@ -26,7 +26,7 @@ This templates can be overridden so far:
 
 ---
 
-Previous: [Constraints](7_layouts.md)
+Previous: [Overriding Layouts](7_layouts.md)
 
 Next: [Various Other Features](9_miscfeatures.md)
 
