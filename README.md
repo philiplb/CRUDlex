@@ -9,7 +9,12 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. 
 
 The manual is a reference describing every feature of CRUDlex:
 
-[Manual](docs/0_manual.md)
+* [0.9.7](https://github.com/philiplb/CRUDlex/blob/0.9.7/docs/0_manual.md)
+* [0.9.6](https://github.com/philiplb/CRUDlex/blob/0.9.6/docs/0_manual.md)
+* [0.9.5](https://github.com/philiplb/CRUDlex/blob/0.9.5/docs/0_manual.md)
+* [0.9.4](https://github.com/philiplb/CRUDlex/blob/0.9.4/docs/0_manual.md)
+* [0.9.3](https://github.com/philiplb/CRUDlex/blob/0.9.3/docs/0_manual.md)
+* [Latest Unstable](docs/0_manual.md)
 
 ### Sample Project
 
