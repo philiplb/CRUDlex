@@ -12,12 +12,12 @@
     {% if annotations %}
         {% set markers = [] %}
         {% if definition.isRequired(field) %}
-            {% set markers = markers|merge(['*']) %}
+            {% set markers = markers|merge(['crudlex.field.required'|trans]) %}
         {% endif %}
         {% if definition.isUnique(field) %}
-            {% set markers = markers|merge(['must be unique']) %}
+            {% set markers = markers|merge(['crudlex.field.unique'|trans]) %}
         {% endif %}
-        {{ markers|join(', ') }}
+        {{ markers|join('crudlex.field.separator'|trans) }}
     {% endif %}
     {% if definition.getDescription(field) %}
         <p><small>{{ definition.getDescription(field) }}</small></p>

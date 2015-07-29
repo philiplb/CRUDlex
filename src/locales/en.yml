@@ -26,6 +26,10 @@ crudlex:
         edit: 'Edit'
         delete: 'Delete'
         submit: 'Submit'
+    field:
+        required: '*'
+        unique: must be unique
+        separator: ', '
     list:
         button:
             filter: 'Filter'
