@@ -259,4 +259,37 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         return basename($value);
     }
 
+    /**
+     * Delivers the template for the page in the way it is described in the
+     * manual.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $section
+     * the section of the template, either "layout" or "template"
+     * @param string $action
+     * the current calling action like "create" or "show"
+     * @param string $entity
+     * the current calling entity
+     *
+     * @return string
+     * the best fitting layout
+     */
+    public function getTemplate(Application $app, $section, $action, $entity) {
+        if ($app->offsetExists('crud.'.$section.'.'.$action.'.'.$entity)) {
+            return $app['crud.'.$section.'.'.$action.'.'.$entity];
+        }
+        if ($app->offsetExists('crud.'.$section.'.'.$entity)) {
+            return $app['crud.'.$section.'.'.$entity];
+        }
+        if ($app->offsetExists('crud.'.$section.'.'.$action)) {
+            return $app['crud.'.$section.'.'.$action];
+        }
+        if ($app->offsetExists('crud.'.$section)) {
+            return $app['crud.'.$section];
+        }
+
+        return '@crud/'.$action.'.twig';
+    }
+
 }

@@ -59,33 +59,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
-     * Delivers the layout for the page in the way it is described in the
-     * manual.
-     *
-     * @param Application $app
-     * the Silex application
-     * @param string $action
-     * the current calling action like "create" or "show"
-     * @param string $entity
-     * the current calling entity
-     *
-     * @return string
-     * the best fitting layout
-     */
-    protected function getLayout(Application $app, $action, $entity) {
-        if ($app->offsetExists('crud.layout.'.$action.'.'.$entity)) {
-            return $app['crud.layout.'.$action.'.'.$entity];
-        }
-        if ($app->offsetExists('crud.layout.'.$entity)) {
-            return $app['crud.layout.'.$entity];
-        }
-        if ($app->offsetExists('crud.layout.'.$action)) {
-            return $app['crud.layout.'.$action];
-        }
-        return $app['crud.layout'];
-    }
-
-    /**
      * Implements ControllerProviderInterface::connect() connecting this
      * controller.
      *
@@ -177,13 +150,13 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $definition = $crudData->getDefinition();
 
-        return $app['twig']->render('@crud/form.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => 'create',
             'errors' => $errors,
-            'layout' => $this->getLayout($app, 'create', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'create', $entity)
         ));
     }
 
@@ -238,7 +211,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize);
         $crudData->fetchReferences($entities);
 
-        return $app['twig']->render('@crud/list.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'list', $entity), array(
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'definition' => $definition,
@@ -249,7 +222,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'total' => $total,
             'filter' => $filter,
             'filterActive' => $filterActive,
-            'layout' => $this->getLayout($app, 'list', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'list', $entity)
         ));
     }
 
@@ -297,11 +270,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             }
         }
 
-        return $app['twig']->render('@crud/show.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'show', $entity), array(
             'crudEntity' => $entity,
             'entity' => $instance,
             'children' => $children,
-            'layout' => $this->getLayout($app, 'show', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'show', $entity)
         ));
     }
 
@@ -360,13 +333,13 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             }
         }
 
-        return $app['twig']->render('@crud/form.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => 'edit',
             'errors' => $errors,
-            'layout' => $this->getLayout($app, 'edit', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'edit', $entity)
         ));
     }
 
