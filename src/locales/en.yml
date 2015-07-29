@@ -24,6 +24,7 @@ crudlex:
         show: 'Show'
         edit: 'Edit'
         delete: 'Delete'
+        submit: 'Submit'
     list:
         buttonfilter: 'Filter'
         buttondofilter: 'Do Filter'
