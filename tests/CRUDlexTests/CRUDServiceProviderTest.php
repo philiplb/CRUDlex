@@ -160,4 +160,36 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $expected = '';
         $this->assertSame($read, $expected);
     }
+
+    public function testGetTemplate() {
+        $app = new Application();
+        $app['crud.template.list.book'] = 'testTemplateListBook.twig';
+        $app['crud.template.list'] = 'testTemplateList.twig';
+        $app['crud.layout.list.book'] = 'testLayoutListBook.twig';
+        $app['crud.layout.list'] = 'testLayoutList.twig';
+        $crudServiceProvider = new CRUDServiceProvider();
+
+        $read = $crudServiceProvider->getTemplate($app, 'template', 'list', 'book');
+        $this->assertSame($read, $app['crud.template.list.book']);
+        $read = $crudServiceProvider->getTemplate($app, 'template', 'list', 'library');
+        $this->assertSame($read, $app['crud.template.list']);
+        $read = $crudServiceProvider->getTemplate($app, 'layout', 'list', 'book');
+        $this->assertSame($read, $app['crud.layout.list.book']);
+        $read = $crudServiceProvider->getTemplate($app, 'layout', 'list', 'library');
+        $this->assertSame($read, $app['crud.layout.list']);
+
+        $expected = '@crud/list.twig';
+        $read = $crudServiceProvider->getTemplate($app, 'foo', 'list', 'bar');
+        $this->assertSame($read, $expected);
+        $read = $crudServiceProvider->getTemplate($app, null, 'list', 'bar');
+        $this->assertSame($read, $expected);
+
+        $expected = 'testLayoutList.twig';
+        $read = $crudServiceProvider->getTemplate($app, 'layout', 'list', null);
+        $this->assertSame($read, $expected);
+
+        $expected = '@crud/.twig';
+        $read = $crudServiceProvider->getTemplate($app, 'layout', null, 'book');
+        $this->assertSame($read, $expected);
+    }
 }
