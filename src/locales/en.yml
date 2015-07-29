@@ -18,7 +18,7 @@ crudlex:
         updated_at: 'Updated at'
     file:
         deleted: 'File deleted.'
-        notdeleted: 'File could not be deleted.'
+        notDeleted: 'File could not be deleted.'
     button:
         new: 'Create New'
         list: 'List'
@@ -27,18 +27,19 @@ crudlex:
         delete: 'Delete'
         submit: 'Submit'
     list:
-        buttonfilter: 'Filter'
-        buttondofilter: 'Do Filter'
+        button:
+            filter: 'Filter'
+            doFilter: 'Do Filter'
+            first: 'First'
+            previous: 'Previous'
+            next: 'Next'
+            last: 'Last'
         total: 'Total: %total%'
-        buttonfirst: 'First'
-        buttonprevious: 'Previous'
-        buttonnext: 'Next'
-        buttonlast: 'Last'
     show:
         field: 'Field'
         value: 'Value'
-        childname: 'Name'
-        childaction: 'Action'
+        childName: 'Name'
+        childAction: 'Action'
     create:
         error: 'Could not create, see the red marked fields.'
         success: '%label% created with id %id%'

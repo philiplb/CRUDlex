@@ -49,7 +49,7 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <button type="submit" id="crudBtnSubmit" class="btn btn-default btn-success">{{ 'crudlex.list.buttondofilter'|trans }}</button>
+                    <button type="submit" id="crudBtnSubmit" class="btn btn-default btn-success">{{ 'crudlex.list.button.doFilter'|trans }}</button>
                 </form>
             </div>
         </div>
@@ -104,15 +104,15 @@
                     {% endfor %}
                 {% endif %}
 
-                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': 0}|merge(paginationParams)) }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">{{ 'crudlex.list.buttonfirst'|trans }}</span></a></li>
-                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page > 0 ? page - 1 : 0}|merge(paginationParams)) }}"><span aria-hidden="true">&lsaquo;</span><span class="sr-only">{{ 'crudlex.list.buttonprevious'|trans }}</span></a></li>
+                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': 0}|merge(paginationParams)) }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">{{ 'crudlex.list.button.first'|trans }}</span></a></li>
+                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page > 0 ? page - 1 : 0}|merge(paginationParams)) }}"><span aria-hidden="true">&lsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.previous'|trans }}</span></a></li>
                 {% for p in 0..maxPage %}
                     <li{{ p == page ? ' class="active"' : ''}}>
                         <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': p}|merge(paginationParams)) }}">{{ p + 1 }}</a>
                     </li>
                 {% endfor %}
-                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page < maxPage ? page + 1 : maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&rsaquo;</span><span class="sr-only">{{ 'crudlex.list.buttonnext'|trans }}</span></a></li>
-                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&raquo;</span><span class="sr-only">{{ 'crudlex.list.buttonlast'|trans }}</span></a></li>
+                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page < maxPage ? page + 1 : maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&rsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.next'|trans }}</span></a></li>
+                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&raquo;</span><span class="sr-only">{{ 'crudlex.list.button.last'|trans }}</span></a></li>
             </ul>
         </nav>
     {% endif %}

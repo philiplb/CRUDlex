@@ -457,7 +457,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $crudData->update($instance);
             $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.file.deleted'));
         } else {
-            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.file.notdeleted'));
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.file.notDeleted'));
         }
         return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
     }
