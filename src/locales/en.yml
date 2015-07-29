@@ -12,6 +12,7 @@ crudlex:
     instanceNotFound: 'Instance not found.'
     resourceNotFound: 'Resource not found.'
     deleteEntityConfirmation: 'Are you sure to delete this entity %id%?'
+    chooseLanguage: 'Choose language:'
     label:
         id: 'Id'
         created_at: 'Created at'
