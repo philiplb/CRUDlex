@@ -16,19 +16,6 @@ The manual is a reference describing every feature of CRUDlex:
 * [0.9.3](https://github.com/philiplb/CRUDlex/blob/0.9.3/docs/0_manual.md)
 * [Latest Unstable](docs/0_manual.md)
 
-### Sample Project
-
-For a complete example, checkout the sample project with the classic libraries
-and books:
-
-[CRUDlex Sample](https://github.com/philiplb/CRUDlexSample)
-
-### Addons
-
-Checkout the CRUDlex addons project for more features:
-
-[CRUDlex Addons](https://github.com/philiplb/CRUDlexAddons)
-
 ### API Documentation
 
 The CRUDlex API itself is documented here:
@@ -42,15 +29,6 @@ The CRUDlex API itself is documented here:
 * PHP >= 5.3.2
 * For the MySQL driver: MySQL >= 5.1
 * For the file uploads: PECL fileinfo >= 0.1.0
-
-### Roadmap
-
-The project roadmap is organized via milestones:
-
-[CRUDlex Milestones](https://github.com/philiplb/CRUDlex/milestones)
-
-Beware that not each new feature will get its own ticket there. Some are
-implemented on the fly when needed.
 
 ## Package
 
@@ -68,6 +46,28 @@ implemented on the fly when needed.
 "require": {
     "philiplb/crudlex": "dev-master"
 }
+
+### Sample Project
+
+For a complete example, checkout the sample project with the classic libraries
+and books:
+
+[CRUDlex Sample](https://github.com/philiplb/CRUDlexSample)
+
+### Addons
+
+Checkout the CRUDlex addons project for more features:
+
+[CRUDlex Addons](https://github.com/philiplb/CRUDlexAddons)
+
+### Roadmap
+
+The project roadmap is organized via milestones:
+
+[CRUDlex Milestones](https://github.com/philiplb/CRUDlex/milestones)
+
+Beware that not each new feature will get its own ticket there. Some are
+implemented on the fly when needed.
 ```
 
 [![Total Downloads](https://poser.pugx.org/philiplb/crudlex/downloads.svg)](https://packagist.org/packages/philiplb/crudlex)
