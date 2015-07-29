@@ -46,6 +46,7 @@ The CRUDlex API itself is documented here:
 "require": {
     "philiplb/crudlex": "dev-master"
 }
+```
 
 ### Sample Project
 
@@ -68,7 +69,6 @@ The project roadmap is organized via milestones:
 
 Beware that not each new feature will get its own ticket there. Some are
 implemented on the fly when needed.
-```
 
 [![Total Downloads](https://poser.pugx.org/philiplb/crudlex/downloads.svg)](https://packagist.org/packages/philiplb/crudlex)
 [![Latest Stable Version](https://poser.pugx.org/philiplb/crudlex/v/stable.svg)](https://packagist.org/packages/philiplb/crudlex)
