@@ -20,6 +20,7 @@ crudlex:
         notdeleted: 'File could not be deleted.'
     button:
         new: 'Create New'
+        list: 'List'
         show: 'Show'
         edit: 'Edit'
         delete: 'Delete'
@@ -31,6 +32,11 @@ crudlex:
         buttonprevious: 'Previous'
         buttonnext: 'Next'
         buttonlast: 'Last'
+    show:
+        field: 'Field'
+        value: 'Value'
+        childname: 'Name'
+        childaction: 'Action'
     create:
         error: 'Could not create, see the red marked fields.'
         success: '%label% created with id %id%'
