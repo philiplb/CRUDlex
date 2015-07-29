@@ -17,6 +17,7 @@ crudlex:
         created_at: 'Created at'
         updated_at: 'Updated at'
     file:
+        delete: 'Are you sure to delete this file %file%?'
         deleted: 'File deleted.'
         notDeleted: 'File could not be deleted.'
     button:

@@ -64,8 +64,8 @@
             <a href="{{ url }}" target="_blank">{{ entity.get(field) }}</a>
 
             {% if not definition.isRequired(field) %}
-                <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this file {{ entity.get(field) }}?');" method="POST" action="{{ app.url_generator.generate('crudDeleteFile', {entity: crudEntity, field: field, id: entity.get('id')}) }}">
-                    <input type="submit" class="btn btn-default btn-xs btn-danger" value="Delete" />
+                <form style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.file.delete'|trans({'%file%': entity.get(field)}) }}');" method="POST" action="{{ app.url_generator.generate('crudDeleteFile', {entity: crudEntity, field: field, id: entity.get('id')}) }}">
+                    <input type="submit" class="btn btn-default btn-xs btn-danger" value="{{ 'crudlex.button.delete'|trans }}" />
                 </form>
             {% endif %}
         {% endif %}
