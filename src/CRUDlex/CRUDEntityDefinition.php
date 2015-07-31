@@ -366,6 +366,16 @@ class CRUDEntityDefinition {
      * the type or null on invalid field name
      */
     public function getType($fieldName) {
+        switch ($fieldName) {
+            case 'id':
+                return 'string';
+            case 'created_at':
+            case 'updated_at':
+            case 'deleted_at':
+                return 'date';
+            case 'version':
+                return 'int';
+        }
         return $this->getFieldValue($fieldName, 'type');
     }
 
