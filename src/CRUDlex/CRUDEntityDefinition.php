@@ -143,6 +143,9 @@ class CRUDEntityDefinition {
         if ($this->getType($fieldName) != 'reference') {
             return null;
         }
+        if (!key_exists($key, $this->fields[$fieldName]['reference'])) {
+            return null;
+        }
         return $this->fields[$fieldName]['reference'][$key];
     }
 

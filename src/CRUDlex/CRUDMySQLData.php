@@ -292,10 +292,14 @@ class CRUDMySQLData extends CRUDData {
             }
             $table = $this->definition->getReferenceTable($field);
             $queryBuilder
-                ->select('id', $nameField)
                 ->from($table, $table)
                 ->where('id IN ('.$in.')')
                 ->andWhere('deleted_at IS NULL');
+            if ($nameField) {
+                $queryBuilder->select('id', $nameField);
+            } else {
+                $queryBuilder->select('id');
+            }
             $count = count($ids);
             for ($i = 0; $i < $count; ++$i) {
                 $queryBuilder->setParameter($i, $ids[$i]);
@@ -306,8 +310,11 @@ class CRUDMySQLData extends CRUDData {
             foreach ($rows as $row) {
                 for ($i = 0; $i < $amount; ++$i) {
                     if ($entities[$i]->get($field) == $row['id']) {
-                        $entities[$i]->set($field,
-                            array('id' => $entities[$i]->get($field), 'name' => $row[$nameField]));
+                        $value = array('id' => $entities[$i]->get($field));
+                        if ($nameField) {
+                            $value['name'] = $row[$nameField];
+                        }
+                        $entities[$i]->set($field, $value);
                     }
                 }
             }
