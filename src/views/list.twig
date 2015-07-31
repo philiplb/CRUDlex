@@ -16,7 +16,7 @@
 
     {% if filter %}
 
-        <a class="btn btn-success" data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">{{ 'crudlex.list.buttonfilter'|trans }}</a>
+        <a class="btn btn-success" data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">{{ 'crudlex.list.button.filter'|trans }}</a>
         <div class="collapse {{ filterActive ? 'in' : '' }}" id="collapseFilter">
             <div class="well">
                 <form role="form" method="GET" action="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}">
