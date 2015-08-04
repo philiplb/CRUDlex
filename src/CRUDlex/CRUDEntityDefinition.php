@@ -372,7 +372,7 @@ class CRUDEntityDefinition {
             case 'created_at':
             case 'updated_at':
             case 'deleted_at':
-                return 'date';
+                return 'datetime';
             case 'version':
                 return 'int';
         }

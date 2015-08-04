@@ -50,7 +50,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $fields = array('title', 'pages', 'release', 'library',
             'id', 'created_at', 'updated_at', 'deleted_at', 'version');
         $expected = array('text', 'int', 'date', 'reference',
-            'string', 'date', 'date', 'date', 'int', null);
+            'string', 'datetime', 'datetime', 'datetime', 'int', null);
         $read = array();
         foreach ($fields as $field) {
             $read[] = $this->definition->getType($field);
