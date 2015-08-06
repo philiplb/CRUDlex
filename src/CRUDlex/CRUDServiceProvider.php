@@ -40,6 +40,11 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     protected $strings;
 
     /**
+     * Holds whether we initialized the i18n or someone else did.
+     */
+    protected $initializedI18n;
+
+    /**
      * Formats the given time value to a timestring defined by the $pattern
      * parameter.
      *
@@ -104,10 +109,12 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, Application $app) {
 
+        $this->initializedI18n = false;
         if (!$app->offsetExists('translator')) {
             $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
                 'locale_fallbacks' => array('en'),
             ));
+            $this->initializedI18n = true;
         }
 
         if (!$app->offsetExists('session')) {
@@ -309,6 +316,16 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         }
 
         return '@crud/'.$action.'.twig';
+    }
+
+    /**
+     * Gets whether CRUDlex initialized the i18n system or someone else did.
+     *
+     * @return boolean
+     * true if CRUDlex initialized the i18n system
+     */
+    public function getInitializedI18n() {
+        return $this->initializedI18n;
     }
 
 }
