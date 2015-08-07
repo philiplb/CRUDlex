@@ -13,6 +13,7 @@ namespace CRUDlex;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -95,6 +96,16 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 ->bind('crudRenderFile');
         $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')
                 ->bind('crudDeleteFile');
+        $factory->get('/setting/locale/{locale}', $class.'::setLocale')
+                ->bind('crudSetLocale');
+
+        if ($app['crud']->getManageI18n()) {
+            $app->before(function(Request $request, Application $app) {
+                $locale = $app['session']->get('locale', 'en');
+                $app['translator']->setLocale($locale);
+            });
+        }
+
         return $factory;
     }
 
@@ -514,5 +525,40 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $response->send();
 
         return $response;
+    }
+
+    /**
+     * The controller for setting the locale.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $locale
+     * the new locale
+     *
+     * @return Response
+     * redirects to the instance details page or 404 on invalid input
+     */
+    public function setLocale(Application $app, $locale) {
+        $foundLocale = false;
+        $localeDir = __DIR__.'/../locales';
+        $langFiles = scandir($localeDir);
+        foreach ($langFiles as $langFile) {
+            if ($langFile == '.' || $langFile == '..') {
+                continue;
+            }
+            if ($langFile === $locale.'.yml') {
+                $foundLocale = true;
+            }
+        }
+
+        if (!$foundLocale) {
+            return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
+        }
+
+        if ($app['crud']->getManageI18n()) {
+            $app['session']->set('locale', $locale);
+        }
+        $redirect = $app['request']->get('redirect');
+        return $app->redirect($redirect);
     }
 }

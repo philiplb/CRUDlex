@@ -494,4 +494,24 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertTrue(strpos($response, '* Bootstrap v') !== false);
     }
 
+    public function testSettingsLocale() {
+        $client = $this->createClient();
+
+        $crawler = $client->request('GET', '/crud/setting/locale/foo?redirect=/crud/book');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Locale foo not found.")'));
+
+        $crawler = $client->request('GET', '/crud/setting/locale/de?redirect=/crud/book');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Gesamt: ")'));
+
+        $crawler = $client->request('GET', '/crud/setting/locale/en?redirect=/crud/book');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Total: ")'));
+    }
+
 }
