@@ -71,6 +71,7 @@
             <div class="container">
                 {% block content %}{% endblock %}
 
+                {% if app.crud.getManageI18n() %}
                     <small>{{ 'crudlex.chooseLanguage'|trans }}</small>
                     <div class="dropdown">
                         <a id="drop4" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
@@ -82,6 +83,7 @@
                             <li><a href="#">{% include '@crud/locales/de.twig' %}</a></li>
                         </ul>
                     </div>
+                {% endif %}
             </div>
 
             {% include '@crud/footer.twig' %}

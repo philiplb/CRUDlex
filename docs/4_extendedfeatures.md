@@ -133,6 +133,19 @@ book:
             label: Title
 ```
 
+## Switch off I18n Management
+
+Per default, CRUDlex manages i18n for you. But this might be not desired in
+bigger projects, so you can disable it on registration like this:
+
+```php
+$app->register(new CRUDlex\CRUDServiceProvider(), array(
+    'crud.file' => __DIR__ . '<yourCrud.yml>',
+    'crud.datafactory' => $dataFactory,
+    'crud.manageI18n' => false
+));
+```
+
 ---
 
 Previous: [Data Structure Definition](3_datastructures.md)

@@ -73,7 +73,7 @@ class CRUDTestDBSetup {
         $crudServiceProvider = new CRUDServiceProvider();
         $dataFactory = new CRUDMySQLDataFactory($app['db']);
         $crudFile = __DIR__.'/../crud.yml';
-        $crudServiceProvider->init($dataFactory, $crudFile, self::$fileProcessor, $app);
+        $crudServiceProvider->init($dataFactory, $crudFile, self::$fileProcessor, true, $app);
         return $crudServiceProvider;
     }
 

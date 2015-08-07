@@ -40,9 +40,9 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     protected $strings;
 
     /**
-     * Holds whether we initialized the i18n or someone else did.
+     * Holds whether we manage the i18n.
      */
-    protected $initializedI18n;
+    protected $manageI18n;
 
     /**
      * Formats the given time value to a timestring defined by the $pattern
@@ -104,17 +104,18 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the CRUD YAML file to parse
      * @param CRUDFileProcessorInterface $fileProcessor
      * the file processor used for file fields
+     * @param boolean $manageI18n
+     * holds whether we manage the i18n
      * @param Application $app
      * the application container
      */
-    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, Application $app) {
+    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
 
-        $this->initializedI18n = false;
+        $this->manageI18n = $manageI18n;
         if (!$app->offsetExists('translator')) {
             $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
                 'locale_fallbacks' => array('en'),
             ));
-            $this->initializedI18n = true;
         }
 
         if (!$app->offsetExists('session')) {
@@ -198,7 +199,8 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         $app['crud'] = $app->share(function() use ($app) {
             $result = new CRUDServiceProvider();
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new CRUDSimpleFilesystemFileProcessor();
-            $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $app);
+            $manageI18n = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
+            $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
             return $result;
         });
     }
@@ -319,13 +321,13 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Gets whether CRUDlex initialized the i18n system or someone else did.
+     * Gets whether CRUDlex manages the i18n system.
      *
      * @return boolean
-     * true if CRUDlex initialized the i18n system
+     * true if CRUDlex manages the i18n system
      */
-    public function getInitializedI18n() {
-        return $this->initializedI18n;
+    public function getManageI18n() {
+        return $this->manageI18n;
     }
 
 }
