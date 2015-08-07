@@ -29,18 +29,6 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 ));
 ```
 
-As the CRUDlex controller uses sessions, the appropriate provider has to be
-registered, too. Twig is used for templates and the templates use the
-UrlGeneratorService. Here we go:
-
-```php
-$app->register(new Silex\Provider\SessionServiceProvider());
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'<yourTemplateDir>',
-));
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-```
-
 Now follows the setup of CRUDlex itself. First of all, we create an instance
 of the CRUDMySQLDataFactory, internally taking care of creating MySQL-DB-access
 objects:
