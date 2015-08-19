@@ -14,6 +14,7 @@ namespace CRUDlexTests;
 use CRUDlexTestEnv\CRUDTestDBSetup;
 use CRUDlex\CRUDServiceProvider;
 use CRUDlex\CRUDEntity;
+use CRUDlex\CRUDEntityDefinition;
 
 class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
@@ -387,6 +388,16 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setFilter($expected);
         $read = $this->definition->getFilter();
         $this->assertSame($read, $expected);
+    }
+
+    public function testGetInvalidReferenceField() {
+        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference')), null, array(), new CRUDServiceProvider());
+        $read = $definition->getReferenceTable('test');
+        $this->assertNull($read);
+
+        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), new CRUDServiceProvider());
+        $read = $definition->getReferenceTable('test');
+        $this->assertNull($read);
     }
 
 }
