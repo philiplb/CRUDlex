@@ -57,6 +57,12 @@ book:
         nameField: name
         entity: library
       required: true
+    secondLibrary:
+      type: reference
+      label: Second Library
+      reference:
+        table: library
+        entity: library
     cover:
       type: file
       filepath: 'tests/uploads'

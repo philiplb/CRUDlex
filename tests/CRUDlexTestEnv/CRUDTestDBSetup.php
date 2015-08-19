@@ -43,6 +43,7 @@ class CRUDTestDBSetup {
             '  `pages` int(11) NOT NULL,'.
             '  `release` datetime DEFAULT NULL,'.
             '  `library` int(11) NOT NULL,'.
+            '  `secondLibrary` int(11) DEFAULT NULL,'.
             '  `cover` varchar(255) DEFAULT NULL,'.
             '  `price` float DEFAULT NULL,'.
             '  PRIMARY KEY (`id`),'.

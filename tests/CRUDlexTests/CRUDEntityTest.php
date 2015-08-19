@@ -90,6 +90,7 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('author', 'author');
         $entityBook->set('pages', 111);
         $entityBook->set('library', $entityLibrary1->get('id'));
+        $entityBook->set('secondLibrary', $entityLibrary1->get('id'));
         $entityBook->set('cover', 'cover');
         $entityBook->set('price', 3.99);
 
@@ -117,6 +118,11 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
                     'input' => false
                 ),
                 'library' => array(
+                    'required' => false,
+                    'unique' => false,
+                    'input' => false
+                ),
+                'secondLibrary' => array(
                     'required' => false,
                     'unique' => false,
                     'input' => false

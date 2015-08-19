@@ -198,6 +198,14 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
             '3' => 'C',
         );
         $this->assertSame($read, $expected);
+
+        $read = $this->dataBook->getReferences($table, null);
+        $expected = array(
+            '1' => '1',
+            '2' => '2',
+            '3' => '3',
+        );
+        $this->assertSame($read, $expected);
     }
 
     public function testCountBy() {
@@ -298,8 +306,8 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('author', 'author');
         $entityBook->set('pages', 111);
         $entityBook->set('library', $entityLibrary->get('id'));
+        $entityBook->set('secondLibrary', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
-
 
         $read = $entityBook->get('library');
         $expected = '1';
@@ -309,6 +317,10 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataBook->fetchReferences($books);
         $read = $books[0]->get('library');
         $expected = array('id' => '1', 'name' => 'lib');
+        $this->assertSame($read, $expected);
+
+        $read = $books[0]->get('secondLibrary');
+        $expected = array('id' => '1');
         $this->assertSame($read, $expected);
 
         $nullBooks = null;

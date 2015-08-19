@@ -41,6 +41,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'pages',
             'release',
             'library',
+            'secondLibrary',
             'cover',
             'price'
         );
@@ -78,6 +79,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'pages',
             'release',
             'library',
+            'secondLibrary',
             'cover',
             'price'
         );

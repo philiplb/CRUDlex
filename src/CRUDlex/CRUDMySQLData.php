@@ -222,17 +222,22 @@ class CRUDMySQLData extends CRUDData {
     public function getReferences($table, $nameField) {
 
         $queryBuilder = $this->db->createQueryBuilder();
-        $queryBuilder
-            ->select('id', $nameField)
-            ->from($table, $table)
-            ->where('deleted_at IS NULL')
-            ->orderBy($nameField);
-
+        if ($nameField) {
+            $queryBuilder->select('id', $nameField);
+        } else {
+            $queryBuilder->select('id');
+        }
+        $queryBuilder->from($table, $table)->where('deleted_at IS NULL');
+        if ($nameField) {
+            $queryBuilder->orderBy($nameField);
+        } else {
+            $queryBuilder->orderBy('id');
+        }
         $queryResult = $queryBuilder->execute();
         $entries = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result = array();
         foreach ($entries as $entry) {
-            $result[$entry['id']] = $entry[$nameField];
+            $result[$entry['id']] = $nameField ? $entry[$nameField] : $entry['id'];
         }
         return $result;
     }
