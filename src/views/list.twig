@@ -23,7 +23,7 @@
                     {% for filterField, filterValue in filter %}
                         {% set type = crudData.getDefinition().getType(filterField) %}
                         {% if type == 'bool' %}
-                            {% include '@crud/fieldLabel.twig' with {
+                            {% include app.crud.getTemplate(app, 'template', 'fieldLabel', crudEntity) with {
                                 field: filterField,
                                 definition: definition,
                                 annotations: false
@@ -39,12 +39,13 @@
                                 {% if type == 'file' %}
                                     {% set type = 'text' %}
                                 {% endif %}
-                                {% include '@crud/' ~ type ~ 'Field.twig' with {
+                                {% include app.crud.getTemplate(app, 'template', type ~ 'Field', crudEntity) with {
                                     field: filterField,
                                     fieldNamePrefix: 'crudFilter',
                                     crudData: crudData,
                                     value: filterValue,
-                                    annotations: false
+                                    annotations: false,
+                                    crudEntity: crudEntity
                                 } only %}
                             </div>
                         {% endif %}
@@ -71,7 +72,7 @@
             <tr id="crudId{{ entity.get('id') }}">
                 {% for field in fields %}
                     <td class="crudField{{ field }}">
-                        {% include '@crud/renderField.twig' with {
+                        {% include  app.crud.getTemplate(app, 'template', 'renderField', crudEntity) with {
                             entity: entity,
                             crudEntity: crudEntity,
                             definition: definition,

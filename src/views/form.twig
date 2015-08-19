@@ -37,12 +37,13 @@
             {% set type = crudData.getDefinition().getType(field) %}
             {% set class = type == 'bool' ? 'checkbox' : 'form-group' %}
             <div class="{{ class }} {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
-                {% include '@crud/' ~ type ~ 'Field.twig' with {
+                {% include app.crud.getTemplate(app, 'template', type ~ 'Field', crudEntity) with {
                     field: field,
                     fieldNamePrefix: '',
                     crudData: crudData,
                     value: entity.get(field),
-                    annotations: true
+                    annotations: true,
+                    crudEntity: crudEntity
                 } only %}
             </div>
 

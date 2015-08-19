@@ -3,10 +3,11 @@ CRUDlex Changelog
 
 ## 0.9.8
 Released: Upcoming
-- Added the possibility to override the exact templates of specific pages and not just only the layouts
+- Added the possibility to override every single template
 - Initializing all needed providers in the CRUDServiceProvider if not done yet by the application
 - Made the nameField of a reference optional
 - Fixed a crash when choosing "created_at", "updated_at", "id", "deleted_at" or "version" as filter field
+- Some potential crashes in CRUDEntityDefinition fixed revealed by new unit tests
 
 ## 0.9.7
 Released: 2015-07-26

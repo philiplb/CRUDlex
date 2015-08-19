@@ -9,7 +9,7 @@
 
 <label>
     <input type="checkbox" id="{{ field }}" value="1" {% if value %} checked="checked" {% endif %} name="{{ fieldNamePrefix ~ field }}" />
-    {% include '@crud/fieldLabel.twig' with {
+    {% include app.crud.getTemplate(app, 'template', 'fieldLabel', crudEntity) with {
         field: field,
         definition: crudData.getDefinition(),
         annotations: annotations
