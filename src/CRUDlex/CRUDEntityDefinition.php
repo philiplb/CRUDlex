@@ -29,6 +29,11 @@ class CRUDEntityDefinition {
     protected $label;
 
     /**
+     * The labels  of the entity in the locales.
+     */
+    protected $localeLabels;
+
+    /**
      * An array with the children referencing the entity. All entries are
      * arrays with three referencing elements: table, fieldName, entity
      */
@@ -71,6 +76,11 @@ class CRUDEntityDefinition {
      * Holds the {@see CRUDServiceProvider}.
      */
     protected $serviceProvider;
+
+    /**
+     * Holds the locale.
+     */
+    protected $locale;
 
     /**
      * Gets the field names exluding the given ones.
@@ -161,15 +171,18 @@ class CRUDEntityDefinition {
      * the fieldstructure just like the CRUD YAML
      * @param string $label
      * the label of the entity
+     * @param array $localeLabels
+     * the labels  of the entity in the locales
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
      * @param CRUDServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, array $fields, $label, array $standardFieldLabels, CRUDServiceProvider $serviceProvider) {
+    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, CRUDServiceProvider $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->label = $label;
+        $this->localeLabels = $localeLabels;
         $this->standardFieldLabels = $standardFieldLabels;
         $this->serviceProvider = $serviceProvider;
 
@@ -179,6 +192,7 @@ class CRUDEntityDefinition {
         $this->filter = array();
         $this->deleteCascade = false;
         $this->pageSize = 25;
+        $this->locale = null;
     }
 
     /**
@@ -652,6 +666,9 @@ class CRUDEntityDefinition {
      * the label for the entity
      */
     public function getLabel() {
+        if ($this->locale && key_exists($this->locale, $this->localeLabels)) {
+            return $this->localeLabels[$this->locale];
+        }
         return $this->label;
     }
 
@@ -714,5 +731,15 @@ class CRUDEntityDefinition {
      */
     public function getChildren() {
         return $this->children;
+    }
+
+    /**
+     * Sets the locale to be used.
+     *
+     * @param string $locale
+     * the locale to be used.
+     */
+    public function setLocale($locale) {
+        $this->locale = $locale;
     }
 }

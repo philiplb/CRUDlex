@@ -99,12 +99,14 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $factory->get('/setting/locale/{locale}', $class.'::setLocale')
                 ->bind('crudSetLocale');
 
-        if ($app['crud']->getManageI18n()) {
-            $app->before(function(Request $request, Application $app) {
+        $app->before(function(Request $request, Application $app) {
+            if ($app['crud']->getManageI18n()) {
                 $locale = $app['session']->get('locale', 'en');
                 $app['translator']->setLocale($locale);
-            });
-        }
+            }
+            $locale = $app['translator']->getLocale();
+            $app['crud']->setLocale($locale);
+        });
 
         return $factory;
     }

@@ -129,11 +129,13 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         $app['translator']->addLoader('yaml', new YamlFileLoader());
         $localeDir = __DIR__.'/../locales';
         $langFiles = scandir($localeDir);
+        $locales = array();
         foreach ($langFiles as $langFile) {
             if ($langFile == '.' || $langFile == '..') {
                 continue;
             }
             $locale = substr($langFile, 0, strpos($langFile, '.yml'));
+            $locales[] = $locale;
             $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
         }
 
@@ -141,15 +143,26 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
         $this->datas = array();
         foreach ($cruds as $name => $crud) {
+
             $label = key_exists('label', $crud) ? $crud['label'] : $name;
+
+            $localeLabels = array();
+            foreach ($locales as $locale) {
+                if (key_exists('label_'.$locale, $crud)) {
+                    $localeLabels[$locale] = $crud['label_'.$locale];
+                }
+            }
+
             $standardFieldLabels = array(
                 'id' => $app['translator']->trans('crudlex.label.id'),
                 'created_at' => $app['translator']->trans('crudlex.label.created_at'),
                 'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
+
             $definition = new CRUDEntityDefinition($crud['table'],
                 $crud['fields'],
                 $label,
+                $localeLabels,
                 $standardFieldLabels,
                 $this);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
@@ -323,6 +336,18 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function getManageI18n() {
         return $this->manageI18n;
+    }
+
+    /**
+     * Sets the locale to be used.
+     *
+     * @param string $locale
+     * the locale to be used.
+     */
+    public function setLocale($locale) {
+        foreach ($this->datas as $data) {
+            $data->getDefinition()->setLocale($locale);
+        }
     }
 
 }
