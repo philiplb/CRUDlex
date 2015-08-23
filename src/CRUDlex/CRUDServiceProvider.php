@@ -35,11 +35,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     protected $datas;
 
     /**
-     * Holds the translation map.
-     */
-    protected $strings;
-
-    /**
      * Holds whether we manage the i18n.
      */
     protected $manageI18n;
