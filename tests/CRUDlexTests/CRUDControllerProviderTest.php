@@ -506,6 +506,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("Gesamt: ")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Bücher")'));
 
         $crawler = $client->request('GET', '/crud/setting/locale/en?redirect=/crud/book');
         $this->assertTrue($client->getResponse()->isRedirect('/crud/book'));

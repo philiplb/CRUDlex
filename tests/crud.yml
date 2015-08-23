@@ -29,6 +29,7 @@ library:
 
 book:
   label: Book
+  label_de: Bücher
   table: book
   listFields: [author, title, library]
   filter: [author, title, library]
