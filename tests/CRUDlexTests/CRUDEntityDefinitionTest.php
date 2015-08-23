@@ -393,11 +393,15 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetInvalidReferenceField() {
-        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference')), null, array(), new CRUDServiceProvider());
+        $definition = new CRUDEntityDefinition(null, array('test' => array()), null, array(), array(), new CRUDServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
 
-        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), new CRUDServiceProvider());
+        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference')), null, array(), array(), new CRUDServiceProvider());
+        $read = $definition->getReferenceTable('test');
+        $this->assertNull($read);
+
+        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), array(), new CRUDServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
     }
