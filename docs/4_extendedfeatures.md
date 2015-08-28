@@ -133,7 +133,9 @@ book:
             label: Title
 ```
 
-## Switch off I18n Management
+## I18n
+
+### Switch off I18n Management
 
 Per default, CRUDlex manages i18n for you. But this might be not desired in
 bigger projects, so you can disable it on registration like this:
@@ -145,6 +147,35 @@ $app->register(new CRUDlex\CRUDServiceProvider(), array(
     'crud.manageI18n' => false
 ));
 ```
+
+### Set the Translations of Entity- and Field-Labels
+
+You can translate the labels of the entities and their fields using some special
+label keys: *label_(locale)* with *(locale)* being your desired locale. Example
+for *de*:
+
+```yml
+book:
+    label: Book
+    label_de: Buch
+    table: book
+    listFields: [id, created_at, updated_at, author, title]
+    filter: [author, title]
+    fields:
+        author:
+            type: text
+            label: Author
+            label_de: Autor
+        title:
+            type: text
+            label: Title
+            label_de: Titel
+        pages:
+            type: int
+            label: Pages
+            label_de: Seiten
+```
+
 
 ---
 

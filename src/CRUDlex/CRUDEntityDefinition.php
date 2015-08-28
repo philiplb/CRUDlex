@@ -617,7 +617,17 @@ class CRUDEntityDefinition {
      * YAML
      */
     public function getFieldLabel($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'label');
+
+        $result = null;
+
+        if ($this->locale) {
+            $result = $this->getFieldValue($fieldName, 'label_'.$this->locale);
+        }
+
+        if ($result === null) {
+            $result = $this->getFieldValue($fieldName, 'label');
+        }
+
         if ($result === null && key_exists($fieldName, $this->standardFieldLabels)) {
             $result = $this->standardFieldLabels[$fieldName];
         }

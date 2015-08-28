@@ -216,6 +216,12 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setFieldLabel('library', $expected);
         $read = $this->definition->getFieldLabel('library');
         $this->assertSame($read, $expected);
+
+        $this->definition->setLocale('de');
+        $read = $this->definition->getFieldLabel('title');
+        $expected = 'Titel';
+        $this->assertSame($read, $expected);
+        $this->definition->setLocale('en');
     }
 
     public function testGetSetTable() {

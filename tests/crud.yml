@@ -37,6 +37,7 @@ book:
     title:
       type: text
       label: Title
+      label_de: Titel
       required: true
     author:
       type: text
