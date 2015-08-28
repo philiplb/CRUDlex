@@ -33,7 +33,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 ## Displayed Fields in the List
@@ -62,7 +62,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 It is a simple list referencing the fields. Note the usage of the internal
@@ -97,7 +97,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 Only strings and integers are boring, so in the next chapter, all possible
@@ -130,7 +130,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 ## I18n
