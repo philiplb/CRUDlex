@@ -53,6 +53,8 @@ crudlex:
   edit:
     error: 'Konnte nicht bearbeiten, bitte die rot markierten Felder beachten.'
     success: '%label% bearbeitet mit Id %id%'
+    failed: 'Konnte nicht bearbeiten.'
   delete:
     error: 'Konnte %label% nicht löschen, da es noch von einer anderen Entität referenziert wird.'
     success: '%label% gelöscht.'
+    failed: 'Konnte nicht löschen.'

@@ -53,6 +53,8 @@ crudlex:
   edit:
     error: 'Could not edit, see the red marked fields.'
     success: '%label% edited with id %id%'
+    failed: 'Could not edit.'
   delete:
     error: 'Could not delete %label% as it is still referenced by another entity.'
     success: '%label% deleted.'
+    failed: 'Could not delete.'

@@ -190,6 +190,11 @@ class CRUDMySQLData extends CRUDData {
      */
     public function update(CRUDEntity $entity) {
 
+        $result = $this->executeEvents($entity, 'before', 'update');
+        if (!$result) {
+            return false;
+        }
+
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->update($this->definition->getTable())
@@ -215,6 +220,8 @@ class CRUDMySQLData extends CRUDData {
             ->where('id = ?')
             ->setParameter(count($formFields), $entity->get('id'))
             ->execute();
+
+        $this->executeEvents($entity, 'after', 'update');
 
         return $affected;
     }

@@ -340,13 +340,17 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.error'));
                 $errors = $validation['errors'];
             } else {
-                $crudData->update($instance);
-                $crudData->updateFiles($app['request'], $instance, $entity);
-                $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.edit.success', array(
-                    '%label%' => $crudData->getDefinition()->getLabel(),
-                    '%id%' => $id
-                )));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                $updated = $crudData->update($instance);
+                if ($updated) {
+                    $crudData->updateFiles($app['request'], $instance, $entity);
+                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.edit.success', array(
+                        '%label%' => $crudData->getDefinition()->getLabel(),
+                        '%id%' => $id
+                    )));
+                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                }
+                $errors = $validation['errors'];
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.failed'));
             }
         }
 
