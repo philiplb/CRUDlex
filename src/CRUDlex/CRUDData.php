@@ -33,6 +33,11 @@ abstract class CRUDData {
     protected $fileProcessor;
 
     /**
+     * Holds the events.
+     */
+    protected $events;
+
+    /**
      * Creates an {@see CRUDEntity} from the raw data array with the field name
      * as keys and field values as values.
      *
@@ -50,6 +55,62 @@ abstract class CRUDData {
         }
         return $entity;
     }
+
+
+    protected function executeEvents(CRUDEntity $entity, $moment, $action) {
+        if ($this->events != null && key_exists($moment.'.'.$action, $this->events)) {
+            foreach ($this->events[$moment.'.'.$action] as $event) {
+                $result = $event($entity);
+                if (!$result) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * Adds an event to fire for the given parameters. The event function must
+     * have this signature:
+     * function (CRUDEntity $entity)
+     * and has to return true or false.
+     * The events are executed one after another in the added order as long as
+     * they return "true". The first event returning "false" will stop the
+     * process.
+     *
+     * @param string $moment
+     * the "moment" of the event, can be either "before" or "after"
+     * @param string $action
+     * the "action" of the event, can be either "create", "update" or "delete"
+     * @param anonymous function $function
+     * the event function to be called if set
+     */
+    public function pushEvent($moment, $action, $function) {
+        $events = $this->events[$moment.'.'.$action] ? $this->events[$moment.'.'.$action] : array();
+        $events[] = $function;
+        $this->events[$moment.'.'.$action] = $events;
+    }
+
+
+    /**
+     * Removes and returns the latest event for the given parameters.
+     *
+     * @param string $moment
+     * the "moment" of the event, can be either "before" or "after"
+     * @param string $action
+     * the "action" of the event, can be either "create", "update" or "delete"
+     *
+     * @return anonymous function
+     * the popped event or null if no event was available.
+     */
+    public function popEvent($moment, $action) {
+        if (key_exists($moment.'.'.$action, $this->events)) {
+            return array_pop($this->events[$moment.'.'.$action]);
+        }
+        return null;
+    }
+
 
     /**
      * Gets the entity with the given id.
@@ -84,7 +145,10 @@ abstract class CRUDData {
      * Persists the given entity as new entry in the datasource.
      *
      * @param CRUDEntity $entity
-     * the entity to persist.
+     * the entity to persist
+     *
+     * @return boolean
+     * true on successful creation
      */
     public abstract function create(CRUDEntity $entity);
 

@@ -148,6 +148,12 @@ class CRUDMySQLData extends CRUDData {
      * {@inheritdoc}
      */
     public function create(CRUDEntity $entity) {
+
+        $result = $this->executeEvents($entity, 'before', 'create');
+        if (!$result) {
+            return false;
+        }
+
         $formFields = $this->definition->getEditableFieldNames();
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -173,6 +179,10 @@ class CRUDMySQLData extends CRUDData {
         }
         $queryBuilder->execute();
         $entity->set('id', $this->db->lastInsertId());
+
+        $this->executeEvents($entity, 'after', 'create');
+
+        return true;
     }
 
     /**

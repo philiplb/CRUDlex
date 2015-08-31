@@ -149,15 +149,19 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $errors = $validation['errors'];
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.error'));
             } else {
-                $crudData->create($instance);
-                $id = $instance->get('id');
-                $crudData->createFiles($app['request'], $instance, $entity);
+                $created = $crudData->create($instance);
+                if ($created) {
+                    $id = $instance->get('id');
+                    $crudData->createFiles($app['request'], $instance, $entity);
 
-                $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.create.success', array(
-                    '%label%' => $crudData->getDefinition()->getLabel(),
-                    '%id%' => $id
-                )));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.create.success', array(
+                        '%label%' => $crudData->getDefinition()->getLabel(),
+                        '%id%' => $id
+                    )));
+                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                }
+                $errors = $validation['errors'];
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.failed'));
             }
         }
 
