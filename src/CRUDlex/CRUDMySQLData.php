@@ -28,7 +28,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * Performs the actual deletion.
      *
-     * @param string $id
+     * @param CRUDEntity $entity
      * the id of the entry to delete
      *
      * @param boolean $deleteCascade
@@ -37,13 +37,18 @@ class CRUDMySQLData extends CRUDData {
      * @return boolean
      * true on successful deletion
      */
-    protected function doDelete($id, $deleteCascade) {
+    protected function doDelete(CRUDEntity $entity, $deleteCascade) {
+        $result = $this->executeEvents($entity, 'before', 'delete');
+        if (!$result) {
+            return self::DELETION_FAILED_EVENT;
+        }
+        $id = $entity->get('id');
         if ($deleteCascade) {
             foreach ($this->definition->getChildren() as $childArray) {
                 $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
                 $children = $childData->listEntries(array($childArray[1] => $id));
                 foreach ($children as $child) {
-                    $childData->doDelete($child->get('id'), $deleteCascade);
+                    $childData->doDelete($child, $deleteCascade);
                 }
             }
         } else {
@@ -58,7 +63,7 @@ class CRUDMySQLData extends CRUDData {
                 $queryResult = $queryBuilder->execute();
                 $result = $queryResult->fetch(\PDO::FETCH_NUM);
                 if ($result[0] > 0) {
-                    return false;
+                    return self::DELETION_FAILED_STILL_REFERENCED;
                 }
             }
         }
@@ -71,7 +76,8 @@ class CRUDMySQLData extends CRUDData {
             ->setParameter(0, $id);
 
         $query->execute();
-        return true;
+        $this->executeEvents($entity, 'after', 'delete');
+        return self::DELETION_SUCCESS;
     }
 
     /**
@@ -229,8 +235,8 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function delete($id) {
-        return $this->doDelete($id, $this->definition->isDeleteCascade());
+    public function delete($entity) {
+        return $this->doDelete($entity, $this->definition->isDeleteCascade());
     }
 
     /**

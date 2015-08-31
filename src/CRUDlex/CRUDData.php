@@ -23,6 +23,21 @@ use CRUDlex\CRUDEntity;
 abstract class CRUDData {
 
     /**
+     * Return value on successful deletion.
+     */
+    const DELETION_SUCCESS = 0;
+
+    /**
+     * Return value on failed deletion due to existing references.
+     */
+    const DELETION_FAILED_STILL_REFERENCED = 1;
+
+    /**
+     * Return value on failed deletion due to a failed before delete event.
+     */
+    const DELETION_FAILED_EVENT = 2;
+
+    /**
      * Holds the {@see CRUDEntityDefinition} entity definition.
      */
     protected $definition;
@@ -163,13 +178,16 @@ abstract class CRUDData {
     /**
      * Deletes an entry from the datasource having the given id.
      *
-     * @param string $id
+     * @param CRUDEntity $entity
      * the id of the entry to delete
      *
-     * @return boolean
-     * true on successful deletion
+     * @return integer
+     * returns one of:
+     * - CRUDData::DELETION_SUCCESS -> successful deletion
+     * - CRUDData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
+     * - CRUDData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
-    public abstract function delete($id);
+    public abstract function delete($entity);
 
     /**
      * Gets ids and names of a table. Used for building up the dropdown box of

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use CRUDlexTestEnv\CRUDTestDBSetup;
 use CRUDlex\CRUDEntity;
+use CRUDlex\CRUDData;
 
 class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
 
@@ -135,9 +136,10 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entity->set('name', 'nameDelete');
         $this->dataLibrary->create($entity);
 
-        $deleted = $this->dataLibrary->delete($entity->get('id'));
+        $deleted = $this->dataLibrary->delete($entity);
         $read = $this->dataLibrary->get($entity->get('id'));
-        $this->assertTrue($deleted);
+        $expected = CRUDData::DELETION_SUCCESS;
+        $this->assertSame($deleted, $expected);
         $this->assertNull($read);
 
         $entityLibrary = $this->dataLibrary->createEmpty();
@@ -152,12 +154,15 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataBook->create($entityBook);
 
         $this->dataLibrary->getDefinition()->setDeleteCascade(false);
-        $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
-        $this->assertFalse($deleted);
-        $deleted = $this->dataBook->delete($entityBook->get('id'));
-        $this->assertTrue($deleted);
-        $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
-        $this->assertTrue($deleted);
+        $deleted = $this->dataLibrary->delete($entityLibrary);
+        $expected = CRUDData::DELETION_FAILED_STILL_REFERENCED;
+        $this->assertSame($deleted, $expected);
+        $deleted = $this->dataBook->delete($entityBook);
+        $expected = CRUDData::DELETION_SUCCESS;
+        $this->assertSame($deleted, $expected);
+        $deleted = $this->dataLibrary->delete($entityLibrary);
+        $expected = CRUDData::DELETION_SUCCESS;
+        $this->assertSame($deleted, $expected);
 
         $this->dataLibrary->getDefinition()->setDeleteCascade(true);
 
@@ -172,8 +177,9 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $deleted = $this->dataLibrary->delete($entityLibrary->get('id'));
-        $this->assertTrue($deleted);
+        $deleted = $this->dataLibrary->delete($entityLibrary);
+        $expected = CRUDData::DELETION_SUCCESS;
+        $this->assertSame($deleted, $expected);
         $entityBook2 = $this->dataBook->get($entityBook->get('id'));
         $this->assertNull($entityBook2);
     }
@@ -219,7 +225,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $library->set('name', 'C');
         $this->dataLibrary->create($library);
 
-        $this->dataLibrary->delete($library->get('id'));
+        $this->dataLibrary->delete($library);
 
         $table = $this->dataLibrary->getDefinition()->getTable();
 

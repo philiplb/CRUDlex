@@ -388,33 +388,37 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
 
         $crudData->deleteFiles($instance, $entity);
-        $deleted = $crudData->delete($id);
-        if ($deleted) {
+        $deleted = $crudData->delete($instance);
 
-            $redirectPage = 'crudList';
-            $redirectParameters = array(
-                'entity' => $entity
-            );
-            $redirectEntity = $app['request']->get('redirectEntity');
-            $redirectId = $app['request']->get('redirectId');
-            if ($redirectEntity && $redirectId) {
-                $redirectPage = 'crudShow';
-                $redirectParameters = array(
-                    'entity' => $redirectEntity,
-                    'id' => $redirectId
-                );
-            }
-
-            $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
-                '%label%' => $crudData->getDefinition()->getLabel()
-            )));
-            return $app->redirect($app['url_generator']->generate($redirectPage, $redirectParameters));
-        } else {
-            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
-                '%label%' => $crudData->getDefinition()->getLabel()
-            )));
-            return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+        switch ($deleted) {
+            case CRUDData::DELETION_FAILED_EVENT:
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
+                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+            case CRUDData::DELETION_FAILED_STILL_REFERENCED:
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
+                    '%label%' => $crudData->getDefinition()->getLabel()
+                )));
+                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
+
+        $redirectPage = 'crudList';
+        $redirectParameters = array(
+            'entity' => $entity
+        );
+        $redirectEntity = $app['request']->get('redirectEntity');
+        $redirectId = $app['request']->get('redirectId');
+        if ($redirectEntity && $redirectId) {
+            $redirectPage = 'crudShow';
+            $redirectParameters = array(
+                'entity' => $redirectEntity,
+                'id' => $redirectId
+            );
+        }
+
+        $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
+            '%label%' => $crudData->getDefinition()->getLabel()
+        )));
+        return $app->redirect($app['url_generator']->generate($redirectPage, $redirectParameters));
     }
 
     /**
