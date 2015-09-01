@@ -102,7 +102,7 @@ abstract class CRUDData {
      * the event function to be called if set
      */
     public function pushEvent($moment, $action, $function) {
-        $events = $this->events[$moment.'.'.$action] ? $this->events[$moment.'.'.$action] : array();
+        $events = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : array();
         $events[] = $function;
         $this->events[$moment.'.'.$action] = $events;
     }
