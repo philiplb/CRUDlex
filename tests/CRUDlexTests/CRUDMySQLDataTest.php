@@ -525,4 +525,40 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $read = $this->dataBook->popEvent('before', 'update');
         $this->assertNull($read);
     }
+
+    public function testCreateEvents() {
+        $beforeCalled = false;
+        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+            $beforeCalled = true;
+            return true;
+        };
+        $this->dataLibrary->pushEvent('before', 'create', $beforeEvent);
+
+        $afterCalled = false;
+        $afterEvent = function(CRUDEntity $entity) use (&$afterCalled) {
+            $afterCalled = true;
+            return true;
+        };
+        $this->dataLibrary->pushEvent('after', 'create', $afterEvent);
+
+        $entity = $this->dataLibrary->createEmpty();
+        $entity->set('name', 'name');
+        $this->dataLibrary->create($entity);
+
+        $this->assertTrue($beforeCalled);
+        $this->assertTrue($afterCalled);
+
+
+        $beforeEvent = function(CRUDEntity $entity) {
+            return false;
+        };
+        $this->dataLibrary->pushEvent('before', 'create', $beforeEvent);
+
+        $entity = $this->dataLibrary->createEmpty();
+        $entity->set('name', 'name');
+        $this->dataLibrary->create($entity);
+        $id = $entity->get('id');
+        $this->assertNull($id);
+    }
+
 }
