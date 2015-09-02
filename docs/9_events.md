@@ -42,7 +42,7 @@ removed from the list and the closure is returned:
 $closure = $app['crud']->getData('library')->popEvent('before', 'create');
 ```
 
-The before events can return a boolean. The first event returning false is
+The before events must return a boolean. The first event returning false is
 canceling the whole action and so the entity doesn't get created, updated or
 deleted.
 
