@@ -11,8 +11,8 @@ book: .../book/create?author=MyAuthor
 
 ---
 
-Previous: [Overriding Templates](8_templates.md)
+Previous: [Events](9_events.md)
 
-Next: [The CRUDServiceProvider](10_crudserviceprovider.md)
+Next: [The CRUDServiceProvider](11_crudserviceprovider.md)
 
 [Table of Contents](0_manual.md)

@@ -44,6 +44,6 @@ If nothing exists, this string is returned: "@crud/<action>.twig"
 Gets whether CRUDlex manages the i18n system.
 ---
 
-Previous: [Various Other Features](9_miscfeatures.md)
+Previous: [Various Other Features](10_miscfeatures.md)
 
 [Table of Contents](0_manual.md)

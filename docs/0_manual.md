@@ -14,8 +14,9 @@ Here is the table of contents:
 - [Constraints](6_constraints.md)
 - [Overriding Layouts](7_layouts.md)
 - [Overriding Templates](8_templates.md)
-- [Various Other Features](9_miscfeatures.md)
-- [The CRUDServiceProvider](10_crudserviceprovider.md)
+- [Events](9_events.md)
+- [Various Other Features](10_miscfeatures.md)
+- [The CRUDServiceProvider](11_crudserviceprovider.md)
 
 ---
 

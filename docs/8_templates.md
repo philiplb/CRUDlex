@@ -52,6 +52,6 @@ In addition, these templates exists:
 
 Previous: [Overriding Layouts](7_layouts.md)
 
-Next: [Various Other Features](9_miscfeatures.md)
+Next: [Events](9_events.md)
 
 [Table of Contents](0_manual.md)
