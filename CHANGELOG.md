@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.9.8
 Released: Upcoming
 - Added complete i18n support
+- Added events for reactions before or after creating, updating or deleting an entity
 - Added the possibility to override every single template
 - Initializing all needed providers in the CRUDServiceProvider if not done yet by the application
 - Made the nameField of a reference optional
