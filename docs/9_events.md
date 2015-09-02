@@ -35,6 +35,10 @@ __pushEvent__ takes three parameters:
 You can push as many events for a moment and an action as you like. They will
 be executed in the order they were added.
 
+The before events must return a boolean. The first event returning false is
+canceling the whole action and so the entity doesn't get created, updated or
+deleted.
+
 With __popEvent__, the last added event of the given moment and action is
 removed from the list and the closure is returned:
 
@@ -42,9 +46,7 @@ removed from the list and the closure is returned:
 $closure = $app['crud']->getData('library')->popEvent('before', 'create');
 ```
 
-The before events must return a boolean. The first event returning false is
-canceling the whole action and so the entity doesn't get created, updated or
-deleted.
+If no more events are available, __popEvent__ will return __null__.
 
 ---
 
