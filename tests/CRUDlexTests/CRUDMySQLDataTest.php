@@ -545,6 +545,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entity->set('name', 'name');
         $this->dataLibrary->create($entity);
 
+        $this->assertNotNull($entity->get('id'));
         $this->assertTrue($beforeCalled);
         $this->assertTrue($afterCalled);
 
@@ -559,6 +560,103 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->create($entity);
         $id = $entity->get('id');
         $this->assertNull($id);
+
+        $this->dataLibrary->popEvent('before', 'create');
+        $this->dataLibrary->popEvent('before', 'create');
+        $this->dataLibrary->popEvent('after', 'create');
+    }
+
+    public function testUpdateEvents() {
+
+        $entity = $this->dataLibrary->createEmpty();
+        $entity->set('name', 'nameUpdate');
+        $this->dataLibrary->create($entity);
+
+        $beforeCalled = false;
+        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+            $beforeCalled = true;
+            return true;
+        };
+        $this->dataLibrary->pushEvent('before', 'update', $beforeEvent);
+
+        $afterCalled = false;
+        $afterEvent = function(CRUDEntity $entity) use (&$afterCalled) {
+            $afterCalled = true;
+            return true;
+        };
+        $this->dataLibrary->pushEvent('after', 'update', $afterEvent);
+        $entity->set('name', 'newName');
+        $this->dataLibrary->update($entity);
+
+        $dbEntity = $this->dataLibrary->get($entity->get('id'));
+        $read = $dbEntity->get('name');
+        $expected = 'newName';
+        $this->assertSame($read, $expected);
+
+        $this->assertTrue($beforeCalled);
+        $this->assertTrue($afterCalled);
+
+
+        $beforeEvent = function(CRUDEntity $entity) {
+            return false;
+        };
+        $this->dataLibrary->pushEvent('before', 'update', $beforeEvent);
+
+        $entity->set('name', 'newName2');
+        $this->dataLibrary->update($entity);
+        $dbEntity = $this->dataLibrary->get($entity->get('id'));
+        $read = $dbEntity->get('name');
+        $expected = 'newName';
+        $this->assertSame($read, $expected);
+
+        $this->dataLibrary->popEvent('before', 'update');
+        $this->dataLibrary->popEvent('before', 'update');
+        $this->dataLibrary->popEvent('after', 'update');
+    }
+
+    public function testDeleteEvents() {
+
+        $entity = $this->dataLibrary->createEmpty();
+        $entity->set('name', 'nameDelete');
+        $this->dataLibrary->create($entity);
+
+        $beforeCalled = false;
+        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+            $beforeCalled = true;
+            return true;
+        };
+        $this->dataLibrary->pushEvent('before', 'delete', $beforeEvent);
+
+        $afterCalled = false;
+        $afterEvent = function(CRUDEntity $entity) use (&$afterCalled) {
+            $afterCalled = true;
+            return true;
+        };
+        $this->dataLibrary->pushEvent('after', 'delete', $afterEvent);
+        $this->dataLibrary->delete($entity);
+
+        $dbEntity = $this->dataLibrary->get($entity->get('id'));
+        $this->assertNull($dbEntity);
+
+        $this->assertTrue($beforeCalled);
+        $this->assertTrue($afterCalled);
+
+        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+            return false;
+        };
+        $this->dataLibrary->pushEvent('before', 'delete', $beforeEvent);
+
+        $entity = $this->dataLibrary->createEmpty();
+        $entity->set('name', 'nameDelete2');
+        $this->dataLibrary->create($entity);
+        $this->dataLibrary->delete($entity);
+        $dbEntity = $this->dataLibrary->get($entity->get('id'));
+        $this->assertNotNull($dbEntity);
+        $this->assertSame($entity->get('id'), $dbEntity->get('id'));
+
+        $this->dataLibrary->popEvent('before', 'delete');
+        $this->dataLibrary->popEvent('before', 'delete');
+        $this->dataLibrary->popEvent('after', 'delete');
     }
 
 }
