@@ -73,7 +73,7 @@ abstract class CRUDData {
 
 
     protected function executeEvents(CRUDEntity $entity, $moment, $action) {
-        if ($this->events != null && key_exists($moment.'.'.$action, $this->events)) {
+        if ($this->events !== null && key_exists($moment.'.'.$action, $this->events)) {
             foreach ($this->events[$moment.'.'.$action] as $event) {
                 $result = $event($entity);
                 if (!$result) {
