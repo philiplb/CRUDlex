@@ -217,6 +217,11 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $read = $crudServiceProvider->formatFloat(1.0);
         $expected = '1.0';
         $this->assertSame($read, $expected);
+
+        $float = 0.004;
+        $read = $crudServiceProvider->formatFloat($float);
+        $expected = '0.004';
+        $this->assertSame($read, $expected);
     }
 
 }
