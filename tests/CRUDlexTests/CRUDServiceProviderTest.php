@@ -192,6 +192,7 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $read = $crudServiceProvider->getTemplate($app, 'layout', null, 'book');
         $this->assertSame($read, $expected);
     }
+
     public function testGetManageI18n() {
         $crudServiceProvider = new CRUDServiceProvider();
         $app = new Application();
@@ -202,4 +203,20 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $read = $crudServiceProvider->getManageI18n();
         $this->assertFalse($read);
     }
+
+    public function testFormatFloat() {
+        $float = 0.000004;
+        $crudServiceProvider = new CRUDServiceProvider();
+        $read = $crudServiceProvider->formatFloat($float);
+        $expected = '0.000004';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->formatFloat(null);
+        $this->assertNull($read);
+
+        $read = $crudServiceProvider->formatFloat(1.0);
+        $expected = '1.0';
+        $this->assertSame($read, $expected);
+    }
+
 }

@@ -350,4 +350,23 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         }
     }
 
+    /**
+     * Formats a float to not display in scientific notation.
+     *
+     * @param float $float
+     * the float to format
+     *
+     * @return string
+     * the formated float
+     */
+    public function formatFloat($float) {
+
+        if (!$float) {
+            return $float;
+        }
+
+        $zeroFraction = $float - floor($float) == 0 ? '0' : '';
+        return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
+    }
+
 }

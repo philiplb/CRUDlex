@@ -10,6 +10,7 @@ Released: Upcoming
 - Made the nameField of a reference optional
 - Fixed a crash when choosing "created_at", "updated_at", "id", "deleted_at" or "version" as filter field
 - Some potential crashes in CRUDEntityDefinition fixed revealed by new unit tests
+- Fixed the display of very small float values which where converted to scientific notation
 
 ## 0.9.7
 Released: 2015-07-26

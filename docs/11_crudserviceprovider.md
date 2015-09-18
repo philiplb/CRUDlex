@@ -42,6 +42,11 @@ If nothing exists, this string is returned: "@crud/<action>.twig"
 ## getManageI18n()
 
 Gets whether CRUDlex manages the i18n system.
+
+## formatFloat($float)
+
+Formats a float to not display in scientific notation.
+
 ---
 
 Previous: [Various Other Features](10_miscfeatures.md)
