@@ -139,16 +139,17 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
         }
 
-        $cruds = $this->readYaml($crudFile);
+        $parsedYaml = $this->readYaml($crudFile);
 
         $this->datas = array();
-        foreach ($cruds as $name => $crud) {
+        foreach ((empty($parsedYaml) ? [] : $parsedYaml) as $name => $crud) {
+            if (!is_array($crud) || !isset($crud['fields'])) continue;
 
-            $label = key_exists('label', $crud) ? $crud['label'] : $name;
+            $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
 
             $localeLabels = array();
             foreach ($locales as $locale) {
-                if (key_exists('label_'.$locale, $crud)) {
+                if (array_key_exists('label_' . $locale, $crud)) {
                     $localeLabels[$locale] = $crud['label_'.$locale];
                 }
             }
@@ -159,27 +160,29 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
 
-            $definition = new CRUDEntityDefinition($crud['table'],
+            $definition = new CRUDEntityDefinition(
+                $crud['table'],
                 $crud['fields'],
                 $label,
                 $localeLabels,
                 $standardFieldLabels,
-                $this);
+                $this
+            );
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
 
-            if (key_exists('deleteCascade', $crud)) {
+            if (array_key_exists('deleteCascade', $crud)) {
                 $this->datas[$name]->getDefinition()->setDeleteCascade($crud['deleteCascade']);
             }
-            if (key_exists('listFields', $crud)) {
+            if (array_key_exists('listFields', $crud)) {
                 $this->datas[$name]->getDefinition()->setListFieldNames($crud['listFields']);
             }
-            if (key_exists('filter', $crud)) {
+            if (array_key_exists('filter', $crud)) {
                 $this->datas[$name]->getDefinition()->setFilter($crud['filter']);
             }
-            if (key_exists('childrenLabelFields', $crud)) {
+            if (array_key_exists('childrenLabelFields', $crud)) {
                 $this->datas[$name]->getDefinition()->setChildrenLabelFields($crud['childrenLabelFields']);
             }
-            if (key_exists('pageSize', $crud)) {
+            if (array_key_exists('pageSize', $crud)) {
                 $this->datas[$name]->getDefinition()->setPageSize($crud['pageSize']);
             }
 
@@ -232,7 +235,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the CRUDData instance or null on invalid name
      */
     public function getData($name) {
-        if (!key_exists($name, $this->datas)) {
+        if (!array_key_exists($name, $this->datas)) {
             return null;
         }
         return $this->datas[$name];
@@ -369,11 +372,11 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
         // We don't want values like 0.004 converted to  0.00400000000000000008
     	if ($float > 0.0001) {
-    		return $float.($zeroFraction === '0' ? '.'.$zeroFraction : '');
+    		return $float . ($zeroFraction === '0' ? '.' . $zeroFraction : '');
     	}
 
         // We don't want values like 0.00004 converted to its scientific notation 4.0E-5
-        return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
+        return rtrim(sprintf('%.20F', $float), '0') . $zeroFraction;
     }
 
 }
