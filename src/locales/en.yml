@@ -1,0 +1,60 @@
+#
+# This file is part of the CRUDlex package.
+#
+# (c) Philip Lehmann-Böhm <philip@philiplb.de>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+crudlex:
+  entityNotFound: 'Entity not found.'
+  instanceNotFound: 'Instance not found.'
+  resourceNotFound: 'Resource not found.'
+  deleteEntityConfirmation: 'Are you sure to delete this entity %id%?'
+  chooseLanguage: 'Choose language:'
+  label:
+    id: 'Id'
+    created_at: 'Created at'
+    updated_at: 'Updated at'
+  file:
+    delete: 'Are you sure to delete this file %file%?'
+    deleted: 'File deleted.'
+    notDeleted: 'File could not be deleted.'
+  button:
+    new: 'Create New'
+    list: 'List'
+    show: 'Show'
+    edit: 'Edit'
+    delete: 'Delete'
+    submit: 'Submit'
+  field:
+    required: '*'
+    unique: must be unique
+    separator: ', '
+  list:
+    button:
+      filter: 'Filter'
+      doFilter: 'Do Filter'
+      first: 'First'
+      previous: 'Previous'
+      next: 'Next'
+      last: 'Last'
+    total: 'Total: %total%'
+  show:
+    field: 'Field'
+    value: 'Value'
+    childName: 'Name'
+    childAction: 'Action'
+  create:
+    error: 'Could not create, see the red marked fields.'
+    failed: 'Could not create.'
+    success: '%label% created with id %id%'
+  edit:
+    error: 'Could not edit, see the red marked fields.'
+    success: '%label% edited with id %id%'
+    failed: 'Could not edit.'
+  delete:
+    error: 'Could not delete %label% as it is still referenced by another entity.'
+    success: '%label% deleted.'
+    failed: 'Could not delete.'

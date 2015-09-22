@@ -62,7 +62,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 Note that the yml keys "name", "author" and "title" directly name the database

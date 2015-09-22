@@ -13,9 +13,9 @@ namespace CRUDlex;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-
 
 /**
  * This is the ControllerProvider offering all CRUD pages.
@@ -60,34 +60,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
-     * Delivers the layout for the page in the way it is described in the
-     * manual.
-     *
-     * @param Application $app
-     * the Silex application
-     * @param string $action
-     * the current calling action like "create" or "show"
-     * @param string $entity
-     * the current calling entity
-     *
-     * @return string
-     * the best fitting layout
-     */
-    protected function getLayout(Application $app, $action, $entity) {
-        if ($app->offsetExists('crud.layout.'.$action.'.'.$entity)) {
-            return $app['crud.layout.'.$action.'.'.$entity];
-        }
-        if ($app->offsetExists('crud.layout.'.$entity)) {
-            return $app['crud.layout.'.$entity];
-        }
-        if ($app->offsetExists('crud.layout.'.$action)) {
-            return $app['crud.layout.'.$action];
-        }
-        return $app['crud.layout'];
-    }
-
-
-    /**
      * Implements ControllerProviderInterface::connect() connecting this
      * controller.
      *
@@ -124,6 +96,18 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 ->bind('crudRenderFile');
         $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')
                 ->bind('crudDeleteFile');
+        $factory->get('/setting/locale/{locale}', $class.'::setLocale')
+                ->bind('crudSetLocale');
+
+        $app->before(function(Request $request, Application $app) {
+            if ($app['crud']->getManageI18n()) {
+                $locale = $app['session']->get('locale', 'en');
+                $app['translator']->setLocale($locale);
+            }
+            $locale = $app['translator']->getLocale();
+            $app['crud']->setLocale($locale);
+        });
+
         return $factory;
     }
 
@@ -141,7 +125,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function create(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
 
         $errors = array();
@@ -163,26 +147,33 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
                 $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['crud']->translate('create.error'));
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.error'));
             } else {
-                $crudData->create($instance);
-                $id = $instance->get('id');
-                $crudData->createFiles($app['request'], $instance, $entity);
+                $created = $crudData->create($instance);
+                if ($created) {
+                    $id = $instance->get('id');
+                    $crudData->createFiles($app['request'], $instance, $entity);
 
-                $app['session']->getFlashBag()->add('success', $app['crud']->translate('create.success', array($crudData->getDefinition()->getLabel(), $id)));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.create.success', array(
+                        '%label%' => $crudData->getDefinition()->getLabel(),
+                        '%id%' => $id
+                    )));
+                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                }
+                $errors = $validation['errors'];
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.failed'));
             }
         }
 
         $definition = $crudData->getDefinition();
 
-        return $app['twig']->render('@crud/form.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => 'create',
             'errors' => $errors,
-            'layout' => $this->getLayout($app, 'create', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'create', $entity)
         ));
     }
 
@@ -200,7 +191,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function showList(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $definition = $crudData->getDefinition();
 
@@ -237,7 +228,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize);
         $crudData->fetchReferences($entities);
 
-        return $app['twig']->render('@crud/list.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'list', $entity), array(
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'definition' => $definition,
@@ -248,7 +239,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'total' => $total,
             'filter' => $filter,
             'filterActive' => $filterActive,
-            'layout' => $this->getLayout($app, 'list', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'list', $entity)
         ));
     }
 
@@ -268,11 +259,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function show(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         $instance = array($instance);
         $crudData->fetchReferences($instance);
@@ -285,7 +276,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             foreach ($definition->getChildren() as $child) {
                 $childField = $child[1];
                 $childEntity = $child[2];
-                $childLabelField = key_exists($childEntity, $childrenLabelFields) ? $childrenLabelFields[$childEntity] : 'id';
+                $childLabelField = array_key_exists($childEntity, $childrenLabelFields) ? $childrenLabelFields[$childEntity] : 'id';
                 $childCrud = $app['crud']->getData($childEntity);
                 $children[] = array(
                     $childCrud->getDefinition()->getLabel(),
@@ -296,11 +287,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             }
         }
 
-        return $app['twig']->render('@crud/show.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'show', $entity), array(
             'crudEntity' => $entity,
             'entity' => $instance,
             'children' => $children,
-            'layout' => $this->getLayout($app, 'show', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'show', $entity)
         ));
     }
 
@@ -320,11 +311,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function edit(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
         $definition = $crudData->getDefinition();
@@ -346,23 +337,30 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             }
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
-                $app['session']->getFlashBag()->add('danger', $app['crud']->translate('edit.error'));
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.error'));
                 $errors = $validation['errors'];
             } else {
-                $crudData->update($instance);
-                $crudData->updateFiles($app['request'], $instance, $entity);
-                $app['session']->getFlashBag()->add('success', $app['crud']->translate('edit.success', array($crudData->getDefinition()->getLabel(), $id)));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                $updated = $crudData->update($instance);
+                if ($updated) {
+                    $crudData->updateFiles($app['request'], $instance, $entity);
+                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.edit.success', array(
+                        '%label%' => $crudData->getDefinition()->getLabel(),
+                        '%id%' => $id
+                    )));
+                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                }
+                $errors = $validation['errors'];
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.failed'));
             }
         }
 
-        return $app['twig']->render('@crud/form.twig', array(
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => 'edit',
             'errors' => $errors,
-            'layout' => $this->getLayout($app, 'edit', $entity)
+            'layout' => $app['crud']->getTemplate($app, 'layout', 'edit', $entity)
         ));
     }
 
@@ -382,37 +380,45 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function delete(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
         $crudData->deleteFiles($instance, $entity);
-        $deleted = $crudData->delete($id);
-        if ($deleted) {
+        $deleted = $crudData->delete($instance);
 
-            $redirectPage = 'crudList';
-            $redirectParameters = array(
-                'entity' => $entity
-            );
-            $redirectEntity = $app['request']->get('redirectEntity');
-            $redirectId = $app['request']->get('redirectId');
-            if ($redirectEntity && $redirectId) {
-                $redirectPage = 'crudShow';
-                $redirectParameters = array(
-                    'entity' => $redirectEntity,
-                    'id' => $redirectId
-                );
-            }
-
-            $app['session']->getFlashBag()->add('success', $app['crud']->translate('delete.success', array($crudData->getDefinition()->getLabel())));
-            return $app->redirect($app['url_generator']->generate($redirectPage, $redirectParameters));
-        } else {
-            $app['session']->getFlashBag()->add('danger', $app['crud']->translate('delete.error', array($crudData->getDefinition()->getLabel())));
-            return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+        switch ($deleted) {
+            case CRUDData::DELETION_FAILED_EVENT:
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
+                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+            case CRUDData::DELETION_FAILED_STILL_REFERENCED:
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
+                    '%label%' => $crudData->getDefinition()->getLabel()
+                )));
+                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
+
+        $redirectPage = 'crudList';
+        $redirectParameters = array(
+            'entity' => $entity
+        );
+        $redirectEntity = $app['request']->get('redirectEntity');
+        $redirectId = $app['request']->get('redirectId');
+        if ($redirectEntity && $redirectId) {
+            $redirectPage = 'crudShow';
+            $redirectParameters = array(
+                'entity' => $redirectEntity,
+                'id' => $redirectId
+            );
+        }
+
+        $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
+            '%label%' => $crudData->getDefinition()->getLabel()
+        )));
+        return $app->redirect($app['url_generator']->generate($redirectPage, $redirectParameters));
     }
 
     /**
@@ -433,15 +439,15 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function renderFile(Application $app, $entity, $id, $field) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         $definition = $crudData->getDefinition();
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         if ($definition->getType($field) != 'file' || !$instance->get($field)) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         return $crudData->renderFile($instance, $entity, $field);
     }
@@ -464,19 +470,19 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function deleteFile(Application $app, $entity, $id, $field) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('entityNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('instanceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         if (!$crudData->getDefinition()->isRequired($field)) {
             $crudData->deleteFile($instance, $entity, $field);
             $instance->set($field, '');
             $crudData->update($instance);
-            $app['session']->getFlashBag()->add('success', $app['crud']->translate('file.deleted'));
+            $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.file.deleted'));
         } else {
-            $app['session']->getFlashBag()->add('danger', $app['crud']->translate('file.notdeleted'));
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.file.notDeleted'));
         }
         return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
     }
@@ -493,12 +499,12 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     public function staticFile(Application $app) {
         $fileParam = $app['request']->get('file');
         if (!$fileParam) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('resourceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
         }
 
         $file = __DIR__.'/../static/'.$fileParam;
         if (!file_exists($file)) {
-            return $this->getNotFoundPage($app, $app['crud']->translate('resourceNotFound'));
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
         }
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
@@ -533,5 +539,40 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $response->send();
 
         return $response;
+    }
+
+    /**
+     * The controller for setting the locale.
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $locale
+     * the new locale
+     *
+     * @return Response
+     * redirects to the instance details page or 404 on invalid input
+     */
+    public function setLocale(Application $app, $locale) {
+        $foundLocale = false;
+        $localeDir = __DIR__.'/../locales';
+        $langFiles = scandir($localeDir);
+        foreach ($langFiles as $langFile) {
+            if ($langFile == '.' || $langFile == '..') {
+                continue;
+            }
+            if ($langFile === $locale.'.yml') {
+                $foundLocale = true;
+            }
+        }
+
+        if (!$foundLocale) {
+            return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
+        }
+
+        if ($app['crud']->getManageI18n()) {
+            $app['session']->set('locale', $locale);
+        }
+        $redirect = $app['request']->get('redirect');
+        return $app->redirect($redirect);
     }
 }

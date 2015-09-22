@@ -28,7 +28,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * Performs the actual deletion.
      *
-     * @param string $id
+     * @param CRUDEntity $entity
      * the id of the entry to delete
      *
      * @param boolean $deleteCascade
@@ -37,13 +37,18 @@ class CRUDMySQLData extends CRUDData {
      * @return boolean
      * true on successful deletion
      */
-    protected function doDelete($id, $deleteCascade) {
+    protected function doDelete(CRUDEntity $entity, $deleteCascade) {
+        $result = $this->executeEvents($entity, 'before', 'delete');
+        if (!$result) {
+            return self::DELETION_FAILED_EVENT;
+        }
+        $id = $entity->get('id');
         if ($deleteCascade) {
             foreach ($this->definition->getChildren() as $childArray) {
                 $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
                 $children = $childData->listEntries(array($childArray[1] => $id));
                 foreach ($children as $child) {
-                    $childData->doDelete($child->get('id'), $deleteCascade);
+                    $childData->doDelete($child, $deleteCascade);
                 }
             }
         } else {
@@ -58,7 +63,7 @@ class CRUDMySQLData extends CRUDData {
                 $queryResult = $queryBuilder->execute();
                 $result = $queryResult->fetch(\PDO::FETCH_NUM);
                 if ($result[0] > 0) {
-                    return false;
+                    return self::DELETION_FAILED_STILL_REFERENCED;
                 }
             }
         }
@@ -71,7 +76,8 @@ class CRUDMySQLData extends CRUDData {
             ->setParameter(0, $id);
 
         $query->execute();
-        return true;
+        $this->executeEvents($entity, 'after', 'delete');
+        return self::DELETION_SUCCESS;
     }
 
     /**
@@ -119,7 +125,7 @@ class CRUDMySQLData extends CRUDData {
             if ($value === null) {
                 $queryBuilder->andWhere('`'.$field.'` IS NULL');
             } else {
-                $operator = key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
+                $operator = array_key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
                 $queryBuilder
                     ->andWhere('`'.$field.'` '.$operator.' ?')
                     ->setParameter($i, $value);
@@ -148,6 +154,12 @@ class CRUDMySQLData extends CRUDData {
      * {@inheritdoc}
      */
     public function create(CRUDEntity $entity) {
+
+        $result = $this->executeEvents($entity, 'before', 'create');
+        if (!$result) {
+            return false;
+        }
+
         $formFields = $this->definition->getEditableFieldNames();
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -173,12 +185,21 @@ class CRUDMySQLData extends CRUDData {
         }
         $queryBuilder->execute();
         $entity->set('id', $this->db->lastInsertId());
+
+        $this->executeEvents($entity, 'after', 'create');
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
     public function update(CRUDEntity $entity) {
+
+        $result = $this->executeEvents($entity, 'before', 'update');
+        if (!$result) {
+            return false;
+        }
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
@@ -206,14 +227,16 @@ class CRUDMySQLData extends CRUDData {
             ->setParameter(count($formFields), $entity->get('id'))
             ->execute();
 
+        $this->executeEvents($entity, 'after', 'update');
+
         return $affected;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function delete($id) {
-        return $this->doDelete($id, $this->definition->isDeleteCascade());
+    public function delete($entity) {
+        return $this->doDelete($entity, $this->definition->isDeleteCascade());
     }
 
     /**
@@ -222,17 +245,22 @@ class CRUDMySQLData extends CRUDData {
     public function getReferences($table, $nameField) {
 
         $queryBuilder = $this->db->createQueryBuilder();
-        $queryBuilder
-            ->select('id', $nameField)
-            ->from($table, $table)
-            ->where('deleted_at IS NULL')
-            ->orderBy($nameField);
-
+        if ($nameField) {
+            $queryBuilder->select('id', $nameField);
+        } else {
+            $queryBuilder->select('id');
+        }
+        $queryBuilder->from($table, $table)->where('deleted_at IS NULL');
+        if ($nameField) {
+            $queryBuilder->orderBy($nameField);
+        } else {
+            $queryBuilder->orderBy('id');
+        }
         $queryResult = $queryBuilder->execute();
         $entries = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result = array();
         foreach ($entries as $entry) {
-            $result[$entry['id']] = $entry[$nameField];
+            $result[$entry['id']] = $nameField ? $entry[$nameField] : $entry['id'];
         }
         return $result;
     }
@@ -292,10 +320,14 @@ class CRUDMySQLData extends CRUDData {
             }
             $table = $this->definition->getReferenceTable($field);
             $queryBuilder
-                ->select('id', $nameField)
                 ->from($table, $table)
                 ->where('id IN ('.$in.')')
                 ->andWhere('deleted_at IS NULL');
+            if ($nameField) {
+                $queryBuilder->select('id', $nameField);
+            } else {
+                $queryBuilder->select('id');
+            }
             $count = count($ids);
             for ($i = 0; $i < $count; ++$i) {
                 $queryBuilder->setParameter($i, $ids[$i]);
@@ -306,8 +338,11 @@ class CRUDMySQLData extends CRUDData {
             foreach ($rows as $row) {
                 for ($i = 0; $i < $amount; ++$i) {
                     if ($entities[$i]->get($field) == $row['id']) {
-                        $entities[$i]->set($field,
-                            array('id' => $entities[$i]->get($field), 'name' => $row[$nameField]));
+                        $value = array('id' => $entities[$i]->get($field));
+                        if ($nameField) {
+                            $value['name'] = $row[$nameField];
+                        }
+                        $entities[$i]->set($field, $value);
                     }
                 }
             }

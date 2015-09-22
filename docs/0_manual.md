@@ -13,8 +13,10 @@ Here is the table of contents:
 - [Data Types](5_datatypes.md)
 - [Constraints](6_constraints.md)
 - [Overriding Layouts](7_layouts.md)
-- [Various Other Features](8_miscfeatures.md)
-- [The CRUDServiceProvider](9_crudserviceprovider.md)
+- [Overriding Templates](8_templates.md)
+- [Events](9_events.md)
+- [Various Other Features](10_miscfeatures.md)
+- [The CRUDServiceProvider](11_crudserviceprovider.md)
 
 ---
 

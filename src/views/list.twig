@@ -11,19 +11,19 @@
 
 {% block content %}
     {% set fields = definition.getListFieldNames() %}
-    <a id="crudBtnNew" href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">Create New</a>
+    <a id="crudBtnNew" href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
 
 
     {% if filter %}
 
-        <a class="btn btn-success" data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">Filter</a>
+        <a class="btn btn-success" data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">{{ 'crudlex.list.button.filter'|trans }}</a>
         <div class="collapse {{ filterActive ? 'in' : '' }}" id="collapseFilter">
             <div class="well">
                 <form role="form" method="GET" action="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}">
                     {% for filterField, filterValue in filter %}
                         {% set type = crudData.getDefinition().getType(filterField) %}
                         {% if type == 'bool' %}
-                            {% include '@crud/fieldLabel.twig' with {
+                            {% include app.crud.getTemplate(app, 'template', 'fieldLabel', crudEntity) with {
                                 field: filterField,
                                 definition: definition,
                                 annotations: false
@@ -39,17 +39,18 @@
                                 {% if type == 'file' %}
                                     {% set type = 'text' %}
                                 {% endif %}
-                                {% include '@crud/' ~ type ~ 'Field.twig' with {
+                                {% include app.crud.getTemplate(app, 'template', type ~ 'Field', crudEntity) with {
                                     field: filterField,
                                     fieldNamePrefix: 'crudFilter',
                                     crudData: crudData,
                                     value: filterValue,
-                                    annotations: false
+                                    annotations: false,
+                                    crudEntity: crudEntity
                                 } only %}
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <button type="submit" id="crudBtnSubmit" class="btn btn-default btn-success">Do Filter</button>
+                    <button type="submit" id="crudBtnSubmit" class="btn btn-default btn-success">{{ 'crudlex.list.button.doFilter'|trans }}</button>
                 </form>
             </div>
         </div>
@@ -57,7 +58,7 @@
     {% endif %}
 
 
-    <div class="table-responsive">
+    <div class="table-responsive table-wrapper">
     <table class="table table-striped">
 
         <tr>
@@ -71,7 +72,7 @@
             <tr id="crudId{{ entity.get('id') }}">
                 {% for field in fields %}
                     <td class="crudField{{ field }}">
-                        {% include '@crud/renderField.twig' with {
+                        {% include  app.crud.getTemplate(app, 'template', 'renderField', crudEntity) with {
                             entity: entity,
                             crudEntity: crudEntity,
                             definition: definition,
@@ -81,10 +82,10 @@
                     </td>
                 {% endfor %}
                 <td>
-                    <a id="crudBtnShow{{ entity.get('id') }}" href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="crudBtnShow btn btn-default btn-xs btn-success">Show</a>
-                    <a id="crudBtnEdit{{ entity.get('id') }}" href="{{ app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="crudBtnEdit btn btn-default btn-xs btn-warning">Edit</a>
-                    <form class="crudFormDelete" style="display: inline-block" onSubmit="return confirm('Are you sure to delete this entity {{ entity.get('id') }}?');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
-                        <input id="crudBtnDelete{{ entity.get('id') }}" type="submit" class="crudBtnDelete btn btn-default btn-xs btn-danger" value="Delete" />
+                    <a id="crudBtnShow{{ entity.get('id') }}" href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="crudBtnShow btn btn-default btn-xs btn-success">{{ 'crudlex.button.show'|trans }}</a>
+                    <a id="crudBtnEdit{{ entity.get('id') }}" href="{{ app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="crudBtnEdit btn btn-default btn-xs btn-warning">{{ 'crudlex.button.edit'|trans }}</a>
+                    <form class="crudFormDelete" style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.deleteEntityConfirmation'|trans({'%id%': entity.get('id')}) }}');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+                        <input id="crudBtnDelete{{ entity.get('id') }}" type="submit" class="crudBtnDelete btn btn-default btn-xs btn-danger" value="{{ 'crudlex.button.delete'|trans }}" />
                     </form>
                 </td>
             </tr>
@@ -92,7 +93,7 @@
 
     </table>
 
-    <p>Total: {{ total }}</p>
+    <p>{{ 'crudlex.list.total'|trans({'%total%': total}) }}</p>
     {% if total > pageSize %}
         <nav>
             <ul class="pagination">
@@ -104,15 +105,15 @@
                     {% endfor %}
                 {% endif %}
 
-                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': 0}|merge(paginationParams)) }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">First</span></a></li>
-                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page > 0 ? page - 1 : 0}|merge(paginationParams)) }}"><span aria-hidden="true">&lsaquo;</span><span class="sr-only">Previous</span></a></li>
+                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': 0}|merge(paginationParams)) }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">{{ 'crudlex.list.button.first'|trans }}</span></a></li>
+                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page > 0 ? page - 1 : 0}|merge(paginationParams)) }}"><span aria-hidden="true">&lsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.previous'|trans }}</span></a></li>
                 {% for p in 0..maxPage %}
                     <li{{ p == page ? ' class="active"' : ''}}>
                         <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': p}|merge(paginationParams)) }}">{{ p + 1 }}</a>
                     </li>
                 {% endfor %}
-                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page < maxPage ? page + 1 : maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&rsaquo;</span><span class="sr-only">Next</span></a></li>
-                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&raquo;</span><span class="sr-only">Last</span></a></li>
+                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page < maxPage ? page + 1 : maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&rsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.next'|trans }}</span></a></li>
+                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&raquo;</span><span class="sr-only">{{ 'crudlex.list.button.last'|trans }}</span></a></li>
             </ul>
         </nav>
     {% endif %}

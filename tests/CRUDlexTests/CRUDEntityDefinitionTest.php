@@ -14,6 +14,7 @@ namespace CRUDlexTests;
 use CRUDlexTestEnv\CRUDTestDBSetup;
 use CRUDlex\CRUDServiceProvider;
 use CRUDlex\CRUDEntity;
+use CRUDlex\CRUDEntityDefinition;
 
 class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
@@ -40,6 +41,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'pages',
             'release',
             'library',
+            'secondLibrary',
             'cover',
             'price'
         );
@@ -47,8 +49,10 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetType() {
-        $fields = array('title', 'pages', 'release', 'library');
-        $expected = array('text', 'int', 'date', 'reference', null);
+        $fields = array('title', 'pages', 'release', 'library',
+            'id', 'created_at', 'updated_at', 'deleted_at', 'version');
+        $expected = array('text', 'int', 'date', 'reference',
+            'string', 'datetime', 'datetime', 'datetime', 'int', null);
         $read = array();
         foreach ($fields as $field) {
             $read[] = $this->definition->getType($field);
@@ -75,6 +79,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'pages',
             'release',
             'library',
+            'secondLibrary',
             'cover',
             'price'
         );
@@ -211,6 +216,12 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setFieldLabel('library', $expected);
         $read = $this->definition->getFieldLabel('library');
         $this->assertSame($read, $expected);
+
+        $this->definition->setLocale('de');
+        $read = $this->definition->getFieldLabel('title');
+        $expected = 'Titel';
+        $this->assertSame($read, $expected);
+        $this->definition->setLocale('en');
     }
 
     public function testGetSetTable() {
@@ -232,6 +243,11 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $expected = 'Shiny Book';
         $this->definition->setLabel($expected);
         $read = $this->definition->getLabel();
+        $this->assertSame($read, $expected);
+
+        $this->definition->setLocale('de');
+        $read = $this->definition->getLabel();
+        $expected = 'Bücher';
         $this->assertSame($read, $expected);
     }
 
@@ -323,6 +339,23 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testGetSetDescription() {
+        $read = $this->definition->getDescription('author');
+        $expected = 'The Author of the Book';
+        $this->assertSame($read, $expected);
+        $read = $this->definition->getDescription('title');
+        $this->assertNull($read);
+        $read = $this->definition->getDescription('foo');
+        $this->assertNull($read);
+        $read = $this->definition->getDescription(null);
+        $this->assertNull($read);
+
+        $expected = 'The Great Author of the Book';
+        $this->definition->setDescription('author', $expected);
+        $read = $this->definition->getDescription('author');
+        $this->assertSame($read, $expected);
+    }
+
     public function testIsSetDeleteCascade() {
         $this->definitionLibrary->setDeleteCascade(true);
         $read = $this->definitionLibrary->isDeleteCascade();
@@ -368,6 +401,20 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setFilter($expected);
         $read = $this->definition->getFilter();
         $this->assertSame($read, $expected);
+    }
+
+    public function testGetInvalidReferenceField() {
+        $definition = new CRUDEntityDefinition(null, array('test' => array()), null, array(), array(), new CRUDServiceProvider());
+        $read = $definition->getReferenceTable('test');
+        $this->assertNull($read);
+
+        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference')), null, array(), array(), new CRUDServiceProvider());
+        $read = $definition->getReferenceTable('test');
+        $this->assertNull($read);
+
+        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), array(), new CRUDServiceProvider());
+        $read = $definition->getReferenceTable('test');
+        $this->assertNull($read);
     }
 
 }

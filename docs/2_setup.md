@@ -7,7 +7,7 @@ templates are discussed in later sections.
 First, you have to add CRUDlex to your composer.json:
 
 ```json
-"philiplb/crudlex": "0.9.7"
+"philiplb/crudlex": "0.9.8"
 ```
 
 Then comes the actual setup. Currently, only MySQL is supported. Although the
@@ -29,18 +29,6 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 ));
 ```
 
-As the CRUDlex controller uses sessions, the appropriate provider has to be
-registered, too. Twig is used for templates and the templates use the
-UrlGeneratorService. Here we go:
-
-```php
-$app->register(new Silex\Provider\SessionServiceProvider());
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'<yourTemplateDir>',
-));
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-```
-
 Now follows the setup of CRUDlex itself. First of all, we create an instance
 of the CRUDMySQLDataFactory, internally taking care of creating MySQL-DB-access
 objects:
@@ -57,11 +45,6 @@ $app->register(new CRUDlex\CRUDServiceProvider(), array(
     'crud.datafactory' => $dataFactory
 ));
 ```
-
-You can also give the parameter "crud.stringsfile" pointing to your own messages
-if you want to translate them for example. For reference, it defaults to this
-one:
-"vendor/philiplb/src/strings.yml"
 
 The content of the crud.yml (or whatever you name it) will be discussed in the
 next chapter.

@@ -29,6 +29,7 @@ library:
 
 book:
   label: Book
+  label_de: Bücher
   table: book
   listFields: [author, title, library]
   filter: [author, title, library]
@@ -36,6 +37,7 @@ book:
     title:
       type: text
       label: Title
+      label_de: Titel
       required: true
     author:
       type: text
@@ -57,6 +59,12 @@ book:
         nameField: name
         entity: library
       required: true
+    secondLibrary:
+      type: reference
+      label: Second Library
+      reference:
+        table: library
+        entity: library
     cover:
       type: file
       filepath: 'tests/uploads'

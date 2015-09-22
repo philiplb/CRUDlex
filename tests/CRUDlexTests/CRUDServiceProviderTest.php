@@ -21,8 +21,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     protected $crudFile;
 
-    protected $stringsFile;
-
     protected $dataFactory;
 
     protected function setUp() {
@@ -39,7 +37,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
             ),
         ));
         $this->crudFile = __DIR__.'/../crud.yml';
-        $this->stringsFile = __DIR__.'/../../src/strings.yml';
         $this->dataFactory = new CRUDMySQLDataFactory($app['db']);
     }
 
@@ -52,7 +49,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $app = new Application();
         $app->register(new CRUDServiceProvider(), array(
             'crud.file' => $this->crudFile,
-            'crud.stringsfile' => $this->stringsFile,
             'crud.datafactory' => $this->dataFactory
         ));
         $this->assertTrue($app->offsetExists('crud'));
@@ -60,26 +56,22 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testInvalidInit() {
+        $app = new Application();
         $crudServiceProvider = new CRUDServiceProvider();
 
         try {
-            $crudServiceProvider->init($this->dataFactory, 'foo', $this->stringsFile, new CRUDNullFileProcessor());
+            $crudServiceProvider->init($this->dataFactory, 'foo', new CRUDNullFileProcessor(), true, $app);
             $this->fail('Expected exception');
         } catch (\Exception $e) {
             // Wanted.
         }
 
-        try {
-            $crudServiceProvider->init($this->dataFactory, $this->crudFile, 'foo', new CRUDNullFileProcessor());
-            $this->fail('Expected exception');
-        } catch (\Exception $e) {
-            // Wanted.
-        }
     }
 
     public function testGetEntities() {
         $crudServiceProvider = new CRUDServiceProvider();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor());
+        $app = new Application();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
         $expected = array('library', 'book');
         $read = $crudServiceProvider->getEntities();
         $this->assertSame($read, $expected);
@@ -87,7 +79,8 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetData() {
         $crudServiceProvider = new CRUDServiceProvider();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor());
+        $app = new Application();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
         $read = $crudServiceProvider->getData('book');
         $this->assertNotNull($read);
         $read = $crudServiceProvider->getData('library');
@@ -98,7 +91,8 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testFormatDate() {
         $crudServiceProvider = new CRUDServiceProvider();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor());
+        $app = new Application();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
 
         $read = $crudServiceProvider->formatDate('2014-08-30 12:00:00');
         $expected = '2014-08-30';
@@ -123,7 +117,8 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testFormatDateTime() {
         $crudServiceProvider = new CRUDServiceProvider();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor());
+        $app = new Application();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
 
         $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00:00');
         $expected = '2014-08-30 12:00';
@@ -146,31 +141,6 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testTranslate() {
-        $crudServiceProvider = new CRUDServiceProvider();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->stringsFile, new CRUDNullFileProcessor());
-
-        $read = $crudServiceProvider->translate('label.created_at');
-        $expected = 'Created at';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('delete.success', array('fail'));
-        $expected = 'fail deleted.';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('delete.success', array('fail', 'foo'));
-        $expected = 'fail deleted.';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('delete.success', array());
-        $expected = '{0} deleted.';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->translate('test');
-        $expected = 'test';
-        $this->assertSame($read, $expected);
-    }
-
     public function testBasename() {
         $crudServiceProvider = new CRUDServiceProvider();
 
@@ -190,4 +160,68 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $expected = '';
         $this->assertSame($read, $expected);
     }
+
+    public function testGetTemplate() {
+        $app = new Application();
+        $app['crud.template.list.book'] = 'testTemplateListBook.twig';
+        $app['crud.template.list'] = 'testTemplateList.twig';
+        $app['crud.layout.list.book'] = 'testLayoutListBook.twig';
+        $app['crud.layout.list'] = 'testLayoutList.twig';
+        $crudServiceProvider = new CRUDServiceProvider();
+
+        $read = $crudServiceProvider->getTemplate($app, 'template', 'list', 'book');
+        $this->assertSame($read, $app['crud.template.list.book']);
+        $read = $crudServiceProvider->getTemplate($app, 'template', 'list', 'library');
+        $this->assertSame($read, $app['crud.template.list']);
+        $read = $crudServiceProvider->getTemplate($app, 'layout', 'list', 'book');
+        $this->assertSame($read, $app['crud.layout.list.book']);
+        $read = $crudServiceProvider->getTemplate($app, 'layout', 'list', 'library');
+        $this->assertSame($read, $app['crud.layout.list']);
+
+        $expected = '@crud/list.twig';
+        $read = $crudServiceProvider->getTemplate($app, 'foo', 'list', 'bar');
+        $this->assertSame($read, $expected);
+        $read = $crudServiceProvider->getTemplate($app, null, 'list', 'bar');
+        $this->assertSame($read, $expected);
+
+        $expected = 'testLayoutList.twig';
+        $read = $crudServiceProvider->getTemplate($app, 'layout', 'list', null);
+        $this->assertSame($read, $expected);
+
+        $expected = '@crud/.twig';
+        $read = $crudServiceProvider->getTemplate($app, 'layout', null, 'book');
+        $this->assertSame($read, $expected);
+    }
+
+    public function testGetManageI18n() {
+        $crudServiceProvider = new CRUDServiceProvider();
+        $app = new Application();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
+        $read = $crudServiceProvider->getManageI18n();
+        $this->assertTrue($read);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), false, $app);
+        $read = $crudServiceProvider->getManageI18n();
+        $this->assertFalse($read);
+    }
+
+    public function testFormatFloat() {
+        $float = 0.000004;
+        $crudServiceProvider = new CRUDServiceProvider();
+        $read = $crudServiceProvider->formatFloat($float);
+        $expected = '0.000004';
+        $this->assertSame($read, $expected);
+
+        $read = $crudServiceProvider->formatFloat(null);
+        $this->assertNull($read);
+
+        $read = $crudServiceProvider->formatFloat(1.0);
+        $expected = '1.0';
+        $this->assertSame($read, $expected);
+
+        $float = 0.004;
+        $read = $crudServiceProvider->formatFloat($float);
+        $expected = '0.004';
+        $this->assertSame($read, $expected);
+    }
+
 }

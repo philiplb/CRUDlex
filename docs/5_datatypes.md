@@ -159,6 +159,9 @@ CRUDlex where to look for the, representation, the __nameField__ describing
 which field to use from the other table to display the selected value and last,
 the referenced __entity__.
 
+The __nameField__ is optional. If it is not given, only the id of the referenced
+__entity__ is shown.
+
 Think about a book in a library. The library is stored in the table "lib" and
 has a field "name". A book belongs to a library, so it has an integer field
 "library" referencing ids of libraries. Here is the needed yml for this
@@ -341,6 +344,6 @@ Fills the db always with the defined, fixed value, not editable. Related MySQL-t
 
 Previous: [Extended Features](4_extendedfeatures.md)
 
-Next: [Constraints](5_constraints.md)
+Next: [Constraints](6_constraints.md)
 
 [Table of Contents](0_manual.md)

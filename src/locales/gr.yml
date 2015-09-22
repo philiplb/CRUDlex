@@ -1,0 +1,60 @@
+#
+# This file is part of the CRUDlex package.
+#
+# (c) Philip Lehmann-Böhm <philip@philiplb.de>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+crudlex:
+  entityNotFound: 'Δεν βρέθηκε η οντότητα.'
+  instanceNotFound: 'Δεν βρέθηκε ο πόρος.'
+  resourceNotFound: 'Δεν βρέθηκε ο πόρος.'
+  deleteEntityConfirmation: 'Είστε σίγουροι πως θέλετε να διαγράψετε αυτήν την οντότητα με ID %id%;'
+  chooseLanguage: 'Επιλέξτε γλώσσα:'
+  label:
+    id: 'ID'
+    created_at: 'Δημιουργία'
+    updated_at: 'Ενημέρωση'
+  file:
+    delete: 'Είστε σίγουροι πως θέλετε να διαγράψετε αυτό το αρχείο %file%;'
+    deleted: 'Επιτυχής διαγραφή.'
+    notDeleted: 'Αποτυχία διαγραφής.'
+  button:
+    new: 'Δημιουργία'
+    list: 'Λίστα'
+    show: 'Εμφάνιση'
+    edit: 'Επεξεργασία'
+    delete: 'Διαγραφή'
+    submit: 'Αποστολή'
+  field:
+    required: '*'
+    unique: πρέπει να είναι μοναδικό
+    separator: ', '
+  list:
+    button:
+      filter: 'Φίλτρο'
+      doFilter: 'Εφαρμογή φίλτρου'
+      first: 'Πρώτο'
+      previous: 'Προηγούμενο'
+      next: 'Επόμενο'
+      last: 'Τελευταίο'
+    total: 'Σύνολο: %total%'
+  show:
+    field: 'Πεδίο'
+    value: 'Τιμή'
+    childName: 'Όνομα'
+    childAction: 'Ενέργεια'
+  create:
+    error: 'Δημιουργία ανεπιτυχής. Ελέγξτε τα πεδία που είναι μαρκαρισμένα με κόκκινο.'
+    failed: 'Αποτυχία δημιουργίας.'
+    success: 'Επιτυχής δημιουργία %label% με ID %id%'
+  edit:
+    error: 'Επεξεργασία ανεπιτυχής. Ελέγξτε τα πεδία που είναι μαρκαρισμένα με κόκκινο.'
+    success: 'Επιτυχής επεξεργασία %label% με ID %id%'
+    failed: 'Αποτυχία επεξεργασίας.'
+  delete:
+    error: 'Το %label% δεν μπορούσε να διαγραφεί καθώς υπάρχει αναφορά σε άλλο στοιχείο.'
+    success: 'Διαγραφή %label% επιτυχής.'
+    failed: 'Αποτυχία διαγραφής.'

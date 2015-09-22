@@ -29,6 +29,11 @@ class CRUDEntityDefinition {
     protected $label;
 
     /**
+     * The labels  of the entity in the locales.
+     */
+    protected $localeLabels;
+
+    /**
      * An array with the children referencing the entity. All entries are
      * arrays with three referencing elements: table, fieldName, entity
      */
@@ -73,6 +78,11 @@ class CRUDEntityDefinition {
     protected $serviceProvider;
 
     /**
+     * Holds the locale.
+     */
+    protected $locale;
+
+    /**
      * Gets the field names exluding the given ones.
      *
      * @param array $exclude
@@ -104,7 +114,7 @@ class CRUDEntityDefinition {
      * the value of the field key or null if not existing
      */
     protected function getFieldValue($name, $key) {
-        if (key_exists($name, $this->fields) && key_exists($key, $this->fields[$name])) {
+        if (array_key_exists($name, $this->fields) && array_key_exists($key, $this->fields[$name])) {
             return $this->fields[$name][$key];
         }
         return null;
@@ -122,7 +132,7 @@ class CRUDEntityDefinition {
      * the new value
      */
     protected function setFieldValue($name, $key, $value) {
-        if (!key_exists($name, $this->fields)) {
+        if (!array_key_exists($name, $this->fields)) {
             $this->fields[$name] = array();
         }
         $this->fields[$name][$key] = $value;
@@ -143,6 +153,12 @@ class CRUDEntityDefinition {
         if ($this->getType($fieldName) != 'reference') {
             return null;
         }
+        if (!array_key_exists('reference', $this->fields[$fieldName])) {
+            return null;
+        }
+        if (!array_key_exists($key, $this->fields[$fieldName]['reference'])) {
+            return null;
+        }
         return $this->fields[$fieldName]['reference'][$key];
     }
 
@@ -155,15 +171,18 @@ class CRUDEntityDefinition {
      * the fieldstructure just like the CRUD YAML
      * @param string $label
      * the label of the entity
+     * @param array $localeLabels
+     * the labels  of the entity in the locales
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
      * @param CRUDServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, array $fields, $label, array $standardFieldLabels, CRUDServiceProvider $serviceProvider) {
+    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, CRUDServiceProvider $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->label = $label;
+        $this->localeLabels = $localeLabels;
         $this->standardFieldLabels = $standardFieldLabels;
         $this->serviceProvider = $serviceProvider;
 
@@ -173,6 +192,7 @@ class CRUDEntityDefinition {
         $this->filter = array();
         $this->deleteCascade = false;
         $this->pageSize = 25;
+        $this->locale = null;
     }
 
     /**
@@ -363,6 +383,16 @@ class CRUDEntityDefinition {
      * the type or null on invalid field name
      */
     public function getType($fieldName) {
+        switch ($fieldName) {
+            case 'id':
+                return 'string';
+            case 'created_at':
+            case 'updated_at':
+            case 'deleted_at':
+                return 'datetime';
+            case 'version':
+                return 'int';
+        }
         return $this->getFieldValue($fieldName, 'type');
     }
 
@@ -587,8 +617,18 @@ class CRUDEntityDefinition {
      * YAML
      */
     public function getFieldLabel($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'label');
-        if ($result === null && key_exists($fieldName, $this->standardFieldLabels)) {
+
+        $result = null;
+
+        if ($this->locale) {
+            $result = $this->getFieldValue($fieldName, 'label_'.$this->locale);
+        }
+
+        if ($result === null) {
+            $result = $this->getFieldValue($fieldName, 'label');
+        }
+
+        if ($result === null && array_key_exists($fieldName, $this->standardFieldLabels)) {
             $result = $this->standardFieldLabels[$fieldName];
         }
         if ($result === null) {
@@ -636,6 +676,9 @@ class CRUDEntityDefinition {
      * the label for the entity
      */
     public function getLabel() {
+        if ($this->locale && array_key_exists($this->locale, $this->localeLabels)) {
+            return $this->localeLabels[$this->locale];
+        }
         return $this->label;
     }
 
@@ -698,5 +741,15 @@ class CRUDEntityDefinition {
      */
     public function getChildren() {
         return $this->children;
+    }
+
+    /**
+     * Sets the locale to be used.
+     *
+     * @param string $locale
+     * the locale to be used.
+     */
+    public function setLocale($locale) {
+        $this->locale = $locale;
     }
 }

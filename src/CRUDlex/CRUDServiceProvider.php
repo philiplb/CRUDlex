@@ -14,6 +14,7 @@ namespace CRUDlex;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
 
 use CRUDlex\CRUDEntityDefinition;
 use CRUDlex\CRUDDataFactoryInterface;
@@ -34,9 +35,9 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     protected $datas;
 
     /**
-     * Holds the translation map.
+     * Holds whether we manage the i18n.
      */
-    protected $strings;
+    protected $manageI18n;
 
     /**
      * Formats the given time value to a timestring defined by the $pattern
@@ -96,50 +97,98 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the factory to create the concrete CRUDData instances
      * @param string $crudFile
      * the CRUD YAML file to parse
-     * @param string $stringsFile
-     * the YAML file containing the displayed strings
      * @param CRUDFileProcessorInterface $fileProcessor
      * the file processor used for file fields
+     * @param boolean $manageI18n
+     * holds whether we manage the i18n
+     * @param Application $app
+     * the application container
      */
-    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, $stringsFile, CRUDFileProcessorInterface $fileProcessor) {
+    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
 
-        $this->strings = $this->readYaml($stringsFile);
-        $cruds = $this->readYaml($crudFile);
+        $this->manageI18n = $manageI18n;
+        if (!$app->offsetExists('translator')) {
+            $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
+                'locale_fallbacks' => array('en'),
+            ));
+        }
+
+        if (!$app->offsetExists('session')) {
+            $app->register(new \Silex\Provider\SessionServiceProvider());
+        }
+
+        if (!$app->offsetExists('url_generator')) {
+            $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
+        }
+
+        if (!$app->offsetExists('twig')) {
+            $app->register(new \Silex\Provider\TwigServiceProvider());
+            $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
+        }
+
+        $app['translator']->addLoader('yaml', new YamlFileLoader());
+        $localeDir = __DIR__.'/../locales';
+        $langFiles = scandir($localeDir);
+        $locales = array();
+        foreach ($langFiles as $langFile) {
+            if ($langFile == '.' || $langFile == '..') {
+                continue;
+            }
+            $locale = substr($langFile, 0, strpos($langFile, '.yml'));
+            $locales[] = $locale;
+            $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
+        }
+
+        $parsedYaml = $this->readYaml($crudFile);
 
         $this->datas = array();
-        foreach ($cruds as $name => $crud) {
-            $label = key_exists('label', $crud) ? $crud['label'] : $name;
+        foreach ((empty($parsedYaml) ? [] : $parsedYaml) as $name => $crud) {
+            if (!is_array($crud) || !isset($crud['fields'])) continue;
+
+            $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
+
+            $localeLabels = array();
+            foreach ($locales as $locale) {
+                if (array_key_exists('label_' . $locale, $crud)) {
+                    $localeLabels[$locale] = $crud['label_'.$locale];
+                }
+            }
+
             $standardFieldLabels = array(
-                'id' => $this->translate('label.id'),
-                'created_at' => $this->translate('label.created_at'),
-                'updated_at' => $this->translate('label.updated_at')
+                'id' => $app['translator']->trans('crudlex.label.id'),
+                'created_at' => $app['translator']->trans('crudlex.label.created_at'),
+                'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
-            $definition = new CRUDEntityDefinition($crud['table'],
+
+            $definition = new CRUDEntityDefinition(
+                $crud['table'],
                 $crud['fields'],
                 $label,
+                $localeLabels,
                 $standardFieldLabels,
-                $this);
+                $this
+            );
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
 
-            if (key_exists('deleteCascade', $crud)) {
+            if (array_key_exists('deleteCascade', $crud)) {
                 $this->datas[$name]->getDefinition()->setDeleteCascade($crud['deleteCascade']);
             }
-            if (key_exists('listFields', $crud)) {
+            if (array_key_exists('listFields', $crud)) {
                 $this->datas[$name]->getDefinition()->setListFieldNames($crud['listFields']);
             }
-            if (key_exists('filter', $crud)) {
+            if (array_key_exists('filter', $crud)) {
                 $this->datas[$name]->getDefinition()->setFilter($crud['filter']);
             }
-            if (key_exists('childrenLabelFields', $crud)) {
+            if (array_key_exists('childrenLabelFields', $crud)) {
                 $this->datas[$name]->getDefinition()->setChildrenLabelFields($crud['childrenLabelFields']);
             }
-            if (key_exists('pageSize', $crud)) {
+            if (array_key_exists('pageSize', $crud)) {
                 $this->datas[$name]->getDefinition()->setPageSize($crud['pageSize']);
             }
 
         }
 
-        foreach($this->datas as $name => $data) {
+        foreach ($this->datas as $name => $data) {
             $fields = $data->getDefinition()->getFieldNames();
             foreach ($fields as $field) {
                 if ($data->getDefinition()->getType($field) == 'reference') {
@@ -160,13 +209,12 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     public function register(Application $app) {
         $app['crud'] = $app->share(function() use ($app) {
             $result = new CRUDServiceProvider();
-            $stringsFile = $app->offsetExists('crud.stringsfile') ? $app['crud.stringsfile'] : __DIR__.'/../strings.yml';
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new CRUDSimpleFilesystemFileProcessor();
-            $result->init($app['crud.datafactory'], $app['crud.file'], $stringsFile, $fileProcessor);
+            $manageI18n = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
+            $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
             return $result;
         });
     }
-
 
     /**
      * Implements ServiceProviderInterface::boot().
@@ -187,7 +235,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the CRUDData instance or null on invalid name
      */
     public function getData($name) {
-        if (!key_exists($name, $this->datas)) {
+        if (!array_key_exists($name, $this->datas)) {
             return null;
         }
         return $this->datas[$name];
@@ -216,7 +264,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         return $this->formatTime($value, 'Y-m-d');
     }
 
-
     /**
      * Formats the given value to a date of the format 'Y-m-d H:i'.
      *
@@ -228,31 +275,6 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function formatDateTime($value) {
         return $this->formatTime($value, 'Y-m-d H:i');
-    }
-
-    /**
-     * Picks up the string of the given key from the strings and returns the
-     * value. Optionally replaces placeholder from "{0}" to "{n}" with the values given via
-     * the array $placeholders.
-     *
-     * @param string $key
-     * the key
-     * @param array $placeholders
-     * the optional placeholders
-     *
-     * @return string
-     * the string value or the key in case there was no string found for the key
-     */
-    public function translate($key, array $placeholders = array()) {
-        if (!key_exists($key, $this->strings)) {
-            return $key;
-        }
-        $result = $this->strings[$key];
-        $amount = count($placeholders);
-        for ($i = 0; $i < $amount; ++$i) {
-            $result = str_replace('{'.$i.'}', $placeholders[$i], $result);
-        }
-        return $result;
     }
 
     /**
@@ -268,6 +290,93 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function basename($value) {
         return basename($value);
+    }
+
+    /**
+     * Determines the Twig template to use for the given parameters depending on
+     * the existance of certain keys in the Application $app in this order:
+     *
+     * crud.$section.$action.$entity
+     * crud.$section.$action
+     * crud.$section
+     *
+     * If nothing exists, this string is returned: "@crud/<action>.twig"
+     *
+     * @param Application $app
+     * the Silex application
+     * @param string $section
+     * the section of the template, either "layout" or "template"
+     * @param string $action
+     * the current calling action like "create" or "show"
+     * @param string $entity
+     * the current calling entity
+     *
+     * @return string
+     * the best fitting template
+     */
+    public function getTemplate(Application $app, $section, $action, $entity) {
+        if ($app->offsetExists('crud.'.$section.'.'.$action.'.'.$entity)) {
+            return $app['crud.'.$section.'.'.$action.'.'.$entity];
+        }
+        if ($app->offsetExists('crud.'.$section.'.'.$entity)) {
+            return $app['crud.'.$section.'.'.$entity];
+        }
+        if ($app->offsetExists('crud.'.$section.'.'.$action)) {
+            return $app['crud.'.$section.'.'.$action];
+        }
+        if ($app->offsetExists('crud.'.$section)) {
+            return $app['crud.'.$section];
+        }
+
+        return '@crud/'.$action.'.twig';
+    }
+
+    /**
+     * Gets whether CRUDlex manages the i18n system.
+     *
+     * @return boolean
+     * true if CRUDlex manages the i18n system
+     */
+    public function getManageI18n() {
+        return $this->manageI18n;
+    }
+
+    /**
+     * Sets the locale to be used.
+     *
+     * @param string $locale
+     * the locale to be used.
+     */
+    public function setLocale($locale) {
+        foreach ($this->datas as $data) {
+            $data->getDefinition()->setLocale($locale);
+        }
+    }
+
+    /**
+     * Formats a float to not display in scientific notation.
+     *
+     * @param float $float
+     * the float to format
+     *
+     * @return string
+     * the formated float
+     */
+    public function formatFloat($float) {
+
+        if (!$float) {
+            return $float;
+        }
+
+        $zeroFraction = $float - floor($float) == 0 ? '0' : '';
+
+        // We don't want values like 0.004 converted to  0.00400000000000000008
+    	if ($float > 0.0001) {
+    		return $float . ($zeroFraction === '0' ? '.'.$zeroFraction : '');
+    	}
+
+        // We don't want values like 0.00004 converted to its scientific notation 4.0E-5
+        return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
     }
 
 }

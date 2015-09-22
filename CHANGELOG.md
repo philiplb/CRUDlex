@@ -1,8 +1,19 @@
 CRUDlex Changelog
 =================
 
-## 0.9.8
+## 0.9.9
 Released: Upcoming
+
+## 0.9.8
+Released: 2015-09-22
+- Added complete i18n support, initially with en, de and gr
+- Added events for reactions before or after creating, updating or deleting an entity
+- Added the possibility to override every single template
+- Initializing all needed providers in the CRUDServiceProvider if not done yet by the application
+- Made the nameField of a reference optional
+- Fixed a crash when choosing "created_at", "updated_at", "id", "deleted_at" or "version" as filter field
+- Some potential crashes in CRUDEntityDefinition fixed revealed by new unit tests
+- Fixed the display of very small float values which where converted to scientific notation
 
 ## 0.9.7
 Released: 2015-07-26

@@ -13,6 +13,7 @@ use Silex\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use CRUDlexTestEnv\CRUDTestDBSetup;
+use CRUDlex\CRUDEntity;
 use CRUDlexTestEnv\CRUDNullFileProcessor;
 
 class CRUDControllerProviderTest extends WebTestCase {
@@ -98,6 +99,24 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
         $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
         $this->assertFalse($this->fileProcessor->isRenderFileCalled());
+
+        // Canceling events
+        $before = function(CRUDEntity $entity) {
+            return false;
+        };
+        $this->dataBook->pushEvent('before', 'create', $before);
+        $client->request('POST', '/crud/book/create', array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ));
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertRegExp('/Could not create\./', $client->getResponse()->getContent());
+        $this->dataBook->popEvent('before', 'create');
 
     }
 
@@ -279,6 +298,23 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
         $this->assertFalse($this->fileProcessor->isRenderFileCalled());
 
+        // Canceling events
+        $before = function(CRUDEntity $entity) {
+            return false;
+        };
+        $this->dataBook->pushEvent('before', 'update', $before);
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+            'title' => 'titleEdited',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ));
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertRegExp('/Could not edit\./', $client->getResponse()->getContent());
+        $this->dataBook->popEvent('before', 'update');
     }
 
     public function testDelete() {
@@ -341,6 +377,23 @@ class CRUDControllerProviderTest extends WebTestCase {
         $bookDeleted = $this->dataBook->get($entityBook->get('id'));
         $this->assertNull($bookDeleted);
 
+        // Canceling events
+        $before = function(CRUDEntity $entity) {
+            return false;
+        };
+        $this->dataBook->pushEvent('before', 'delete', $before);
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleB');
+        $entityBook->set('author', 'authorB');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/delete');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/'.$entityBook->get('id')));
+        $crawler = $client->followRedirect();
+        $this->assertRegExp('/Could not delete\./', $client->getResponse()->getContent());
+        $this->dataBook->popEvent('before', 'delete');
     }
 
     public function testLayouts() {
@@ -492,6 +545,27 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $response = ob_get_clean();
         $this->assertTrue(strpos($response, '* Bootstrap v') !== false);
+    }
+
+    public function testSettingsLocale() {
+        $client = $this->createClient();
+
+        $crawler = $client->request('GET', '/crud/setting/locale/foo?redirect=/crud/book');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Locale foo not found.")'));
+
+        $crawler = $client->request('GET', '/crud/setting/locale/de?redirect=/crud/book');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Gesamt: ")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Bücher")'));
+
+        $crawler = $client->request('GET', '/crud/setting/locale/en?redirect=/crud/book');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Total: ")'));
     }
 
 }

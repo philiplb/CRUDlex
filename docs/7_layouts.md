@@ -1,7 +1,10 @@
 Overriding Layouts
 ==================
 
-In most cases you don't want to use the standard layout coming with CRUDlex.
+Each CRUDlex page extends from a certain layout with the default
+"@crud/layout.twig".
+
+In most cases you don't want to use this standard layout coming with CRUDlex.
 This chapter shows you how to define your own layout templates on various
 levels.
 
@@ -134,8 +137,8 @@ And some CSS classes to implement:
 
 ---
 
-Previous: [Constraints](5_constraints.md)
+Previous: [Constraints](6_constraints.md)
 
-Next: [Various Other Features](7_miscfeatures.md)
+Next: [Overriding Templates](8_templates.md)
 
 [Table of Contents](0_manual.md)

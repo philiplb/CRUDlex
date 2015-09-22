@@ -33,7 +33,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 ## Displayed Fields in the List
@@ -62,7 +62,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 It is a simple list referencing the fields. Note the usage of the internal
@@ -97,7 +97,7 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
 
 Only strings and integers are boring, so in the next chapter, all possible
@@ -130,8 +130,52 @@ book:
             label: Title
         pages:
             type: int
-            label: Title
+            label: Pages
 ```
+
+## I18n
+
+### Switch off I18n Management
+
+Per default, CRUDlex manages i18n for you. But this might be not desired in
+bigger projects, so you can disable it on registration like this:
+
+```php
+$app->register(new CRUDlex\CRUDServiceProvider(), array(
+    'crud.file' => __DIR__ . '<yourCrud.yml>',
+    'crud.datafactory' => $dataFactory,
+    'crud.manageI18n' => false
+));
+```
+
+### Set the Translations of Entity- and Field-Labels
+
+You can translate the labels of the entities and their fields using some special
+label keys: *label_(locale)* with *(locale)* being your desired locale. Example
+for *de*:
+
+```yml
+book:
+    label: Book
+    label_de: Buch
+    table: book
+    listFields: [id, created_at, updated_at, author, title]
+    filter: [author, title]
+    fields:
+        author:
+            type: text
+            label: Author
+            label_de: Autor
+        title:
+            type: text
+            label: Title
+            label_de: Titel
+        pages:
+            type: int
+            label: Pages
+            label_de: Seiten
+```
+
 
 ---
 

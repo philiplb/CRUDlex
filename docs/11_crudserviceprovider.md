@@ -23,31 +23,32 @@ format "Y-m-d". If $value is empty, an empty string is returned.
 Converts the given date time string from the format "Y-m-d H:i:s" or "Y-m-d H:i"
 to the format "Y-m-d". If $value is empty, an empty string is returned.
 
-## translate($key, array $placeholders = array())
-
-Picks up the string of the given $key from the strings.yml and returns the
-value. Replaces placeholder from "{0}" to "{n}" with the values given via the
-array $placeholders. Example from the strings.yml:
-
-```yml
-create.success: '{0} created with id {1}'
-```
-
-This call:
-
-```php
-$app['crud']->translate('create.success', array('Book', 123));
-```
-
-Returns "Book created with id 123".
-
 ## basename($value)
 
 Calls PHPs "[basename](http://php.net/manual/en/function.basename.php)" and
 returns it's result.
 
+## getTemplate(Application $app, $section, $action, $entity)
+
+Determines the Twig template to use for the given parameters depending on
+the existance of certain keys in the Application $app in this order:
+
+* crud.$section.$action.$entity
+* crud.$section.$action
+* crud.$section
+
+If nothing exists, this string is returned: "@crud/<action>.twig"
+
+## getManageI18n()
+
+Gets whether CRUDlex manages the i18n system.
+
+## formatFloat($float)
+
+Formats a float to not display in scientific notation.
+
 ---
 
-Previous: [Various Other Features](7_miscfeatures.md)
+Previous: [Various Other Features](10_miscfeatures.md)
 
 [Table of Contents](0_manual.md)

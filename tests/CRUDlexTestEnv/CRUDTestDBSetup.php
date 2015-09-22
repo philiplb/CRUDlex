@@ -43,6 +43,7 @@ class CRUDTestDBSetup {
             '  `pages` int(11) NOT NULL,'.
             '  `release` datetime DEFAULT NULL,'.
             '  `library` int(11) NOT NULL,'.
+            '  `secondLibrary` int(11) DEFAULT NULL,'.
             '  `cover` varchar(255) DEFAULT NULL,'.
             '  `price` float DEFAULT NULL,'.
             '  PRIMARY KEY (`id`),'.
@@ -73,8 +74,7 @@ class CRUDTestDBSetup {
         $crudServiceProvider = new CRUDServiceProvider();
         $dataFactory = new CRUDMySQLDataFactory($app['db']);
         $crudFile = __DIR__.'/../crud.yml';
-        $stringsFile = __DIR__.'/../../src/strings.yml';
-        $crudServiceProvider->init($dataFactory, $crudFile, $stringsFile, self::$fileProcessor);
+        $crudServiceProvider->init($dataFactory, $crudFile, self::$fileProcessor, true, $app);
         return $crudServiceProvider;
     }
 

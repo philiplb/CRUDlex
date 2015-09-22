@@ -1,0 +1,60 @@
+#
+# This file is part of the CRUDlex package.
+#
+# (c) Philip Lehmann-Böhm <philip@philiplb.de>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+crudlex:
+  entityNotFound: 'Entität nicht gefunden.'
+  instanceNotFound: 'Instanz nicht gefunden.'
+  resourceNotFound: 'Ressource nicht gefunden.'
+  deleteEntityConfirmation: 'Sind Sie sicher, diese Entität %id% zu löschen?'
+  chooseLanguage: 'Wähle Sprache:'
+  label:
+    id: 'Id'
+    created_at: 'Erstellt am'
+    updated_at: 'Aktualisiert am'
+  file:
+    delete: 'Sind Sie sicher, diese Datei %file% zu löschen?'
+    deleted: 'Datei gelöscht.'
+    notDeleted: 'Datei konnte nicht gelöscht werden.'
+  button:
+    new: 'Erstelle neu'
+    list: 'Liste'
+    show: 'Zeigen'
+    edit: 'Bearbeiten'
+    delete: 'Löschen'
+    submit: 'Absenden'
+  field:
+    required: '*'
+    unique: muss einzigartig sein
+    separator: ', '
+  list:
+    button:
+      filter: 'Filter'
+      doFilter: 'Filtern'
+      first: 'Anfang'
+      previous: 'Vorheriger'
+      next: 'Nächster'
+      last: 'Ende'
+    total: 'Gesamt: %total%'
+  show:
+    field: 'Feld'
+    value: 'Wert'
+    childName: 'Name'
+    childAction: 'Aktion'
+  create:
+    error: 'Konnte nicht erstellen, bitte die rot markierten Felder beachten.'
+    failed: 'Konnte nicht erstellen.'
+    success: '%label% erstellt mit Id %id%'
+  edit:
+    error: 'Konnte nicht bearbeiten, bitte die rot markierten Felder beachten.'
+    success: '%label% bearbeitet mit Id %id%'
+    failed: 'Konnte nicht bearbeiten.'
+  delete:
+    error: 'Konnte %label% nicht löschen, da es noch von einer anderen Entität referenziert wird.'
+    success: '%label% gelöscht.'
+    failed: 'Konnte nicht löschen.'

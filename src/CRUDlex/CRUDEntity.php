@@ -70,7 +70,7 @@ class CRUDEntity {
             return $this->definition->getFixedValue($field);
         }
 
-        if (!key_exists($field, $this->entity)) {
+        if (!array_key_exists($field, $this->entity)) {
             return null;
         }
         $value = $this->entity[$field];
@@ -126,7 +126,7 @@ class CRUDEntity {
 
             // Check for required
             if ($this->definition->isRequired($field) && !$this->definition->getFixedValue($field) &&
-                (!key_exists($field, $this->entity)
+                (!array_key_exists($field, $this->entity)
                 || $this->entity[$field] === null
                 || $this->entity[$field] === '')) {
                 $errors[$field]['required'] = true;
@@ -134,7 +134,7 @@ class CRUDEntity {
             }
 
             // Check for uniqueness
-            if ($this->definition->isUnique($field) && key_exists($field, $this->entity) && $this->entity[$field]) {
+            if ($this->definition->isUnique($field) && array_key_exists($field, $this->entity) && $this->entity[$field]) {
                 $params = array($field => $this->entity[$field]);
                 $paramsOperators = array($field => '=');
                 if ($this->entity['id'] !== null) {

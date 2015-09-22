@@ -12,10 +12,10 @@
 {% block content %}
 
     {% set fields = crudData.getDefinition().getEditableFieldNames() %}
-    <a id="crudBtnList" href="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-success btn-crudlex">List</a>
+    <a id="crudBtnList" href="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-success btn-crudlex">{{ 'crudlex.button.list'|trans }}</a>
     {% if mode == 'edit' %}
-        <a id="crudBtnShow" href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-success btn-crudlex">Show</a>
-        <a id="crudBtnNew" href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">Create New</a>
+        <a id="crudBtnShow" href="{{ app.url_generator.generate('crudShow', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-success btn-crudlex">{{ 'crudlex.button.show'|trans }}</a>
+        <a id="crudBtnNew" href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
 
     {% endif %}
     <form class="{{ mode == 'edit' ? 'crudFormDelete' : 'crudFormCreate' }}" role="form" enctype="multipart/form-data" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
@@ -37,17 +37,18 @@
             {% set type = crudData.getDefinition().getType(field) %}
             {% set class = type == 'bool' ? 'checkbox' : 'form-group' %}
             <div class="{{ class }} {{ field in errors|keys and (errors[field]['required'] or errors[field]['unique'] or errors[field]['input']) ? 'has-error' : '' }}">
-                {% include '@crud/' ~ type ~ 'Field.twig' with {
+                {% include app.crud.getTemplate(app, 'template', type ~ 'Field', crudEntity) with {
                     field: field,
                     fieldNamePrefix: '',
                     crudData: crudData,
                     value: entity.get(field),
-                    annotations: true
+                    annotations: true,
+                    crudEntity: crudEntity
                 } only %}
             </div>
 
         {% endfor %}
 
-        <button type="submit" id="crudBtnSubmit" class="btn btn-default btn-success">Submit</button>
+        <button type="submit" id="crudBtnSubmit" class="btn btn-default btn-success">{{ 'crudlex.button.submit'|trans }}</button>
     </form>
 {% endblock %}

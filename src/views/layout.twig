@@ -13,7 +13,7 @@
         <title>CRUDlex</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {% include '@crud/header.twig' %}
+        {% include app.crud.getTemplate(app, 'template', 'header', crudEntity) %}
 
         <style type="text/css">
             body {
@@ -70,9 +70,24 @@
 
             <div class="container">
                 {% block content %}{% endblock %}
+
+                {% if app.crud.getManageI18n() %}
+                    <small>{{ 'crudlex.chooseLanguage'|trans }}</small>
+                    <div class="dropdown">
+                        <a id="drop4" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
+                        {% set locale = app.session.get('locale', 'en') %}
+                        {% include app.crud.getTemplate(app, 'template', 'locales/' ~ locale , crudEntity) %}
+                        <span class="caret"></a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="{{ app.url_generator.generate('crudSetLocale', {'locale': 'en', 'redirect': app.request.getUri()}) }}">{% include app.crud.getTemplate(app, 'template', 'locales/en', crudEntity) %}</a></li>
+                            <li><a href="{{ app.url_generator.generate('crudSetLocale', {'locale': 'de', 'redirect': app.request.getUri()}) }}">{% include app.crud.getTemplate(app, 'template', 'locales/de', crudEntity) %}</a></li>
+                            <li><a href="{{ app.url_generator.generate('crudSetLocale', {'locale': 'gr', 'redirect': app.request.getUri()}) }}">{% include app.crud.getTemplate(app, 'template', 'locales/gr', crudEntity) %}</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
 
-            {% include '@crud/footer.twig' %}
+            {% include app.crud.getTemplate(app, 'template', 'footer', crudEntity) %}
 
             <script type="text/javascript">
                 {% block js %}{% endblock %}

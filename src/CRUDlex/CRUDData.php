@@ -23,6 +23,21 @@ use CRUDlex\CRUDEntity;
 abstract class CRUDData {
 
     /**
+     * Return value on successful deletion.
+     */
+    const DELETION_SUCCESS = 0;
+
+    /**
+     * Return value on failed deletion due to existing references.
+     */
+    const DELETION_FAILED_STILL_REFERENCED = 1;
+
+    /**
+     * Return value on failed deletion due to a failed before delete event.
+     */
+    const DELETION_FAILED_EVENT = 2;
+
+    /**
      * Holds the {@see CRUDEntityDefinition} entity definition.
      */
     protected $definition;
@@ -31,6 +46,11 @@ abstract class CRUDData {
      * Holds the {@see CRUDFileProcessorInterface} file processor.
      */
     protected $fileProcessor;
+
+    /**
+     * Holds the events.
+     */
+    protected $events;
 
     /**
      * Creates an {@see CRUDEntity} from the raw data array with the field name
@@ -51,6 +71,62 @@ abstract class CRUDData {
         return $entity;
     }
 
+
+    protected function executeEvents(CRUDEntity $entity, $moment, $action) {
+        if ($this->events !== null && array_key_exists($moment.'.'.$action, $this->events)) {
+            foreach ($this->events[$moment.'.'.$action] as $event) {
+                $result = $event($entity);
+                if (!$result) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * Adds an event to fire for the given parameters. The event function must
+     * have this signature:
+     * function (CRUDEntity $entity)
+     * and has to return true or false.
+     * The events are executed one after another in the added order as long as
+     * they return "true". The first event returning "false" will stop the
+     * process.
+     *
+     * @param string $moment
+     * the "moment" of the event, can be either "before" or "after"
+     * @param string $action
+     * the "action" of the event, can be either "create", "update" or "delete"
+     * @param anonymous function $function
+     * the event function to be called if set
+     */
+    public function pushEvent($moment, $action, $function) {
+        $events = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : array();
+        $events[] = $function;
+        $this->events[$moment.'.'.$action] = $events;
+    }
+
+
+    /**
+     * Removes and returns the latest event for the given parameters.
+     *
+     * @param string $moment
+     * the "moment" of the event, can be either "before" or "after"
+     * @param string $action
+     * the "action" of the event, can be either "create", "update" or "delete"
+     *
+     * @return anonymous function
+     * the popped event or null if no event was available.
+     */
+    public function popEvent($moment, $action) {
+        if (array_key_exists($moment.'.'.$action, $this->events)) {
+            return array_pop($this->events[$moment.'.'.$action]);
+        }
+        return null;
+    }
+
+
     /**
      * Gets the entity with the given id.
      *
@@ -61,7 +137,6 @@ abstract class CRUDData {
      * the entity belonging to the id or null if not existant
      */
     public abstract function get($id);
-
 
     /**
      * Gets a list of entities fullfilling the given filter or all if no
@@ -85,7 +160,10 @@ abstract class CRUDData {
      * Persists the given entity as new entry in the datasource.
      *
      * @param CRUDEntity $entity
-     * the entity to persist.
+     * the entity to persist
+     *
+     * @return boolean
+     * true on successful creation
      */
     public abstract function create(CRUDEntity $entity);
 
@@ -100,13 +178,16 @@ abstract class CRUDData {
     /**
      * Deletes an entry from the datasource having the given id.
      *
-     * @param string $id
+     * @param CRUDEntity $entity
      * the id of the entry to delete
      *
-     * @return boolean
-     * true on successful deletion
+     * @return integer
+     * returns one of:
+     * - CRUDData::DELETION_SUCCESS -> successful deletion
+     * - CRUDData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
+     * - CRUDData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
-    public abstract function delete($id);
+    public abstract function delete($entity);
 
     /**
      * Gets ids and names of a table. Used for building up the dropdown box of

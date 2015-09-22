@@ -17,7 +17,12 @@
 
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
-    <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">{{ reference['id'] }}: {{ reference['name'] }}</a>
+    <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
+        {{ reference['id'] }}
+        {% if 'name' in reference|keys %}
+            : {{ reference['name'] }}
+        {% endif %}
+    </a>
 
 {% elseif type == 'multiline' %}
     {% if mode == 'list' %}
@@ -64,8 +69,8 @@
             <a href="{{ url }}" target="_blank">{{ entity.get(field) }}</a>
 
             {% if not definition.isRequired(field) %}
-                <form style="display: inline-block" onSubmit="return confirm('Are you sure to delete this file {{ entity.get(field) }}?');" method="POST" action="{{ app.url_generator.generate('crudDeleteFile', {entity: crudEntity, field: field, id: entity.get('id')}) }}">
-                    <input type="submit" class="btn btn-default btn-xs btn-danger" value="Delete" />
+                <form style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.file.delete'|trans({'%file%': entity.get(field)}) }}');" method="POST" action="{{ app.url_generator.generate('crudDeleteFile', {entity: crudEntity, field: field, id: entity.get('id')}) }}">
+                    <input type="submit" class="btn btn-default btn-xs btn-danger" value="{{ 'crudlex.button.delete'|trans }}" />
                 </form>
             {% endif %}
         {% endif %}
@@ -73,6 +78,9 @@
 
 {% elseif type == 'bool' %}
     {{ entity.get(field) ? 'true' : 'false' }}
+
+{% elseif type == 'float' %}
+    {{ app.crud.formatFloat(entity.get(field)) }}
 
 {% else %}
     {{ entity.get(field) }}
