@@ -1,5 +1,5 @@
 CRUDlex
-==========
+=======
 
 CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. It is very useful to generate admin pages for example.
 
@@ -9,6 +9,7 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. 
 
 The manual is a reference describing every feature of CRUDlex:
 
+* [0.9.8](https://github.com/philiplb/CRUDlex/blob/0.9.8/docs/0_manual.md)
 * [0.9.7](https://github.com/philiplb/CRUDlex/blob/0.9.7/docs/0_manual.md)
 * [0.9.6](https://github.com/philiplb/CRUDlex/blob/0.9.6/docs/0_manual.md)
 * [0.9.5](https://github.com/philiplb/CRUDlex/blob/0.9.5/docs/0_manual.md)
@@ -20,6 +21,7 @@ The manual is a reference describing every feature of CRUDlex:
 
 The CRUDlex API itself is documented here:
 
+* [0.9.7](http://philiplb.github.io/CRUDlex/docs/api/0.9.8/)
 * [0.9.7](http://philiplb.github.io/CRUDlex/docs/api/0.9.7/)
 * [0.9.6](http://philiplb.github.io/CRUDlex/docs/api/0.9.6/)
 * [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
@@ -36,7 +38,7 @@ The CRUDlex API itself is documented here:
 
 ```json
 "require": {
-    "philiplb/crudlex": "0.9.7"
+    "philiplb/crudlex": "0.9.8"
 }
 ```
 

@@ -1,9 +1,12 @@
 CRUDlex Changelog
 =================
 
-## 0.9.8
+## 0.9.9
 Released: Upcoming
-- Added complete i18n support
+
+## 0.9.8
+Released: 2015-09-22
+- Added complete i18n support, initially with en, de and gr
 - Added events for reactions before or after creating, updating or deleting an entity
 - Added the possibility to override every single template
 - Initializing all needed providers in the CRUDServiceProvider if not done yet by the application
