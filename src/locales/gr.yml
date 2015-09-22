@@ -8,19 +8,19 @@
 #
 
 crudlex:
-  entityNotFound: 'Δεν βρέθηκε η συγκεκριμένη οντότητα.'
-  instanceNotFound: 'Δεν βρέθηκε το συγκεκριμένο στιγμιότυπο.'
-  resourceNotFound: 'Δεν βρέθηκε ο συγκεκριμένος πόρος.'
-  deleteEntityConfirmation: 'Είστε σίγουροι πως θέλετε να διαγράψετε αυτήν την οντότητα %id%;'
+  entityNotFound: 'Δεν βρέθηκε η οντότητα.'
+  instanceNotFound: 'Δεν βρέθηκε ο πόρος.'
+  resourceNotFound: 'Δεν βρέθηκε ο πόρος.'
+  deleteEntityConfirmation: 'Είστε σίγουροι πως θέλετε να διαγράψετε αυτήν την οντότητα με ID %id%;'
   chooseLanguage: 'Επιλέξτε γλώσσα:'
   label:
     id: 'ID'
-    created_at: 'Ημερομηνία δημιουργίας'
-    updated_at: 'Ημερομηνία ενημέρωσης'
+    created_at: 'Δημιουργία'
+    updated_at: 'Ενημέρωση'
   file:
     delete: 'Είστε σίγουροι πως θέλετε να διαγράψετε αυτό το αρχείο %file%;'
-    deleted: 'Διαγραφή επιτυχής.'
-    notDeleted: 'Διαγραφή μη επιτυχής.'
+    deleted: 'Επιτυχής διαγραφή.'
+    notDeleted: 'Αποτυχία διαγραφής.'
   button:
     new: 'Δημιουργία'
     list: 'Λίστα'
