@@ -73,7 +73,7 @@ abstract class CRUDData {
 
 
     protected function executeEvents(CRUDEntity $entity, $moment, $action) {
-        if ($this->events !== null && key_exists($moment.'.'.$action, $this->events)) {
+        if ($this->events !== null && array_key_exists($moment.'.'.$action, $this->events)) {
             foreach ($this->events[$moment.'.'.$action] as $event) {
                 $result = $event($entity);
                 if (!$result) {
@@ -120,7 +120,7 @@ abstract class CRUDData {
      * the popped event or null if no event was available.
      */
     public function popEvent($moment, $action) {
-        if (key_exists($moment.'.'.$action, $this->events)) {
+        if (array_key_exists($moment.'.'.$action, $this->events)) {
             return array_pop($this->events[$moment.'.'.$action]);
         }
         return null;

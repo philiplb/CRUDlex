@@ -276,7 +276,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             foreach ($definition->getChildren() as $child) {
                 $childField = $child[1];
                 $childEntity = $child[2];
-                $childLabelField = key_exists($childEntity, $childrenLabelFields) ? $childrenLabelFields[$childEntity] : 'id';
+                $childLabelField = array_key_exists($childEntity, $childrenLabelFields) ? $childrenLabelFields[$childEntity] : 'id';
                 $childCrud = $app['crud']->getData($childEntity);
                 $children[] = array(
                     $childCrud->getDefinition()->getLabel(),
