@@ -145,11 +145,11 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         foreach ((empty($parsedYaml) ? [] : $parsedYaml) as $name => $crud) {
             if (!is_array($crud) || !isset($crud['fields'])) continue;
 
-            $label = array_array_key_exists('label', $crud) ? $crud['label'] : $name;
+            $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
 
             $localeLabels = array();
             foreach ($locales as $locale) {
-                if (array_array_key_exists('label_' . $locale, $crud)) {
+                if (array_key_exists('label_' . $locale, $crud)) {
                     $localeLabels[$locale] = $crud['label_'.$locale];
                 }
             }
@@ -170,19 +170,19 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             );
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
 
-            if (array_array_key_exists('deleteCascade', $crud)) {
+            if (array_key_exists('deleteCascade', $crud)) {
                 $this->datas[$name]->getDefinition()->setDeleteCascade($crud['deleteCascade']);
             }
-            if (array_array_key_exists('listFields', $crud)) {
+            if (array_key_exists('listFields', $crud)) {
                 $this->datas[$name]->getDefinition()->setListFieldNames($crud['listFields']);
             }
-            if (array_array_key_exists('filter', $crud)) {
+            if (array_key_exists('filter', $crud)) {
                 $this->datas[$name]->getDefinition()->setFilter($crud['filter']);
             }
-            if (array_array_key_exists('childrenLabelFields', $crud)) {
+            if (array_key_exists('childrenLabelFields', $crud)) {
                 $this->datas[$name]->getDefinition()->setChildrenLabelFields($crud['childrenLabelFields']);
             }
-            if (array_array_key_exists('pageSize', $crud)) {
+            if (array_key_exists('pageSize', $crud)) {
                 $this->datas[$name]->getDefinition()->setPageSize($crud['pageSize']);
             }
 
@@ -235,7 +235,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the CRUDData instance or null on invalid name
      */
     public function getData($name) {
-        if (!array_array_key_exists($name, $this->datas)) {
+        if (!array_key_exists($name, $this->datas)) {
             return null;
         }
         return $this->datas[$name];
