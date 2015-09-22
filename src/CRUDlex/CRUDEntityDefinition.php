@@ -114,7 +114,7 @@ class CRUDEntityDefinition {
      * the value of the field key or null if not existing
      */
     protected function getFieldValue($name, $key) {
-        if (key_exists($name, $this->fields) && key_exists($key, $this->fields[$name])) {
+        if (array_key_exists($name, $this->fields) && array_key_exists($key, $this->fields[$name])) {
             return $this->fields[$name][$key];
         }
         return null;
@@ -132,7 +132,7 @@ class CRUDEntityDefinition {
      * the new value
      */
     protected function setFieldValue($name, $key, $value) {
-        if (!key_exists($name, $this->fields)) {
+        if (!array_key_exists($name, $this->fields)) {
             $this->fields[$name] = array();
         }
         $this->fields[$name][$key] = $value;
@@ -153,10 +153,10 @@ class CRUDEntityDefinition {
         if ($this->getType($fieldName) != 'reference') {
             return null;
         }
-        if (!key_exists('reference', $this->fields[$fieldName])) {
+        if (!array_key_exists('reference', $this->fields[$fieldName])) {
             return null;
         }
-        if (!key_exists($key, $this->fields[$fieldName]['reference'])) {
+        if (!array_key_exists($key, $this->fields[$fieldName]['reference'])) {
             return null;
         }
         return $this->fields[$fieldName]['reference'][$key];
@@ -628,7 +628,7 @@ class CRUDEntityDefinition {
             $result = $this->getFieldValue($fieldName, 'label');
         }
 
-        if ($result === null && key_exists($fieldName, $this->standardFieldLabels)) {
+        if ($result === null && array_key_exists($fieldName, $this->standardFieldLabels)) {
             $result = $this->standardFieldLabels[$fieldName];
         }
         if ($result === null) {
@@ -676,7 +676,7 @@ class CRUDEntityDefinition {
      * the label for the entity
      */
     public function getLabel() {
-        if ($this->locale && key_exists($this->locale, $this->localeLabels)) {
+        if ($this->locale && array_key_exists($this->locale, $this->localeLabels)) {
             return $this->localeLabels[$this->locale];
         }
         return $this->label;

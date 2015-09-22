@@ -125,7 +125,7 @@ class CRUDMySQLData extends CRUDData {
             if ($value === null) {
                 $queryBuilder->andWhere('`'.$field.'` IS NULL');
             } else {
-                $operator = key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
+                $operator = array_key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
                 $queryBuilder
                     ->andWhere('`'.$field.'` '.$operator.' ?')
                     ->setParameter($i, $value);
