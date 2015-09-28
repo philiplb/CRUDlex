@@ -142,7 +142,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         $parsedYaml = $this->readYaml($crudFile);
 
         $this->datas = array();
-        foreach ((empty($parsedYaml) ? [] : $parsedYaml) as $name => $crud) {
+        foreach ((empty($parsedYaml) ? array() : $parsedYaml) as $name => $crud) {
             if (!is_array($crud) || !isset($crud['fields'])) continue;
 
             $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
