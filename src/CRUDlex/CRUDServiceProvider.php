@@ -367,6 +367,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 $locales[] = $locale;
             }
         }
+        sort($locales);
         return $locales;
     }
 

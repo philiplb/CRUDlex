@@ -224,4 +224,11 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testGetLocales() {
+        $crudServiceProvider = new CRUDServiceProvider();
+        $expected = array('de', 'en', 'gr');
+        $read = $crudServiceProvider->getLocales();
+        $this->assertSame($read, $expected);
+    }
+
 }
