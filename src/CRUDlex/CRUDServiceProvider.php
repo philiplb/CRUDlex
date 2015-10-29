@@ -372,6 +372,19 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
+     * Gets a language name in the given language.
+     *
+     * @param string $language
+     * the language code of the desired language name
+     *
+     * @return string
+     * the language name in the given language or null if not available
+     */
+    public function getLanguageName($language) {
+        return \Symfony\Component\Intl\Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
+    }
+
+    /**
      * Formats a float to not display in scientific notation.
      *
      * @param float $float
