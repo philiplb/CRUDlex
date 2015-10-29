@@ -128,15 +128,9 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
         $app['translator']->addLoader('yaml', new YamlFileLoader());
         $localeDir = __DIR__.'/../locales';
-        $langFiles = scandir($localeDir);
-        $locales = array();
-        foreach ($langFiles as $langFile) {
-            if ($langFile == '.' || $langFile == '..') {
-                continue;
-            }
-            $locale = substr($langFile, 0, strpos($langFile, '.yml'));
-            $locales[] = $locale;
-            $app['translator']->addResource('yaml', $localeDir.'/'.$langFile, $locale);
+        $locales = $this->getLocales();
+        foreach ($locales as $locale) {
+            $app['translator']->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
         }
 
         $parsedYaml = $this->readYaml($crudFile);
@@ -351,6 +345,29 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         foreach ($this->datas as $data) {
             $data->getDefinition()->setLocale($locale);
         }
+    }
+
+    /**
+     * Gets the available locales.
+     *
+     * @return array
+     * the available locales
+     */
+    public function getLocales() {
+        $localeDir = __DIR__.'/../locales';
+        $languageFiles = scandir($localeDir);
+        $locales = array();
+        foreach ($languageFiles as $languageFile) {
+            if ($languageFile == '.' || $languageFile == '..') {
+                continue;
+            }
+            $extensionPos = strpos($languageFile, '.yml');
+            if ($extensionPos !== false) {
+                $locale = substr($languageFile, 0, $extensionPos);
+                $locales[] = $locale;
+            }
+        }
+        return $locales;
     }
 
     /**

@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.9.9
 Released: Upcoming
+- Added a function in the service provider to get the available locales
 
 ## 0.9.8
 Released: 2015-09-22
