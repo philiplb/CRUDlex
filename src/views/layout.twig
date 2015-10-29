@@ -76,12 +76,16 @@
                     <div class="dropdown">
                         <a id="drop4" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
                         {% set locale = app.session.get('locale', 'en') %}
-                        {% include app.crud.getTemplate(app, 'template', 'locales/' ~ locale , crudEntity) %}
+                        <img src="{{ app.url_generator.generate('static', {file: 'images/flags/' ~ locale ~ '.png'}) }}" alt="{{ app.crud.getLanguageName(locale) }}" /> {{ app.crud.getLanguageName(locale) }}
                         <span class="caret"></a>
                         <ul class="dropdown-menu" aria-labelledby="dLabel">
-                            <li><a href="{{ app.url_generator.generate('crudSetLocale', {'locale': 'en', 'redirect': app.request.getUri()}) }}">{% include app.crud.getTemplate(app, 'template', 'locales/en', crudEntity) %}</a></li>
-                            <li><a href="{{ app.url_generator.generate('crudSetLocale', {'locale': 'de', 'redirect': app.request.getUri()}) }}">{% include app.crud.getTemplate(app, 'template', 'locales/de', crudEntity) %}</a></li>
-                            <li><a href="{{ app.url_generator.generate('crudSetLocale', {'locale': 'gr', 'redirect': app.request.getUri()}) }}">{% include app.crud.getTemplate(app, 'template', 'locales/gr', crudEntity) %}</a></li>
+                            {% for locale in app.crud.getLocales() %}
+                                <li>
+                                    <a href="{{ app.url_generator.generate('crudSetLocale', {'locale': locale, 'redirect': app.request.getUri()}) }}">
+                                        <img src="{{ app.url_generator.generate('static', {file: 'images/flags/' ~ locale ~ '.png'}) }}" alt="{{ app.crud.getLanguageName(locale) }}" /> {{ app.crud.getLanguageName(locale) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 {% endif %}

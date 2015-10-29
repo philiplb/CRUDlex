@@ -5,6 +5,7 @@ CRUDlex Changelog
 Released: Upcoming
 - Added a function to the service provider to get the available locales
 - Added a function to the service provider to get the name of the language of a locale
+- Generating the language picker based on the available translation files instead of being hard coded
 
 ## 0.9.8
 Released: 2015-09-28
