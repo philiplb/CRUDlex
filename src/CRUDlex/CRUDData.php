@@ -150,11 +150,16 @@ abstract class CRUDData {
      * if given and not null, it specifies the amount of rows to skip
      * @param integer $amount
      * if given and not null, it specifies the maximum amount of rows to retrieve
+     * @param string $sortField
+     * if given and not null, it specifies the field to sort the entries
+     * @param boolean $sortAscending
+     * if given and not null, it specifies that the sort order is ascending,
+     * descending else
      *
      * @return array
      * the entities fulfilling the filter or all if no filter was given
      */
-    public abstract function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null);
+    public abstract function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null);
 
     /**
      * Persists the given entity as new entry in the datasource.

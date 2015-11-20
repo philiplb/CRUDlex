@@ -67,6 +67,12 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $expected = 1;
         $this->assertSame($read, $expected);
 
+        $list = $this->dataLibrary->listEntries(array(), array(), null, null, 'name');
+        $expected = 'nameB';
+        $this->assertSame($list[0]->get('name'), $expected);
+        $expected = 'nameA';
+        $this->assertSame($list[1]->get('name'), $expected);
+
         for ($i = 0; $i < 15; ++$i) {
             $entity->set('name', 'name'.$i);
             $this->dataLibrary->create($entity);

@@ -110,7 +110,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null) {
+    public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null) {
         $fieldNames = $this->definition->getFieldNames();
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -139,6 +139,11 @@ class CRUDMySQLData extends CRUDData {
         }
         if ($skip !== null) {
             $queryBuilder->setFirstResult(abs(intval($skip)));
+        }
+
+        if ($sortField !== null) {
+            $order = $sortAscending === true ? 'ASC' : 'DESC';
+            $queryBuilder->orderBy($sortField, $order);
         }
 
         $queryResult = $queryBuilder->execute();
