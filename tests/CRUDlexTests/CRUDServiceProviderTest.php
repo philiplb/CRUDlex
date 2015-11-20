@@ -240,4 +240,20 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+    public function testInitialSort() {
+        $crudServiceProvider = new CRUDServiceProvider();
+        $app = new Application();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
+        $data = $crudServiceProvider->getData('library');
+        $read = $data->getDefinition()->getInitialSortField();
+        $expected = 'name';
+        $read = $data->getDefinition()->getInitialSortAscending();
+        $this->assertTrue($read);
+        $data = $crudServiceProvider->getData('book');
+        $read = $data->getDefinition()->getInitialSortField();
+        $expected = 'id';
+        $read = $data->getDefinition()->getInitialSortAscending();
+        $this->assertFalse($read);
+    }
+
 }

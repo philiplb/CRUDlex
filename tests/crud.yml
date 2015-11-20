@@ -6,6 +6,8 @@ library:
   filter: [isOpenOnSundays]
   deleteCascade: true
   pageSize: 10
+  initialSortField: name
+  initialSortAscending: true
   fields:
     name:
       type: text

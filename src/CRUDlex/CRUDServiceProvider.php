@@ -179,6 +179,12 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             if (array_key_exists('pageSize', $crud)) {
                 $this->datas[$name]->getDefinition()->setPageSize($crud['pageSize']);
             }
+            if (array_key_exists('initialSortField', $crud)) {
+                $this->datas[$name]->getDefinition()->setInitialSortField($crud['initialSortField']);
+            }
+            if (array_key_exists('initialSortAscending', $crud)) {
+                $this->datas[$name]->getDefinition()->setInitialSortAscending($crud['initialSortAscending']);
+            }
 
         }
 
