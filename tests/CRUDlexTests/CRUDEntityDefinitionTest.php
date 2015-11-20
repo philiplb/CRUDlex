@@ -417,4 +417,22 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+    public function testGetSetInitialSortField() {
+        $read = $this->definition->getInitialSortField();
+        $expected = 'id';
+        $this->assertSame($read, $expected);
+        $this->definition->setInitialSortField('author');
+        $read = $this->definition->getInitialSortField();
+        $expected = 'author';
+        $this->assertSame($read, $expected);
+    }
+
+    public function testGetSetInitialSortAscending() {
+        $read = $this->definition->getInitialSortAscending();
+        $this->assertFalse($read);
+        $this->definition->setInitialSortAscending(true);
+        $read = $this->definition->getInitialSortAscending();
+        $this->assertTrue($read);
+    }
+
 }

@@ -83,6 +83,16 @@ class CRUDEntityDefinition {
     protected $locale;
 
     /**
+     * Holds the initial sort field.
+     */
+    protected $initialSortField;
+
+    /**
+     * Holds the initial sort order.
+     */
+    protected $initialSortAscending;
+
+    /**
      * Gets the field names exluding the given ones.
      *
      * @param array $exclude
@@ -193,6 +203,8 @@ class CRUDEntityDefinition {
         $this->deleteCascade = false;
         $this->pageSize = 25;
         $this->locale = null;
+        $this->initialSortField = 'id';
+        $this->initialSortAscending = false;
     }
 
     /**
@@ -751,5 +763,45 @@ class CRUDEntityDefinition {
      */
     public function setLocale($locale) {
         $this->locale = $locale;
+    }
+
+    /**
+     * Sets the initial sort field.
+     *
+     * @param string $sortField
+     * the new initial sort field
+     */
+    public function setInitialSortField($initialSortField) {
+        $this->initialSortField = $initialSortField;
+    }
+
+    /**
+     * Gets the initial sort field.
+     *
+     * @return string
+     * the initial sort field
+     */
+    public function getInitialSortField() {
+        return $this->initialSortField;
+    }
+
+    /**
+     * Sets the initial sort order.
+     *
+     * @param boolean $initialSortAscending
+     * the initial sort order, true if ascending
+     */
+    public function setInitialSortAscending($initialSortAscending) {
+        $this->initialSortAscending = $initialSortAscending;
+    }
+
+    /**
+     * Gets the initial sort order.
+     *
+     * @return boolean
+     * the initial sort order, true if ascending
+     */
+    public function getInitialSortAscending() {
+        return $this->initialSortAscending;
     }
 }
