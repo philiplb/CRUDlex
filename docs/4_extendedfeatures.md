@@ -176,6 +176,38 @@ book:
             label_de: Seiten
 ```
 
+## Initial Sorting Parameters
+
+Initially, when you visit the list page of an entity, the view is sorted ascending
+by id. There might be cases, where you want to change that.
+
+For this, two parameters can be set on entity level:
+
+- *initialSortField*: Sets the field the data is sort by
+- *initialSortAscending*: If set to true, the initial sort order is ascending,
+if set to false, the initial sort order is descending
+
+Here is an example where the books are sorted by their author in an descending
+order:
+
+```yml
+book:
+    label: Book
+    table: book
+    filter: [author, title]
+    initialSortField: author
+    initialSortAscending: false
+    fields:
+        author:
+            type: text
+            label: Author
+        title:
+            type: text
+            label: Title
+        pages:
+            type: int
+            label: Pages
+```
 
 ---
 
