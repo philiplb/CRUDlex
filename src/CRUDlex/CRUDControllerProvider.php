@@ -243,6 +243,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'total' => $total,
             'filter' => $filter,
             'filterActive' => $filterActive,
+            'sortField' => $sortField,
+            'sortAscending' => $sortAscending,
             'layout' => $app['crud']->getTemplate($app, 'layout', 'list', $entity)
         ));
     }
