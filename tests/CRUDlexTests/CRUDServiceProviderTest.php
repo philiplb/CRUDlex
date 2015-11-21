@@ -248,12 +248,12 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $read = $data->getDefinition()->getInitialSortField();
         $expected = 'name';
         $read = $data->getDefinition()->getInitialSortAscending();
-        $this->assertTrue($read);
+        $this->assertFalse($read);
         $data = $crudServiceProvider->getData('book');
         $read = $data->getDefinition()->getInitialSortField();
         $expected = 'id';
         $read = $data->getDefinition()->getInitialSortAscending();
-        $this->assertFalse($read);
+        $this->assertTrue($read);
     }
 
 }

@@ -7,7 +7,7 @@ library:
   deleteCascade: true
   pageSize: 10
   initialSortField: name
-  initialSortAscending: true
+  initialSortAscending: false
   fields:
     name:
       type: text

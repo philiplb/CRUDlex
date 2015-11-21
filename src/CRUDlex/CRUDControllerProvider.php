@@ -225,7 +225,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
         $skip = $page * $pageSize;
 
-        $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize);
+        $sortField = $app['request']->get('crudSortField', $definition->getInitialSortField());
+        $sortAscendingRequest = $app['request']->get('crudSortAscending');
+        $sortAscending = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->getInitialSortAscending();
+
+        $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
         $crudData->fetchReferences($entities);
 
         return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'list', $entity), array(

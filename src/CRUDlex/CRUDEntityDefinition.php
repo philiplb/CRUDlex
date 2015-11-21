@@ -204,7 +204,7 @@ class CRUDEntityDefinition {
         $this->pageSize = 25;
         $this->locale = null;
         $this->initialSortField = 'id';
-        $this->initialSortAscending = false;
+        $this->initialSortAscending = true;
     }
 
     /**

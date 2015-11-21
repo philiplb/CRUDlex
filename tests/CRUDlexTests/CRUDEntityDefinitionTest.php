@@ -429,10 +429,10 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetSetInitialSortAscending() {
         $read = $this->definition->getInitialSortAscending();
-        $this->assertFalse($read);
-        $this->definition->setInitialSortAscending(true);
-        $read = $this->definition->getInitialSortAscending();
         $this->assertTrue($read);
+        $this->definition->setInitialSortAscending(false);
+        $read = $this->definition->getInitialSortAscending();
+        $this->assertFalse($read);
     }
 
 }
