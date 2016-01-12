@@ -315,7 +315,6 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definitionLibrary->getChildrenLabelFields();
         $expected = array('book' => 'title');
         $this->assertSame($read, $expected);
-        $old = $read;
         $expected = array('book' => 'author');
         $this->definitionLibrary->setChildrenLabelFields($expected);
         $read = $this->definitionLibrary->getChildrenLabelFields();
@@ -393,7 +392,6 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'library'
         );
         $this->assertSame($read, $expected);
-        $old = $read;
         $expected = array(
             'author',
             'title'

@@ -69,17 +69,17 @@ class CRUDTestDBSetup {
     }
 
     public static function createCRUDServiceProvider() {
-        self::$fileProcessor = new CRUDNullFileProcessor();
-        $app = self::createAppAndDB();
+        static::$fileProcessor = new CRUDNullFileProcessor();
+        $app = static::createAppAndDB();
         $crudServiceProvider = new CRUDServiceProvider();
         $dataFactory = new CRUDMySQLDataFactory($app['db']);
         $crudFile = __DIR__.'/../crud.yml';
-        $crudServiceProvider->init($dataFactory, $crudFile, self::$fileProcessor, true, $app);
+        $crudServiceProvider->init($dataFactory, $crudFile, static::$fileProcessor, true, $app);
         return $crudServiceProvider;
     }
 
     public static function getFileProcessor() {
-        return self::$fileProcessor;
+        return static::$fileProcessor;
     }
 
 }

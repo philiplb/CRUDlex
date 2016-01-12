@@ -396,11 +396,10 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $crudData->deleteFiles($instance, $entity);
         $deleted = $crudData->delete($instance);
 
-        switch ($deleted) {
-            case CRUDData::DELETION_FAILED_EVENT:
+        if ($deleted === CRUDData::DELETION_FAILED_EVENT) {
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
                 return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-            case CRUDData::DELETION_FAILED_STILL_REFERENCED:
+        } elseif ($deleted === CRUDData::DELETION_FAILED_STILL_REFERENCED) {
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
                     '%label%' => $crudData->getDefinition()->getLabel()
                 )));

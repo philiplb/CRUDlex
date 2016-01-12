@@ -520,7 +520,9 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testPushPopEvent() {
-        $function = function() {};
+        $function = function() {
+            return true;
+        };
         $this->dataBook->pushEvent('before', 'create', $function);
         $read = $this->dataBook->popEvent('before', 'create');
         $this->assertSame($function, $read);

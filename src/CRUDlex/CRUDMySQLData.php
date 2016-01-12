@@ -40,7 +40,7 @@ class CRUDMySQLData extends CRUDData {
     protected function doDelete(CRUDEntity $entity, $deleteCascade) {
         $result = $this->executeEvents($entity, 'before', 'delete');
         if (!$result) {
-            return self::DELETION_FAILED_EVENT;
+            return static::DELETION_FAILED_EVENT;
         }
         $id = $entity->get('id');
         if ($deleteCascade) {
@@ -63,7 +63,7 @@ class CRUDMySQLData extends CRUDData {
                 $queryResult = $queryBuilder->execute();
                 $result = $queryResult->fetch(\PDO::FETCH_NUM);
                 if ($result[0] > 0) {
-                    return self::DELETION_FAILED_STILL_REFERENCED;
+                    return static::DELETION_FAILED_STILL_REFERENCED;
                 }
             }
         }
@@ -77,7 +77,7 @@ class CRUDMySQLData extends CRUDData {
 
         $query->execute();
         $this->executeEvents($entity, 'after', 'delete');
-        return self::DELETION_SUCCESS;
+        return static::DELETION_SUCCESS;
     }
 
     /**
