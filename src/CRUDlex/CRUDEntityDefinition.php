@@ -240,7 +240,7 @@ class CRUDEntityDefinition {
      * the field names to be used in the listview
      */
     public function getListFieldNames() {
-        if ($this->listFields) {
+        if (!empty($this->listFields)) {
             return $this->listFields;
         }
         return $this->getPublicFieldNames();
