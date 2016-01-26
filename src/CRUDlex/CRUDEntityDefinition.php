@@ -301,11 +301,11 @@ class CRUDEntityDefinition {
     }
 
     /**
-    * Sets the amount of items to display per page on the listview.
-    *
-    * @param integer $pageSize
-    * the amount of items to display per page on the listview
-    */
+     * Sets the amount of items to display per page on the listview.
+     *
+     * @param integer $pageSize
+     * the amount of items to display per page on the listview
+     */
     public function setPageSize($pageSize) {
         $this->pageSize = $pageSize;
     }

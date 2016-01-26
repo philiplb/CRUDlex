@@ -139,7 +139,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         foreach ((empty($parsedYaml) ? array() : $parsedYaml) as $name => $crud) {
             if (!is_array($crud) || !isset($crud['fields'])) {
                 continue;
-            }    
+            }
 
             $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
 
@@ -410,9 +410,9 @@ class CRUDServiceProvider implements ServiceProviderInterface {
         $zeroFraction = $float - floor($float) == 0 ? '0' : '';
 
         // We don't want values like 0.004 converted to  0.00400000000000000008
-    	if ($float > 0.0001) {
-    		return $float . ($zeroFraction === '0' ? '.'.$zeroFraction : '');
-    	}
+        if ($float > 0.0001) {
+            return $float . ($zeroFraction === '0' ? '.'.$zeroFraction : '');
+        }
 
         // We don't want values like 0.00004 converted to its scientific notation 4.0E-5
         return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
