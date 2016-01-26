@@ -768,7 +768,7 @@ class CRUDEntityDefinition {
     /**
      * Sets the initial sort field.
      *
-     * @param string $sortField
+     * @param string $initialSortField
      * the new initial sort field
      */
     public function setInitialSortField($initialSortField) {

@@ -216,7 +216,7 @@ abstract class CRUDData {
      * the table to count in
      * @param array $params
      * an array with the field names as keys and field values as values
-     * @param array $paramOperators
+     * @param array $paramsOperators
      * the operators of the parameters like "=" defining the full condition of the field
      * @param bool $excludeDeleted
      * false, if soft deleted entries in the datasource should be counted, too
