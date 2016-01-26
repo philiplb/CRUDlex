@@ -71,7 +71,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      */
     public function connect(Application $app) {
         if ($app->offsetExists('twig.loader.filesystem')) {
-            $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
+            $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
         }
 
         if (!$app->offsetExists('crud.layout')) {
@@ -520,7 +520,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $size = filesize($file);
 
-        $response = new StreamedResponse(function () use ($file) {
+        $response = new StreamedResponse(function() use ($file) {
             set_time_limit(0);
             $handle = fopen($file,"rb");
             if ($handle !== false) {

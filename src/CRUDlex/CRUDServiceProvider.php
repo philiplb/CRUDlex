@@ -123,7 +123,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
         if (!$app->offsetExists('twig')) {
             $app->register(new \Silex\Provider\TwigServiceProvider());
-            $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
+            $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
         }
 
         $app['translator']->addLoader('yaml', new YamlFileLoader());
@@ -145,7 +145,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
             $localeLabels = array();
             foreach ($locales as $locale) {
-                if (array_key_exists('label_' . $locale, $crud)) {
+                if (array_key_exists('label_'.$locale, $crud)) {
                     $localeLabels[$locale] = $crud['label_'.$locale];
                 }
             }
@@ -411,7 +411,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
         // We don't want values like 0.004 converted to  0.00400000000000000008
         if ($float > 0.0001) {
-            return $float . ($zeroFraction === '0' ? '.'.$zeroFraction : '');
+            return $float.($zeroFraction === '0' ? '.'.$zeroFraction : '');
         }
 
         // We don't want values like 0.00004 converted to its scientific notation 4.0E-5
