@@ -165,8 +165,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             }
         }
 
-        $definition = $crudData->getDefinition();
-
         return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
             'crudEntity' => $entity,
             'crudData' => $crudData,
@@ -513,10 +511,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
-        $mimeType = '';
-        if (strtolower($extension) === 'css') {
-            $mimeType = 'text/css';
-        } else {
+        $mimeType = 'text/css';
+        if (strtolower($extension) !== 'css') {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $mimeType = finfo_file($finfo, $file);
             finfo_close($finfo);
