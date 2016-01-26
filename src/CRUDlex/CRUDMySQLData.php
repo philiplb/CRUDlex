@@ -281,7 +281,7 @@ class CRUDMySQLData extends CRUDData {
 
         if (count($params) > 0) {
             $i = 0;
-            foreach($params as $name => $value) {
+            foreach ($params as $name => $value) {
                 $queryBuilder
                     ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
                     ->setParameter($i, $value);

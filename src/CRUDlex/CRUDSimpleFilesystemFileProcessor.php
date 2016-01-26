@@ -82,9 +82,9 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         finfo_close($finfo);
         $size = filesize($file);
         if ($fileName && file_exists($file)) {
-            $response = new StreamedResponse(function () use ($file) {
+            $response = new StreamedResponse(function() use ($file) {
                 set_time_limit(0);
-                $handle = fopen($file,"rb");
+                $handle = fopen($file, 'rb');
                 if ($handle !== false) {
                     $chunkSize = 1024 * 1024;
                     while (!feof($handle)) {
