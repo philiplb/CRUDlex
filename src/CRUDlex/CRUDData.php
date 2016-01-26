@@ -136,7 +136,7 @@ abstract class CRUDData {
      * @return CRUDEntity
      * the entity belonging to the id or null if not existant
      */
-    public abstract function get($id);
+    abstract public function get($id);
 
     /**
      * Gets a list of entities fullfilling the given filter or all if no
@@ -159,7 +159,7 @@ abstract class CRUDData {
      * @return array
      * the entities fulfilling the filter or all if no filter was given
      */
-    public abstract function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null);
+    abstract public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null);
 
     /**
      * Persists the given entity as new entry in the datasource.
@@ -170,7 +170,7 @@ abstract class CRUDData {
      * @return boolean
      * true on successful creation
      */
-    public abstract function create(CRUDEntity $entity);
+    abstract public function create(CRUDEntity $entity);
 
     /**
      * Updates an existing entry in the datasource having the same id.
@@ -178,7 +178,7 @@ abstract class CRUDData {
      * @param CRUDEntity $entity
      * the entity with the new data
      */
-    public abstract function update(CRUDEntity $entity);
+    abstract public function update(CRUDEntity $entity);
 
     /**
      * Deletes an entry from the datasource having the given id.
@@ -192,7 +192,7 @@ abstract class CRUDData {
      * - CRUDData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
      * - CRUDData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
-    public abstract function delete($entity);
+    abstract public function delete($entity);
 
     /**
      * Gets ids and names of a table. Used for building up the dropdown box of
@@ -206,7 +206,7 @@ abstract class CRUDData {
      * @return array
      * an array with the ids as key and the names as values
      */
-    public abstract function getReferences($table, $nameField);
+    abstract public function getReferences($table, $nameField);
 
     /**
      * Retrieves the amount of entities in the datasource fulfilling the given
@@ -224,7 +224,7 @@ abstract class CRUDData {
      * @return int
      * the count fulfilling the given parameters
      */
-    public abstract function countBy($table, array $params, array $paramsOperators, $excludeDeleted);
+    abstract public function countBy($table, array $params, array $paramsOperators, $excludeDeleted);
 
     /**
      * Adds the id and name of referenced entities to the given entities. Each
@@ -234,7 +234,7 @@ abstract class CRUDData {
      * @param array $entities
      * the entities to fetch the references for
      */
-    public abstract function fetchReferences(array &$entities = null);
+    abstract public function fetchReferences(array &$entities = null);
 
     /**
      * Gets the {@see CRUDEntityDefinition} instance.
