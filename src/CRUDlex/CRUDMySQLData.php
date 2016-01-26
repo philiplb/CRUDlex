@@ -34,7 +34,7 @@ class CRUDMySQLData extends CRUDData {
      * @param boolean $deleteCascade
      * whether to delete children and subchildren
      *
-     * @return boolean
+     * @return integer
      * true on successful deletion
      */
     protected function doDelete(CRUDEntity $entity, $deleteCascade) {
