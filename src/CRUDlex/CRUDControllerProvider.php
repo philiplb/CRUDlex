@@ -522,7 +522,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $response = new StreamedResponse(function() use ($file) {
             set_time_limit(0);
-            $handle = fopen($file,"rb");
+            $handle = fopen($file, 'rb');
             if ($handle !== false) {
                 $chunkSize = 1024 * 1024;
                 while (!feof($handle)) {
