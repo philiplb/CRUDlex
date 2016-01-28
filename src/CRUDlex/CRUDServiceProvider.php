@@ -317,17 +317,18 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the best fitting template
      */
     public function getTemplate(Application $app, $section, $action, $entity) {
-        if ($app->offsetExists('crud.'.$section.'.'.$action.'.'.$entity)) {
-            return $app['crud.'.$section.'.'.$action.'.'.$entity];
+        $crudSection = 'crud.'.$section;
+        if ($app->offsetExists($crudSection.'.'.$action.'.'.$entity)) {
+            return $app[$crudSection.'.'.$action.'.'.$entity];
         }
-        if ($app->offsetExists('crud.'.$section.'.'.$entity)) {
-            return $app['crud.'.$section.'.'.$entity];
+        if ($app->offsetExists($crudSection.'.'.$entity)) {
+            return $app[$crudSection.'.'.$entity];
         }
-        if ($app->offsetExists('crud.'.$section.'.'.$action)) {
-            return $app['crud.'.$section.'.'.$action];
+        if ($app->offsetExists($crudSection.'.'.$action)) {
+            return $app[$crudSection.'.'.$action];
         }
-        if ($app->offsetExists('crud.'.$section)) {
-            return $app['crud.'.$section];
+        if ($app->offsetExists($crudSection)) {
+            return $app[$crudSection];
         }
 
         return '@crud/'.$action.'.twig';
