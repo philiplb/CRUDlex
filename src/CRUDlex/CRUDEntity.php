@@ -32,6 +32,148 @@ class CRUDEntity {
     protected $entity = array();
 
     /**
+     * Validates the given field for the required constraint.
+     *
+     * @param string $field the field to validate
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateRequired($field, &$errors, &$valid) {
+        if ($this->definition->isRequired($field) && !$this->definition->getFixedValue($field) &&
+            (!array_key_exists($field, $this->entity)
+            || $this->entity[$field] === null
+            || $this->entity[$field] === '')) {
+            $errors[$field]['required'] = true;
+            $valid = false;
+        }
+    }
+
+    /**
+     * Validates the given field for the unique constraint.
+     *
+     * @param string $field the field to validate
+     * @param CRUDData $data the data instance to work with
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateUnique($field, CRUDData $data, &$errors, &$valid) {
+        if ($this->definition->isUnique($field) && array_key_exists($field, $this->entity) && $this->entity[$field]) {
+            $params = array($field => $this->entity[$field]);
+            $paramsOperators = array($field => '=');
+            if ($this->entity['id'] !== null) {
+                $params['id'] = $this->entity['id'];
+                $paramsOperators['id'] = '!=';
+            }
+            $amount = intval($data->countBy($this->definition->getTable(), $params, $paramsOperators, true));
+            if ($amount > 0) {
+                $errors[$field]['unique'] = true;
+                $valid = false;
+            }
+        }
+    }
+
+    /**
+     * Validates the given field for the set type.
+     *
+     * @param string $field the field to validate
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateSet($field, &$errors, &$valid) {
+        $type = $this->definition->getType($field);
+        if ($type == 'set' && $this->entity[$field]) {
+            $setItems = $this->definition->getSetItems($field);
+            if (!in_array($this->entity[$field], $setItems)) {
+                $errors[$field]['input'] = true;
+                $valid = false;
+            }
+        }
+    }
+
+    /**
+     * Validates the given field for the int type.
+     *
+     * @param string $field the field to validate
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateInt($field, &$errors, &$valid) {
+        $type = $this->definition->getType($field);
+        if ($type == 'int' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(int)$this->entity[$field] != $this->entity[$field]) {
+            $errors[$field]['input'] = true;
+            $valid = false;
+        }
+    }
+
+    /**
+     * Validates the given field for the float type.
+     *
+     * @param string $field the field to validate
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateFloat($field, &$errors, &$valid) {
+        $type = $this->definition->getType($field);
+        if ($type == 'float' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(float)$this->entity[$field] != $this->entity[$field]) {
+            $errors[$field]['input'] = true;
+            $valid = false;
+        }
+    }
+
+    /**
+     * Validates the given field for the date type.
+     *
+     * @param string $field the field to validate
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateDate($field, &$errors, &$valid) {
+        $type = $this->definition->getType($field);
+        if ($type == 'date' && $this->entity[$field] && \DateTime::createFromFormat('Y-m-d', $this->entity[$field]) === false) {
+            $errors[$field]['input'] = true;
+            $valid = false;
+        }
+    }
+
+    /**
+     * Validates the given field for the datetime type.
+     *
+     * @param string $field the field to validate
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateDateTime($field, &$errors, &$valid) {
+        $type = $this->definition->getType($field);
+        if ($type == 'datetime' && $this->entity[$field] &&
+            \DateTime::createFromFormat('Y-m-d H:i', $this->entity[$field]) === false &&
+            \DateTime::createFromFormat('Y-m-d H:i:s', $this->entity[$field]) === false) {
+            $errors[$field]['input'] = true;
+            $valid = false;
+        }
+    }
+
+    /**
+     * Validates the given field for the reference type.
+     *
+     * @param string $field the field to validate
+     * @param CRUDData $data the data instance to work with
+     * @param array &$errors the error collecting array
+     * @param boolean &$valid the validation flag
+     */
+    private function validateReference($field, CRUDData $data, &$errors, &$valid) {
+        $type = $this->definition->getType($field);
+        if ($type == 'reference' && $this->entity[$field] !== '' && $this->entity[$field] !== null) {
+            $params = array('id' => $this->entity[$field]);
+            $paramsOperators = array('id' => '=');
+            $amount = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
+            if ($amount == 0) {
+                $errors[$field]['input'] = true;
+                $valid = false;
+            }
+        }
+    }
+
+    /**
      * Constructor.
      *
      * @param CRUDEntityDefinition $definition
@@ -124,78 +266,16 @@ class CRUDEntity {
         foreach ($fields as $field) {
             $errors[$field] = array('required' => false, 'unique' => false, 'input' => false);
 
-            // Check for required
-            if ($this->definition->isRequired($field) && !$this->definition->getFixedValue($field) &&
-                (!array_key_exists($field, $this->entity)
-                || $this->entity[$field] === null
-                || $this->entity[$field] === '')) {
-                $errors[$field]['required'] = true;
-                $valid = false;
-            }
+            $this->validateRequired($field, $errors, $valid);
+            $this->validateUnique($field, $data, $errors, $valid);
 
-            // Check for uniqueness
-            if ($this->definition->isUnique($field) && array_key_exists($field, $this->entity) && $this->entity[$field]) {
-                $params = array($field => $this->entity[$field]);
-                $paramsOperators = array($field => '=');
-                if ($this->entity['id'] !== null) {
-                    $params['id'] = $this->entity['id'];
-                    $paramsOperators['id'] = '!=';
-                }
-                $amount = intval($data->countBy($this->definition->getTable(), $params, $paramsOperators, true));
-                if ($amount > 0) {
-                    $errors[$field]['unique'] = true;
-                    $valid = false;
-                }
-            }
+            $this->validateSet($field, $errors, $valid);
+            $this->validateInt($field, $errors, $valid);
+            $this->validateFloat($field, $errors, $valid);
+            $this->validateDate($field, $errors, $valid);
+            $this->validateDateTime($field, $errors, $valid);
+            $this->validateReference($field, $data, $errors, $valid);
 
-            // Check for set type
-            $type = $this->definition->getType($field);
-            if ($type == 'set' && $this->entity[$field]) {
-                $setItems = $this->definition->getSetItems($field);
-                if (!in_array($this->entity[$field], $setItems)) {
-                    $errors[$field]['input'] = true;
-                    $valid = false;
-                }
-            }
-
-            // Check for int type
-            $type = $this->definition->getType($field);
-            if ($type == 'int' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(int)$this->entity[$field] != $this->entity[$field]) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for float type
-            $type = $this->definition->getType($field);
-            if ($type == 'float' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(float)$this->entity[$field] != $this->entity[$field]) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for date type
-            if ($type == 'date' && $this->entity[$field] && \DateTime::createFromFormat('Y-m-d', $this->entity[$field]) === false) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for datetime type
-            if ($type == 'datetime' && $this->entity[$field] &&
-                \DateTime::createFromFormat('Y-m-d H:i', $this->entity[$field]) === false &&
-                \DateTime::createFromFormat('Y-m-d H:i:s', $this->entity[$field]) === false) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for reference type
-            if ($type == 'reference' && $this->entity[$field] !== '' && $this->entity[$field] !== null) {
-                $params = array('id' => $this->entity[$field]);
-                $paramsOperators = array('id' => '=');
-                $amount = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
-                if ($amount == 0) {
-                    $errors[$field]['input'] = true;
-                    $valid = false;
-                }
-            }
         }
         return array('valid' => $valid, 'errors' => $errors);
     }
