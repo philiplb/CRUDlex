@@ -285,7 +285,8 @@ class CRUDEntity {
     /**
      * Populates the entities fields from the requests parameters.
      *
-     * @param Request $request the request to take the field data from
+     * @param Request $request
+     * the request to take the field data from
      */
     public function populateViaRequest(Request $request) {
         $fields = $this->definition->getEditableFieldNames();
