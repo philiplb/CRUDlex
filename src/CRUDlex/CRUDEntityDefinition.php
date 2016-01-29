@@ -173,6 +173,25 @@ class CRUDEntityDefinition {
     }
 
     /**
+     * Checks if the given field has the given constraint.
+     *
+     * @param string $fieldName
+     * the field name maybe having the constraint
+     * @param string $constraint
+     * the constraint to check, 'required' or 'unique'
+     *
+     * @return boolean
+     * true if the given field has the given constraint
+     */
+    protected function isConstraint($fieldName, $constraint) {
+        $result = $this->getFieldValue($fieldName, $constraint);
+        if ($result === null) {
+            $result = false;
+        }
+        return $result;
+    }
+
+    /**
      * Constructor.
      *
      * @param string $table
@@ -430,11 +449,7 @@ class CRUDEntityDefinition {
      * true if so
      */
     public function isRequired($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'required');
-        if ($result === null) {
-            $result = false;
-        }
-        return $result;
+        return $this->isConstraint($fieldName, 'required');
     }
 
     /**
@@ -459,11 +474,7 @@ class CRUDEntityDefinition {
      * true if so
      */
     public function isUnique($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'unique');
-        if ($result === null) {
-            $result = false;
-        }
-        return $result;
+        return $this->isConstraint($fieldName, 'unique');
     }
 
     /**
