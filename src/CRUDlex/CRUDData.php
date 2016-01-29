@@ -121,7 +121,7 @@ abstract class CRUDData {
      * the just created entity
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
-     * @param function $function
+     * @param \Closure $function
      * the function to perform, takes $entity, $entityName and $field as parameter
      */
     protected function performOnFiles(CRUDEntity $entity, $entityName, $function) {
