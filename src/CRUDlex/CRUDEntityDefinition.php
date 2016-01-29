@@ -476,7 +476,7 @@ class CRUDEntityDefinition {
      * true if so
      */
     public function setUnique($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'unique', $value);
+        return $this->setFieldValue($fieldName, 'unique', $value);
     }
 
     /**
