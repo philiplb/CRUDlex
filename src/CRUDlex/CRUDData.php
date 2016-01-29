@@ -53,6 +53,23 @@ abstract class CRUDData {
     protected $events;
 
     /**
+     * Performs the actual deletion.
+     *
+     * @param CRUDEntity $entity
+     * the id of the entry to delete
+     *
+     * @param boolean $deleteCascade
+     * whether to delete children and subchildren
+     *
+     * @return integer
+     * true on successful deletion
+     */
+    /**
+     * {@inheritdoc}
+     */
+    abstract protected function doDelete(CRUDEntity $entity, $deleteCascade);
+
+    /**
      * Creates an {@see CRUDEntity} from the raw data array with the field name
      * as keys and field values as values.
      *
@@ -192,7 +209,9 @@ abstract class CRUDData {
      * - CRUDData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
      * - CRUDData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
-    abstract public function delete($entity);
+    public function delete($entity) {
+        return $this->doDelete($entity, $this->definition->isDeleteCascade());
+    }
 
     /**
      * Gets ids and names of a table. Used for building up the dropdown box of

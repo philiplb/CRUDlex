@@ -26,16 +26,7 @@ class CRUDMySQLData extends CRUDData {
     protected $db;
 
     /**
-     * Performs the actual deletion.
-     *
-     * @param CRUDEntity $entity
-     * the id of the entry to delete
-     *
-     * @param boolean $deleteCascade
-     * whether to delete children and subchildren
-     *
-     * @return integer
-     * true on successful deletion
+     * {@inheritdoc}
      */
     protected function doDelete(CRUDEntity $entity, $deleteCascade) {
         $result = $this->executeEvents($entity, 'before', 'delete');
@@ -235,13 +226,6 @@ class CRUDMySQLData extends CRUDData {
         $this->executeEvents($entity, 'after', 'update');
 
         return $affected;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete($entity) {
-        return $this->doDelete($entity, $this->definition->isDeleteCascade());
     }
 
     /**
