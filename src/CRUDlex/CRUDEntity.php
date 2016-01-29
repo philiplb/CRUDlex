@@ -11,6 +11,8 @@
 
 namespace CRUDlex;
 
+use Symfony\Component\HttpFoundation\Request;
+
 use CRUDlex\CRUDEntityDefinition;
 use CRUDlex\CRUDData;
 
@@ -278,6 +280,25 @@ class CRUDEntity {
 
         }
         return array('valid' => $valid, 'errors' => $errors);
+    }
+
+    /**
+     * Populates the entities fields from the requests parameters.
+     *
+     * @param Request $request the request to take the field data from
+     */
+    public function populateViaRequest(Request $request) {
+        $fields = $this->definition->getEditableFieldNames();
+        foreach ($fields as $field) {
+            if ($this->definition->getType($field) == 'file') {
+                $file = $request->files->get($field);
+                if ($file) {
+                    $this->set($field, $file->getClientOriginalName());
+                }
+            } else {
+                $this->set($field, $request->get($field));
+            }
+        }
     }
 
 }

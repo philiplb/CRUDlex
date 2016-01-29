@@ -128,21 +128,10 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
 
-        $errors = array();
         $instance = $crudData->createEmpty();
-        $definition = $crudData->getDefinition();
-        $fields = $definition->getEditableFieldNames();
+        $instance->populateViaRequest($app['request']);
 
-        foreach ($fields as $field) {
-            if ($definition->getType($field) == 'file') {
-                $file = $app['request']->files->get($field);
-                if ($file) {
-                    $instance->set($field, $file->getClientOriginalName());
-                }
-            } else {
-                $instance->set($field, $app['request']->get($field));
-            }
-        }
+        $errors = array();
         if ($app['request']->getMethod() == 'POST') {
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
@@ -322,23 +311,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
-        $definition = $crudData->getDefinition();
-
         $errors = array();
-        $fields = $definition->getEditableFieldNames();
-
-
         if ($app['request']->getMethod() == 'POST') {
-            foreach ($fields as $field) {
-                if ($definition->getType($field) == 'file') {
-                    $file = $app['request']->files->get($field);
-                    if ($file) {
-                        $instance->set($field, $file->getClientOriginalName());
-                    }
-                } else {
-                    $instance->set($field, $app['request']->get($field));
-                }
-            }
+            $instance->populateViaRequest($app['request']);
             $validation = $instance->validate($crudData);
             if (!$validation['valid']) {
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.error'));
