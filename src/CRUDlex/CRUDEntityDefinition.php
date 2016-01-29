@@ -436,7 +436,7 @@ class CRUDEntityDefinition {
      * the new field type
      */
     public function setType($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'type', $value);
+        $this->setFieldValue($fieldName, 'type', $value);
     }
 
     /**
@@ -461,7 +461,7 @@ class CRUDEntityDefinition {
      * the new required state
      */
     public function setRequired($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'required', $value);
+        $this->setFieldValue($fieldName, 'required', $value);
     }
 
     /**
@@ -482,12 +482,11 @@ class CRUDEntityDefinition {
      *
      * @param string $fieldName
      * the field name
-     *
      * @param boolean $value
      * true if so
      */
     public function setUnique($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'unique', $value);
+        $this->setFieldValue($fieldName, 'unique', $value);
     }
 
     /**
@@ -576,7 +575,7 @@ class CRUDEntityDefinition {
      * the new value for the fixed field
      */
     public function setFixedValue($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'fixedvalue', $value);
+        $this->setFieldValue($fieldName, 'fixedvalue', $value);
     }
 
     /**
@@ -601,7 +600,7 @@ class CRUDEntityDefinition {
      * the new items of the set field
      */
     public function setSetItems($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'setitems', $value);
+        $this->setFieldValue($fieldName, 'setitems', $value);
     }
 
     /**
@@ -669,7 +668,7 @@ class CRUDEntityDefinition {
      * the new label of the field
      */
     public function setFieldLabel($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'label', $value);
+        $this->setFieldValue($fieldName, 'label', $value);
     }
 
     /**
