@@ -472,7 +472,7 @@ class CRUDEntityDefinition {
      * @param string $fieldName
      * the field name
      *
-     * @param bool $value
+     * @param boolean $value
      * true if so
      */
     public function setUnique($fieldName, $value) {
