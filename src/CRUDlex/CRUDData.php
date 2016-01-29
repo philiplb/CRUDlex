@@ -88,7 +88,20 @@ abstract class CRUDData {
         return $entity;
     }
 
-
+    /**
+     * Executes the event chain of an entity.
+     *
+     * @param CRUDEntity $entity
+     * the entity having the event chain to execute
+     * @param string $moment
+     * the "moment" of the event, can be either "before" or "after"
+     * @param string $action
+     * the "action" of the event, can be either "create", "update" or "delete"
+     *
+     * @return boolean
+     * true on successful execution of the full chain or false if it broke at
+     * any point (and stopped the execution)
+     */
     protected function executeEvents(CRUDEntity $entity, $moment, $action) {
         if ($this->events !== null && array_key_exists($moment.'.'.$action, $this->events)) {
             foreach ($this->events[$moment.'.'.$action] as $event) {
