@@ -114,6 +114,24 @@ abstract class CRUDData {
         return true;
     }
 
+    /**
+     * Executes a function for each file field of this entity.
+     *
+     * @param CRUDEntity $entity
+     * the just created entity
+     * @param string $entityName
+     * the name of the entity as this class here is not aware of it
+     * @param function $function
+     * the function to perform, takes $entity, $entityName and $field as parameter
+     */
+    protected function performOnFiles(CRUDEntity $entity, $entityName, $function) {
+        $fields = $this->definition->getEditableFieldNames();
+        foreach ($fields as $field) {
+            if ($this->definition->getType($field) == 'file') {
+                $function($entity, $entityName, $field);
+            }
+        }
+    }
 
     /**
      * Adds an event to fire for the given parameters. The event function must
@@ -310,12 +328,10 @@ abstract class CRUDData {
      * the name of the entity as this class here is not aware of it
      */
     public function createFiles(Request $request, CRUDEntity $entity, $entityName) {
-        $fields = $this->definition->getEditableFieldNames();
-        foreach ($fields as $field) {
-            if ($this->definition->getType($field) == 'file') {
-                $this->fileProcessor->createFile($request, $entity, $entityName, $field);
-            }
-        }
+        $fileProcessor = $this->fileProcessor;
+        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
+            $fileProcessor->createFile($request, $entity, $entityName, $field);
+        });
     }
 
     /**
@@ -329,12 +345,10 @@ abstract class CRUDData {
      * the name of the entity as this class here is not aware of it
      */
     public function updateFiles(Request $request, CRUDEntity $entity, $entityName) {
-        $fields = $this->definition->getEditableFieldNames();
-        foreach ($fields as $field) {
-            if ($this->definition->getType($field) == 'file') {
-                $this->fileProcessor->updateFile($request, $entity, $entityName, $field);
-            }
-        }
+        $fileProcessor = $this->fileProcessor;
+        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
+            $fileProcessor->updateFile($request, $entity, $entityName, $field);
+        });
     }
 
     /**
@@ -360,12 +374,10 @@ abstract class CRUDData {
      * the name of the entity as this class here is not aware of it
      */
     public function deleteFiles(CRUDEntity $entity, $entityName) {
-        $fields = $this->definition->getEditableFieldNames();
-        foreach ($fields as $field) {
-            if ($this->definition->getType($field) == 'file') {
-                $this->fileProcessor->deleteFile($entity, $entityName, $field);
-            }
-        }
+        $fileProcessor = $this->fileProcessor;
+        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor) {
+            $fileProcessor->deleteFile($entity, $entityName, $field);
+        });
     }
 
     /**
