@@ -426,7 +426,7 @@ class CRUDEntityDefinition {
      * @param string $fieldName
      * the field name
      *
-     * @return bool
+     * @return boolean
      * true if so
      */
     public function isRequired($fieldName) {
@@ -442,7 +442,7 @@ class CRUDEntityDefinition {
      *
      * @param string $fieldName
      * the field name
-     * @param bool $fieldName
+     * @param boolean $fieldName
      * the new required state
      */
     public function setRequired($fieldName, $value) {
@@ -455,7 +455,7 @@ class CRUDEntityDefinition {
      * @param string $fieldName
      * the field name
      *
-     * @return bool
+     * @return boolean
      * true if so
      */
     public function isUnique($fieldName) {
