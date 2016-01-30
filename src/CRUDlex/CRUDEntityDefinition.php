@@ -247,7 +247,7 @@ class CRUDEntityDefinition {
      * @param array $listFields
      * the field names to be used in the listview
      */
-    public function setListFieldNames(array $listFields) {
+    public function setListFields(array $listFields) {
         $this->listFields = $listFields;
     }
 
@@ -258,7 +258,7 @@ class CRUDEntityDefinition {
      * @return array
      * the field names to be used in the listview
      */
-    public function getListFieldNames() {
+    public function getListFields() {
         if (!empty($this->listFields)) {
             return $this->listFields;
         }

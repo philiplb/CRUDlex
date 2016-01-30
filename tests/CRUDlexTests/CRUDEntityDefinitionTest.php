@@ -86,15 +86,15 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetListFieldNames() {
-        $read = $this->definition->getListFieldNames();
+    public function testgetListFields() {
+        $read = $this->definition->getListFields();
         $expected = array(
             'author',
             'title',
             'library'
         );
         $this->assertSame($read, $expected);
-        $read = $this->definitionLibrary->getListFieldNames();
+        $read = $this->definitionLibrary->getListFields();
         $expected = array(
             'id',
             'created_at',
@@ -111,10 +111,10 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'id',
             'name'
         );
-        $this->definitionLibrary->setListFieldNames($expected);
-        $read = $this->definitionLibrary->getListFieldNames();
+        $this->definitionLibrary->setListFields($expected);
+        $read = $this->definitionLibrary->getListFields();
         $this->assertSame($read, $expected);
-        $this->definitionLibrary->setListFieldNames($old);
+        $this->definitionLibrary->setListFields($old);
     }
 
     public function testIsRequired() {

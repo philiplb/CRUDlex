@@ -10,7 +10,7 @@
 {%extends layout %}
 
 {% block content %}
-    {% set fields = definition.getListFieldNames() %}
+    {% set fields = definition.getListFields() %}
 
     {% set filterParams = {} %}
     {% if filterActive %}

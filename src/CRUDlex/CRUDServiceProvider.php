@@ -181,26 +181,20 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      * the CRUD entity map
      */
     protected function configureDefinition(CRUDEntityDefinition $definition, array $crud) {
-        if (array_key_exists('deleteCascade', $crud)) {
-            $definition->setDeleteCascade($crud['deleteCascade']);
-        }
-        if (array_key_exists('listFields', $crud)) {
-            $definition->setListFieldNames($crud['listFields']);
-        }
-        if (array_key_exists('filter', $crud)) {
-            $definition->setFilter($crud['filter']);
-        }
-        if (array_key_exists('childrenLabelFields', $crud)) {
-            $definition->setChildrenLabelFields($crud['childrenLabelFields']);
-        }
-        if (array_key_exists('pageSize', $crud)) {
-            $definition->setPageSize($crud['pageSize']);
-        }
-        if (array_key_exists('initialSortField', $crud)) {
-            $definition->setInitialSortField($crud['initialSortField']);
-        }
-        if (array_key_exists('initialSortAscending', $crud)) {
-            $definition->setInitialSortAscending($crud['initialSortAscending']);
+        $toConfigure = array(
+            'deleteCascade',
+            'listFields',
+            'filter',
+            'childrenLabelFields',
+            'pageSize',
+            'initialSortField',
+            'initialSortAscending'
+        );
+        foreach ($toConfigure as $field) {
+            if (array_key_exists($field, $crud)) {
+                $function = 'set'.ucfirst($field);
+                $definition->$function($crud[$field]);
+            }
         }
     }
 
