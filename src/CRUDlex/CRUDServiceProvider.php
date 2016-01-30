@@ -172,6 +172,39 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
+     * Configures the CRUDEntityDefinition according to the given
+     * CRUD entity map.
+     *
+     * @param CRUDEntityDefinition $definition
+     * the definition to configure
+     * @param array $crud
+     * the CRUD entity map
+     */
+    protected function configureDefinition(CRUDEntityDefinition $definition, array $crud) {
+        if (array_key_exists('deleteCascade', $crud)) {
+            $definition->setDeleteCascade($crud['deleteCascade']);
+        }
+        if (array_key_exists('listFields', $crud)) {
+            $definition->setListFieldNames($crud['listFields']);
+        }
+        if (array_key_exists('filter', $crud)) {
+            $definition->setFilter($crud['filter']);
+        }
+        if (array_key_exists('childrenLabelFields', $crud)) {
+            $definition->setChildrenLabelFields($crud['childrenLabelFields']);
+        }
+        if (array_key_exists('pageSize', $crud)) {
+            $definition->setPageSize($crud['pageSize']);
+        }
+        if (array_key_exists('initialSortField', $crud)) {
+            $definition->setInitialSortField($crud['initialSortField']);
+        }
+        if (array_key_exists('initialSortAscending', $crud)) {
+            $definition->setInitialSortAscending($crud['initialSortAscending']);
+        }
+    }
+
+    /**
      * Initializes the instance.
      *
      * @param CRUDDataFactoryInterface $dataFactory
@@ -187,13 +220,10 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      */
     public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
 
-        $this->manageI18n = $manageI18n;
-
         $this->initMissingServiceProviders($app);
+        $this->manageI18n = $manageI18n;
         $locales = $this->initLocales($app);
-
         $parsedYaml = $this->readYaml($crudFile);
-
         $this->datas = array();
         foreach ((empty($parsedYaml) ? array() : $parsedYaml) as $name => $crud) {
             if (!is_array($crud) || !isset($crud['fields'])) {
@@ -201,15 +231,12 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             }
 
             $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
-
             $localeLabels = $this->getLocaleLabels($locales, $crud);
-
             $standardFieldLabels = array(
                 'id' => $app['translator']->trans('crudlex.label.id'),
                 'created_at' => $app['translator']->trans('crudlex.label.created_at'),
                 'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
-
             $definition = new CRUDEntityDefinition(
                 $crud['table'],
                 $crud['fields'],
@@ -218,30 +245,8 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 $standardFieldLabels,
                 $this
             );
+            $this->configureDefinition($definition, $crud);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
-
-            if (array_key_exists('deleteCascade', $crud)) {
-                $this->datas[$name]->getDefinition()->setDeleteCascade($crud['deleteCascade']);
-            }
-            if (array_key_exists('listFields', $crud)) {
-                $this->datas[$name]->getDefinition()->setListFieldNames($crud['listFields']);
-            }
-            if (array_key_exists('filter', $crud)) {
-                $this->datas[$name]->getDefinition()->setFilter($crud['filter']);
-            }
-            if (array_key_exists('childrenLabelFields', $crud)) {
-                $this->datas[$name]->getDefinition()->setChildrenLabelFields($crud['childrenLabelFields']);
-            }
-            if (array_key_exists('pageSize', $crud)) {
-                $this->datas[$name]->getDefinition()->setPageSize($crud['pageSize']);
-            }
-            if (array_key_exists('initialSortField', $crud)) {
-                $this->datas[$name]->getDefinition()->setInitialSortField($crud['initialSortField']);
-            }
-            if (array_key_exists('initialSortAscending', $crud)) {
-                $this->datas[$name]->getDefinition()->setInitialSortAscending($crud['initialSortAscending']);
-            }
-
         }
 
         $this->initChildren();
