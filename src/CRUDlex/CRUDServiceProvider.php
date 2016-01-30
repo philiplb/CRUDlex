@@ -91,22 +91,12 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Initializes the instance.
+     * Initializes needed but yet missing service providers.
      *
-     * @param CRUDDataFactoryInterface $dataFactory
-     * the factory to create the concrete CRUDData instances
-     * @param string $crudFile
-     * the CRUD YAML file to parse
-     * @param CRUDFileProcessorInterface $fileProcessor
-     * the file processor used for file fields
-     * @param boolean $manageI18n
-     * holds whether we manage the i18n
      * @param Application $app
      * the application container
      */
-    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
-
-        $this->manageI18n = $manageI18n;
+    protected function initMissingServiceProviders(Application $app) {
         if (!$app->offsetExists('translator')) {
             $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
                 'locale_fallbacks' => array('en'),
@@ -125,13 +115,61 @@ class CRUDServiceProvider implements ServiceProviderInterface {
             $app->register(new \Silex\Provider\TwigServiceProvider());
             $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
         }
+    }
 
+    /**
+     * Initializes the available locales.
+     *
+     * @param Application $app
+     * the application container
+     *
+     * @return array
+     * the available locales
+     */
+    protected function initLocales(Application $app) {
         $app['translator']->addLoader('yaml', new YamlFileLoader());
         $localeDir = __DIR__.'/../locales';
         $locales = $this->getLocales();
         foreach ($locales as $locale) {
             $app['translator']->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
         }
+        return $locales;
+    }
+
+    /**
+     * Initializes the children of the data entries.
+     */
+    protected function initChildren() {
+        foreach ($this->datas as $name => $data) {
+            $fields = $data->getDefinition()->getFieldNames();
+            foreach ($fields as $field) {
+                if ($data->getDefinition()->getType($field) == 'reference') {
+                    $this->datas[$data->getDefinition()->getReferenceEntity($field)]->getDefinition()->addChild($data->getDefinition()->getTable(), $field, $name);
+                }
+            }
+        }
+    }
+
+    /**
+     * Initializes the instance.
+     *
+     * @param CRUDDataFactoryInterface $dataFactory
+     * the factory to create the concrete CRUDData instances
+     * @param string $crudFile
+     * the CRUD YAML file to parse
+     * @param CRUDFileProcessorInterface $fileProcessor
+     * the file processor used for file fields
+     * @param boolean $manageI18n
+     * holds whether we manage the i18n
+     * @param Application $app
+     * the application container
+     */
+    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
+
+        $this->manageI18n = $manageI18n;
+
+        $this->initMissingServiceProviders($app);
+        $locales = $this->initLocales($app);
 
         $parsedYaml = $this->readYaml($crudFile);
 
@@ -190,14 +228,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
         }
 
-        foreach ($this->datas as $name => $data) {
-            $fields = $data->getDefinition()->getFieldNames();
-            foreach ($fields as $field) {
-                if ($data->getDefinition()->getType($field) == 'reference') {
-                    $this->datas[$data->getDefinition()->getReferenceEntity($field)]->getDefinition()->addChild($data->getDefinition()->getTable(), $field, $name);
-                }
-            }
-        }
+        $this->initChildren();
 
     }
 
