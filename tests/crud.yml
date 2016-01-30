@@ -76,3 +76,5 @@ book:
       type: float
       label: Price
       floatStep: 0.1
+
+invalid: entity
