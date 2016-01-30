@@ -133,7 +133,7 @@ class CRUDEntity {
      */
     private function validateNumber($field, $numberType, &$errors, &$valid) {
         $type = $this->definition->getType($field);
-        if ($type == $numberType && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)$this->toType($this->entity[$field], $numberType) != $this->entity[$field]) {
+        if ($type == $numberType && !in_array($this->entity[$field], array('', null), true) && (string)$this->toType($this->entity[$field], $numberType) != $this->entity[$field]) {
             $errors[$field]['input'] = true;
             $valid = false;
         }
