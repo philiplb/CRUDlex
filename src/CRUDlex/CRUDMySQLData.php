@@ -11,6 +11,8 @@
 
 namespace CRUDlex;
 
+use Doctrine\DBAL\Query\QueryBuilder;
+
 use CRUDlex\CRUDEntity;
 use CRUDlex\CRUDData;
 use CRUDlex\CRUDFileProcessorInterface;
@@ -24,6 +26,38 @@ class CRUDMySQLData extends CRUDData {
      * Holds the Doctrine DBAL instance.
      */
     protected $db;
+
+    /**
+     * Sets the values and parameters of the upcoming given query according
+     * to the entity.
+     *
+     * @param CRUDEntity $entity
+     * the entity with its fields and values
+     * @param QueryBuilder $queryBuilder
+     * the upcoming query
+     * @param boolean $setValue
+     * whether to use QueryBuilder::setValue (true) or QueryBuilder::set (false)
+     */
+    protected function setValuesAndParameters(CRUDEntity $entity, QueryBuilder $queryBuilder, $setValue) {
+        $formFields = $this->definition->getEditableFieldNames();
+        $count = count($formFields);
+        for ($i = 0; $i < $count; ++$i) {
+            $value = $entity->get($formFields[$i]);
+            $type = $this->definition->getType($formFields[$i]);
+            if ($type == 'bool') {
+                $value = $value ? 1 : 0;
+            }
+            if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
+                $value = $value == '' ? null : $value;
+            }
+            if ($setValue) {
+                $queryBuilder->setValue('`'.$formFields[$i].'`', '?');
+            } else {
+                $queryBuilder->set('`'.$formFields[$i].'`', '?');
+            }
+            $queryBuilder->setParameter($i, $value);
+        }
+    }
 
     /**
      * {@inheritdoc}
@@ -156,8 +190,6 @@ class CRUDMySQLData extends CRUDData {
             return false;
         }
 
-        $formFields = $this->definition->getEditableFieldNames();
-
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->insert($this->definition->getTable())
@@ -165,20 +197,7 @@ class CRUDMySQLData extends CRUDData {
             ->setValue('updated_at', 'NOW()')
             ->setValue('version', 0);
 
-        $count = count($formFields);
-        for ($i = 0; $i < $count; ++$i) {
-            $value = $entity->get($formFields[$i]);
-            $type = $this->definition->getType($formFields[$i]);
-            if ($type == 'bool') {
-                $value = $value ? 1 : 0;
-            }
-            if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
-                $value = $value == '' ? null : $value;
-            }
-            $queryBuilder
-                ->setValue('`'.$formFields[$i].'`', '?')
-                ->setParameter($i, $value);
-        }
+        $this->setValuesAndParameters($entity, $queryBuilder, true);
         $queryBuilder->execute();
         $entity->set('id', $this->db->lastInsertId());
 
@@ -203,21 +222,7 @@ class CRUDMySQLData extends CRUDData {
             ->set('updated_at', 'NOW()');
 
         $formFields = $this->definition->getEditableFieldNames();
-        $count = count($formFields);
-        for ($i = 0; $i < $count; ++$i) {
-            $value = $entity->get($formFields[$i]);
-            $type = $this->definition->getType($formFields[$i]);
-            if ($type == 'bool') {
-                $value = $value ? 1 : 0;
-            }
-            if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
-                $value = $value == '' ? null : $value;
-            }
-            $queryBuilder
-                ->set('`'.$formFields[$i].'`', '?')
-                ->setParameter($i, $value);
-        }
-
+        $this->setValuesAndParameters($entity, $queryBuilder, false);
         $affected = $queryBuilder
             ->where('id = ?')
             ->setParameter(count($formFields), $entity->get('id'))
