@@ -33,14 +33,34 @@ class CRUDEntity {
      */
     protected $entity = array();
 
+
+    /**
+     * Converts a given value to the given type.
+     *
+     * @param mixed $value
+     * the value to convert
+     * @param string $type
+     * the type to convert to like 'int' or 'float'
+     *
+     * @return mixed
+     * the converted value
+     */
+    protected function toType($value, $type) {
+        settype($value, $type);
+        return $value;
+    }
+
     /**
      * Validates the given field for the required constraint.
      *
-     * @param string $field the field to validate
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
+     * @param string $field
+     * the field to validate
+     * @param array &$errors
+     * the error collecting array
+     * @param boolean &$valid
+     * the validation flag
      */
-    private function validateRequired($field, &$errors, &$valid) {
+    protected function validateRequired($field, &$errors, &$valid) {
         if ($this->definition->isRequired($field) && !$this->definition->getFixedValue($field) &&
             (!array_key_exists($field, $this->entity)
             || $this->entity[$field] === null
@@ -53,10 +73,14 @@ class CRUDEntity {
     /**
      * Validates the given field for the unique constraint.
      *
-     * @param string $field the field to validate
-     * @param CRUDData $data the data instance to work with
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
+     * @param string $field
+     * the field to validate
+     * @param CRUDData $data
+     * the data instance to work with
+     * @param array &$errors
+     * the error collecting array
+     * @param boolean &$valid
+     * the validation flag
      */
     private function validateUnique($field, CRUDData $data, &$errors, &$valid) {
         if ($this->definition->isUnique($field) && array_key_exists($field, $this->entity) && $this->entity[$field]) {
@@ -77,9 +101,12 @@ class CRUDEntity {
     /**
      * Validates the given field for the set type.
      *
-     * @param string $field the field to validate
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
+     * @param string $field
+     * the field to validate
+     * @param array &$errors
+     * the error collecting array
+     * @param boolean &$valid
+     * the validation flag
      */
     private function validateSet($field, &$errors, &$valid) {
         $type = $this->definition->getType($field);
@@ -93,30 +120,20 @@ class CRUDEntity {
     }
 
     /**
-     * Validates the given field for the int type.
+     * Validates the given field for a number type.
      *
-     * @param string $field the field to validate
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
+     * @param string $field
+     * the field to validate
+     * @param string $numberType
+     * the type, might be 'int' or 'float'
+     * @param array &$errors
+     * the error collecting array
+     * @param boolean &$valid
+     * the validation flag
      */
-    private function validateInt($field, &$errors, &$valid) {
+    private function validateNumber($field, $numberType, &$errors, &$valid) {
         $type = $this->definition->getType($field);
-        if ($type == 'int' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(int)$this->entity[$field] != $this->entity[$field]) {
-            $errors[$field]['input'] = true;
-            $valid = false;
-        }
-    }
-
-    /**
-     * Validates the given field for the float type.
-     *
-     * @param string $field the field to validate
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
-     */
-    private function validateFloat($field, &$errors, &$valid) {
-        $type = $this->definition->getType($field);
-        if ($type == 'float' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(float)$this->entity[$field] != $this->entity[$field]) {
+        if ($type == $numberType && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)$this->toType($this->entity[$field], $numberType) != $this->entity[$field]) {
             $errors[$field]['input'] = true;
             $valid = false;
         }
@@ -125,9 +142,12 @@ class CRUDEntity {
     /**
      * Validates the given field for the date type.
      *
-     * @param string $field the field to validate
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
+     * @param string $field
+     * the field to validate
+     * @param array &$errors
+     * the error collecting array
+     * @param boolean &$valid
+     * the validation flag
      */
     private function validateDate($field, &$errors, &$valid) {
         $type = $this->definition->getType($field);
@@ -140,9 +160,12 @@ class CRUDEntity {
     /**
      * Validates the given field for the datetime type.
      *
-     * @param string $field the field to validate
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
+     * @param string $field
+     * the field to validate
+     * @param array &$errors
+     * the error collecting array
+     * @param boolean &$valid
+     * the validation flag
      */
     private function validateDateTime($field, &$errors, &$valid) {
         $type = $this->definition->getType($field);
@@ -157,10 +180,14 @@ class CRUDEntity {
     /**
      * Validates the given field for the reference type.
      *
-     * @param string $field the field to validate
-     * @param CRUDData $data the data instance to work with
-     * @param array &$errors the error collecting array
-     * @param boolean &$valid the validation flag
+     * @param string $field
+     * the field to validate
+     * @param CRUDData $data
+     * the data instance to work with
+     * @param array &$errors
+     * the error collecting array
+     * @param boolean &$valid
+     * the validation flag
      */
     private function validateReference($field, CRUDData $data, &$errors, &$valid) {
         $type = $this->definition->getType($field);
@@ -272,8 +299,8 @@ class CRUDEntity {
             $this->validateUnique($field, $data, $errors, $valid);
 
             $this->validateSet($field, $errors, $valid);
-            $this->validateInt($field, $errors, $valid);
-            $this->validateFloat($field, $errors, $valid);
+            $this->validateNumber($field, 'int', $errors, $valid);
+            $this->validateNumber($field, 'float', $errors, $valid);
             $this->validateDate($field, $errors, $valid);
             $this->validateDateTime($field, $errors, $valid);
             $this->validateReference($field, $data, $errors, $valid);
