@@ -151,6 +151,27 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
+     * Gets a map with localized entity labels from the CRUD YML.
+     *
+     * @param array $locales
+     * the available locales
+     * @param array $crud
+     * the CRUD entity map
+     *
+     * @return array
+     * the map with localized entity labels
+     */
+    protected function getLocaleLabels($locales, $crud) {
+        $localeLabels = array();
+        foreach ($locales as $locale) {
+            if (array_key_exists('label_'.$locale, $crud)) {
+                $localeLabels[$locale] = $crud['label_'.$locale];
+            }
+        }
+        return $localeLabels;
+    }
+
+    /**
      * Initializes the instance.
      *
      * @param CRUDDataFactoryInterface $dataFactory
@@ -181,12 +202,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
             $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
 
-            $localeLabels = array();
-            foreach ($locales as $locale) {
-                if (array_key_exists('label_'.$locale, $crud)) {
-                    $localeLabels[$locale] = $crud['label_'.$locale];
-                }
-            }
+            $localeLabels = $this->getLocaleLabels($locales, $crud);
 
             $standardFieldLabels = array(
                 'id' => $app['translator']->trans('crudlex.label.id'),
