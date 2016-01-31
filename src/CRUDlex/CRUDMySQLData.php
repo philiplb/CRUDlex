@@ -106,6 +106,68 @@ class CRUDMySQLData extends CRUDData {
     }
 
     /**
+     * Adds sorting parameters to the query.
+     *
+     * @param QueryBuilder $queryBuilder
+     * the query
+     * @param $filter
+     * the filter all resulting entities must fulfill, the keys as field names
+     * @param $filterOperators
+     * the operators of the filter like "=" defining the full condition of the field
+     */
+    protected function addFilter(QueryBuilder $queryBuilder, array $filter, array $filterOperators) {
+        $i = 0;
+        foreach ($filter as $field => $value) {
+            if ($value === null) {
+                $queryBuilder->andWhere('`'.$field.'` IS NULL');
+            } else {
+                $operator = array_key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
+                $queryBuilder
+                    ->andWhere('`'.$field.'` '.$operator.' ?')
+                    ->setParameter($i, $value);
+            }
+            $i++;
+        }
+    }
+
+    /**
+     * Adds pagination parameters to the query.
+     *
+     * @param QueryBuilder $queryBuilder
+     * the query
+     * @param $skip
+     * the rows to skip
+     * @param $amount
+     * the maximum amount of rows
+     */
+    protected function addPagination(QueryBuilder $queryBuilder, $skip, $amount) {
+        $queryBuilder->setMaxResults(9999999999);
+        if ($amount !== null) {
+            $queryBuilder->setMaxResults(abs(intval($amount)));
+        }
+        if ($skip !== null) {
+            $queryBuilder->setFirstResult(abs(intval($skip)));
+        }
+    }
+
+    /**
+     * Adds sorting parameters to the query.
+     *
+     * @param QueryBuilder $queryBuilder
+     * the query
+     * @param $sortField
+     * the sort field
+     * @param $sortAscending
+     * true if sort ascending, false if descending
+     */
+    protected function addSort(QueryBuilder $queryBuilder, $sortField, $sortAscending) {
+        if ($sortField !== null) {
+            $order = $sortAscending === true ? 'ASC' : 'DESC';
+            $queryBuilder->orderBy($sortField, $order);
+        }
+    }
+
+    /**
      * Constructor.
      *
      * @param CRUDEntityDefinition $definition
@@ -145,31 +207,9 @@ class CRUDMySQLData extends CRUDData {
             ->from($table, $table)
             ->where('deleted_at IS NULL');
 
-        $i = 0;
-        foreach ($filter as $field => $value) {
-            if ($value === null) {
-                $queryBuilder->andWhere('`'.$field.'` IS NULL');
-            } else {
-                $operator = array_key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
-                $queryBuilder
-                    ->andWhere('`'.$field.'` '.$operator.' ?')
-                    ->setParameter($i, $value);
-            }
-            $i++;
-        }
-
-        $queryBuilder->setMaxResults(9999999999);
-        if ($amount !== null) {
-            $queryBuilder->setMaxResults(abs(intval($amount)));
-        }
-        if ($skip !== null) {
-            $queryBuilder->setFirstResult(abs(intval($skip)));
-        }
-
-        if ($sortField !== null) {
-            $order = $sortAscending === true ? 'ASC' : 'DESC';
-            $queryBuilder->orderBy($sortField, $order);
-        }
+        $this->addFilter($queryBuilder, $filter, $filterOperators);
+        $this->addPagination($queryBuilder, $skip, $amount);
+        $this->addSort($queryBuilder, $sortField, $sortAscending);
 
         $queryResult = $queryBuilder->execute();
         $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
