@@ -60,6 +60,63 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
+     * Validates and saves the new or updated entity and returns the appropriate HTTP
+     * response.
+     *
+     * @param Application $app
+     * the current application
+     * @param CRUDData $crudData
+     * the data instance of the entity
+     * @param CRUDEntity $instance
+     * the entity
+     * @param $entity
+     * the name of the entity
+     * @param $edit
+     * whether to edit (true) or to create (false) the entity
+     *
+     * @return Response
+     * the HTTP response of this modification
+     */
+    protected function modifyEntity(Application $app, CRUDData $crudData, CRUDEntity $instance, $entity, $edit) {
+        $errors = array();
+        $mode = $edit ? 'edit' : 'create';
+        if ($app['request']->getMethod() == 'POST') {
+            $instance->populateViaRequest($app['request']);
+            $validation = $instance->validate($crudData);
+            if (!$validation['valid']) {
+                $errors = $validation['errors'];
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
+            } else {
+                $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
+                if ($modified) {
+                    $id = $instance->get('id');
+                    if ($edit) {
+                        $crudData->updateFiles($app['request'], $instance, $entity);
+                    } else {
+                        $crudData->createFiles($app['request'], $instance, $entity);
+                    }
+                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.'.$mode.'.success', array(
+                        '%label%' => $crudData->getDefinition()->getLabel(),
+                        '%id%' => $id
+                    )));
+                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                }
+                $errors = $validation['errors'];
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.failed'));
+            }
+        }
+
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
+            'crudEntity' => $entity,
+            'crudData' => $crudData,
+            'entity' => $instance,
+            'mode' => $mode,
+            'errors' => $errors,
+            'layout' => $app['crud']->getTemplate($app, 'layout', $mode, $entity)
+        ));
+    }
+
+    /**
      * Implements ControllerProviderInterface::connect() connecting this
      * controller.
      *
@@ -129,39 +186,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
 
         $instance = $crudData->createEmpty();
-        $instance->populateViaRequest($app['request']);
-
-        $errors = array();
-        if ($app['request']->getMethod() == 'POST') {
-            $validation = $instance->validate($crudData);
-            if (!$validation['valid']) {
-                $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.error'));
-            } else {
-                $created = $crudData->create($instance);
-                if ($created) {
-                    $id = $instance->get('id');
-                    $crudData->createFiles($app['request'], $instance, $entity);
-
-                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.create.success', array(
-                        '%label%' => $crudData->getDefinition()->getLabel(),
-                        '%id%' => $id
-                    )));
-                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-                }
-                $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.failed'));
-            }
-        }
-
-        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
-            'crudEntity' => $entity,
-            'crudData' => $crudData,
-            'entity' => $instance,
-            'mode' => 'create',
-            'errors' => $errors,
-            'layout' => $app['crud']->getTemplate($app, 'layout', 'create', $entity)
-        ));
+        return $this->modifyEntity($app, $crudData, $instance, $entity, false);
     }
 
     /**
@@ -311,36 +336,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
-        $errors = array();
-        if ($app['request']->getMethod() == 'POST') {
-            $instance->populateViaRequest($app['request']);
-            $validation = $instance->validate($crudData);
-            if (!$validation['valid']) {
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.error'));
-                $errors = $validation['errors'];
-            } else {
-                $updated = $crudData->update($instance);
-                if ($updated) {
-                    $crudData->updateFiles($app['request'], $instance, $entity);
-                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.edit.success', array(
-                        '%label%' => $crudData->getDefinition()->getLabel(),
-                        '%id%' => $id
-                    )));
-                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-                }
-                $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.failed'));
-            }
-        }
-
-        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
-            'crudEntity' => $entity,
-            'crudData' => $crudData,
-            'entity' => $instance,
-            'mode' => 'edit',
-            'errors' => $errors,
-            'layout' => $app['crud']->getTemplate($app, 'layout', 'edit', $entity)
-        ));
+        return $this->modifyEntity($app, $crudData, $instance, $entity, true);
     }
 
     /**
