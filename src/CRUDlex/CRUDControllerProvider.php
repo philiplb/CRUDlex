@@ -491,19 +491,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $size = filesize($file);
 
-        $response = new StreamedResponse(function() use ($file) {
-            set_time_limit(0);
-            $handle = fopen($file, 'rb');
-            if ($handle !== false) {
-                $chunkSize = 1024 * 1024;
-                while (!feof($handle)) {
-                    $buffer = fread($handle, $chunkSize);
-                    echo $buffer;
-                    flush();
-                }
-                fclose($handle);
-            }
-        }, 200, array(
+        $response = new StreamedResponse(CRUDStreamedFileResponse::getStreamedFileFunction($file), 200, array(
             'Content-Type' => $mimeType,
             'Content-Disposition' => 'attachment; filename="'.basename($file).'"',
             'Content-length' => $size
