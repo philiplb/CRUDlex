@@ -14,7 +14,6 @@ namespace CRUDlex;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-
 use CRUDlex\CRUDFileProcessorInterface;
 use CRUDlex\CRUDEntity;
 use CRUDlex\CRUDStreamedFileResponse;
