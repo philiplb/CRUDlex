@@ -83,6 +83,7 @@ implemented on the fly when needed.
 [![Build Status](https://travis-ci.org/philiplb/CRUDlex.svg?branch=master)](https://travis-ci.org/philiplb/CRUDlex)
 [![Coverage Status](https://coveralls.io/repos/philiplb/CRUDlex/badge.png?branch=master)](https://coveralls.io/r/philiplb/CRUDlex?branch=master)
 
-## Misc
+## Code Quality
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa/mini.png)](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/philiplb/CRUDlex/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/philiplb/CRUDlex/?branch=master)
