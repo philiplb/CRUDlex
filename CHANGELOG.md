@@ -8,6 +8,16 @@ Released: Upcoming
 - Added a function to the service provider to get the name of the language of a locale
 - Generating the language picker based on the available translation files instead of being hard coded
 - Fixed and refactored a lot things revealed by static code analysis
+- Updated dependencies:
+    - Symfony-Components to the current LTS version 2.8
+    - "symfony/...": "~2.8" (current LTS version)
+    - "phpunit/phpunit": "~4.8"
+    - "satooshi/php-coveralls": "1.0.1"
+    - "apigen/apigen": "4.1.2"
+    - Eonasdan/bootstrap-datetimepicker V4.17.37
+    - Bootstrap 3.3.6
+    - moment.js 2.11.2
+    - jQuery 2.2.0
 
 ## 0.9.8
 Released: 2015-09-28
