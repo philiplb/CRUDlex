@@ -259,7 +259,8 @@ class CRUDMySQLData extends CRUDData {
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->update($this->definition->getTable())
-            ->set('updated_at', 'NOW()');
+            ->set('updated_at', 'NOW()')
+            ->set('version', 'version + 1');
 
         $formFields = $this->definition->getEditableFieldNames();
         $this->setValuesAndParameters($entity, $queryBuilder, false);
