@@ -162,7 +162,7 @@ the referenced __entity__.
 The __nameField__ is optional. If it is not given, only the id of the referenced
 __entity__ is shown.
 
-Think about a book in a library. The library is stored in the table "lib" and
+Think about a book in a library. The library is stored in the table "library" and
 has a field "name". A book belongs to a library, so it has an integer field
 "library" referencing ids of libraries. Here is the needed yml for this
 book-library relationship:
