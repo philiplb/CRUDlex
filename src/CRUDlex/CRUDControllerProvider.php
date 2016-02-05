@@ -87,7 +87,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             if ($mode === 'edit' &&
                 intval($app['request']->get('version')) !== $instance->get('version')) {
                 $validation['valid'] = false;
-                $optimisticLockingError = true;
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
             }
 
