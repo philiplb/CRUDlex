@@ -69,9 +69,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      * the data instance of the entity
      * @param CRUDEntity $instance
      * the entity
-     * @param $entity
+     * @param string $entity
      * the name of the entity
-     * @param $edit
+     * @param boolean $edit
      * whether to edit (true) or to create (false) the entity
      *
      * @return Response
