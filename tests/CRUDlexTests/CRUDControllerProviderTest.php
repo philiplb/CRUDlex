@@ -277,6 +277,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->fileProcessor->reset();
 
         $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+            'version' => 0,
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
@@ -297,6 +298,20 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertTrue($this->fileProcessor->isUpdateFileCalled());
         $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
         $this->assertFalse($this->fileProcessor->isRenderFileCalled());
+
+        // Optimistic locking
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+            'version' => 0,
+            'title' => 'titleEdited2',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ));
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertRegExp('/There was a more up to date version of the data available\./', $client->getResponse()->getContent());
 
         // Canceling events
         $before = function(CRUDEntity $entity) {
