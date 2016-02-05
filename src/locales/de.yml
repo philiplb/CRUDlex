@@ -52,6 +52,7 @@ crudlex:
     success: '%label% erstellt mit Id %id%'
   edit:
     error: 'Konnte nicht bearbeiten, bitte die rot markierten Felder beachten.'
+    locked: 'Es gab eine neuere Version dieser Daten.'
     success: '%label% bearbeitet mit Id %id%'
     failed: 'Konnte nicht bearbeiten.'
   delete:
