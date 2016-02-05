@@ -304,6 +304,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         };
         $this->dataBook->pushEvent('before', 'update', $before);
         $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+            'version' => 1,
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
