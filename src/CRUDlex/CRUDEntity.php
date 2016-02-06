@@ -289,7 +289,7 @@ class CRUDEntity {
     public function validate(CRUDData $data) {
 
         $fields = $this->definition->getEditableFieldNames();
-        $errors = array();
+        $fieldErrors = array();
         $valid = true;
         foreach ($fields as $field) {
             $fieldErrors[$field] = array('required' => false, 'unique' => false, 'input' => false);
