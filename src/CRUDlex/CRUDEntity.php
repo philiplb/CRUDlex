@@ -12,7 +12,6 @@
 namespace CRUDlex;
 
 use Symfony\Component\HttpFoundation\Request;
-
 use CRUDlex\CRUDEntityDefinition;
 use CRUDlex\CRUDData;
 
