@@ -55,17 +55,17 @@ class CRUDEntity {
      *
      * @param string $field
      * the field to validate
-     * @param array &$errors
+     * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    protected function validateRequired($field, &$errors, &$valid) {
+    protected function validateRequired($field, &$fieldErrors, &$valid) {
         if ($this->definition->isRequired($field) && !$this->definition->getFixedValue($field) &&
             (!array_key_exists($field, $this->entity)
             || $this->entity[$field] === null
             || $this->entity[$field] === '')) {
-            $errors[$field]['required'] = true;
+            $fieldErrors[$field]['required'] = true;
             $valid = false;
         }
     }
@@ -77,12 +77,12 @@ class CRUDEntity {
      * the field to validate
      * @param CRUDData $data
      * the data instance to work with
-     * @param array &$errors
+     * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    private function validateUnique($field, CRUDData $data, &$errors, &$valid) {
+    private function validateUnique($field, CRUDData $data, &$fieldErrors, &$valid) {
         if ($this->definition->isUnique($field) && array_key_exists($field, $this->entity) && $this->entity[$field]) {
             $params = array($field => $this->entity[$field]);
             $paramsOperators = array($field => '=');
@@ -92,7 +92,7 @@ class CRUDEntity {
             }
             $amount = intval($data->countBy($this->definition->getTable(), $params, $paramsOperators, true));
             if ($amount > 0) {
-                $errors[$field]['unique'] = true;
+                $fieldErrors[$field]['unique'] = true;
                 $valid = false;
             }
         }
@@ -103,17 +103,17 @@ class CRUDEntity {
      *
      * @param string $field
      * the field to validate
-     * @param array &$errors
+     * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    private function validateSet($field, &$errors, &$valid) {
+    private function validateSet($field, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         if ($type == 'set' && $this->entity[$field]) {
             $setItems = $this->definition->getSetItems($field);
             if (!in_array($this->entity[$field], $setItems)) {
-                $errors[$field]['input'] = true;
+                $fieldErrors[$field]['input'] = true;
                 $valid = false;
             }
         }
@@ -126,15 +126,15 @@ class CRUDEntity {
      * the field to validate
      * @param string $numberType
      * the type, might be 'int' or 'float'
-     * @param array &$errors
+     * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    private function validateNumber($field, $numberType, &$errors, &$valid) {
+    private function validateNumber($field, $numberType, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         if ($type == $numberType && !in_array($this->entity[$field], array('', null), true) && (string)$this->toType($this->entity[$field], $numberType) != $this->entity[$field]) {
-            $errors[$field]['input'] = true;
+            $fieldErrors[$field]['input'] = true;
             $valid = false;
         }
     }
@@ -144,15 +144,15 @@ class CRUDEntity {
      *
      * @param string $field
      * the field to validate
-     * @param array &$errors
+     * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    private function validateDate($field, &$errors, &$valid) {
+    private function validateDate($field, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         if ($type == 'date' && $this->entity[$field] && \DateTime::createFromFormat('Y-m-d', $this->entity[$field]) === false) {
-            $errors[$field]['input'] = true;
+            $fieldErrors[$field]['input'] = true;
             $valid = false;
         }
     }
@@ -162,17 +162,17 @@ class CRUDEntity {
      *
      * @param string $field
      * the field to validate
-     * @param array &$errors
+     * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    private function validateDateTime($field, &$errors, &$valid) {
+    private function validateDateTime($field, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         if ($type == 'datetime' && $this->entity[$field] &&
             \DateTime::createFromFormat('Y-m-d H:i', $this->entity[$field]) === false &&
             \DateTime::createFromFormat('Y-m-d H:i:s', $this->entity[$field]) === false) {
-            $errors[$field]['input'] = true;
+            $fieldErrors[$field]['input'] = true;
             $valid = false;
         }
     }
@@ -184,19 +184,19 @@ class CRUDEntity {
      * the field to validate
      * @param CRUDData $data
      * the data instance to work with
-     * @param array &$errors
+     * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    private function validateReference($field, CRUDData $data, &$errors, &$valid) {
+    private function validateReference($field, CRUDData $data, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         if ($type == 'reference' && $this->entity[$field] !== '' && $this->entity[$field] !== null) {
             $params = array('id' => $this->entity[$field]);
             $paramsOperators = array('id' => '=');
             $amount = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
             if ($amount == 0) {
-                $errors[$field]['input'] = true;
+                $fieldErrors[$field]['input'] = true;
                 $valid = false;
             }
         }
@@ -276,8 +276,8 @@ class CRUDEntity {
      * the data access instance used for counting things
      *
      * @return array
-     * an array with the fields "valid" and "errors"; valid provides a quick
-     * check whether the given entity passes the validation and errors is an
+     * an array with the fields "valid" and "fields"; valid provides a quick
+     * check whether the given entity passes the validation and fields is an
      * array with all fields as keys and arrays as values; this field arrays
      * contain three keys: required, unique and input; each of them represents
      * with a boolean whether the input is ok in that way; if "required" is
@@ -292,20 +292,20 @@ class CRUDEntity {
         $errors = array();
         $valid = true;
         foreach ($fields as $field) {
-            $errors[$field] = array('required' => false, 'unique' => false, 'input' => false);
+            $fieldErrors[$field] = array('required' => false, 'unique' => false, 'input' => false);
 
-            $this->validateRequired($field, $errors, $valid);
-            $this->validateUnique($field, $data, $errors, $valid);
+            $this->validateRequired($field, $fieldErrors, $valid);
+            $this->validateUnique($field, $data, $fieldErrors, $valid);
 
-            $this->validateSet($field, $errors, $valid);
-            $this->validateNumber($field, 'int', $errors, $valid);
-            $this->validateNumber($field, 'float', $errors, $valid);
-            $this->validateDate($field, $errors, $valid);
-            $this->validateDateTime($field, $errors, $valid);
-            $this->validateReference($field, $data, $errors, $valid);
+            $this->validateSet($field, $fieldErrors, $valid);
+            $this->validateNumber($field, 'int', $fieldErrors, $valid);
+            $this->validateNumber($field, 'float', $fieldErrors, $valid);
+            $this->validateDate($field, $fieldErrors, $valid);
+            $this->validateDateTime($field, $fieldErrors, $valid);
+            $this->validateReference($field, $data, $fieldErrors, $valid);
 
         }
-        return array('valid' => $valid, 'errors' => $errors);
+        return array('valid' => $valid, 'fields' => $fieldErrors);
     }
 
     /**

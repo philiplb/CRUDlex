@@ -78,7 +78,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      * the HTTP response of this modification
      */
     protected function modifyEntity(Application $app, CRUDData $crudData, CRUDEntity $instance, $entity, $edit) {
-        $errors = array();
+        $fieldErrors = array();
         $mode = $edit ? 'edit' : 'create';
         if ($app['request']->getMethod() == 'POST') {
             $instance->populateViaRequest($app['request']);
@@ -90,8 +90,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
             }
 
+            $fieldErrors = $validation['fields'];
             if (!$validation['valid']) {
-                $errors = $validation['errors'];
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
@@ -108,7 +108,6 @@ class CRUDControllerProvider implements ControllerProviderInterface {
                     )));
                     return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
                 }
-                $errors = $validation['errors'];
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.failed'));
             }
         }
@@ -118,7 +117,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => $mode,
-            'errors' => $errors,
+            'fieldErrors' => $fieldErrors,
             'layout' => $app['crud']->getTemplate($app, 'layout', $mode, $entity)
         ));
     }
