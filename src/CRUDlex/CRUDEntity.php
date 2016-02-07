@@ -13,7 +13,6 @@ namespace CRUDlex;
 
 use Symfony\Component\HttpFoundation\Request;
 use CRUDlex\CRUDEntityDefinition;
-use CRUDlex\CRUDData;
 
 /**
  * Represents a single set of data in field value pairs like the row in a
