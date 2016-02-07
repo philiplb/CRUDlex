@@ -30,7 +30,7 @@ class CRUDEntity {
     /**
      * Holds the key value data of the entity.
      */
-    protected $entity = array();
+    protected $entity;
 
 
     /**
@@ -209,6 +209,7 @@ class CRUDEntity {
      */
     public function __construct(CRUDEntityDefinition $definition) {
         $this->definition = $definition;
+        $this->entity = array();
     }
 
     /**
