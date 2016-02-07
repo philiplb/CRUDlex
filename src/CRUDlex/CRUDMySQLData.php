@@ -351,30 +351,23 @@ class CRUDMySQLData extends CRUDData {
             $nameField = $this->definition->getReferenceNameField($field);
             $queryBuilder = $this->db->createQueryBuilder();
 
-            $in = '?';
-            $amount = count($entities);
             $ids = array($entities[0]->get($field));
-            for ($i = 1; $i < $amount; ++$i) {
-                $in .= ',?';
-                $ids[] = $entities[$i]->get($field);
-            }
             $table = $this->definition->getReferenceTable($field);
             $queryBuilder
                 ->from($table, $table)
-                ->where('id IN ('.$in.')')
+                ->where('id IN (?)')
                 ->andWhere('deleted_at IS NULL');
             if ($nameField) {
                 $queryBuilder->select('id', $nameField);
             } else {
                 $queryBuilder->select('id');
             }
-            $count = count($ids);
-            for ($i = 0; $i < $count; ++$i) {
-                $queryBuilder->setParameter($i, $ids[$i]);
-            }
+
+            $queryBuilder->setParameter(0, $ids, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY);
 
             $queryResult = $queryBuilder->execute();
             $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+            $amount = count($entities);
             foreach ($rows as $row) {
                 for ($i = 0; $i < $amount; ++$i) {
                     if ($entities[$i]->get($field) == $row['id']) {
