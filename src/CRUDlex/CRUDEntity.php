@@ -246,14 +246,10 @@ class CRUDEntity {
 
         $value = $this->entity[$field];
         $type = $this->definition->getType($field);
-        switch ($type) {
-            case 'int':
-            case 'float':
-                $value = $value !== '' && $value !== null ? $this->toType($value, $type) : null;
-                break;
-            case 'bool':
-                $value = $value && $value !== '0';
-                break;
+        if ($type == 'int' || $type == 'float') {
+            $value = $value !== '' && $value !== null ? $this->toType($value, $type) : null;
+        } else if ($type == 'bool') {
+            $value = $value && $value !== '0';
         }
         return $value;
     }
