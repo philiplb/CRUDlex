@@ -82,7 +82,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $mode = $edit ? 'edit' : 'create';
         if ($app['request']->getMethod() == 'POST') {
             $instance->populateViaRequest($app['request']);
-            $validation = $instance->validate($crudData, intval($app['request']->get('version')));
+            $validator = new CRUDEntityValidator($instance);
+            $validation = $validator->validate($crudData, intval($app['request']->get('version')));
 
             $fieldErrors = $validation['fields'];
             if (!$validation['valid']) {
