@@ -516,19 +516,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      * redirects to the instance details page or 404 on invalid input
      */
     public function setLocale(Application $app, $locale) {
-        $foundLocale = false;
-        $localeDir = __DIR__.'/../locales';
-        $langFiles = scandir($localeDir);
-        foreach ($langFiles as $langFile) {
-            if ($langFile == '.' || $langFile == '..') {
-                continue;
-            }
-            if ($langFile === $locale.'.yml') {
-                $foundLocale = true;
-            }
-        }
 
-        if (!$foundLocale) {
+        if (!in_array($locale, $app['crud']->getLocales())) {
             return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
         }
 
