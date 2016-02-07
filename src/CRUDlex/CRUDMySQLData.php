@@ -241,6 +241,11 @@ class CRUDMySQLData extends CRUDData {
         $queryBuilder->execute();
         $entity->set('id', $this->db->lastInsertId());
 
+        $createdEntity = $this->get($entity->get('id'));
+        $entity->set('version', $createdEntity->get('version'));
+        $entity->set('created_at', $createdEntity->get('created_at'));
+        $entity->set('updated_at', $createdEntity->get('updated_at'));
+
         $this->executeEvents($entity, 'after', 'create');
 
         return true;

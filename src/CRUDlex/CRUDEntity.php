@@ -273,6 +273,8 @@ class CRUDEntity {
      *
      * @param CRUDData $data
      * the data access instance used for counting things
+     * @param integer $sendVersion
+     * the version to perform the optimistic locking check on
      *
      * @return array
      * an array with the fields "valid" and "fields"; valid provides a quick
@@ -285,11 +287,18 @@ class CRUDEntity {
      * value is correct (a valid int, date, depending on the type in the
      * definition)
      */
-    public function validate(CRUDData $data) {
+    public function validate(CRUDData $data, $version) {
 
         $fields = $this->definition->getEditableFieldNames();
         $fieldErrors = array();
         $valid = true;
+        $optimisticLocking = false;
+
+        if ($this->get('id') && $version !== $this->get('version')) {
+            $valid = false;
+            $optimisticLocking = true;
+        }
+
         foreach ($fields as $field) {
             $fieldErrors[$field] = array('required' => false, 'unique' => false, 'input' => false);
 
@@ -304,7 +313,11 @@ class CRUDEntity {
             $this->validateReference($field, $data, $fieldErrors, $valid);
 
         }
-        return array('valid' => $valid, 'fields' => $fieldErrors);
+        return array(
+            'valid' => $valid,
+            'optimisticLocking' => $optimisticLocking,
+            'fields' => $fieldErrors
+        );
     }
 
     /**

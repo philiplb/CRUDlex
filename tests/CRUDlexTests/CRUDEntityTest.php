@@ -96,6 +96,7 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
 
         $valid =  array(
             'valid' => true,
+            'optimisticLocking' => false,
             'fields' => array(
                 'title' => array(
                     'required' => false,
@@ -142,12 +143,12 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $invalid = $valid;
         $invalid['valid'] = false;
 
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $valid;
         $this->assertSame($read, $expected);
 
         $entityBook->set('title', null);
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $invalid;
         $expected['fields']['title']['required'] = true;
         $this->assertSame($read, $expected);
@@ -156,7 +157,7 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         // Fixed values should override this.
         $entityBook->set('title', null);
         $this->dataBook->getDefinition()->setFixedValue('title', 'abc');
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $valid;
         $this->assertSame($read, $expected);
         $entityBook->set('title', 'title');
@@ -164,6 +165,7 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
 
         $validLibrary = array(
             'valid' => true,
+            'optimisticLocking' => false,
             'fields' => array(
                 'name' => array(
                     'required' => false,
@@ -198,38 +200,39 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
 
         $entityLibrary2 = $this->dataLibrary->createEmpty();
         $entityLibrary2->set('name', 'lib a');
-        $read = $entityLibrary2->validate($this->dataLibrary);
+        $read = $entityLibrary2->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
         $expected['fields']['name']['unique'] = true;
         $this->assertSame($read, $expected);
 
         $entityLibrary1->set('type', 'large');
-        $read = $entityLibrary1->validate($this->dataLibrary);
+
+        $read = $entityLibrary1->validate($this->dataLibrary, 0);
         $expected = $validLibrary;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('type', 'foo');
-        $read = $entityLibrary1->validate($this->dataLibrary);
+        $read = $entityLibrary1->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
         $expected['fields']['type']['input'] = true;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('type', null);
 
         $entityLibrary1->set('opening', '2014-08-31 12:00');
-        $read = $entityLibrary1->validate($this->dataLibrary);
+        $read = $entityLibrary1->validate($this->dataLibrary, 0);
         $expected = $validLibrary;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', '2014-08-31 12:00:00');
-        $read = $entityLibrary1->validate($this->dataLibrary);
+        $read = $entityLibrary1->validate($this->dataLibrary, 0);
         $expected = $validLibrary;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', 'foo');
-        $read = $entityLibrary1->validate($this->dataLibrary);
+        $read = $entityLibrary1->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
         $expected['fields']['opening']['input'] = true;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', null);
 
-        $read = $entityLibrary1->validate($this->dataLibrary);
+        $read = $entityLibrary1->validate($this->dataLibrary, 0);
         $expected = $validLibrary;
         $this->assertSame($read, $expected);
 
@@ -238,62 +241,62 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
         $expected = $validLibrary;
         $this->assertSame($read, $expected);
         $entityLibrary2->set('name', 'lib a');
-        $read = $entityLibrary2->validate($this->dataLibrary);
+        $read = $entityLibrary2->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
         $expected['fields']['name']['unique'] = true;
         $this->assertSame($read, $expected);
 
         $entityBook->set('pages', 'abc');
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $invalid;
         $expected['fields']['pages']['input'] = true;
         $this->assertSame($read, $expected);
         $entityBook->set('pages', 111);
 
         $entityBook->set('pages', 0);
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $valid;
         $this->assertSame($read, $expected);
         $entityBook->set('pages', 111);
 
         $entityBook->set('pages', null);
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $invalid;
         $expected['fields']['pages']['required'] = true;
         $this->assertSame($read, $expected);
         $entityBook->set('pages', 111);
 
         $entityBook->set('price', 'abc');
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $invalid;
         $expected['fields']['price']['input'] = true;
         $this->assertSame($read, $expected);
         $entityBook->set('price', 3.99);
 
         $entityBook->set('price', 0);
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $valid;
         $this->assertSame($read, $expected);
         $entityBook->set('price', 3.99);
 
         $entityBook->set('price', null);
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $valid;
         $this->assertSame($read, $expected);
         $entityBook->set('price', 3.99);
 
         $entityBook->set('release', 'abc');
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $invalid;
         $expected['fields']['release']['input'] = true;
         $this->assertSame($read, $expected);
         $entityBook->set('release', '2014-08-31');
 
         $entityBook->set('library', 666);
-        $read = $entityBook->validate($this->dataBook);
+        $read = $entityBook->validate($this->dataBook, 0);
         $expected = $invalid;
         $expected['fields']['library']['input'] = true;
-        $this->assertSame($read, $expected);
+        $this->assertSame($read, $expected, 0);
         $entityBook->set('library', $entityLibrary1->get('id'));
     }
 

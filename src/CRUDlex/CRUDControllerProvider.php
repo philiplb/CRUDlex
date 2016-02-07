@@ -82,17 +82,14 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $mode = $edit ? 'edit' : 'create';
         if ($app['request']->getMethod() == 'POST') {
             $instance->populateViaRequest($app['request']);
-            $validation = $instance->validate($crudData);
-
-            if ($mode === 'edit' &&
-                intval($app['request']->get('version')) !== $instance->get('version')) {
-                $validation['valid'] = false;
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
-            }
+            $validation = $instance->validate($crudData, intval($app['request']->get('version')));
 
             $fieldErrors = $validation['fields'];
             if (!$validation['valid']) {
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
+                if ($validation['optimisticLocking']) {
+                    $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
+                }
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
                 if ($modified) {
