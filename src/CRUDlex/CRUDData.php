@@ -204,7 +204,7 @@ abstract class CRUDData {
      * if given and not null, it specifies that the sort order is ascending,
      * descending else
      *
-     * @return array
+     * @return CRUDEntity[]
      * the entities fulfilling the filter or all if no filter was given
      */
     abstract public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null);
