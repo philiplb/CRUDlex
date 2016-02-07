@@ -273,7 +273,7 @@ class CRUDEntity {
      *
      * @param CRUDData $data
      * the data access instance used for counting things
-     * @param integer $sendVersion
+     * @param integer $expectedVersion
      * the version to perform the optimistic locking check on
      *
      * @return array
@@ -287,14 +287,14 @@ class CRUDEntity {
      * value is correct (a valid int, date, depending on the type in the
      * definition)
      */
-    public function validate(CRUDData $data, $version) {
+    public function validate(CRUDData $data, $expectedVersion) {
 
         $fields = $this->definition->getEditableFieldNames();
         $fieldErrors = array();
         $valid = true;
         $optimisticLocking = false;
 
-        if ($this->get('id') && $version !== $this->get('version')) {
+        if ($this->get('id') && $expectedVersion !== $this->get('version')) {
             $valid = false;
             $optimisticLocking = true;
         }
