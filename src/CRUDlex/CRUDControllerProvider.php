@@ -187,6 +187,38 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
+     * Builds up the parameters of the list page filters.
+     *
+     * @param Application $app
+     * the current application
+     * @param CRUDEntityDefinition $definition
+     * the current entity definition
+     * @param array &$filter
+     * will hold a map of fields to request parameters for the filters
+     * @param boolean &$filterActive
+     * will be true if at least one filter is active
+     * @param array &$filterToUse
+     * will hold a map of fields to integers (0 or 1) which boolean filters are active
+     * @param array &$filterOperators
+     * will hold a map of fields to operators for CRUDData::listEntries()
+     */
+    protected function buildUpListFilter(Application $app, CRUDEntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
+        foreach ($definition->getFilter() as $filterField) {
+            $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
+            if ($filter[$filterField]) {
+                $filterActive = true;
+                if ($definition->getType($filterField) == 'bool') {
+                    $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
+                    $filterOperators[$filterField] = '=';
+                } else {
+                    $filterToUse[$filterField] = '%'.$filter[$filterField].'%';
+                    $filterOperators[$filterField] = 'LIKE';
+                }
+            }
+        }
+    }
+
+    /**
      * Implements ControllerProviderInterface::connect() connecting this
      * controller.
      *
@@ -281,19 +313,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $filterActive = false;
         $filterToUse = array();
         $filterOperators = array();
-        foreach ($definition->getFilter() as $filterField) {
-            $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
-            if ($filter[$filterField]) {
-                $filterActive = true;
-                if ($definition->getType($filterField) == 'bool') {
-                    $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
-                    $filterOperators[$filterField] = '=';
-                } else {
-                    $filterToUse[$filterField] = '%'.$filter[$filterField].'%';
-                    $filterOperators[$filterField] = 'LIKE';
-                }
-            }
-        }
+        $this->buildUpListFilter($app, $definition, $filter, $filterActive, $filterToUse, $filterOperators);
 
         $pageSize = $definition->getPageSize();
         $total = $crudData->countBy($definition->getTable(), $filterToUse, $filterOperators, true);
