@@ -82,7 +82,8 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         finfo_close($finfo);
         $size = filesize($file);
         if ($fileName && file_exists($file)) {
-            $response = new StreamedResponse(CRUDStreamedFileResponse::getStreamedFileFunction($file), 200, array(
+            $streamedFileResponse = new CRUDStreamedFileResponse();
+            $response = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
                 'Content-Type' => $mimeType,
                 'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
                 'Content-length' => $size

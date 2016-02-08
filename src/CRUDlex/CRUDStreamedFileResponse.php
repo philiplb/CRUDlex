@@ -19,7 +19,7 @@ class CRUDStreamedFileResponse {
      * @param string $file
      * the filename to stream
      */
-    public static function getStreamedFileFunction($file) {
+    public function getStreamedFileFunction($file) {
         return function() use ($file) {
             set_time_limit(0);
             $handle = fopen($file, 'rb');
