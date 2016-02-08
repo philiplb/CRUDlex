@@ -57,15 +57,11 @@ abstract class CRUDData {
      *
      * @param CRUDEntity $entity
      * the id of the entry to delete
-     *
      * @param boolean $deleteCascade
      * whether to delete children and subchildren
      *
      * @return integer
      * true on successful deletion
-     */
-    /**
-     * {@inheritdoc}
      */
     abstract protected function doDelete(CRUDEntity $entity, $deleteCascade);
 
