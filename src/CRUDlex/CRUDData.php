@@ -281,7 +281,7 @@ abstract class CRUDData {
      * reference field is before the raw id of the referenced entity and after
      * the fetch, it's an array with the keys id and name.
      *
-     * @param array $entities
+     * @param CRUDEntity[] &$entities
      * the entities to fetch the references for
      */
     abstract public function fetchReferences(array &$entities = null);
