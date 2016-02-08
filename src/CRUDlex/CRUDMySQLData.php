@@ -167,6 +167,51 @@ class CRUDMySQLData extends CRUDData {
         }
     }
 
+
+    /**
+     * Adds the id and name of referenced entities to the given entities. The
+     * reference field is before the raw id of the referenced entity and after
+     * the fetch, it's an array with the keys id and name.
+     *
+     * @param CRUDEntity[] &$entities
+     * the entities to fetch the references for
+     * @param string $field
+     * the reference field
+     */
+    protected function fetchReferencesForField(array &$entities, $field) {
+        $nameField = $this->definition->getReferenceNameField($field);
+        $queryBuilder = $this->db->createQueryBuilder();
+
+        $ids = array($entities[0]->get($field));
+        $table = $this->definition->getReferenceTable($field);
+        $queryBuilder
+            ->from($table, $table)
+            ->where('id IN (?)')
+            ->andWhere('deleted_at IS NULL');
+        if ($nameField) {
+            $queryBuilder->select('id', $nameField);
+        } else {
+            $queryBuilder->select('id');
+        }
+
+        $queryBuilder->setParameter(0, $ids, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY);
+
+        $queryResult = $queryBuilder->execute();
+        $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $amount = count($entities);
+        foreach ($rows as $row) {
+            for ($i = 0; $i < $amount; ++$i) {
+                if ($entities[$i]->get($field) == $row['id']) {
+                    $value = array('id' => $entities[$i]->get($field));
+                    if ($nameField) {
+                        $value['name'] = $row[$nameField];
+                    }
+                    $entities[$i]->set($field, $value);
+                }
+            }
+        }
+    }
+
     /**
      * Constructor.
      *
@@ -343,42 +388,11 @@ class CRUDMySQLData extends CRUDData {
         if (!$entities) {
             return;
         }
-
         foreach ($this->definition->getFieldNames() as $field) {
             if ($this->definition->getType($field) !== 'reference') {
                 continue;
             }
-            $nameField = $this->definition->getReferenceNameField($field);
-            $queryBuilder = $this->db->createQueryBuilder();
-
-            $ids = array($entities[0]->get($field));
-            $table = $this->definition->getReferenceTable($field);
-            $queryBuilder
-                ->from($table, $table)
-                ->where('id IN (?)')
-                ->andWhere('deleted_at IS NULL');
-            if ($nameField) {
-                $queryBuilder->select('id', $nameField);
-            } else {
-                $queryBuilder->select('id');
-            }
-
-            $queryBuilder->setParameter(0, $ids, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY);
-
-            $queryResult = $queryBuilder->execute();
-            $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-            $amount = count($entities);
-            foreach ($rows as $row) {
-                for ($i = 0; $i < $amount; ++$i) {
-                    if ($entities[$i]->get($field) == $row['id']) {
-                        $value = array('id' => $entities[$i]->get($field));
-                        if ($nameField) {
-                            $value['name'] = $row[$nameField];
-                        }
-                        $entities[$i]->set($field, $value);
-                    }
-                }
-            }
+            $this->fetchReferencesForField($entities, $field);
         }
     }
 
