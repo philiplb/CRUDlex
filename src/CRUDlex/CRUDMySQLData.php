@@ -59,6 +59,24 @@ class CRUDMySQLData extends CRUDData {
     }
 
     /**
+     * Performs the cascading children deletion.
+     *
+     * @param integer $id
+     * the current entities id
+     * @param boolean $deleteCascade
+     * whether to delete children and subchildren
+     */
+    protected function deleteChildren($id, $deleteCascade) {
+        foreach ($this->definition->getChildren() as $childArray) {
+            $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
+            $children = $childData->listEntries(array($childArray[1] => $id));
+            foreach ($children as $child) {
+                $childData->doDelete($child, $deleteCascade);
+            }
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function doDelete(CRUDEntity $entity, $deleteCascade) {
@@ -68,13 +86,7 @@ class CRUDMySQLData extends CRUDData {
         }
         $id = $entity->get('id');
         if ($deleteCascade) {
-            foreach ($this->definition->getChildren() as $childArray) {
-                $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
-                $children = $childData->listEntries(array($childArray[1] => $id));
-                foreach ($children as $child) {
-                    $childData->doDelete($child, $deleteCascade);
-                }
-            }
+            $this->deleteChildren($id, $deleteCascade);
         } else {
             foreach ($this->definition->getChildren() as $child) {
                 $queryBuilder = $this->db->createQueryBuilder();
