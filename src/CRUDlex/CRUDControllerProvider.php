@@ -406,13 +406,13 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $deleted = $crudData->delete($instance);
 
         if ($deleted === CRUDData::DELETION_FAILED_EVENT) {
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
+            return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         } elseif ($deleted === CRUDData::DELETION_FAILED_STILL_REFERENCED) {
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
-                    '%label%' => $crudData->getDefinition()->getLabel()
-                )));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
+                '%label%' => $crudData->getDefinition()->getLabel()
+            )));
+            return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
 
         $redirectPage = 'crudList';
