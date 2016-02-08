@@ -157,6 +157,36 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
+     * Gets the parameters for the redirection after deleting an entity.
+     *
+     * @param Application $app
+     * the current application
+     * @param string $entity
+     * the entity name
+     * @param string &$redirectPage
+     * where the page to redirect to will be stored
+     *
+     * @return array
+     * the parameters of the redirection, entity and id
+     */
+    protected function getAfterDeleteRedirectParameters(Application $app, $entity, &$redirectPage) {
+        $redirectPage = 'crudList';
+        $redirectParameters = array(
+            'entity' => $entity
+        );
+        $redirectEntity = $app['request']->get('redirectEntity');
+        $redirectId = $app['request']->get('redirectId');
+        if ($redirectEntity && $redirectId) {
+            $redirectPage = 'crudShow';
+            $redirectParameters = array(
+                'entity' => $redirectEntity,
+                'id' => $redirectId
+            );
+        }
+        return $redirectParameters;
+    }
+
+    /**
      * Implements ControllerProviderInterface::connect() connecting this
      * controller.
      *
@@ -416,18 +446,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
 
         $redirectPage = 'crudList';
-        $redirectParameters = array(
-            'entity' => $entity
-        );
-        $redirectEntity = $app['request']->get('redirectEntity');
-        $redirectId = $app['request']->get('redirectId');
-        if ($redirectEntity && $redirectId) {
-            $redirectPage = 'crudShow';
-            $redirectParameters = array(
-                'entity' => $redirectEntity,
-                'id' => $redirectId
-            );
-        }
+        $redirectParameters = $this->getAfterDeleteRedirectParameters($app, $entity, $redirectPage);
 
         $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
             '%label%' => $crudData->getDefinition()->getLabel()
