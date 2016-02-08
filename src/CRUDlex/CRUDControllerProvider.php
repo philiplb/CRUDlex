@@ -60,6 +60,38 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
+     * Postprocesses the entity after modification by handling the uploaded
+     * files and setting the flash.
+     *
+     * @param Application $app
+     * the current application
+     * @param CRUDData $crudData
+     * the data instance of the entity
+     * @param CRUDEntity $instance
+     * the entity
+     * @param string $entity
+     * the name of the entity
+     * @param string $mode
+     * whether to 'edit' or to 'create' the entity
+     *
+     * @return Response
+     * the HTTP response of this modification
+     */
+    protected function modifyFilesAndSetFlashBag(Application $app, CRUDData $crudData, CRUDEntity $instance, $entity, $mode) {
+        $id = $instance->get('id');
+        if ($mode == 'edit') {
+            $crudData->updateFiles($app['request'], $instance, $entity);
+        } else {
+            $crudData->createFiles($app['request'], $instance, $entity);
+        }
+        $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.'.$mode.'.success', array(
+            '%label%' => $crudData->getDefinition()->getLabel(),
+            '%id%' => $id
+        )));
+        return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+    }
+
+    /**
      * Validates and saves the new or updated entity and returns the appropriate HTTP
      * response.
      *
@@ -94,17 +126,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
                 if ($modified) {
-                    $id = $instance->get('id');
-                    if ($edit) {
-                        $crudData->updateFiles($app['request'], $instance, $entity);
-                    } else {
-                        $crudData->createFiles($app['request'], $instance, $entity);
-                    }
-                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.'.$mode.'.success', array(
-                        '%label%' => $crudData->getDefinition()->getLabel(),
-                        '%id%' => $id
-                    )));
-                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+                    return $this->modifyFilesAndSetFlashBag($app, $crudData, $instance, $entity, $mode);
                 }
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.failed'));
             }
