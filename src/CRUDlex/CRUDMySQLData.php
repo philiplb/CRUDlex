@@ -182,6 +182,7 @@ class CRUDMySQLData extends CRUDData {
         $nameField = $this->definition->getReferenceNameField($field);
         $queryBuilder = $this->db->createQueryBuilder();
 
+        $ids = array();
         $amount = count($entities);
         for ($i = 0; $i < $amount; ++$i) {
             $ids[] = $entities[$i]->get($field);
