@@ -206,7 +206,7 @@ class CRUDMySQLData extends CRUDData {
         $nameField = $this->definition->getReferenceNameField($field);
         $queryBuilder = $this->db->createQueryBuilder();
 
-        $ids = array_map(function($entity) use ($field) {
+        $ids = array_map(function(CRUDEntity $entity) use ($field) {
             return $entity->get($field);
         }, $entities);
 
