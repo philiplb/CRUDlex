@@ -192,7 +192,6 @@ class CRUDMySQLData extends CRUDData {
         }
     }
 
-
     /**
      * Adds the id and name of referenced entities to the given entities. The
      * reference field is before the raw id of the referenced entity and after
@@ -207,11 +206,9 @@ class CRUDMySQLData extends CRUDData {
         $nameField = $this->definition->getReferenceNameField($field);
         $queryBuilder = $this->db->createQueryBuilder();
 
-        $ids = array();
-        $amount = count($entities);
-        for ($i = 0; $i < $amount; ++$i) {
-            $ids[] = $entities[$i]->get($field);
-        }
+        $ids = array_map(function($entity) use ($field) {
+            return $entity->get($field);
+        }, $entities);
 
         $table = $this->definition->getReferenceTable($field);
         $queryBuilder
@@ -228,6 +225,7 @@ class CRUDMySQLData extends CRUDData {
 
         $queryResult = $queryBuilder->execute();
         $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $amount = count($entities);
         foreach ($rows as $row) {
             for ($i = 0; $i < $amount; ++$i) {
                 if ($entities[$i]->get($field) == $row['id']) {
