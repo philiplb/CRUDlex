@@ -77,6 +77,33 @@ class CRUDMySQLData extends CRUDData {
     }
 
     /**
+     * Checks whether the by id given entity still has children referencing it.
+     *
+     * @param integer $id
+     * the current entities id
+     *
+     * @return boolean
+     * true if the entity still has children
+     */
+    protected function hasChildren($id) {
+        foreach ($this->definition->getChildren() as $child) {
+            $queryBuilder = $this->db->createQueryBuilder();
+            $queryBuilder
+                ->select('COUNT(id)')
+                ->from($child[0], $child[0])
+                ->where($child[1].' = ?')
+                ->andWhere('deleted_at IS NULL')
+                ->setParameter(0, $id);
+            $queryResult = $queryBuilder->execute();
+            $result = $queryResult->fetch(\PDO::FETCH_NUM);
+            if ($result[0] > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function doDelete(CRUDEntity $entity, $deleteCascade) {
@@ -87,21 +114,8 @@ class CRUDMySQLData extends CRUDData {
         $id = $entity->get('id');
         if ($deleteCascade) {
             $this->deleteChildren($id, $deleteCascade);
-        } else {
-            foreach ($this->definition->getChildren() as $child) {
-                $queryBuilder = $this->db->createQueryBuilder();
-                $queryBuilder
-                    ->select('COUNT(id)')
-                    ->from($child[0], $child[0])
-                    ->where($child[1].' = ?')
-                    ->andWhere('deleted_at IS NULL')
-                    ->setParameter(0, $id);
-                $queryResult = $queryBuilder->execute();
-                $result = $queryResult->fetch(\PDO::FETCH_NUM);
-                if ($result[0] > 0) {
-                    return static::DELETION_FAILED_STILL_REFERENCED;
-                }
-            }
+        } else if ($this->hasChildren($id)) {
+            return static::DELETION_FAILED_STILL_REFERENCED;
         }
 
         $query = $this->db->createQueryBuilder();
