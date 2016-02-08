@@ -12,7 +12,6 @@
 namespace CRUDlex;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-
 use CRUDlex\CRUDEntity;
 use CRUDlex\CRUDData;
 use CRUDlex\CRUDFileProcessorInterface;
@@ -155,9 +154,9 @@ class CRUDMySQLData extends CRUDData {
      *
      * @param QueryBuilder $queryBuilder
      * the query
-     * @param $sortField
+     * @param string|null $sortField
      * the sort field
-     * @param $sortAscending
+     * @param boolean|null $sortAscending
      * true if sort ascending, false if descending
      */
     protected function addSort(QueryBuilder $queryBuilder, $sortField, $sortAscending) {
