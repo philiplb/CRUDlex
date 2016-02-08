@@ -182,7 +182,11 @@ class CRUDMySQLData extends CRUDData {
         $nameField = $this->definition->getReferenceNameField($field);
         $queryBuilder = $this->db->createQueryBuilder();
 
-        $ids = array($entities[0]->get($field));
+        $amount = count($entities);
+        for ($i = 0; $i < $amount; ++$i) {
+            $ids[] = $entities[$i]->get($field);
+        }
+
         $table = $this->definition->getReferenceTable($field);
         $queryBuilder
             ->from($table, $table)
@@ -198,7 +202,6 @@ class CRUDMySQLData extends CRUDData {
 
         $queryResult = $queryBuilder->execute();
         $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $amount = count($entities);
         foreach ($rows as $row) {
             for ($i = 0; $i < $amount; ++$i) {
                 if ($entities[$i]->get($field) == $row['id']) {
