@@ -92,6 +92,23 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
+     * Sets the flashes of a failed entity modification.
+     *
+     * @param Application $app
+     * the current application
+     * @param boolean $optimisticLocking
+     * whether the optimistic locking failed
+     * @param string $mode
+     * the modification mode, either 'create' or 'edit'
+     */
+    protected function setValidationFailedFlashes(Application $app, $optimisticLocking, $mode) {
+        $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
+        if ($optimisticLocking) {
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
+        }
+    }
+
+    /**
      * Validates and saves the new or updated entity and returns the appropriate HTTP
      * response.
      *
@@ -119,10 +136,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
             $fieldErrors = $validation['fields'];
             if (!$validation['valid']) {
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
-                if ($validation['optimisticLocking']) {
-                    $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
-                }
+                $this->setValidationFailedFlashes($app, $validation['optimisticLocking'], $mode);
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
                 if ($modified) {
