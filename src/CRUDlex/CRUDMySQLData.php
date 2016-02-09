@@ -27,6 +27,27 @@ class CRUDMySQLData extends CRUDData {
     protected $db;
 
     /**
+     * Converts CRUDlex value to its MySQL representation.
+     *
+     * @param mixed $value
+     * the value to convert
+     * @param string $type
+     * the type of that value
+     *
+     * @return mixed
+     * the MySQL representation of the value
+     */
+    protected function valueToMySQLRepresentation($value, $type) {
+        if ($type == 'bool') {
+            return $value ? 1 : 0;
+        }
+        if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
+            return $value == '' ? null : $value;
+        }
+        return $value;
+    }
+
+    /**
      * Sets the values and parameters of the upcoming given query according
      * to the entity.
      *
@@ -41,14 +62,8 @@ class CRUDMySQLData extends CRUDData {
         $formFields = $this->definition->getEditableFieldNames();
         $count = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
-            $value = $entity->get($formFields[$i]);
+            $value = $this->valueToMySQLRepresentation($entity->get($formFields[$i]));
             $type = $this->definition->getType($formFields[$i]);
-            if ($type == 'bool') {
-                $value = $value ? 1 : 0;
-            }
-            if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
-                $value = $value == '' ? null : $value;
-            }
             if ($setValue) {
                 $queryBuilder->setValue('`'.$formFields[$i].'`', '?');
             } else {
