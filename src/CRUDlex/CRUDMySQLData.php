@@ -41,7 +41,7 @@ class CRUDMySQLData extends CRUDData {
         if ($type == 'bool') {
             return $value ? 1 : 0;
         }
-        if ($type == 'date' || $type == 'datetime' || $type == 'reference') {
+        if (in_array($type, array('date', 'datetime', 'reference'))) {
             return $value == '' ? null : $value;
         }
         return $value;
