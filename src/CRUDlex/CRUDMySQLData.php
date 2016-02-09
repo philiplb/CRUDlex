@@ -27,6 +27,11 @@ class CRUDMySQLData extends CRUDData {
     protected $db;
 
     /**
+     * Flag whether to use UUIDs as primary key.
+     */
+    protected $useUUIDs;
+
+    /**
      * Sets the values and parameters of the upcoming given query according
      * to the entity.
      *
@@ -237,6 +242,22 @@ class CRUDMySQLData extends CRUDData {
     }
 
     /**
+     * Genereates a new UUID.
+     *
+     * @return string|null
+     * the new UUID or null if this instance isn't configured to do so
+     */
+    protected function generateUUID() {
+        $uuid = null;
+        if ($this->useUUIDs) {
+            $sql = 'SELECT UUID() as id';
+            $result = $this->db->fetchAssoc($sql);
+            $uuid = $result['id'];
+        }
+        return $uuid;
+    }
+
+    /**
      * Constructor.
      *
      * @param CRUDEntityDefinition $definition
@@ -245,11 +266,14 @@ class CRUDMySQLData extends CRUDData {
      * the file processor to use
      * @param $db
      * the Doctrine DBAL instance to use
+     * @param boolean $useUUIDs
+     * flag whether to use UUIDs as primary key
      */
-    public function __construct(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor, $db) {
+    public function __construct(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor, $db, $useUUIDs) {
         $this->definition = $definition;
         $this->fileProcessor = $fileProcessor;
         $this->db = $db;
+        $this->useUUIDs = $useUUIDs;
     }
 
     /**
@@ -306,9 +330,23 @@ class CRUDMySQLData extends CRUDData {
             ->setValue('updated_at', 'UTC_TIMESTAMP()')
             ->setValue('version', 0);
 
+
         $this->setValuesAndParameters($entity, $queryBuilder, true);
+
+        $id = $this->generateUUID();
+        if ($this->useUUIDs) {
+            $queryBuilder->setValue('`id`', '?');
+            $uuidI = count($this->definition->getEditableFieldNames());
+            $queryBuilder->setParameter($uuidI, $id);
+        }
+
         $queryBuilder->execute();
-        $entity->set('id', $this->db->lastInsertId());
+
+        if (!$this->useUUIDs) {
+            $id = $this->db->lastInsertId();
+        }
+
+        $entity->set('id', $id);
 
         $createdEntity = $this->get($entity->get('id'));
         $entity->set('version', $createdEntity->get('version'));

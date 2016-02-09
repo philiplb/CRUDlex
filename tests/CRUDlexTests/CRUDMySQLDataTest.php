@@ -39,6 +39,20 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($id > 0);
     }
 
+    public function testCreateWithUUID() {
+        $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider(true);
+        $dataLibrary = $crudServiceProvider->getData('library');
+
+        $entity = $dataLibrary->createEmpty();
+        $entity->set('name', 'name');
+        $dataLibrary->create($entity);
+        $id = $entity->get('id');
+        $this->assertNotNull($id);
+        $this->assertTrue(strlen($id) == 36);
+        
+        $this->setUp();
+    }
+
     public function testList() {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameA');
