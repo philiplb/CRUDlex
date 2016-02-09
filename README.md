@@ -48,7 +48,7 @@ The CRUDlex API itself is documented here:
 
 ```json
 "require": {
-    "philiplb/crudlex": "dev-master"
+    "philiplb/crudlex": "0.9.x-dev"
 }
 ```
 
