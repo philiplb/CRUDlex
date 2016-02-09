@@ -80,7 +80,7 @@ more fields per table:
 updated
 - deleted_at datetime DEFAULT NULL: defines when this entry was deleted.
 CRUDlex uses a soft delete mechanism hiding all rows where this is not null
-- version int(11) NOT NULL: (will be) used for optimistic locking
+- version int(11) NOT NULL: used for optimistic locking
 
 See the CRUDlexSample.sql in the sample project for the exact table creation.
 
