@@ -175,9 +175,9 @@ class CRUDMySQLData extends CRUDData {
      *
      * @param QueryBuilder $queryBuilder
      * the query
-     * @param $skip
+     * @param integer|null $skip
      * the rows to skip
-     * @param $amount
+     * @param integer|null $amount
      * the maximum amount of rows
      */
     protected function addPagination(QueryBuilder $queryBuilder, $skip, $amount) {
