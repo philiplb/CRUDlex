@@ -118,7 +118,7 @@ class CRUDMySQLData extends CRUDData {
         $query = $this->db->createQueryBuilder();
         $query
             ->update($this->definition->getTable())
-            ->set('deleted_at', 'NOW()')
+            ->set('deleted_at', 'UTC_TIMESTAMP()')
             ->where('id = ?')
             ->setParameter(0, $id);
 
@@ -302,8 +302,8 @@ class CRUDMySQLData extends CRUDData {
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->insert($this->definition->getTable())
-            ->setValue('created_at', 'NOW()')
-            ->setValue('updated_at', 'NOW()')
+            ->setValue('created_at', 'UTC_TIMESTAMP()')
+            ->setValue('updated_at', 'UTC_TIMESTAMP()')
             ->setValue('version', 0);
 
         $this->setValuesAndParameters($entity, $queryBuilder, true);
@@ -333,7 +333,7 @@ class CRUDMySQLData extends CRUDData {
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->update($this->definition->getTable())
-            ->set('updated_at', 'NOW()')
+            ->set('updated_at', 'UTC_TIMESTAMP()')
             ->set('version', 'version + 1');
 
         $formFields = $this->definition->getEditableFieldNames();

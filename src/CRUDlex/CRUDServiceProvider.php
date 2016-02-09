@@ -52,23 +52,26 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      *
      * @param string $value
      * the value to be formatted
+     * @param string $timezone
+     * the timezone of the value
      * @param string $pattern
      * the pattern with which the value is parsed and formatted
      *
      * @return string
      * the formatted value
      */
-    protected function formatTime($value, $pattern) {
+    protected function formatTime($value, $timezone, $pattern) {
         if (!$value) {
             return '';
         }
-        $result = \DateTime::createFromFormat($pattern, $value);
+        $result = \DateTime::createFromFormat($pattern, $value, new \DateTimeZone($timezone));
         if ($result === false) {
-            $result = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+            $result = \DateTime::createFromFormat('Y-m-d H:i:s', $value, new \DateTimeZone($timezone));
         }
         if ($result === false) {
             return $value;
         }
+        $result->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         return $result->format($pattern);
     }
 
@@ -304,12 +307,15 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      *
      * @param string $value
      * the value, might be of the format 'Y-m-d H:i' or 'Y-m-d'
+     * @param boolean $isUTC
+     * whether the given value is in UTC
      *
      * @return string
      * the formatted result or an empty string on null value
      */
-    public function formatDate($value) {
-        return $this->formatTime($value, 'Y-m-d');
+    public function formatDate($value, $isUTC) {
+        $timezone = $isUTC ? 'UTC' : date_default_timezone_get();
+        return $this->formatTime($value, $timezone, 'Y-m-d');
     }
 
     /**
@@ -317,12 +323,15 @@ class CRUDServiceProvider implements ServiceProviderInterface {
      *
      * @param string $value
      * the value, might be of the format 'Y-m-d H:i'
+     * @param boolean $isUTC
+     * whether the given value is in UTC
      *
      * @return string
      * the formatted result or an empty string on null value
      */
-    public function formatDateTime($value) {
-        return $this->formatTime($value, 'Y-m-d H:i');
+    public function formatDateTime($value, $isUTC) {
+        $timezone = $isUTC ? 'UTC' : date_default_timezone_get();
+        return $this->formatTime($value, $timezone, 'Y-m-d H:i');
     }
 
     /**
