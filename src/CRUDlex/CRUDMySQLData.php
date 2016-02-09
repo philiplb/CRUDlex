@@ -62,8 +62,8 @@ class CRUDMySQLData extends CRUDData {
         $formFields = $this->definition->getEditableFieldNames();
         $count = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
-            $value = $this->valueToMySQLRepresentation($entity->get($formFields[$i]));
             $type = $this->definition->getType($formFields[$i]);
+            $value = $this->valueToMySQLRepresentation($entity->get($formFields[$i]), $type);
             if ($setValue) {
                 $queryBuilder->setValue('`'.$formFields[$i].'`', '?');
             } else {
