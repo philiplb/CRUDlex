@@ -2,7 +2,7 @@ CRUDlex Changelog
 =================
 
 ## 0.9.9
-Released: Upcoming
+Released: 2016-02-10
 - Attention: From now on, the created_at and updated_at timestamps are stored as UTC values in the MySQL data provider
 - CRUDMySQLData now offers an option to use UUIDs as primary key instead of an auto incremented value
 - The list views can be sorted now
