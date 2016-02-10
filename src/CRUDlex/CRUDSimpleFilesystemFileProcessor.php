@@ -18,6 +18,10 @@ use CRUDlex\CRUDFileProcessorInterface;
 use CRUDlex\CRUDEntity;
 use CRUDlex\CRUDStreamedFileResponse;
 
+/**
+ * An implementation of the {@see CRUDFileProcessorInterface} simply using the
+ * file system.
+ */
 class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
 
     /**

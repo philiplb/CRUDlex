@@ -11,6 +11,9 @@
 
 namespace CRUDlex;
 
+/**
+ * The class for defining a single entity.
+ */
 class CRUDEntityDefinition {
 
     /**
