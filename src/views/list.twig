@@ -10,7 +10,15 @@
 {%extends layout %}
 
 {% block content %}
-    {% set fields = definition.getListFieldNames() %}
+    {% set fields = definition.getListFields() %}
+
+    {% set filterParams = {} %}
+    {% if filterActive %}
+        {% for filterField, filterValue in filter %}
+            {% set filterParams = filterParams|merge({('crudFilter' ~ filterField): filterValue}) %}
+        {% endfor %}
+    {% endif %}
+
     <a id="crudBtnNew" href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
 
 
@@ -50,6 +58,8 @@
                             </div>
                         {% endif %}
                     {% endfor %}
+                    <input type="hidden" name="crudSortField" value="{{ sortField }}" />
+                    <input type="hidden" name="crudSortAscending" value="{{ sortAscending ? 'true' : false }}" />
                     <button type="submit" id="crudBtnSubmit" class="btn btn-default btn-success">{{ 'crudlex.list.button.doFilter'|trans }}</button>
                 </form>
             </div>
@@ -57,13 +67,19 @@
 
     {% endif %}
 
-
     <div class="table-responsive table-wrapper">
     <table class="table table-striped">
 
         <tr>
             {% for field in fields %}
-                <th>{{ definition.getFieldLabel(field) }}</th>
+                <th>
+                    <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudSortField': field, 'crudSortAscending': sortAscending ? 'false' : 'true','crudPage': page}|merge(filterParams)) }}">
+                        {{ definition.getFieldLabel(field) }}
+                        {% if field == sortField %}
+                            <span class="glyphicon glyphicon-chevron-{{ sortAscending ? 'up' : 'down' }}" aria-hidden="true"></span>
+                        {% endif %}
+                    </a>
+                </th>
             {% endfor %}
             <th>Action</th>
         </tr>
@@ -97,23 +113,15 @@
     {% if total > pageSize %}
         <nav>
             <ul class="pagination">
-
-                {% set paginationParams = {} %}
-                {% if filterActive %}
-                    {% for filterField, filterValue in filter %}
-                        {% set paginationParams = paginationParams|merge({('crudFilter' ~ filterField): filterValue}) %}
-                    {% endfor %}
-                {% endif %}
-
-                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': 0}|merge(paginationParams)) }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">{{ 'crudlex.list.button.first'|trans }}</span></a></li>
-                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page > 0 ? page - 1 : 0}|merge(paginationParams)) }}"><span aria-hidden="true">&lsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.previous'|trans }}</span></a></li>
+                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': 0, 'crudSortField': sortField, 'crudSortAscending': sortAscending}|merge(filterParams)) }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">{{ 'crudlex.list.button.first'|trans }}</span></a></li>
+                <li{{ page == 0 ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page > 0 ? page - 1 : 0, 'crudSortField': sortField, 'crudSortAscending': sortAscending}|merge(filterParams)) }}"><span aria-hidden="true">&lsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.previous'|trans }}</span></a></li>
                 {% for p in 0..maxPage %}
                     <li{{ p == page ? ' class="active"' : ''}}>
-                        <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': p}|merge(paginationParams)) }}">{{ p + 1 }}</a>
+                        <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': p, 'crudSortField': sortField, 'crudSortAscending': sortAscending}|merge(filterParams)) }}">{{ p + 1 }}</a>
                     </li>
                 {% endfor %}
-                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page < maxPage ? page + 1 : maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&rsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.next'|trans }}</span></a></li>
-                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': maxPage}|merge(paginationParams)) }}"><span aria-hidden="true">&raquo;</span><span class="sr-only">{{ 'crudlex.list.button.last'|trans }}</span></a></li>
+                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': page < maxPage ? page + 1 : maxPage, 'crudSortField': sortField, 'crudSortAscending': sortAscending}|merge(filterParams)) }}"><span aria-hidden="true">&rsaquo;</span><span class="sr-only">{{ 'crudlex.list.button.next'|trans }}</span></a></li>
+                <li{{ page == maxPage ? ' class="disabled"' : ''}}><a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudPage': maxPage, 'crudSortField': sortField, 'crudSortAscending': sortAscending}|merge(filterParams)) }}"><span aria-hidden="true">&raquo;</span><span class="sr-only">{{ 'crudlex.list.button.last'|trans }}</span></a></li>
             </ul>
         </nav>
     {% endif %}

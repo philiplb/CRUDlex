@@ -94,25 +94,32 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $app = new Application();
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
 
-        $read = $crudServiceProvider->formatDate('2014-08-30 12:00:00');
+        $read = $crudServiceProvider->formatDate('2014-08-30 12:00:00', false);
         $expected = '2014-08-30';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDate('2014-08-30');
+        $read = $crudServiceProvider->formatDate('2014-08-30', false);
         $expected = '2014-08-30';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDate('');
+        $read = $crudServiceProvider->formatDate('', false);
         $expected = '';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDate(null);
+        $read = $crudServiceProvider->formatDate(null, false);
         $expected = '';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDate('foo');
+        $read = $crudServiceProvider->formatDate('foo', false);
         $expected = 'foo';
         $this->assertSame($read, $expected);
+
+        $previousTimezone = date_default_timezone_get();
+        date_default_timezone_set('America/Adak');
+        $read = $crudServiceProvider->formatDate('2016-02-01 00:00:00', true);
+        $expected = '2016-01-31';
+        $this->assertSame($read, $expected);
+        date_default_timezone_set($previousTimezone);
     }
 
     public function testFormatDateTime() {
@@ -120,25 +127,32 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $app = new Application();
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
 
-        $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00:00');
+        $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00:00', false);
         $expected = '2014-08-30 12:00';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00');
+        $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00', false);
         $expected = '2014-08-30 12:00';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDateTime('');
+        $read = $crudServiceProvider->formatDateTime('', false);
         $expected = '';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDateTime(null);
+        $read = $crudServiceProvider->formatDateTime(null, false);
         $expected = '';
         $this->assertSame($read, $expected);
 
-        $read = $crudServiceProvider->formatDateTime('foo');
+        $read = $crudServiceProvider->formatDateTime('foo', false);
         $expected = 'foo';
         $this->assertSame($read, $expected);
+
+        $previousTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
+        $read = $crudServiceProvider->formatDateTime('2016-02-01 12:00', true);
+        $expected = '2016-02-01 13:00';
+        $this->assertSame($read, $expected);
+        date_default_timezone_set($previousTimezone);
     }
 
     public function testBasename() {
@@ -222,6 +236,38 @@ class CRUDServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $read = $crudServiceProvider->formatFloat($float);
         $expected = '0.004';
         $this->assertSame($read, $expected);
+    }
+
+    public function testGetLocales() {
+        $crudServiceProvider = new CRUDServiceProvider();
+        $expected = array('de', 'el', 'en');
+        $read = $crudServiceProvider->getLocales();
+        $this->assertSame($read, $expected);
+    }
+
+    public function testGetLanguageName() {
+        $crudServiceProvider = new CRUDServiceProvider();
+        $expected = 'Deutsch';
+        $read = $crudServiceProvider->getLanguageName('de');
+        $this->assertSame($read, $expected);
+        $read = $crudServiceProvider->getLanguageName('invalid');
+        $this->assertNull($read);
+    }
+
+    public function testInitialSort() {
+        $crudServiceProvider = new CRUDServiceProvider();
+        $app = new Application();
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new CRUDNullFileProcessor(), true, $app);
+        $data = $crudServiceProvider->getData('library');
+        $read = $data->getDefinition()->getInitialSortField();
+        $expected = 'name';
+        $read = $data->getDefinition()->getInitialSortAscending();
+        $this->assertFalse($read);
+        $data = $crudServiceProvider->getData('book');
+        $read = $data->getDefinition()->getInitialSortField();
+        $expected = 'id';
+        $read = $data->getDefinition()->getInitialSortAscending();
+        $this->assertTrue($read);
     }
 
 }

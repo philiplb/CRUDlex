@@ -11,8 +11,8 @@
 
 namespace CRUDlex;
 
+use Symfony\Component\HttpFoundation\Request;
 use CRUDlex\CRUDEntityDefinition;
-use CRUDlex\CRUDData;
 
 /**
  * Represents a single set of data in field value pairs like the row in a
@@ -29,7 +29,24 @@ class CRUDEntity {
     /**
      * Holds the key value data of the entity.
      */
-    protected $entity = array();
+    protected $entity;
+
+
+    /**
+     * Converts a given value to the given type.
+     *
+     * @param mixed $value
+     * the value to convert
+     * @param string $type
+     * the type to convert to like 'int' or 'float'
+     *
+     * @return mixed
+     * the converted value
+     */
+    protected function toType($value, $type) {
+        settype($value, $type);
+        return $value;
+    }
 
     /**
      * Constructor.
@@ -39,6 +56,7 @@ class CRUDEntity {
      */
     public function __construct(CRUDEntityDefinition $definition) {
         $this->definition = $definition;
+        $this->entity = array();
     }
 
     /**
@@ -54,7 +72,24 @@ class CRUDEntity {
     }
 
     /**
-     * Gets the value of a field.
+     * Gets the raw value of a field no matter what type it is.
+     * This is usefull for input validation for example.
+     *
+     * @param string $field
+     * the field
+     *
+     * @return mixed
+     * null on invalid field or else the raw value
+     */
+    public function getRaw($field) {
+        if (!array_key_exists($field, $this->entity)) {
+            return null;
+        }
+        return $this->entity[$field];
+    }
+
+    /**
+     * Gets the value of a field in its specific type.
      *
      * @param string $field
      * the field
@@ -73,18 +108,13 @@ class CRUDEntity {
         if (!array_key_exists($field, $this->entity)) {
             return null;
         }
-        $value = $this->entity[$field];
 
-        switch ($this->definition->getType($field)) {
-            case 'int':
-                $value = $value !== '' && $value !== null ? intval($value) : null;
-                break;
-            case 'float':
-                $value = $value !== '' && $value !== null ? floatval($value) : null;
-                break;
-            case 'bool':
-                $value = $value && $value !== '0';
-                break;
+        $value = $this->entity[$field];
+        $type = $this->definition->getType($field);
+        if ($type == 'int' || $type == 'float') {
+            $value = $value !== '' && $value !== null ? $this->toType($value, $type) : null;
+        } else if ($type == 'bool') {
+            $value = $value && $value !== '0';
         }
         return $value;
     }
@@ -100,104 +130,23 @@ class CRUDEntity {
     }
 
     /**
-     * Validates the entity against the definition.
+     * Populates the entities fields from the requests parameters.
      *
-     * @param CRUDData $data
-     * the data access instance used for counting things
-     *
-     * @return array
-     * an array with the fields "valid" and "errors"; valid provides a quick
-     * check whether the given entity passes the validation and errors is an
-     * array with all fields as keys and arrays as values; this field arrays
-     * contain three keys: required, unique and input; each of them represents
-     * with a boolean whether the input is ok in that way; if "required" is
-     * true, the field wasn't set, unique means the uniqueness of the field in
-     * the datasource and input is used to indicate whether the form of the
-     * value is correct (a valid int, date, depending on the type in the
-     * definition)
+     * @param Request $request
+     * the request to take the field data from
      */
-    public function validate(CRUDData $data) {
-
+    public function populateViaRequest(Request $request) {
         $fields = $this->definition->getEditableFieldNames();
-        $errors = array();
-        $valid = true;
         foreach ($fields as $field) {
-            $errors[$field] = array('required' => false, 'unique' => false, 'input' => false);
-
-            // Check for required
-            if ($this->definition->isRequired($field) && !$this->definition->getFixedValue($field) &&
-                (!array_key_exists($field, $this->entity)
-                || $this->entity[$field] === null
-                || $this->entity[$field] === '')) {
-                $errors[$field]['required'] = true;
-                $valid = false;
-            }
-
-            // Check for uniqueness
-            if ($this->definition->isUnique($field) && array_key_exists($field, $this->entity) && $this->entity[$field]) {
-                $params = array($field => $this->entity[$field]);
-                $paramsOperators = array($field => '=');
-                if ($this->entity['id'] !== null) {
-                    $params['id'] = $this->entity['id'];
-                    $paramsOperators['id'] = '!=';
+            if ($this->definition->getType($field) == 'file') {
+                $file = $request->files->get($field);
+                if ($file) {
+                    $this->set($field, $file->getClientOriginalName());
                 }
-                $amount = intval($data->countBy($this->definition->getTable(), $params, $paramsOperators, true));
-                if ($amount > 0) {
-                    $errors[$field]['unique'] = true;
-                    $valid = false;
-                }
-            }
-
-            // Check for set type
-            $type = $this->definition->getType($field);
-            if ($type == 'set' && $this->entity[$field]) {
-                $setItems = $this->definition->getSetItems($field);
-                if (!in_array($this->entity[$field], $setItems)) {
-                    $errors[$field]['input'] = true;
-                    $valid = false;
-                }
-            }
-
-            // Check for int type
-            $type = $this->definition->getType($field);
-            if ($type == 'int' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(int)$this->entity[$field] != $this->entity[$field]) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for float type
-            $type = $this->definition->getType($field);
-            if ($type == 'float' && $this->entity[$field] !== '' && $this->entity[$field] !== null && (string)(float)$this->entity[$field] != $this->entity[$field]) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for date type
-            if ($type == 'date' && $this->entity[$field] && \DateTime::createFromFormat('Y-m-d', $this->entity[$field]) === false) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for datetime type
-            if ($type == 'datetime' && $this->entity[$field] &&
-                \DateTime::createFromFormat('Y-m-d H:i', $this->entity[$field]) === false &&
-                \DateTime::createFromFormat('Y-m-d H:i:s', $this->entity[$field]) === false) {
-                $errors[$field]['input'] = true;
-                $valid = false;
-            }
-
-            // Check for reference type
-            if ($type == 'reference' && $this->entity[$field] !== '' && $this->entity[$field] !== null) {
-                $params = array('id' => $this->entity[$field]);
-                $paramsOperators = array('id' => '=');
-                $amount = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
-                if ($amount == 0) {
-                    $errors[$field]['input'] = true;
-                    $valid = false;
-                }
+            } else {
+                $this->set($field, $request->get($field));
             }
         }
-        return array('valid' => $valid, 'errors' => $errors);
     }
 
 }

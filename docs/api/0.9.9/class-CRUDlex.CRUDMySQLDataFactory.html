@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CRUDlex\CRUDMySQLDataFactory | CRUDlex API</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CRUDlex.html">
+						CRUDlex					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDControllerProvider.html">CRUDControllerProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDData.html">CRUDData</a></li>
+				<li><a href="class-CRUDlex.CRUDEntity.html">CRUDEntity</a></li>
+				<li><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDEntityDefinition</a></li>
+				<li><a href="class-CRUDlex.CRUDEntityValidator.html">CRUDEntityValidator</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLData.html">CRUDMySQLData</a></li>
+				<li class="active"><a href="class-CRUDlex.CRUDMySQLDataFactory.html">CRUDMySQLDataFactory</a></li>
+				<li><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDServiceProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html">CRUDSimpleFilesystemFileProcessor</a></li>
+				<li><a href="class-CRUDlex.CRUDStreamedFileResponse.html">CRUDStreamedFileResponse</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDDataFactoryInterface</a></li>
+				<li><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDFileProcessorInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CRUDlex.html" title="Summary of CRUDlex"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CRUDMySQLDataFactory</h1>
+
+
+	<div class="description">
+	<p>A factory implementation for <code><a href="class-CRUDlex.CRUDMySQLData.html">CRUDlex\CRUDMySQLData</a></code> instances.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>CRUDlex\CRUDMySQLDataFactory</span></b>			
+			 implements 
+				<a href="class-CRUDlex.CRUDDataFactoryInterface.html"><span>CRUDlex\CRUDDataFactoryInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CRUDlex.html">CRUDlex</a><br>
+		
+
+			<b>Located at</b> CRUDMySQLDataFactory.php		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code>__construct( <span> <var>$db</var></span>, <span> <var>$useUUIDs</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Constructor.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructor.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$db</var></dt>
+					<dd>Doctrine DBAL instance</dd>
+					<dt><var>$useUUIDs</var></dt>
+					<dd>whether to use UUIDs as primary key</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createData" id="_createData">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createData">#</a>
+		<code>createData( <span><code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> <var>$definition</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span> )</code>
+
+		<div class="description short">
+			<p>Creates instances.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates instances.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$definition</var></dt>
+					<dd>the definition of the entities managed by the to be created instance</dd>
+					<dt><var>$fileProcessor</var></dt>
+					<dd>the file processor managing uploaded files</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code><br>the newly created instance
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-CRUDlex.CRUDDataFactoryInterface.html#_createData">CRUDlex\CRUDDataFactoryInterface::createData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$db</var>
+			<div class="description short">
+				<p>Holds the Doctrine DBAL instance.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the Doctrine DBAL instance.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="useUUIDs" id="$useUUIDs">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$useUUIDs</var>
+			<div class="description short">
+				<p>Flag whether to use UUIDs as primary key.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flag whether to use UUIDs as primary key.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$useUUIDs" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

@@ -25,20 +25,28 @@ class CRUDMySQLDataFactory implements CRUDDataFactoryInterface {
     protected $db;
 
     /**
+     * Flag whether to use UUIDs as primary key.
+     */
+    protected $useUUIDs;
+
+    /**
      * Constructor.
      *
      * @param $db
      * the Doctrine DBAL instance
+     * @param $useUUIDs
+     * flag whether to use UUIDs as primary key
      */
-    public function __construct($db) {
+    public function __construct($db, $useUUIDs = false) {
         $this->db = $db;
+        $this->useUUIDs = $useUUIDs;
     }
 
     /**
      * {@inheritdoc}
      */
     public function createData(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor) {
-        return new CRUDMySQLData($definition, $fileProcessor, $this->db);
+        return new CRUDMySQLData($definition, $fileProcessor, $this->db, $this->useUUIDs);
     }
 
 }

@@ -11,6 +11,9 @@
 
 namespace CRUDlex;
 
+/**
+ * The class for defining a single entity.
+ */
 class CRUDEntityDefinition {
 
     /**
@@ -81,6 +84,16 @@ class CRUDEntityDefinition {
      * Holds the locale.
      */
     protected $locale;
+
+    /**
+     * Holds the initial sort field.
+     */
+    protected $initialSortField;
+
+    /**
+     * Holds the initial sort order.
+     */
+    protected $initialSortAscending;
 
     /**
      * Gets the field names exluding the given ones.
@@ -163,6 +176,25 @@ class CRUDEntityDefinition {
     }
 
     /**
+     * Checks if the given field has the given constraint.
+     *
+     * @param string $fieldName
+     * the field name maybe having the constraint
+     * @param string $constraint
+     * the constraint to check, 'required' or 'unique'
+     *
+     * @return boolean
+     * true if the given field has the given constraint
+     */
+    protected function isConstraint($fieldName, $constraint) {
+        $result = $this->getFieldValue($fieldName, $constraint);
+        if ($result === null) {
+            $result = false;
+        }
+        return $result;
+    }
+
+    /**
      * Constructor.
      *
      * @param string $table
@@ -193,6 +225,8 @@ class CRUDEntityDefinition {
         $this->deleteCascade = false;
         $this->pageSize = 25;
         $this->locale = null;
+        $this->initialSortField = 'id';
+        $this->initialSortAscending = true;
     }
 
     /**
@@ -216,7 +250,7 @@ class CRUDEntityDefinition {
      * @param array $listFields
      * the field names to be used in the listview
      */
-    public function setListFieldNames(array $listFields) {
+    public function setListFields(array $listFields) {
         $this->listFields = $listFields;
     }
 
@@ -227,8 +261,8 @@ class CRUDEntityDefinition {
      * @return array
      * the field names to be used in the listview
      */
-    public function getListFieldNames() {
-        if ($this->listFields) {
+    public function getListFields() {
+        if (!empty($this->listFields)) {
             return $this->listFields;
         }
         return $this->getPublicFieldNames();
@@ -289,11 +323,11 @@ class CRUDEntityDefinition {
     }
 
     /**
-    * Sets the amount of items to display per page on the listview.
-    *
-    * @param integer $pageSize
-    * the amount of items to display per page on the listview
-    */
+     * Sets the amount of items to display per page on the listview.
+     *
+     * @param integer $pageSize
+     * the amount of items to display per page on the listview
+     */
     public function setPageSize($pageSize) {
         $this->pageSize = $pageSize;
     }
@@ -405,7 +439,7 @@ class CRUDEntityDefinition {
      * the new field type
      */
     public function setType($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'type', $value);
+        $this->setFieldValue($fieldName, 'type', $value);
     }
 
     /**
@@ -414,15 +448,11 @@ class CRUDEntityDefinition {
      * @param string $fieldName
      * the field name
      *
-     * @return bool
+     * @return boolean
      * true if so
      */
     public function isRequired($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'required');
-        if ($result === null) {
-            $result = false;
-        }
-        return $result;
+        return $this->isConstraint($fieldName, 'required');
     }
 
     /**
@@ -430,11 +460,11 @@ class CRUDEntityDefinition {
      *
      * @param string $fieldName
      * the field name
-     * @param bool $fieldName
+     * @param boolean $fieldName
      * the new required state
      */
     public function setRequired($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'required', $value);
+        $this->setFieldValue($fieldName, 'required', $value);
     }
 
     /**
@@ -443,15 +473,11 @@ class CRUDEntityDefinition {
      * @param string $fieldName
      * the field name
      *
-     * @return bool
+     * @return boolean
      * true if so
      */
     public function isUnique($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'unique');
-        if ($result === null) {
-            $result = false;
-        }
-        return $result;
+        return $this->isConstraint($fieldName, 'unique');
     }
 
     /**
@@ -459,8 +485,7 @@ class CRUDEntityDefinition {
      *
      * @param string $fieldName
      * the field name
-     *
-     * @param bool $value
+     * @param boolean $value
      * true if so
      */
     public function setUnique($fieldName, $value) {
@@ -553,7 +578,7 @@ class CRUDEntityDefinition {
      * the new value for the fixed field
      */
     public function setFixedValue($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'fixedvalue', $value);
+        $this->setFieldValue($fieldName, 'fixedvalue', $value);
     }
 
     /**
@@ -578,7 +603,7 @@ class CRUDEntityDefinition {
      * the new items of the set field
      */
     public function setSetItems($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'setitems', $value);
+        $this->setFieldValue($fieldName, 'setitems', $value);
     }
 
     /**
@@ -646,7 +671,7 @@ class CRUDEntityDefinition {
      * the new label of the field
      */
     public function setFieldLabel($fieldName, $value) {
-        return $this->setFieldValue($fieldName, 'label', $value);
+        $this->setFieldValue($fieldName, 'label', $value);
     }
 
     /**
@@ -751,5 +776,45 @@ class CRUDEntityDefinition {
      */
     public function setLocale($locale) {
         $this->locale = $locale;
+    }
+
+    /**
+     * Sets the initial sort field.
+     *
+     * @param string $initialSortField
+     * the new initial sort field
+     */
+    public function setInitialSortField($initialSortField) {
+        $this->initialSortField = $initialSortField;
+    }
+
+    /**
+     * Gets the initial sort field.
+     *
+     * @return string
+     * the initial sort field
+     */
+    public function getInitialSortField() {
+        return $this->initialSortField;
+    }
+
+    /**
+     * Sets the initial sort order.
+     *
+     * @param boolean $initialSortAscending
+     * the initial sort order, true if ascending
+     */
+    public function setInitialSortAscending($initialSortAscending) {
+        $this->initialSortAscending = $initialSortAscending;
+    }
+
+    /**
+     * Gets the initial sort order.
+     *
+     * @return boolean
+     * the initial sort order, true if ascending
+     */
+    public function getInitialSortAscending() {
+        return $this->initialSortAscending;
     }
 }

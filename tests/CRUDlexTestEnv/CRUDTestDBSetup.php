@@ -12,7 +12,7 @@ class CRUDTestDBSetup {
 
     private static $fileProcessor;
 
-    public static function createAppAndDB() {
+    public static function createAppAndDB($useUUIDs = false) {
         $app = new Application();
         $app->register(new DoctrineServiceProvider(), array(
             'dbs.options' => array(
@@ -32,9 +32,15 @@ class CRUDTestDBSetup {
         $app['db']->executeUpdate('SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";');
         $app['db']->executeUpdate('SET time_zone = "+00:00"');
 
-        $sql = 'CREATE TABLE IF NOT EXISTS `book` ('.
-            '  `id` int(11) NOT NULL AUTO_INCREMENT,'.
-            '  `created_at` datetime NOT NULL,'.
+        $sql = 'CREATE TABLE IF NOT EXISTS `book` (';
+
+        if ($useUUIDs) {
+            $sql .='  `id` varchar(36) NOT NULL,';
+        } else {
+            $sql .='  `id` int(11) NOT NULL AUTO_INCREMENT,';
+        }
+
+        $sql .= '  `created_at` datetime NOT NULL,'.
             '  `updated_at` datetime NOT NULL,'.
             '  `deleted_at` datetime DEFAULT NULL,'.
             '  `version` int(11) NOT NULL,'.
@@ -51,9 +57,13 @@ class CRUDTestDBSetup {
             ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
         $app['db']->executeUpdate($sql);
 
-        $sql = 'CREATE TABLE IF NOT EXISTS `library` ('.
-            '  `id` int(11) NOT NULL AUTO_INCREMENT,'.
-            '  `created_at` datetime NOT NULL,'.
+        $sql = 'CREATE TABLE IF NOT EXISTS `library` (';
+        if ($useUUIDs) {
+            $sql .='  `id` varchar(36) NOT NULL,';
+        } else {
+            $sql .='  `id` int(11) NOT NULL AUTO_INCREMENT,';
+        }
+        $sql .= '  `created_at` datetime NOT NULL,'.
             '  `updated_at` datetime NOT NULL,'.
             '  `deleted_at` datetime DEFAULT NULL,'.
             '  `version` int(11) NOT NULL,'.
@@ -68,18 +78,18 @@ class CRUDTestDBSetup {
         return $app;
     }
 
-    public static function createCRUDServiceProvider() {
-        self::$fileProcessor = new CRUDNullFileProcessor();
-        $app = self::createAppAndDB();
+    public static function createCRUDServiceProvider($useUUIDs = false) {
+        static::$fileProcessor = new CRUDNullFileProcessor();
+        $app = static::createAppAndDB($useUUIDs);
         $crudServiceProvider = new CRUDServiceProvider();
-        $dataFactory = new CRUDMySQLDataFactory($app['db']);
+        $dataFactory = new CRUDMySQLDataFactory($app['db'], $useUUIDs);
         $crudFile = __DIR__.'/../crud.yml';
-        $crudServiceProvider->init($dataFactory, $crudFile, self::$fileProcessor, true, $app);
+        $crudServiceProvider->init($dataFactory, $crudFile, static::$fileProcessor, true, $app);
         return $crudServiceProvider;
     }
 
     public static function getFileProcessor() {
-        return self::$fileProcessor;
+        return static::$fileProcessor;
     }
 
 }

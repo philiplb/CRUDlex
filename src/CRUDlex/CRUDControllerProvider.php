@@ -60,6 +60,165 @@ class CRUDControllerProvider implements ControllerProviderInterface {
     }
 
     /**
+     * Postprocesses the entity after modification by handling the uploaded
+     * files and setting the flash.
+     *
+     * @param Application $app
+     * the current application
+     * @param CRUDData $crudData
+     * the data instance of the entity
+     * @param CRUDEntity $instance
+     * the entity
+     * @param string $entity
+     * the name of the entity
+     * @param string $mode
+     * whether to 'edit' or to 'create' the entity
+     *
+     * @return Response
+     * the HTTP response of this modification
+     */
+    protected function modifyFilesAndSetFlashBag(Application $app, CRUDData $crudData, CRUDEntity $instance, $entity, $mode) {
+        $id = $instance->get('id');
+        if ($mode == 'edit') {
+            $crudData->updateFiles($app['request'], $instance, $entity);
+        } else {
+            $crudData->createFiles($app['request'], $instance, $entity);
+        }
+        $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.'.$mode.'.success', array(
+            '%label%' => $crudData->getDefinition()->getLabel(),
+            '%id%' => $id
+        )));
+        return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+    }
+
+    /**
+     * Sets the flashes of a failed entity modification.
+     *
+     * @param Application $app
+     * the current application
+     * @param boolean $optimisticLocking
+     * whether the optimistic locking failed
+     * @param string $mode
+     * the modification mode, either 'create' or 'edit'
+     */
+    protected function setValidationFailedFlashes(Application $app, $optimisticLocking, $mode) {
+        $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
+        if ($optimisticLocking) {
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
+        }
+    }
+
+    /**
+     * Validates and saves the new or updated entity and returns the appropriate HTTP
+     * response.
+     *
+     * @param Application $app
+     * the current application
+     * @param CRUDData $crudData
+     * the data instance of the entity
+     * @param CRUDEntity $instance
+     * the entity
+     * @param string $entity
+     * the name of the entity
+     * @param boolean $edit
+     * whether to edit (true) or to create (false) the entity
+     *
+     * @return Response
+     * the HTTP response of this modification
+     */
+    protected function modifyEntity(Application $app, CRUDData $crudData, CRUDEntity $instance, $entity, $edit) {
+        $fieldErrors = array();
+        $mode = $edit ? 'edit' : 'create';
+        if ($app['request']->getMethod() == 'POST') {
+            $instance->populateViaRequest($app['request']);
+            $validator = new CRUDEntityValidator($instance);
+            $validation = $validator->validate($crudData, intval($app['request']->get('version')));
+
+            $fieldErrors = $validation['fields'];
+            if (!$validation['valid']) {
+                $this->setValidationFailedFlashes($app, $validation['optimisticLocking'], $mode);
+            } else {
+                $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
+                if ($modified) {
+                    return $this->modifyFilesAndSetFlashBag($app, $crudData, $instance, $entity, $mode);
+                }
+                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.failed'));
+            }
+        }
+
+        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
+            'crudEntity' => $entity,
+            'crudData' => $crudData,
+            'entity' => $instance,
+            'mode' => $mode,
+            'fieldErrors' => $fieldErrors,
+            'layout' => $app['crud']->getTemplate($app, 'layout', $mode, $entity)
+        ));
+    }
+
+    /**
+     * Gets the parameters for the redirection after deleting an entity.
+     *
+     * @param Application $app
+     * the current application
+     * @param string $entity
+     * the entity name
+     * @param string &$redirectPage
+     * where the page to redirect to will be stored
+     *
+     * @return array
+     * the parameters of the redirection, entity and id
+     */
+    protected function getAfterDeleteRedirectParameters(Application $app, $entity, &$redirectPage) {
+        $redirectPage = 'crudList';
+        $redirectParameters = array(
+            'entity' => $entity
+        );
+        $redirectEntity = $app['request']->get('redirectEntity');
+        $redirectId = $app['request']->get('redirectId');
+        if ($redirectEntity && $redirectId) {
+            $redirectPage = 'crudShow';
+            $redirectParameters = array(
+                'entity' => $redirectEntity,
+                'id' => $redirectId
+            );
+        }
+        return $redirectParameters;
+    }
+
+    /**
+     * Builds up the parameters of the list page filters.
+     *
+     * @param Application $app
+     * the current application
+     * @param CRUDEntityDefinition $definition
+     * the current entity definition
+     * @param array &$filter
+     * will hold a map of fields to request parameters for the filters
+     * @param boolean &$filterActive
+     * will be true if at least one filter is active
+     * @param array &$filterToUse
+     * will hold a map of fields to integers (0 or 1) which boolean filters are active
+     * @param array &$filterOperators
+     * will hold a map of fields to operators for CRUDData::listEntries()
+     */
+    protected function buildUpListFilter(Application $app, CRUDEntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
+        foreach ($definition->getFilter() as $filterField) {
+            $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
+            if ($filter[$filterField]) {
+                $filterActive = true;
+                if ($definition->getType($filterField) == 'bool') {
+                    $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
+                    $filterOperators[$filterField] = '=';
+                } else {
+                    $filterToUse[$filterField] = '%'.$filter[$filterField].'%';
+                    $filterOperators[$filterField] = 'LIKE';
+                }
+            }
+        }
+    }
+
+    /**
      * Implements ControllerProviderInterface::connect() connecting this
      * controller.
      *
@@ -71,7 +230,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      */
     public function connect(Application $app) {
         if ($app->offsetExists('twig.loader.filesystem')) {
-            $app['twig.loader.filesystem']->addPath(__DIR__ . '/../views/', 'crud');
+            $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
         }
 
         if (!$app->offsetExists('crud.layout')) {
@@ -128,53 +287,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
 
-        $errors = array();
         $instance = $crudData->createEmpty();
-        $definition = $crudData->getDefinition();
-        $fields = $definition->getEditableFieldNames();
-
-        foreach ($fields as $field) {
-            if ($definition->getType($field) == 'file') {
-                $file = $app['request']->files->get($field);
-                if ($file) {
-                    $instance->set($field, $file->getClientOriginalName());
-                }
-            } else {
-                $instance->set($field, $app['request']->get($field));
-            }
-        }
-        if ($app['request']->getMethod() == 'POST') {
-            $validation = $instance->validate($crudData);
-            if (!$validation['valid']) {
-                $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.error'));
-            } else {
-                $created = $crudData->create($instance);
-                if ($created) {
-                    $id = $instance->get('id');
-                    $crudData->createFiles($app['request'], $instance, $entity);
-
-                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.create.success', array(
-                        '%label%' => $crudData->getDefinition()->getLabel(),
-                        '%id%' => $id
-                    )));
-                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-                }
-                $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.create.failed'));
-            }
-        }
-
-        $definition = $crudData->getDefinition();
-
-        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
-            'crudEntity' => $entity,
-            'crudData' => $crudData,
-            'entity' => $instance,
-            'mode' => 'create',
-            'errors' => $errors,
-            'layout' => $app['crud']->getTemplate($app, 'layout', 'create', $entity)
-        ));
+        return $this->modifyEntity($app, $crudData, $instance, $entity, false);
     }
 
     /**
@@ -199,19 +313,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $filterActive = false;
         $filterToUse = array();
         $filterOperators = array();
-        foreach ($definition->getFilter() as $filterField) {
-            $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
-            if ($filter[$filterField]) {
-                $filterActive = true;
-                if ($definition->getType($filterField) == 'bool') {
-                    $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
-                    $filterOperators[$filterField] = '=';
-                } else {
-                    $filterToUse[$filterField] = '%'.$filter[$filterField].'%';
-                    $filterOperators[$filterField] = 'LIKE';
-                }
-            }
-        }
+        $this->buildUpListFilter($app, $definition, $filter, $filterActive, $filterToUse, $filterOperators);
 
         $pageSize = $definition->getPageSize();
         $total = $crudData->countBy($definition->getTable(), $filterToUse, $filterOperators, true);
@@ -225,7 +327,11 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
         $skip = $page * $pageSize;
 
-        $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize);
+        $sortField = $app['request']->get('crudSortField', $definition->getInitialSortField());
+        $sortAscendingRequest = $app['request']->get('crudSortAscending');
+        $sortAscending = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->getInitialSortAscending();
+
+        $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
         $crudData->fetchReferences($entities);
 
         return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'list', $entity), array(
@@ -239,6 +345,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             'total' => $total,
             'filter' => $filter,
             'filterActive' => $filterActive,
+            'sortField' => $sortField,
+            'sortAscending' => $sortAscending,
             'layout' => $app['crud']->getTemplate($app, 'layout', 'list', $entity)
         ));
     }
@@ -318,50 +426,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
-        $definition = $crudData->getDefinition();
-
-        $errors = array();
-        $fields = $definition->getEditableFieldNames();
-
-
-        if ($app['request']->getMethod() == 'POST') {
-            foreach ($fields as $field) {
-                if ($definition->getType($field) == 'file') {
-                    $file = $app['request']->files->get($field);
-                    if ($file) {
-                        $instance->set($field, $file->getClientOriginalName());
-                    }
-                } else {
-                    $instance->set($field, $app['request']->get($field));
-                }
-            }
-            $validation = $instance->validate($crudData);
-            if (!$validation['valid']) {
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.error'));
-                $errors = $validation['errors'];
-            } else {
-                $updated = $crudData->update($instance);
-                if ($updated) {
-                    $crudData->updateFiles($app['request'], $instance, $entity);
-                    $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.edit.success', array(
-                        '%label%' => $crudData->getDefinition()->getLabel(),
-                        '%id%' => $id
-                    )));
-                    return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-                }
-                $errors = $validation['errors'];
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.failed'));
-            }
-        }
-
-        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), array(
-            'crudEntity' => $entity,
-            'crudData' => $crudData,
-            'entity' => $instance,
-            'mode' => 'edit',
-            'errors' => $errors,
-            'layout' => $app['crud']->getTemplate($app, 'layout', 'edit', $entity)
-        ));
+        return $this->modifyEntity($app, $crudData, $instance, $entity, true);
     }
 
     /**
@@ -390,30 +455,18 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $crudData->deleteFiles($instance, $entity);
         $deleted = $crudData->delete($instance);
 
-        switch ($deleted) {
-            case CRUDData::DELETION_FAILED_EVENT:
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-            case CRUDData::DELETION_FAILED_STILL_REFERENCED:
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
-                    '%label%' => $crudData->getDefinition()->getLabel()
-                )));
-                return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+        if ($deleted === CRUDData::DELETION_FAILED_EVENT) {
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
+            return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
+        } elseif ($deleted === CRUDData::DELETION_FAILED_STILL_REFERENCED) {
+            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
+                '%label%' => $crudData->getDefinition()->getLabel()
+            )));
+            return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
 
         $redirectPage = 'crudList';
-        $redirectParameters = array(
-            'entity' => $entity
-        );
-        $redirectEntity = $app['request']->get('redirectEntity');
-        $redirectId = $app['request']->get('redirectId');
-        if ($redirectEntity && $redirectId) {
-            $redirectPage = 'crudShow';
-            $redirectParameters = array(
-                'entity' => $redirectEntity,
-                'id' => $redirectId
-            );
-        }
+        $redirectParameters = $this->getAfterDeleteRedirectParameters($app, $entity, $redirectPage);
 
         $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
             '%label%' => $crudData->getDefinition()->getLabel()
@@ -508,10 +561,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         }
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
-        $mimeType = '';
-        if (strtolower($extension) === 'css') {
-            $mimeType = 'text/css';
-        } else {
+        $mimeType = 'text/css';
+        if (strtolower($extension) !== 'css') {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $mimeType = finfo_file($finfo, $file);
             finfo_close($finfo);
@@ -519,19 +570,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $size = filesize($file);
 
-        $response = new StreamedResponse(function () use ($file) {
-            set_time_limit(0);
-            $handle = fopen($file,"rb");
-            if ($handle !== false) {
-                $chunkSize = 1024 * 1024;
-                while (!feof($handle)) {
-                    $buffer = fread($handle, $chunkSize);
-                    echo $buffer;
-                    flush();
-                }
-                fclose($handle);
-            }
-        }, 200, array(
+        $streamedFileResponse = new CRUDStreamedFileResponse();
+        $response = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
             'Content-Type' => $mimeType,
             'Content-Disposition' => 'attachment; filename="'.basename($file).'"',
             'Content-length' => $size
@@ -553,19 +593,8 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      * redirects to the instance details page or 404 on invalid input
      */
     public function setLocale(Application $app, $locale) {
-        $foundLocale = false;
-        $localeDir = __DIR__.'/../locales';
-        $langFiles = scandir($localeDir);
-        foreach ($langFiles as $langFile) {
-            if ($langFile == '.' || $langFile == '..') {
-                continue;
-            }
-            if ($langFile === $locale.'.yml') {
-                $foundLocale = true;
-            }
-        }
 
-        if (!$foundLocale) {
+        if (!in_array($locale, $app['crud']->getLocales())) {
             return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
         }
 

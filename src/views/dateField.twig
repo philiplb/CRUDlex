@@ -13,7 +13,7 @@
     annotations: annotations
 } only %}
 <div class='input-group date crudDates'>
-    <input type='text' class="form-control" id="{{ field }}" value="{{ app.crud.formatDate(value) }}" name="{{ fieldNamePrefix ~ field }}" data-date-format="YYYY-MM-DD"/>
+    <input type='text' class="form-control" id="{{ field }}" value="{{ app.crud.formatDate(value, false) }}" name="{{ fieldNamePrefix ~ field }}" data-date-format="YYYY-MM-DD"/>
     <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
     </span>

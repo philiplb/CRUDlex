@@ -6,6 +6,8 @@ library:
   filter: [isOpenOnSundays]
   deleteCascade: true
   pageSize: 10
+  initialSortField: name
+  initialSortAscending: false
   fields:
     name:
       type: text
@@ -74,3 +76,5 @@ book:
       type: float
       label: Price
       floatStep: 0.1
+
+invalid: entity

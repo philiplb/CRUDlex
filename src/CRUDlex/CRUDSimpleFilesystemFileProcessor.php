@@ -14,10 +14,14 @@ namespace CRUDlex;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-
 use CRUDlex\CRUDFileProcessorInterface;
 use CRUDlex\CRUDEntity;
+use CRUDlex\CRUDStreamedFileResponse;
 
+/**
+ * An implementation of the {@see CRUDFileProcessorInterface} simply using the
+ * file system.
+ */
 class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
 
     /**
@@ -82,19 +86,8 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         finfo_close($finfo);
         $size = filesize($file);
         if ($fileName && file_exists($file)) {
-            $response = new StreamedResponse(function () use ($file) {
-                set_time_limit(0);
-                $handle = fopen($file,"rb");
-                if ($handle !== false) {
-                    $chunkSize = 1024 * 1024;
-                    while (!feof($handle)) {
-                        $buffer = fread($handle, $chunkSize);
-                        echo $buffer;
-                        flush();
-                    }
-                    fclose($handle);
-                }
-            }, 200, array(
+            $streamedFileResponse = new CRUDStreamedFileResponse();
+            $response = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
                 'Content-Type' => $mimeType,
                 'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
                 'Content-length' => $size

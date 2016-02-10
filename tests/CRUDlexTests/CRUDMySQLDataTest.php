@@ -39,6 +39,20 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($id > 0);
     }
 
+    public function testCreateWithUUID() {
+        $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider(true);
+        $dataLibrary = $crudServiceProvider->getData('library');
+
+        $entity = $dataLibrary->createEmpty();
+        $entity->set('name', 'name');
+        $dataLibrary->create($entity);
+        $id = $entity->get('id');
+        $this->assertNotNull($id);
+        $this->assertTrue(strlen($id) == 36);
+        
+        $this->setUp();
+    }
+
     public function testList() {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameA');
@@ -66,6 +80,12 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $read = count($list);
         $expected = 1;
         $this->assertSame($read, $expected);
+
+        $list = $this->dataLibrary->listEntries(array(), array(), null, null, 'name');
+        $expected = 'nameB';
+        $this->assertSame($list[0]->get('name'), $expected);
+        $expected = 'nameA';
+        $this->assertSame($list[1]->get('name'), $expected);
 
         for ($i = 0; $i < 15; ++$i) {
             $entity->set('name', 'name'.$i);
@@ -514,7 +534,9 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testPushPopEvent() {
-        $function = function() {};
+        $function = function() {
+            return true;
+        };
         $this->dataBook->pushEvent('before', 'create', $function);
         $read = $this->dataBook->popEvent('before', 'create');
         $this->assertSame($function, $read);

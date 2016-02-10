@@ -3,12 +3,15 @@ CRUDlex
 
 CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. It is very useful to generate admin pages for example.
 
+![List View of CRUDlex](docs/images/01_List.png)
+
 ## Documentation
 
 ### Manual
 
 The manual is a reference describing every feature of CRUDlex:
 
+* [0.9.9](https://github.com/philiplb/CRUDlex/blob/0.9.9/docs/0_manual.md)
 * [0.9.8](https://github.com/philiplb/CRUDlex/blob/0.9.8/docs/0_manual.md)
 * [0.9.7](https://github.com/philiplb/CRUDlex/blob/0.9.7/docs/0_manual.md)
 * [0.9.6](https://github.com/philiplb/CRUDlex/blob/0.9.6/docs/0_manual.md)
@@ -21,7 +24,8 @@ The manual is a reference describing every feature of CRUDlex:
 
 The CRUDlex API itself is documented here:
 
-* [0.9.7](http://philiplb.github.io/CRUDlex/docs/api/0.9.8/)
+* [0.9.9](http://philiplb.github.io/CRUDlex/docs/api/0.9.9/)
+* [0.9.8](http://philiplb.github.io/CRUDlex/docs/api/0.9.8/)
 * [0.9.7](http://philiplb.github.io/CRUDlex/docs/api/0.9.7/)
 * [0.9.6](http://philiplb.github.io/CRUDlex/docs/api/0.9.6/)
 * [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
@@ -38,7 +42,7 @@ The CRUDlex API itself is documented here:
 
 ```json
 "require": {
-    "philiplb/crudlex": "0.9.8"
+    "philiplb/crudlex": "0.9.9"
 }
 ```
 
@@ -46,7 +50,7 @@ The CRUDlex API itself is documented here:
 
 ```json
 "require": {
-    "philiplb/crudlex": "dev-master"
+    "philiplb/crudlex": "0.9.x-dev"
 }
 ```
 
@@ -81,6 +85,7 @@ implemented on the fly when needed.
 [![Build Status](https://travis-ci.org/philiplb/CRUDlex.svg?branch=master)](https://travis-ci.org/philiplb/CRUDlex)
 [![Coverage Status](https://coveralls.io/repos/philiplb/CRUDlex/badge.png?branch=master)](https://coveralls.io/r/philiplb/CRUDlex?branch=master)
 
-## Misc
+## Code Quality
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa/mini.png)](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/philiplb/CRUDlex/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/philiplb/CRUDlex/?branch=master)

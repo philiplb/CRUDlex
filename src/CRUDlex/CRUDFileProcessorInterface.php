@@ -71,7 +71,7 @@ interface CRUDFileProcessorInterface {
      * @param string $field
      * the field of the entity containing the file to be rendered
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      * the HTTP response, likely to be a streamed one
      */
     public function renderFile(CRUDEntity $entity, $entityName, $field);

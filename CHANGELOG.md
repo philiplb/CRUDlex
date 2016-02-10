@@ -2,10 +2,28 @@ CRUDlex Changelog
 =================
 
 ## 0.9.9
-Released: Upcoming
+Released: 2016-02-10
+- Attention: From now on, the created_at and updated_at timestamps are stored as UTC values in the MySQL data provider
+- CRUDMySQLData now offers an option to use UUIDs as primary key instead of an auto incremented value
+- The list views can be sorted now
+- Added optimistic locking for editing an entity
+- Added a function to the service provider to get the available locales
+- Added a function to the service provider to get the name of the language of a locale
+- Generating the language picker based on the available translation files instead of being hard coded
+- Fixed and refactored a lot things revealed by static code analysis
+- Updated dependencies:
+    - Symfony-Components to the current LTS version 2.8
+    - "symfony/...": "~2.8" (current LTS version)
+    - "phpunit/phpunit": "~4.8"
+    - "satooshi/php-coveralls": "1.0.1"
+    - "apigen/apigen": "4.1.2"
+    - Eonasdan/bootstrap-datetimepicker V4.17.37
+    - Bootstrap 3.3.6
+    - moment.js 2.11.2
+    - jQuery 2.2.0
 
 ## 0.9.8
-Released: 2015-09-22
+Released: 2015-09-28
 - Added complete i18n support, initially with en, de and gr
 - Added events for reactions before or after creating, updating or deleting an entity
 - Added the possibility to override every single template

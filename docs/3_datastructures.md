@@ -75,12 +75,12 @@ Beside this fields, the CRUDlex MySQL implementation assumes that you have some
 more fields per table:
 
 - id int(11) NOT NULL AUTO_INCREMENT: the id of each row
-- created_at datetime NOT NULL: a timestamp when the row was created
-- updated_at datetime NOT NULL: a timestamp when the row was the last time
+- created_at datetime NOT NULL: a timestamp in UTC when the row was created
+- updated_at datetime NOT NULL: a timestamp in UTC when the row was the last time
 updated
-- deleted_at datetime DEFAULT NULL: defines when this entry was deleted.
+- deleted_at datetime DEFAULT NULL: defines when this entry was deleted in UTC.
 CRUDlex uses a soft delete mechanism hiding all rows where this is not null
-- version int(11) NOT NULL: (will be) used for optimistic locking
+- version int(11) NOT NULL: used for optimistic locking
 
 See the CRUDlexSample.sql in the sample project for the exact table creation.
 

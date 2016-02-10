@@ -10,10 +10,10 @@
 {% set type = definition.getType(field) %}
 
 {% if type == 'date' %}
-    {{ app.crud.formatDate(entity.get(field)) }}
+    {{ app.crud.formatDate(entity.get(field), false) }}
 
 {% elseif type == 'datetime' and entity.get(field) %}
-    {{ app.crud.formatDateTime(entity.get(field)) }}
+    {{ app.crud.formatDateTime(entity.get(field), field in ['created_at', 'updated_at']) }}
 
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}

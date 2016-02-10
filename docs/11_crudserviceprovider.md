@@ -39,6 +39,15 @@ the existance of certain keys in the Application $app in this order:
 
 If nothing exists, this string is returned: "@crud/<action>.twig"
 
+## getLanguageName($language)
+
+Gets a language name in the given $language.
+It returns the language name in the given $language or null if not available
+
+## getLocales()
+
+Gets the available locales.
+
 ## getManageI18n()
 
 Gets whether CRUDlex manages the i18n system.

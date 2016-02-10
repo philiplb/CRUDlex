@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class CRUDlex\CRUDServiceProvider | CRUDlex API</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-CRUDlex.html">
+						CRUDlex					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDControllerProvider.html">CRUDControllerProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDData.html">CRUDData</a></li>
+				<li><a href="class-CRUDlex.CRUDEntity.html">CRUDEntity</a></li>
+				<li><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDEntityDefinition</a></li>
+				<li><a href="class-CRUDlex.CRUDEntityValidator.html">CRUDEntityValidator</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLData.html">CRUDMySQLData</a></li>
+				<li><a href="class-CRUDlex.CRUDMySQLDataFactory.html">CRUDMySQLDataFactory</a></li>
+				<li class="active"><a href="class-CRUDlex.CRUDServiceProvider.html">CRUDServiceProvider</a></li>
+				<li><a href="class-CRUDlex.CRUDSimpleFilesystemFileProcessor.html">CRUDSimpleFilesystemFileProcessor</a></li>
+				<li><a href="class-CRUDlex.CRUDStreamedFileResponse.html">CRUDStreamedFileResponse</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDDataFactoryInterface</a></li>
+				<li><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDFileProcessorInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-CRUDlex.html" title="Summary of CRUDlex"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CRUDServiceProvider</h1>
+
+
+	<div class="description">
+	<p>The CRUDServiceProvider setups and initializes the whole CRUD system.
+After adding it to your Silex-setup, it offers access to <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code>
+instances, one for each defined entity off the CRUD YAML file.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>CRUDlex\CRUDServiceProvider</span></b>			
+			 implements 
+<span>Silex\ServiceProviderInterface</span>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-CRUDlex.html">CRUDlex</a><br>
+		
+
+			<b>Located at</b> CRUDServiceProvider.php		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="formatTime" id="_formatTime">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_formatTime">#</a>
+		<code>formatTime( <span>string <var>$value</var></span>, <span>string <var>$timezone</var></span>, <span>string <var>$pattern</var></span> )</code>
+
+		<div class="description short">
+			<p>Formats the given time value to a timestring defined by the $pattern
+parameter.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Formats the given time value to a timestring defined by the $pattern
+parameter.</p>
+
+<p>If the value is false (like null), an empty string is
+returned. Else, the value is tried to be parsed as datetime via the
+given pattern. If that fails, it is tried to be parsed with the pattern
+'Y-m-d H:i:s'. If that fails, the value is returned unchanged. Else, it
+is returned formatted with the given pattern. The effect is to shorten
+'Y-m-d H:i:s' to 'Y-m-d' for example.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value to be formatted</dd>
+					<dt><var>$timezone</var></dt>
+					<dd>the timezone of the value</dd>
+					<dt><var>$pattern</var></dt>
+					<dd>the pattern with which the value is parsed and formatted</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the formatted value
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="readYaml" id="_readYaml">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_readYaml">#</a>
+		<code>readYaml( <span>string <var>$fileName</var></span> )</code>
+
+		<div class="description short">
+			<p>Reads and returns the contents of the given file. If
+it goes wrong, it throws an exception.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Reads and returns the contents of the given file. If
+it goes wrong, it throws an exception.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fileName</var></dt>
+					<dd>the file to read</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the file contents
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="initMissingServiceProviders" id="_initMissingServiceProviders">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_initMissingServiceProviders">#</a>
+		<code>initMissingServiceProviders( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>Initializes needed but yet missing service providers.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initializes needed but yet missing service providers.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the application container</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="initLocales" id="_initLocales">
+
+		<td class="attributes"><code>
+			 protected 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_initLocales">#</a>
+		<code>initLocales( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>Initializes the available locales.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initializes the available locales.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the application container</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the available locales
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="initChildren" id="_initChildren">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_initChildren">#</a>
+		<code>initChildren( )</code>
+
+		<div class="description short">
+			<p>Initializes the children of the data entries.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initializes the children of the data entries.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLocaleLabels" id="_getLocaleLabels">
+
+		<td class="attributes"><code>
+			 protected 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLocaleLabels">#</a>
+		<code>getLocaleLabels( <span>array <var>$locales</var></span>, <span>array <var>$crud</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets a map with localized entity labels from the CRUD YML.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets a map with localized entity labels from the CRUD YML.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$locales</var></dt>
+					<dd>the available locales</dd>
+					<dt><var>$crud</var></dt>
+					<dd>the CRUD entity map</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the map with localized entity labels
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="configureDefinition" id="_configureDefinition">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_configureDefinition">#</a>
+		<code>configureDefinition( <span><code><a href="class-CRUDlex.CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></code> <var>$definition</var></span>, <span>array <var>$crud</var></span> )</code>
+
+		<div class="description short">
+			<p>Configures the CRUDEntityDefinition according to the given
+CRUD entity map.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Configures the CRUDEntityDefinition according to the given
+CRUD entity map.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$definition</var></dt>
+					<dd>the definition to configure</dd>
+					<dt><var>$crud</var></dt>
+					<dd>the CRUD entity map</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code>init( <span><code><a href="class-CRUDlex.CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></code> <var>$dataFactory</var></span>, <span>string <var>$crudFile</var></span>, <span><code><a href="class-CRUDlex.CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></code> <var>$fileProcessor</var></span>, <span>boolean <var>$manageI18n</var></span>, <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>Initializes the instance.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initializes the instance.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dataFactory</var></dt>
+					<dd>the factory to create the concrete CRUDData instances</dd>
+					<dt><var>$crudFile</var></dt>
+					<dd>the CRUD YAML file to parse</dd>
+					<dt><var>$fileProcessor</var></dt>
+					<dd>the file processor used for file fields</dd>
+					<dt><var>$manageI18n</var></dt>
+					<dd>holds whether we manage the i18n</dd>
+					<dt><var>$app</var></dt>
+					<dd>the application container</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="register" id="_register">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_register">#</a>
+		<code>register( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>Implements ServiceProviderInterface::register() registering $app['crud'].
+$app['crud'] contains an instance of the CRUDServiceProvider afterwards.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Implements ServiceProviderInterface::register() registering $app['crud'].
+$app['crud'] contains an instance of the CRUDServiceProvider afterwards.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Application instance of the Silex application</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="boot" id="_boot">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_boot">#</a>
+		<code>boot( <span>Silex\Application <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>Implements ServiceProviderInterface::boot().</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Implements ServiceProviderInterface::boot().</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Application instance of the Silex application</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getData" id="_getData">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getData">#</a>
+		<code>getData( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			<p>Getter for the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Getter for the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>the entity name of the desired CRUDData instance</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code><br>the CRUDData instance or null on invalid name
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEntities" id="_getEntities">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEntities">#</a>
+		<code>getEntities( )</code>
+
+		<div class="description short">
+			<p>Getter for all available entity names.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Getter for all available entity names.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>a list of all available entity names
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="formatDate" id="_formatDate">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_formatDate">#</a>
+		<code>formatDate( <span>string <var>$value</var></span>, <span>boolean <var>$isUTC</var></span> )</code>
+
+		<div class="description short">
+			<p>Formats the given value to a date of the format 'Y-m-d'.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Formats the given value to a date of the format 'Y-m-d'.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value, might be of the format 'Y-m-d H:i' or 'Y-m-d'</dd>
+					<dt><var>$isUTC</var></dt>
+					<dd>whether the given value is in UTC</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the formatted result or an empty string on null value
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="formatDateTime" id="_formatDateTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_formatDateTime">#</a>
+		<code>formatDateTime( <span>string <var>$value</var></span>, <span>boolean <var>$isUTC</var></span> )</code>
+
+		<div class="description short">
+			<p>Formats the given value to a date of the format 'Y-m-d H:i'.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Formats the given value to a date of the format 'Y-m-d H:i'.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value, might be of the format 'Y-m-d H:i'</dd>
+					<dt><var>$isUTC</var></dt>
+					<dd>whether the given value is in UTC</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the formatted result or an empty string on null value
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="basename" id="_basename">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_basename">#</a>
+		<code>basename( <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Calls PHPs
+<a href="http://php.net/manual/en/function.basename.php">basename</a> and
+returns it's result.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Calls PHPs
+<a href="http://php.net/manual/en/function.basename.php">basename</a> and
+returns it's result.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value to be handed to basename</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the result of basename
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTemplate" id="_getTemplate">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTemplate">#</a>
+		<code>getTemplate( <span>Silex\Application <var>$app</var></span>, <span>string <var>$section</var></span>, <span>string <var>$action</var></span>, <span>string <var>$entity</var></span> )</code>
+
+		<div class="description short">
+			<p>Determines the Twig template to use for the given parameters depending on
+the existance of certain keys in the Application $app in this order:</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determines the Twig template to use for the given parameters depending on
+the existance of certain keys in the Application $app in this order:</p>
+
+<p>crud.$section.$action.$entity
+crud.$section.$action
+crud.$section</p>
+
+<p>If nothing exists, this string is returned: "@crud/<action>.twig"</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd>the Silex application</dd>
+					<dt><var>$section</var></dt>
+					<dd>the section of the template, either "layout" or "template"</dd>
+					<dt><var>$action</var></dt>
+					<dd>the current calling action like "create" or "show"</dd>
+					<dt><var>$entity</var></dt>
+					<dd>the current calling entity</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the best fitting template
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getManageI18n" id="_getManageI18n">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getManageI18n">#</a>
+		<code>getManageI18n( )</code>
+
+		<div class="description short">
+			<p>Gets whether CRUDlex manages the i18n system.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets whether CRUDlex manages the i18n system.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>true if CRUDlex manages the i18n system
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setLocale" id="_setLocale">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setLocale">#</a>
+		<code>setLocale( <span>string <var>$locale</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the locale to be used.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the locale to be used.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$locale</var></dt>
+					<dd>the locale to be used.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLocales" id="_getLocales">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLocales">#</a>
+		<code>getLocales( )</code>
+
+		<div class="description short">
+			<p>Gets the available locales.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the available locales.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the available locales
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLanguageName" id="_getLanguageName">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLanguageName">#</a>
+		<code>getLanguageName( <span>string <var>$language</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets a language name in the given language.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets a language name in the given language.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$language</var></dt>
+					<dd>the language code of the desired language name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the language name in the given language or null if not available
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="formatFloat" id="_formatFloat">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_formatFloat">#</a>
+		<code>formatFloat( <span>float <var>$float</var></span> )</code>
+
+		<div class="description short">
+			<p>Formats a float to not display in scientific notation.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Formats a float to not display in scientific notation.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$float</var></dt>
+					<dd>the float to format</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the formated float
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="datas" id="$datas">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$datas</var>
+			<div class="description short">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the <code><a href="class-CRUDlex.CRUDData.html">CRUDlex\CRUDData</a></code> instances.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$datas" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="manageI18n" id="$manageI18n">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+<var>$manageI18n</var>
+			<div class="description short">
+				<p>Holds whether we manage the i18n.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds whether we manage the i18n.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$manageI18n" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CRUDlex API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

@@ -86,15 +86,15 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetListFieldNames() {
-        $read = $this->definition->getListFieldNames();
+    public function testgetListFields() {
+        $read = $this->definition->getListFields();
         $expected = array(
             'author',
             'title',
             'library'
         );
         $this->assertSame($read, $expected);
-        $read = $this->definitionLibrary->getListFieldNames();
+        $read = $this->definitionLibrary->getListFields();
         $expected = array(
             'id',
             'created_at',
@@ -111,10 +111,10 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'id',
             'name'
         );
-        $this->definitionLibrary->setListFieldNames($expected);
-        $read = $this->definitionLibrary->getListFieldNames();
+        $this->definitionLibrary->setListFields($expected);
+        $read = $this->definitionLibrary->getListFields();
         $this->assertSame($read, $expected);
-        $this->definitionLibrary->setListFieldNames($old);
+        $this->definitionLibrary->setListFields($old);
     }
 
     public function testIsRequired() {
@@ -307,15 +307,13 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
         $this->definition->setRequired('foo', true);
         $read = $this->definition->isRequired('foo');
-        $expected = true;
-        $this->assertSame($read, $expected);
+        $this->assertTrue($read);
     }
 
     public function testGetSetChildrenLabelFields() {
         $read = $this->definitionLibrary->getChildrenLabelFields();
         $expected = array('book' => 'title');
         $this->assertSame($read, $expected);
-        $old = $read;
         $expected = array('book' => 'author');
         $this->definitionLibrary->setChildrenLabelFields($expected);
         $read = $this->definitionLibrary->getChildrenLabelFields();
@@ -393,7 +391,6 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'library'
         );
         $this->assertSame($read, $expected);
-        $old = $read;
         $expected = array(
             'author',
             'title'
@@ -415,6 +412,24 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), array(), new CRUDServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
+    }
+
+    public function testGetSetInitialSortField() {
+        $read = $this->definition->getInitialSortField();
+        $expected = 'id';
+        $this->assertSame($read, $expected);
+        $this->definition->setInitialSortField('author');
+        $read = $this->definition->getInitialSortField();
+        $expected = 'author';
+        $this->assertSame($read, $expected);
+    }
+
+    public function testGetSetInitialSortAscending() {
+        $read = $this->definition->getInitialSortAscending();
+        $this->assertTrue($read);
+        $this->definition->setInitialSortAscending(false);
+        $read = $this->definition->getInitialSortAscending();
+        $this->assertFalse($read);
     }
 
 }
