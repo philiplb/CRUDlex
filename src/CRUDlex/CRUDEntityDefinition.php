@@ -225,7 +225,7 @@ class CRUDEntityDefinition {
         $this->deleteCascade = false;
         $this->pageSize = 25;
         $this->locale = null;
-        $this->initialSortField = 'id';
+        $this->initialSortField = 'created_at';
         $this->initialSortAscending = true;
     }
 

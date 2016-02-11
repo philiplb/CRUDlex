@@ -162,6 +162,7 @@ class CRUDControllerProviderTest extends WebTestCase {
             $entityBookA->set('price', 3.99);
             $entityBookA->set('library', $library->get('id'));
             $this->dataBook->create($entityBookA);
+            sleep(1);
         }
 
         $this->dataBook->getDefinition()->setPageSize(5);

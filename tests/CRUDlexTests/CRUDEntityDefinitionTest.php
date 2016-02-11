@@ -416,7 +416,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetSetInitialSortField() {
         $read = $this->definition->getInitialSortField();
-        $expected = 'id';
+        $expected = 'created_at';
         $this->assertSame($read, $expected);
         $this->definition->setInitialSortField('author');
         $read = $this->definition->getInitialSortField();
