@@ -4,13 +4,13 @@ CRUDlex Changelog
 ## 0.9.9
 Released: 2016-02-11
 - Attention: From now on, the created_at and updated_at timestamps are stored as UTC values in the MySQL data provider
-- CRUDMySQLData now offers an option to use UUIDs as primary key instead of an auto incremented value
 - The list views can be sorted now
 - Added optimistic locking for editing an entity
+- CRUDMySQLData now offers an option to use UUIDs as primary key instead of an auto incremented value
 - Added a function to the service provider to get the available locales
 - Added a function to the service provider to get the name of the language of a locale
 - Generating the language picker based on the available translation files instead of being hard coded
-- Fixed and refactored a lot things revealed by static code analysis
+- Fixed and refactored a lot of things revealed by static code analysis
 - Updated dependencies:
     - Symfony-Components to the current LTS version 2.8
     - "symfony/...": "~2.8" (current LTS version)
