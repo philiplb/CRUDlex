@@ -179,7 +179,7 @@ book:
 ## Initial Sorting Parameters
 
 Initially, when you visit the list page of an entity, the view is sorted ascending
-by id. There might be cases, where you want to change that.
+by created_at. There might be cases, where you want to change that.
 
 For this, two parameters can be set on entity level:
 
@@ -208,6 +208,30 @@ book:
             type: int
             label: Pages
 ```
+
+## Using UUIDs as primary key instead of an auto incremented value
+
+CRUDMySQLData offers an option to use UUIDs as primary key instead of an auto
+incremented value.
+
+First, you have to create your id field as varchar(36):
+
+```sql
+`id` varchar(36) NOT NULL
+```
+
+And then you have to activate it in the setup when creating the
+CRUDDataFactoryInterface:
+
+```php
+$dataFactory = new CRUDlex\CRUDMySQLDataFactory($app['db'], true);
+```
+
+## Prefilled Form Fields on the Creation Page
+
+You can set some initial values when you link the creation page from somewhere
+else by handing in the appropriate GET parameter. Example for the author of a
+book: .../book/create?author=MyAuthor
 
 ---
 

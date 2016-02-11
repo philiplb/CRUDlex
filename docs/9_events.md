@@ -52,6 +52,6 @@ If no more events are available, __popEvent__ will return __null__.
 
 Previous: [Overriding Templates](8_templates.md)
 
-Next: [Various Other Features](10_miscfeatures.md)
+Next: [Various Other Features](10_crudserviceprovider.md)
 
 [Table of Contents](0_manual.md)

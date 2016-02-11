@@ -58,6 +58,6 @@ Formats a float to not display in scientific notation.
 
 ---
 
-Previous: [Various Other Features](10_miscfeatures.md)
+Previous: [Various Other Features](9_events.md)
 
 [Table of Contents](0_manual.md)
