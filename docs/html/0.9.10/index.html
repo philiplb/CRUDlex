@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to CRUDlex’s documentation! &mdash; CRUDlex 0.9.10 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.9.10 documentation" href="#"/>
+        <link rel="next" title="Introduction" href="manual/introduction.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="manual/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/events.html">Events</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDData.html">CRUDlex\CRUDData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Welcome to CRUDlex&#8217;s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-crudlex-s-documentation">
+<h1>Welcome to CRUDlex&#8217;s documentation!<a class="headerlink" href="#welcome-to-crudlex-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This is the documentation of CRUDlex, an easy to use CRUD generator for <a class="reference external" href="http://silex.sensiolabs.org/">Silex</a>.
+It describes every feature being available.</p>
+<img alt="_images/01_List.png" src="_images/01_List.png" />
+<p>Contents:</p>
+<div class="toctree-wrapper compound" id="manual">
+<p class="caption"><span class="caption-text">Manual</span><a class="headerlink" href="#manual" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="manual/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/datastructures.html">Data Structure Definition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual/datastructures.html#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datastructures.html#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual/extendedfeatures.html">Extended Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#field-descriptions">Field Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#displayed-fields-in-the-list">Displayed Fields in the List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#pagination">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#filters">Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#i18n">I18n</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/extendedfeatures.html#set-the-translations-of-entity-and-field-labels">Set the Translations of Entity- and Field-Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/extendedfeatures.html#switch-off-i18n-management">Switch off I18n Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#initial-sorting-parameters">Initial Sorting Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#using-uuids-as-primary-key-instead-of-an-auto-incremented-value">Using UUIDs as Primary Key Instead of an Auto Incremented Value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/extendedfeatures.html#prefilled-form-fields-on-the-creation-page">Prefilled Form Fields on the Creation Page</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual/datatypes.html">Data Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#text">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#multiline">Multiline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#url">Url</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#int">Int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#float">Float</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#boolean">Boolean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#date">Date</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#datetime">Datetime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#set">Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/datatypes.html#show-children">Show Children</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/datatypes.html#cascading-children-deletion">Cascading Children Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/datatypes.html#mysql-foreign-key-hint">MySQL Foreign Key Hint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#file">File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/datatypes.html#fixed">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/layouts.html">Overriding Layouts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual/layouts.html#global">Global</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/layouts.html#single-actions">Single Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/layouts.html#single-entities">Single Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/layouts.html#single-actions-of-an-entity">Single Actions of an Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/layouts.html#your-own-layout-from-scratch">Your own Layout from Scratch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual/templates.html">Overriding Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual/templates.html#templates-included-by-the-layout">Templates Included by the Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/templates.html#templates-for-the-single-action-pages">Templates for the Single Action Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/templates.html#form-field-templates">Form Field Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/templates.html#additional-templates">Additional Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual/events.html">Events</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="api">
+<p class="caption"><span class="caption-text">API</span><a class="headerlink" href="#api" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDData.html">CRUDlex\CRUDData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/CRUDMySQLData.html">CRUDlex\CRUDMySQLData</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/CRUDMySQLDataFactory.html">CRUDlex\CRUDMySQLDataFactory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/CRUDSimpleFilesystemFileProcessor.html">CRUDlex\CRUDSimpleFilesystemFileProcessor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="manual/introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.9.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

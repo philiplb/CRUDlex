@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Extended Features &mdash; CRUDlex 0.9.10 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
+        <link rel="next" title="Data Types" href="datatypes.html"/>
+        <link rel="prev" title="Data Structure Definition" href="datastructures.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Extended Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#field-descriptions">Field Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#displayed-fields-in-the-list">Displayed Fields in the List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pagination">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filters">Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#i18n">I18n</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#set-the-translations-of-entity-and-field-labels">Set the Translations of Entity- and Field-Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#switch-off-i18n-management">Switch off I18n Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#initial-sorting-parameters">Initial Sorting Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-uuids-as-primary-key-instead-of-an-auto-incremented-value">Using UUIDs as Primary Key Instead of an Auto Incremented Value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prefilled-form-fields-on-the-creation-page">Prefilled Form Fields on the Creation Page</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDData.html">CRUDlex\CRUDData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Extended Features</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/manual/extendedfeatures.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="extended-features">
+<h1>Extended Features<a class="headerlink" href="#extended-features" title="Permalink to this headline">¶</a></h1>
+<p>While continuing with the library example, we add some more features as we go.</p>
+<div class="section" id="field-descriptions">
+<h2>Field Descriptions<a class="headerlink" href="#field-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, you want to guide the user a bit more and be more descriptive than
+just a label on the details and editpage of an entity. To do so, you can set a
+description per field. In this case, the author of a book is more informative:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+    <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+<span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+            <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">The Author of the Book</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
+        <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="displayed-fields-in-the-list">
+<h2>Displayed Fields in the List<a class="headerlink" href="#displayed-fields-in-the-list" title="Permalink to this headline">¶</a></h2>
+<p>As an addition, we only want to show the author and title in the big list
+view of the books. We can do it by using the listFields entry:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+<span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
+        <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
+</pre></div>
+</div>
+<p>It is a simple list referencing the fields. Note the usage of the internal
+fields &#8220;id&#8221;, &#8220;created_at&#8221; and &#8220;update_at&#8221;. &#8220;version&#8221; is not yet used and
+every row where &#8220;deleted_at&#8221; is not null is marked as deleted, so this field
+would make no sense to display.</p>
+</div>
+<div class="section" id="pagination">
+<h2>Pagination<a class="headerlink" href="#pagination" title="Permalink to this headline">¶</a></h2>
+<p>Per default, 25 entities are listed per page on the list view. You can change
+this number by setting the <strong>pageSize</strong> parameter like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+    <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+<span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
+        <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
+</pre></div>
+</div>
+<p>Only strings and integers are boring, so in the next chapter, all possible
+data types are presented.</p>
+</div>
+<div class="section" id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+<p>Currently, the listview contains all entries on the pages. Often, it is desirable to filter it in order to search for specific entries. The fields to be allowed to filter on can be easily added with a filter array just like the listFields. This is how the books view could be filtered by author and title:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+    <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+<span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
+        <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="i18n">
+<h2>I18n<a class="headerlink" href="#i18n" title="Permalink to this headline">¶</a></h2>
+<p>Here are some features around the i18n support.</p>
+<div class="section" id="set-the-translations-of-entity-and-field-labels">
+<h3>Set the Translations of Entity- and Field-Labels<a class="headerlink" href="#set-the-translations-of-entity-and-field-labels" title="Permalink to this headline">¶</a></h3>
+<p>You can translate the labels of the entities and their fields using some special
+label keys: <em>label_(locale)</em> with <em>(locale)</em> being your desired locale. Example
+for <strong>de</strong>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Buch</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+            <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Autor</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
+            <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Titel</span>
+        <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
+            <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Seiten</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="switch-off-i18n-management">
+<h3>Switch off I18n Management<a class="headerlink" href="#switch-off-i18n-management" title="Permalink to this headline">¶</a></h3>
+<p>Per default, CRUDlex manages i18n for you. But this might be not desired in
+bigger projects, so you can disable it on registration like this:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$app-&gt;register(new CRUDlex\CRUDServiceProvider(), array(</span>
+<span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
+<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
+<span class="x">    &#39;crud.manageI18n&#39; =&gt; false</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-sorting-parameters">
+<h2>Initial Sorting Parameters<a class="headerlink" href="#initial-sorting-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Initially, when you visit the list page of an entity, the view is sorted ascending
+by created_at. There might be cases, where you want to change that.</p>
+<p>For this, two parameters can be set on entity level:</p>
+<ul class="simple">
+<li><strong>initialSortField:</strong> Sets the field the data is sort by</li>
+<li><strong>initialSortAscending:</strong> If set to true, the initial sort order is ascending,
+if set to false, the initial sort order is descending</li>
+</ul>
+<p>Here is an example where the books are sorted by their author in an descending
+order:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">initialSortField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">author</span>
+    <span class="l l-Scalar l-Scalar-Plain">initialSortAscending</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
+        <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-uuids-as-primary-key-instead-of-an-auto-incremented-value">
+<h2>Using UUIDs as Primary Key Instead of an Auto Incremented Value<a class="headerlink" href="#using-uuids-as-primary-key-instead-of-an-auto-incremented-value" title="Permalink to this headline">¶</a></h2>
+<p>CRUDMySQLData offers an option to use UUIDs as primary key instead of an auto
+incremented value.</p>
+<p>First, you have to create your id field as varchar(36):</p>
+<div class="highlight-sql"><div class="highlight"><pre><span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
+</pre></div>
+</div>
+<p>And then you have to activate it in the setup when creating the
+CRUDDataFactoryInterface:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$dataFactory = new CRUDlex\CRUDMySQLDataFactory($app[&#39;db&#39;], true);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="prefilled-form-fields-on-the-creation-page">
+<h2>Prefilled Form Fields on the Creation Page<a class="headerlink" href="#prefilled-form-fields-on-the-creation-page" title="Permalink to this headline">¶</a></h2>
+<p>You can set some initial values when you link the creation page from somewhere
+else by handing in the appropriate GET parameter. Example for the author of a
+book: .../book/create?author=MyAuthor</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="datatypes.html" class="btn btn-neutral float-right" title="Data Types" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="datastructures.html" class="btn btn-neutral" title="Data Structure Definition" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.9.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -4,4 +4,4 @@ composer.phar
 coverageReport/
 build/logs/clover.xml
 tests/uploads/
-docs/api/cache/
+docs/_build/

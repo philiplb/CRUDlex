@@ -3,38 +3,33 @@ CRUDlex
 
 CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. It is very useful to generate admin pages for example.
 
-![List View of CRUDlex](docs/images/01_List.png)
+![List View of CRUDlex](docs/_static/01_List.png)
 
 ## Documentation
 
-### Manual
+For the upcoming version 0.9.10, the manual and API docs got merged to an unified
+documentation:
+
+[Documentation](http://philiplb.github.io/CRUDlex/docs/html/0.9.10/)
 
 The manual is a reference describing every feature of CRUDlex:
 
-* [0.9.9](https://github.com/philiplb/CRUDlex/blob/0.9.9/docs/0_manual.md)
-* [0.9.8](https://github.com/philiplb/CRUDlex/blob/0.9.8/docs/0_manual.md)
-* [0.9.7](https://github.com/philiplb/CRUDlex/blob/0.9.7/docs/0_manual.md)
-* [0.9.6](https://github.com/philiplb/CRUDlex/blob/0.9.6/docs/0_manual.md)
-* [0.9.5](https://github.com/philiplb/CRUDlex/blob/0.9.5/docs/0_manual.md)
-* [0.9.4](https://github.com/philiplb/CRUDlex/blob/0.9.4/docs/0_manual.md)
-* [0.9.3](https://github.com/philiplb/CRUDlex/blob/0.9.3/docs/0_manual.md)
-* [Latest Unstable](docs/0_manual.md)
-
-### API Documentation
+[Manual 0.9.9](https://github.com/philiplb/CRUDlex/blob/0.9.9/docs/0_manual.md)
 
 The CRUDlex API itself is documented here:
 
-* [0.9.9](http://philiplb.github.io/CRUDlex/docs/api/0.9.9/)
-* [0.9.8](http://philiplb.github.io/CRUDlex/docs/api/0.9.8/)
-* [0.9.7](http://philiplb.github.io/CRUDlex/docs/api/0.9.7/)
-* [0.9.6](http://philiplb.github.io/CRUDlex/docs/api/0.9.6/)
-* [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
+[API 0.9.9](http://philiplb.github.io/CRUDlex/docs/api/0.9.9/)
 
-### Requirements
+How to build the documentation:
 
-* PHP >= 5.3.2
-* For the MySQL driver: MySQL >= 5.1
-* For the file uploads: PECL fileinfo >= 0.1.0
+```bash
+# Install dependencies
+pip install Sphinx
+pip install tk.phpautodoc
+# Generate:
+cd docs
+make html
+```
 
 ## Package
 
@@ -79,6 +74,31 @@ implemented on the fly when needed.
 [![Total Downloads](https://poser.pugx.org/philiplb/crudlex/downloads.svg)](https://packagist.org/packages/philiplb/crudlex)
 [![Latest Stable Version](https://poser.pugx.org/philiplb/crudlex/v/stable.svg)](https://packagist.org/packages/philiplb/crudlex)
 [![Latest Unstable Version](https://poser.pugx.org/philiplb/crudlex/v/unstable.svg)](https://packagist.org/packages/philiplb/crudlex) [![License](https://poser.pugx.org/philiplb/crudlex/license.svg)](https://packagist.org/packages/philiplb/crudlex)
+
+## Older Versions Documentation
+
+### Manual
+
+The manual is a reference describing every feature of CRUDlex:
+
+* [0.9.9](https://github.com/philiplb/CRUDlex/blob/0.9.9/docs/0_manual.md)
+* [0.9.8](https://github.com/philiplb/CRUDlex/blob/0.9.8/docs/0_manual.md)
+* [0.9.7](https://github.com/philiplb/CRUDlex/blob/0.9.7/docs/0_manual.md)
+* [0.9.6](https://github.com/philiplb/CRUDlex/blob/0.9.6/docs/0_manual.md)
+* [0.9.5](https://github.com/philiplb/CRUDlex/blob/0.9.5/docs/0_manual.md)
+* [0.9.4](https://github.com/philiplb/CRUDlex/blob/0.9.4/docs/0_manual.md)
+* [0.9.3](https://github.com/philiplb/CRUDlex/blob/0.9.3/docs/0_manual.md)
+* [Latest Unstable](docs/0_manual.md)
+
+### API Documentation
+
+The CRUDlex API itself is documented here:
+
+* [0.9.9](http://philiplb.github.io/CRUDlex/docs/api/0.9.9/)
+* [0.9.8](http://philiplb.github.io/CRUDlex/docs/api/0.9.8/)
+* [0.9.7](http://philiplb.github.io/CRUDlex/docs/api/0.9.7/)
+* [0.9.6](http://philiplb.github.io/CRUDlex/docs/api/0.9.6/)
+* [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
 
 ## Build Status
 
