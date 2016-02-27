@@ -18,7 +18,7 @@ The manual is a reference describing every feature of CRUDlex:
 
 The CRUDlex API itself is documented here:
 
-[API 0.9.9](http://philiplb.github.io/CRUDlex/docs/api/0.9.9/)
+[API 0.9.9](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.9/)
 
 How to build the documentation:
 
@@ -94,11 +94,11 @@ The manual is a reference describing every feature of CRUDlex:
 
 The CRUDlex API itself is documented here:
 
-* [0.9.9](http://philiplb.github.io/CRUDlex/docs/api/0.9.9/)
-* [0.9.8](http://philiplb.github.io/CRUDlex/docs/api/0.9.8/)
-* [0.9.7](http://philiplb.github.io/CRUDlex/docs/api/0.9.7/)
-* [0.9.6](http://philiplb.github.io/CRUDlex/docs/api/0.9.6/)
-* [0.9.5](http://philiplb.github.io/CRUDlex/docs/api/0.9.5/)
+* [0.9.9](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.9/)
+* [0.9.8](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.8/)
+* [0.9.7](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.7/)
+* [0.9.6](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.6/)
+* [0.9.5](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.5/)
 
 ## Build Status
 
