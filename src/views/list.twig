@@ -30,7 +30,7 @@
                 <form role="form" method="GET" action="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}">
                     {% for filterField, filterValue in filter %}
                         {% set type = crudData.getDefinition().getType(filterField) %}
-                        {% if type == 'bool' %}
+                        {% if type == 'boolean' %}
                             {% include app.crud.getTemplate(app, 'template', 'fieldLabel', crudEntity) with {
                                 field: filterField,
                                 definition: definition,

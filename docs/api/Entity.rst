@@ -63,7 +63,7 @@ CRUDlex\\Entity
 
         :type $field: string
         :param $field: the field
-        :returns: mixed null on invalid field, an int if the definition says that the type of the field is an int, a boolean if the field is a bool or else the raw value
+        :returns: mixed null on invalid field, an integer if the definition says that the type of the field is an integer, a boolean if the field is a boolean or else the raw value
 
     .. php:method:: getDefinition()
 

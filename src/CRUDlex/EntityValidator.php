@@ -105,19 +105,25 @@ class EntityValidator {
      * the field to validate
      * @param string $numberType
      * the type, might be 'int' or 'float'
+     * @param string $expectedType
+     * the expected CRUDlex type, might be 'integer' or 'float'
      * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    protected function validateNumber($field, $numberType, &$fieldErrors, &$valid) {
+    protected function validateNumber($field, $numberType, $expectedType, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
         $casted = $value;
         settype($casted, $numberType);
-        if ($type == $numberType
+        if ($type == $expectedType
             && !in_array($value, array('', null), true)
             && (string)$casted != $value) {
+
+            /*if ($type == 'float') {
+                var_dump($numberType.' '.$casted . " " . $value);
+            }*/
             $fieldErrors[$field]['input'] = true;
             $valid = false;
         }
@@ -239,8 +245,8 @@ class EntityValidator {
             $this->validateUnique($field, $data, $fieldErrors, $valid);
 
             $this->validateSet($field, $fieldErrors, $valid);
-            $this->validateNumber($field, 'int', $fieldErrors, $valid);
-            $this->validateNumber($field, 'float', $fieldErrors, $valid);
+            $this->validateNumber($field, 'int', 'integer', $fieldErrors, $valid);
+            $this->validateNumber($field, 'float', 'float', $fieldErrors, $valid);
             $this->validateDate($field, $fieldErrors, $valid);
             $this->validateDateTime($field, $fieldErrors, $valid);
             $this->validateReference($field, $data, $fieldErrors, $valid);

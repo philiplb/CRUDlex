@@ -49,7 +49,7 @@ CRUDlex\\EntityValidator
         :param $fieldErrors:
         :param $valid:
 
-    .. php:method:: validateNumber($field, $numberType, $fieldErrors, $valid)
+    .. php:method:: validateNumber($field, $numberType, $expectedType, $fieldErrors, $valid)
 
         Validates the given field for a number type.
 
@@ -57,6 +57,8 @@ CRUDlex\\EntityValidator
         :param $field: the field to validate
         :type $numberType: string
         :param $numberType: the type, might be 'int' or 'float'
+        :type $expectedType: string
+        :param $expectedType: the expected CRUDlex type, might be 'integer' or 'float'
         :param $fieldErrors:
         :param $valid:
 

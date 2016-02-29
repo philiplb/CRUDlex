@@ -22,7 +22,7 @@ library:
       type: datetime
       label: Opening
     isOpenOnSundays:
-      type: bool
+      type: boolean
       label: 'Is open on sundays'
     planet:
       type: fixed
@@ -47,7 +47,7 @@ book:
       description: The Author of the Book
       required: true
     pages:
-      type: int
+      type: integer
       label: Pages
       required: true
     release:

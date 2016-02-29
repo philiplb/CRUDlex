@@ -78,13 +78,13 @@ would lead to::
 
 on click and is shortened to "bar.txt" in the list.
 
----
-Int
----
+-------
+Integer
+-------
 
 .. code-block:: yaml
 
-    type: int
+    type: integer
 
 An integer, no further parameters. Related MySQL-types:
 
@@ -118,7 +118,7 @@ Boolean
 
 .. code-block:: yaml
 
-    type: bool
+    type: boolean
 
 A boolean value, either true or false, no further parameters. Related MySQL-type:
 

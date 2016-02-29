@@ -36,7 +36,7 @@
         {% for field in fields %}
 
             {% set type = crudData.getDefinition().getType(field) %}
-            {% set class = type == 'bool' ? 'checkbox' : 'form-group' %}
+            {% set class = type == 'boolean' ? 'checkbox' : 'form-group' %}
             <div class="{{ class }} {{ field in fieldErrors|keys and (fieldErrors[field]['required'] or fieldErrors[field]['unique'] or fieldErrors[field]['input']) ? 'has-error' : '' }}">
                 {% include app.crud.getTemplate(app, 'template', type ~ 'Field', crudEntity) with {
                     field: field,

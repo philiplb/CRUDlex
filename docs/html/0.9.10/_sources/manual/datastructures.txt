@@ -65,7 +65,7 @@ an author, a title and the amount of pages as fields.
                 type: text
                 label: Title
             pages:
-                type: int
+                type: integer
                 label: Pages
 
 Note that the yml keys "name", "author" and "title" directly name the database

@@ -51,8 +51,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     public function testGetType() {
         $fields = array('title', 'pages', 'release', 'library',
             'id', 'created_at', 'updated_at', 'deleted_at', 'version');
-        $expected = array('text', 'int', 'date', 'reference',
-            'string', 'datetime', 'datetime', 'datetime', 'int', null);
+        $expected = array('text', 'integer', 'date', 'reference',
+            'string', 'datetime', 'datetime', 'datetime', 'integer', null);
         $read = array();
         foreach ($fields as $field) {
             $read[] = $this->definition->getType($field);

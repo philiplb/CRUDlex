@@ -47,13 +47,13 @@ Form Field Templates
 
 And this are the form field templates for each type:
 
-* boolField: The form field for the type bool (@crud/boolField.twig)
+* booleanField: The form field for the type bool (@crud/boolField.twig)
 * dateField: The form field for the type date (@crud/dateField.twig)
 * datetimeField: The form field for the type datetime (@crud/datetimeField.twig)
 * fileField: The form field for the type file (@crud/fileField.twig)
 * fixedField: The form field for the type fixed (@crud/fixedField.twig)
 * floatField: The form field for the type float (@crud/floatField.twig)
-* intField: The form field for the type int (@crud/intField.twig)
+* integerField: The form field for the type int (@crud/intField.twig)
 * multilineField: The form field for the type multiline (@crud/multilineField.twig)
 * referenceField: The form field for the type reference (@crud/referenceField.twig)
 * setField: The form field for the type set (@crud/setField.twig)

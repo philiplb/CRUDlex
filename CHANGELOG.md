@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.9.10
 Released: Upcoming
 - Attention: Removed the prefix "CRUD" from all classes as they live in their own namespace anyway
+- Attention: The data types "int" and "bool" got renamed to "integer" and "boolean"
 - Replaced the markdown manual and the APIGen documentation with an unified Sphinx version
 
 ## 0.9.9

@@ -207,7 +207,7 @@ class ControllerProvider implements ControllerProviderInterface {
             $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
             if ($filter[$filterField]) {
                 $filterActive = true;
-                if ($definition->getType($filterField) == 'bool') {
+                if ($definition->getType($filterField) == 'boolean') {
                     $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
                     $filterOperators[$filterField] = '=';
                 } else {

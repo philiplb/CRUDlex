@@ -95,8 +95,8 @@ class Entity {
      * the field
      *
      * @return mixed
-     * null on invalid field, an int if the definition says that the
-     * type of the field is an int, a boolean if the field is a bool or
+     * null on invalid field, an integer if the definition says that the
+     * type of the field is an integer, a boolean if the field is a boolean or
      * else the raw value
      */
     public function get($field) {
@@ -111,9 +111,9 @@ class Entity {
 
         $value = $this->entity[$field];
         $type = $this->definition->getType($field);
-        if ($type == 'int' || $type == 'float') {
+        if ($type == 'integer' || $type == 'float') {
             $value = $value !== '' && $value !== null ? $this->toType($value, $type) : null;
-        } else if ($type == 'bool') {
+        } else if ($type == 'boolean') {
             $value = $value && $value !== '0';
         }
         return $value;

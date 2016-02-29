@@ -264,10 +264,10 @@ abstract class Data {
      * an array with the field names as keys and field values as values
      * @param array $paramsOperators
      * the operators of the parameters like "=" defining the full condition of the field
-     * @param bool $excludeDeleted
+     * @param boolean $excludeDeleted
      * false, if soft deleted entries in the datasource should be counted, too
      *
-     * @return int
+     * @return integer
      * the count fulfilling the given parameters
      */
     abstract public function countBy($table, array $params, array $paramsOperators, $excludeDeleted);

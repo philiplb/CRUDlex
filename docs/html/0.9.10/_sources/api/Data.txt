@@ -184,9 +184,9 @@ CRUDlex\\Data
         :param $params: an array with the field names as keys and field values as values
         :type $paramsOperators: array
         :param $paramsOperators: the operators of the parameters like "=" defining the full condition of the field
-        :type $excludeDeleted: bool
+        :type $excludeDeleted: boolean
         :param $excludeDeleted: false, if soft deleted entries in the datasource should be counted, too
-        :returns: int the count fulfilling the given parameters
+        :returns: integer the count fulfilling the given parameters
 
     .. php:method:: fetchReferences($entities = null)
 

@@ -76,7 +76,7 @@
         {% endif %}
     {% endif %}
 
-{% elseif type == 'bool' %}
+{% elseif type == 'boolean' %}
     {{ entity.get(field) ? 'true' : 'false' }}
 
 {% elseif type == 'float' %}

@@ -35,7 +35,7 @@ description per field. In this case, the author of a book is more informative:
                 type: text
                 label: Title
             pages:
-                type: int
+                type: integer
                 label: Pages
 
 ----------------------------
@@ -66,7 +66,7 @@ view of the books. We can do it by using the listFields entry:
                 type: text
                 label: Title
             pages:
-                type: int
+                type: integer
                 label: Pages
 
 It is a simple list referencing the fields. Note the usage of the internal
@@ -103,7 +103,7 @@ this number by setting the **pageSize** parameter like this:
                 type: text
                 label: Title
             pages:
-                type: int
+                type: integer
                 label: Pages
 
 Only strings and integers are boring, so in the next chapter, all possible
@@ -138,7 +138,7 @@ Currently, the listview contains all entries on the pages. Often, it is desirabl
                 type: text
                 label: Title
             pages:
-                type: int
+                type: integer
                 label: Pages
 
 ----
@@ -173,7 +173,7 @@ for **de**:
                 label: Title
                 label_de: Titel
             pages:
-                type: int
+                type: integer
                 label: Pages
                 label_de: Seiten
 
@@ -224,7 +224,7 @@ order:
                 type: text
                 label: Title
             pages:
-                type: int
+                type: integer
                 label: Pages
 
 ---------------------------------------------------------------

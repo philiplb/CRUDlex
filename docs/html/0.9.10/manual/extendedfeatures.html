@@ -110,14 +110,14 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/Data.html">CRUDlex\CRUDData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\CRUDEntity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Data.html">CRUDlex\Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 </ul>
 
             
@@ -192,7 +192,7 @@ description per field. In this case, the author of a book is more informative:</
             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
         <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
 </pre></div>
 </div>
@@ -220,7 +220,7 @@ view of the books. We can do it by using the listFields entry:</p>
             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
         <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
 </pre></div>
 </div>
@@ -253,7 +253,7 @@ this number by setting the <strong>pageSize</strong> parameter like this:</p>
             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
         <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
 </pre></div>
 </div>
@@ -284,7 +284,7 @@ data types are presented.</p>
             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
         <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
 </pre></div>
 </div>
@@ -313,7 +313,7 @@ for <strong>de</strong>:</p>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
             <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Titel</span>
         <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
             <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Seiten</span>
 </pre></div>
@@ -358,7 +358,7 @@ order:</p>
             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
         <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
 </pre></div>
 </div>

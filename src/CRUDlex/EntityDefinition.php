@@ -425,7 +425,7 @@ class EntityDefinition {
             case 'deleted_at':
                 return 'datetime';
             case 'version':
-                return 'int';
+                return 'integer';
         }
         return $this->getFieldValue($fieldName, 'type');
     }
