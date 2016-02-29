@@ -11,12 +11,12 @@
 
 namespace CRUDlex;
 
-use CRUDlex\CRUDData;
+use CRUDlex\Data;
 
 /**
- * Performs validation of the field values of the given {@see CRUDEntity}.
+ * Performs validation of the field values of the given {@see Entity}.
  */
-class CRUDEntityValidator {
+class EntityValidator {
 
     /**
      * The entity to validate.
@@ -52,14 +52,14 @@ class CRUDEntityValidator {
      *
      * @param string $field
      * the field to validate
-     * @param CRUDData $data
+     * @param Data $data
      * the data instance to work with
      * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    protected function validateUnique($field, CRUDData $data, &$fieldErrors, &$valid) {
+    protected function validateUnique($field, Data $data, &$fieldErrors, &$valid) {
         $value = $this->entity->getRaw($field);
         if ($this->definition->isUnique($field) && $value) {
             $params = array($field => $value);
@@ -169,14 +169,14 @@ class CRUDEntityValidator {
      *
      * @param string $field
      * the field to validate
-     * @param CRUDData $data
+     * @param Data $data
      * the data instance to work with
      * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    protected function validateReference($field, CRUDData $data, &$fieldErrors, &$valid) {
+    protected function validateReference($field, Data $data, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
         if ($type == 'reference' && $value !== '' && $value !== null) {
@@ -193,10 +193,10 @@ class CRUDEntityValidator {
     /**
      * Constructor.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity to validate
      */
-    public function __construct(CRUDEntity $entity) {
+    public function __construct(Entity $entity) {
         $this->entity = $entity;
         $this->definition = $entity->getDefinition();
     }
@@ -204,7 +204,7 @@ class CRUDEntityValidator {
     /**
      * Validates the entity against the definition.
      *
-     * @param CRUDData $data
+     * @param Data $data
      * the data access instance used for counting things
      * @param integer $expectedVersion
      * the version to perform the optimistic locking check on
@@ -220,7 +220,7 @@ class CRUDEntityValidator {
      * value is correct (a valid int, date, depending on the type in the
      * definition)
      */
-    public function validate(CRUDData $data, $expectedVersion) {
+    public function validate(Data $data, $expectedVersion) {
 
         $fields = $this->definition->getEditableFieldNames();
         $fieldErrors = array();

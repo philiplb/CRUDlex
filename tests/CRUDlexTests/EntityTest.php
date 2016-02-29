@@ -11,10 +11,10 @@
 
 namespace CRUDlexTests;
 
-use CRUDlexTestEnv\CRUDTestDBSetup;
-use CRUDlex\CRUDEntity;
+use CRUDlexTestEnv\TestDBSetup;
+use CRUDlex\Entity;
 
-class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
+class EntityTest extends \PHPUnit_Framework_TestCase {
 
     protected $crudServiceProvider;
 
@@ -23,14 +23,14 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
     protected $dataLibrary;
 
     protected function setUp() {
-        $this->crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider();
+        $this->crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $this->crudServiceProvider->getData('book');
         $this->dataLibrary = $this->crudServiceProvider->getData('library');
     }
 
     public function testGetSet() {
         $definition = $this->crudServiceProvider->getData('book')->getDefinition();
-        $entity = new CRUDEntity($definition);
+        $entity = new Entity($definition);
         $entity->set('test', 'testdata');
         $read = $entity->get('test');
         $expected = 'testdata';
@@ -63,7 +63,7 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
 
 
         $definition = $this->crudServiceProvider->getData('book')->getDefinition();
-        $entity = new CRUDEntity($definition);
+        $entity = new Entity($definition);
 
         $entity->set('isOpenOnSundays', true);
         $read = $entity->get('isOpenOnSundays');
@@ -74,7 +74,7 @@ class CRUDEntityTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetRaw() {
         $definition = $this->crudServiceProvider->getData('book')->getDefinition();
-        $entity = new CRUDEntity($definition);
+        $entity = new Entity($definition);
         $entity->set('test', 'testdata');
         $read = $entity->getRaw('test');
         $expected = 'testdata';

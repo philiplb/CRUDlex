@@ -12,14 +12,14 @@
 namespace CRUDlex;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use CRUDlex\CRUDEntity;
-use CRUDlex\CRUDData;
-use CRUDlex\CRUDFileProcessorInterface;
+use CRUDlex\Entity;
+use CRUDlex\Data;
+use CRUDlex\FileProcessorInterface;
 
 /**
- * MySQL CRUDData implementation using a given Doctrine DBAL instance.
+ * MySQL Data implementation using a given Doctrine DBAL instance.
  */
-class CRUDMySQLData extends CRUDData {
+class MySQLData extends Data {
 
     /**
      * Holds the Doctrine DBAL instance.
@@ -35,14 +35,14 @@ class CRUDMySQLData extends CRUDData {
      * Sets the values and parameters of the upcoming given query according
      * to the entity.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity with its fields and values
      * @param QueryBuilder $queryBuilder
      * the upcoming query
      * @param boolean $setValue
      * whether to use QueryBuilder::setValue (true) or QueryBuilder::set (false)
      */
-    protected function setValuesAndParameters(CRUDEntity $entity, QueryBuilder $queryBuilder, $setValue) {
+    protected function setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setValue) {
         $formFields = $this->definition->getEditableFieldNames();
         $count = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
@@ -108,7 +108,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    protected function doDelete(CRUDEntity $entity, $deleteCascade) {
+    protected function doDelete(Entity $entity, $deleteCascade) {
         $result = $this->executeEvents($entity, 'before', 'delete');
         if (!$result) {
             return static::DELETION_FAILED_EVENT;
@@ -199,7 +199,7 @@ class CRUDMySQLData extends CRUDData {
      * reference field is before the raw id of the referenced entity and after
      * the fetch, it's an array with the keys id and name.
      *
-     * @param CRUDEntity[] &$entities
+     * @param Entity[] &$entities
      * the entities to fetch the references for
      * @param string $field
      * the reference field
@@ -208,7 +208,7 @@ class CRUDMySQLData extends CRUDData {
         $nameField = $this->definition->getReferenceNameField($field);
         $queryBuilder = $this->db->createQueryBuilder();
 
-        $ids = array_map(function(CRUDEntity $entity) use ($field) {
+        $ids = array_map(function(Entity $entity) use ($field) {
             return $entity->get($field);
         }, $entities);
 
@@ -260,16 +260,16 @@ class CRUDMySQLData extends CRUDData {
     /**
      * Constructor.
      *
-     * @param CRUDEntityDefinition $definition
+     * @param EntityDefinition $definition
      * the entity definition
-     * @param CRUDFileProcessorInterface $fileProcessor
+     * @param FileProcessorInterface $fileProcessor
      * the file processor to use
      * @param $db
      * the Doctrine DBAL instance to use
      * @param boolean $useUUIDs
      * flag whether to use UUIDs as primary key
      */
-    public function __construct(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor, $db, $useUUIDs) {
+    public function __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $db, $useUUIDs) {
         $this->definition = $definition;
         $this->fileProcessor = $fileProcessor;
         $this->db = $db;
@@ -316,7 +316,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function create(CRUDEntity $entity) {
+    public function create(Entity $entity) {
 
         $result = $this->executeEvents($entity, 'before', 'create');
         if (!$result) {
@@ -361,7 +361,7 @@ class CRUDMySQLData extends CRUDData {
     /**
      * {@inheritdoc}
      */
-    public function update(CRUDEntity $entity) {
+    public function update(Entity $entity) {
 
         $result = $this->executeEvents($entity, 'before', 'update');
         if (!$result) {

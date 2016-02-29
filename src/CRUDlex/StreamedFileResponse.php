@@ -15,7 +15,7 @@ namespace CRUDlex;
  * Small utility class to generate functions for streamed responses returning
  * a file.
  */
-class CRUDStreamedFileResponse {
+class StreamedFileResponse {
 
     /**
      * Generates a lambda which is streaming the given file to standard output.

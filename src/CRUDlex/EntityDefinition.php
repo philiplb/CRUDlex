@@ -14,7 +14,7 @@ namespace CRUDlex;
 /**
  * The class for defining a single entity.
  */
-class CRUDEntityDefinition {
+class EntityDefinition {
 
     /**
      * The table where the data is stored.
@@ -76,7 +76,7 @@ class CRUDEntityDefinition {
     protected $filter;
 
     /**
-     * Holds the {@see CRUDServiceProvider}.
+     * Holds the {@see ServiceProvider}.
      */
     protected $serviceProvider;
 
@@ -207,10 +207,10 @@ class CRUDEntityDefinition {
      * the labels  of the entity in the locales
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
-     * @param CRUDServiceProvider $serviceProvider
+     * @param ServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, CRUDServiceProvider $serviceProvider) {
+    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider) {
         $this->table = $table;
         $this->fields = $fields;
         $this->label = $label;
@@ -355,7 +355,7 @@ class CRUDEntityDefinition {
     /**
      * Gets the service provider.
      *
-     * @return CRUDServiceProvider
+     * @return ServiceProvider
      * the service provider
      */
     public function getServiceProvider() {
@@ -365,10 +365,10 @@ class CRUDEntityDefinition {
     /**
      * Sets the service provider.
      *
-     * @param CRUDServiceProvider $serviceProvider
+     * @param ServiceProvider $serviceProvider
      * the new service provider
      */
-    public function setServiceProvider(CRUDServiceProvider $serviceProvider) {
+    public function setServiceProvider(ServiceProvider $serviceProvider) {
         return $this->serviceProvider = $serviceProvider;
     }
 

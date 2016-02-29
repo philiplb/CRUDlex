@@ -11,19 +11,19 @@
 
 namespace CRUDlexTests;
 
-use CRUDlexTestEnv\CRUDTestDBSetup;
-use CRUDlex\CRUDServiceProvider;
-use CRUDlex\CRUDEntity;
-use CRUDlex\CRUDEntityDefinition;
+use CRUDlexTestEnv\TestDBSetup;
+use CRUDlex\ServiceProvider;
+use CRUDlex\Entity;
+use CRUDlex\EntityDefinition;
 
-class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
+class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     protected $definition;
 
     protected $definitionLibrary;
 
     protected function setUp() {
-        $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider();
+        $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->definition = $crudServiceProvider->getData('book')->getDefinition();
         $this->definitionLibrary = $crudServiceProvider->getData('library')->getDefinition();
     }
@@ -377,7 +377,7 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definition->getServiceProvider();
         $this->assertNotNull($read);
 
-        $expected = new CRUDServiceProvider();
+        $expected = new ServiceProvider();
         $this->definition->setServiceProvider($expected);
         $read = $this->definition->getServiceProvider();
         $this->assertSame($read, $expected);
@@ -401,15 +401,15 @@ class CRUDEntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetInvalidReferenceField() {
-        $definition = new CRUDEntityDefinition(null, array('test' => array()), null, array(), array(), new CRUDServiceProvider());
+        $definition = new EntityDefinition(null, array('test' => array()), null, array(), array(), new ServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
 
-        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference')), null, array(), array(), new CRUDServiceProvider());
+        $definition = new EntityDefinition(null, array('test' => array('type' => 'reference')), null, array(), array(), new ServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
 
-        $definition = new CRUDEntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), array(), new CRUDServiceProvider());
+        $definition = new EntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), array(), new ServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
     }

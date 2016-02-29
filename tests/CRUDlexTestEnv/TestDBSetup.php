@@ -4,11 +4,11 @@ namespace CRUDlexTestEnv;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
-use CRUDlex\CRUDMySQLDataFactory;
-use CRUDlex\CRUDServiceProvider;
-use CRUDlexTestEnv\CRUDNullFileProcessor;
+use CRUDlex\MySQLDataFactory;
+use CRUDlex\ServiceProvider;
+use CRUDlexTestEnv\NullFileProcessor;
 
-class CRUDTestDBSetup {
+class TestDBSetup {
 
     private static $fileProcessor;
 
@@ -78,11 +78,11 @@ class CRUDTestDBSetup {
         return $app;
     }
 
-    public static function createCRUDServiceProvider($useUUIDs = false) {
-        static::$fileProcessor = new CRUDNullFileProcessor();
+    public static function createServiceProvider($useUUIDs = false) {
+        static::$fileProcessor = new NullFileProcessor();
         $app = static::createAppAndDB($useUUIDs);
-        $crudServiceProvider = new CRUDServiceProvider();
-        $dataFactory = new CRUDMySQLDataFactory($app['db'], $useUUIDs);
+        $crudServiceProvider = new ServiceProvider();
+        $dataFactory = new MySQLDataFactory($app['db'], $useUUIDs);
         $crudFile = __DIR__.'/../crud.yml';
         $crudServiceProvider->init($dataFactory, $crudFile, static::$fileProcessor, true, $app);
         return $crudServiceProvider;

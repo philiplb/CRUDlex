@@ -16,21 +16,21 @@ use Silex\ServiceProviderInterface;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 
-use CRUDlex\CRUDEntityDefinition;
-use CRUDlex\CRUDDataFactoryInterface;
-use CRUDlex\CRUDEntity;
-use CRUDlex\CRUDFileProcessorInterface;
-use CRUDlex\CRUDSimpleFilesystemFileProcessor;
+use CRUDlex\EntityDefinition;
+use CRUDlex\DataFactoryInterface;
+use CRUDlex\Entity;
+use CRUDlex\FileProcessorInterface;
+use CRUDlex\SimpleFilesystemFileProcessor;
 
 /**
- * The CRUDServiceProvider setups and initializes the whole CRUD system.
- * After adding it to your Silex-setup, it offers access to {@see CRUDData}
+ * The ServiceProvider setups and initializes the whole CRUD system.
+ * After adding it to your Silex-setup, it offers access to {@see Data}
  * instances, one for each defined entity off the CRUD YAML file.
  */
-class CRUDServiceProvider implements ServiceProviderInterface {
+class ServiceProvider implements ServiceProviderInterface {
 
     /**
-     * Holds the {@see CRUDData} instances.
+     * Holds the {@see Data} instances.
      */
     protected $datas;
 
@@ -175,15 +175,15 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Configures the CRUDEntityDefinition according to the given
+     * Configures the EntityDefinition according to the given
      * CRUD entity map.
      *
-     * @param CRUDEntityDefinition $definition
+     * @param EntityDefinition $definition
      * the definition to configure
      * @param array $crud
      * the CRUD entity map
      */
-    protected function configureDefinition(CRUDEntityDefinition $definition, array $crud) {
+    protected function configureDefinition(EntityDefinition $definition, array $crud) {
         $toConfigure = array(
             'deleteCascade',
             'listFields',
@@ -204,18 +204,18 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     /**
      * Initializes the instance.
      *
-     * @param CRUDDataFactoryInterface $dataFactory
-     * the factory to create the concrete CRUDData instances
+     * @param DataFactoryInterface $dataFactory
+     * the factory to create the concrete Data instances
      * @param string $crudFile
      * the CRUD YAML file to parse
-     * @param CRUDFileProcessorInterface $fileProcessor
+     * @param FileProcessorInterface $fileProcessor
      * the file processor used for file fields
      * @param boolean $manageI18n
      * holds whether we manage the i18n
      * @param Application $app
      * the application container
      */
-    public function init(CRUDDataFactoryInterface $dataFactory, $crudFile, CRUDFileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
+    public function init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
 
         $this->initMissingServiceProviders($app);
         $this->manageI18n = $manageI18n;
@@ -234,7 +234,7 @@ class CRUDServiceProvider implements ServiceProviderInterface {
                 'created_at' => $app['translator']->trans('crudlex.label.created_at'),
                 'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
-            $definition = new CRUDEntityDefinition(
+            $definition = new EntityDefinition(
                 $crud['table'],
                 $crud['fields'],
                 $label,
@@ -252,15 +252,15 @@ class CRUDServiceProvider implements ServiceProviderInterface {
 
     /**
      * Implements ServiceProviderInterface::register() registering $app['crud'].
-     * $app['crud'] contains an instance of the CRUDServiceProvider afterwards.
+     * $app['crud'] contains an instance of the ServiceProvider afterwards.
      *
      * @param Application $app
      * the Application instance of the Silex application
      */
     public function register(Application $app) {
         $app['crud'] = $app->share(function() use ($app) {
-            $result = new CRUDServiceProvider();
-            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new CRUDSimpleFilesystemFileProcessor();
+            $result = new ServiceProvider();
+            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
             $manageI18n = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
             $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
             return $result;
@@ -277,13 +277,13 @@ class CRUDServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Getter for the {@see CRUDData} instances.
+     * Getter for the {@see Data} instances.
      *
      * @param string $name
-     * the entity name of the desired CRUDData instance
+     * the entity name of the desired Data instance
      *
-     * @return CRUDData
-     * the CRUDData instance or null on invalid name
+     * @return Data
+     * the Data instance or null on invalid name
      */
     public function getData($name) {
         if (!array_key_exists($name, $this->datas)) {

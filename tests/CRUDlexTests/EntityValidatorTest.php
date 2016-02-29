@@ -11,18 +11,18 @@
 
 namespace CRUDlexTests;
 
-use CRUDlexTestEnv\CRUDTestDBSetup;
-use CRUDlex\CRUDEntity;
-use CRUDlex\CRUDEntityValidator;
+use CRUDlexTestEnv\TestDBSetup;
+use CRUDlex\Entity;
+use CRUDlex\EntityValidator;
 
-class CRUDEntityValidatorTest extends \PHPUnit_Framework_TestCase {
+class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
 
     protected $dataBook;
 
     protected $dataLibrary;
 
     protected function setUp() {
-        $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider();
+        $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $crudServiceProvider->getData('book');
         $this->dataLibrary = $crudServiceProvider->getData('library');
     }
@@ -91,7 +91,7 @@ class CRUDEntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $invalid = $valid;
         $invalid['valid'] = false;
 
-        $validatorBook = new CRUDEntityValidator($entityBook);
+        $validatorBook = new EntityValidator($entityBook);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $valid;
         $this->assertSame($read, $expected);
@@ -149,7 +149,7 @@ class CRUDEntityValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $entityLibrary2 = $this->dataLibrary->createEmpty();
         $entityLibrary2->set('name', 'lib a');
-        $validatorLibrary2 = new CRUDEntityValidator($entityLibrary2);
+        $validatorLibrary2 = new EntityValidator($entityLibrary2);
         $read = $validatorLibrary2->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
         $expected['fields']['name']['unique'] = true;
@@ -157,7 +157,7 @@ class CRUDEntityValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $entityLibrary1->set('type', 'large');
 
-        $validatorLibrary1 = new CRUDEntityValidator($entityLibrary1);
+        $validatorLibrary1 = new EntityValidator($entityLibrary1);
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
         $expected = $validLibrary;
         $this->assertSame($read, $expected);

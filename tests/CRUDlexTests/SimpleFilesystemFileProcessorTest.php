@@ -14,10 +14,10 @@ namespace CRUDlexTests;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-use CRUDlexTestEnv\CRUDTestDBSetup;
-use CRUDlex\CRUDSimpleFilesystemFileProcessor;
+use CRUDlexTestEnv\TestDBSetup;
+use CRUDlex\SimpleFilesystemFileProcessor;
 
-class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase {
+class SimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase {
 
     private $fileProcessor;
 
@@ -45,8 +45,8 @@ class CRUDSimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase 
     }
 
     protected function setUp() {
-        $this->fileProcessor = new CRUDSimpleFilesystemFileProcessor();
-        $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider();
+        $this->fileProcessor = new SimpleFilesystemFileProcessor();
+        $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $crudServiceProvider->getData('book');
         $this->dataLibrary = $crudServiceProvider->getData('library');
 

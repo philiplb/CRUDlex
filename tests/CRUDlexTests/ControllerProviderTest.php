@@ -12,11 +12,11 @@
 use Silex\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-use CRUDlexTestEnv\CRUDTestDBSetup;
-use CRUDlex\CRUDEntity;
-use CRUDlexTestEnv\CRUDNullFileProcessor;
+use CRUDlexTestEnv\TestDBSetup;
+use CRUDlex\Entity;
+use CRUDlexTestEnv\NullFileProcessor;
 
-class CRUDControllerProviderTest extends WebTestCase {
+class ControllerProviderTest extends WebTestCase {
 
     protected $dataBook;
 
@@ -26,17 +26,17 @@ class CRUDControllerProviderTest extends WebTestCase {
 
     public function createApplication() {
 
-        $app = CRUDTestDBSetup::createAppAndDB();
+        $app = TestDBSetup::createAppAndDB();
 
         $app->register(new Silex\Provider\SessionServiceProvider());
         $app['session.test'] = true;
         $app['debug'] = true;
         $app['exception_handler']->disable();
 
-        $this->fileProcessor =  new CRUDNullFileProcessor();
+        $this->fileProcessor =  new NullFileProcessor();
 
-        $dataFactory = new CRUDlex\CRUDMySQLDataFactory($app['db']);
-        $app->register(new CRUDlex\CRUDServiceProvider(), array(
+        $dataFactory = new CRUDlex\MySQLDataFactory($app['db']);
+        $app->register(new CRUDlex\ServiceProvider(), array(
             'crud.file' => __DIR__ . '/../crud.yml',
             'crud.datafactory' => $dataFactory,
             'crud.fileprocessor' => $this->fileProcessor
@@ -46,7 +46,7 @@ class CRUDControllerProviderTest extends WebTestCase {
             'twig.path' => __DIR__.'/../views'
         ));
 
-        $app->mount('/crud', new CRUDlex\CRUDControllerProvider());
+        $app->mount('/crud', new CRUDlex\ControllerProvider());
 
         $this->dataBook = $app['crud']->getData('book');
         $this->dataLibrary = $app['crud']->getData('library');
@@ -101,7 +101,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertFalse($this->fileProcessor->isRenderFileCalled());
 
         // Canceling events
-        $before = function(CRUDEntity $entity) {
+        $before = function(Entity $entity) {
             return false;
         };
         $this->dataBook->pushEvent('before', 'create', $before);
@@ -315,7 +315,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertRegExp('/There was a more up to date version of the data available\./', $client->getResponse()->getContent());
 
         // Canceling events
-        $before = function(CRUDEntity $entity) {
+        $before = function(Entity $entity) {
             return false;
         };
         $this->dataBook->pushEvent('before', 'update', $before);
@@ -395,7 +395,7 @@ class CRUDControllerProviderTest extends WebTestCase {
         $this->assertNull($bookDeleted);
 
         // Canceling events
-        $before = function(CRUDEntity $entity) {
+        $before = function(Entity $entity) {
             return false;
         };
         $this->dataBook->pushEvent('before', 'delete', $before);

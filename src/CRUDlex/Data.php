@@ -14,13 +14,13 @@ namespace CRUDlex;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use CRUDlex\CRUDEntityDefinition;
-use CRUDlex\CRUDEntity;
+use CRUDlex\EntityDefinition;
+use CRUDlex\Entity;
 
 /**
  * The abstract class for reading and writing data.
  */
-abstract class CRUDData {
+abstract class Data {
 
     /**
      * Return value on successful deletion.
@@ -38,12 +38,12 @@ abstract class CRUDData {
     const DELETION_FAILED_EVENT = 2;
 
     /**
-     * Holds the {@see CRUDEntityDefinition} entity definition.
+     * Holds the {@see EntityDefinition} entity definition.
      */
     protected $definition;
 
     /**
-     * Holds the {@see CRUDFileProcessorInterface} file processor.
+     * Holds the {@see FileProcessorInterface} file processor.
      */
     protected $fileProcessor;
 
@@ -55,7 +55,7 @@ abstract class CRUDData {
     /**
      * Performs the actual deletion.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the id of the entry to delete
      * @param boolean $deleteCascade
      * whether to delete children and subchildren
@@ -63,21 +63,21 @@ abstract class CRUDData {
      * @return integer
      * true on successful deletion
      */
-    abstract protected function doDelete(CRUDEntity $entity, $deleteCascade);
+    abstract protected function doDelete(Entity $entity, $deleteCascade);
 
     /**
-     * Creates an {@see CRUDEntity} from the raw data array with the field name
+     * Creates an {@see Entity} from the raw data array with the field name
      * as keys and field values as values.
      *
      * @param array $row
      * the array with the raw data
      *
-     * @return CRUDEntity
+     * @return Entity
      * the entity containing the array data then
      */
     protected function hydrate(array $row) {
         $fieldNames = $this->definition->getFieldNames();
-        $entity = new CRUDEntity($this->definition);
+        $entity = new Entity($this->definition);
         foreach ($fieldNames as $fieldName) {
             $entity->set($fieldName, $row[$fieldName]);
         }
@@ -87,7 +87,7 @@ abstract class CRUDData {
     /**
      * Executes the event chain of an entity.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity having the event chain to execute
      * @param string $moment
      * the "moment" of the event, can be either "before" or "after"
@@ -98,7 +98,7 @@ abstract class CRUDData {
      * true on successful execution of the full chain or false if it broke at
      * any point (and stopped the execution)
      */
-    protected function executeEvents(CRUDEntity $entity, $moment, $action) {
+    protected function executeEvents(Entity $entity, $moment, $action) {
         if ($this->events !== null && array_key_exists($moment.'.'.$action, $this->events)) {
             foreach ($this->events[$moment.'.'.$action] as $event) {
                 $result = $event($entity);
@@ -113,14 +113,14 @@ abstract class CRUDData {
     /**
      * Executes a function for each file field of this entity.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the just created entity
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
      * @param \Closure $function
      * the function to perform, takes $entity, $entityName and $field as parameter
      */
-    protected function performOnFiles(CRUDEntity $entity, $entityName, $function) {
+    protected function performOnFiles(Entity $entity, $entityName, $function) {
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             if ($this->definition->getType($field) == 'file') {
@@ -132,7 +132,7 @@ abstract class CRUDData {
     /**
      * Adds an event to fire for the given parameters. The event function must
      * have this signature:
-     * function (CRUDEntity $entity)
+     * function (Entity $entity)
      * and has to return true or false.
      * The events are executed one after another in the added order as long as
      * they return "true". The first event returning "false" will stop the
@@ -177,7 +177,7 @@ abstract class CRUDData {
      * @param string $id
      * the id
      *
-     * @return CRUDEntity
+     * @return Entity
      * the entity belonging to the id or null if not existant
      */
     abstract public function get($id);
@@ -200,7 +200,7 @@ abstract class CRUDData {
      * if given and not null, it specifies that the sort order is ascending,
      * descending else
      *
-     * @return CRUDEntity[]
+     * @return Entity[]
      * the entities fulfilling the filter or all if no filter was given
      */
     abstract public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null);
@@ -208,33 +208,33 @@ abstract class CRUDData {
     /**
      * Persists the given entity as new entry in the datasource.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity to persist
      *
      * @return boolean
      * true on successful creation
      */
-    abstract public function create(CRUDEntity $entity);
+    abstract public function create(Entity $entity);
 
     /**
      * Updates an existing entry in the datasource having the same id.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity with the new data
      */
-    abstract public function update(CRUDEntity $entity);
+    abstract public function update(Entity $entity);
 
     /**
      * Deletes an entry from the datasource having the given id.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the id of the entry to delete
      *
      * @return integer
      * returns one of:
-     * - CRUDData::DELETION_SUCCESS -> successful deletion
-     * - CRUDData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
-     * - CRUDData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
+     * - Data::DELETION_SUCCESS -> successful deletion
+     * - Data::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
+     * - Data::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
     public function delete($entity) {
         return $this->doDelete($entity, $this->definition->isDeleteCascade());
@@ -277,15 +277,15 @@ abstract class CRUDData {
      * reference field is before the raw id of the referenced entity and after
      * the fetch, it's an array with the keys id and name.
      *
-     * @param CRUDEntity[] &$entities
+     * @param Entity[] &$entities
      * the entities to fetch the references for
      */
     abstract public function fetchReferences(array &$entities = null);
 
     /**
-     * Gets the {@see CRUDEntityDefinition} instance.
+     * Gets the {@see EntityDefinition} instance.
      *
-     * @return CRUDEntityDefinition
+     * @return EntityDefinition
      * the definition instance
      */
     public function getDefinition() {
@@ -296,11 +296,11 @@ abstract class CRUDData {
      * Creates a new, empty entity instance having all fields prefilled with
      * null or the defined value in case of fixed fields.
      *
-     * @return CRUDEntity
+     * @return Entity
      * the newly created entity
      */
     public function createEmpty() {
-        $entity = new CRUDEntity($this->definition);
+        $entity = new Entity($this->definition);
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             $value = null;
@@ -318,12 +318,12 @@ abstract class CRUDData {
      *
      * @param Request $request
      * the HTTP request containing the file data
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the just created entity
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
      */
-    public function createFiles(Request $request, CRUDEntity $entity, $entityName) {
+    public function createFiles(Request $request, Entity $entity, $entityName) {
         $fileProcessor = $this->fileProcessor;
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
             $fileProcessor->createFile($request, $entity, $entityName, $field);
@@ -335,12 +335,12 @@ abstract class CRUDData {
      *
      * @param Request $request
      * the HTTP request containing the file data
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the updated entity
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
      */
-    public function updateFiles(Request $request, CRUDEntity $entity, $entityName) {
+    public function updateFiles(Request $request, Entity $entity, $entityName) {
         $fileProcessor = $this->fileProcessor;
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
             $fileProcessor->updateFile($request, $entity, $entityName, $field);
@@ -350,26 +350,26 @@ abstract class CRUDData {
     /**
      * Deletes a specific file from an existing entity.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity to delete the file from
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
      * @param string $field
      * the field of the entity containing the file to be deleted
      */
-    public function deleteFile(CRUDEntity $entity, $entityName, $field) {
+    public function deleteFile(Entity $entity, $entityName, $field) {
         $this->fileProcessor->deleteFile($entity, $entityName, $field);
     }
 
     /**
      * Deletes all files of an existing entity.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity to delete the files from
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
      */
-    public function deleteFiles(CRUDEntity $entity, $entityName) {
+    public function deleteFiles(Entity $entity, $entityName) {
         $fileProcessor = $this->fileProcessor;
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor) {
             $fileProcessor->deleteFile($entity, $entityName, $field);
@@ -380,7 +380,7 @@ abstract class CRUDData {
      * Renders (outputs) a file of an entity. This includes setting headers
      * like the file size, mimetype and name, too.
      *
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity to render the file from
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
@@ -390,7 +390,7 @@ abstract class CRUDData {
      * @return Response
      * the HTTP response, likely to be a streamed one
      */
-    public function renderFile(CRUDEntity $entity, $entityName, $field) {
+    public function renderFile(Entity $entity, $entityName, $field) {
         return $this->fileProcessor->renderFile($entity, $entityName, $field);
     }
 

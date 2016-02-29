@@ -38,7 +38,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  *
  * "/{entity}/{id}/{field}/delete" POST only deletion of a file field of an entity instance
  */
-class CRUDControllerProvider implements ControllerProviderInterface {
+class ControllerProvider implements ControllerProviderInterface {
 
     /**
      * Generates the not found page.
@@ -65,9 +65,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      *
      * @param Application $app
      * the current application
-     * @param CRUDData $crudData
+     * @param Data $crudData
      * the data instance of the entity
-     * @param CRUDEntity $instance
+     * @param Entity $instance
      * the entity
      * @param string $entity
      * the name of the entity
@@ -77,7 +77,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this modification
      */
-    protected function modifyFilesAndSetFlashBag(Application $app, CRUDData $crudData, CRUDEntity $instance, $entity, $mode) {
+    protected function modifyFilesAndSetFlashBag(Application $app, Data $crudData, Entity $instance, $entity, $mode) {
         $id = $instance->get('id');
         if ($mode == 'edit') {
             $crudData->updateFiles($app['request'], $instance, $entity);
@@ -114,9 +114,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      *
      * @param Application $app
      * the current application
-     * @param CRUDData $crudData
+     * @param Data $crudData
      * the data instance of the entity
-     * @param CRUDEntity $instance
+     * @param Entity $instance
      * the entity
      * @param string $entity
      * the name of the entity
@@ -126,12 +126,12 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this modification
      */
-    protected function modifyEntity(Application $app, CRUDData $crudData, CRUDEntity $instance, $entity, $edit) {
+    protected function modifyEntity(Application $app, Data $crudData, Entity $instance, $entity, $edit) {
         $fieldErrors = array();
         $mode = $edit ? 'edit' : 'create';
         if ($app['request']->getMethod() == 'POST') {
             $instance->populateViaRequest($app['request']);
-            $validator = new CRUDEntityValidator($instance);
+            $validator = new EntityValidator($instance);
             $validation = $validator->validate($crudData, intval($app['request']->get('version')));
 
             $fieldErrors = $validation['fields'];
@@ -191,7 +191,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      *
      * @param Application $app
      * the current application
-     * @param CRUDEntityDefinition $definition
+     * @param EntityDefinition $definition
      * the current entity definition
      * @param array &$filter
      * will hold a map of fields to request parameters for the filters
@@ -200,9 +200,9 @@ class CRUDControllerProvider implements ControllerProviderInterface {
      * @param array &$filterToUse
      * will hold a map of fields to integers (0 or 1) which boolean filters are active
      * @param array &$filterOperators
-     * will hold a map of fields to operators for CRUDData::listEntries()
+     * will hold a map of fields to operators for Data::listEntries()
      */
-    protected function buildUpListFilter(Application $app, CRUDEntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
+    protected function buildUpListFilter(Application $app, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
         foreach ($definition->getFilter() as $filterField) {
             $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
             if ($filter[$filterField]) {
@@ -455,10 +455,10 @@ class CRUDControllerProvider implements ControllerProviderInterface {
         $crudData->deleteFiles($instance, $entity);
         $deleted = $crudData->delete($instance);
 
-        if ($deleted === CRUDData::DELETION_FAILED_EVENT) {
+        if ($deleted === Data::DELETION_FAILED_EVENT) {
             $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
             return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-        } elseif ($deleted === CRUDData::DELETION_FAILED_STILL_REFERENCED) {
+        } elseif ($deleted === Data::DELETION_FAILED_STILL_REFERENCED) {
             $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
                 '%label%' => $crudData->getDefinition()->getLabel()
             )));
@@ -570,7 +570,7 @@ class CRUDControllerProvider implements ControllerProviderInterface {
 
         $size = filesize($file);
 
-        $streamedFileResponse = new CRUDStreamedFileResponse();
+        $streamedFileResponse = new StreamedFileResponse();
         $response = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
             'Content-Type' => $mimeType,
             'Content-Disposition' => 'attachment; filename="'.basename($file).'"',

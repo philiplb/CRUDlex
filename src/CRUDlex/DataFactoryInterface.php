@@ -11,29 +11,29 @@
 
 namespace CRUDlex;
 
-use CRUDlex\CRUDData;
-use CRUDlex\CRUDEntityDefinition;
-use CRUDlex\CRUDFileProcessorInterface;
+use CRUDlex\Data;
+use CRUDlex\EntityDefinition;
+use CRUDlex\FileProcessorInterface;
 
 /**
- * An interface used by the {@see CRUDServiceProvider} to construct
- * {@see CRUDData} instances. By implementing this and handing it into
+ * An interface used by the {@see ServiceProvider} to construct
+ * {@see Data} instances. By implementing this and handing it into
  * the service provider, the user can control what database (-variation) he
  * wants to use.
  */
-interface CRUDDataFactoryInterface {
+interface DataFactoryInterface {
 
     /**
      * Creates instances.
      *
-     * @param CRUDEntityDefinition $definition
+     * @param EntityDefinition $definition
      * the definition of the entities managed by the to be created instance
-     * @param CRUDFileProcessorInterface $fileProcessor
+     * @param FileProcessorInterface $fileProcessor
      * the file processor managing uploaded files
      *
-     * @return CRUDData
+     * @return Data
      * the newly created instance
      */
-    public function createData(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor);
+    public function createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor);
 
 }

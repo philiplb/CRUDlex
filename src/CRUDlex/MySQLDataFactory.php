@@ -11,13 +11,13 @@
 
 namespace CRUDlex;
 
-use CRUDlex\CRUDDataFactoryInterface;
-use CRUDlex\CRUDMySQLData;
+use CRUDlex\DataFactoryInterface;
+use CRUDlex\MySQLData;
 
 /**
- * A factory implementation for {@see CRUDMySQLData} instances.
+ * A factory implementation for {@see MySQLData} instances.
  */
-class CRUDMySQLDataFactory implements CRUDDataFactoryInterface {
+class MySQLDataFactory implements DataFactoryInterface {
 
     /**
      * Holds the Doctrine DBAL instance.
@@ -45,8 +45,8 @@ class CRUDMySQLDataFactory implements CRUDDataFactoryInterface {
     /**
      * {@inheritdoc}
      */
-    public function createData(CRUDEntityDefinition $definition, CRUDFileProcessorInterface $fileProcessor) {
-        return new CRUDMySQLData($definition, $fileProcessor, $this->db, $this->useUUIDs);
+    public function createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor) {
+        return new MySQLData($definition, $fileProcessor, $this->db, $this->useUUIDs);
     }
 
 }

@@ -12,17 +12,17 @@
 namespace CRUDlex;
 
 use Symfony\Component\HttpFoundation\Request;
-use CRUDlex\CRUDEntityDefinition;
+use CRUDlex\EntityDefinition;
 
 /**
  * Represents a single set of data in field value pairs like the row in a
- * database. Depends of course on the {@see CRUDData} implementation being used.
+ * database. Depends of course on the {@see Data} implementation being used.
  * With this objects, the data is passed arround and validated.
  */
-class CRUDEntity {
+class Entity {
 
     /**
-     * The {@see CRUDEntityDefinition} defining how this entity looks like.
+     * The {@see EntityDefinition} defining how this entity looks like.
      */
     protected $definition;
 
@@ -51,10 +51,10 @@ class CRUDEntity {
     /**
      * Constructor.
      *
-     * @param CRUDEntityDefinition $definition
+     * @param EntityDefinition $definition
      * the definition how this entity looks
      */
-    public function __construct(CRUDEntityDefinition $definition) {
+    public function __construct(EntityDefinition $definition) {
         $this->definition = $definition;
         $this->entity = array();
     }
@@ -122,7 +122,7 @@ class CRUDEntity {
     /**
      * Gets the entity definition.
      *
-     * @return CRUDEntityDefinition
+     * @return EntityDefinition
      * the definition
      */
     public function getDefinition() {

@@ -14,15 +14,15 @@ namespace CRUDlex;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use CRUDlex\CRUDFileProcessorInterface;
-use CRUDlex\CRUDEntity;
-use CRUDlex\CRUDStreamedFileResponse;
+use CRUDlex\FileProcessorInterface;
+use CRUDlex\Entity;
+use CRUDlex\StreamedFileResponse;
 
 /**
- * An implementation of the {@see CRUDFileProcessorInterface} simply using the
+ * An implementation of the {@see FileProcessorInterface} simply using the
  * file system.
  */
-class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
+class SimpleFilesystemFileProcessor implements FileProcessorInterface {
 
     /**
      * Constructs a file system path for the given parameters for storing the
@@ -30,7 +30,7 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
      *
      * @param string $entityName
      * the entity name
-     * @param CRUDEntity $entity
+     * @param Entity $entity
      * the entity
      * @param string $field
      * the file field in the entity
@@ -38,14 +38,14 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
      * @return string
      * the constructed path for storing the file of the file field
      */
-    protected function getPath($entityName, CRUDEntity $entity, $field) {
+    protected function getPath($entityName, Entity $entity, $field) {
         return $entity->getDefinition()->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function createFile(Request $request, CRUDEntity $entity, $entityName, $field) {
+    public function createFile(Request $request, Entity $entity, $entityName, $field) {
         $file = $request->files->get($field);
         if ($file) {
             $targetPath = $this->getPath($entityName, $entity, $field);
@@ -60,7 +60,7 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
      * {@inheritdoc}
      * For now, this implementation is defensive and doesn't delete ever.
      */
-    public function updateFile(Request $request, CRUDEntity $entity, $entityName, $field) {
+    public function updateFile(Request $request, Entity $entity, $entityName, $field) {
         // We could first delete the old file, but for now, we are defensive and don't delete ever.
         $this->createFile($request, $entity, $entityName, $field);
     }
@@ -69,14 +69,14 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
      * {@inheritdoc}
      * For now, this implementation is defensive and doesn't delete ever.
      */
-    public function deleteFile(CRUDEntity $entity, $entityName, $field) {
+    public function deleteFile(Entity $entity, $entityName, $field) {
         // For now, we are defensive and don't delete ever.
     }
 
     /**
      * {@inheritdoc}
      */
-    public function renderFile(CRUDEntity $entity, $entityName, $field) {
+    public function renderFile(Entity $entity, $entityName, $field) {
         $targetPath = $this->getPath($entityName, $entity, $field);
         $fileName = $entity->get($field);
         $file = $targetPath.'/'.$fileName;
@@ -86,7 +86,7 @@ class CRUDSimpleFilesystemFileProcessor implements CRUDFileProcessorInterface {
         finfo_close($finfo);
         $size = filesize($file);
         if ($fileName && file_exists($file)) {
-            $streamedFileResponse = new CRUDStreamedFileResponse();
+            $streamedFileResponse = new StreamedFileResponse();
             $response = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
                 'Content-Type' => $mimeType,
                 'Content-Disposition' => 'attachment; filename="'.$fileName.'"',

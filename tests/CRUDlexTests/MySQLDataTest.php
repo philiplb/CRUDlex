@@ -14,18 +14,18 @@ namespace CRUDlexTests;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-use CRUDlexTestEnv\CRUDTestDBSetup;
-use CRUDlex\CRUDEntity;
-use CRUDlex\CRUDData;
+use CRUDlexTestEnv\TestDBSetup;
+use CRUDlex\Entity;
+use CRUDlex\Data;
 
-class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
+class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
     protected $dataBook;
 
     protected $dataLibrary;
 
     protected function setUp() {
-        $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider();
+        $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $crudServiceProvider->getData('book');
         $this->dataLibrary = $crudServiceProvider->getData('library');
     }
@@ -40,7 +40,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testCreateWithUUID() {
-        $crudServiceProvider = CRUDTestDBSetup::createCRUDServiceProvider(true);
+        $crudServiceProvider = TestDBSetup::createServiceProvider(true);
         $dataLibrary = $crudServiceProvider->getData('library');
 
         $entity = $dataLibrary->createEmpty();
@@ -49,7 +49,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $id = $entity->get('id');
         $this->assertNotNull($id);
         $this->assertTrue(strlen($id) == 36);
-        
+
         $this->setUp();
     }
 
@@ -57,7 +57,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameA');
         $this->dataLibrary->create($entity);
-        $entity = new CRUDEntity($this->dataBook->getDefinition());
+        $entity = new Entity($this->dataBook->getDefinition());
         $entity->set('name', 'nameB');
         $this->dataLibrary->create($entity);
         $list = $this->dataLibrary->listEntries();
@@ -158,7 +158,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $deleted = $this->dataLibrary->delete($entity);
         $read = $this->dataLibrary->get($entity->get('id'));
-        $expected = CRUDData::DELETION_SUCCESS;
+        $expected = Data::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
         $this->assertNull($read);
 
@@ -175,13 +175,13 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $this->dataLibrary->getDefinition()->setDeleteCascade(false);
         $deleted = $this->dataLibrary->delete($entityLibrary);
-        $expected = CRUDData::DELETION_FAILED_STILL_REFERENCED;
+        $expected = Data::DELETION_FAILED_STILL_REFERENCED;
         $this->assertSame($deleted, $expected);
         $deleted = $this->dataBook->delete($entityBook);
-        $expected = CRUDData::DELETION_SUCCESS;
+        $expected = Data::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
         $deleted = $this->dataLibrary->delete($entityLibrary);
-        $expected = CRUDData::DELETION_SUCCESS;
+        $expected = Data::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
 
         $this->dataLibrary->getDefinition()->setDeleteCascade(true);
@@ -198,7 +198,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataBook->create($entityBook);
 
         $deleted = $this->dataLibrary->delete($entityLibrary);
-        $expected = CRUDData::DELETION_SUCCESS;
+        $expected = Data::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
         $entityBook2 = $this->dataBook->get($entityBook->get('id'));
         $this->assertNull($entityBook2);
@@ -407,7 +407,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
             'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
         ));
 
-        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor = TestDBSetup::getFileProcessor();
         $fileProcessor->reset();
 
         $this->dataBook->createFiles($request, $entityBook, 'book');
@@ -442,7 +442,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
             'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
         ));
 
-        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor = TestDBSetup::getFileProcessor();
         $fileProcessor->reset();
 
         $this->dataBook->updateFiles($request, $entityBook, 'book');
@@ -468,7 +468,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor = TestDBSetup::getFileProcessor();
         $fileProcessor->reset();
 
         $this->dataBook->deleteFile($entityBook, 'book', 'cover');
@@ -494,7 +494,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor = TestDBSetup::getFileProcessor();
         $fileProcessor->reset();
 
         $this->dataBook->deleteFiles($entityBook, 'book');
@@ -520,7 +520,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessor = CRUDTestDBSetup::getFileProcessor();
+        $fileProcessor = TestDBSetup::getFileProcessor();
         $fileProcessor->reset();
 
         $this->dataBook->renderFile($entityBook, 'book', 'cover');
@@ -550,14 +550,14 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
 
     public function testCreateEvents() {
         $beforeCalled = false;
-        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+        $beforeEvent = function(Entity $entity) use (&$beforeCalled) {
             $beforeCalled = true;
             return true;
         };
         $this->dataLibrary->pushEvent('before', 'create', $beforeEvent);
 
         $afterCalled = false;
-        $afterEvent = function(CRUDEntity $entity) use (&$afterCalled) {
+        $afterEvent = function(Entity $entity) use (&$afterCalled) {
             $afterCalled = true;
             return true;
         };
@@ -572,7 +572,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($afterCalled);
 
 
-        $beforeEvent = function(CRUDEntity $entity) {
+        $beforeEvent = function(Entity $entity) {
             return false;
         };
         $this->dataLibrary->pushEvent('before', 'create', $beforeEvent);
@@ -595,14 +595,14 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->create($entity);
 
         $beforeCalled = false;
-        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+        $beforeEvent = function(Entity $entity) use (&$beforeCalled) {
             $beforeCalled = true;
             return true;
         };
         $this->dataLibrary->pushEvent('before', 'update', $beforeEvent);
 
         $afterCalled = false;
-        $afterEvent = function(CRUDEntity $entity) use (&$afterCalled) {
+        $afterEvent = function(Entity $entity) use (&$afterCalled) {
             $afterCalled = true;
             return true;
         };
@@ -619,7 +619,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($afterCalled);
 
 
-        $beforeEvent = function(CRUDEntity $entity) {
+        $beforeEvent = function(Entity $entity) {
             return false;
         };
         $this->dataLibrary->pushEvent('before', 'update', $beforeEvent);
@@ -643,14 +643,14 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->create($entity);
 
         $beforeCalled = false;
-        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+        $beforeEvent = function(Entity $entity) use (&$beforeCalled) {
             $beforeCalled = true;
             return true;
         };
         $this->dataLibrary->pushEvent('before', 'delete', $beforeEvent);
 
         $afterCalled = false;
-        $afterEvent = function(CRUDEntity $entity) use (&$afterCalled) {
+        $afterEvent = function(Entity $entity) use (&$afterCalled) {
             $afterCalled = true;
             return true;
         };
@@ -663,7 +663,7 @@ class CRUDMySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($beforeCalled);
         $this->assertTrue($afterCalled);
 
-        $beforeEvent = function(CRUDEntity $entity) use (&$beforeCalled) {
+        $beforeEvent = function(Entity $entity) use (&$beforeCalled) {
             return false;
         };
         $this->dataLibrary->pushEvent('before', 'delete', $beforeEvent);
