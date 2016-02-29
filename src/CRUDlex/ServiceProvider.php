@@ -90,7 +90,11 @@ class ServiceProvider implements ServiceProviderInterface {
             throw new \Exception('Could not open CRUD file '.$fileName);
         }
         $fileContent = file_get_contents($fileName);
-        return Yaml::parse($fileContent);
+        $parsedYaml = Yaml::parse($fileContent);
+        if (!is_array($parsedYaml)) {
+            $parsedYaml = array();
+        }
+        return $parsedYaml;
     }
 
     /**
@@ -222,7 +226,7 @@ class ServiceProvider implements ServiceProviderInterface {
         $locales = $this->initLocales($app);
         $parsedYaml = $this->readYaml($crudFile);
         $this->datas = array();
-        foreach ((empty($parsedYaml) ? array() : $parsedYaml) as $name => $crud) {
+        foreach ($parsedYaml as $name => $crud) {
             if (!is_array($crud) || !isset($crud['fields'])) {
                 continue;
             }
