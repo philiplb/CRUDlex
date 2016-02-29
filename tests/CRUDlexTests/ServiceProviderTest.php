@@ -68,6 +68,12 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    public function testInitWithEmptyFile() {
+        $app = new Application();
+        $crudServiceProvider = new ServiceProvider();
+        $crudServiceProvider->init($this->dataFactory, __DIR__.'/../emptyCrud.yml', new NullFileProcessor(), true, $app);
+    }
+
     public function testGetEntities() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
