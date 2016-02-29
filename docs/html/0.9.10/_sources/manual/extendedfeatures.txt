@@ -255,3 +255,16 @@ Prefilled Form Fields on the Creation Page
 You can set some initial values when you link the creation page from somewhere
 else by handing in the appropriate GET parameter. Example for the author of a
 book: .../book/create?author=MyAuthor
+
+-----------------------------
+Combine with the Web Profiler
+-----------------------------
+
+If you want to use the package "silex/web-profiler", you have to register the
+TranslationServiceProvider on your own first:
+
+.. code-block:: php
+
+    $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
+        'locale_fallbacks' => array('en'),
+    ));

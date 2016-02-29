@@ -99,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#initial-sorting-parameters">Initial Sorting Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-uuids-as-primary-key-instead-of-an-auto-incremented-value">Using UUIDs as Primary Key Instead of an Auto Incremented Value</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prefilled-form-fields-on-the-creation-page">Prefilled Form Fields on the Creation Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combine-with-the-web-profiler">Combine with the Web Profiler</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
@@ -382,6 +383,16 @@ CRUDDataFactoryInterface:</p>
 <p>You can set some initial values when you link the creation page from somewhere
 else by handing in the appropriate GET parameter. Example for the author of a
 book: .../book/create?author=MyAuthor</p>
+</div>
+<div class="section" id="combine-with-the-web-profiler">
+<h2>Combine with the Web Profiler<a class="headerlink" href="#combine-with-the-web-profiler" title="Permalink to this headline">¶</a></h2>
+<p>If you want to use the package &#8220;silex/web-profiler&#8221;, you have to register the
+TranslationServiceProvider on your own first:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$app-&gt;register(new \Silex\Provider\TranslationServiceProvider(), array(</span>
+<span class="x">    &#39;locale_fallbacks&#39; =&gt; array(&#39;en&#39;),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
 </div>
 </div>
 
