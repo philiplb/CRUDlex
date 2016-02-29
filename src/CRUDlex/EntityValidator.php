@@ -120,10 +120,6 @@ class EntityValidator {
         if ($type == $expectedType
             && !in_array($value, array('', null), true)
             && (string)$casted != $value) {
-
-            /*if ($type == 'float') {
-                var_dump($numberType.' '.$casted . " " . $value);
-            }*/
             $fieldErrors[$field]['input'] = true;
             $valid = false;
         }
