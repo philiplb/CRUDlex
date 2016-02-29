@@ -109,15 +109,15 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDData.html">CRUDlex\CRUDData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Data.html">CRUDlex\CRUDData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\CRUDEntity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
 </ul>
 
             
@@ -323,7 +323,7 @@ for <strong>de</strong>:</p>
 <h3>Switch off I18n Management<a class="headerlink" href="#switch-off-i18n-management" title="Permalink to this headline">¶</a></h3>
 <p>Per default, CRUDlex manages i18n for you. But this might be not desired in
 bigger projects, so you can disable it on registration like this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$app-&gt;register(new CRUDlex\CRUDServiceProvider(), array(</span>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
 <span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
 <span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
 <span class="x">    &#39;crud.manageI18n&#39; =&gt; false</span>
@@ -373,7 +373,7 @@ incremented value.</p>
 </div>
 <p>And then you have to activate it in the setup when creating the
 CRUDDataFactoryInterface:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$dataFactory = new CRUDlex\CRUDMySQLDataFactory($app[&#39;db&#39;], true);</span>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;], true);</span>
 </pre></div>
 </div>
 </div>

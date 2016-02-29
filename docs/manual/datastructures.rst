@@ -1,7 +1,7 @@
 Data Structure Definition
 =========================
 
-In the previous chapter, the CRUDServiceProvider got the path to a crud.yml
+In the previous chapter, the ServiceProvider got the path to a crud.yml
 told. This is where CRUDlex gets it's information about what tables with what
 fields exists in your database. We will build up a valid, small example as we
 continue in this chapter.
@@ -21,7 +21,7 @@ your choice, the table name of the database gets defined in a second.
     book:
 
 In this case, the entities would be available under this URLs (assuming you
-mounted the CRUDController under "/crud")::
+mounted the Controller under "/crud")::
 
     http://.../crud/library
     http://.../crud/book

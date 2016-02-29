@@ -99,15 +99,15 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDData.html">CRUDlex\CRUDData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Data.html">CRUDlex\CRUDData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\CRUDEntity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
 </ul>
 
             
@@ -154,7 +154,7 @@
             
   <div class="section" id="data-structure-definition">
 <h1>Data Structure Definition<a class="headerlink" href="#data-structure-definition" title="Permalink to this headline">¶</a></h1>
-<p>In the previous chapter, the CRUDServiceProvider got the path to a crud.yml
+<p>In the previous chapter, the ServiceProvider got the path to a crud.yml
 told. This is where CRUDlex gets it&#8217;s information about what tables with what
 fields exists in your database. We will build up a valid, small example as we
 continue in this chapter.</p>
@@ -169,7 +169,7 @@ your choice, the table name of the database gets defined in a second.</p>
 </pre></div>
 </div>
 <p>In this case, the entities would be available under this URLs (assuming you
-mounted the CRUDController under &#8220;/crud&#8221;):</p>
+mounted the Controller under &#8220;/crud&#8221;):</p>
 <div class="highlight-python"><div class="highlight"><pre>http://.../crud/library
 http://.../crud/book
 </pre></div>

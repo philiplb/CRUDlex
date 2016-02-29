@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CRUDlex\SimpleFilesystemFileProcessor &mdash; CRUDlex 0.9.10 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
+        <link rel="up" title="CRUDlex\FileProcessorInterface" href="FileProcessorInterface.html"/>
+        <link rel="next" title="CRUDlex\ServiceProvider" href="ServiceProvider.html"/>
+        <link rel="prev" title="CRUDlex\FileProcessorInterface" href="FileProcessorInterface.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manual/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/events.html">Events</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">CRUDlex\Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">CRUDlex\SimpleFilesystemFileProcessor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a> &raquo;</li>
+      
+    <li>CRUDlex\SimpleFilesystemFileProcessor</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/SimpleFilesystemFileProcessor.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="crudlex-simplefilesystemfileprocessor">
+<h1>CRUDlex\SimpleFilesystemFileProcessor<a class="headerlink" href="#crudlex-simplefilesystemfileprocessor" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="SimpleFilesystemFileProcessor">
+<em class="property">class </em><code class="descname">SimpleFilesystemFileProcessor</code><a class="headerlink" href="#SimpleFilesystemFileProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>An implementation of the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> FileProcessorInterface} simply using the
+file system.</p>
+<dl class="method">
+<dt id="SimpleFilesystemFileProcessor::getPath">
+<code class="descname">getPath</code><span class="sig-paren">(</span><em>$entityName</em>, <em>Entity $entity</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::getPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a file system path for the given parameters for storing the
+file of the file field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$entityName</strong> (<em>string</em>) &#8211; the entity name</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity</li>
+<li><strong>$field</strong> (<em>string</em>) &#8211; the file field in the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the constructed path for storing the file of the file field</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SimpleFilesystemFileProcessor::createFile">
+<code class="descname">createFile</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::createFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) &#8211; </li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
+<li><strong>$entityName</strong> &#8211; </li>
+<li><strong>$field</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SimpleFilesystemFileProcessor::updateFile">
+<code class="descname">updateFile</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::updateFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}
+For now, this implementation is defensive and doesn&#8217;t delete ever.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) &#8211; </li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
+<li><strong>$entityName</strong> &#8211; </li>
+<li><strong>$field</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SimpleFilesystemFileProcessor::deleteFile">
+<code class="descname">deleteFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::deleteFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}
+For now, this implementation is defensive and doesn&#8217;t delete ever.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
+<li><strong>$entityName</strong> &#8211; </li>
+<li><strong>$field</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SimpleFilesystemFileProcessor::renderFile">
+<code class="descname">renderFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::renderFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
+<li><strong>$entityName</strong> &#8211; </li>
+<li><strong>$field</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ServiceProvider.html" class="btn btn-neutral float-right" title="CRUDlex\ServiceProvider" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="FileProcessorInterface.html" class="btn btn-neutral" title="CRUDlex\FileProcessorInterface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.9.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

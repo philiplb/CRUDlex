@@ -94,15 +94,15 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDData.html">CRUDlex\CRUDData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Data.html">CRUDlex\Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 </ul>
 
             
@@ -151,6 +151,12 @@
 <h1>Welcome to CRUDlex&#8217;s documentation!<a class="headerlink" href="#welcome-to-crudlex-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>This is the documentation of CRUDlex, an easy to use CRUD generator for <a class="reference external" href="http://silex.sensiolabs.org/">Silex</a>.
 It describes every feature being available.</p>
+<p>Requirements:</p>
+<ul class="simple">
+<li>PHP &gt;= 5.3.2</li>
+<li>For the MySQL driver: MySQL &gt;= 5.1</li>
+<li>For the file uploads: PECL fileinfo &gt;= 0.1.0</li>
+</ul>
 <img alt="_images/01_List.png" src="_images/01_List.png" />
 <p>Contents:</p>
 <div class="toctree-wrapper compound" id="manual">
@@ -220,24 +226,24 @@ It describes every feature being available.</p>
 <div class="toctree-wrapper compound" id="api">
 <p class="caption"><span class="caption-text">API</span><a class="headerlink" href="#api" title="Permalink to this toctree">¶</a></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDData.html">CRUDlex\CRUDData</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/CRUDMySQLData.html">CRUDlex\CRUDMySQLData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Data.html">CRUDlex\Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/MySQLData.html">CRUDlex\MySQLData</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/CRUDMySQLDataFactory.html">CRUDlex\CRUDMySQLDataFactory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/MySQLDataFactory.html">CRUDlex\MySQLDataFactory</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/CRUDSimpleFilesystemFileProcessor.html">CRUDlex\CRUDSimpleFilesystemFileProcessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/SimpleFilesystemFileProcessor.html">CRUDlex\SimpleFilesystemFileProcessor</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 </ul>
 </div>
 </div>

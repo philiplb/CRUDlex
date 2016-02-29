@@ -32,15 +32,15 @@ Contents:
    :maxdepth: 2
    :caption: API
 
-   api/CRUDControllerProvider
-   api/CRUDData
-   api/CRUDDataFactoryInterface
-   api/CRUDEntity
-   api/CRUDEntityDefinition
-   api/CRUDEntityValidator
-   api/CRUDFileProcessorInterface
-   api/CRUDServiceProvider
-   api/CRUDStreamedFileResponse
+   api/ControllerProvider
+   api/Data
+   api/DataFactoryInterface
+   api/Entity
+   api/EntityDefinition
+   api/EntityValidator
+   api/FileProcessorInterface
+   api/ServiceProvider
+   api/StreamedFileResponse
 
 Indices and tables
 ==================

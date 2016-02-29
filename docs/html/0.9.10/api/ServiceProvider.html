@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CRUDlex\ServiceProvider &mdash; CRUDlex 0.9.10 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
+        <link rel="next" title="CRUDlex\StreamedFileResponse" href="StreamedFileResponse.html"/>
+        <link rel="prev" title="CRUDlex\SimpleFilesystemFileProcessor" href="SimpleFilesystemFileProcessor.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manual/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/events.html">Events</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">CRUDlex\Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>CRUDlex\ServiceProvider</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/ServiceProvider.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="crudlex-serviceprovider">
+<h1>CRUDlex\ServiceProvider<a class="headerlink" href="#crudlex-serviceprovider" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ServiceProvider">
+<em class="property">class </em><code class="descname">ServiceProvider</code><a class="headerlink" href="#ServiceProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ServiceProvider setups and initializes the whole CRUD system.
+After adding it to your Silex-setup, it offers access to <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Data}
+instances, one for each defined entity off the CRUD YAML file.</p>
+<dl class="attr">
+<dt id="ServiceProvider::$datas">
+<em class="property">property </em><code class="descname">datas</code><a class="headerlink" href="#ServiceProvider::$datas" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected</p>
+<p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Data} instances.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="ServiceProvider::$manageI18n">
+<em class="property">property </em><code class="descname">manageI18n</code><a class="headerlink" href="#ServiceProvider::$manageI18n" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected</p>
+<p>Holds whether we manage the i18n.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::formatTime">
+<code class="descname">formatTime</code><span class="sig-paren">(</span><em>$value</em>, <em>$timezone</em>, <em>$pattern</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::formatTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the given time value to a timestring defined by the $pattern
+parameter.</p>
+<p>If the value is false (like null), an empty string is returned. Else, the
+value is tried to be parsed as datetime via the given pattern. If that
+fails, it is tried to be parsed with the pattern
+&#8216;Y-m-d H:i:s&#8217;. If that fails, the value is returned unchanged. Else, it is
+returned formatted with the given pattern. The effect is to shorten
+&#8216;Y-m-d H:i:s&#8217; to &#8216;Y-m-d&#8217; for example.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$value</strong> (<em>string</em>) &#8211; the value to be formatted</li>
+<li><strong>$timezone</strong> (<em>string</em>) &#8211; the timezone of the value</li>
+<li><strong>$pattern</strong> (<em>string</em>) &#8211; the pattern with which the value is parsed and formatted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the formatted value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::readYaml">
+<code class="descname">readYaml</code><span class="sig-paren">(</span><em>$fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::readYaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads and returns the contents of the given file. If
+it goes wrong, it throws an exception.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fileName</strong> (<em>string</em>) &#8211; the file to read</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the file contents</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::initMissingServiceProviders">
+<code class="descname">initMissingServiceProviders</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::initMissingServiceProviders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes needed but yet missing service providers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the application container</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::initLocales">
+<code class="descname">initLocales</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::initLocales" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the available locales.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the application container</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the available locales</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::initChildren">
+<code class="descname">initChildren</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::initChildren" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the children of the data entries.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::getLocaleLabels">
+<code class="descname">getLocaleLabels</code><span class="sig-paren">(</span><em>$locales</em>, <em>$crud</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getLocaleLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a map with localized entity labels from the CRUD YML.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$locales</strong> (<em>array</em>) &#8211; the available locales</li>
+<li><strong>$crud</strong> (<em>array</em>) &#8211; the CRUD entity map</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the map with localized entity labels</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::configureDefinition">
+<code class="descname">configureDefinition</code><span class="sig-paren">(</span><em>EntityDefinition $definition</em>, <em>$crud</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::configureDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configures the EntityDefinition according to the given
+CRUD entity map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; the definition to configure</li>
+<li><strong>$crud</strong> (<em>array</em>) &#8211; the CRUD entity map</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>DataFactoryInterface $dataFactory</em>, <em>$crudFile</em>, <em>FileProcessorInterface $fileProcessor</em>, <em>$manageI18n</em>, <em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$dataFactory</strong> (<a class="reference internal" href="DataFactoryInterface.html#DataFactoryInterface" title="DataFactoryInterface"><em>DataFactoryInterface</em></a>) &#8211; the factory to create the concrete Data instances</li>
+<li><strong>$crudFile</strong> (<em>string</em>) &#8211; the CRUD YAML file to parse</li>
+<li><strong>$fileProcessor</strong> (<a class="reference internal" href="FileProcessorInterface.html#FileProcessorInterface" title="FileProcessorInterface"><em>FileProcessorInterface</em></a>) &#8211; the file processor used for file fields</li>
+<li><strong>$manageI18n</strong> (<em>boolean</em>) &#8211; holds whether we manage the i18n</li>
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the application container</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::register">
+<code class="descname">register</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements ServiceProviderInterface::register() registering $app[&#8216;crud&#8217;].
+$app[&#8216;crud&#8217;] contains an instance of the ServiceProvider afterwards.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Application instance of the Silex application</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::boot">
+<code class="descname">boot</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::boot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements ServiceProviderInterface::boot().</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Application instance of the Silex application</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::getData">
+<code class="descname">getData</code><span class="sig-paren">(</span><em>$name</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Data} instances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$name</strong> (<em>string</em>) &#8211; the entity name of the desired Data instance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Data the Data instance or null on invalid name</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::getEntities">
+<code class="descname">getEntities</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getEntities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter for all available entity names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array a list of all available entity names</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::formatDate">
+<code class="descname">formatDate</code><span class="sig-paren">(</span><em>$value</em>, <em>$isUTC</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::formatDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the given value to a date of the format &#8216;Y-m-d&#8217;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$value</strong> (<em>string</em>) &#8211; the value, might be of the format &#8216;Y-m-d H:i&#8217; or &#8216;Y-m-d&#8217;</li>
+<li><strong>$isUTC</strong> (<em>boolean</em>) &#8211; whether the given value is in UTC</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the formatted result or an empty string on null value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::formatDateTime">
+<code class="descname">formatDateTime</code><span class="sig-paren">(</span><em>$value</em>, <em>$isUTC</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::formatDateTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the given value to a date of the format &#8216;Y-m-d H:i&#8217;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$value</strong> (<em>string</em>) &#8211; the value, might be of the format &#8216;Y-m-d H:i&#8217;</li>
+<li><strong>$isUTC</strong> (<em>boolean</em>) &#8211; whether the given value is in UTC</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the formatted result or an empty string on null value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::basename">
+<code class="descname">basename</code><span class="sig-paren">(</span><em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls PHPs
+<a class="reference external" href="mailto:{&#37;&#52;&#48;link">{<span>&#64;</span>link</a> <a class="reference external" href="http://php.net/manual/en/function.basename.php">http://php.net/manual/en/function.basename.php</a> basename} and
+returns it&#8217;s result.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$value</strong> (<em>string</em>) &#8211; the value to be handed to basename</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the result of basename</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::getTemplate">
+<code class="descname">getTemplate</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$section</em>, <em>$action</em>, <em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the Twig template to use for the given parameters depending on
+the existance of certain keys in the Application $app in this order:</p>
+<p>crud.$section.$action.$entity crud.$section.$action crud.$section</p>
+<p>If nothing exists, this string is returned: &#8220;&#64;crud/&lt;action&gt;.twig&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$section</strong> (<em>string</em>) &#8211; the section of the template, either &#8220;layout&#8221; or &#8220;template&#8221;</li>
+<li><strong>$action</strong> (<em>string</em>) &#8211; the current calling action like &#8220;create&#8221; or &#8220;show&#8221;</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current calling entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the best fitting template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::getManageI18n">
+<code class="descname">getManageI18n</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getManageI18n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets whether CRUDlex manages the i18n system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if CRUDlex manages the i18n system</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::setLocale">
+<code class="descname">setLocale</code><span class="sig-paren">(</span><em>$locale</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::setLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the locale to be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$locale</strong> (<em>string</em>) &#8211; the locale to be used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::getLocales">
+<code class="descname">getLocales</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getLocales" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the available locales.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the available locales</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::getLanguageName">
+<code class="descname">getLanguageName</code><span class="sig-paren">(</span><em>$language</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getLanguageName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a language name in the given language.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$language</strong> (<em>string</em>) &#8211; the language code of the desired language name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the language name in the given language or null if not available</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::formatFloat">
+<code class="descname">formatFloat</code><span class="sig-paren">(</span><em>$float</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::formatFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a float to not display in scientific notation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$float</strong> (<em>float</em>) &#8211; the float to format</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the formated float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="StreamedFileResponse.html" class="btn btn-neutral float-right" title="CRUDlex\StreamedFileResponse" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SimpleFilesystemFileProcessor.html" class="btn btn-neutral" title="CRUDlex\SimpleFilesystemFileProcessor" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.9.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

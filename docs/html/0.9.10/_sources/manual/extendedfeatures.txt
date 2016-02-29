@@ -186,7 +186,7 @@ bigger projects, so you can disable it on registration like this:
 
 .. code-block:: php
 
-    $app->register(new CRUDlex\CRUDServiceProvider(), array(
+    $app->register(new CRUDlex\ServiceProvider(), array(
         'crud.file' => __DIR__ . '<yourCrud.yml>',
         'crud.datafactory' => $dataFactory,
         'crud.manageI18n' => false
@@ -246,7 +246,7 @@ CRUDDataFactoryInterface:
 
 .. code-block:: php
 
-    $dataFactory = new CRUDlex\CRUDMySQLDataFactory($app['db'], true);
+    $dataFactory = new CRUDlex\MySQLDataFactory($app['db'], true);
 
 ------------------------------------------
 Prefilled Form Fields on the Creation Page

@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CRUDlex\ControllerProvider &mdash; CRUDlex 0.9.10 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
+        <link rel="next" title="CRUDlex\Data" href="Data.html"/>
+        <link rel="prev" title="Events" href="../manual/events.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manual/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/events.html">Events</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">CRUDlex\Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>CRUDlex\ControllerProvider</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/ControllerProvider.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="crudlex-controllerprovider">
+<h1>CRUDlex\ControllerProvider<a class="headerlink" href="#crudlex-controllerprovider" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ControllerProvider">
+<em class="property">class </em><code class="descname">ControllerProvider</code><a class="headerlink" href="#ControllerProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the ControllerProvider offering all CRUD pages.</p>
+<p>It offers this routes:</p>
+<p>&#8220;/resource/static&#8221; serving static resources</p>
+<p>&#8220;/{entity}/create&#8221; creation page of the entity</p>
+<p>&#8220;/{entity}&#8221; list page of the entity</p>
+<p>&#8220;/{entity}/{id}&#8221; details page of a single entity instance</p>
+<p>&#8220;/{entity}/{id}/edit&#8221; edit page of a single entity instance</p>
+<p>&#8220;/{entity}/{id}/delete&#8221; POST only deletion route for an entity instance</p>
+<p>&#8220;/{entity}/{id}/{field}/file&#8221; renders a file field of an entity instance</p>
+<p>&#8220;/{entity}/{id}/{field}/delete&#8221; POST only deletion of a file field of an entity instance</p>
+<dl class="method">
+<dt id="ControllerProvider::getNotFoundPage">
+<code class="descname">getNotFoundPage</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$error</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::getNotFoundPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the not found page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$error</strong> (<em>string</em>) &#8211; the cause of the not found error</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the rendered not found page with the status code 404</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::modifyFilesAndSetFlashBag">
+<code class="descname">modifyFilesAndSetFlashBag</code><span class="sig-paren">(</span><em>Application $app</em>, <em>Data $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$mode</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::modifyFilesAndSetFlashBag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Postprocesses the entity after modification by handling the uploaded
+files and setting the flash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
+<li><strong>$crudData</strong> (<a class="reference internal" href="Data.html#Data" title="Data"><em>Data</em></a>) &#8211; the data instance of the entity</li>
+<li><strong>$instance</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the name of the entity</li>
+<li><strong>$mode</strong> (<em>string</em>) &#8211; whether to &#8216;edit&#8217; or to &#8216;create&#8217; the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this modification</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::setValidationFailedFlashes">
+<code class="descname">setValidationFailedFlashes</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$optimisticLocking</em>, <em>$mode</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::setValidationFailedFlashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the flashes of a failed entity modification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
+<li><strong>$optimisticLocking</strong> (<em>boolean</em>) &#8211; whether the optimistic locking failed</li>
+<li><strong>$mode</strong> (<em>string</em>) &#8211; the modification mode, either &#8216;create&#8217; or &#8216;edit&#8217;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::modifyEntity">
+<code class="descname">modifyEntity</code><span class="sig-paren">(</span><em>Application $app</em>, <em>Data $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$edit</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::modifyEntity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates and saves the new or updated entity and returns the appropriate
+HTTP
+response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
+<li><strong>$crudData</strong> (<a class="reference internal" href="Data.html#Data" title="Data"><em>Data</em></a>) &#8211; the data instance of the entity</li>
+<li><strong>$instance</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the name of the entity</li>
+<li><strong>$edit</strong> (<em>boolean</em>) &#8211; whether to edit (true) or to create (false) the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this modification</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::getAfterDeleteRedirectParameters">
+<code class="descname">getAfterDeleteRedirectParameters</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em>, <em>$redirectPage</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::getAfterDeleteRedirectParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the parameters for the redirection after deleting an entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the entity name</li>
+<li><strong>$redirectPage</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the parameters of the redirection, entity and id</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::buildUpListFilter">
+<code class="descname">buildUpListFilter</code><span class="sig-paren">(</span><em>Application $app</em>, <em>EntityDefinition $definition</em>, <em>$filter</em>, <em>$filterActive</em>, <em>$filterToUse</em>, <em>$filterOperators</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::buildUpListFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds up the parameters of the list page filters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
+<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; the current entity definition</li>
+<li><strong>$filter</strong> &#8211; </li>
+<li><strong>$filterActive</strong> &#8211; </li>
+<li><strong>$filterToUse</strong> &#8211; </li>
+<li><strong>$filterOperators</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements ControllerProviderInterface::connect() connecting this
+controller.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Application instance of the Silex application</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">SilexControllerCollection this method is expected to return the used ControllerCollection instance</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::create" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for the &#8220;create&#8221; action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this action</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::showList">
+<code class="descname">showList</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::showList" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for the &#8220;show list&#8221; action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this action or 404 on invalid input</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em>, <em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::show" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for the &#8220;show&#8221; action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current entity</li>
+<li><strong>$id</strong> (<em>string</em>) &#8211; the instance id to show</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this action or 404 on invalid input</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::edit">
+<code class="descname">edit</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em>, <em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for the &#8220;edit&#8221; action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current entity</li>
+<li><strong>$id</strong> (<em>string</em>) &#8211; the instance id to edit</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this action or 404 on invalid input</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em>, <em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for the &#8220;delete&#8221; action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current entity</li>
+<li><strong>$id</strong> (<em>string</em>) &#8211; the instance id to delete</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response redirects to the entity list page or 404 on invalid input</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::renderFile">
+<code class="descname">renderFile</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em>, <em>$id</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::renderFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for the &#8220;render file&#8221; action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current entity</li>
+<li><strong>$id</strong> (<em>string</em>) &#8211; the instance id</li>
+<li><strong>$field</strong> (<em>string</em>) &#8211; the field of the file to render of the instance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the rendered file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::deleteFile">
+<code class="descname">deleteFile</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$entity</em>, <em>$id</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::deleteFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for the &#8220;delete file&#8221; action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$entity</strong> (<em>string</em>) &#8211; the current entity</li>
+<li><strong>$id</strong> (<em>string</em>) &#8211; the instance id</li>
+<li><strong>$field</strong> (<em>string</em>) &#8211; the field of the file to delete of the instance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response redirects to the instance details page or 404 on invalid input</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::staticFile">
+<code class="descname">staticFile</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::staticFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for serving static files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response redirects to the instance details page or 404 on invalid input</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::setLocale">
+<code class="descname">setLocale</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$locale</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::setLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p>The controller for setting the locale.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Silex application</li>
+<li><strong>$locale</strong> (<em>string</em>) &#8211; the new locale</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response redirects to the instance details page or 404 on invalid input</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Data.html" class="btn btn-neutral float-right" title="CRUDlex\Data" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../manual/events.html" class="btn btn-neutral" title="Events" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.9.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

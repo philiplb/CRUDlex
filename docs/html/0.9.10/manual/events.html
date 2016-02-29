@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
-        <link rel="next" title="CRUDlex\CRUDControllerProvider" href="../api/CRUDControllerProvider.html"/>
+        <link rel="next" title="CRUDlex\ControllerProvider" href="../api/ControllerProvider.html"/>
         <link rel="prev" title="Overriding Templates" href="templates.html"/> 
 
   
@@ -95,15 +95,15 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDControllerProvider.html">CRUDlex\CRUDControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDData.html">CRUDlex\CRUDData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDDataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntity.html">CRUDlex\CRUDEntity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDEntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDFileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/CRUDStreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Data.html">CRUDlex\CRUDData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\CRUDEntity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
 </ul>
 
             
@@ -152,18 +152,18 @@
 <h1>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h1>
 <p>There are situations where you might want to react before or after an entity is
 modified. For example hashing the password of an user object instead of storing
-it directly in clear text in the database. Or you want to get an E-Mail everytime
-someone deletes a library object.</p>
+it directly in clear text in the database. Or you want to get an E-Mail every
+time someone deletes a library object.</p>
 <p>This is what events are for. You can define closures which are executed in
 certain moments and can even interrupt the modification of the data.</p>
 <p>This is how you define an event which is executed before an entity is created:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$app[&#39;crud&#39;]-&gt;getData(&#39;library&#39;)-&gt;pushEvent(&#39;before&#39;, &#39;create&#39;, function(CRUDEntity $entity) {</span>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$app[&#39;crud&#39;]-&gt;getData(&#39;library&#39;)-&gt;pushEvent(&#39;before&#39;, &#39;create&#39;, function(Entity $entity) {</span>
 <span class="x">    // Do something with the entity which is about to be saved.</span>
 <span class="x">    return true;</span>
 <span class="x">});</span>
 </pre></div>
 </div>
-<p>This code should go in your setup directly after the CRUDServiceProvider is
+<p>This code should go in your setup directly after the ServiceProvider is
 registered.</p>
 <p><em>pushEvent</em> takes three parameters:</p>
 <ul class="simple">
@@ -174,7 +174,7 @@ registered.</p>
 * create
 * update
 * delete</li>
-<li>The closure to execute on this event. Signature: <strong>function(CRUDEntity $entity)</strong></li>
+<li>The closure to execute on this event. Signature: <strong>function(Entity $entity)</strong></li>
 </ul>
 <p>You can push as many events for a moment and an action as you like. They will
 be executed in the order they were added.</p>
@@ -196,7 +196,7 @@ removed from the list and the closure is returned:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../api/CRUDControllerProvider.html" class="btn btn-neutral float-right" title="CRUDlex\CRUDControllerProvider" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../api/ControllerProvider.html" class="btn btn-neutral float-right" title="CRUDlex\ControllerProvider" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="templates.html" class="btn btn-neutral" title="Overriding Templates" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@ First, you have to add CRUDlex to your composer.json:
 
 .. code-block:: js
 
-    "philiplb/crudlex": "0.9.9"
+    "philiplb/crudlex": "0.9.10"
 
 Then comes the actual setup. Currently, only MySQL is supported. Although the
 database layer is kept in an abstract way, so in future more data stores will
@@ -30,18 +30,18 @@ registered:
     ));
 
 Now follows the setup of CRUDlex itself. First of all, we create an instance
-of the CRUDMySQLDataFactory, internally taking care of creating MySQL-DB-access
+of the MySQLDataFactory, internally taking care of creating MySQL-DB-access
 objects:
 
 .. code-block:: php
 
-    $dataFactory = new CRUDlex\CRUDMySQLDataFactory($app['db']);
+    $dataFactory = new CRUDlex\MySQLDataFactory($app['db']);
 
-Now it's time to register the CRUDServiceProvider itself:
+Now it's time to register the ServiceProvider itself:
 
 .. code-block:: php
 
-    $app->register(new CRUDlex\CRUDServiceProvider(), array(
+    $app->register(new CRUDlex\ServiceProvider(), array(
         'crud.file' => __DIR__ . '<yourCrud.yml>',
         'crud.datafactory' => $dataFactory
     ));
@@ -49,11 +49,11 @@ Now it's time to register the CRUDServiceProvider itself:
 The content of the crud.yml (or whatever you name it) will be discussed in the
 next chapter.
 
-Now it's time to mount the CRUDController:
+Now it's time to mount the Controller:
 
 .. code-block:: php
 
-    $app->mount('/crud', new CRUDlex\CRUDControllerProvider());
+    $app->mount('/crud', new CRUDlex\ControllerProvider());
 
 And that's it. Your CRUD UI should be available now, for example if you
 defined a book entity in the crud.yml::

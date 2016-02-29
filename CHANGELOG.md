@@ -1,6 +1,11 @@
 CRUDlex Changelog
 =================
 
+## 0.9.10
+Released: Upcoming
+- Attention: Removed the prefix "CRUD" from all classes as they live in their own namespace anyway
+- Replaced the markdown manual and the APIGen documentation with an unified Sphinx version
+
 ## 0.9.9
 Released: 2016-02-11
 - Attention: From now on, the created_at and updated_at timestamps are stored as UTC values in the MySQL data provider
