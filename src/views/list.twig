@@ -68,11 +68,11 @@
     {% endif %}
 
     <div class="table-responsive table-wrapper">
-    <table class="table table-striped">
+    <table class="table table-striped" id="crudEntityListTable">
 
         <tr>
-            {% for field in fields %}
-                <th>
+            {% for i, field in fields %}
+                <th id="crudEntityField{{ i }}">
                     <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudSortField': field, 'crudSortAscending': sortAscending ? 'false' : 'true','crudPage': page}|merge(filterParams)) }}">
                         {{ definition.getFieldLabel(field) }}
                         {% if field == sortField %}
