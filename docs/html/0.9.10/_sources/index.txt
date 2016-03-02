@@ -27,6 +27,7 @@ Contents:
    manual/layouts
    manual/templates
    manual/events
+   manual/addons
 
 .. toctree::
    :maxdepth: 2
