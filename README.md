@@ -58,9 +58,12 @@ and books:
 
 ### Addons
 
-Checkout the CRUDlex addons project for more features:
+There are several surrounding projects around CRUDlex:
 
-[CRUDlex Addons](https://github.com/philiplb/CRUDlexAddons)
+* [CRUDlexAmazonS3FileProcessor](https://github.com/philiplb/CRUDlexAmazonS3FileProcessor):
+  Handling the file uploads via Amazon S3
+* [CRUDlexUser](https://github.com/philiplb/CRUDlexUser):
+  A library offering an user provider for symfony/security.
 
 ### Roadmap
 
