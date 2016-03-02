@@ -63,7 +63,7 @@ There are several surrounding projects around CRUDlex:
 * [CRUDlexAmazonS3FileProcessor](https://github.com/philiplb/CRUDlexAmazonS3FileProcessor):
   Handling the file uploads via Amazon S3
 * [CRUDlexUser](https://github.com/philiplb/CRUDlexUser):
-  A library offering an user provider for symfony/security.
+  A library offering an user provider for symfony/security
 
 ### Roadmap
 
