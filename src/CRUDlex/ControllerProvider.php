@@ -79,10 +79,14 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     protected function modifyFilesAndSetFlashBag(Application $app, Data $crudData, Entity $instance, $entity, $mode) {
         $id = $instance->get('id');
+        $result = false;
         if ($mode == 'edit') {
-            $crudData->updateFiles($app['request'], $instance, $entity);
+            $result = $crudData->updateFiles($app['request'], $instance, $entity);
         } else {
-            $crudData->createFiles($app['request'], $instance, $entity);
+            $result = $crudData->createFiles($app['request'], $instance, $entity);
+        }
+        if (!$result) {
+            return null;
         }
         $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.'.$mode.'.success', array(
             '%label%' => $crudData->getDefinition()->getLabel(),
@@ -139,8 +143,9 @@ class ControllerProvider implements ControllerProviderInterface {
                 $this->setValidationFailedFlashes($app, $validation['optimisticLocking'], $mode);
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
-                if ($modified) {
-                    return $this->modifyFilesAndSetFlashBag($app, $crudData, $instance, $entity, $mode);
+                $response = $modified ? $this->modifyFilesAndSetFlashBag($app, $crudData, $instance, $entity, $mode) : false;
+                if ($response) {
+                    return $response;
                 }
                 $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.failed'));
             }
@@ -452,8 +457,8 @@ class ControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
-        $crudData->deleteFiles($instance, $entity);
-        $deleted = $crudData->delete($instance);
+        $filesDeleted = $crudData->deleteFiles($instance, $entity);
+        $deleted = $filesDeleted ? $crudData->delete($instance) : Data::DELETION_FAILED_EVENT;
 
         if ($deleted === Data::DELETION_FAILED_EVENT) {
             $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
@@ -529,8 +534,7 @@ class ControllerProvider implements ControllerProviderInterface {
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
-        if (!$crudData->getDefinition()->isRequired($field)) {
-            $crudData->deleteFile($instance, $entity, $field);
+        if (!$crudData->getDefinition()->isRequired($field) && $crudData->deleteFile($instance, $entity, $field)) {
             $instance->set($field, '');
             $crudData->update($instance);
             $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.file.deleted'));

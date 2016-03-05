@@ -324,10 +324,16 @@ abstract class Data {
      * the name of the entity as this class here is not aware of it
      */
     public function createFiles(Request $request, Entity $entity, $entityName) {
+        $result = $this->executeEvents($entity, 'before', 'createFiles');
+        if (!$result) {
+            return false;
+        }
         $fileProcessor = $this->fileProcessor;
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
             $fileProcessor->createFile($request, $entity, $entityName, $field);
         });
+        $this->executeEvents($entity, 'after', 'createFiles');
+        return true;
     }
 
     /**
@@ -339,12 +345,21 @@ abstract class Data {
      * the updated entity
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
+     *
+     * @return boolean
+     * true on successful update
      */
     public function updateFiles(Request $request, Entity $entity, $entityName) {
+        $result = $this->executeEvents($entity, 'before', 'updateFiles');
+        if (!$result) {
+            return false;
+        }
         $fileProcessor = $this->fileProcessor;
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
             $fileProcessor->updateFile($request, $entity, $entityName, $field);
         });
+        $this->executeEvents($entity, 'after', 'updateFiles');
+        return true;
     }
 
     /**
@@ -356,9 +371,18 @@ abstract class Data {
      * the name of the entity as this class here is not aware of it
      * @param string $field
      * the field of the entity containing the file to be deleted
+     *
+     * @return boolean
+     * true on successful deletion
      */
     public function deleteFile(Entity $entity, $entityName, $field) {
+        $result = $this->executeEvents($entity, 'before', 'deleteFile');
+        if (!$result) {
+            return false;
+        }
         $this->fileProcessor->deleteFile($entity, $entityName, $field);
+        $this->executeEvents($entity, 'after', 'deleteFile');
+        return true;
     }
 
     /**
@@ -368,12 +392,21 @@ abstract class Data {
      * the entity to delete the files from
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
+     *
+     * @return boolean
+     * true on successful deletion
      */
     public function deleteFiles(Entity $entity, $entityName) {
+        $result = $this->executeEvents($entity, 'before', 'deleteFiles');
+        if (!$result) {
+            return false;
+        }
         $fileProcessor = $this->fileProcessor;
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor) {
             $fileProcessor->deleteFile($entity, $entityName, $field);
         });
+        $this->executeEvents($entity, 'after', 'deleteFiles');
+        return true;
     }
 
     /**

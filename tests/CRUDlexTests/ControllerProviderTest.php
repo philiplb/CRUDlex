@@ -118,6 +118,20 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertRegExp('/Could not create\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'create');
 
+        $this->dataBook->pushEvent('before', 'createFiles', $before);
+        $client->request('POST', '/crud/book/create', array(
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ));
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertRegExp('/Could not create\./', $client->getResponse()->getContent());
+        $this->dataBook->popEvent('before', 'createFiles');
+
     }
 
     public function testShowList() {
@@ -332,6 +346,21 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertRegExp('/Could not edit\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'update');
+
+        $this->dataBook->pushEvent('before', 'updateFiles', $before);
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+            'version' => 1,
+            'title' => 'titleEdited',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ), array(
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ));
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertRegExp('/Could not edit\./', $client->getResponse()->getContent());
+        $this->dataBook->popEvent('before', 'updateFiles');
     }
 
     public function testDelete() {
@@ -411,6 +440,13 @@ class ControllerProviderTest extends WebTestCase {
         $crawler = $client->followRedirect();
         $this->assertRegExp('/Could not delete\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'delete');
+
+        $this->dataBook->pushEvent('before', 'deleteFiles', $before);
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/delete');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/'.$entityBook->get('id')));
+        $crawler = $client->followRedirect();
+        $this->assertRegExp('/Could not delete\./', $client->getResponse()->getContent());
+        $this->dataBook->popEvent('before', 'deleteFiles');
     }
 
     public function testLayouts() {
@@ -525,6 +561,20 @@ class ControllerProviderTest extends WebTestCase {
 
         $this->dataBook->getDefinition()->setRequired('cover', false);
 
+        // Canceling events
+        $before = function(Entity $entity) {
+            return false;
+        };
+
+        $this->dataBook->pushEvent('before', 'deleteFile', $before);
+        $crawler = $client->request('POST', '/crud/book/1/cover/delete');
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("File could not be deleted.")'));
+        $this->dataBook->popEvent('before', 'deleteFile');
+
+        // Sucessful deletion
         $this->fileProcessor->reset();
 
         $crawler = $client->request('POST', '/crud/book/1/cover/delete');
@@ -537,6 +587,7 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
         $this->assertTrue($this->fileProcessor->isDeleteFileCalled());
         $this->assertFalse($this->fileProcessor->isRenderFileCalled());
+
 
     }
 

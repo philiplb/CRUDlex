@@ -172,9 +172,13 @@ registered.</p>
 * before
 * after</li>
 <li>The action of the event, can be:
-* create
-* update
-* delete</li>
+* create: On entity creation
+* update: On entity update
+* delete: On entity deletion
+* createFiles: On created entity files handling
+* updateFiles: On updated entity files handling
+* deleteFiles: On deleted entity files handling
+* deleteFile: On deleting a file of an entity</li>
 <li>The closure to execute on this event. Signature: <strong>function(CRUDlex\Entity $entity)</strong></li>
 </ul>
 <p>You can push as many events for a moment and an action as you like. They will
