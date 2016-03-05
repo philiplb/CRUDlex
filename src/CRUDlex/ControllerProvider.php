@@ -79,12 +79,7 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     protected function modifyFilesAndSetFlashBag(Application $app, Data $crudData, Entity $instance, $entity, $mode) {
         $id = $instance->get('id');
-        $result = false;
-        if ($mode == 'edit') {
-            $result = $crudData->updateFiles($app['request'], $instance, $entity);
-        } else {
-            $result = $crudData->createFiles($app['request'], $instance, $entity);
-        }
+        $result = $mode == 'edit' ? $crudData->updateFiles($app['request'], $instance, $entity) : $crudData->createFiles($app['request'], $instance, $entity);
         if (!$result) {
             return null;
         }
