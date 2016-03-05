@@ -74,7 +74,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param string $mode
      * whether to 'edit' or to 'create' the entity
      *
-     * @return Response
+     * @return null|\Symfony\Component\HttpFoundation\RedirectResponse
      * the HTTP response of this modification
      */
     protected function modifyFilesAndSetFlashBag(Application $app, Data $crudData, Entity $instance, $entity, $mode) {
@@ -168,8 +168,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * the current application
      * @param string $entity
      * the entity name
-     * @param string &$redirectPage
-     * where the page to redirect to will be stored
+     * @param string $redirectPage
+     * reference, where the page to redirect to will be stored
      *
      * @return array
      * the parameters of the redirection, entity and id
@@ -200,12 +200,12 @@ class ControllerProvider implements ControllerProviderInterface {
      * the current entity definition
      * @param array &$filter
      * will hold a map of fields to request parameters for the filters
-     * @param boolean &$filterActive
-     * will be true if at least one filter is active
-     * @param array &$filterToUse
-     * will hold a map of fields to integers (0 or 1) which boolean filters are active
-     * @param array &$filterOperators
-     * will hold a map of fields to operators for Data::listEntries()
+     * @param boolean $filterActive
+     * reference, will be true if at least one filter is active
+     * @param array $filterToUse
+     * reference, will hold a map of fields to integers (0 or 1) which boolean filters are active
+     * @param array $filterOperators
+     * reference, will hold a map of fields to operators for Data::listEntries()
      */
     protected function buildUpListFilter(Application $app, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
         foreach ($definition->getFilter() as $filterField) {
