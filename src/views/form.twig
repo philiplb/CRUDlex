@@ -18,7 +18,7 @@
         <a id="crudBtnNew" href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
 
     {% endif %}
-    <form class="{{ mode == 'edit' ? 'crudFormDelete' : 'crudFormCreate' }}" role="form" enctype="multipart/form-data" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+    <form class="{{ mode == 'edit' ? 'crudFormEdit' : 'crudFormCreate' }}" role="form" enctype="multipart/form-data" method="POST" action="{{ mode == 'create' ? app.url_generator.generate('crudCreate', {'entity': crudEntity}) : app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}">
 
         {% if mode == 'edit' %}
             <input type="hidden" name="version" value="{{ entity.get('version') }}" />
