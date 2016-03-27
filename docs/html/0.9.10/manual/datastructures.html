@@ -131,7 +131,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -165,19 +165,19 @@ continue in this chapter.</p>
 single table with it&#8217;s fields. Let&#8217;s say we have two tables, libraries and
 books. So we define two entities with the same name. Note that this name is
 your choice, the table name of the database gets defined in a second.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
 <span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
 </pre></div>
 </div>
 <p>In this case, the entities would be available under this URLs (assuming you
 mounted the Controller under &#8220;/crud&#8221;):</p>
-<div class="highlight-python"><div class="highlight"><pre>http://.../crud/library
+<div class="highlight-python"><div class="highlight"><pre><span></span>http://.../crud/library
 http://.../crud/book
 </pre></div>
 </div>
 <p>Now we declare the labels and the tables. The label is used for displaying
 links in the navigation and in some messages:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
 <span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
@@ -190,7 +190,7 @@ links in the navigation and in some messages:</p>
 <h2>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h2>
 <p>So far, so good. In our minimal example, a library has a name and a Book has
 an author, a title and the amount of pages as fields.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>

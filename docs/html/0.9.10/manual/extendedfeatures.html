@@ -142,7 +142,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -172,7 +172,7 @@
 <p>Sometimes, you want to guide the user a bit more and be more descriptive than
 just a label on the details and editpage of an entity. To do so, you can set a
 description per field. In this case, the author of a book is more informative:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -203,7 +203,7 @@ description per field. In this case, the author of a book is more informative:</
 <h2>Displayed Fields in the List<a class="headerlink" href="#displayed-fields-in-the-list" title="Permalink to this headline">¶</a></h2>
 <p>As an addition, we only want to show the author and title in the big list
 view of the books. We can do it by using the listFields entry:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -235,7 +235,7 @@ would make no sense to display.</p>
 <h2>Pagination<a class="headerlink" href="#pagination" title="Permalink to this headline">¶</a></h2>
 <p>Per default, 25 entities are listed per page on the list view. You can change
 this number by setting the <strong>pageSize</strong> parameter like this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -265,7 +265,7 @@ data types are presented.</p>
 <div class="section" id="filters">
 <h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
 <p>Currently, the listview contains all entries on the pages. Often, it is desirable to filter it in order to search for specific entries. The fields to be allowed to filter on can be easily added with a filter array just like the listFields. This is how the books view could be filtered by author and title:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -299,7 +299,7 @@ data types are presented.</p>
 <p>You can translate the labels of the entities and their fields using some special
 label keys: <em>label_(locale)</em> with <em>(locale)</em> being your desired locale. Example
 for <strong>de</strong>:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
     <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Buch</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
@@ -325,7 +325,7 @@ for <strong>de</strong>:</p>
 <h3>Switch off I18n Management<a class="headerlink" href="#switch-off-i18n-management" title="Permalink to this headline">¶</a></h3>
 <p>Per default, CRUDlex manages i18n for you. But this might be not desired in
 bigger projects, so you can disable it on registration like this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
 <span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
 <span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
 <span class="x">    &#39;crud.manageI18n&#39; =&gt; false</span>
@@ -346,7 +346,7 @@ if set to false, the initial sort order is descending</li>
 </ul>
 <p>Here is an example where the books are sorted by their author in an descending
 order:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
     <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
@@ -370,12 +370,12 @@ order:</p>
 <p>CRUDMySQLData offers an option to use UUIDs as primary key instead of an auto
 incremented value.</p>
 <p>First, you have to create your id field as varchar(36):</p>
-<div class="highlight-sql"><div class="highlight"><pre><span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
 </pre></div>
 </div>
 <p>And then you have to activate it in the setup when creating the
 CRUDDataFactoryInterface:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;], true);</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;], true);</span>
 </pre></div>
 </div>
 </div>
@@ -389,7 +389,7 @@ book: .../book/create?author=MyAuthor</p>
 <h2>Combine with the Web Profiler<a class="headerlink" href="#combine-with-the-web-profiler" title="Permalink to this headline">¶</a></h2>
 <p>If you want to use the package &#8220;silex/web-profiler&#8221;, you have to register the
 TranslationServiceProvider on your own first:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$app-&gt;register(new \Silex\Provider\TranslationServiceProvider(), array(</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new \Silex\Provider\TranslationServiceProvider(), array(</span>
 <span class="x">    &#39;locale_fallbacks&#39; =&gt; array(&#39;en&#39;),</span>
 <span class="x">));</span>
 </pre></div>

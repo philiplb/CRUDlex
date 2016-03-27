@@ -140,7 +140,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -175,7 +175,7 @@ CRUDlex.</p>
 handles the file uploads via Amazon S3.</p>
 <p>This is how to use it:</p>
 <p>First, create an instance of the Amazon S3 FileProcessor:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$fileProcessor = new CRUDlex\AmazonS3FileProcessor(</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$fileProcessor = new CRUDlex\AmazonS3FileProcessor(</span>
 <span class="x">    &#39;yourBucket&#39;,</span>
 <span class="x">    &#39;yourAccessKey&#39;,</span>
 <span class="x">    &#39;yourSecretAccessKey&#39;</span>
@@ -183,7 +183,7 @@ handles the file uploads via Amazon S3.</p>
 </pre></div>
 </div>
 <p>And then hand it in when registering the CRUDlex ServiceProvider:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
 <span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
 <span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
 <span class="x">    &#39;crud.fileprocessor&#39; =&gt; $fileProcessor</span>
@@ -204,13 +204,13 @@ offering in order to connect the users with the application.</p>
 following sub chapters.</p>
 <p>In order to get the salt generated and the password hashed, you have to let the
 library add some CRUDlex events in your initialization:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$crudUserSetup = new CRUDlex\UserSetup();</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$crudUserSetup = new CRUDlex\UserSetup();</span>
 <span class="x">$crudUserSetup-&gt;addEvents($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;));</span>
 </pre></div>
 </div>
 <div class="section" id="users">
 <h4>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -235,7 +235,7 @@ library add some CRUDlex events in your initialization:</p>
 </div>
 <div class="section" id="roles">
 <h4>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">role</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">role</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Roles</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">role</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -248,7 +248,7 @@ library add some CRUDlex events in your initialization:</p>
 </div>
 <div class="section" id="connecting-users-and-roles">
 <h4>Connecting Users and Roles<a class="headerlink" href="#connecting-users-and-roles" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">userRole</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">userRole</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">User Roles</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">userRole</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -275,7 +275,7 @@ library add some CRUDlex events in your initialization:</p>
 <div class="section" id="the-userprovider">
 <h3>The UserProvider<a class="headerlink" href="#the-userprovider" title="Permalink to this headline">¶</a></h3>
 <p>Simply instantiate and add it to your symfony/security configuration:</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$userProvider = new CRUDlex\UserProvider($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;), $app[&#39;crud&#39;]-&gt;getData(&#39;userRole&#39;));</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$userProvider = new CRUDlex\UserProvider($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;), $app[&#39;crud&#39;]-&gt;getData(&#39;userRole&#39;));</span>
 <span class="x">$app-&gt;register(new Silex\Provider\SecurityServiceProvider(), array(</span>
 <span class="x">    &#39;security.firewalls&#39; =&gt; array(</span>
 <span class="x">        &#39;admin&#39; =&gt; array(</span>
