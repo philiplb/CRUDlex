@@ -38,13 +38,19 @@ class Entity {
      * @param mixed $value
      * the value to convert
      * @param string $type
-     * the type to convert to like 'int' or 'float'
+     * the type to convert to like 'integer' or 'float'
      *
      * @return mixed
      * the converted value
      */
     protected function toType($value, $type) {
-        settype($value, $type);
+        if (($type == 'integer' || $type == 'float') && $value !== '' && $value !== null) {
+            settype($value, $type == 'integer' ? 'int' : 'float');
+        } else if ($type == 'boolean') {
+            $value = $value && $value !== '0';
+        } else if ($type == 'reference') {
+            $value = $value !== '' ? $value : null;
+        }
         return $value;
     }
 
@@ -109,15 +115,8 @@ class Entity {
             return null;
         }
 
-        $value = $this->entity[$field];
         $type = $this->definition->getType($field);
-        if ($type == 'integer' || $type == 'float') {
-            $value = $value !== '' && $value !== null ? $this->toType($value, $type) : null;
-        } else if ($type == 'boolean') {
-            $value = $value && $value !== '0';
-        } else if ($type == 'reference') {
-            $value = $value !== '' ? $value : null;
-        }
+        $value = $this->toType( $this->entity[$field], $type);
         return $value;
     }
 
