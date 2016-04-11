@@ -83,7 +83,8 @@ class ControllerProviderTest extends WebTestCase {
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
-            'library' => $library->get('id')
+            'library' => $library->get('id'),
+            'secondLibrary' => '' // This might occure if the user leaves the form field empty
         ), array(
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ));

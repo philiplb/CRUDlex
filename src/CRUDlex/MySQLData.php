@@ -47,7 +47,7 @@ class MySQLData extends Data {
         $count = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
             $type = $this->definition->getType($formFields[$i]);
-            $value = $entity->getRaw($formFields[$i]);
+            $value = $entity->get($formFields[$i]);
             if ($type == 'boolean') {
                 $value = $value ? 1 : 0;
             }

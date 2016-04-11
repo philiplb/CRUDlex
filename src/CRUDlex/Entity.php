@@ -115,6 +115,8 @@ class Entity {
             $value = $value !== '' && $value !== null ? $this->toType($value, $type) : null;
         } else if ($type == 'boolean') {
             $value = $value && $value !== '0';
+        } else if ($type == 'reference') {
+            $value = $value !== '' ? $value : null;
         }
         return $value;
     }
