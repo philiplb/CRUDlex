@@ -66,10 +66,17 @@ class TestDBSetup {
             '  `title` varchar(255) NOT NULL,'.
             '  `author` varchar(255) NOT NULL,'.
             '  `pages` int(11) NOT NULL,'.
-            '  `release` datetime DEFAULT NULL,'.
-            '  `library` int(11) NOT NULL,'.
-            '  `secondLibrary` int(11) DEFAULT NULL,'.
-            '  `cover` varchar(255) DEFAULT NULL,'.
+            '  `release` datetime DEFAULT NULL,';
+
+        if ($useUUIDs) {
+            $sql .= '  `library` varchar(36) NOT NULL,'.
+                    '  `secondLibrary` varchar(36) DEFAULT NULL,';
+        } else {
+            $sql .= '  `library` int(11) NOT NULL,'.
+                    '  `secondLibrary` int(11) DEFAULT NULL,';
+        }
+
+        $sql .= '  `cover` varchar(255) DEFAULT NULL,'.
             '  `price` float DEFAULT NULL,'.
             '  PRIMARY KEY (`id`),'.
             '  CONSTRAINT `book_ibfk_1` FOREIGN KEY (`library`) REFERENCES `library` (`id`),'.
