@@ -39,10 +39,10 @@ class MySQLData extends Data {
      * the entity with its fields and values
      * @param QueryBuilder $queryBuilder
      * the upcoming query
-     * @param boolean $setValue
-     * whether to use QueryBuilder::setValue (true) or QueryBuilder::set (false)
+     * @param string $setMethod
+     * what method to use on the QueryBuilder: 'setValue' or 'set'
      */
-    protected function setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setValue) {
+    protected function setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod) {
         $formFields = $this->definition->getEditableFieldNames();
         $count = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
@@ -51,11 +51,7 @@ class MySQLData extends Data {
             if ($type == 'boolean') {
                 $value = $value ? 1 : 0;
             }
-            if ($setValue) {
-                $queryBuilder->setValue('`'.$formFields[$i].'`', '?');
-            } else {
-                $queryBuilder->set('`'.$formFields[$i].'`', '?');
-            }
+            $queryBuilder->$setMethod('`'.$formFields[$i].'`', '?');
             $queryBuilder->setParameter($i, $value);
         }
     }
@@ -331,7 +327,7 @@ class MySQLData extends Data {
             ->setValue('version', 0);
 
 
-        $this->setValuesAndParameters($entity, $queryBuilder, true);
+        $this->setValuesAndParameters($entity, $queryBuilder, 'setValue');
 
         $id = $this->generateUUID();
         if ($this->useUUIDs) {
@@ -375,7 +371,7 @@ class MySQLData extends Data {
             ->set('version', 'version + 1');
 
         $formFields = $this->definition->getEditableFieldNames();
-        $this->setValuesAndParameters($entity, $queryBuilder, false);
+        $this->setValuesAndParameters($entity, $queryBuilder, 'set');
         $affected = $queryBuilder
             ->where('id = ?')
             ->setParameter(count($formFields), $entity->get('id'))
