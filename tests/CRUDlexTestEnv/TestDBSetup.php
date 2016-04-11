@@ -32,6 +32,25 @@ class TestDBSetup {
         $app['db']->executeUpdate('SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";');
         $app['db']->executeUpdate('SET time_zone = "+00:00"');
 
+        $sql = 'CREATE TABLE IF NOT EXISTS `library` (';
+        if ($useUUIDs) {
+            $sql .='  `id` varchar(36) NOT NULL,';
+        } else {
+            $sql .='  `id` int(11) NOT NULL AUTO_INCREMENT,';
+        }
+        $sql .= '  `created_at` datetime NOT NULL,'.
+            '  `updated_at` datetime NOT NULL,'.
+            '  `deleted_at` datetime DEFAULT NULL,'.
+            '  `version` int(11) NOT NULL,'.
+            '  `name` varchar(255) NOT NULL,'.
+            '  `type` varchar(255) DEFAULT NULL,'.
+            '  `opening` datetime DEFAULT NULL,'.
+            '  `isOpenOnSundays` tinyint(1) NOT NULL,'.
+            '  `planet` varchar(255) DEFAULT NULL,'.
+            '  PRIMARY KEY (`id`)'.
+            ') ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
+        $app['db']->executeUpdate($sql);
+
         $sql = 'CREATE TABLE IF NOT EXISTS `book` (';
 
         if ($useUUIDs) {
@@ -53,28 +72,11 @@ class TestDBSetup {
             '  `cover` varchar(255) DEFAULT NULL,'.
             '  `price` float DEFAULT NULL,'.
             '  PRIMARY KEY (`id`),'.
-            '  KEY `library` (`library`)'.
-            ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
+            '  CONSTRAINT `book_ibfk_1` FOREIGN KEY (`library`) REFERENCES `library` (`id`),'.
+            '  CONSTRAINT `book_ibfk_2` FOREIGN KEY (`secondLibrary`) REFERENCES `library` (`id`)'.
+            ') ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
         $app['db']->executeUpdate($sql);
 
-        $sql = 'CREATE TABLE IF NOT EXISTS `library` (';
-        if ($useUUIDs) {
-            $sql .='  `id` varchar(36) NOT NULL,';
-        } else {
-            $sql .='  `id` int(11) NOT NULL AUTO_INCREMENT,';
-        }
-        $sql .= '  `created_at` datetime NOT NULL,'.
-            '  `updated_at` datetime NOT NULL,'.
-            '  `deleted_at` datetime DEFAULT NULL,'.
-            '  `version` int(11) NOT NULL,'.
-            '  `name` varchar(255) NOT NULL,'.
-            '  `type` varchar(255) DEFAULT NULL,'.
-            '  `opening` datetime DEFAULT NULL,'.
-            '  `isOpenOnSundays` tinyint(1) NOT NULL,'.
-            '  `planet` varchar(255) DEFAULT NULL,'.
-            '  PRIMARY KEY (`id`)'.
-            ') ENGINE=MEMORY  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
-        $app['db']->executeUpdate($sql);
         return $app;
     }
 
