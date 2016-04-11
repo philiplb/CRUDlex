@@ -9,6 +9,7 @@ Released: Upcoming
 - Added RTL support in the i18n system
 - Added file handling events
 - Added some more IDs and classes in the HTML to be more tweakable
+- Fixed a crash if the table name of an entity is a MySQL keyword
 
 ## 0.9.9
 Released: 2016-02-11

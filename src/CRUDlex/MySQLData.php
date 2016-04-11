@@ -92,7 +92,7 @@ class MySQLData extends Data {
             $queryBuilder = $this->db->createQueryBuilder();
             $queryBuilder
                 ->select('COUNT(id)')
-                ->from($child[0], $child[0])
+                ->from('`'.$child[0].'`', '`'.$child[0].'`')
                 ->where($child[1].' = ?')
                 ->andWhere('deleted_at IS NULL')
                 ->setParameter(0, $id);
@@ -122,7 +122,7 @@ class MySQLData extends Data {
 
         $query = $this->db->createQueryBuilder();
         $query
-            ->update($this->definition->getTable())
+            ->update('`'.$this->definition->getTable().'`')
             ->set('deleted_at', 'UTC_TIMESTAMP()')
             ->where('id = ?')
             ->setParameter(0, $id);
@@ -214,7 +214,7 @@ class MySQLData extends Data {
 
         $table = $this->definition->getReferenceTable($field);
         $queryBuilder
-            ->from($table, $table)
+            ->from('`'.$table.'`', '`'.$table.'`')
             ->where('id IN (?)')
             ->andWhere('deleted_at IS NULL');
         if ($nameField) {
@@ -297,7 +297,7 @@ class MySQLData extends Data {
         $table = $this->definition->getTable();
         $queryBuilder
             ->select('`'.implode('`,`', $fieldNames).'`')
-            ->from($table, $table)
+            ->from('`'.$table.'`', '`'.$table.'`')
             ->where('deleted_at IS NULL');
 
         $this->addFilter($queryBuilder, $filter, $filterOperators);
@@ -325,7 +325,7 @@ class MySQLData extends Data {
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->insert($this->definition->getTable())
+            ->insert('`'.$this->definition->getTable().'`')
             ->setValue('created_at', 'UTC_TIMESTAMP()')
             ->setValue('updated_at', 'UTC_TIMESTAMP()')
             ->setValue('version', 0);
@@ -370,7 +370,7 @@ class MySQLData extends Data {
 
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
-            ->update($this->definition->getTable())
+            ->update('`'.$this->definition->getTable().'`')
             ->set('updated_at', 'UTC_TIMESTAMP()')
             ->set('version', 'version + 1');
 
@@ -397,7 +397,7 @@ class MySQLData extends Data {
         } else {
             $queryBuilder->select('id');
         }
-        $queryBuilder->from($table, $table)->where('deleted_at IS NULL');
+        $queryBuilder->from('`'.$table.'`', '`'.$table.'`')->where('deleted_at IS NULL');
         if ($nameField) {
             $queryBuilder->orderBy($nameField);
         } else {
@@ -419,7 +419,7 @@ class MySQLData extends Data {
         $queryBuilder = $this->db->createQueryBuilder();
         $queryBuilder
             ->select('COUNT(id)')
-            ->from($table, $table);
+            ->from('`'.$table.'`', '`'.$table.'`');
 
         if (count($params) > 0) {
             $i = 0;
