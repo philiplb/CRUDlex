@@ -31,6 +31,8 @@ interface FileProcessorInterface {
      * the name of the entity as this class here is not aware of it
      * @param string $field
      * the file field
+     *
+     * @return void
      */
     public function createFile(Request $request, Entity $entity, $entityName, $field);
 
@@ -45,6 +47,8 @@ interface FileProcessorInterface {
      * the name of the entity as this class here is not aware of it
      * @param string $field
      * the file field
+     *
+     * @return void
      */
     public function updateFile(Request $request, Entity $entity, $entityName, $field);
 
@@ -57,6 +61,8 @@ interface FileProcessorInterface {
      * the name of the entity as this class here is not aware of it
      * @param string $field
      * the field of the entity containing the file to be deleted
+     *
+     * @return void
      */
     public function deleteFile(Entity $entity, $entityName, $field);
 
