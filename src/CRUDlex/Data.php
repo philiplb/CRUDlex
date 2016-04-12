@@ -179,6 +179,8 @@ abstract class Data {
      *
      * @return Entity
      * the entity belonging to the id or null if not existant
+     *
+     * @return void
      */
     abstract public function get($id);
 
@@ -221,6 +223,8 @@ abstract class Data {
      *
      * @param Entity $entity
      * the entity with the new data
+     *
+     * @return void
      */
     abstract public function update(Entity $entity);
 
@@ -279,6 +283,8 @@ abstract class Data {
      *
      * @param Entity[] &$entities
      * the entities to fetch the references for
+     *
+     * @return void
      */
     abstract public function fetchReferences(array &$entities = null);
 

@@ -76,13 +76,13 @@ class ServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Reads and returns the contents of the given file. If
+     * Reads and returns the contents of the given Yaml file. If
      * it goes wrong, it throws an exception.
      *
      * @param string $fileName
      * the file to read
      *
-     * @return string
+     * @return array
      * the file contents
      */
     protected function readYaml($fileName) {
@@ -459,7 +459,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * @param float $float
      * the float to format
      *
-     * @return string
+     * @return double|string
      * the formated float
      */
     public function formatFloat($float) {
