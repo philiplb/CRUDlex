@@ -166,7 +166,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param string $redirectPage
      * reference, where the page to redirect to will be stored
      *
-     * @return mixed[]
+     * @return array<string,string>
      * the parameters of the redirection, entity and id
      */
     protected function getAfterDeleteRedirectParameters(Application $app, $entity, &$redirectPage) {
