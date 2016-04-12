@@ -814,7 +814,7 @@ class EntityDefinition {
      * @return boolean
      * the initial sort order, true if ascending
      */
-    public function getInitialSortAscending() {
+    public function isInitialSortAscending() {
         return $this->initialSortAscending;
     }
 }

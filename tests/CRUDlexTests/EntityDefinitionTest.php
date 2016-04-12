@@ -414,7 +414,7 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
-    public function testGetSetInitialSortField() {
+    public function testIsSetInitialSortField() {
         $read = $this->definition->getInitialSortField();
         $expected = 'created_at';
         $this->assertSame($read, $expected);
@@ -425,10 +425,10 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetSetInitialSortAscending() {
-        $read = $this->definition->getInitialSortAscending();
+        $read = $this->definition->isInitialSortAscending();
         $this->assertTrue($read);
         $this->definition->setInitialSortAscending(false);
-        $read = $this->definition->getInitialSortAscending();
+        $read = $this->definition->isInitialSortAscending();
         $this->assertFalse($read);
     }
 

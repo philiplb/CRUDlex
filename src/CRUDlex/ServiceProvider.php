@@ -400,7 +400,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * @return boolean
      * true if CRUDlex manages the i18n system
      */
-    public function getManageI18n() {
+    public function isManagingI18n() {
         return $this->manageI18n;
     }
 

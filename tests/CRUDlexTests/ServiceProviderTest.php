@@ -213,14 +213,14 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetManageI18n() {
+    public function testIsManagingI18n() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
-        $read = $crudServiceProvider->getManageI18n();
+        $read = $crudServiceProvider->isManagingI18n();
         $this->assertTrue($read);
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), false, $app);
-        $read = $crudServiceProvider->getManageI18n();
+        $read = $crudServiceProvider->isManagingI18n();
         $this->assertFalse($read);
     }
 
@@ -267,12 +267,12 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $data = $crudServiceProvider->getData('library');
         $read = $data->getDefinition()->getInitialSortField();
         $expected = 'name';
-        $read = $data->getDefinition()->getInitialSortAscending();
+        $read = $data->getDefinition()->isInitialSortAscending();
         $this->assertFalse($read);
         $data = $crudServiceProvider->getData('book');
         $read = $data->getDefinition()->getInitialSortField();
         $expected = 'id';
-        $read = $data->getDefinition()->getInitialSortAscending();
+        $read = $data->getDefinition()->isInitialSortAscending();
         $this->assertTrue($read);
     }
 

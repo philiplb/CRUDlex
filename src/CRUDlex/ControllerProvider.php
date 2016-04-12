@@ -259,7 +259,7 @@ class ControllerProvider implements ControllerProviderInterface {
                 ->bind('crudSetLocale');
 
         $app->before(function(Request $request, Application $app) {
-            if ($app['crud']->getManageI18n()) {
+            if ($app['crud']->isManagingI18n()) {
                 $locale = $app['session']->get('locale', 'en');
                 $app['translator']->setLocale($locale);
             }
@@ -329,7 +329,7 @@ class ControllerProvider implements ControllerProviderInterface {
 
         $sortField = $app['request']->get('crudSortField', $definition->getInitialSortField());
         $sortAscendingRequest = $app['request']->get('crudSortAscending');
-        $sortAscending = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->getInitialSortAscending();
+        $sortAscending = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->isInitialSortAscending();
 
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
         $crudData->fetchReferences($entities);
@@ -597,7 +597,7 @@ class ControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
         }
 
-        if ($app['crud']->getManageI18n()) {
+        if ($app['crud']->isManagingI18n()) {
             $app['session']->set('locale', $locale);
         }
         $redirect = $app['request']->get('redirect');

@@ -75,7 +75,7 @@
             <div class="container">
                 {% block content %}{% endblock %}
 
-                {% if app.crud.getManageI18n() %}
+                {% if app.crud.isManagingI18n() %}
                     <div dir="ltr">
                       <small{{ localeDir|raw }}>{{ 'crudlex.chooseLanguage'|trans }}</small>
                       <div class="dropdown">
