@@ -299,7 +299,7 @@ class ServiceProvider implements ServiceProviderInterface {
     /**
      * Getter for all available entity names.
      *
-     * @return array
+     * @return string[]
      * a list of all available entity names
      */
     public function getEntities() {

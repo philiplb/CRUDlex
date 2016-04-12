@@ -98,7 +98,7 @@ class EntityDefinition {
     /**
      * Gets the field names exluding the given ones.
      *
-     * @param array $exclude
+     * @param string[] $exclude
      * the field names to exclude
      *
      * @return array
@@ -233,7 +233,7 @@ class EntityDefinition {
      * Gets all field names, including the implicit ones like "id" or
      * "created_at".
      *
-     * @return array
+     * @return string[]
      * the field names
      */
     public function getFieldNames() {
@@ -400,7 +400,7 @@ class EntityDefinition {
     /**
      * Gets the read only field names like the id or the created_at.
      *
-     * @return array
+     * @return string[]
      * the read only field names
      */
     public function getReadOnlyFields() {

@@ -192,13 +192,13 @@ abstract class Data {
      * the filter all resulting entities must fulfill, the keys as field names
      * @param array $filterOperators
      * the operators of the filter like "=" defining the full condition of the field
-     * @param integer $skip
+     * @param integer|null $skip
      * if given and not null, it specifies the amount of rows to skip
-     * @param integer $amount
+     * @param integer|null $amount
      * if given and not null, it specifies the maximum amount of rows to retrieve
-     * @param string $sortField
+     * @param string|null $sortField
      * if given and not null, it specifies the field to sort the entries
-     * @param boolean $sortAscending
+     * @param boolean|null $sortAscending
      * if given and not null, it specifies that the sort order is ascending,
      * descending else
      *
