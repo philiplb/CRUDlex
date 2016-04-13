@@ -11,7 +11,7 @@
 
 namespace CRUDlex;
 
-use CRUDlex\Data;
+use CRUDlex\AbstractData;
 
 /**
  * Performs validation of the field values of the given {@see Entity}.
@@ -52,14 +52,14 @@ class EntityValidator {
      *
      * @param string $field
      * the field to validate
-     * @param Data $data
+     * @param AbstractData $data
      * the data instance to work with
      * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    protected function validateUnique($field, Data $data, &$fieldErrors, &$valid) {
+    protected function validateUnique($field, AbstractData $data, &$fieldErrors, &$valid) {
         $value = $this->entity->getRaw($field);
         if ($this->definition->isUnique($field) && $value) {
             $params = array($field => $value);
@@ -171,14 +171,14 @@ class EntityValidator {
      *
      * @param string $field
      * the field to validate
-     * @param Data $data
+     * @param AbstractData $data
      * the data instance to work with
      * @param array &$fieldErrors
      * the error collecting array
      * @param boolean &$valid
      * the validation flag
      */
-    protected function validateReference($field, Data $data, &$fieldErrors, &$valid) {
+    protected function validateReference($field, AbstractData $data, &$fieldErrors, &$valid) {
         $type = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
         if ($type == 'reference' && $value !== '' && $value !== null) {
@@ -206,7 +206,7 @@ class EntityValidator {
     /**
      * Validates the entity against the definition.
      *
-     * @param Data $data
+     * @param AbstractData $data
      * the data access instance used for counting things
      * @param integer $expectedVersion
      * the version to perform the optimistic locking check on
@@ -222,7 +222,7 @@ class EntityValidator {
      * value is correct (a valid int, date, depending on the type in the
      * definition)
      */
-    public function validate(Data $data, $expectedVersion) {
+    public function validate(AbstractData $data, $expectedVersion) {
 
         $fields = $this->definition->getEditableFieldNames();
         $fieldErrors = array();

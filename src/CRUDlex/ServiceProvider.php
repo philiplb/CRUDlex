@@ -24,13 +24,13 @@ use CRUDlex\SimpleFilesystemFileProcessor;
 
 /**
  * The ServiceProvider setups and initializes the whole CRUD system.
- * After adding it to your Silex-setup, it offers access to {@see Data}
+ * After adding it to your Silex-setup, it offers access to {@see AbstractData}
  * instances, one for each defined entity off the CRUD YAML file.
  */
 class ServiceProvider implements ServiceProviderInterface {
 
     /**
-     * Holds the {@see Data} instances.
+     * Holds the {@see AbstractData} instances.
      */
     protected $datas;
 
@@ -209,7 +209,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * Initializes the instance.
      *
      * @param DataFactoryInterface $dataFactory
-     * the factory to create the concrete Data instances
+     * the factory to create the concrete AbstractData instances
      * @param string $crudFile
      * the CRUD YAML file to parse
      * @param FileProcessorInterface $fileProcessor
@@ -281,13 +281,13 @@ class ServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Getter for the {@see Data} instances.
+     * Getter for the {@see AbstractData} instances.
      *
      * @param string $name
      * the entity name of the desired Data instance
      *
-     * @return Data
-     * the Data instance or null on invalid name
+     * @return AbstractData
+     * the AbstractData instance or null on invalid name
      */
     public function getData($name) {
         if (!array_key_exists($name, $this->datas)) {

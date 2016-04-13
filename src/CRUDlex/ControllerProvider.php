@@ -65,7 +65,7 @@ class ControllerProvider implements ControllerProviderInterface {
      *
      * @param Application $app
      * the current application
-     * @param Data $crudData
+     * @param AbstractData $crudData
      * the data instance of the entity
      * @param Entity $instance
      * the entity
@@ -77,7 +77,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return null|\Symfony\Component\HttpFoundation\RedirectResponse
      * the HTTP response of this modification
      */
-    protected function modifyFilesAndSetFlashBag(Application $app, Data $crudData, Entity $instance, $entity, $mode) {
+    protected function modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode) {
         $id = $instance->get('id');
         $result = $mode == 'edit' ? $crudData->updateFiles($app['request'], $instance, $entity) : $crudData->createFiles($app['request'], $instance, $entity);
         if (!$result) {
@@ -113,7 +113,7 @@ class ControllerProvider implements ControllerProviderInterface {
      *
      * @param Application $app
      * the current application
-     * @param Data $crudData
+     * @param AbstractData $crudData
      * the data instance of the entity
      * @param Entity $instance
      * the entity
@@ -125,7 +125,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this modification
      */
-    protected function modifyEntity(Application $app, Data $crudData, Entity $instance, $entity, $edit) {
+    protected function modifyEntity(Application $app, AbstractData $crudData, Entity $instance, $entity, $edit) {
         $fieldErrors = array();
         $mode = $edit ? 'edit' : 'create';
         if ($app['request']->getMethod() == 'POST') {
@@ -200,7 +200,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param array $filterToUse
      * reference, will hold a map of fields to integers (0 or 1) which boolean filters are active
      * @param array $filterOperators
-     * reference, will hold a map of fields to operators for Data::listEntries()
+     * reference, will hold a map of fields to operators for AbstractData::listEntries()
      */
     protected function buildUpListFilter(Application $app, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
         foreach ($definition->getFilter() as $filterField) {
@@ -453,12 +453,12 @@ class ControllerProvider implements ControllerProviderInterface {
         }
 
         $filesDeleted = $crudData->deleteFiles($instance, $entity);
-        $deleted = $filesDeleted ? $crudData->delete($instance) : Data::DELETION_FAILED_EVENT;
+        $deleted = $filesDeleted ? $crudData->delete($instance) : AbstractData::DELETION_FAILED_EVENT;
 
-        if ($deleted === Data::DELETION_FAILED_EVENT) {
+        if ($deleted === AbstractData::DELETION_FAILED_EVENT) {
             $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
             return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
-        } elseif ($deleted === Data::DELETION_FAILED_STILL_REFERENCED) {
+        } elseif ($deleted === AbstractData::DELETION_FAILED_STILL_REFERENCED) {
             $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', array(
                 '%label%' => $crudData->getDefinition()->getLabel()
             )));

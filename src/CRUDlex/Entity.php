@@ -16,7 +16,7 @@ use CRUDlex\EntityDefinition;
 
 /**
  * Represents a single set of data in field value pairs like the row in a
- * database. Depends of course on the {@see Data} implementation being used.
+ * database. Depends of course on the {@see AbstractData} implementation being used.
  * With this objects, the data is passed arround and validated.
  */
 class Entity {

@@ -20,7 +20,7 @@ use CRUDlex\Entity;
 /**
  * The abstract class for reading and writing data.
  */
-abstract class Data {
+abstract class AbstractData {
 
     /**
      * Return value on successful deletion.
@@ -236,9 +236,9 @@ abstract class Data {
      *
      * @return integer
      * returns one of:
-     * - Data::DELETION_SUCCESS -> successful deletion
-     * - Data::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
-     * - Data::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
+     * - AbstractData::DELETION_SUCCESS -> successful deletion
+     * - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
+     * - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
     public function delete($entity) {
         return $this->doDelete($entity, $this->definition->isDeleteCascade());

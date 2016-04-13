@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
-use CRUDlex\Data;
+use CRUDlex\AbstractData;
 
 class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
@@ -158,7 +158,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $deleted = $this->dataLibrary->delete($entity);
         $read = $this->dataLibrary->get($entity->get('id'));
-        $expected = Data::DELETION_SUCCESS;
+        $expected = AbstractData::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
         $this->assertNull($read);
 
@@ -175,13 +175,13 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $this->dataLibrary->getDefinition()->setDeleteCascade(false);
         $deleted = $this->dataLibrary->delete($entityLibrary);
-        $expected = Data::DELETION_FAILED_STILL_REFERENCED;
+        $expected = AbstractData::DELETION_FAILED_STILL_REFERENCED;
         $this->assertSame($deleted, $expected);
         $deleted = $this->dataBook->delete($entityBook);
-        $expected = Data::DELETION_SUCCESS;
+        $expected = AbstractData::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
         $deleted = $this->dataLibrary->delete($entityLibrary);
-        $expected = Data::DELETION_SUCCESS;
+        $expected = AbstractData::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
 
         $this->dataLibrary->getDefinition()->setDeleteCascade(true);
@@ -198,7 +198,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataBook->create($entityBook);
 
         $deleted = $this->dataLibrary->delete($entityLibrary);
-        $expected = Data::DELETION_SUCCESS;
+        $expected = AbstractData::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
         $entityBook2 = $this->dataBook->get($entityBook->get('id'));
         $this->assertNull($entityBook2);

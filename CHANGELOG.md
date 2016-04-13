@@ -6,6 +6,7 @@ Released: Upcoming
 - Attention: Removed the prefix "CRUD" from all classes as they live in their own namespace anyway
 - Attention: The data types "int" and "bool" got renamed to "integer" and "boolean"
 - Attention, API changes:
+    - CRUDlex\Data -> CRUDlex\AbstractData
     - EntityDefinition::getInitialSortAscending() -> EntityDefinition::isInitialSortAscending()
     - ServiceProvider::getMangeI18N() -> ServiceProvider::isManagingI18n()
 - Replaced the markdown manual and the APIGen documentation with an unified Sphinx version

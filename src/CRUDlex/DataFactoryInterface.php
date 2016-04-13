@@ -11,7 +11,7 @@
 
 namespace CRUDlex;
 
-use CRUDlex\Data;
+use CRUDlex\AbstractData;
 use CRUDlex\EntityDefinition;
 use CRUDlex\FileProcessorInterface;
 
@@ -31,7 +31,7 @@ interface DataFactoryInterface {
      * @param FileProcessorInterface $fileProcessor
      * the file processor managing uploaded files
      *
-     * @return Data
+     * @return AbstractData
      * the newly created instance
      */
     public function createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor);
