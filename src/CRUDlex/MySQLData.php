@@ -105,7 +105,7 @@ class MySQLData extends AbstractData {
      * {@inheritdoc}
      */
     protected function doDelete(Entity $entity, $deleteCascade) {
-        $result = $this->executeEvents($entity, 'before', 'delete');
+        $result = $this->shouldExecuteEvents($entity, 'before', 'delete');
         if (!$result) {
             return static::DELETION_FAILED_EVENT;
         }
@@ -124,7 +124,7 @@ class MySQLData extends AbstractData {
             ->setParameter(0, $id);
 
         $query->execute();
-        $this->executeEvents($entity, 'after', 'delete');
+        $this->shouldExecuteEvents($entity, 'after', 'delete');
         return static::DELETION_SUCCESS;
     }
 
@@ -314,7 +314,7 @@ class MySQLData extends AbstractData {
      */
     public function create(Entity $entity) {
 
-        $result = $this->executeEvents($entity, 'before', 'create');
+        $result = $this->shouldExecuteEvents($entity, 'before', 'create');
         if (!$result) {
             return false;
         }
@@ -349,7 +349,7 @@ class MySQLData extends AbstractData {
         $entity->set('created_at', $createdEntity->get('created_at'));
         $entity->set('updated_at', $createdEntity->get('updated_at'));
 
-        $this->executeEvents($entity, 'after', 'create');
+        $this->shouldExecuteEvents($entity, 'after', 'create');
 
         return true;
     }
@@ -359,7 +359,7 @@ class MySQLData extends AbstractData {
      */
     public function update(Entity $entity) {
 
-        $result = $this->executeEvents($entity, 'before', 'update');
+        $result = $this->shouldExecuteEvents($entity, 'before', 'update');
         if (!$result) {
             return false;
         }
@@ -377,7 +377,7 @@ class MySQLData extends AbstractData {
             ->setParameter(count($formFields), $entity->get('id'))
             ->execute();
 
-        $this->executeEvents($entity, 'after', 'update');
+        $this->shouldExecuteEvents($entity, 'after', 'update');
 
         return $affected;
     }

@@ -98,7 +98,7 @@ abstract class AbstractData {
      * true on successful execution of the full chain or false if it broke at
      * any point (and stopped the execution)
      */
-    protected function executeEvents(Entity $entity, $moment, $action) {
+    protected function shouldExecuteEvents(Entity $entity, $moment, $action) {
         if ($this->events !== null && array_key_exists($moment.'.'.$action, $this->events)) {
             foreach ($this->events[$moment.'.'.$action] as $event) {
                 $result = $event($entity);
@@ -330,7 +330,7 @@ abstract class AbstractData {
      * the name of the entity as this class here is not aware of it
      */
     public function createFiles(Request $request, Entity $entity, $entityName) {
-        $result = $this->executeEvents($entity, 'before', 'createFiles');
+        $result = $this->shouldExecuteEvents($entity, 'before', 'createFiles');
         if (!$result) {
             return false;
         }
@@ -338,7 +338,7 @@ abstract class AbstractData {
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
             $fileProcessor->createFile($request, $entity, $entityName, $field);
         });
-        $this->executeEvents($entity, 'after', 'createFiles');
+        $this->shouldExecuteEvents($entity, 'after', 'createFiles');
         return true;
     }
 
@@ -356,7 +356,7 @@ abstract class AbstractData {
      * true on successful update
      */
     public function updateFiles(Request $request, Entity $entity, $entityName) {
-        $result = $this->executeEvents($entity, 'before', 'updateFiles');
+        $result = $this->shouldExecuteEvents($entity, 'before', 'updateFiles');
         if (!$result) {
             return false;
         }
@@ -364,7 +364,7 @@ abstract class AbstractData {
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
             $fileProcessor->updateFile($request, $entity, $entityName, $field);
         });
-        $this->executeEvents($entity, 'after', 'updateFiles');
+        $this->shouldExecuteEvents($entity, 'after', 'updateFiles');
         return true;
     }
 
@@ -382,12 +382,12 @@ abstract class AbstractData {
      * true on successful deletion
      */
     public function deleteFile(Entity $entity, $entityName, $field) {
-        $result = $this->executeEvents($entity, 'before', 'deleteFile');
+        $result = $this->shouldExecuteEvents($entity, 'before', 'deleteFile');
         if (!$result) {
             return false;
         }
         $this->fileProcessor->deleteFile($entity, $entityName, $field);
-        $this->executeEvents($entity, 'after', 'deleteFile');
+        $this->shouldExecuteEvents($entity, 'after', 'deleteFile');
         return true;
     }
 
@@ -403,7 +403,7 @@ abstract class AbstractData {
      * true on successful deletion
      */
     public function deleteFiles(Entity $entity, $entityName) {
-        $result = $this->executeEvents($entity, 'before', 'deleteFiles');
+        $result = $this->shouldExecuteEvents($entity, 'before', 'deleteFiles');
         if (!$result) {
             return false;
         }
@@ -411,7 +411,7 @@ abstract class AbstractData {
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor) {
             $fileProcessor->deleteFile($entity, $entityName, $field);
         });
-        $this->executeEvents($entity, 'after', 'deleteFiles');
+        $this->shouldExecuteEvents($entity, 'after', 'deleteFiles');
         return true;
     }
 
