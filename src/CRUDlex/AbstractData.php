@@ -99,12 +99,13 @@ abstract class AbstractData {
      * any point (and stopped the execution)
      */
     protected function shouldExecuteEvents(Entity $entity, $moment, $action) {
-        if ($this->events !== null && array_key_exists($moment.'.'.$action, $this->events)) {
-            foreach ($this->events[$moment.'.'.$action] as $event) {
-                $result = $event($entity);
-                if (!$result) {
-                    return false;
-                }
+        if (!isset($this->events[$moment.'.'.$action])) {
+            return true;
+        }
+        foreach ($this->events[$moment.'.'.$action] as $event) {
+            $result = $event($entity);
+            if (!$result) {
+                return false;
             }
         }
         return true;
