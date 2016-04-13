@@ -24,7 +24,7 @@ class MySQLData extends Data {
     /**
      * Holds the Doctrine DBAL instance.
      */
-    protected $db;
+    protected $database;
 
     /**
      * Flag whether to use UUIDs as primary key.
@@ -85,7 +85,7 @@ class MySQLData extends Data {
      */
     protected function hasChildren($id) {
         foreach ($this->definition->getChildren() as $child) {
-            $queryBuilder = $this->db->createQueryBuilder();
+            $queryBuilder = $this->database->createQueryBuilder();
             $queryBuilder
                 ->select('COUNT(id)')
                 ->from('`'.$child[0].'`', '`'.$child[0].'`')
@@ -116,7 +116,7 @@ class MySQLData extends Data {
             return static::DELETION_FAILED_STILL_REFERENCED;
         }
 
-        $query = $this->db->createQueryBuilder();
+        $query = $this->database->createQueryBuilder();
         $query
             ->update('`'.$this->definition->getTable().'`')
             ->set('deleted_at', 'UTC_TIMESTAMP()')
@@ -202,7 +202,7 @@ class MySQLData extends Data {
      */
     protected function fetchReferencesForField(array &$entities, $field) {
         $nameField = $this->definition->getReferenceNameField($field);
-        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder = $this->database->createQueryBuilder();
 
         $ids = array_map(function(Entity $entity) use ($field) {
             return $entity->get($field);
@@ -247,7 +247,7 @@ class MySQLData extends Data {
         $uuid = null;
         if ($this->useUUIDs) {
             $sql = 'SELECT UUID() as id';
-            $result = $this->db->fetchAssoc($sql);
+            $result = $this->database->fetchAssoc($sql);
             $uuid = $result['id'];
         }
         return $uuid;
@@ -260,15 +260,15 @@ class MySQLData extends Data {
      * the entity definition
      * @param FileProcessorInterface $fileProcessor
      * the file processor to use
-     * @param $db
+     * @param $database
      * the Doctrine DBAL instance to use
      * @param boolean $useUUIDs
      * flag whether to use UUIDs as primary key
      */
-    public function __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $db, $useUUIDs) {
+    public function __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $database, $useUUIDs) {
         $this->definition = $definition;
         $this->fileProcessor = $fileProcessor;
-        $this->db = $db;
+        $this->database = $database;
         $this->useUUIDs = $useUUIDs;
     }
 
@@ -289,7 +289,7 @@ class MySQLData extends Data {
     public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null) {
         $fieldNames = $this->definition->getFieldNames();
 
-        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder = $this->database->createQueryBuilder();
         $table = $this->definition->getTable();
         $queryBuilder
             ->select('`'.implode('`,`', $fieldNames).'`')
@@ -319,7 +319,7 @@ class MySQLData extends Data {
             return false;
         }
 
-        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
             ->insert('`'.$this->definition->getTable().'`')
             ->setValue('created_at', 'UTC_TIMESTAMP()')
@@ -339,7 +339,7 @@ class MySQLData extends Data {
         $queryBuilder->execute();
 
         if (!$this->useUUIDs) {
-            $id = $this->db->lastInsertId();
+            $id = $this->database->lastInsertId();
         }
 
         $entity->set('id', $id);
@@ -364,7 +364,7 @@ class MySQLData extends Data {
             return false;
         }
 
-        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
             ->update('`'.$this->definition->getTable().'`')
             ->set('updated_at', 'UTC_TIMESTAMP()')
@@ -387,7 +387,7 @@ class MySQLData extends Data {
      */
     public function getReferences($table, $nameField) {
 
-        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder = $this->database->createQueryBuilder();
         if ($nameField) {
             $queryBuilder->select('id', $nameField);
         } else {
@@ -412,7 +412,7 @@ class MySQLData extends Data {
      * {@inheritdoc}
      */
     public function countBy($table, array $params, array $paramsOperators, $excludeDeleted) {
-        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
             ->select('COUNT(id)')
             ->from('`'.$table.'`', '`'.$table.'`');

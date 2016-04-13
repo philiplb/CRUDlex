@@ -22,7 +22,7 @@ class MySQLDataFactory implements DataFactoryInterface {
     /**
      * Holds the Doctrine DBAL instance.
      */
-    protected $db;
+    protected $database;
 
     /**
      * Flag whether to use UUIDs as primary key.
@@ -32,13 +32,13 @@ class MySQLDataFactory implements DataFactoryInterface {
     /**
      * Constructor.
      *
-     * @param $db
+     * @param $database
      * the Doctrine DBAL instance
      * @param $useUUIDs
      * flag whether to use UUIDs as primary key
      */
-    public function __construct($db, $useUUIDs = false) {
-        $this->db = $db;
+    public function __construct($database, $useUUIDs = false) {
+        $this->database = $database;
         $this->useUUIDs = $useUUIDs;
     }
 
@@ -46,7 +46,7 @@ class MySQLDataFactory implements DataFactoryInterface {
      * {@inheritdoc}
      */
     public function createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor) {
-        return new MySQLData($definition, $fileProcessor, $this->db, $this->useUUIDs);
+        return new MySQLData($definition, $fileProcessor, $this->database, $this->useUUIDs);
     }
 
 }
