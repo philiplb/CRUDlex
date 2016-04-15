@@ -88,7 +88,7 @@ class ServiceProvider implements ServiceProviderInterface {
             throw new \Exception('Could not open CRUD file '.$fileName);
         }
         $fileContent = file_get_contents($fileName);
-        $parsedYaml = Yaml::parse($fileContent);
+        $parsedYaml  = Yaml::parse($fileContent);
         if (!is_array($parsedYaml)) {
             $parsedYaml = array();
         }
@@ -134,7 +134,7 @@ class ServiceProvider implements ServiceProviderInterface {
     protected function initLocales(Application $app) {
         $app['translator']->addLoader('yaml', new YamlFileLoader());
         $localeDir = __DIR__.'/../locales';
-        $locales = $this->getLocales();
+        $locales   = $this->getLocales();
         foreach ($locales as $locale) {
             $app['translator']->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
         }
@@ -221,22 +221,22 @@ class ServiceProvider implements ServiceProviderInterface {
 
         $this->initMissingServiceProviders($app);
         $this->manageI18n = $manageI18n;
-        $locales = $this->initLocales($app);
-        $parsedYaml = $this->readYaml($crudFile);
-        $this->datas = array();
+        $locales          = $this->initLocales($app);
+        $parsedYaml       = $this->readYaml($crudFile);
+        $this->datas      = array();
         foreach ($parsedYaml as $name => $crud) {
             if (!is_array($crud) || !isset($crud['fields'])) {
                 continue;
             }
 
-            $label = array_key_exists('label', $crud) ? $crud['label'] : $name;
-            $localeLabels = $this->getLocaleLabels($locales, $crud);
+            $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
+            $localeLabels        = $this->getLocaleLabels($locales, $crud);
             $standardFieldLabels = array(
                 'id' => $app['translator']->trans('crudlex.label.id'),
                 'created_at' => $app['translator']->trans('crudlex.label.created_at'),
                 'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
-            $definition = new EntityDefinition(
+            $definition          = new EntityDefinition(
                 $crud['table'],
                 $crud['fields'],
                 $label,
@@ -261,9 +261,9 @@ class ServiceProvider implements ServiceProviderInterface {
      */
     public function register(Application $app) {
         $app['crud'] = $app->share(function() use ($app) {
-            $result = new ServiceProvider();
+            $result        = new ServiceProvider();
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
-            $manageI18n = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
+            $manageI18n    = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
             $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
             return $result;
         });
@@ -374,7 +374,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * the best fitting template
      */
     public function getTemplate(Application $app, $section, $action, $entity) {
-        $crudSection = 'crud.'.$section;
+        $crudSection       = 'crud.'.$section;
         $crudSectionAction = $crudSection.'.'.$action;
 
         $offsets = array(
@@ -421,16 +421,16 @@ class ServiceProvider implements ServiceProviderInterface {
      * the available locales
      */
     public function getLocales() {
-        $localeDir = __DIR__.'/../locales';
+        $localeDir     = __DIR__.'/../locales';
         $languageFiles = scandir($localeDir);
-        $locales = array();
+        $locales       = array();
         foreach ($languageFiles as $languageFile) {
             if ($languageFile == '.' || $languageFile == '..') {
                 continue;
             }
             $extensionPos = strpos($languageFile, '.yml');
             if ($extensionPos !== false) {
-                $locale = substr($languageFile, 0, $extensionPos);
+                $locale    = substr($languageFile, 0, $extensionPos);
                 $locales[] = $locale;
             }
         }

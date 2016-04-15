@@ -78,16 +78,16 @@ class SimpleFilesystemFileProcessor implements FileProcessorInterface {
      */
     public function renderFile(Entity $entity, $entityName, $field) {
         $targetPath = $this->getPath($entityName, $entity, $field);
-        $fileName = $entity->get($field);
-        $file = $targetPath.'/'.$fileName;
-        $response = new Response('');
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $file);
+        $fileName   = $entity->get($field);
+        $file       = $targetPath.'/'.$fileName;
+        $response   = new Response('');
+        $finfo      = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType   = finfo_file($finfo, $file);
         finfo_close($finfo);
         $size = filesize($file);
         if ($fileName && file_exists($file)) {
             $streamedFileResponse = new StreamedFileResponse();
-            $response = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
+            $response             = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
                 'Content-Type' => $mimeType,
                 'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
                 'Content-length' => $size

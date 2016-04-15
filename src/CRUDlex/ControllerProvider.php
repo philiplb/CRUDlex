@@ -78,7 +78,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * the HTTP response of this modification
      */
     protected function modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode) {
-        $id = $instance->get('id');
+        $id     = $instance->get('id');
         $result = $mode == 'edit' ? $crudData->updateFiles($app['request'], $instance, $entity) : $crudData->createFiles($app['request'], $instance, $entity);
         if (!$result) {
             return null;
@@ -127,10 +127,10 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     protected function modifyEntity(Application $app, AbstractData $crudData, Entity $instance, $entity, $edit) {
         $fieldErrors = array();
-        $mode = $edit ? 'edit' : 'create';
+        $mode        = $edit ? 'edit' : 'create';
         if ($app['request']->getMethod() == 'POST') {
             $instance->populateViaRequest($app['request']);
-            $validator = new EntityValidator($instance);
+            $validator  = new EntityValidator($instance);
             $validation = $validator->validate($crudData, intval($app['request']->get('version')));
 
             $fieldErrors = $validation['fields'];
@@ -170,12 +170,12 @@ class ControllerProvider implements ControllerProviderInterface {
      * the parameters of the redirection, entity and id
      */
     protected function getAfterDeleteRedirectParameters(Application $app, $entity, &$redirectPage) {
-        $redirectPage = 'crudList';
+        $redirectPage       = 'crudList';
         $redirectParameters = array(
             'entity' => $entity
         );
-        $redirectEntity = $app['request']->get('redirectEntity');
-        $redirectId = $app['request']->get('redirectId');
+        $redirectEntity     = $app['request']->get('redirectEntity');
+        $redirectId         = $app['request']->get('redirectId');
         if ($redirectEntity && $redirectId) {
             $redirectPage = 'crudShow';
             $redirectParameters = array(
@@ -208,10 +208,10 @@ class ControllerProvider implements ControllerProviderInterface {
             if ($filter[$filterField]) {
                 $filterActive = true;
                 if ($definition->getType($filterField) == 'boolean') {
-                    $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
+                    $filterToUse[$filterField]     = $filter[$filterField] == 'true' ? 1 : 0;
                     $filterOperators[$filterField] = '=';
                 } else {
-                    $filterToUse[$filterField] = '%'.$filter[$filterField].'%';
+                    $filterToUse[$filterField]     = '%'.$filter[$filterField].'%';
                     $filterOperators[$filterField] = 'LIKE';
                 }
             }
@@ -237,7 +237,7 @@ class ControllerProvider implements ControllerProviderInterface {
             $app['crud.layout'] = '@crud/layout.twig';
         }
 
-        $class = get_class($this);
+        $class   = get_class($this);
         $factory = $app['controllers_factory'];
         $factory->get('/resource/static', $class.'::staticFile')
                 ->bind('static');
@@ -309,16 +309,16 @@ class ControllerProvider implements ControllerProviderInterface {
         }
         $definition = $crudData->getDefinition();
 
-        $filter = array();
-        $filterActive = false;
-        $filterToUse = array();
+        $filter          = array();
+        $filterActive    = false;
+        $filterToUse     = array();
         $filterOperators = array();
         $this->buildUpListFilter($app, $definition, $filter, $filterActive, $filterToUse, $filterOperators);
 
         $pageSize = $definition->getPageSize();
-        $total = $crudData->countBy($definition->getTable(), $filterToUse, $filterOperators, true);
-        $page = abs(intval($app['request']->get('crudPage', 0)));
-        $maxPage = intval($total / $pageSize);
+        $total    = $crudData->countBy($definition->getTable(), $filterToUse, $filterOperators, true);
+        $page     = abs(intval($app['request']->get('crudPage', 0)));
+        $maxPage  = intval($total / $pageSize);
         if ($total % $pageSize == 0) {
             $maxPage--;
         }
@@ -327,9 +327,9 @@ class ControllerProvider implements ControllerProviderInterface {
         }
         $skip = $page * $pageSize;
 
-        $sortField = $app['request']->get('crudSortField', $definition->getInitialSortField());
+        $sortField            = $app['request']->get('crudSortField', $definition->getInitialSortField());
         $sortAscendingRequest = $app['request']->get('crudSortAscending');
-        $sortAscending = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->isInitialSortAscending();
+        $sortAscending        = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->isInitialSortAscending();
 
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
         $crudData->fetchReferences($entities);
@@ -375,18 +375,18 @@ class ControllerProvider implements ControllerProviderInterface {
         }
         $instance = array($instance);
         $crudData->fetchReferences($instance);
-        $instance = $instance[0];
+        $instance   = $instance[0];
         $definition = $crudData->getDefinition();
 
         $childrenLabelFields = $definition->getChildrenLabelFields();
-        $children = array();
+        $children            = array();
         if (count($childrenLabelFields) > 0) {
             foreach ($definition->getChildren() as $child) {
-                $childField = $child[1];
-                $childEntity = $child[2];
+                $childField      = $child[1];
+                $childEntity     = $child[2];
                 $childLabelField = array_key_exists($childEntity, $childrenLabelFields) ? $childrenLabelFields[$childEntity] : 'id';
-                $childCrud = $app['crud']->getData($childEntity);
-                $children[] = array(
+                $childCrud       = $app['crud']->getData($childEntity);
+                $children[]      = array(
                     $childCrud->getDefinition()->getLabel(),
                     $childEntity,
                     $childLabelField,
@@ -453,7 +453,7 @@ class ControllerProvider implements ControllerProviderInterface {
         }
 
         $filesDeleted = $crudData->deleteFiles($instance, $entity);
-        $deleted = $filesDeleted ? $crudData->delete($instance) : AbstractData::DELETION_FAILED_EVENT;
+        $deleted      = $filesDeleted ? $crudData->delete($instance) : AbstractData::DELETION_FAILED_EVENT;
 
         if ($deleted === AbstractData::DELETION_FAILED_EVENT) {
             $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
@@ -465,7 +465,7 @@ class ControllerProvider implements ControllerProviderInterface {
             return $app->redirect($app['url_generator']->generate('crudShow', array('entity' => $entity, 'id' => $id)));
         }
 
-        $redirectPage = 'crudList';
+        $redirectPage       = 'crudList';
         $redirectParameters = $this->getAfterDeleteRedirectParameters($app, $entity, $redirectPage);
 
         $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
@@ -494,7 +494,7 @@ class ControllerProvider implements ControllerProviderInterface {
         if (!$crudData) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
         }
-        $instance = $crudData->get($id);
+        $instance   = $crudData->get($id);
         $definition = $crudData->getDefinition();
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
@@ -560,9 +560,9 @@ class ControllerProvider implements ControllerProviderInterface {
         }
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
-        $mimeType = 'text/css';
+        $mimeType  = 'text/css';
         if (strtolower($extension) !== 'css') {
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $finfo    = finfo_open(FILEINFO_MIME_TYPE);
             $mimeType = finfo_file($finfo, $file);
             finfo_close($finfo);
         }
@@ -570,7 +570,7 @@ class ControllerProvider implements ControllerProviderInterface {
         $size = filesize($file);
 
         $streamedFileResponse = new StreamedFileResponse();
-        $response = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
+        $response             = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
             'Content-Type' => $mimeType,
             'Content-Disposition' => 'attachment; filename="'.basename($file).'"',
             'Content-length' => $size

@@ -44,9 +44,9 @@ class MySQLData extends AbstractData {
      */
     protected function setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod) {
         $formFields = $this->definition->getEditableFieldNames();
-        $count = count($formFields);
+        $count      = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
-            $type = $this->definition->getType($formFields[$i]);
+            $type  = $this->definition->getType($formFields[$i]);
             $value = $entity->get($formFields[$i]);
             if ($type == 'boolean') {
                 $value = $value ? 1 : 0;
@@ -67,7 +67,7 @@ class MySQLData extends AbstractData {
     protected function deleteChildren($id, $deleteCascade) {
         foreach ($this->definition->getChildren() as $childArray) {
             $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
-            $children = $childData->listEntries(array($childArray[1] => $id));
+            $children  = $childData->listEntries(array($childArray[1] => $id));
             foreach ($children as $child) {
                 $childData->doDelete($child, $deleteCascade);
             }
@@ -93,7 +93,7 @@ class MySQLData extends AbstractData {
                 ->andWhere('deleted_at IS NULL')
                 ->setParameter(0, $id);
             $queryResult = $queryBuilder->execute();
-            $result = $queryResult->fetch(\PDO::FETCH_NUM);
+            $result      = $queryResult->fetch(\PDO::FETCH_NUM);
             if ($result[0] > 0) {
                 return true;
             }
@@ -201,7 +201,7 @@ class MySQLData extends AbstractData {
      * the reference field
      */
     protected function fetchReferencesForField(array &$entities, $field) {
-        $nameField = $this->definition->getReferenceNameField($field);
+        $nameField    = $this->definition->getReferenceNameField($field);
         $queryBuilder = $this->database->createQueryBuilder();
 
         $ids = array_map(function(Entity $entity) use ($field) {
@@ -222,8 +222,8 @@ class MySQLData extends AbstractData {
         $queryBuilder->setParameter(0, $ids, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY);
 
         $queryResult = $queryBuilder->execute();
-        $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $amount = count($entities);
+        $rows        = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $amount      = count($entities);
         foreach ($rows as $row) {
             for ($i = 0; $i < $amount; ++$i) {
                 if ($entities[$i]->get($field) == $row['id']) {
@@ -246,9 +246,9 @@ class MySQLData extends AbstractData {
     protected function generateUUID() {
         $uuid = null;
         if ($this->useUUIDs) {
-            $sql = 'SELECT UUID() as id';
+            $sql    = 'SELECT UUID() as id';
             $result = $this->database->fetchAssoc($sql);
-            $uuid = $result['id'];
+            $uuid   = $result['id'];
         }
         return $uuid;
     }
@@ -266,10 +266,10 @@ class MySQLData extends AbstractData {
      * flag whether to use UUIDs as primary key
      */
     public function __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $database, $useUUIDs) {
-        $this->definition = $definition;
+        $this->definition    = $definition;
         $this->fileProcessor = $fileProcessor;
-        $this->database = $database;
-        $this->useUUIDs = $useUUIDs;
+        $this->database      = $database;
+        $this->useUUIDs      = $useUUIDs;
     }
 
     /**
@@ -290,7 +290,7 @@ class MySQLData extends AbstractData {
         $fieldNames = $this->definition->getFieldNames();
 
         $queryBuilder = $this->database->createQueryBuilder();
-        $table = $this->definition->getTable();
+        $table        = $this->definition->getTable();
         $queryBuilder
             ->select('`'.implode('`,`', $fieldNames).'`')
             ->from('`'.$table.'`', '`'.$table.'`')
@@ -301,8 +301,8 @@ class MySQLData extends AbstractData {
         $this->addSort($queryBuilder, $sortField, $sortAscending);
 
         $queryResult = $queryBuilder->execute();
-        $rows = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $entities = array();
+        $rows        = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $entities    = array();
         foreach ($rows as $row) {
             $entities[] = $this->hydrate($row);
         }
@@ -400,8 +400,8 @@ class MySQLData extends AbstractData {
             $queryBuilder->orderBy('id');
         }
         $queryResult = $queryBuilder->execute();
-        $entries = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $result = array();
+        $entries     = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $result      = array();
         foreach ($entries as $entry) {
             $result[$entry['id']] = $nameField ? $entry[$nameField] : $entry['id'];
         }
@@ -435,7 +435,7 @@ class MySQLData extends AbstractData {
         }
 
         $queryResult = $queryBuilder->execute();
-        $result = $queryResult->fetch(\PDO::FETCH_NUM);
+        $result      = $queryResult->fetch(\PDO::FETCH_NUM);
         return intval($result[0]);
     }
 

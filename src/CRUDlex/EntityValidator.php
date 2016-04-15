@@ -43,7 +43,7 @@ class EntityValidator {
             && !$this->definition->getFixedValue($field)
             && in_array($this->entity->getRaw($field), array(null, ''), true)) {
             $fieldErrors[$field]['required'] = true;
-            $valid = false;
+            $valid                           = false;
         }
     }
 
@@ -62,16 +62,16 @@ class EntityValidator {
     protected function validateUnique($field, AbstractData $data, &$fieldErrors, &$valid) {
         $value = $this->entity->getRaw($field);
         if ($this->definition->isUnique($field) && $value) {
-            $params = array($field => $value);
+            $params          = array($field => $value);
             $paramsOperators = array($field => '=');
             if ($this->entity->get('id') !== null) {
-                $params['id'] = $this->entity->get('id');
+                $params['id']          = $this->entity->get('id');
                 $paramsOperators['id'] = '!=';
             }
             $amount = intval($data->countBy($this->definition->getTable(), $params, $paramsOperators, true));
             if ($amount > 0) {
                 $fieldErrors[$field]['unique'] = true;
-                $valid = false;
+                $valid                         = false;
             }
         }
     }
@@ -87,13 +87,13 @@ class EntityValidator {
      * the validation flag
      */
     protected function validateSet($field, &$fieldErrors, &$valid) {
-        $type = $this->definition->getType($field);
+        $type  = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
         if ($type == 'set' && $value) {
             $setItems = $this->definition->getSetItems($field);
             if (!in_array($value, $setItems)) {
                 $fieldErrors[$field]['input'] = true;
-                $valid = false;
+                $valid                        = false;
             }
         }
     }
@@ -113,15 +113,15 @@ class EntityValidator {
      * the validation flag
      */
     protected function validateNumber($field, $numberType, $expectedType, &$fieldErrors, &$valid) {
-        $type = $this->definition->getType($field);
-        $value = $this->entity->getRaw($field);
+        $type   = $this->definition->getType($field);
+        $value  = $this->entity->getRaw($field);
         $casted = $value;
         settype($casted, $numberType);
         if ($type == $expectedType
             && !in_array($value, array('', null), true)
             && (string)$casted != $value) {
             $fieldErrors[$field]['input'] = true;
-            $valid = false;
+            $valid                        = false;
         }
     }
 
@@ -136,12 +136,12 @@ class EntityValidator {
      * the validation flag
      */
     protected function validateDate($field, &$fieldErrors, &$valid) {
-        $type = $this->definition->getType($field);
+        $type  = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
         if ($type == 'date' && $value
             && \DateTime::createFromFormat('Y-m-d', $value) === false) {
             $fieldErrors[$field]['input'] = true;
-            $valid = false;
+            $valid                        = false;
         }
     }
 
@@ -156,13 +156,13 @@ class EntityValidator {
      * the validation flag
      */
     protected function validateDateTime($field, &$fieldErrors, &$valid) {
-        $type = $this->definition->getType($field);
+        $type  = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
         if ($type == 'datetime' && $value &&
             \DateTime::createFromFormat('Y-m-d H:i', $value) === false &&
             \DateTime::createFromFormat('Y-m-d H:i:s', $value) === false) {
             $fieldErrors[$field]['input'] = true;
-            $valid = false;
+            $valid                        = false;
         }
     }
 
@@ -179,15 +179,15 @@ class EntityValidator {
      * the validation flag
      */
     protected function validateReference($field, AbstractData $data, &$fieldErrors, &$valid) {
-        $type = $this->definition->getType($field);
+        $type  = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
         if ($type == 'reference' && $value !== '' && $value !== null) {
-            $params = array('id' => $value);
+            $params          = array('id' => $value);
             $paramsOperators = array('id' => '=');
-            $amount = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
+            $amount          = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
             if ($amount == 0) {
                 $fieldErrors[$field]['input'] = true;
-                $valid = false;
+                $valid                        = false;
             }
         }
     }
@@ -199,7 +199,7 @@ class EntityValidator {
      * the entity to validate
      */
     public function __construct(Entity $entity) {
-        $this->entity = $entity;
+        $this->entity     = $entity;
         $this->definition = $entity->getDefinition();
     }
 
@@ -224,13 +224,13 @@ class EntityValidator {
      */
     public function validate(AbstractData $data, $expectedVersion) {
 
-        $fields = $this->definition->getEditableFieldNames();
-        $fieldErrors = array();
-        $valid = true;
+        $fields            = $this->definition->getEditableFieldNames();
+        $fieldErrors       = array();
+        $valid             = true;
         $optimisticLocking = false;
 
         if ($this->entity->get('id') && $expectedVersion !== $this->entity->get('version')) {
-            $valid = false;
+            $valid             = false;
             $optimisticLocking = true;
         }
 

@@ -76,7 +76,7 @@ abstract class AbstractData {
      */
     protected function hydrate(array $row) {
         $fieldNames = $this->definition->getFieldNames();
-        $entity = new Entity($this->definition);
+        $entity     = new Entity($this->definition);
         foreach ($fieldNames as $fieldName) {
             $entity->set($fieldName, $row[$fieldName]);
         }
@@ -146,8 +146,8 @@ abstract class AbstractData {
      * the event function to be called if set
      */
     public function pushEvent($moment, $action, $function) {
-        $events = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : array();
-        $events[] = $function;
+        $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : array();
+        $events[]                          = $function;
         $this->events[$moment.'.'.$action] = $events;
     }
 

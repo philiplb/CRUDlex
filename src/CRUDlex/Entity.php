@@ -62,7 +62,7 @@ class Entity {
      */
     public function __construct(EntityDefinition $definition) {
         $this->definition = $definition;
-        $this->entity = array();
+        $this->entity     = array();
     }
 
     /**
@@ -115,7 +115,7 @@ class Entity {
             return null;
         }
 
-        $type = $this->definition->getType($field);
+        $type  = $this->definition->getType($field);
         $value = $this->toType($this->entity[$field], $type);
         return $value;
     }

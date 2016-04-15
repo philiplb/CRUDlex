@@ -106,7 +106,7 @@ class EntityDefinition {
      */
     protected function getFilteredFieldNames(array $exclude) {
         $fieldNames = $this->getFieldNames();
-        $result = array();
+        $result     = array();
         foreach ($fieldNames as $fieldName) {
             if (!in_array($fieldName, $exclude)) {
                 $result[] = $fieldName;
@@ -211,21 +211,21 @@ class EntityDefinition {
      * The current service provider
      */
     public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider) {
-        $this->table = $table;
+        $this->table  = $table;
         $this->fields = $fields;
-        $this->label = $label;
+        $this->label  = $label;
         $this->localeLabels = $localeLabels;
         $this->standardFieldLabels = $standardFieldLabels;
         $this->serviceProvider = $serviceProvider;
 
-        $this->children = array();
-        $this->listFields = array();
-        $this->childrenLabelFields = array();
-        $this->filter = array();
-        $this->deleteCascade = false;
-        $this->pageSize = 25;
-        $this->locale = null;
-        $this->initialSortField = 'created_at';
+        $this->children             = array();
+        $this->listFields           = array();
+        $this->childrenLabelFields  = array();
+        $this->filter               = array();
+        $this->deleteCascade        = false;
+        $this->pageSize             = 25;
+        $this->locale               = null;
+        $this->initialSortField     = 'created_at';
         $this->initialSortAscending = true;
     }
 
@@ -381,7 +381,7 @@ class EntityDefinition {
      */
     public function getPublicFieldNames() {
         $exclude = array('version', 'deleted_at');
-        $result = $this->getFilteredFieldNames($exclude);
+        $result  = $this->getFilteredFieldNames($exclude);
         return $result;
     }
 
