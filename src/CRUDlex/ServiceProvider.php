@@ -11,16 +11,14 @@
 
 namespace CRUDlex;
 
-use Silex\Application;
-use Silex\ServiceProviderInterface;
-use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Translation\Loader\YamlFileLoader;
-
-use CRUDlex\EntityDefinition;
 use CRUDlex\DataFactoryInterface;
-use CRUDlex\Entity;
+use CRUDlex\EntityDefinition;
 use CRUDlex\FileProcessorInterface;
 use CRUDlex\SimpleFilesystemFileProcessor;
+use Silex\Application;
+use Silex\ServiceProviderInterface;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * The ServiceProvider setups and initializes the whole CRUD system.
