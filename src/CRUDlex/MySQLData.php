@@ -417,6 +417,7 @@ class MySQLData extends AbstractData {
             ->select('COUNT(id)')
             ->from('`'.$table.'`', '`'.$table.'`');
 
+        $deletedExcluder = 'where';
         if (count($params) > 0) {
             $i = 0;
             foreach ($params as $name => $value) {
@@ -425,13 +426,10 @@ class MySQLData extends AbstractData {
                     ->setParameter($i, $value);
                 $i++;
             }
-            if ($excludeDeleted) {
-                $queryBuilder->andWhere('deleted_at IS NULL');
-            }
-        } else {
-            if ($excludeDeleted) {
-                $queryBuilder->where('deleted_at IS NULL');
-            }
+            $deletedExcluder = 'andWhere';
+        }
+        if ($excludeDeleted) {
+            $queryBuilder->$deletedExcluder('deleted_at IS NULL');
         }
 
         $queryResult = $queryBuilder->execute();

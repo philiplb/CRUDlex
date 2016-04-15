@@ -44,7 +44,7 @@ class Entity {
      * the converted value
      */
     protected function toType($value, $type) {
-        if (($type == 'integer' || $type == 'float') && $value !== '' && $value !== null) {
+        if (in_array($type, array('integer', 'float')) && $value !== '' && $value !== null) {
             settype($value, $type == 'integer' ? 'int' : 'float');
         } else if ($type == 'boolean') {
             $value = $value && $value !== '0';
