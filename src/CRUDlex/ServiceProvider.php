@@ -426,7 +426,7 @@ class ServiceProvider implements ServiceProviderInterface {
         $languageFiles = scandir($localeDir);
         $locales       = array();
         foreach ($languageFiles as $languageFile) {
-            if ($languageFile == '.' || $languageFile == '..') {
+            if (in_array($languageFile, array('.', '..'))) {
                 continue;
             }
             $extensionPos = strpos($languageFile, '.yml');

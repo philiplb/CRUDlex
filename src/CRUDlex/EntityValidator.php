@@ -181,7 +181,7 @@ class EntityValidator {
     protected function validateReference($field, AbstractData $data, &$fieldErrors, &$valid) {
         $type  = $this->definition->getType($field);
         $value = $this->entity->getRaw($field);
-        if ($type == 'reference' && $value !== '' && $value !== null) {
+        if ($type == 'reference' && !in_array($value, array('', null), true)) {
             $params          = array('id' => $value);
             $paramsOperators = array('id' => '=');
             $amount          = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);

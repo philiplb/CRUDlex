@@ -364,18 +364,17 @@ class MySQLData extends AbstractData {
             return false;
         }
 
+        $formFields   = $this->definition->getEditableFieldNames();
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
             ->update('`'.$this->definition->getTable().'`')
             ->set('updated_at', 'UTC_TIMESTAMP()')
-            ->set('version', 'version + 1');
-
-        $formFields = $this->definition->getEditableFieldNames();
-        $this->setValuesAndParameters($entity, $queryBuilder, 'set');
-        $affected = $queryBuilder
+            ->set('version', 'version + 1')
             ->where('id = ?')
-            ->setParameter(count($formFields), $entity->get('id'))
-            ->execute();
+            ->setParameter(count($formFields), $entity->get('id'));
+
+        $this->setValuesAndParameters($entity, $queryBuilder, 'set');
+        $affected = $queryBuilder->execute();
 
         $this->shouldExecuteEvents($entity, 'after', 'update');
 
