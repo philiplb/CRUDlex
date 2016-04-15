@@ -177,7 +177,7 @@ class ControllerProvider implements ControllerProviderInterface {
         $redirectEntity     = $app['request']->get('redirectEntity');
         $redirectId         = $app['request']->get('redirectId');
         if ($redirectEntity && $redirectId) {
-            $redirectPage = 'crudShow';
+            $redirectPage       = 'crudShow';
             $redirectParameters = array(
                 'entity' => $redirectEntity,
                 'id' => $redirectId
