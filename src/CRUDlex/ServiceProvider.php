@@ -236,7 +236,7 @@ class ServiceProvider implements ServiceProviderInterface {
                 'created_at' => $app['translator']->trans('crudlex.label.created_at'),
                 'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
             );
-            $definition          = new EntityDefinition(
+            $definition = new EntityDefinition(
                 $crud['table'],
                 $crud['fields'],
                 $label,

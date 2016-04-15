@@ -211,12 +211,12 @@ class EntityDefinition {
      * The current service provider
      */
     public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider) {
-        $this->table  = $table;
-        $this->fields = $fields;
-        $this->label  = $label;
-        $this->localeLabels = $localeLabels;
+        $this->table               = $table;
+        $this->fields              = $fields;
+        $this->label               = $label;
+        $this->localeLabels        = $localeLabels;
         $this->standardFieldLabels = $standardFieldLabels;
-        $this->serviceProvider = $serviceProvider;
+        $this->serviceProvider     = $serviceProvider;
 
         $this->children             = array();
         $this->listFields           = array();
