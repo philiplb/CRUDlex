@@ -235,19 +235,15 @@ class ControllerProvider implements ControllerProviderInterface {
     }
 
     /**
-     * Implements ControllerProviderInterface::connect() connecting this
-     * controller.
+     * Setups the routes.
      *
      * @param Application $app
      * the Application instance of the Silex application
      *
-     * @return SilexController\Collection
-     * this method is expected to return the used ControllerCollection instance
+     * @return mixed
+     * the created controller factory
      */
-    public function connect(Application $app) {
-
-        $this->setupTemplates($app);
-
+    protected function setupRoutes(Application $app) {
         $class   = get_class($this);
         $factory = $app['controllers_factory'];
         $factory->get('/resource/static', $class.'::staticFile')
@@ -268,7 +264,16 @@ class ControllerProvider implements ControllerProviderInterface {
                 ->bind('crudDeleteFile');
         $factory->get('/setting/locale/{locale}', $class.'::setLocale')
                 ->bind('crudSetLocale');
+        return $factory;
+    }
 
+    /**
+     * Setups i18n.
+     *
+     * @param Application $app
+     * the Application instance of the Silex application
+     */
+    protected function setupI18n(Application $app) {
         $app->before(function(Request $request, Application $app) {
             if ($app['crud']->isManagingI18n()) {
                 $locale = $app['session']->get('locale', 'en');
@@ -277,7 +282,22 @@ class ControllerProvider implements ControllerProviderInterface {
             $locale = $app['translator']->getLocale();
             $app['crud']->setLocale($locale);
         });
+    }
 
+    /**
+     * Implements ControllerProviderInterface::connect() connecting this
+     * controller.
+     *
+     * @param Application $app
+     * the Application instance of the Silex application
+     *
+     * @return SilexController\Collection
+     * this method is expected to return the used ControllerCollection instance
+     */
+    public function connect(Application $app) {
+        $this->setupTemplates($app);
+        $factory = $this->setupRoutes($app);
+        $this->setupI18n($app);
         return $factory;
     }
 
