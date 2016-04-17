@@ -219,6 +219,22 @@ class ControllerProvider implements ControllerProviderInterface {
     }
 
     /**
+     * Setups the templates.
+     *
+     * @param Application $app
+     * the Application instance of the Silex application
+     */
+    protected function setupTemplates(Application $app) {
+        if ($app->offsetExists('twig.loader.filesystem')) {
+            $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
+        }
+
+        if (!$app->offsetExists('crud.layout')) {
+            $app['crud.layout'] = '@crud/layout.twig';
+        }
+    }
+
+    /**
      * Implements ControllerProviderInterface::connect() connecting this
      * controller.
      *
@@ -229,13 +245,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * this method is expected to return the used ControllerCollection instance
      */
     public function connect(Application $app) {
-        if ($app->offsetExists('twig.loader.filesystem')) {
-            $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
-        }
 
-        if (!$app->offsetExists('crud.layout')) {
-            $app['crud.layout'] = '@crud/layout.twig';
-        }
+        $this->setupTemplates($app);
 
         $class   = get_class($this);
         $factory = $app['controllers_factory'];
