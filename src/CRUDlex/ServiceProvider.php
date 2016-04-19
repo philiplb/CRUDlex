@@ -84,15 +84,16 @@ class ServiceProvider implements ServiceProviderInterface {
      * the file contents
      */
     protected function readYaml($fileName) {
-        if (!file_exists($fileName) || !is_readable($fileName) || !is_file($fileName)) {
+        try {
+            $fileContent = file_get_contents($fileName);
+            $parsedYaml  = Yaml::parse($fileContent);
+            if (!is_array($parsedYaml)) {
+                $parsedYaml = array();
+            }
+            return $parsedYaml;
+        } catch (\Exception $e) {
             throw new \Exception('Could not open CRUD file '.$fileName);
         }
-        $fileContent = file_get_contents($fileName);
-        $parsedYaml  = Yaml::parse($fileContent);
-        if (!is_array($parsedYaml)) {
-            $parsedYaml = array();
-        }
-        return $parsedYaml;
     }
 
     /**
