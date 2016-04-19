@@ -9,6 +9,7 @@ Released: Upcoming
     - CRUDlex\Data -> CRUDlex\AbstractData
     - EntityDefinition::getInitialSortAscending() -> EntityDefinition::isInitialSortAscending()
     - ServiceProvider::getMangeI18N() -> ServiceProvider::isManagingI18n()
+- Attention: Fixed a security issue in the static file provider
 - Replaced the markdown manual and the APIGen documentation with an unified Sphinx version
 - Added RTL support in the i18n system
 - Added file handling events
