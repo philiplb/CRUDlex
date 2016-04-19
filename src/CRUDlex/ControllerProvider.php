@@ -581,12 +581,8 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     public function staticFile(Application $app) {
         $fileParam = $app['request']->get('file');
-        if (!$fileParam) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
-        }
-
-        $file = __DIR__.'/../static/'.$fileParam;
-        if (!file_exists($file)) {
+        $file      = __DIR__.'/../static/'.$fileParam;
+        if (!$fileParam || !file_exists($file)) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
         }
 
