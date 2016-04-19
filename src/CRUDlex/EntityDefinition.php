@@ -417,15 +417,14 @@ class EntityDefinition {
      * the type or null on invalid field name
      */
     public function getType($fieldName) {
-        switch ($fieldName) {
-            case 'id':
-                return 'string';
-            case 'created_at':
-            case 'updated_at':
-            case 'deleted_at':
-                return 'datetime';
-            case 'version':
-                return 'integer';
+        if ($fieldName === 'id') {
+            return 'string';
+        }
+        if ($fieldName === 'version') {
+            return 'integer';
+        }
+        if (in_array($fieldName, array('created_at', 'updated_at', 'deleted_at'))) {
+            return 'datetime';
         }
         return $this->getFieldValue($fieldName, 'type');
     }
