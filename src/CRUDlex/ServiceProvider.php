@@ -264,7 +264,7 @@ class ServiceProvider implements ServiceProviderInterface {
             if (!is_array($crud) || !isset($crud['fields'])) {
                 continue;
             }
-            $definition = $this->createDefinition($app, $locales, $crud, $name);
+            $definition         = $this->createDefinition($app, $locales, $crud, $name);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }
 
