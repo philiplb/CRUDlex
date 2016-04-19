@@ -580,7 +580,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * redirects to the instance details page or 404 on invalid input
      */
     public function staticFile(Application $app) {
-        $fileParam = $app['request']->get('file');
+        $fileParam = str_replace('..', '', $app['request']->get('file'));
         $file      = __DIR__.'/../static/'.$fileParam;
         if (!$fileParam || !file_exists($file)) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
