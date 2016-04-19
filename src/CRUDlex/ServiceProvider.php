@@ -204,6 +204,42 @@ class ServiceProvider implements ServiceProviderInterface {
     }
 
     /**
+     * Creates and setups an EntityDefinition instance.
+     *
+     * @param Application $app
+     * the application container
+     * @param array $locales
+     * the available locales
+     * @param array $crud
+     * the parsed YAML of a CRUD entity
+     * @param string $name
+     * the name of the entity
+     *
+     * @return EntityDefinition
+     * the EntityDefinition good to go
+     */
+    protected function createDefinition(Application $app, array $locales, array $crud, $name) {
+        $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
+        $localeLabels        = $this->getLocaleLabels($locales, $crud);
+        $standardFieldLabels = array(
+            'id' => $app['translator']->trans('crudlex.label.id'),
+            'created_at' => $app['translator']->trans('crudlex.label.created_at'),
+            'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
+        );
+
+        $definition = new EntityDefinition(
+            $crud['table'],
+            $crud['fields'],
+            $label,
+            $localeLabels,
+            $standardFieldLabels,
+            $this
+        );
+        $this->configureDefinition($definition, $crud);
+        return $definition;
+    }
+
+    /**
      * Initializes the instance.
      *
      * @param DataFactoryInterface $dataFactory
@@ -228,24 +264,7 @@ class ServiceProvider implements ServiceProviderInterface {
             if (!is_array($crud) || !isset($crud['fields'])) {
                 continue;
             }
-
-            $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
-            $localeLabels        = $this->getLocaleLabels($locales, $crud);
-            $standardFieldLabels = array(
-                'id' => $app['translator']->trans('crudlex.label.id'),
-                'created_at' => $app['translator']->trans('crudlex.label.created_at'),
-                'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
-            );
-
-            $definition = new EntityDefinition(
-                $crud['table'],
-                $crud['fields'],
-                $label,
-                $localeLabels,
-                $standardFieldLabels,
-                $this
-            );
-            $this->configureDefinition($definition, $crud);
+            $definition = $this->createDefinition($app, $locales, $crud, $name);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }
 
