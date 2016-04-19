@@ -603,6 +603,10 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isNotFound());
         $this->assertCount(1, $crawler->filter('html:contains("Resource not found")'));
 
+        $crawler = $client->request('GET', '/crud/resource/static?file=css/../css/vendor/bootstrap/bootstrap.min.css');
+        $this->assertTrue($client->getResponse()->isNotFound());
+        $this->assertCount(1, $crawler->filter('html:contains("Resource not found")'));
+
         ob_start();
         $crawler = $client->request('GET', '/crud/resource/static?file=css/vendor/bootstrap/bootstrap.min.css');
         $this->assertTrue($client->getResponse()->isOk());
