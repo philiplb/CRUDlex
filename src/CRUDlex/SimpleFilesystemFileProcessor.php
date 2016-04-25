@@ -44,7 +44,7 @@ class SimpleFilesystemFileProcessor implements FileProcessorInterface {
      * the constructed path for storing the file of the file field
      */
     protected function getPath($entityName, Entity $entity, $field) {
-        return $this->basePath . $entity->getDefinition()->getFilePath($field) . '/' . $entityName . '/' . $entity->get('id') . '/' . $field;
+        return $this->basePath.$entity->getDefinition()->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
     }
 
     /**
