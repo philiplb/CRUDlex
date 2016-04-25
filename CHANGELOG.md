@@ -13,6 +13,7 @@ Released: Upcoming
 - Replaced the markdown manual and the APIGen documentation with an unified Sphinx version
 - Added RTL support in the i18n system
 - Added file handling events
+- Made a base path configurable for the SimpleFilesystemFileProcessor
 - Added some more IDs and classes in the HTML to be more tweakable
 - Fixed a crash if the table name of an entity is a MySQL keyword
 - Fixed a crash if non required reference fields where not given

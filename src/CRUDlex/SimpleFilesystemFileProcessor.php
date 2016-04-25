@@ -25,6 +25,11 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class SimpleFilesystemFileProcessor implements FileProcessorInterface {
 
     /**
+     * Holds the base path where all files will be stored into subfolders.
+     */
+    protected $basePath;
+
+    /**
      * Constructs a file system path for the given parameters for storing the
      * file of the file field.
      *
@@ -39,7 +44,17 @@ class SimpleFilesystemFileProcessor implements FileProcessorInterface {
      * the constructed path for storing the file of the file field
      */
     protected function getPath($entityName, Entity $entity, $field) {
-        return $entity->getDefinition()->getFilePath($field).'/'.$entityName.'/'.$entity->get('id').'/'.$field;
+        return $this->basePath . $entity->getDefinition()->getFilePath($field) . '/' . $entityName . '/' . $entity->get('id') . '/' . $field;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param string $basePath
+     * the base path where all files will be stored into subfolders
+     */
+    public function __construct($basePath = '') {
+        $this->basePath = $basePath;
     }
 
     /**
