@@ -17,6 +17,7 @@ Released: Upcoming
 - Added some more IDs and classes in the HTML to be more tweakable
 - Fixed a crash if the table name of an entity is a MySQL keyword
 - Fixed a crash if non required reference fields where not given
+- Fixed a crash if referenced entities got soft deleted by a third party
 - Fixed and refactored a lot of things revealed by static code analysis
 
 ## 0.9.9

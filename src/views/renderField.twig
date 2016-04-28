@@ -17,12 +17,16 @@
 
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
-    <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
-        {{ reference['id'] }}
-        {% if 'name' in reference|keys %}
-            : {{ reference['name'] }}
-        {% endif %}
-    </a>
+    {% if reference is iterable %}
+        <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
+            {{ reference['id'] }}
+            {% if 'name' in reference|keys %}
+                : {{ reference['name'] }}
+            {% endif %}
+        </a>
+    {% else %}
+        <span class="text-danger glyphicon glyphicon-remove-circle" aria-hidden="true"></span> {{ reference }}
+    {% endif %}
 
 {% elseif type == 'multiline' %}
     {% if mode == 'list' %}
