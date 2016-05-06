@@ -23,7 +23,7 @@
 
         {% for field in fields %}
             <tr>
-                <td>
+                <td id="crudRow{{ field }}">
                     {{ definition.getFieldLabel(field) }}
                     {% if definition.getDescription(field) %}
                         <p><small>{{ definition.getDescription(field) }}</small></p>
