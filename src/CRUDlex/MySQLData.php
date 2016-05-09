@@ -89,7 +89,7 @@ class MySQLData extends AbstractData {
             $queryBuilder
                 ->select('COUNT(id)')
                 ->from('`'.$child[0].'`', '`'.$child[0].'`')
-                ->where($child[1].' = ?')
+                ->where('`'.$child[1].'` = ?')
                 ->andWhere('deleted_at IS NULL')
                 ->setParameter(0, $id);
             $queryResult = $queryBuilder->execute();
