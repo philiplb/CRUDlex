@@ -186,7 +186,7 @@ class MySQLData extends AbstractData {
     protected function addSort(QueryBuilder $queryBuilder, $sortField, $sortAscending) {
         if ($sortField !== null) {
             $order = $sortAscending === true ? 'ASC' : 'DESC';
-            $queryBuilder->orderBy($sortField, $order);
+            $queryBuilder->orderBy('`'.$sortField.'`', $order);
         }
     }
 
