@@ -15,6 +15,7 @@ Released: Upcoming
 - Added RTL support in the i18n system
 - Added file handling events
 - Made a base path configurable for the SimpleFilesystemFileProcessor
+- The ServiceProvider uses now static instantiation instead of calling his own class making it easier to override
 - Added some more IDs and classes in the HTML to be more tweakable
 - Fixed a crash if the table name of an entity is a MySQL keyword
 - Fixed a crash if the field name of an entity is a MySQL keyword

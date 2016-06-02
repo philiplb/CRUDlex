@@ -282,7 +282,7 @@ class ServiceProvider implements ServiceProviderInterface {
      */
     public function register(Application $app) {
         $app['crud'] = $app->share(function() use ($app) {
-            $result        = new ServiceProvider();
+            $result        = new static();
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
             $manageI18n    = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
             $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
