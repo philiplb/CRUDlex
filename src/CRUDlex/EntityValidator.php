@@ -54,7 +54,7 @@ class EntityValidator {
             'set' => array_merge(array('inSet'), $setItems),
             'reference' => array('reference', $data, $field)
         );
-        $type = $this->definition->getType($field);
+        $type  = $this->definition->getType($field);
         $rules = array();
         if (array_key_exists($type, $rulesMapping)) {
             $rules[] = $rulesMapping[$type];
@@ -144,7 +144,7 @@ class EntityValidator {
         $toValidate            = $this->buildUpData();
         $rules['version']      = array(array('value', $expectedVersion));
         $toValidate['version'] = $this->entity->get('version');
-        $validation = $validator->isValid($rules, $toValidate);
+        $validation            = $validator->isValid($rules, $toValidate);
         return $validation;
     }
 
