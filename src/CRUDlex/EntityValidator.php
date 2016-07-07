@@ -54,8 +54,8 @@ class EntityValidator {
             'set' => array_merge(array('inSet'), $setItems),
             'reference' => array('reference', $data, $field)
         );
-        $type  = $this->definition->getType($field);
-        $rules = array();
+        $type         = $this->definition->getType($field);
+        $rules        = array();
         if (array_key_exists($type, $rulesMapping)) {
             $rules[] = $rulesMapping[$type];
         }
@@ -131,9 +131,9 @@ class EntityValidator {
      * an array with the fields "valid" and "errors"; valid provides a quick
      * check whether the given entity passes the validation and errors is an
      * array with all errored fields as keys and arrays as values; this field arrays
-     * contains the actual errors on the field: boolean, floating, integer,
-     * dateTime (for dates and datetime fields), inSet, reference, required,
-     * unique, value (only for the version field, set if the optimistic locking
+     * contains the actual errors on the field: "boolean", "floating", "integer",
+     * "dateTime" (for dates and datetime fields), "inSet", "reference", "required",
+     * "unique", "value" (only for the version field, set if the optimistic locking
      * failed).
      */
     public function validate(AbstractData $data, $expectedVersion) {
