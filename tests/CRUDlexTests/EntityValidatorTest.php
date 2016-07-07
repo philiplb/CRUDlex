@@ -44,49 +44,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $valid =  array(
             'valid' => true,
-            'optimisticLocking' => false,
-            'fields' => array(
-                'title' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'author' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'pages' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'release' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'library' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'secondLibrary' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'cover' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'price' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                )
-            )
+            'errors' => array()
         );
         $invalid = $valid;
         $invalid['valid'] = false;
@@ -99,7 +57,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('title', null);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['fields']['title']['required'] = true;
+        $expected['errors']['title'] = array('required');
         $this->assertSame($read, $expected);
         $entityBook->set('title', 'title');
 
@@ -112,39 +70,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('title', 'title');
         $this->dataBook->getDefinition()->setFixedValue('title', null);
 
-        $validLibrary = array(
-            'valid' => true,
-            'optimisticLocking' => false,
-            'fields' => array(
-                'name' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'type' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'opening' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'isOpenOnSundays' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                ),
-                'planet' => array(
-                    'required' => false,
-                    'unique' => false,
-                    'input' => false
-                )
-            )
-        );
-        $invalidLibrary = $validLibrary;
-        $invalidLibrary = $validLibrary;
+        $invalidLibrary = $valid;
         $invalidLibrary['valid'] = false;
 
         $entityLibrary2 = $this->dataLibrary->createEmpty();
@@ -152,55 +78,55 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $validatorLibrary2 = new EntityValidator($entityLibrary2);
         $read = $validatorLibrary2->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['fields']['name']['unique'] = true;
+        $expected['errors']['name'] = array('unique');
         $this->assertSame($read, $expected);
 
         $entityLibrary1->set('type', 'large');
 
         $validatorLibrary1 = new EntityValidator($entityLibrary1);
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
-        $expected = $validLibrary;
+        $expected = $valid;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('type', 'foo');
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['fields']['type']['input'] = true;
+        $expected['errors']['type'] = array('inSet');
         $this->assertSame($read, $expected);
         $entityLibrary1->set('type', null);
 
         $entityLibrary1->set('opening', '2014-08-31 12:00');
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
-        $expected = $validLibrary;
+        $expected = $valid;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', '2014-08-31 12:00:00');
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
-        $expected = $validLibrary;
+        $expected = $valid;
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', 'foo');
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['fields']['opening']['input'] = true;
+        $expected['errors']['opening'] = array('or');
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', null);
 
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
-        $expected = $validLibrary;
+        $expected = $valid;
         $this->assertSame($read, $expected);
 
         $entityLibrary2->set('name', 'lib b');
         $this->dataLibrary->create($entityLibrary2);
-        $expected = $validLibrary;
+        $expected = $valid;
         $this->assertSame($read, $expected);
         $entityLibrary2->set('name', 'lib a');
         $read = $validatorLibrary2->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['fields']['name']['unique'] = true;
+        $expected['errors']['name'] = array('unique');
         $this->assertSame($read, $expected);
 
         $entityBook->set('pages', 'abc');
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['fields']['pages']['input'] = true;
+        $expected['errors']['pages'] = array('integer');
         $this->assertSame($read, $expected);
         $entityBook->set('pages', 111);
 
@@ -213,14 +139,14 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('pages', null);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['fields']['pages']['required'] = true;
+        $expected['errors']['pages'] = array('required');
         $this->assertSame($read, $expected);
         $entityBook->set('pages', 111);
 
         $entityBook->set('price', 'abc');
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['fields']['price']['input'] = true;
+        $expected['errors']['price'] = array('floating');
         $this->assertSame($read, $expected);
         $entityBook->set('price', 3.99);
 
@@ -239,14 +165,14 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('release', 'abc');
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['fields']['release']['input'] = true;
+        $expected['errors']['release'] = array('dateTime');
         $this->assertSame($read, $expected);
         $entityBook->set('release', '2014-08-31');
 
         $entityBook->set('library', 666);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['fields']['library']['input'] = true;
+        $expected['errors']['library'] = array('reference');
         $this->assertSame($read, $expected, 0);
         $entityBook->set('library', $entityLibrary1->get('id'));
     }

@@ -11,6 +11,7 @@
 
 namespace CRUDlex;
 
+use Valdi\Validator;
 use CRUDlex\AbstractData;
 
 /**
@@ -29,167 +30,83 @@ class EntityValidator {
     protected $definition;
 
     /**
-     * Validates the given field for the required constraint.
+     * Builds up the validation rules for a single field according to the
+     * entity definition.
      *
      * @param string $field
-     * the field to validate
-     * @param array &$fieldErrors
-     * the error collecting array
-     * @param boolean &$valid
-     * the validation flag
-     */
-    protected function validateRequired($field, &$fieldErrors, &$valid) {
-        if ($this->definition->isRequired($field)
-            && !$this->definition->getFixedValue($field)
-            && in_array($this->entity->getRaw($field), array(null, ''), true)) {
-            $fieldErrors[$field]['required'] = true;
-            $valid                           = false;
-        }
-    }
-
-    /**
-     * Validates the given field for the unique constraint.
-     *
-     * @param string $field
-     * the field to validate
+     * the field for the rules
      * @param AbstractData $data
-     * the data instance to work with
-     * @param array &$fieldErrors
-     * the error collecting array
-     * @param boolean &$valid
-     * the validation flag
+     * the data instance to use for validation
+     *
+     * @return array
+     * the validation rules for the field
      */
-    protected function validateUnique($field, AbstractData $data, &$fieldErrors, &$valid) {
-        $value = $this->entity->getRaw($field);
-        if ($this->definition->isUnique($field) && $value) {
-            $params          = array($field => $value);
-            $paramsOperators = array($field => '=');
-            if ($this->entity->get('id') !== null) {
-                $params['id']          = $this->entity->get('id');
-                $paramsOperators['id'] = '!=';
-            }
-            $amount = intval($data->countBy($this->definition->getTable(), $params, $paramsOperators, true));
-            if ($amount > 0) {
-                $fieldErrors[$field]['unique'] = true;
-                $valid                         = false;
-            }
+    protected function fieldToRules($field, AbstractData $data, Validator $validator) {
+        $setItems = $this->definition->getSetItems($field);
+        if ($setItems === null) {
+            $setItems = array();
         }
+        $rulesMapping = array(
+            'boolean' => array('boolean'),
+            'float' => array('floating'),
+            'integer' => array('integer'),
+            'date' => array('dateTime', 'Y-m-d'),
+            'datetime' => array('or', $validator, array('dateTime', 'Y-m-d H:i'), array('dateTime', 'Y-m-d H:i:s')),
+            'set' => array_merge(array('inSet'), $setItems),
+            'reference' => array('reference', $data, $field)
+        );
+        $type = $this->definition->getType($field);
+        $rules = array();
+        if (array_key_exists($type, $rulesMapping)) {
+            $rules[] = $rulesMapping[$type];
+        }
+        if ($this->definition->isRequired($field)) {
+            $rules[] = array('required');
+        }
+        if ($this->definition->isUnique($field)) {
+            $rules[] = array('unique', $data, $this->entity, $field);
+        }
+        return $rules;
     }
 
     /**
-     * Validates the given field for the set type.
-     *
-     * @param string $field
-     * the field to validate
-     * @param array &$fieldErrors
-     * the error collecting array
-     * @param boolean &$valid
-     * the validation flag
-     */
-    protected function validateSet($field, &$fieldErrors, &$valid) {
-        $type  = $this->definition->getType($field);
-        $value = $this->entity->getRaw($field);
-        if ($type == 'set' && $value) {
-            $setItems = $this->definition->getSetItems($field);
-            if (!in_array($value, $setItems)) {
-                $fieldErrors[$field]['input'] = true;
-                $valid                        = false;
-            }
-        }
-    }
-
-    /**
-     * Validates the given field for a number type.
-     *
-     * @param string $field
-     * the field to validate
-     * @param string $numberType
-     * the type, might be 'int' or 'float'
-     * @param string $expectedType
-     * the expected CRUDlex type, might be 'integer' or 'float'
-     * @param array &$fieldErrors
-     * the error collecting array
-     * @param boolean &$valid
-     * the validation flag
-     */
-    protected function validateNumber($field, $numberType, $expectedType, &$fieldErrors, &$valid) {
-        $type   = $this->definition->getType($field);
-        $value  = $this->entity->getRaw($field);
-        $casted = $value;
-        settype($casted, $numberType);
-        if ($type == $expectedType
-            && !in_array($value, array('', null), true)
-            && (string)$casted != $value) {
-            $fieldErrors[$field]['input'] = true;
-            $valid                        = false;
-        }
-    }
-
-    /**
-     * Validates the given field for the date type.
-     *
-     * @param string $field
-     * the field to validate
-     * @param array &$fieldErrors
-     * the error collecting array
-     * @param boolean &$valid
-     * the validation flag
-     */
-    protected function validateDate($field, &$fieldErrors, &$valid) {
-        $type  = $this->definition->getType($field);
-        $value = $this->entity->getRaw($field);
-        if ($type == 'date' && $value
-            && \DateTime::createFromFormat('Y-m-d', $value) === false) {
-            $fieldErrors[$field]['input'] = true;
-            $valid                        = false;
-        }
-    }
-
-    /**
-     * Validates the given field for the datetime type.
-     *
-     * @param string $field
-     * the field to validate
-     * @param array &$fieldErrors
-     * the error collecting array
-     * @param boolean &$valid
-     * the validation flag
-     */
-    protected function validateDateTime($field, &$fieldErrors, &$valid) {
-        $type  = $this->definition->getType($field);
-        $value = $this->entity->getRaw($field);
-        if ($type == 'datetime' && $value &&
-            \DateTime::createFromFormat('Y-m-d H:i', $value) === false &&
-            \DateTime::createFromFormat('Y-m-d H:i:s', $value) === false) {
-            $fieldErrors[$field]['input'] = true;
-            $valid                        = false;
-        }
-    }
-
-    /**
-     * Validates the given field for the reference type.
-     *
-     * @param string $field
-     * the field to validate
+     * Builds up the validation rules for the entity according to its
+     * definition.
      * @param AbstractData $data
-     * the data instance to work with
-     * @param array &$fieldErrors
-     * the error collecting array
-     * @param boolean &$valid
-     * the validation flag
+     * the data instance to use for validation
+     *
+     * @return array
+     * the validation rules for the entity
      */
-    protected function validateReference($field, AbstractData $data, &$fieldErrors, &$valid) {
-        $type  = $this->definition->getType($field);
-        $value = $this->entity->getRaw($field);
-        if ($type == 'reference' && !in_array($value, array('', null), true)) {
-            $params          = array('id' => $value);
-            $paramsOperators = array('id' => '=');
-            $amount          = $data->countBy($this->definition->getReferenceTable($field), $params, $paramsOperators, false);
-            if ($amount == 0) {
-                $fieldErrors[$field]['input'] = true;
-                $valid                        = false;
+    protected function buildUpRules(AbstractData $data, Validator $validator) {
+        $fields = $this->definition->getEditableFieldNames();
+        $rules = array();
+        foreach ($fields as $field) {
+            $fieldRules = $this->fieldToRules($field, $data, $validator);
+            if (!empty($fieldRules)) {
+                $rules[$field] = $fieldRules;
             }
         }
+        return $rules;
+    }
+
+    /**
+     * Builds up the data to validate from the entity.
+     *
+     * @return array
+     * a map field to raw value
+     */
+    protected function buildUpData() {
+        $data   = array();
+        $fields = $this->definition->getEditableFieldNames();
+        foreach ($fields as $field) {
+            $data[$field] = $this->entity->getRaw($field);
+            $fixed        = $this->definition->getFixedValue($field);
+            if ($fixed) {
+                $data[$field] = $fixed;
+            }
+        }
+        return $data;
     }
 
     /**
@@ -212,47 +129,24 @@ class EntityValidator {
      * the version to perform the optimistic locking check on
      *
      * @return array
-     * an array with the fields "valid" and "fields"; valid provides a quick
-     * check whether the given entity passes the validation and fields is an
-     * array with all fields as keys and arrays as values; this field arrays
-     * contain three keys: required, unique and input; each of them represents
-     * with a boolean whether the input is ok in that way; if "required" is
-     * true, the field wasn't set, unique means the uniqueness of the field in
-     * the datasource and input is used to indicate whether the form of the
-     * value is correct (a valid int, date, depending on the type in the
-     * definition)
+     * an array with the fields "valid" and "errors"; valid provides a quick
+     * check whether the given entity passes the validation and errors is an
+     * array with all errored fields as keys and arrays as values; this field arrays
+     * contains the actual errors on the field: boolean, floating, integer,
+     * dateTime (for dates and datetime fields), inSet, reference, required,
+     * unique, value (only for the version field, set if the optimistic locking
+     * failed).
      */
     public function validate(AbstractData $data, $expectedVersion) {
-
-        $fields            = $this->definition->getEditableFieldNames();
-        $fieldErrors       = array();
-        $valid             = true;
-        $optimisticLocking = false;
-
-        if ($this->entity->get('id') && $expectedVersion !== $this->entity->get('version')) {
-            $valid             = false;
-            $optimisticLocking = true;
-        }
-
-        foreach ($fields as $field) {
-            $fieldErrors[$field] = array('required' => false, 'unique' => false, 'input' => false);
-
-            $this->validateRequired($field, $fieldErrors, $valid);
-            $this->validateUnique($field, $data, $fieldErrors, $valid);
-
-            $this->validateSet($field, $fieldErrors, $valid);
-            $this->validateNumber($field, 'int', 'integer', $fieldErrors, $valid);
-            $this->validateNumber($field, 'float', 'float', $fieldErrors, $valid);
-            $this->validateDate($field, $fieldErrors, $valid);
-            $this->validateDateTime($field, $fieldErrors, $valid);
-            $this->validateReference($field, $data, $fieldErrors, $valid);
-
-        }
-        return array(
-            'valid' => $valid,
-            'optimisticLocking' => $optimisticLocking,
-            'fields' => $fieldErrors
-        );
+        $validator = new Validator();
+        $validator->addValidator('unique', new UniqueValidator());
+        $validator->addValidator('reference', new ReferenceValidator());
+        $rules                 = $this->buildUpRules($data, $validator);
+        $toValidate            = $this->buildUpData();
+        $rules['version']      = array(array('value', $expectedVersion));
+        $toValidate['version'] = $this->entity->get('version');
+        $validation = $validator->isValid($rules, $toValidate);
+        return $validation;
     }
 
 }

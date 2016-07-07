@@ -10,7 +10,10 @@ Released: Upcoming
     - EntityDefinition::getInitialSortAscending() -> EntityDefinition::isInitialSortAscending()
     - ServiceProvider::getMangeI18N() -> ServiceProvider::isManagingI18n()
     - Show-Page: The id "crudEntityShowTable" is now a class
+    - CRUDlex\EntityValidator changed its return structure to the one of Valdi:
+      http://philiplb.github.io/Valdi/docs/html/0.9.0/manual/gettingstarted.html#validation
 - Attention: Fixed a security issue in the static file provider
+- Changed the entity validation to https://github.com/philiplb/Valdi
 - Replaced the markdown manual and the APIGen documentation with an unified Sphinx version
 - Added RTL support in the i18n system
 - Added file handling events

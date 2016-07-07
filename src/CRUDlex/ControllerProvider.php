@@ -133,9 +133,10 @@ class ControllerProvider implements ControllerProviderInterface {
             $validator  = new EntityValidator($instance);
             $validation = $validator->validate($crudData, intval($app['request']->get('version')));
 
-            $fieldErrors = $validation['fields'];
+            $fieldErrors = $validation['errors'];
             if (!$validation['valid']) {
-                $this->setValidationFailedFlashes($app, $validation['optimisticLocking'], $mode);
+                $optimisticLocking = isset($fieldErrors['version']);
+                $this->setValidationFailedFlashes($app, $optimisticLocking, $mode);
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
                 $response = $modified ? $this->modifyFilesAndSetFlashBag($app, $crudData, $instance, $entity, $mode) : false;
