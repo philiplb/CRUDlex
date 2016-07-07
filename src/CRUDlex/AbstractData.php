@@ -229,10 +229,10 @@ abstract class AbstractData {
     abstract public function update(Entity $entity);
 
     /**
-     * Deletes an entry from the datasource having the given id.
+     * Deletes an entry from the datasource.
      *
      * @param Entity $entity
-     * the id of the entry to delete
+     * the entity to delete
      *
      * @return integer
      * returns one of:
