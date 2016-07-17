@@ -19,7 +19,7 @@
         "symfony/yaml": "~2.8",
         "symfony/translation": "~2.8",
         "symfony/intl": "~2.8",
-        "philiplb/valdi": "0.9.x-dev"
+        "philiplb/valdi": "0.9.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8",

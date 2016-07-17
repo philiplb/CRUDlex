@@ -36,4 +36,11 @@ class ReferenceValidator implements ValidatorInterface {
         return $amount > 0;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getInvalidDetails() {
+        return 'reference';
+    }
+
 }

@@ -105,7 +105,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityLibrary1->set('opening', 'foo');
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['errors']['opening'] = array('or');
+        $expected['errors']['opening'] = array(array('or' => array('dateTime', 'dateTime')));
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', null);
 

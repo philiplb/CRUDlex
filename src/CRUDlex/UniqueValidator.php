@@ -40,4 +40,11 @@ class UniqueValidator implements ValidatorInterface {
         return $amount == 0;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getInvalidDetails() {
+        return 'unique';
+    }
+
 }
