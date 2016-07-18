@@ -10,11 +10,15 @@
 <script src="{{ app.url_generator.generate('static', {file: 'js/vendor/jquery-2.2.0.min.js'}) }}"></script>
 <script src="{{ app.url_generator.generate('static', {file: 'js/vendor/bootstrap/bootstrap.min.js'}) }}"></script>
 <script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/moment.min.js'}) }}"></script>
-<script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/bootstrap-datetimepicker.min.js'}) }}"></script>
+<script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/flatpickr/flatpickr.min.js'}) }}"></script>
 <script type="text/javascript">
-    $('.crudDates').datetimepicker({
-        format: 'YYYY-MM-dd'
+    flatpickr('.crudDates', {
+        dateFormat: 'Y-m-d'
     });
-    $('.crudDatetimes').datetimepicker();
+    flatpickr('.crudDatetimes', {
+        dateFormat: 'Y-m-d H:i',
+        enableTime: true,
+        time_24hr: true
+    });
     $('.tooltip-crudlex').tooltip({'placement': 'auto'});
 </script>

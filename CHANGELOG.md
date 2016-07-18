@@ -12,8 +12,10 @@ Released: Upcoming
     - Show-Page: The id "crudEntityShowTable" is now a class
     - CRUDlex\EntityValidator changed its return structure to the one of Valdi:
       http://philiplb.github.io/Valdi/docs/html/0.9.0/manual/gettingstarted.html#validation
+    - The date and datetime fields changed moved their classes to the input fields and changed their names to "crudDate" and "crudDateTime"
 - Attention: Fixed a security issue in the static file provider
 - Changed the entity validation to https://github.com/philiplb/Valdi
+- Changed the date and date time pickers to https://github.com/chmln/flatpickr
 - Replaced the markdown manual and the APIGen documentation with an unified Sphinx version
 - Added RTL support in the i18n system
 - Added file handling events

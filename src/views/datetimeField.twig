@@ -12,9 +12,4 @@
     definition: crudData.getDefinition(),
     annotations: annotations
 } only %}
-<div class='input-group date crudDatetimes'>
-    <input type='text' class="form-control" id="{{ field }}" value="{{ app.crud.formatDateTime(value, false) }}" name="{{ fieldNamePrefix ~ field }}" data-date-format="YYYY-MM-DD HH:mm"/>
-    <span class="input-group-addon">
-        <span class="glyphicon glyphicon-calendar"></span>
-    </span>
-</div>
+<input type='text' class="form-control crudDateTime" id="{{ field }}" value="{{ app.crud.formatDateTime(value, false) }}" name="{{ fieldNamePrefix ~ field }}"/>
