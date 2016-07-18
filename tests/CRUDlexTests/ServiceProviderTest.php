@@ -14,6 +14,7 @@ namespace CRUDlexTests;
 use CRUDlex\ServiceProvider;
 use CRUDlex\MySQLDataFactory;
 use CRUDlexTestEnv\NullFileProcessor;
+use CRUDlexTestEnv\TestEntityDefinitionFactory;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
@@ -274,6 +275,15 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $expected = 'id';
         $read = $data->getDefinition()->isInitialSortAscending();
         $this->assertTrue($read);
+    }
+
+    public function testCustomEntityDefinitionFactory() {
+        $crudServiceProvider = new ServiceProvider();
+        $app = new Application();
+        $testEntityDefinitionFactory = new TestEntityDefinitionFactory();
+        $app['crud.entitydefinitionfactory'] = $testEntityDefinitionFactory;
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
+        $this->assertTrue($testEntityDefinitionFactory->getCreateHasBeenCalled());
     }
 
 }

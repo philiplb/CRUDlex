@@ -12,10 +12,10 @@
 <script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/moment.min.js'}) }}"></script>
 <script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/flatpickr/flatpickr.min.js'}) }}"></script>
 <script type="text/javascript">
-    flatpickr('.crudDates', {
+    flatpickr('.crudDate', {
         dateFormat: 'Y-m-d'
     });
-    flatpickr('.crudDatetimes', {
+    flatpickr('.crudDatetime', {
         dateFormat: 'Y-m-d H:i',
         enableTime: true,
         time_24hr: true
