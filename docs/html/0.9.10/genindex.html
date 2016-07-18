@@ -95,15 +95,18 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="api/AbstractData.html">CRUDlex\AbstractData</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/Data.html">CRUDlex\Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
             
@@ -194,12 +197,34 @@
   <dt><a href="api/MySQLDataFactory.html#MySQLDataFactory::__construct"><strong>(MySQLDataFactory method)</strong></a>
   </dt>
 
+        
+  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::__construct"><strong>(SimpleFilesystemFileProcessor method)</strong></a>
+  </dt>
+
       </dl></dd>
   </dl></td>
 </tr></table>
 
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/AbstractData.html#AbstractData"><strong>AbstractData (class)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::DELETION_FAILED_EVENT"><strong>AbstractData::DELETION_FAILED_EVENT (class constant)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::DELETION_FAILED_STILL_REFERENCED"><strong>AbstractData::DELETION_FAILED_STILL_REFERENCED (class constant)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::DELETION_SUCCESS"><strong>AbstractData::DELETION_SUCCESS (class constant)</strong></a>
+  </dt>
+
+  </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::addChild"><strong>addChild() (EntityDefinition method)</strong></a>
@@ -209,8 +234,6 @@
   <dt><a href="api/MySQLData.html#MySQLData::addFilter"><strong>addFilter() (MySQLData method)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/MySQLData.html#MySQLData::addPagination"><strong>addPagination() (MySQLData method)</strong></a>
   </dt>
@@ -230,13 +253,25 @@
   </dt>
 
       
+  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::$basePath"><strong>basePath (SimpleFilesystemFileProcessor property)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/ServiceProvider.html#ServiceProvider::boot"><strong>boot() (ServiceProvider method)</strong></a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api/EntityValidator.html#EntityValidator::buildUpData"><strong>buildUpData() (EntityValidator method)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/ControllerProvider.html#ControllerProvider::buildUpListFilter"><strong>buildUpListFilter() (ControllerProvider method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/EntityValidator.html#EntityValidator::buildUpRules"><strong>buildUpRules() (EntityValidator method)</strong></a>
   </dt>
 
   </dl></td>
@@ -266,7 +301,7 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::countBy"><strong>countBy() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::countBy"><strong>countBy() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -275,15 +310,13 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/ControllerProvider.html#ControllerProvider::create"><strong>create() (ControllerProvider method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::create"><strong>create() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="api/Data.html#Data::create"><strong>(Data method)</strong></a>
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::create"><strong>(ControllerProvider method)</strong></a>
   </dt>
 
         
@@ -291,6 +324,8 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/DataFactoryInterface.html#DataFactoryInterface::createData"><strong>createData() (DataFactoryInterface method)</strong></a>
   </dt>
@@ -302,12 +337,26 @@
 
       </dl></dd>
       
-  <dt><a href="api/Data.html#Data::createEmpty"><strong>createEmpty() (Data method)</strong></a>
+  <dt><a href="api/ServiceProvider.html#ServiceProvider::createDefinition"><strong>createDefinition() (ServiceProvider method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::createEmpty"><strong>createEmpty() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
         
   <dt><a href="api/MySQLData.html#MySQLData::createEmpty"><strong>(MySQLData method)</strong></a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api/EntityDefinitionFactory.html#EntityDefinitionFactory::createEntityDefinition"><strong>createEntityDefinition() (EntityDefinitionFactory method)</strong></a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/EntityDefinitionFactoryInterface.html#EntityDefinitionFactoryInterface::createEntityDefinition"><strong>(EntityDefinitionFactoryInterface method)</strong></a>
   </dt>
 
       </dl></dd>
@@ -322,7 +371,7 @@
 
       </dl></dd>
       
-  <dt><a href="api/Data.html#Data::createFiles"><strong>createFiles() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::createFiles"><strong>createFiles() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -338,21 +387,15 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/Data.html#Data"><strong>Data (class)</strong></a>
+  <dt><a href="api/MySQLData.html#MySQLData::$database"><strong>database (MySQLData property)</strong></a>
   </dt>
 
-      
-  <dt><a href="api/Data.html#Data::DELETION_FAILED_EVENT"><strong>Data::DELETION_FAILED_EVENT (class constant)</strong></a>
+      <dd><dl>
+        
+  <dt><a href="api/MySQLDataFactory.html#MySQLDataFactory::$database"><strong>(MySQLDataFactory property)</strong></a>
   </dt>
 
-      
-  <dt><a href="api/Data.html#Data::DELETION_FAILED_STILL_REFERENCED"><strong>Data::DELETION_FAILED_STILL_REFERENCED (class constant)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/Data.html#Data::DELETION_SUCCESS"><strong>Data::DELETION_SUCCESS (class constant)</strong></a>
-  </dt>
-
+      </dl></dd>
       
   <dt><a href="api/DataFactoryInterface.html#DataFactoryInterface"><strong>DataFactoryInterface (interface)</strong></a>
   </dt>
@@ -362,19 +405,7 @@
   </dt>
 
       
-  <dt><a href="api/MySQLData.html#MySQLData::$db"><strong>db (MySQLData property)</strong></a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="api/MySQLDataFactory.html#MySQLDataFactory::$db"><strong>(MySQLDataFactory property)</strong></a>
-  </dt>
-
-      </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="api/Data.html#Data::$definition"><strong>definition (Data property)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::$definition"><strong>definition (AbstractData property)</strong></a>
   </dt>
 
       <dd><dl>
@@ -392,12 +423,12 @@
 
       </dl></dd>
       
-  <dt><a href="api/ControllerProvider.html#ControllerProvider::delete"><strong>delete() (ControllerProvider method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::delete"><strong>delete() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="api/Data.html#Data::delete"><strong>(Data method)</strong></a>
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::delete"><strong>(ControllerProvider method)</strong></a>
   </dt>
 
         
@@ -405,6 +436,8 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::$deleteCascade"><strong>deleteCascade (EntityDefinition property)</strong></a>
   </dt>
@@ -414,12 +447,12 @@
   </dt>
 
       
-  <dt><a href="api/ControllerProvider.html#ControllerProvider::deleteFile"><strong>deleteFile() (ControllerProvider method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::deleteFile"><strong>deleteFile() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="api/Data.html#Data::deleteFile"><strong>(Data method)</strong></a>
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::deleteFile"><strong>(ControllerProvider method)</strong></a>
   </dt>
 
         
@@ -436,7 +469,7 @@
 
       </dl></dd>
       
-  <dt><a href="api/Data.html#Data::deleteFiles"><strong>deleteFiles() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::deleteFiles"><strong>deleteFiles() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -446,7 +479,7 @@
 
       </dl></dd>
       
-  <dt><a href="api/Data.html#Data::doDelete"><strong>doDelete() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::doDelete"><strong>doDelete() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -486,26 +519,24 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api/EntityDefinitionFactory.html#EntityDefinitionFactory"><strong>EntityDefinitionFactory (class)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/EntityDefinitionFactoryInterface.html#EntityDefinitionFactoryInterface"><strong>EntityDefinitionFactoryInterface (interface)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/EntityValidator.html#EntityValidator"><strong>EntityValidator (class)</strong></a>
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::$events"><strong>events (Data property)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::$events"><strong>events (AbstractData property)</strong></a>
   </dt>
 
       <dd><dl>
         
   <dt><a href="api/MySQLData.html#MySQLData::$events"><strong>(MySQLData property)</strong></a>
-  </dt>
-
-      </dl></dd>
-      
-  <dt><a href="api/Data.html#Data::executeEvents"><strong>executeEvents() (Data method)</strong></a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::executeEvents"><strong>(MySQLData method)</strong></a>
   </dt>
 
       </dl></dd>
@@ -516,7 +547,7 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/Data.html#Data::fetchReferences"><strong>fetchReferences() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::fetchReferences"><strong>fetchReferences() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -534,7 +565,11 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::$fileProcessor"><strong>fileProcessor (Data property)</strong></a>
+  <dt><a href="api/EntityValidator.html#EntityValidator::fieldToRules"><strong>fieldToRules() (EntityValidator method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::$fileProcessor"><strong>fileProcessor (AbstractData property)</strong></a>
   </dt>
 
       <dd><dl>
@@ -580,7 +615,7 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::get"><strong>get() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::get"><strong>get() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -610,7 +645,7 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::getDefinition"><strong>getDefinition() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::getDefinition"><strong>getDefinition() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -668,23 +703,29 @@
   </dt>
 
       
-  <dt><a href="api/EntityDefinition.html#EntityDefinition::getInitialSortAscending"><strong>getInitialSortAscending() (EntityDefinition method)</strong></a>
-  </dt>
-
-      
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getInitialSortField"><strong>getInitialSortField() (EntityDefinition method)</strong></a>
   </dt>
 
       
-  <dt><a href="api/EntityDefinition.html#EntityDefinition::getLabel"><strong>getLabel() (EntityDefinition method)</strong></a>
+  <dt><a href="api/ReferenceValidator.html#ReferenceValidator::getInvalidDetails"><strong>getInvalidDetails() (ReferenceValidator method)</strong></a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="api/UniqueValidator.html#UniqueValidator::getInvalidDetails"><strong>(UniqueValidator method)</strong></a>
+  </dt>
+
+      </dl></dd>
       
-  <dt><a href="api/ServiceProvider.html#ServiceProvider::getLanguageName"><strong>getLanguageName() (ServiceProvider method)</strong></a>
+  <dt><a href="api/EntityDefinition.html#EntityDefinition::getLabel"><strong>getLabel() (EntityDefinition method)</strong></a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/ServiceProvider.html#ServiceProvider::getLanguageName"><strong>getLanguageName() (ServiceProvider method)</strong></a>
+  </dt>
+
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getListFields"><strong>getListFields() (EntityDefinition method)</strong></a>
   </dt>
@@ -695,10 +736,6 @@
 
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::getLocales"><strong>getLocales() (ServiceProvider method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/ServiceProvider.html#ServiceProvider::getManageI18n"><strong>getManageI18n() (ServiceProvider method)</strong></a>
   </dt>
 
       
@@ -734,7 +771,7 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::getReferences"><strong>getReferences() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::getReferences"><strong>getReferences() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -788,7 +825,7 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/Data.html#Data::hydrate"><strong>hydrate() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::hydrate"><strong>hydrate() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -823,8 +860,6 @@
   <dt><a href="api/ServiceProvider.html#ServiceProvider::initLocales"><strong>initLocales() (ServiceProvider method)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::initMissingServiceProviders"><strong>initMissingServiceProviders() (ServiceProvider method)</strong></a>
   </dt>
@@ -833,8 +868,18 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::isConstraint"><strong>isConstraint() (EntityDefinition method)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::isDeleteCascade"><strong>isDeleteCascade() (EntityDefinition method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/EntityDefinition.html#EntityDefinition::isInitialSortAscending"><strong>isInitialSortAscending() (EntityDefinition method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/ServiceProvider.html#ServiceProvider::isManagingI18n"><strong>isManagingI18n() (ServiceProvider method)</strong></a>
   </dt>
 
       
@@ -845,6 +890,16 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::isUnique"><strong>isUnique() (EntityDefinition method)</strong></a>
   </dt>
 
+      
+  <dt><a href="api/ReferenceValidator.html#ReferenceValidator::isValid"><strong>isValid() (ReferenceValidator method)</strong></a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/UniqueValidator.html#UniqueValidator::isValid"><strong>(UniqueValidator method)</strong></a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -856,7 +911,7 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::listEntries"><strong>listEntries() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::listEntries"><strong>listEntries() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -930,7 +985,7 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::performOnFiles"><strong>performOnFiles() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::performOnFiles"><strong>performOnFiles() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -940,7 +995,7 @@
 
       </dl></dd>
       
-  <dt><a href="api/Data.html#Data::popEvent"><strong>popEvent() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::popEvent"><strong>popEvent() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -956,7 +1011,7 @@
   </dt>
 
       
-  <dt><a href="api/Data.html#Data::pushEvent"><strong>pushEvent() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::pushEvent"><strong>pushEvent() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -976,18 +1031,22 @@
   </dt>
 
       
-  <dt><a href="api/ServiceProvider.html#ServiceProvider::register"><strong>register() (ServiceProvider method)</strong></a>
+  <dt><a href="api/ReferenceValidator.html#ReferenceValidator"><strong>ReferenceValidator (class)</strong></a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/ControllerProvider.html#ControllerProvider::renderFile"><strong>renderFile() (ControllerProvider method)</strong></a>
+  <dt><a href="api/ServiceProvider.html#ServiceProvider::register"><strong>register() (ServiceProvider method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::renderFile"><strong>renderFile() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="api/Data.html#Data::renderFile"><strong>(Data method)</strong></a>
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::renderFile"><strong>(ControllerProvider method)</strong></a>
   </dt>
 
         
@@ -1073,8 +1132,6 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::setListFields"><strong>setListFields() (EntityDefinition method)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/ControllerProvider.html#ControllerProvider::setLocale"><strong>setLocale() (ControllerProvider method)</strong></a>
   </dt>
@@ -1093,6 +1150,8 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::setPageSize"><strong>setPageSize() (EntityDefinition method)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::setRequired"><strong>setRequired() (EntityDefinition method)</strong></a>
   </dt>
@@ -1118,6 +1177,18 @@
   </dt>
 
       
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::setupI18n"><strong>setupI18n() (ControllerProvider method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::setupRoutes"><strong>setupRoutes() (ControllerProvider method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::setupTemplates"><strong>setupTemplates() (ControllerProvider method)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/ControllerProvider.html#ControllerProvider::setValidationFailedFlashes"><strong>setValidationFailedFlashes() (ControllerProvider method)</strong></a>
   </dt>
 
@@ -1125,6 +1196,16 @@
   <dt><a href="api/MySQLData.html#MySQLData::setValuesAndParameters"><strong>setValuesAndParameters() (MySQLData method)</strong></a>
   </dt>
 
+      
+  <dt><a href="api/AbstractData.html#AbstractData::shouldExecuteEvents"><strong>shouldExecuteEvents() (AbstractData method)</strong></a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/MySQLData.html#MySQLData::shouldExecuteEvents"><strong>(MySQLData method)</strong></a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="api/ControllerProvider.html#ControllerProvider::show"><strong>show() (ControllerProvider method)</strong></a>
   </dt>
@@ -1172,7 +1253,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/Data.html#Data::update"><strong>update() (Data method)</strong></a>
+  <dt><a href="api/UniqueValidator.html#UniqueValidator"><strong>UniqueValidator (class)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::update"><strong>update() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -1194,7 +1279,7 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/Data.html#Data::updateFiles"><strong>updateFiles() (Data method)</strong></a>
+  <dt><a href="api/AbstractData.html#AbstractData::updateFiles"><strong>updateFiles() (AbstractData method)</strong></a>
   </dt>
 
       <dd><dl>
@@ -1221,36 +1306,6 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityValidator.html#EntityValidator::validate"><strong>validate() (EntityValidator method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/EntityValidator.html#EntityValidator::validateDate"><strong>validateDate() (EntityValidator method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/EntityValidator.html#EntityValidator::validateDateTime"><strong>validateDateTime() (EntityValidator method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/EntityValidator.html#EntityValidator::validateNumber"><strong>validateNumber() (EntityValidator method)</strong></a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="api/EntityValidator.html#EntityValidator::validateReference"><strong>validateReference() (EntityValidator method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/EntityValidator.html#EntityValidator::validateRequired"><strong>validateRequired() (EntityValidator method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/EntityValidator.html#EntityValidator::validateSet"><strong>validateSet() (EntityValidator method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/EntityValidator.html#EntityValidator::validateUnique"><strong>validateUnique() (EntityValidator method)</strong></a>
   </dt>
 
   </dl></td>

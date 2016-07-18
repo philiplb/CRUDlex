@@ -24,4 +24,4 @@ CRUDlex\\DataFactoryInterface
         :param $definition: the definition of the entities managed by the to be created instance
         :type $fileProcessor: FileProcessorInterface
         :param $fileProcessor: the file processor managing uploaded files
-        :returns: Data the newly created instance
+        :returns: AbstractData the newly created instance

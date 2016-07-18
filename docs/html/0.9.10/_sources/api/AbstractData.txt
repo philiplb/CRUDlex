@@ -1,15 +1,15 @@
--------------
-CRUDlex\\Data
--------------
+---------------------
+CRUDlex\\AbstractData
+---------------------
 
 .. toctree::
-   :maxdepth: 1
+  :maxdepth: 1
 
-   MySQLData
+  MySQLData
 
 .. php:namespace: CRUDlex
 
-.. php:class:: Data
+.. php:class:: AbstractData
 
     The abstract class for reading and writing data.
 
@@ -62,7 +62,7 @@ CRUDlex\\Data
         :param $row: the array with the raw data
         :returns: Entity the entity containing the array data then
 
-    .. php:method:: executeEvents(Entity $entity, $moment, $action)
+    .. php:method:: shouldExecuteEvents(Entity $entity, $moment, $action)
 
         Executes the event chain of an entity.
 
@@ -129,13 +129,13 @@ CRUDlex\\Data
         :param $filter: the filter all resulting entities must fulfill, the keys as field names
         :type $filterOperators: array
         :param $filterOperators: the operators of the filter like "=" defining the full condition of the field
-        :type $skip: integer
+        :type $skip: integer|null
         :param $skip: if given and not null, it specifies the amount of rows to skip
-        :type $amount: integer
+        :type $amount: integer|null
         :param $amount: if given and not null, it specifies the maximum amount of rows to retrieve
-        :type $sortField: string
+        :type $sortField: string|null
         :param $sortField: if given and not null, it specifies the field to sort the entries
-        :type $sortAscending: boolean
+        :type $sortAscending: boolean|null
         :param $sortAscending: if given and not null, it specifies that the sort order is ascending, descending else
         :returns: Entity[] the entities fulfilling the filter or all if no filter was given
 
@@ -153,14 +153,15 @@ CRUDlex\\Data
 
         :type $entity: Entity
         :param $entity: the entity with the new data
+        :returns: void
 
     .. php:method:: delete($entity)
 
-        Deletes an entry from the datasource having the given id.
+        Deletes an entry from the datasource.
 
         :type $entity: Entity
-        :param $entity: the id of the entry to delete
-        :returns: integer returns one of: - Data::DELETION_SUCCESS -> successful deletion - Data::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references - Data::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
+        :param $entity: the entity to delete
+        :returns: integer returns one of: - AbstractData::DELETION_SUCCESS -> successful deletion - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
 
     .. php:method:: getReferences($table, $nameField)
 
@@ -195,6 +196,7 @@ CRUDlex\\Data
         the fetch, it's an array with the keys id and name.
 
         :param $entities:
+        :returns: void
 
     .. php:method:: getDefinition()
 
@@ -230,6 +232,7 @@ CRUDlex\\Data
         :param $entity: the updated entity
         :type $entityName: string
         :param $entityName: the name of the entity as this class here is not aware of it
+        :returns: boolean true on successful update
 
     .. php:method:: deleteFile(Entity $entity, $entityName, $field)
 
@@ -241,6 +244,7 @@ CRUDlex\\Data
         :param $entityName: the name of the entity as this class here is not aware of it
         :type $field: string
         :param $field: the field of the entity containing the file to be deleted
+        :returns: boolean true on successful deletion
 
     .. php:method:: deleteFiles(Entity $entity, $entityName)
 
@@ -250,6 +254,7 @@ CRUDlex\\Data
         :param $entity: the entity to delete the files from
         :type $entityName: string
         :param $entityName: the name of the entity as this class here is not aware of it
+        :returns: boolean true on successful deletion
 
     .. php:method:: renderFile(Entity $entity, $entityName, $field)
 

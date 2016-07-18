@@ -248,6 +248,20 @@ CRUDDataFactoryInterface:
 
     $dataFactory = new CRUDlex\MySQLDataFactory($app['db'], true);
 
+---------------------------------------------------
+Using an own Implementation of the EntityDefinition
+---------------------------------------------------
+
+There might be the case where you want to use an own implementation derived from the EntityDefinition. In this case,
+you can hand in an own implementation of the EntityDefinitionFactory like this:
+
+.. code-block:: php
+
+    $entityDefinitionFactory = new MyOwnEntityDefinitionFactory();
+    $app->register(new CRUDlex\ServiceProvider(), array(
+        'crud.entitydefinitionfactory' => $entityDefinitionFactory
+    ));
+
 ------------------------------------------
 Prefilled Form Fields on the Creation Page
 ------------------------------------------

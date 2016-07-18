@@ -25,6 +25,7 @@ CRUDlex\\FileProcessorInterface
         :param $entityName: the name of the entity as this class here is not aware of it
         :type $field: string
         :param $field: the file field
+        :returns: void
 
     .. php:method:: updateFile(Request $request, Entity $entity, $entityName, $field)
 
@@ -38,6 +39,7 @@ CRUDlex\\FileProcessorInterface
         :param $entityName: the name of the entity as this class here is not aware of it
         :type $field: string
         :param $field: the file field
+        :returns: void
 
     .. php:method:: deleteFile(Entity $entity, $entityName, $field)
 
@@ -49,6 +51,7 @@ CRUDlex\\FileProcessorInterface
         :param $entityName: the name of the entity as this class here is not aware of it
         :type $field: string
         :param $field: the field of the entity containing the file to be deleted
+        :returns: void
 
     .. php:method:: renderFile(Entity $entity, $entityName, $field)
 

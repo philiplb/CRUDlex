@@ -32,7 +32,7 @@
   
     <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\StreamedFileResponse" href="StreamedFileResponse.html"/>
-        <link rel="prev" title="CRUDlex\SimpleFilesystemFileProcessor" href="SimpleFilesystemFileProcessor.html"/> 
+        <link rel="prev" title="CRUDlex\ReferenceValidator" href="ReferenceValidator.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -96,15 +96,18 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Data.html">CRUDlex\Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
             
@@ -155,13 +158,13 @@
 <dt id="ServiceProvider">
 <em class="property">class </em><code class="descname">ServiceProvider</code><a class="headerlink" href="#ServiceProvider" title="Permalink to this definition">¶</a></dt>
 <dd><p>The ServiceProvider setups and initializes the whole CRUD system.
-After adding it to your Silex-setup, it offers access to <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Data}
+After adding it to your Silex-setup, it offers access to <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> AbstractData}
 instances, one for each defined entity off the CRUD YAML file.</p>
 <dl class="attr">
 <dt id="ServiceProvider::$datas">
 <em class="property">property </em><code class="descname">datas</code><a class="headerlink" href="#ServiceProvider::$datas" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected</p>
-<p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Data} instances.</p>
+<p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> AbstractData} instances.</p>
 </dd></dl>
 
 <dl class="attr">
@@ -203,7 +206,7 @@ returned formatted with the given pattern. The effect is to shorten
 <dl class="method">
 <dt id="ServiceProvider::readYaml">
 <code class="descname">readYaml</code><span class="sig-paren">(</span><em>$fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::readYaml" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads and returns the contents of the given file. If
+<dd><p>Reads and returns the contents of the given Yaml file. If
 it goes wrong, it throws an exception.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -214,7 +217,7 @@ it goes wrong, it throws an exception.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the file contents</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the file contents</p>
 </td>
 </tr>
 </tbody>
@@ -305,6 +308,29 @@ CRUD entity map.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="ServiceProvider::createDefinition">
+<code class="descname">createDefinition</code><span class="sig-paren">(</span><em>Application $app</em>, <em>$locales</em>, <em>$crud</em>, <em>$name</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::createDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and setups an EntityDefinition instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the application container</li>
+<li><strong>$locales</strong> (<em>array</em>) &#8211; the available locales</li>
+<li><strong>$crud</strong> (<em>array</em>) &#8211; the parsed YAML of a CRUD entity</li>
+<li><strong>$name</strong> (<em>string</em>) &#8211; the name of the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">EntityDefinition the EntityDefinition good to go</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="ServiceProvider::init">
 <code class="descname">init</code><span class="sig-paren">(</span><em>DataFactoryInterface $dataFactory</em>, <em>$crudFile</em>, <em>FileProcessorInterface $fileProcessor</em>, <em>$manageI18n</em>, <em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the instance.</p>
@@ -313,7 +339,7 @@ CRUD entity map.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$dataFactory</strong> (<a class="reference internal" href="DataFactoryInterface.html#DataFactoryInterface" title="DataFactoryInterface"><em>DataFactoryInterface</em></a>) &#8211; the factory to create the concrete Data instances</li>
+<li><strong>$dataFactory</strong> (<a class="reference internal" href="DataFactoryInterface.html#DataFactoryInterface" title="DataFactoryInterface"><em>DataFactoryInterface</em></a>) &#8211; the factory to create the concrete AbstractData instances</li>
 <li><strong>$crudFile</strong> (<em>string</em>) &#8211; the CRUD YAML file to parse</li>
 <li><strong>$fileProcessor</strong> (<a class="reference internal" href="FileProcessorInterface.html#FileProcessorInterface" title="FileProcessorInterface"><em>FileProcessorInterface</em></a>) &#8211; the file processor used for file fields</li>
 <li><strong>$manageI18n</strong> (<em>boolean</em>) &#8211; holds whether we manage the i18n</li>
@@ -363,7 +389,7 @@ $app[&#8216;crud&#8217;] contains an instance of the ServiceProvider afterwards.
 <dl class="method">
 <dt id="ServiceProvider::getData">
 <code class="descname">getData</code><span class="sig-paren">(</span><em>$name</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getter for the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Data} instances.</p>
+<dd><p>Getter for the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> AbstractData} instances.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -373,7 +399,7 @@ $app[&#8216;crud&#8217;] contains an instance of the ServiceProvider afterwards.
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Data the Data instance or null on invalid name</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">AbstractData the AbstractData instance or null on invalid name</p>
 </td>
 </tr>
 </tbody>
@@ -388,7 +414,7 @@ $app[&#8216;crud&#8217;] contains an instance of the ServiceProvider afterwards.
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array a list of all available entity names</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string[] a list of all available entity names</td>
 </tr>
 </tbody>
 </table>
@@ -485,8 +511,8 @@ the existance of certain keys in the Application $app in this order:</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ServiceProvider::getManageI18n">
-<code class="descname">getManageI18n</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getManageI18n" title="Permalink to this definition">¶</a></dt>
+<dt id="ServiceProvider::isManagingI18n">
+<code class="descname">isManagingI18n</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::isManagingI18n" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets whether CRUDlex manages the i18n system.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -562,7 +588,7 @@ the existance of certain keys in the Application $app in this order:</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the formated float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">double|string the formated float</p>
 </td>
 </tr>
 </tbody>
@@ -583,7 +609,7 @@ the existance of certain keys in the Application $app in this order:</p>
         <a href="StreamedFileResponse.html" class="btn btn-neutral float-right" title="CRUDlex\StreamedFileResponse" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SimpleFilesystemFileProcessor.html" class="btn btn-neutral" title="CRUDlex\SimpleFilesystemFileProcessor" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ReferenceValidator.html" class="btn btn-neutral" title="CRUDlex\ReferenceValidator" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

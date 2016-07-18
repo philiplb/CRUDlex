@@ -9,6 +9,12 @@ CRUDlex\\SimpleFilesystemFileProcessor
     An implementation of the {@see FileProcessorInterface} simply using the
     file system.
 
+    .. php:attr:: basePath
+
+        protected
+
+        Holds the base path where all files will be stored into subfolders.
+
     .. php:method:: getPath($entityName, Entity $entity, $field)
 
         Constructs a file system path for the given parameters for storing the
@@ -21,6 +27,13 @@ CRUDlex\\SimpleFilesystemFileProcessor
         :type $field: string
         :param $field: the file field in the entity
         :returns: string the constructed path for storing the file of the file field
+
+    .. php:method:: __construct($basePath = '')
+
+        Constructor.
+
+        :type $basePath: string
+        :param $basePath: the base path where all files will be stored into subfolders
 
     .. php:method:: createFile(Request $request, Entity $entity, $entityName, $field)
 

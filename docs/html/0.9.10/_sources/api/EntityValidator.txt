@@ -20,76 +20,35 @@ CRUDlex\\EntityValidator
 
         The entities definition.
 
-    .. php:method:: validateRequired($field, $fieldErrors, $valid)
+    .. php:method:: fieldToRules($field, AbstractData $data, Valdi\Validator $validator)
 
-        Validates the given field for the required constraint.
-
-        :type $field: string
-        :param $field: the field to validate
-        :param $fieldErrors:
-        :param $valid:
-
-    .. php:method:: validateUnique($field, Data $data, $fieldErrors, $valid)
-
-        Validates the given field for the unique constraint.
+        Builds up the validation rules for a single field according to the
+        entity definition.
 
         :type $field: string
-        :param $field: the field to validate
-        :type $data: Data
-        :param $data: the data instance to work with
-        :param $fieldErrors:
-        :param $valid:
+        :param $field: the field for the rules
+        :type $data: AbstractData
+        :param $data: the data instance to use for validation
+        :type $validator: Valdi\Validator
+        :param $validator:
+        :returns: array the validation rules for the field
 
-    .. php:method:: validateSet($field, $fieldErrors, $valid)
+    .. php:method:: buildUpRules(AbstractData $data, Valdi\Validator $validator)
 
-        Validates the given field for the set type.
+        Builds up the validation rules for the entity according to its
+        definition.
 
-        :type $field: string
-        :param $field: the field to validate
-        :param $fieldErrors:
-        :param $valid:
+        :type $data: AbstractData
+        :param $data: the data instance to use for validation
+        :type $validator: Valdi\Validator
+        :param $validator:
+        :returns: array the validation rules for the entity
 
-    .. php:method:: validateNumber($field, $numberType, $expectedType, $fieldErrors, $valid)
+    .. php:method:: buildUpData()
 
-        Validates the given field for a number type.
+        Builds up the data to validate from the entity.
 
-        :type $field: string
-        :param $field: the field to validate
-        :type $numberType: string
-        :param $numberType: the type, might be 'int' or 'float'
-        :type $expectedType: string
-        :param $expectedType: the expected CRUDlex type, might be 'integer' or 'float'
-        :param $fieldErrors:
-        :param $valid:
-
-    .. php:method:: validateDate($field, $fieldErrors, $valid)
-
-        Validates the given field for the date type.
-
-        :type $field: string
-        :param $field: the field to validate
-        :param $fieldErrors:
-        :param $valid:
-
-    .. php:method:: validateDateTime($field, $fieldErrors, $valid)
-
-        Validates the given field for the datetime type.
-
-        :type $field: string
-        :param $field: the field to validate
-        :param $fieldErrors:
-        :param $valid:
-
-    .. php:method:: validateReference($field, Data $data, $fieldErrors, $valid)
-
-        Validates the given field for the reference type.
-
-        :type $field: string
-        :param $field: the field to validate
-        :type $data: Data
-        :param $data: the data instance to work with
-        :param $fieldErrors:
-        :param $valid:
+        :returns: array a map field to raw value
 
     .. php:method:: __construct(Entity $entity)
 
@@ -98,12 +57,12 @@ CRUDlex\\EntityValidator
         :type $entity: Entity
         :param $entity: the entity to validate
 
-    .. php:method:: validate(Data $data, $expectedVersion)
+    .. php:method:: validate(AbstractData $data, $expectedVersion)
 
         Validates the entity against the definition.
 
-        :type $data: Data
+        :type $data: AbstractData
         :param $data: the data access instance used for counting things
         :type $expectedVersion: integer
         :param $expectedVersion: the version to perform the optimistic locking check on
-        :returns: array an array with the fields "valid" and "fields"; valid provides a quick check whether the given entity passes the validation and fields is an array with all fields as keys and arrays as values; this field arrays contain three keys: required, unique and input; each of them represents with a boolean whether the input is ok in that way; if "required" is true, the field wasn't set, unique means the uniqueness of the field in the datasource and input is used to indicate whether the form of the value is correct (a valid int, date, depending on the type in the definition)
+        :returns: array an array with the fields "valid" and "errors"; valid provides a quick check whether the given entity passes the validation and errors is an array with all errored fields as keys and arrays as values; this field arrays contains the actual errors on the field: "boolean", "floating", "integer", "dateTime" (for dates and datetime fields), "inSet", "reference", "required", "unique", "value" (only for the version field, set if the optimistic locking failed).

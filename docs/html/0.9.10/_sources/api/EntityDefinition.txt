@@ -106,7 +106,7 @@ CRUDlex\\EntityDefinition
 
         Gets the field names exluding the given ones.
 
-        :type $exclude: array
+        :type $exclude: string[]
         :param $exclude: the field names to exclude
         :returns: array all field names excluding the given ones
 
@@ -174,7 +174,7 @@ CRUDlex\\EntityDefinition
         Gets all field names, including the implicit ones like "id" or
         "created_at".
 
-        :returns: array the field names
+        :returns: string[] the field names
 
     .. php:method:: setListFields($listFields)
 
@@ -278,7 +278,7 @@ CRUDlex\\EntityDefinition
 
         Gets the read only field names like the id or the created_at.
 
-        :returns: array the read only field names
+        :returns: string[] the read only field names
 
     .. php:method:: getType($fieldName)
 
@@ -527,7 +527,7 @@ CRUDlex\\EntityDefinition
         :type $initialSortAscending: boolean
         :param $initialSortAscending: the initial sort order, true if ascending
 
-    .. php:method:: getInitialSortAscending()
+    .. php:method:: isInitialSortAscending()
 
         Gets the initial sort order.
 

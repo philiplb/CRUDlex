@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>src &mdash; CRUDlex 0.9.10 documentation</title>
+  <title>CRUDlex\UniqueValidator &mdash; CRUDlex 0.9.10 documentation</title>
   
 
   
@@ -30,7 +30,8 @@
   
 
   
-    <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/> 
+    <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
+        <link rel="prev" title="CRUDlex\StreamedFileResponse" href="StreamedFileResponse.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,18 +91,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../manual/layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/addons.html">Addons</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/Data.html">CRUDlex\CRUDData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\CRUDDataFactoryInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\CRUDEntity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\CRUDEntityDefinition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\CRUDEntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\CRUDFileProcessorInterface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\CRUDServiceProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\CRUDStreamedFileResponse</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\UniqueValidator</a></li>
 </ul>
 
             
@@ -124,7 +129,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -132,11 +137,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>src</li>
+    <li>CRUDlex\UniqueValidator</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/apitest/modules.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/UniqueValidator.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -146,18 +151,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="src">
-<h1>src<a class="headerlink" href="#src" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul class="simple">
+  <div class="section" id="crudlex-uniquevalidator">
+<h1>CRUDlex\UniqueValidator<a class="headerlink" href="#crudlex-uniquevalidator" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="UniqueValidator">
+<em class="property">class </em><code class="descname">UniqueValidator</code><a class="headerlink" href="#UniqueValidator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A validator to check for an unique field.</p>
+<dl class="method">
+<dt id="UniqueValidator::isValid">
+<code class="descname">isValid</code><span class="sig-paren">(</span><em>$value</em>, <em>$parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#UniqueValidator::isValid" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$value</strong> &#8211; </li>
+<li><strong>$parameters</strong> &#8211; </li>
 </ul>
-</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="UniqueValidator::getInvalidDetails">
+<code class="descname">getInvalidDetails</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#UniqueValidator::getInvalidDetails" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="StreamedFileResponse.html" class="btn btn-neutral" title="CRUDlex\StreamedFileResponse" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -39,7 +39,7 @@ This are the "root"-templates directly included in the layout.twig:
 
 * form: The create and edit page (@crud/form.twig)
 * list: The list page (@crud/list.twig)
-* show: The list page (@crud/list.twig)
+* show: The show page (@crud/show.twig)
 
 --------------------
 Form Field Templates

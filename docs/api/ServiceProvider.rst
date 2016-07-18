@@ -7,14 +7,14 @@ CRUDlex\\ServiceProvider
 .. php:class:: ServiceProvider
 
     The ServiceProvider setups and initializes the whole CRUD system.
-    After adding it to your Silex-setup, it offers access to {@see Data}
+    After adding it to your Silex-setup, it offers access to {@see AbstractData}
     instances, one for each defined entity off the CRUD YAML file.
 
     .. php:attr:: datas
 
         protected
 
-        Holds the {@see Data} instances.
+        Holds the {@see AbstractData} instances.
 
     .. php:attr:: manageI18n
 
@@ -44,12 +44,12 @@ CRUDlex\\ServiceProvider
 
     .. php:method:: readYaml($fileName)
 
-        Reads and returns the contents of the given file. If
+        Reads and returns the contents of the given Yaml file. If
         it goes wrong, it throws an exception.
 
         :type $fileName: string
         :param $fileName: the file to read
-        :returns: string the file contents
+        :returns: array the file contents
 
     .. php:method:: initMissingServiceProviders(Application $app)
 
@@ -90,12 +90,26 @@ CRUDlex\\ServiceProvider
         :type $crud: array
         :param $crud: the CRUD entity map
 
+    .. php:method:: createDefinition(Application $app, $locales, $crud, $name)
+
+        Creates and setups an EntityDefinition instance.
+
+        :type $app: Application
+        :param $app: the application container
+        :type $locales: array
+        :param $locales: the available locales
+        :type $crud: array
+        :param $crud: the parsed YAML of a CRUD entity
+        :type $name: string
+        :param $name: the name of the entity
+        :returns: EntityDefinition the EntityDefinition good to go
+
     .. php:method:: init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Application $app)
 
         Initializes the instance.
 
         :type $dataFactory: DataFactoryInterface
-        :param $dataFactory: the factory to create the concrete Data instances
+        :param $dataFactory: the factory to create the concrete AbstractData instances
         :type $crudFile: string
         :param $crudFile: the CRUD YAML file to parse
         :type $fileProcessor: FileProcessorInterface
@@ -122,17 +136,17 @@ CRUDlex\\ServiceProvider
 
     .. php:method:: getData($name)
 
-        Getter for the {@see Data} instances.
+        Getter for the {@see AbstractData} instances.
 
         :type $name: string
         :param $name: the entity name of the desired Data instance
-        :returns: Data the Data instance or null on invalid name
+        :returns: AbstractData the AbstractData instance or null on invalid name
 
     .. php:method:: getEntities()
 
         Getter for all available entity names.
 
-        :returns: array a list of all available entity names
+        :returns: string[] a list of all available entity names
 
     .. php:method:: formatDate($value, $isUTC)
 
@@ -183,7 +197,7 @@ CRUDlex\\ServiceProvider
         :param $entity: the current calling entity
         :returns: string the best fitting template
 
-    .. php:method:: getManageI18n()
+    .. php:method:: isManagingI18n()
 
         Gets whether CRUDlex manages the i18n system.
 
@@ -216,4 +230,4 @@ CRUDlex\\ServiceProvider
 
         :type $float: float
         :param $float: the float to format
-        :returns: string the formated float
+        :returns: double|string the formated float

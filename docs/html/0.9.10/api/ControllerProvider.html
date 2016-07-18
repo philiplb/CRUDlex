@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
-        <link rel="next" title="CRUDlex\Data" href="Data.html"/>
-        <link rel="prev" title="Addons" href="../manual/addons.html"/> 
+        <link rel="next" title="CRUDlex\DataFactoryInterface" href="DataFactoryInterface.html"/>
+        <link rel="prev" title="CRUDlex\MySQLData" href="MySQLData.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -96,15 +96,18 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\ControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Data.html">CRUDlex\Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
             
@@ -187,7 +190,7 @@
 
 <dl class="method">
 <dt id="ControllerProvider::modifyFilesAndSetFlashBag">
-<code class="descname">modifyFilesAndSetFlashBag</code><span class="sig-paren">(</span><em>Application $app</em>, <em>Data $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$mode</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::modifyFilesAndSetFlashBag" title="Permalink to this definition">¶</a></dt>
+<code class="descname">modifyFilesAndSetFlashBag</code><span class="sig-paren">(</span><em>Application $app</em>, <em>AbstractData $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$mode</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::modifyFilesAndSetFlashBag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Postprocesses the entity after modification by handling the uploaded
 files and setting the flash.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -196,14 +199,14 @@ files and setting the flash.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
-<li><strong>$crudData</strong> (<a class="reference internal" href="Data.html#Data" title="Data"><em>Data</em></a>) &#8211; the data instance of the entity</li>
+<li><strong>$crudData</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance of the entity</li>
 <li><strong>$instance</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity</li>
 <li><strong>$entity</strong> (<em>string</em>) &#8211; the name of the entity</li>
 <li><strong>$mode</strong> (<em>string</em>) &#8211; whether to &#8216;edit&#8217; or to &#8216;create&#8217; the entity</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this modification</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">null|SymfonyComponentHttpFoundationRedirectResponse the HTTP response of this modification</p>
 </td>
 </tr>
 </tbody>
@@ -231,7 +234,7 @@ files and setting the flash.</p>
 
 <dl class="method">
 <dt id="ControllerProvider::modifyEntity">
-<code class="descname">modifyEntity</code><span class="sig-paren">(</span><em>Application $app</em>, <em>Data $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$edit</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::modifyEntity" title="Permalink to this definition">¶</a></dt>
+<code class="descname">modifyEntity</code><span class="sig-paren">(</span><em>Application $app</em>, <em>AbstractData $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$edit</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::modifyEntity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates and saves the new or updated entity and returns the appropriate
 HTTP
 response.</p>
@@ -241,7 +244,7 @@ response.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
-<li><strong>$crudData</strong> (<a class="reference internal" href="Data.html#Data" title="Data"><em>Data</em></a>) &#8211; the data instance of the entity</li>
+<li><strong>$crudData</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance of the entity</li>
 <li><strong>$instance</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity</li>
 <li><strong>$entity</strong> (<em>string</em>) &#8211; the name of the entity</li>
 <li><strong>$edit</strong> (<em>boolean</em>) &#8211; whether to edit (true) or to create (false) the entity</li>
@@ -266,11 +269,11 @@ response.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
 <li><strong>$entity</strong> (<em>string</em>) &#8211; the entity name</li>
-<li><strong>$redirectPage</strong> &#8211; </li>
+<li><strong>$redirectPage</strong> (<em>string</em>) &#8211; reference, where the page to redirect to will be stored</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the parameters of the redirection, entity and id</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array&lt;string,string&gt; the parameters of the redirection, entity and id</p>
 </td>
 </tr>
 </tbody>
@@ -289,9 +292,63 @@ response.</p>
 <li><strong>$app</strong> (<em>Application</em>) &#8211; the current application</li>
 <li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; the current entity definition</li>
 <li><strong>$filter</strong> &#8211; </li>
-<li><strong>$filterActive</strong> &#8211; </li>
-<li><strong>$filterToUse</strong> &#8211; </li>
-<li><strong>$filterOperators</strong> &#8211; </li>
+<li><strong>$filterActive</strong> (<em>boolean</em>) &#8211; reference, will be true if at least one filter is active</li>
+<li><strong>$filterToUse</strong> (<em>array</em>) &#8211; reference, will hold a map of fields to integers (0 or 1) which boolean filters are active</li>
+<li><strong>$filterOperators</strong> (<em>array</em>) &#8211; reference, will hold a map of fields to operators for AbstractData::listEntries()</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::setupTemplates">
+<code class="descname">setupTemplates</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::setupTemplates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setups the templates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Application instance of the Silex application</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::setupRoutes">
+<code class="descname">setupRoutes</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::setupRoutes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setups the routes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Application instance of the Silex application</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">mixed the created controller factory</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ControllerProvider::setupI18n">
+<code class="descname">setupI18n</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ControllerProvider::setupI18n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setups i18n.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Application instance of the Silex application</li>
 </ul>
 </td>
 </tr>
@@ -526,10 +583,10 @@ controller.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Data.html" class="btn btn-neutral float-right" title="CRUDlex\Data" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="DataFactoryInterface.html" class="btn btn-neutral float-right" title="CRUDlex\DataFactoryInterface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../manual/addons.html" class="btn btn-neutral" title="Addons" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="MySQLData.html" class="btn btn-neutral" title="CRUDlex\MySQLData" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

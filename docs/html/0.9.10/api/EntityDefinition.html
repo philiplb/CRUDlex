@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
-        <link rel="next" title="CRUDlex\EntityValidator" href="EntityValidator.html"/>
+        <link rel="next" title="CRUDlex\EntityDefinitionFactoryInterface" href="EntityDefinitionFactoryInterface.html"/>
         <link rel="prev" title="CRUDlex\Entity" href="Entity.html"/> 
 
   
@@ -96,15 +96,18 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Data.html">CRUDlex\Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
             
@@ -273,7 +276,7 @@ field names.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$exclude</strong> (<em>array</em>) &#8211; the field names to exclude</li>
+<li><strong>$exclude</strong> (<em>string[]</em>) &#8211; the field names to exclude</li>
 </ul>
 </td>
 </tr>
@@ -398,7 +401,7 @@ don&#8217;t exist, they get created.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the field names</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string[] the field names</td>
 </tr>
 </tbody>
 </table>
@@ -634,7 +637,7 @@ id or the created_at.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the read only field names</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string[] the read only field names</td>
 </tr>
 </tbody>
 </table>
@@ -1204,8 +1207,8 @@ definition has a reference to this one.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="EntityDefinition::getInitialSortAscending">
-<code class="descname">getInitialSortAscending</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getInitialSortAscending" title="Permalink to this definition">¶</a></dt>
+<dt id="EntityDefinition::isInitialSortAscending">
+<code class="descname">isInitialSortAscending</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isInitialSortAscending" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the initial sort order.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1228,7 +1231,7 @@ definition has a reference to this one.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="EntityValidator.html" class="btn btn-neutral float-right" title="CRUDlex\EntityValidator" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="EntityDefinitionFactoryInterface.html" class="btn btn-neutral float-right" title="CRUDlex\EntityDefinitionFactoryInterface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Entity.html" class="btn btn-neutral" title="CRUDlex\Entity" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

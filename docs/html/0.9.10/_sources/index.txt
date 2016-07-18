@@ -33,15 +33,18 @@ Contents:
    :maxdepth: 2
    :caption: API
 
+   api/AbstractData
    api/ControllerProvider
-   api/Data
    api/DataFactoryInterface
    api/Entity
    api/EntityDefinition
+   api/EntityDefinitionFactoryInterface
    api/EntityValidator
    api/FileProcessorInterface
+   api/ReferenceValidator
    api/ServiceProvider
    api/StreamedFileResponse
+   api/UniqueValidator
 
 Indices and tables
 ==================

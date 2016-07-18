@@ -36,14 +36,14 @@ CRUDlex\\ControllerProvider
         :param $error: the cause of the not found error
         :returns: Response the rendered not found page with the status code 404
 
-    .. php:method:: modifyFilesAndSetFlashBag(Application $app, Data $crudData, Entity $instance, $entity, $mode)
+    .. php:method:: modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode)
 
         Postprocesses the entity after modification by handling the uploaded
         files and setting the flash.
 
         :type $app: Application
         :param $app: the current application
-        :type $crudData: Data
+        :type $crudData: AbstractData
         :param $crudData: the data instance of the entity
         :type $instance: Entity
         :param $instance: the entity
@@ -51,7 +51,7 @@ CRUDlex\\ControllerProvider
         :param $entity: the name of the entity
         :type $mode: string
         :param $mode: whether to 'edit' or to 'create' the entity
-        :returns: Response the HTTP response of this modification
+        :returns: null|\Symfony\Component\HttpFoundation\RedirectResponse the HTTP response of this modification
 
     .. php:method:: setValidationFailedFlashes(Application $app, $optimisticLocking, $mode)
 
@@ -64,7 +64,7 @@ CRUDlex\\ControllerProvider
         :type $mode: string
         :param $mode: the modification mode, either 'create' or 'edit'
 
-    .. php:method:: modifyEntity(Application $app, Data $crudData, Entity $instance, $entity, $edit)
+    .. php:method:: modifyEntity(Application $app, AbstractData $crudData, Entity $instance, $entity, $edit)
 
         Validates and saves the new or updated entity and returns the appropriate
         HTTP
@@ -72,7 +72,7 @@ CRUDlex\\ControllerProvider
 
         :type $app: Application
         :param $app: the current application
-        :type $crudData: Data
+        :type $crudData: AbstractData
         :param $crudData: the data instance of the entity
         :type $instance: Entity
         :param $instance: the entity
@@ -90,8 +90,9 @@ CRUDlex\\ControllerProvider
         :param $app: the current application
         :type $entity: string
         :param $entity: the entity name
-        :param $redirectPage:
-        :returns: array the parameters of the redirection, entity and id
+        :type $redirectPage: string
+        :param $redirectPage: reference, where the page to redirect to will be stored
+        :returns: array<string,string> the parameters of the redirection, entity and id
 
     .. php:method:: buildUpListFilter(Application $app, EntityDefinition $definition, $filter, $filterActive, $filterToUse, $filterOperators)
 
@@ -102,9 +103,34 @@ CRUDlex\\ControllerProvider
         :type $definition: EntityDefinition
         :param $definition: the current entity definition
         :param $filter:
-        :param $filterActive:
-        :param $filterToUse:
-        :param $filterOperators:
+        :type $filterActive: boolean
+        :param $filterActive: reference, will be true if at least one filter is active
+        :type $filterToUse: array
+        :param $filterToUse: reference, will hold a map of fields to integers (0 or 1) which boolean filters are active
+        :type $filterOperators: array
+        :param $filterOperators: reference, will hold a map of fields to operators for AbstractData::listEntries()
+
+    .. php:method:: setupTemplates(Application $app)
+
+        Setups the templates.
+
+        :type $app: Application
+        :param $app: the Application instance of the Silex application
+
+    .. php:method:: setupRoutes(Application $app)
+
+        Setups the routes.
+
+        :type $app: Application
+        :param $app: the Application instance of the Silex application
+        :returns: mixed the created controller factory
+
+    .. php:method:: setupI18n(Application $app)
+
+        Setups i18n.
+
+        :type $app: Application
+        :param $app: the Application instance of the Silex application
 
     .. php:method:: connect(Application $app)
 

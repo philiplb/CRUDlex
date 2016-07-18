@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CRUDlex\Data &mdash; CRUDlex 0.9.10 documentation</title>
+  <title>CRUDlex\AbstractData &mdash; CRUDlex 0.9.10 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
     <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\MySQLData" href="MySQLData.html"/>
-        <link rel="prev" title="CRUDlex\ControllerProvider" href="ControllerProvider.html"/> 
+        <link rel="prev" title="Addons" href="../manual/addons.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -96,18 +96,21 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\Data</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\AbstractData</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="MySQLData.html">CRUDlex\MySQLData</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
             
@@ -138,11 +141,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>CRUDlex\Data</li>
+    <li>CRUDlex\AbstractData</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/Data.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/AbstractData.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -152,59 +155,59 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="crudlex-data">
-<h1>CRUDlex\Data<a class="headerlink" href="#crudlex-data" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="crudlex-abstractdata">
+<h1>CRUDlex\AbstractData<a class="headerlink" href="#crudlex-abstractdata" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="MySQLData.html">CRUDlex\MySQLData</a></li>
 </ul>
 </div>
 <dl class="class">
-<dt id="Data">
-<em class="property">class </em><code class="descname">Data</code><a class="headerlink" href="#Data" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData">
+<em class="property">class </em><code class="descname">AbstractData</code><a class="headerlink" href="#AbstractData" title="Permalink to this definition">¶</a></dt>
 <dd><p>The abstract class for reading and writing data.</p>
 <dl class="const">
-<dt id="Data::DELETION_SUCCESS">
-<em class="property">constant </em><code class="descname">DELETION_SUCCESS</code><a class="headerlink" href="#Data::DELETION_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::DELETION_SUCCESS">
+<em class="property">constant </em><code class="descname">DELETION_SUCCESS</code><a class="headerlink" href="#AbstractData::DELETION_SUCCESS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return value on successful deletion.</p>
 </dd></dl>
 
 <dl class="const">
-<dt id="Data::DELETION_FAILED_STILL_REFERENCED">
-<em class="property">constant </em><code class="descname">DELETION_FAILED_STILL_REFERENCED</code><a class="headerlink" href="#Data::DELETION_FAILED_STILL_REFERENCED" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::DELETION_FAILED_STILL_REFERENCED">
+<em class="property">constant </em><code class="descname">DELETION_FAILED_STILL_REFERENCED</code><a class="headerlink" href="#AbstractData::DELETION_FAILED_STILL_REFERENCED" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return value on failed deletion due to existing references.</p>
 </dd></dl>
 
 <dl class="const">
-<dt id="Data::DELETION_FAILED_EVENT">
-<em class="property">constant </em><code class="descname">DELETION_FAILED_EVENT</code><a class="headerlink" href="#Data::DELETION_FAILED_EVENT" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::DELETION_FAILED_EVENT">
+<em class="property">constant </em><code class="descname">DELETION_FAILED_EVENT</code><a class="headerlink" href="#AbstractData::DELETION_FAILED_EVENT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return value on failed deletion due to a failed before delete event.</p>
 </dd></dl>
 
 <dl class="attr">
-<dt id="Data::$definition">
-<em class="property">property </em><code class="descname">definition</code><a class="headerlink" href="#Data::$definition" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::$definition">
+<em class="property">property </em><code class="descname">definition</code><a class="headerlink" href="#AbstractData::$definition" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected</p>
 <p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> EntityDefinition} entity definition.</p>
 </dd></dl>
 
 <dl class="attr">
-<dt id="Data::$fileProcessor">
-<em class="property">property </em><code class="descname">fileProcessor</code><a class="headerlink" href="#Data::$fileProcessor" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::$fileProcessor">
+<em class="property">property </em><code class="descname">fileProcessor</code><a class="headerlink" href="#AbstractData::$fileProcessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected</p>
 <p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> FileProcessorInterface} file processor.</p>
 </dd></dl>
 
 <dl class="attr">
-<dt id="Data::$events">
-<em class="property">property </em><code class="descname">events</code><a class="headerlink" href="#Data::$events" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::$events">
+<em class="property">property </em><code class="descname">events</code><a class="headerlink" href="#AbstractData::$events" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected</p>
 <p>Holds the events.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::doDelete">
-<code class="descname">doDelete</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$deleteCascade</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::doDelete" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::doDelete">
+<code class="descname">doDelete</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$deleteCascade</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::doDelete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs the actual deletion.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -224,8 +227,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::hydrate">
-<code class="descname">hydrate</code><span class="sig-paren">(</span><em>$row</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::hydrate" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::hydrate">
+<code class="descname">hydrate</code><span class="sig-paren">(</span><em>$row</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::hydrate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Entity} from the raw data array with the field name
 as keys and field values as values.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -245,8 +248,8 @@ as keys and field values as values.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::executeEvents">
-<code class="descname">executeEvents</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::executeEvents" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::shouldExecuteEvents">
+<code class="descname">shouldExecuteEvents</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::shouldExecuteEvents" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the event chain of an entity.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -267,8 +270,8 @@ as keys and field values as values.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::performOnFiles">
-<code class="descname">performOnFiles</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$function</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::performOnFiles" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::performOnFiles">
+<code class="descname">performOnFiles</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$function</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::performOnFiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a function for each file field of this entity.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -286,8 +289,8 @@ as keys and field values as values.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::pushEvent">
-<code class="descname">pushEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em>, <em>$function</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::pushEvent" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::pushEvent">
+<code class="descname">pushEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em>, <em>$function</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::pushEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds an event to fire for the given parameters. The event function must
 have this signature:
 function (Entity $entity)
@@ -311,8 +314,8 @@ process.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::popEvent">
-<code class="descname">popEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::popEvent" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::popEvent">
+<code class="descname">popEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::popEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes and returns the latest event for the given parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -332,8 +335,8 @@ process.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::get">
-<code class="descname">get</code><span class="sig-paren">(</span><em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::get" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the entity with the given id.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -352,8 +355,8 @@ process.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::listEntries">
-<code class="descname">listEntries</code><span class="sig-paren">(</span><em>$filter = array()</em>, <em>$filterOperators = array()</em>, <em>$skip = null</em>, <em>$amount = null</em>, <em>$sortField = null</em>, <em>$sortAscending = null</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::listEntries" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::listEntries">
+<code class="descname">listEntries</code><span class="sig-paren">(</span><em>$filter = array()</em>, <em>$filterOperators = array()</em>, <em>$skip = null</em>, <em>$amount = null</em>, <em>$sortField = null</em>, <em>$sortAscending = null</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::listEntries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a list of entities fullfilling the given filter or all if no
 selection was given.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -363,10 +366,10 @@ selection was given.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$filter</strong> (<em>array</em>) &#8211; the filter all resulting entities must fulfill, the keys as field names</li>
 <li><strong>$filterOperators</strong> (<em>array</em>) &#8211; the operators of the filter like &#8220;=&#8221; defining the full condition of the field</li>
-<li><strong>$skip</strong> (<em>integer</em>) &#8211; if given and not null, it specifies the amount of rows to skip</li>
-<li><strong>$amount</strong> (<em>integer</em>) &#8211; if given and not null, it specifies the maximum amount of rows to retrieve</li>
-<li><strong>$sortField</strong> (<em>string</em>) &#8211; if given and not null, it specifies the field to sort the entries</li>
-<li><strong>$sortAscending</strong> (<em>boolean</em>) &#8211; if given and not null, it specifies that the sort order is ascending, descending else</li>
+<li><strong>$skip</strong> (<em>integer|null</em>) &#8211; if given and not null, it specifies the amount of rows to skip</li>
+<li><strong>$amount</strong> (<em>integer|null</em>) &#8211; if given and not null, it specifies the maximum amount of rows to retrieve</li>
+<li><strong>$sortField</strong> (<em>string|null</em>) &#8211; if given and not null, it specifies the field to sort the entries</li>
+<li><strong>$sortAscending</strong> (<em>boolean|null</em>) &#8211; if given and not null, it specifies that the sort order is ascending, descending else</li>
 </ul>
 </td>
 </tr>
@@ -378,8 +381,8 @@ selection was given.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::create" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Persists the given entity as new entry in the datasource.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -398,16 +401,19 @@ selection was given.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::update" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates an existing entry in the datasource having the same id.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity with the new data</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">void</p>
 </td>
 </tr>
 </tbody>
@@ -415,19 +421,19 @@ selection was given.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes an entry from the datasource having the given id.</p>
+<dt id="AbstractData::delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes an entry from the datasource.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the id of the entry to delete</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">integer returns one of: - <a class="reference external" href="Data::DELETION_SUCCESS">Data::DELETION_SUCCESS</a> -&gt; successful deletion - <a class="reference external" href="Data::DELETION_FAILED_STILL_REFERENCED">Data::DELETION_FAILED_STILL_REFERENCED</a> -&gt; failed deletion due to existing references - <a class="reference external" href="Data::DELETION_FAILED_EVENT">Data::DELETION_FAILED_EVENT</a> -&gt; failed deletion due to a failed before delete event</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">integer returns one of: - AbstractData::DELETION_SUCCESS -&gt; successful deletion - AbstractData::DELETION_FAILED_STILL_REFERENCED -&gt; failed deletion due to existing references - AbstractData::DELETION_FAILED_EVENT -&gt; failed deletion due to a failed before delete event</p>
 </td>
 </tr>
 </tbody>
@@ -435,8 +441,8 @@ selection was given.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::getReferences">
-<code class="descname">getReferences</code><span class="sig-paren">(</span><em>$table</em>, <em>$nameField</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::getReferences" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::getReferences">
+<code class="descname">getReferences</code><span class="sig-paren">(</span><em>$table</em>, <em>$nameField</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::getReferences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets ids and names of a table. Used for building up the dropdown box of
 reference type fields.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -457,8 +463,8 @@ reference type fields.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::countBy">
-<code class="descname">countBy</code><span class="sig-paren">(</span><em>$table</em>, <em>$params</em>, <em>$paramsOperators</em>, <em>$excludeDeleted</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::countBy" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::countBy">
+<code class="descname">countBy</code><span class="sig-paren">(</span><em>$table</em>, <em>$params</em>, <em>$paramsOperators</em>, <em>$excludeDeleted</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::countBy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the amount of entities in the datasource fulfilling the given
 parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -481,8 +487,8 @@ parameters.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::fetchReferences">
-<code class="descname">fetchReferences</code><span class="sig-paren">(</span><em>$entities = null</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::fetchReferences" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::fetchReferences">
+<code class="descname">fetchReferences</code><span class="sig-paren">(</span><em>$entities = null</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::fetchReferences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the id and name of referenced entities to the given entities. Each
 reference field is before the raw id of the referenced entity and after
 the fetch, it&#8217;s an array with the keys id and name.</p>
@@ -490,9 +496,12 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$entities</strong> &#8211; </li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">void</p>
 </td>
 </tr>
 </tbody>
@@ -500,8 +509,8 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::getDefinition">
-<code class="descname">getDefinition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data::getDefinition" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::getDefinition">
+<code class="descname">getDefinition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::getDefinition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> EntityDefinition} instance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -514,8 +523,8 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::createEmpty">
-<code class="descname">createEmpty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data::createEmpty" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::createEmpty">
+<code class="descname">createEmpty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::createEmpty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new, empty entity instance having all fields prefilled with
 null or the defined value in case of fixed fields.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -529,8 +538,8 @@ null or the defined value in case of fixed fields.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::createFiles">
-<code class="descname">createFiles</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::createFiles" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::createFiles">
+<code class="descname">createFiles</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::createFiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the uploaded files of a newly created entity.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -548,55 +557,43 @@ null or the defined value in case of fixed fields.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::updateFiles">
-<code class="descname">updateFiles</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::updateFiles" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::updateFiles">
+<code class="descname">updateFiles</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::updateFiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the uploaded files of an updated entity.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$request</strong> (<em>Request</em>) &#8211; the HTTP request containing the file data</li>
 <li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the updated entity</li>
 <li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful update</p>
+</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::deleteFile">
-<code class="descname">deleteFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::deleteFile" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::deleteFile">
+<code class="descname">deleteFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::deleteFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a specific file from an existing entity.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete the file from</li>
 <li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
 <li><strong>$field</strong> (<em>string</em>) &#8211; the field of the entity containing the file to be deleted</li>
 </ul>
 </td>
 </tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="Data::deleteFiles">
-<code class="descname">deleteFiles</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::deleteFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes all files of an existing entity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete the files from</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-</ul>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful deletion</p>
 </td>
 </tr>
 </tbody>
@@ -604,8 +601,29 @@ null or the defined value in case of fixed fields.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Data::renderFile">
-<code class="descname">renderFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#Data::renderFile" title="Permalink to this definition">¶</a></dt>
+<dt id="AbstractData::deleteFiles">
+<code class="descname">deleteFiles</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::deleteFiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes all files of an existing entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete the files from</li>
+<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful deletion</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="AbstractData::renderFile">
+<code class="descname">renderFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::renderFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders (outputs) a file of an entity. This includes setting headers
 like the file size, mimetype and name, too.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -640,7 +658,7 @@ like the file size, mimetype and name, too.</p>
         <a href="MySQLData.html" class="btn btn-neutral float-right" title="CRUDlex\MySQLData" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ControllerProvider.html" class="btn btn-neutral" title="CRUDlex\ControllerProvider" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../manual/addons.html" class="btn btn-neutral" title="Addons" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

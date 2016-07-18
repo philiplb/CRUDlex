@@ -7,7 +7,7 @@ CRUDlex\\Entity
 .. php:class:: Entity
 
     Represents a single set of data in field value pairs like the row in a
-    database. Depends of course on the {@see Data} implementation being used.
+    database. Depends of course on the {@see AbstractData} implementation being used.
     With this objects, the data is passed arround and validated.
 
     .. php:attr:: definition
@@ -29,7 +29,7 @@ CRUDlex\\Entity
         :type $value: mixed
         :param $value: the value to convert
         :type $type: string
-        :param $type: the type to convert to like 'int' or 'float'
+        :param $type: the type to convert to like 'integer' or 'float'
         :returns: mixed the converted value
 
     .. php:method:: __construct(EntityDefinition $definition)

@@ -8,7 +8,7 @@ CRUDlex\\MySQLDataFactory
 
     A factory implementation for {@see MySQLData} instances.
 
-    .. php:attr:: db
+    .. php:attr:: database
 
         protected
 
@@ -20,11 +20,11 @@ CRUDlex\\MySQLDataFactory
 
         Flag whether to use UUIDs as primary key.
 
-    .. php:method:: __construct($db, $useUUIDs = false)
+    .. php:method:: __construct($database, $useUUIDs = false)
 
         Constructor.
 
-        :param $db:
+        :param $database:
         :param $useUUIDs:
 
     .. php:method:: createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor)
