@@ -89,7 +89,18 @@ Users
                 description: 'Auto populated field on user creation. Used internally.'
                 required: false
 
+
 Plus any more fields you need.
+
+Recommended for the password reset features:
+
+.. code-block:: yaml
+
+    email:
+        type: text
+        label: E-Mail
+        required: true
+        unique: true
 
 """""
 Roles
@@ -133,6 +144,34 @@ Connecting Users and Roles
                     entity: role
                 required: true
 
+^^^^^^^^^^^^^^
+Password Reset
+^^^^^^^^^^^^^^
+
+In case you want to use the password reset features:
+
+.. code-block:: yaml
+
+    passwordReset:
+        label: Password Resets
+        table: password_reset
+        fields:
+            user:
+                type: reference
+                label: User
+                reference:
+                    table: user
+                    nameField: username
+                    entity: user
+                required: true
+            token:
+                type: text
+                label: Token
+                required: true
+            reset:
+                type: datetime
+                label: Reset
+
 ^^^^^^^^^^^^^^^^
 The UserProvider
 ^^^^^^^^^^^^^^^^
@@ -150,3 +189,17 @@ Simply instantiate and add it to your symfony/security configuration:
             ),
         ),
     ));
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Accessing Data of he Logged in User
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In order to get the user data from the logged in user in your controller, you
+might grab him like this:
+
+.. code-block:: php
+
+    $user = $app['security.token_storage']->getToken()
+
+You get back a CRUDlex\\User instance having some getters, see the API docs.
