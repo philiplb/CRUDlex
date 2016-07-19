@@ -1,6 +1,9 @@
 CRUDlex Changelog
 =================
 
+## 0.9.11
+Released: Upcoming
+
 ## 0.9.10
 Released: 2016-06-19
 - Attention: Removed the prefix "CRUD" from all classes as they live in their own namespace anyway
