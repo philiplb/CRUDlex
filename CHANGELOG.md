@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.9.11
 Released: Upcoming
+- Replaced handwritten mocks with Phony
 
 ## 0.9.10
 Released: 2016-06-19
