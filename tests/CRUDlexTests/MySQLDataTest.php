@@ -407,17 +407,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
             'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
         ));
 
-        $fileProcessor = TestDBSetup::getFileProcessor();
-        $fileProcessor->reset();
+        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
 
         $this->dataBook->createFiles($request, $entityBook, 'book');
 
-        $this->assertTrue($fileProcessor->isCreateFileCalled());
-        $this->assertFalse($fileProcessor->isUpdateFileCalled());
-        $this->assertFalse($fileProcessor->isDeleteFileCalled());
-        $this->assertFalse($fileProcessor->isRenderFileCalled());
-
-        $fileProcessor->reset();
+        $fileProcessorHandle->createFile->called();
+        $fileProcessorHandle->updateFile->never();
+        $fileProcessorHandle->deleteFile->never();
+        $fileProcessorHandle->renderFile->never();
     }
 
     public function testUpdateFiles() {
@@ -442,17 +439,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
             'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
         ));
 
-        $fileProcessor = TestDBSetup::getFileProcessor();
-        $fileProcessor->reset();
+        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
 
         $this->dataBook->updateFiles($request, $entityBook, 'book');
 
-        $this->assertFalse($fileProcessor->isCreateFileCalled());
-        $this->assertTrue($fileProcessor->isUpdateFileCalled());
-        $this->assertFalse($fileProcessor->isDeleteFileCalled());
-        $this->assertFalse($fileProcessor->isRenderFileCalled());
-
-        $fileProcessor->reset();
+        $fileProcessorHandle->createFile->never();
+        $fileProcessorHandle->updateFile->called();
+        $fileProcessorHandle->deleteFile->never();
+        $fileProcessorHandle->renderFile->never();
     }
 
     public function testDeleteFile() {
@@ -468,17 +462,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessor = TestDBSetup::getFileProcessor();
-        $fileProcessor->reset();
+        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
 
         $this->dataBook->deleteFile($entityBook, 'book', 'cover');
 
-        $this->assertFalse($fileProcessor->isCreateFileCalled());
-        $this->assertFalse($fileProcessor->isUpdateFileCalled());
-        $this->assertTrue($fileProcessor->isDeleteFileCalled());
-        $this->assertFalse($fileProcessor->isRenderFileCalled());
-
-        $fileProcessor->reset();
+        $fileProcessorHandle->createFile->never();
+        $fileProcessorHandle->updateFile->never();
+        $fileProcessorHandle->deleteFile->called();
+        $fileProcessorHandle->renderFile->never();
     }
 
     public function testDeleteFiles() {
@@ -494,17 +485,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessor = TestDBSetup::getFileProcessor();
-        $fileProcessor->reset();
+        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
 
         $this->dataBook->deleteFiles($entityBook, 'book');
 
-        $this->assertFalse($fileProcessor->isCreateFileCalled());
-        $this->assertFalse($fileProcessor->isUpdateFileCalled());
-        $this->assertTrue($fileProcessor->isDeleteFileCalled());
-        $this->assertFalse($fileProcessor->isRenderFileCalled());
-
-        $fileProcessor->reset();
+        $fileProcessorHandle->createFile->never();
+        $fileProcessorHandle->updateFile->never();
+        $fileProcessorHandle->deleteFile->called();
+        $fileProcessorHandle->renderFile->never();
     }
 
     public function testRenderFile() {
@@ -520,17 +508,15 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessor = TestDBSetup::getFileProcessor();
-        $fileProcessor->reset();
+        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
 
         $this->dataBook->renderFile($entityBook, 'book', 'cover');
 
-        $this->assertFalse($fileProcessor->isCreateFileCalled());
-        $this->assertFalse($fileProcessor->isUpdateFileCalled());
-        $this->assertFalse($fileProcessor->isDeleteFileCalled());
-        $this->assertTrue($fileProcessor->isRenderFileCalled());
+        $fileProcessorHandle->createFile->never();
+        $fileProcessorHandle->updateFile->never();
+        $fileProcessorHandle->deleteFile->never();
+        $fileProcessorHandle->renderFile->called();
 
-        $fileProcessor->reset();
     }
 
     public function testPushPopEvent() {

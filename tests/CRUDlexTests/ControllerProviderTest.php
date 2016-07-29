@@ -12,9 +12,10 @@
 use Silex\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+use Eloquent\Phony\Phpunit\Phony;
+
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
-use CRUDlexTestEnv\NullFileProcessor;
 
 class ControllerProviderTest extends WebTestCase {
 
@@ -22,7 +23,7 @@ class ControllerProviderTest extends WebTestCase {
 
     protected $dataLibrary;
 
-    protected $fileProcessor;
+    protected $fileProcessorHandle;
 
     public function createApplication() {
 
@@ -33,13 +34,15 @@ class ControllerProviderTest extends WebTestCase {
         $app['debug'] = true;
         $app['exception_handler']->disable();
 
-        $this->fileProcessor =  new NullFileProcessor();
+        $this->fileProcessorHandle = Phony::mock('\\CRUDlex\\SimpleFilesystemFileProcessor');
+        $this->fileProcessorHandle->renderFile->returns('rendered file');
+        $fileProcessorMock = $this->fileProcessorHandle->get();
 
         $dataFactory = new CRUDlex\MySQLDataFactory($app['db']);
         $app->register(new CRUDlex\ServiceProvider(), array(
             'crud.file' => __DIR__ . '/../crud.yml',
             'crud.datafactory' => $dataFactory,
-            'crud.fileprocessor' => $this->fileProcessor
+            'crud.fileprocessor' => $fileProcessorMock
         ));
         $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
         $app->register(new Silex\Provider\TwigServiceProvider(), array(
@@ -76,7 +79,6 @@ class ControllerProviderTest extends WebTestCase {
         $this->dataLibrary->create($library);
 
         $file = __DIR__.'/../test1.xml';
-        $this->fileProcessor->reset();
 
         $client->request('POST', '/crud/book/create', array(
             'title' => 'title',
@@ -96,10 +98,10 @@ class ControllerProviderTest extends WebTestCase {
         $books = $this->dataBook->listEntries();
         $this->assertCount(1, $books);
 
-        $this->assertTrue($this->fileProcessor->isCreateFileCalled());
-        $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
-        $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
-        $this->assertFalse($this->fileProcessor->isRenderFileCalled());
+        $this->fileProcessorHandle->createFile->called();
+        $this->fileProcessorHandle->updateFile->never();
+        $this->fileProcessorHandle->deleteFile->never();
+        $this->fileProcessorHandle->renderFile->never();
 
         // Canceling events
         $before = function(Entity $entity) {
@@ -290,7 +292,6 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertRegExp('/has-error/', $client->getResponse()->getContent());
 
         $file = __DIR__.'/../test1.xml';
-        $this->fileProcessor->reset();
 
         $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
             'version' => 0,
@@ -309,11 +310,10 @@ class ControllerProviderTest extends WebTestCase {
         $bookEdited = $this->dataBook->get($entityBook->get('id'));
         $this->assertSame($bookEdited->get('title'), 'titleEdited');
 
-
-        $this->assertFalse($this->fileProcessor->isCreateFileCalled());
-        $this->assertTrue($this->fileProcessor->isUpdateFileCalled());
-        $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
-        $this->assertFalse($this->fileProcessor->isRenderFileCalled());
+        $this->fileProcessorHandle->createFile->never();
+        $this->fileProcessorHandle->updateFile->called();
+        $this->fileProcessorHandle->deleteFile->never();
+        $this->fileProcessorHandle->renderFile->never();
 
         // Optimistic locking
         $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
@@ -506,22 +506,18 @@ class ControllerProviderTest extends WebTestCase {
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ));
 
-        $this->fileProcessor->reset();
-
         $crawler = $client->request('GET', '/crud/book/1/title/file');
         $this->assertTrue($client->getResponse()->isNotFound());
         $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
-
-        $this->fileProcessor->reset();
 
         $crawler = $client->request('GET', '/crud/book/1/cover/file');
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("rendered file")'));
 
-        $this->assertFalse($this->fileProcessor->isCreateFileCalled());
-        $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
-        $this->assertFalse($this->fileProcessor->isDeleteFileCalled());
-        $this->assertTrue($this->fileProcessor->isRenderFileCalled());
+        $this->fileProcessorHandle->createFile->never();
+        $this->fileProcessorHandle->updateFile->never();
+        $this->fileProcessorHandle->deleteFile->never();
+        $this->fileProcessorHandle->renderFile->called();
 
     }
 
@@ -552,8 +548,6 @@ class ControllerProviderTest extends WebTestCase {
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ));
 
-        $this->fileProcessor->reset();
-
         $crawler = $client->request('POST', '/crud/book/1/cover/delete');
         $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
         $crawler = $client->followRedirect();
@@ -576,7 +570,6 @@ class ControllerProviderTest extends WebTestCase {
         $this->dataBook->popEvent('before', 'deleteFile');
 
         // Sucessful deletion
-        $this->fileProcessor->reset();
 
         $crawler = $client->request('POST', '/crud/book/1/cover/delete');
         $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
@@ -584,10 +577,10 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("File deleted.")'));
 
-        $this->assertFalse($this->fileProcessor->isCreateFileCalled());
-        $this->assertFalse($this->fileProcessor->isUpdateFileCalled());
-        $this->assertTrue($this->fileProcessor->isDeleteFileCalled());
-        $this->assertFalse($this->fileProcessor->isRenderFileCalled());
+        $this->fileProcessorHandle->createFile->never();
+        $this->fileProcessorHandle->updateFile->never();
+        $this->fileProcessorHandle->deleteFile->called();
+        $this->fileProcessorHandle->renderFile->never();
 
 
     }

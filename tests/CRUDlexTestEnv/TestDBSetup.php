@@ -13,13 +13,14 @@ namespace CRUDlexTestEnv;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
+use Eloquent\Phony\Phpunit\Phony;
+
 use CRUDlex\MySQLDataFactory;
 use CRUDlex\ServiceProvider;
-use CRUDlexTestEnv\NullFileProcessor;
 
 class TestDBSetup {
 
-    private static $fileProcessor;
+    private static $fileProcessorHandle;
 
     public static function createAppAndDB($useUUIDs = false) {
         $app = new Application();
@@ -97,17 +98,22 @@ class TestDBSetup {
     }
 
     public static function createServiceProvider($useUUIDs = false) {
-        static::$fileProcessor = new NullFileProcessor();
+
+
+        static::$fileProcessorHandle = Phony::mock('\\CRUDlex\\SimpleFilesystemFileProcessor');
+        static::$fileProcessorHandle->renderFile->returns('rendered file');
+        $fileProcessorMock = static::$fileProcessorHandle->get();
+
         $app = static::createAppAndDB($useUUIDs);
         $crudServiceProvider = new ServiceProvider();
         $dataFactory = new MySQLDataFactory($app['db'], $useUUIDs);
         $crudFile = __DIR__.'/../crud.yml';
-        $crudServiceProvider->init($dataFactory, $crudFile, static::$fileProcessor, true, $app);
+        $crudServiceProvider->init($dataFactory, $crudFile, $fileProcessorMock, true, $app);
         return $crudServiceProvider;
     }
 
-    public static function getFileProcessor() {
-        return static::$fileProcessor;
+    public static function getFileProcessorHandle() {
+        return static::$fileProcessorHandle;
     }
 
 }

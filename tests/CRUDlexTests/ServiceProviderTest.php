@@ -15,7 +15,6 @@ use Eloquent\Phony\Phpunit\Phony;
 
 use CRUDlex\ServiceProvider;
 use CRUDlex\MySQLDataFactory;
-use CRUDlexTestEnv\NullFileProcessor;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
@@ -24,6 +23,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     protected $crudFile;
 
     protected $dataFactory;
+
+    protected $fileProcessorMock;
 
     protected function setUp() {
         $app = new Application();
@@ -40,6 +41,10 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         ));
         $this->crudFile = __DIR__.'/../crud.yml';
         $this->dataFactory = new MySQLDataFactory($app['db']);
+
+        $fileProcessorHandle = Phony::mock('\\CRUDlex\\SimpleFilesystemFileProcessor');
+        $this->fileProcessorMock = $fileProcessorHandle->get();
+
     }
 
     public function testBoot() {
@@ -62,7 +67,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $crudServiceProvider = new ServiceProvider();
 
         try {
-            $crudServiceProvider->init($this->dataFactory, 'foo', new NullFileProcessor(), true, $app);
+            $crudServiceProvider->init($this->dataFactory, 'foo', $this->fileProcessorMock, true, $app);
             $this->fail('Expected exception');
         } catch (\Exception $e) {
             // Wanted.
@@ -73,13 +78,13 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testInitWithEmptyFile() {
         $app = new Application();
         $crudServiceProvider = new ServiceProvider();
-        $crudServiceProvider->init($this->dataFactory, __DIR__.'/../emptyCrud.yml', new NullFileProcessor(), true, $app);
+        $crudServiceProvider->init($this->dataFactory, __DIR__.'/../emptyCrud.yml', $this->fileProcessorMock, true, $app);
     }
 
     public function testGetEntities() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
         $expected = array('library', 'book');
         $read = $crudServiceProvider->getEntities();
         $this->assertSame($read, $expected);
@@ -88,7 +93,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testGetData() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
         $read = $crudServiceProvider->getData('book');
         $this->assertNotNull($read);
         $read = $crudServiceProvider->getData('library');
@@ -100,7 +105,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testFormatDate() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
 
         $read = $crudServiceProvider->formatDate('2014-08-30 12:00:00', false);
         $expected = '2014-08-30';
@@ -133,7 +138,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testFormatDateTime() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
 
         $read = $crudServiceProvider->formatDateTime('2014-08-30 12:00:00', false);
         $expected = '2014-08-30 12:00';
@@ -218,10 +223,10 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testIsManagingI18n() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
         $read = $crudServiceProvider->isManagingI18n();
         $this->assertTrue($read);
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), false, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, false, $app);
         $read = $crudServiceProvider->isManagingI18n();
         $this->assertFalse($read);
     }
@@ -265,7 +270,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testInitialSort() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
         $data = $crudServiceProvider->getData('library');
         $read = $data->getDefinition()->getInitialSortField();
         $expected = 'name';
