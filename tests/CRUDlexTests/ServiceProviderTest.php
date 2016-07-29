@@ -11,10 +11,11 @@
 
 namespace CRUDlexTests;
 
+use Eloquent\Phony\Phpunit\Phony;
+
 use CRUDlex\ServiceProvider;
 use CRUDlex\MySQLDataFactory;
 use CRUDlexTestEnv\NullFileProcessor;
-use CRUDlexTestEnv\TestEntityDefinitionFactory;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
@@ -278,12 +279,17 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testCustomEntityDefinitionFactory() {
-        $crudServiceProvider = new ServiceProvider();
+        $serviceProvider = new ServiceProvider();
         $app = new Application();
-        $testEntityDefinitionFactory = new TestEntityDefinitionFactory();
-        $app['crud.entitydefinitionfactory'] = $testEntityDefinitionFactory;
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, new NullFileProcessor(), true, $app);
-        $this->assertTrue($testEntityDefinitionFactory->getCreateHasBeenCalled());
+
+        $entityDefinitionFactoryHandle = Phony::mock('\\CRUDlex\\EntityDefinitionFactory');
+        $entityDefinitionFactoryHandle->createEntityDefinition->returns(new \CRUDlex\EntityDefinition(
+            '', array(), '', '', array(), $serviceProvider
+        ));
+        $entityDefinitionFactoryMock = $entityDefinitionFactoryHandle->get();
+        $app['crud.entitydefinitionfactory'] = $entityDefinitionFactoryMock;
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $entityDefinitionFactoryHandle->createEntityDefinition->once();
     }
 
 }
