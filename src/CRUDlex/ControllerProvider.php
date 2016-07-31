@@ -11,8 +11,8 @@
 
 namespace CRUDlex;
 
-use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
+use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
