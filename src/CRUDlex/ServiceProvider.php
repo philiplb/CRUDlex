@@ -111,10 +111,6 @@ class ServiceProvider implements ServiceProviderInterface {
             $app->register(new \Silex\Provider\SessionServiceProvider());
         }
 
-        if (!$app->offsetExists('url_generator')) {
-            $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
-        }
-
         if (!$app->offsetExists('twig')) {
             $app->register(new \Silex\Provider\TwigServiceProvider());
             $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
