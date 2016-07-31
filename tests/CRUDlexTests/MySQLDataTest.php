@@ -64,24 +64,24 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $read = count($list);
         $expected = 2;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array('name' => 'nameB'), array('name' => '='));
+        $list = $this->dataLibrary->listEntries(['name' => 'nameB'], ['name' => '=']);
         $read = count($list);
         $expected = 1;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array('name' => 'nameB', 'id' => 2), array('name' => '=', 'id' => '='));
+        $list = $this->dataLibrary->listEntries(['name' => 'nameB', 'id' => 2], ['name' => '=', 'id' => '=']);
         $read = count($list);
         $expected = 1;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array('type' => null), array('type' => '='));
+        $list = $this->dataLibrary->listEntries(['type' => null], ['type' => '=']);
         $read = count($list);
         $expected = 2;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array('name' => '%eB%'), array('name' => 'LIKE'));
+        $list = $this->dataLibrary->listEntries(['name' => '%eB%'], ['name' => 'LIKE']);
         $read = count($list);
         $expected = 1;
         $this->assertSame($read, $expected);
 
-        $list = $this->dataLibrary->listEntries(array(), array(), null, null, 'name');
+        $list = $this->dataLibrary->listEntries([], [], null, null, 'name');
         $expected = 'nameB';
         $this->assertSame($list[0]->get('name'), $expected);
         $expected = 'nameA';
@@ -91,23 +91,23 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
             $entity->set('name', 'name'.$i);
             $this->dataLibrary->create($entity);
         }
-        $list = $this->dataLibrary->listEntries(array(), array(), null, null);
+        $list = $this->dataLibrary->listEntries([], [], null, null);
         $read = count($list);
         $expected = 17;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array(), array(), null, 5);
+        $list = $this->dataLibrary->listEntries([], [], null, 5);
         $read = count($list);
         $expected = 5;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array(), array(), 0, 5);
+        $list = $this->dataLibrary->listEntries([], [], 0, 5);
         $read = count($list);
         $expected = 5;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array(), array(), 15, 5);
+        $list = $this->dataLibrary->listEntries([], [], 15, 5);
         $read = count($list);
         $expected = 2;
         $this->assertSame($read, $expected);
-        $list = $this->dataLibrary->listEntries(array(), array(), 5, null);
+        $list = $this->dataLibrary->listEntries([], [], 5, null);
         $read = count($list);
         $expected = 12;
         $this->assertSame($read, $expected);
@@ -218,19 +218,19 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $table = $this->dataBook->getDefinition()->getReferenceTable('library');
         $nameField = $this->dataBook->getDefinition()->getReferenceNameField('library');
         $read = $this->dataBook->getReferences($table, $nameField);
-        $expected = array(
+        $expected = [
             '1' => 'A',
             '2' => 'B',
             '3' => 'C',
-        );
+        ];
         $this->assertSame($read, $expected);
 
         $read = $this->dataBook->getReferences($table, null);
-        $expected = array(
+        $expected = [
             '1' => '1',
             '2' => '2',
             '3' => '3',
-        );
+        ];
         $this->assertSame($read, $expected);
     }
 
@@ -251,8 +251,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
             $table,
-            array(),
-            array(),
+            [],
+            [],
             false
         );
         $expected = 3;
@@ -260,8 +260,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
             $table,
-            array(),
-            array(),
+            [],
+            [],
             true
         );
         $expected = 2;
@@ -269,8 +269,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
                 $table,
-                array('id' => 1),
-                array('id' => '='),
+                ['id' => 1],
+                ['id' => '='],
                 false
             );
         $expected = 1;
@@ -278,8 +278,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
                 $table,
-                array('id' => 1),
-                array('id' => '!='),
+                ['id' => 1],
+                ['id' => '!='],
                 false
             );
         $expected = 2;
@@ -287,8 +287,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
                 $table,
-                array('id' => 1, 'name' => 'A'),
-                array('id' => '=', 'name' => '='),
+                ['id' => 1, 'name' => 'A'],
+                ['id' => '=', 'name' => '='],
                 false
             );
         $expected = 1;
@@ -296,8 +296,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
                 $table,
-                array('id' => 1, 'name' => 'B'),
-                array('id' => '=', 'name' => '='),
+                ['id' => 1, 'name' => 'B'],
+                ['id' => '=', 'name' => '='],
                 false
             );
         $expected = 0;
@@ -305,8 +305,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
                 $table,
-                array('id' => 3),
-                array('id' => '='),
+                ['id' => 3],
+                ['id' => '='],
                 false
             );
         $expected = 1;
@@ -314,8 +314,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $read = $this->dataLibrary->countBy(
                 $table,
-                array('id' => 3),
-                array('id' => '='),
+                ['id' => 3],
+                ['id' => '='],
                 true
             );
         $expected = 0;
@@ -339,20 +339,20 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $expected = '1';
         $this->assertSame($read, $expected);
 
-        $books = array($entityBook);
+        $books = [$entityBook];
         $this->dataBook->fetchReferences($books);
         $read = $books[0]->get('library');
-        $expected = array('id' => '1', 'name' => 'lib');
+        $expected = ['id' => '1', 'name' => 'lib'];
         $this->assertSame($read, $expected);
 
         $read = $books[0]->get('secondLibrary');
-        $expected = array('id' => '1');
+        $expected = ['id' => '1'];
         $this->assertSame($read, $expected);
 
         $nullBooks = null;
         $this->dataBook->fetchReferences($nullBooks);
 
-        $emptyBooks = array();
+        $emptyBooks = [];
         $this->dataBook->fetchReferences($emptyBooks);
     }
 
@@ -398,14 +398,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id')
-        ), array(), array(), array(
+        ], [], [], [
             'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
-        ));
+        ]);
 
         $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
 
@@ -430,14 +430,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id')
-        ), array(), array(), array(
+        ], [], [], [
             'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
-        ));
+        ]);
 
         $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
 

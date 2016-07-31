@@ -74,25 +74,25 @@ class SimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase {
         $file = __DIR__.'/../test1A.xml';
         copy(__DIR__.'/../test1.xml', $file);
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id')
-        ), array(), array(), array(
+        ], [], [], [
             'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
 
         $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
         $this->assertTrue(file_exists($this->file1));
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id'),
             'cover' => null
-        ));
+        ]);
 
         $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
     }
@@ -115,28 +115,28 @@ class SimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase {
         $file = __DIR__.'/../test1A.xml';
         copy(__DIR__.'/../test1.xml', $file);
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id')
-        ), array(), array(), array(
+        ], [], [], [
             'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
 
         $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
 
         $file2 = __DIR__.'/../test2A.xml';
         copy(__DIR__.'/../test2.xml', $file2);
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id')
-        ), array(), array(), array(
+        ], [], [], [
             'cover' => new UploadedFile($file2, 'test2A.xml', 'application/xml', filesize($file2), null, true)
-        ));
+        ]);
 
         $this->fileProcessor->updateFile($request, $entityBook, 'book', 'cover');
 
@@ -162,14 +162,14 @@ class SimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase {
         $file = __DIR__.'/../test1A.xml';
         copy(__DIR__.'/../test1.xml', $file);
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id')
-        ), array(), array(), array(
+        ], [], [], [
             'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
 
         $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
         $this->fileProcessor->deleteFile($entityBook, 'book', 'cover');
@@ -196,14 +196,14 @@ class SimpleFilesystemFileProcessorTest extends \PHPUnit_Framework_TestCase {
         $file = __DIR__.'/../test1A.xml';
         copy(__DIR__.'/../test1.xml', $file);
 
-        $request = new Request(array(), array(
+        $request = new Request([], [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'library' => $entityLibrary->get('id')
-        ), array(), array(), array(
+        ], [], [], [
             'cover' => new UploadedFile($file, 'test1A.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
 
         $this->fileProcessor->createFile($request, $entityBook, 'book', 'cover');
 

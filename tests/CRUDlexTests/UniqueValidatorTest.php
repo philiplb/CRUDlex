@@ -34,7 +34,7 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
     public function testValidate() {
 
         $validator = new UniqueValidator();
-        $parameters = array($this->dataLibrary, $this->entityLibrary, 'name');
+        $parameters = [$this->dataLibrary, $this->entityLibrary, 'name'];
         $read = $validator->isValid('lib a', $parameters);
         $this->assertTrue($read);
 

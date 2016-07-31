@@ -102,11 +102,11 @@ class SimpleFilesystemFileProcessor implements FileProcessorInterface {
         $size = filesize($file);
         if ($fileName && file_exists($file)) {
             $streamedFileResponse = new StreamedFileResponse();
-            $response             = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, array(
+            $response             = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, [
                 'Content-Type' => $mimeType,
                 'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
                 'Content-length' => $size
-            ));
+            ]);
             $response->send();
         }
         return $response;

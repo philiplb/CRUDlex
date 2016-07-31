@@ -23,15 +23,15 @@ class UniqueValidator implements ValidatorInterface {
      */
     public function isValid($value, array $parameters) {
 
-        if (in_array($value, array(null, ''))) {
+        if (in_array($value, [null, ''])) {
             return true;
         }
 
         $data            = $parameters[0];
         $entity          = $parameters[1];
         $field           = $parameters[2];
-        $params          = array($field => $value);
-        $paramsOperators = array($field => '=');
+        $params          = [$field => $value];
+        $paramsOperators = [$field => '='];
         if ($entity->get('id') !== null) {
             $params['id']          = $entity->get('id');
             $paramsOperators['id'] = '!=';

@@ -106,7 +106,7 @@ class EntityDefinition {
      */
     protected function getFilteredFieldNames(array $exclude) {
         $fieldNames = $this->getFieldNames();
-        $result     = array();
+        $result     = [];
         foreach ($fieldNames as $fieldName) {
             if (!in_array($fieldName, $exclude)) {
                 $result[] = $fieldName;
@@ -146,7 +146,7 @@ class EntityDefinition {
      */
     protected function setFieldValue($name, $key, $value) {
         if (!array_key_exists($name, $this->fields)) {
-            $this->fields[$name] = array();
+            $this->fields[$name] = [];
         }
         $this->fields[$name][$key] = $value;
     }
@@ -218,10 +218,10 @@ class EntityDefinition {
         $this->standardFieldLabels = $standardFieldLabels;
         $this->serviceProvider     = $serviceProvider;
 
-        $this->children             = array();
-        $this->listFields           = array();
-        $this->childrenLabelFields  = array();
-        $this->filter               = array();
+        $this->children             = [];
+        $this->listFields           = [];
+        $this->childrenLabelFields  = [];
+        $this->filter               = [];
         $this->deleteCascade        = false;
         $this->pageSize             = 25;
         $this->locale               = null;
@@ -380,7 +380,7 @@ class EntityDefinition {
      * the public field names
      */
     public function getPublicFieldNames() {
-        $exclude = array('version', 'deleted_at');
+        $exclude = ['version', 'deleted_at'];
         $result  = $this->getFilteredFieldNames($exclude);
         return $result;
     }
@@ -404,7 +404,7 @@ class EntityDefinition {
      * the read only field names
      */
     public function getReadOnlyFields() {
-        return array('id', 'created_at', 'updated_at', 'version', 'deleted_at');
+        return ['id', 'created_at', 'updated_at', 'version', 'deleted_at'];
     }
 
     /**
@@ -423,7 +423,7 @@ class EntityDefinition {
         if ($fieldName === 'version') {
             return 'integer';
         }
-        if (in_array($fieldName, array('created_at', 'updated_at', 'deleted_at'))) {
+        if (in_array($fieldName, ['created_at', 'updated_at', 'deleted_at'])) {
             return 'datetime';
         }
         return $this->getFieldValue($fieldName, 'type');
@@ -753,7 +753,7 @@ class EntityDefinition {
      * the entity of the referencing definition
      */
     public function addChild($table, $fieldName, $entity) {
-        $this->children[] = array($table, $fieldName, $entity);
+        $this->children[] = [$table, $fieldName, $entity];
     }
 
     /**

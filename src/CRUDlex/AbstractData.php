@@ -146,7 +146,7 @@ abstract class AbstractData {
      * the event function to be called if set
      */
     public function pushEvent($moment, $action, $function) {
-        $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : array();
+        $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : [];
         $events[]                          = $function;
         $this->events[$moment.'.'.$action] = $events;
     }
@@ -205,7 +205,7 @@ abstract class AbstractData {
      * @return Entity[]
      * the entities fulfilling the filter or all if no filter was given
      */
-    abstract public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null);
+    abstract public function listEntries(array $filter = [], array $filterOperators = [], $skip = null, $amount = null, $sortField = null, $sortAscending = null);
 
     /**
      * Persists the given entity as new entry in the datasource.

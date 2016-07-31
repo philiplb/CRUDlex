@@ -43,27 +43,27 @@ class EntityValidator {
     protected function fieldToRules($field, AbstractData $data, \Valdi\Validator $validator) {
         $setItems = $this->definition->getSetItems($field);
         if ($setItems === null) {
-            $setItems = array();
+            $setItems = [];
         }
-        $rulesMapping = array(
-            'boolean' => array('boolean'),
-            'float' => array('floating'),
-            'integer' => array('integer'),
-            'date' => array('dateTime', 'Y-m-d'),
-            'datetime' => array('or', $validator, array('dateTime', 'Y-m-d H:i'), array('dateTime', 'Y-m-d H:i:s')),
-            'set' => array_merge(array('inSet'), $setItems),
-            'reference' => array('reference', $data, $field)
-        );
+        $rulesMapping = [
+            'boolean' => ['boolean'],
+            'float' => ['floating'],
+            'integer' => ['integer'],
+            'date' => ['dateTime', 'Y-m-d'],
+            'datetime' => ['or', $validator, ['dateTime', 'Y-m-d H:i'], ['dateTime', 'Y-m-d H:i:s']],
+            'set' => array_merge(['inSet'], $setItems),
+            'reference' => ['reference', $data, $field]
+        ];
         $type         = $this->definition->getType($field);
-        $rules        = array();
+        $rules        = [];
         if (array_key_exists($type, $rulesMapping)) {
             $rules[] = $rulesMapping[$type];
         }
         if ($this->definition->isRequired($field)) {
-            $rules[] = array('required');
+            $rules[] = ['required'];
         }
         if ($this->definition->isUnique($field)) {
-            $rules[] = array('unique', $data, $this->entity, $field);
+            $rules[] = ['unique', $data, $this->entity, $field];
         }
         return $rules;
     }
@@ -79,7 +79,7 @@ class EntityValidator {
      */
     protected function buildUpRules(AbstractData $data, \Valdi\Validator $validator) {
         $fields = $this->definition->getEditableFieldNames();
-        $rules = array();
+        $rules = [];
         foreach ($fields as $field) {
             $fieldRules = $this->fieldToRules($field, $data, $validator);
             if (!empty($fieldRules)) {
@@ -96,7 +96,7 @@ class EntityValidator {
      * a map field to raw value
      */
     protected function buildUpData() {
-        $data   = array();
+        $data   = [];
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             $data[$field] = $this->entity->getRaw($field);
@@ -142,7 +142,7 @@ class EntityValidator {
         $validator->addValidator('reference', new ReferenceValidator());
         $rules                 = $this->buildUpRules($data, $validator);
         $toValidate            = $this->buildUpData();
-        $rules['version']      = array(array('value', $expectedVersion));
+        $rules['version']      = [['value', $expectedVersion]];
         $toValidate['version'] = $this->entity->get('version');
         $validation            = $validator->isValid($rules, $toValidate);
         return $validation;

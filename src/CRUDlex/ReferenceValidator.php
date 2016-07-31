@@ -23,15 +23,15 @@ class ReferenceValidator implements ValidatorInterface {
      */
     public function isValid($value, array $parameters) {
 
-        if (in_array($value, array(null, ''))) {
+        if (in_array($value, [null, ''])) {
             return true;
         }
 
         $data            = $parameters[0];
         $field           = $parameters[1];
         $definition      = $data->getDefinition();
-        $params          = array('id' => $value);
-        $paramsOperators = array('id' => '=');
+        $params          = ['id' => $value];
+        $paramsOperators = ['id' => '='];
         $amount          = $data->countBy($definition->getReferenceTable($field), $params, $paramsOperators, false);
         return $amount > 0;
     }

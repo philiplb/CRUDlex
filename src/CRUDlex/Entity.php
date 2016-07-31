@@ -44,7 +44,7 @@ class Entity {
      * the converted value
      */
     protected function toType($value, $type) {
-        if (in_array($type, array('integer', 'float')) && $value !== '' && $value !== null) {
+        if (in_array($type, ['integer', 'float']) && $value !== '' && $value !== null) {
             settype($value, $type == 'integer' ? 'int' : 'float');
         } else if ($type == 'boolean') {
             $value = $value && $value !== '0';
@@ -62,7 +62,7 @@ class Entity {
      */
     public function __construct(EntityDefinition $definition) {
         $this->definition = $definition;
-        $this->entity     = array();
+        $this->entity     = [];
     }
 
     /**

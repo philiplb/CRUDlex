@@ -84,7 +84,7 @@ class ServiceProvider implements ServiceProviderInterface {
             $fileContent = file_get_contents($fileName);
             $parsedYaml  = Yaml::parse($fileContent);
             if (!is_array($parsedYaml)) {
-                $parsedYaml = array();
+                $parsedYaml = [];
             }
             return $parsedYaml;
         } catch (\Exception $e) {
@@ -102,9 +102,9 @@ class ServiceProvider implements ServiceProviderInterface {
 
         if (!$app->offsetExists('translator')) {
             $app->register(new \Silex\Provider\LocaleServiceProvider());
-            $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
-                'locale_fallbacks' => array('en'),
-            ));
+            $app->register(new \Silex\Provider\TranslationServiceProvider(), [
+                'locale_fallbacks' => ['en'],
+            ]);
         }
 
         if (!$app->offsetExists('session')) {
@@ -162,7 +162,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * the map with localized entity labels
      */
     protected function getLocaleLabels($locales, $crud) {
-        $localeLabels = array();
+        $localeLabels = [];
         foreach ($locales as $locale) {
             if (array_key_exists('label_'.$locale, $crud)) {
                 $localeLabels[$locale] = $crud['label_'.$locale];
@@ -181,7 +181,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * the CRUD entity map
      */
     protected function configureDefinition(EntityDefinition $definition, array $crud) {
-        $toConfigure = array(
+        $toConfigure = [
             'deleteCascade',
             'listFields',
             'filter',
@@ -189,7 +189,7 @@ class ServiceProvider implements ServiceProviderInterface {
             'pageSize',
             'initialSortField',
             'initialSortAscending'
-        );
+        ];
         foreach ($toConfigure as $field) {
             if (array_key_exists($field, $crud)) {
                 $function = 'set'.ucfirst($field);
@@ -216,11 +216,11 @@ class ServiceProvider implements ServiceProviderInterface {
     protected function createDefinition(Container $app, array $locales, array $crud, $name) {
         $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
         $localeLabels        = $this->getLocaleLabels($locales, $crud);
-        $standardFieldLabels = array(
+        $standardFieldLabels = [
             'id' => $app['translator']->trans('crudlex.label.id'),
             'created_at' => $app['translator']->trans('crudlex.label.created_at'),
             'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
-        );
+        ];
 
         $entityDefinitionFactory = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
 
@@ -256,7 +256,7 @@ class ServiceProvider implements ServiceProviderInterface {
         $this->manageI18n = $manageI18n;
         $locales          = $this->initLocales($app);
         $parsedYaml       = $this->readYaml($crudFile);
-        $this->datas      = array();
+        $this->datas      = [];
         foreach ($parsedYaml as $name => $crud) {
             if (!is_array($crud) || !isset($crud['fields'])) {
                 continue;
@@ -385,12 +385,12 @@ class ServiceProvider implements ServiceProviderInterface {
         $crudSection       = 'crud.'.$section;
         $crudSectionAction = $crudSection.'.'.$action;
 
-        $offsets = array(
+        $offsets = [
             $crudSectionAction.'.'.$entity,
             $crudSection.'.'.$entity,
             $crudSectionAction,
             $crudSection
-        );
+        ];
         foreach ($offsets as $offset) {
             if ($app->offsetExists($offset)) {
                 return $app[$offset];
@@ -431,9 +431,9 @@ class ServiceProvider implements ServiceProviderInterface {
     public function getLocales() {
         $localeDir     = __DIR__.'/../locales';
         $languageFiles = scandir($localeDir);
-        $locales       = array();
+        $locales       = [];
         foreach ($languageFiles as $languageFile) {
-            if (in_array($languageFile, array('.', '..'))) {
+            if (in_array($languageFile, ['.', '..'])) {
                 continue;
             }
             $extensionPos = strpos($languageFile, '.yml');

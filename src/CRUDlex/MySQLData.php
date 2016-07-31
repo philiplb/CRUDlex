@@ -67,7 +67,7 @@ class MySQLData extends AbstractData {
     protected function deleteChildren($id, $deleteCascade) {
         foreach ($this->definition->getChildren() as $childArray) {
             $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
-            $children  = $childData->listEntries(array($childArray[1] => $id));
+            $children  = $childData->listEntries([$childArray[1] => $id]);
             foreach ($children as $child) {
                 $childData->doDelete($child, $deleteCascade);
             }
@@ -227,7 +227,7 @@ class MySQLData extends AbstractData {
         foreach ($rows as $row) {
             for ($i = 0; $i < $amount; ++$i) {
                 if ($entities[$i]->get($field) == $row['id']) {
-                    $value = array('id' => $entities[$i]->get($field));
+                    $value = ['id' => $entities[$i]->get($field)];
                     if ($nameField) {
                         $value['name'] = $row[$nameField];
                     }
@@ -276,7 +276,7 @@ class MySQLData extends AbstractData {
      * {@inheritdoc}
      */
     public function get($id) {
-        $entities = $this->listEntries(array('id' => $id));
+        $entities = $this->listEntries(['id' => $id]);
         if (count($entities) == 0) {
             return null;
         }
@@ -286,7 +286,7 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function listEntries(array $filter = array(), array $filterOperators = array(), $skip = null, $amount = null, $sortField = null, $sortAscending = null) {
+    public function listEntries(array $filter = [], array $filterOperators = [], $skip = null, $amount = null, $sortField = null, $sortAscending = null) {
         $fieldNames = $this->definition->getFieldNames();
 
         $queryBuilder = $this->database->createQueryBuilder();
@@ -302,7 +302,7 @@ class MySQLData extends AbstractData {
 
         $queryResult = $queryBuilder->execute();
         $rows        = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $entities    = array();
+        $entities    = [];
         foreach ($rows as $row) {
             $entities[] = $this->hydrate($row);
         }
@@ -400,7 +400,7 @@ class MySQLData extends AbstractData {
         }
         $queryResult = $queryBuilder->execute();
         $entries     = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $result      = array();
+        $result      = [];
         foreach ($entries as $entry) {
             $result[$entry['id']] = $nameField ? $entry[$nameField] : $entry['id'];
         }

@@ -30,7 +30,7 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetSetFieldNames() {
         $read = $this->definition->getFieldNames();
-        $expected = array(
+        $expected = [
             'id',
             'created_at',
             'updated_at',
@@ -44,16 +44,16 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'secondLibrary',
             'cover',
             'price'
-        );
+        ];
         $this->assertSame($read, $expected);
     }
 
     public function testGetType() {
-        $fields = array('title', 'pages', 'release', 'library',
-            'id', 'created_at', 'updated_at', 'deleted_at', 'version');
-        $expected = array('text', 'integer', 'date', 'reference',
-            'string', 'datetime', 'datetime', 'datetime', 'integer', null);
-        $read = array();
+        $fields = ['title', 'pages', 'release', 'library',
+            'id', 'created_at', 'updated_at', 'deleted_at', 'version'];
+        $expected = ['text', 'integer', 'date', 'reference',
+            'string', 'datetime', 'datetime', 'datetime', 'integer', null];
+        $read = [];
         foreach ($fields as $field) {
             $read[] = $this->definition->getType($field);
         }
@@ -70,7 +70,7 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetPublicFieldNames() {
         $read = $this->definition->getPublicFieldNames();
-        $expected = array(
+        $expected = [
             'id',
             'created_at',
             'updated_at',
@@ -82,20 +82,20 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'secondLibrary',
             'cover',
             'price'
-        );
+        ];
         $this->assertSame($read, $expected);
     }
 
     public function testgetListFields() {
         $read = $this->definition->getListFields();
-        $expected = array(
+        $expected = [
             'author',
             'title',
             'library'
-        );
+        ];
         $this->assertSame($read, $expected);
         $read = $this->definitionLibrary->getListFields();
-        $expected = array(
+        $expected = [
             'id',
             'created_at',
             'updated_at',
@@ -104,13 +104,13 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'opening',
             'isOpenOnSundays',
             'planet'
-        );
+        ];
         $this->assertSame($read, $expected);
         $old = $read;
-        $expected = array(
+        $expected = [
             'id',
             'name'
-        );
+        ];
         $this->definitionLibrary->setListFields($expected);
         $read = $this->definitionLibrary->getListFields();
         $this->assertSame($read, $expected);
@@ -166,7 +166,7 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetSetSetItems() {
         $read = $this->definitionLibrary->getSetItems('type');
-        $expected = array('small', 'medium', 'large');
+        $expected = ['small', 'medium', 'large'];
         $this->assertSame($read, $expected);
 
         $read = $this->definitionLibrary->getSetItems('name');
@@ -178,7 +178,7 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definitionLibrary->getSetItems(null);
         $this->assertNull($read);
 
-        $expected = array('red', 'green', 'blue');
+        $expected = ['red', 'green', 'blue'];
         $this->definitionLibrary->setSetItems('type', $expected);
         $read = $this->definitionLibrary->getSetItems('type');
         $this->assertSame($read, $expected);
@@ -254,9 +254,9 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     public function testAddAndGetChild() {
         $this->definition->addChild('foo', 'bar', 'bla');
         $read = $this->definition->getChildren();
-        $expected = array(
-            array('foo', 'bar', 'bla')
-        );
+        $expected = [
+            ['foo', 'bar', 'bla']
+        ];
         $this->assertSame($read, $expected);
     }
 
@@ -312,9 +312,9 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetSetChildrenLabelFields() {
         $read = $this->definitionLibrary->getChildrenLabelFields();
-        $expected = array('book' => 'title');
+        $expected = ['book' => 'title'];
         $this->assertSame($read, $expected);
-        $expected = array('book' => 'author');
+        $expected = ['book' => 'author'];
         $this->definitionLibrary->setChildrenLabelFields($expected);
         $read = $this->definitionLibrary->getChildrenLabelFields();
         $this->assertSame($read, $expected);
@@ -385,31 +385,31 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetSetFilter() {
         $read = $this->definition->getFilter();
-        $expected = array(
+        $expected = [
             'author',
             'title',
             'library'
-        );
+        ];
         $this->assertSame($read, $expected);
-        $expected = array(
+        $expected = [
             'author',
             'title'
-        );
+        ];
         $this->definition->setFilter($expected);
         $read = $this->definition->getFilter();
         $this->assertSame($read, $expected);
     }
 
     public function testGetInvalidReferenceField() {
-        $definition = new EntityDefinition(null, array('test' => array()), null, array(), array(), new ServiceProvider());
+        $definition = new EntityDefinition(null, ['test' => []], null, [], [], new ServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
 
-        $definition = new EntityDefinition(null, array('test' => array('type' => 'reference')), null, array(), array(), new ServiceProvider());
+        $definition = new EntityDefinition(null, ['test' => ['type' => 'reference']], null, [], [], new ServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
 
-        $definition = new EntityDefinition(null, array('test' => array('type' => 'reference', 'reference' => array())), null, array(), array(), new ServiceProvider());
+        $definition = new EntityDefinition(null, ['test' => ['type' => 'reference', 'reference' => []]], null, [], [], new ServiceProvider());
         $read = $definition->getReferenceTable('test');
         $this->assertNull($read);
     }

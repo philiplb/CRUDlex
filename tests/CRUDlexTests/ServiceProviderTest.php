@@ -28,17 +28,17 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         $app = new Application();
-        $app->register(new DoctrineServiceProvider(), array(
-            'dbs.options' => array(
-                'default' => array(
+        $app->register(new DoctrineServiceProvider(), [
+            'dbs.options' => [
+                'default' => [
                     'host'      => '127.0.0.1',
                     'dbname'    => 'crudTest',
                     'user'      => 'root',
                     'password'  => '',
                     'charset'   => 'utf8',
-                )
-            ),
-        ));
+                ]
+            ],
+        ]);
         $this->crudFile = __DIR__.'/../crud.yml';
         $this->dataFactory = new MySQLDataFactory($app['db']);
 
@@ -49,10 +49,10 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testRegister() {
         $app = new Application();
-        $app->register(new ServiceProvider(), array(
+        $app->register(new ServiceProvider(), [
             'crud.file' => $this->crudFile,
             'crud.datafactory' => $this->dataFactory
-        ));
+        ]);
         $this->assertTrue($app->offsetExists('crud'));
         $app['crud']->getEntities();
     }
@@ -80,7 +80,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
-        $expected = array('library', 'book');
+        $expected = ['library', 'book'];
         $read = $crudServiceProvider->getEntities();
         $this->assertSame($read, $expected);
     }
@@ -248,7 +248,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetLocales() {
         $crudServiceProvider = new ServiceProvider();
-        $expected = array('de', 'el', 'en');
+        $expected = ['de', 'el', 'en'];
         $read = $crudServiceProvider->getLocales();
         $this->assertSame($read, $expected);
     }
@@ -284,7 +284,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
         $entityDefinitionFactoryHandle = Phony::mock('\\CRUDlex\\EntityDefinitionFactory');
         $entityDefinitionFactoryHandle->createEntityDefinition->returns(new \CRUDlex\EntityDefinition(
-            '', array(), '', '', array(), $serviceProvider
+            '', [], '', '', [], $serviceProvider
         ));
         $entityDefinitionFactoryMock = $entityDefinitionFactoryHandle->get();
         $app['crud.entitydefinitionfactory'] = $entityDefinitionFactoryMock;

@@ -38,14 +38,14 @@ class ControllerProviderTest extends WebTestCase {
         $fileProcessorMock = $this->fileProcessorHandle->get();
 
         $dataFactory = new CRUDlex\MySQLDataFactory($app['db']);
-        $app->register(new CRUDlex\ServiceProvider(), array(
+        $app->register(new CRUDlex\ServiceProvider(), [
             'crud.file' => __DIR__ . '/../crud.yml',
             'crud.datafactory' => $dataFactory,
             'crud.fileprocessor' => $fileProcessorMock
-        ));
-        $app->register(new Silex\Provider\TwigServiceProvider(), array(
+        ]);
+        $app->register(new Silex\Provider\TwigServiceProvider(), [
             'twig.path' => __DIR__.'/../views'
-        ));
+        ]);
 
         $app->mount('/crud', new CRUDlex\ControllerProvider());
 
@@ -78,16 +78,16 @@ class ControllerProviderTest extends WebTestCase {
 
         $file = __DIR__.'/../test1.xml';
 
-        $client->request('POST', '/crud/book/create', array(
+        $client->request('POST', '/crud/book/create', [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id'),
             'secondLibrary' => '' // This might occure if the user leaves the form field empty
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
@@ -106,29 +106,29 @@ class ControllerProviderTest extends WebTestCase {
             return false;
         };
         $this->dataBook->pushEvent('before', 'create', $before);
-        $client->request('POST', '/crud/book/create', array(
+        $client->request('POST', '/crud/book/create', [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertRegExp('/Could not create\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'create');
 
         $this->dataBook->pushEvent('before', 'createFiles', $before);
-        $client->request('POST', '/crud/book/create', array(
+        $client->request('POST', '/crud/book/create', [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertRegExp('/Could not create\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'createFiles');
@@ -291,16 +291,16 @@ class ControllerProviderTest extends WebTestCase {
 
         $file = __DIR__.'/../test1.xml';
 
-        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
             'version' => 0,
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isRedirect('/crud/book/'.$entityBook->get('id')));
         $crawler = $client->followRedirect();
         $this->assertCount(1, $crawler->filter('html:contains("Book edited with id '.$entityBook->get('id').'")'));
@@ -314,16 +314,16 @@ class ControllerProviderTest extends WebTestCase {
         $this->fileProcessorHandle->renderFile->never();
 
         // Optimistic locking
-        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
             'version' => 0,
             'title' => 'titleEdited2',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertRegExp('/There was a more up to date version of the data available\./', $client->getResponse()->getContent());
 
@@ -332,31 +332,31 @@ class ControllerProviderTest extends WebTestCase {
             return false;
         };
         $this->dataBook->pushEvent('before', 'update', $before);
-        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
             'version' => 1,
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertRegExp('/Could not edit\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'update');
 
         $this->dataBook->pushEvent('before', 'updateFiles', $before);
-        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', array(
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
             'version' => 1,
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertRegExp('/Could not edit\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'updateFiles');
@@ -410,10 +410,10 @@ class ControllerProviderTest extends WebTestCase {
         $entityBook->set('library', $library->get('id'));
         $this->dataBook->create($entityBook);
 
-        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/delete', array(
+        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/delete', [
             'redirectEntity' => 'library',
             'redirectId' => $library->get('id')
-        ));
+        ]);
         $this->assertTrue($client->getResponse()->isRedirect('/crud/library/'.$library->get('id')));
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
@@ -494,15 +494,15 @@ class ControllerProviderTest extends WebTestCase {
 
         $file = __DIR__.'/../test1.xml';
 
-        $crawler = $client->request('POST', '/crud/book/create', array(
+        $crawler = $client->request('POST', '/crud/book/create', [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
 
         $crawler = $client->request('GET', '/crud/book/1/title/file');
         $this->assertTrue($client->getResponse()->isNotFound());
@@ -536,15 +536,15 @@ class ControllerProviderTest extends WebTestCase {
 
         $file = __DIR__.'/../test1.xml';
 
-        $crawler = $client->request('POST', '/crud/book/create', array(
+        $crawler = $client->request('POST', '/crud/book/create', [
             'title' => 'title',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
-        ), array(
+        ], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ));
+        ]);
 
         $crawler = $client->request('POST', '/crud/book/1/cover/delete');
         $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));

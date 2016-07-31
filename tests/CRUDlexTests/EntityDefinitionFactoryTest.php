@@ -20,7 +20,7 @@ class EntityDefinitionFactoryTest extends \PHPUnit_Framework_TestCase {
     public function testCreateEntityDefinition() {
         $crudServiceProvider = new ServiceProvider();
         $entityDefinitionFactory = new EntityDefinitionFactory();
-        $instance = $entityDefinitionFactory->createEntityDefinition('', array(), '', array(), array(), $crudServiceProvider);
+        $instance = $entityDefinitionFactory->createEntityDefinition('', [], '', [], [], $crudServiceProvider);
         $this->assertNotNull($instance);
         $this->assertTrue($instance instanceof EntityDefinition);
     }

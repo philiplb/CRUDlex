@@ -24,17 +24,17 @@ class TestDBSetup {
 
     public static function createAppAndDB($useUUIDs = false) {
         $app = new Application();
-        $app->register(new DoctrineServiceProvider(), array(
-            'dbs.options' => array(
-                'default' => array(
+        $app->register(new DoctrineServiceProvider(), [
+            'dbs.options' => [
+                'default' => [
                     'host'      => '127.0.0.1',
                     'dbname'    => 'crudTest',
                     'user'      => 'root',
                     'password'  => '',
                     'charset'   => 'utf8',
-                )
-            ),
-        ));
+                ]
+            ]
+        ]);
 
         $app['db']->executeUpdate('DROP TABLE IF EXISTS book;');
         $app['db']->executeUpdate('DROP TABLE IF EXISTS library;');

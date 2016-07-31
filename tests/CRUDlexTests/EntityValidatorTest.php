@@ -42,10 +42,10 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('cover', 'cover');
         $entityBook->set('price', 3.99);
 
-        $valid =  array(
+        $valid =  [
             'valid' => true,
-            'errors' => array()
-        );
+            'errors' => []
+        ];
         $invalid = $valid;
         $invalid['valid'] = false;
 
@@ -57,7 +57,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('title', null);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['errors']['title'] = array('required');
+        $expected['errors']['title'] = ['required'];
         $this->assertSame($read, $expected);
         $entityBook->set('title', 'title');
 
@@ -78,7 +78,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $validatorLibrary2 = new EntityValidator($entityLibrary2);
         $read = $validatorLibrary2->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['errors']['name'] = array('unique');
+        $expected['errors']['name'] = ['unique'];
         $this->assertSame($read, $expected);
 
         $entityLibrary1->set('type', 'large');
@@ -90,7 +90,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityLibrary1->set('type', 'foo');
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['errors']['type'] = array('inSet');
+        $expected['errors']['type'] = ['inSet'];
         $this->assertSame($read, $expected);
         $entityLibrary1->set('type', null);
 
@@ -105,7 +105,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityLibrary1->set('opening', 'foo');
         $read = $validatorLibrary1->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['errors']['opening'] = array(array('or' => array('dateTime', 'dateTime')));
+        $expected['errors']['opening'] = [['or' => ['dateTime', 'dateTime']]];
         $this->assertSame($read, $expected);
         $entityLibrary1->set('opening', null);
 
@@ -120,13 +120,13 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityLibrary2->set('name', 'lib a');
         $read = $validatorLibrary2->validate($this->dataLibrary, 0);
         $expected = $invalidLibrary;
-        $expected['errors']['name'] = array('unique');
+        $expected['errors']['name'] = ['unique'];
         $this->assertSame($read, $expected);
 
         $entityBook->set('pages', 'abc');
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['errors']['pages'] = array('integer');
+        $expected['errors']['pages'] = ['integer'];
         $this->assertSame($read, $expected);
         $entityBook->set('pages', 111);
 
@@ -139,14 +139,14 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('pages', null);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['errors']['pages'] = array('required');
+        $expected['errors']['pages'] = ['required'];
         $this->assertSame($read, $expected);
         $entityBook->set('pages', 111);
 
         $entityBook->set('price', 'abc');
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['errors']['price'] = array('floating');
+        $expected['errors']['price'] = ['floating'];
         $this->assertSame($read, $expected);
         $entityBook->set('price', 3.99);
 
@@ -165,14 +165,14 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('release', 'abc');
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['errors']['release'] = array('dateTime');
+        $expected['errors']['release'] = ['dateTime'];
         $this->assertSame($read, $expected);
         $entityBook->set('release', '2014-08-31');
 
         $entityBook->set('library', 666);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
-        $expected['errors']['library'] = array('reference');
+        $expected['errors']['library'] = ['reference'];
         $this->assertSame($read, $expected, 0);
         $entityBook->set('library', $entityLibrary1->get('id'));
     }

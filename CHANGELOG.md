@@ -9,6 +9,7 @@ Released: Upcoming
 - Updated dependencies:
     - "silex/silex": "~2.0"
     - "phpunit/phpunit": "~5.4"
+- switched to the array shorthand
 
 ## 0.9.10
 Released: 2016-06-19
