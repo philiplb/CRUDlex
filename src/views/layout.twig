@@ -85,7 +85,7 @@
                           <ul class="dropdown-menu" aria-labelledby="dLabel">
                               {% for locale in app.crud.getLocales() %}
                                   <li>
-                                      <a href="{{ app.url_generator.generate('crudSetLocale', {'locale': locale, 'redirect': app.request.getUri()}) }}">
+                                      <a href="{{ app.url_generator.generate('crudSetLocale', {'locale': locale, 'redirect': app.request_stack.getCurrentRequest().getUri()}) }}">
                                           <img src="{{ app.url_generator.generate('static', {file: 'images/flags/' ~ locale ~ '.png'}) }}" alt="{{ app.crud.getLanguageName(locale) }}" /> {{ app.crud.getLanguageName(locale) }}
                                       </a>
                                   </li>

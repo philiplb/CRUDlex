@@ -4,6 +4,11 @@ CRUDlex Changelog
 ## 0.9.11
 Released: Upcoming
 - Replaced handwritten mocks with Phony
+- Attention: The minimum PHP version is now 5.6
+- Attention: Updated to Silex 2.0
+- Updated dependencies:
+    - "silex/silex": "~2.0"
+    - "phpunit/phpunit": "~5.4"
 
 ## 0.9.10
 Released: 2016-06-19

@@ -12,7 +12,7 @@
 namespace CRUDlex;
 
 use Silex\Application;
-use Silex\ControllerProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -78,8 +78,9 @@ class ControllerProvider implements ControllerProviderInterface {
      * the HTTP response of this modification
      */
     protected function modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode) {
-        $id     = $instance->get('id');
-        $result = $mode == 'edit' ? $crudData->updateFiles($app['request'], $instance, $entity) : $crudData->createFiles($app['request'], $instance, $entity);
+        $id      = $instance->get('id');
+        $request = $app['request_stack']->getCurrentRequest();
+        $result  = $mode == 'edit' ? $crudData->updateFiles($request, $instance, $entity) : $crudData->createFiles($request, $instance, $entity);
         if (!$result) {
             return null;
         }
@@ -128,10 +129,11 @@ class ControllerProvider implements ControllerProviderInterface {
     protected function modifyEntity(Application $app, AbstractData $crudData, Entity $instance, $entity, $edit) {
         $fieldErrors = array();
         $mode        = $edit ? 'edit' : 'create';
-        if ($app['request']->getMethod() == 'POST') {
-            $instance->populateViaRequest($app['request']);
+        $request     = $app['request_stack']->getCurrentRequest();
+        if ($request->getMethod() == 'POST') {
+            $instance->populateViaRequest($request);
             $validator  = new EntityValidator($instance);
-            $validation = $validator->validate($crudData, intval($app['request']->get('version')));
+            $validation = $validator->validate($crudData, intval($request->get('version')));
 
             $fieldErrors = $validation['errors'];
             if (!$validation['valid']) {
@@ -160,8 +162,8 @@ class ControllerProvider implements ControllerProviderInterface {
     /**
      * Gets the parameters for the redirection after deleting an entity.
      *
-     * @param Application $app
-     * the current application
+     * @param Request $request
+     * the current request
      * @param string $entity
      * the entity name
      * @param string $redirectPage
@@ -170,13 +172,13 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return array<string,string>
      * the parameters of the redirection, entity and id
      */
-    protected function getAfterDeleteRedirectParameters(Application $app, $entity, &$redirectPage) {
+    protected function getAfterDeleteRedirectParameters(Request $request, $entity, &$redirectPage) {
         $redirectPage       = 'crudList';
         $redirectParameters = array(
             'entity' => $entity
         );
-        $redirectEntity     = $app['request']->get('redirectEntity');
-        $redirectId         = $app['request']->get('redirectId');
+        $redirectEntity     = $request->get('redirectEntity');
+        $redirectId         = $request->get('redirectId');
         if ($redirectEntity && $redirectId) {
             $redirectPage       = 'crudShow';
             $redirectParameters = array(
@@ -190,7 +192,7 @@ class ControllerProvider implements ControllerProviderInterface {
     /**
      * Builds up the parameters of the list page filters.
      *
-     * @param Application $app
+     * @param Request $request
      * the current application
      * @param EntityDefinition $definition
      * the current entity definition
@@ -203,9 +205,9 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param array $filterOperators
      * reference, will hold a map of fields to operators for AbstractData::listEntries()
      */
-    protected function buildUpListFilter(Application $app, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
+    protected function buildUpListFilter(Request $request, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
         foreach ($definition->getFilter() as $filterField) {
-            $filter[$filterField] = $app['request']->get('crudFilter'.$filterField);
+            $filter[$filterField] = $request->get('crudFilter'.$filterField);
             if ($filter[$filterField]) {
                 $filterActive = true;
                 if ($definition->getType($filterField) == 'boolean') {
@@ -292,7 +294,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param Application $app
      * the Application instance of the Silex application
      *
-     * @return SilexController\Collection
+     * @return \SilexController\Collection
      * this method is expected to return the used ControllerCollection instance
      */
     public function connect(Application $app) {
@@ -326,6 +328,8 @@ class ControllerProvider implements ControllerProviderInterface {
     /**
      * The controller for the "show list" action.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the Silex application
      * @param string $entity
@@ -334,7 +338,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function showList(Application $app, $entity) {
+    public function showList(Request $request, Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         if (!$crudData) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
@@ -345,11 +349,11 @@ class ControllerProvider implements ControllerProviderInterface {
         $filterActive    = false;
         $filterToUse     = array();
         $filterOperators = array();
-        $this->buildUpListFilter($app, $definition, $filter, $filterActive, $filterToUse, $filterOperators);
+        $this->buildUpListFilter($request, $definition, $filter, $filterActive, $filterToUse, $filterOperators);
 
         $pageSize = $definition->getPageSize();
         $total    = $crudData->countBy($definition->getTable(), $filterToUse, $filterOperators, true);
-        $page     = abs(intval($app['request']->get('crudPage', 0)));
+        $page     = abs(intval($request->get('crudPage', 0)));
         $maxPage  = intval($total / $pageSize);
         if ($total % $pageSize == 0) {
             $maxPage--;
@@ -359,8 +363,8 @@ class ControllerProvider implements ControllerProviderInterface {
         }
         $skip = $page * $pageSize;
 
-        $sortField            = $app['request']->get('crudSortField', $definition->getInitialSortField());
-        $sortAscendingRequest = $app['request']->get('crudSortAscending');
+        $sortField            = $request->get('crudSortField', $definition->getInitialSortField());
+        $sortAscendingRequest = $request->get('crudSortAscending');
         $sortAscending        = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->isInitialSortAscending();
 
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
@@ -498,7 +502,7 @@ class ControllerProvider implements ControllerProviderInterface {
         }
 
         $redirectPage       = 'crudList';
-        $redirectParameters = $this->getAfterDeleteRedirectParameters($app, $entity, $redirectPage);
+        $redirectParameters = $this->getAfterDeleteRedirectParameters($app['request_stack']->getCurrentRequest(), $entity, $redirectPage);
 
         $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', array(
             '%label%' => $crudData->getDefinition()->getLabel()
@@ -574,14 +578,16 @@ class ControllerProvider implements ControllerProviderInterface {
     /**
      * The controller for serving static files.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the Silex application
      *
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function staticFile(Application $app) {
-        $fileParam = str_replace('..', '', $app['request']->get('file'));
+    public function staticFile(Request $request, Application $app) {
+        $fileParam = str_replace('..', '', $request->get('file'));
         $file      = __DIR__.'/../static/'.$fileParam;
         if (!$fileParam || !file_exists($file)) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
@@ -611,6 +617,8 @@ class ControllerProvider implements ControllerProviderInterface {
     /**
      * The controller for setting the locale.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the Silex application
      * @param string $locale
@@ -619,7 +627,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function setLocale(Application $app, $locale) {
+    public function setLocale(Request $request, Application $app, $locale) {
 
         if (!in_array($locale, $app['crud']->getLocales())) {
             return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
@@ -628,7 +636,7 @@ class ControllerProvider implements ControllerProviderInterface {
         if ($app['crud']->isManagingI18n()) {
             $app['session']->set('locale', $locale);
         }
-        $redirect = $app['request']->get('redirect');
+        $redirect = $request->get('redirect');
         return $app->redirect($redirect);
     }
 }

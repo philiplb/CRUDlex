@@ -47,11 +47,6 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testBoot() {
-        $crudServiceProvider = new ServiceProvider();
-        $crudServiceProvider->boot(new Application());
-    }
-
     public function testRegister() {
         $app = new Application();
         $app->register(new ServiceProvider(), array(

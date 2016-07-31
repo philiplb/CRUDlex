@@ -32,7 +32,6 @@ class ControllerProviderTest extends WebTestCase {
         $app->register(new Silex\Provider\SessionServiceProvider());
         $app['session.test'] = true;
         $app['debug'] = true;
-        $app['exception_handler']->disable();
 
         $this->fileProcessorHandle = Phony::mock('\\CRUDlex\\SimpleFilesystemFileProcessor');
         $this->fileProcessorHandle->renderFile->returns('rendered file');
@@ -44,7 +43,6 @@ class ControllerProviderTest extends WebTestCase {
             'crud.datafactory' => $dataFactory,
             'crud.fileprocessor' => $fileProcessorMock
         ));
-        $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
         $app->register(new Silex\Provider\TwigServiceProvider(), array(
             'twig.path' => __DIR__.'/../views'
         ));

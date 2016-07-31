@@ -11,12 +11,8 @@
 
 namespace CRUDlex;
 
-use CRUDlex\DataFactoryInterface;
-use CRUDlex\EntityDefinition;
-use CRUDlex\FileProcessorInterface;
-use CRUDlex\SimpleFilesystemFileProcessor;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 
@@ -99,11 +95,13 @@ class ServiceProvider implements ServiceProviderInterface {
     /**
      * Initializes needed but yet missing service providers.
      *
-     * @param Application $app
+     * @param Container $app
      * the application container
      */
-    protected function initMissingServiceProviders(Application $app) {
+    protected function initMissingServiceProviders(Container $app) {
+
         if (!$app->offsetExists('translator')) {
+            $app->register(new \Silex\Provider\LocaleServiceProvider());
             $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
                 'locale_fallbacks' => array('en'),
             ));
@@ -126,13 +124,13 @@ class ServiceProvider implements ServiceProviderInterface {
     /**
      * Initializes the available locales.
      *
-     * @param Application $app
+     * @param Container $app
      * the application container
      *
      * @return array
      * the available locales
      */
-    protected function initLocales(Application $app) {
+    protected function initLocales(Container $app) {
         $app['translator']->addLoader('yaml', new YamlFileLoader());
         $localeDir = __DIR__.'/../locales';
         $locales   = $this->getLocales();
@@ -207,7 +205,7 @@ class ServiceProvider implements ServiceProviderInterface {
     /**
      * Creates and setups an EntityDefinition instance.
      *
-     * @param Application $app
+     * @param Container $app
      * the application container
      * @param array $locales
      * the available locales
@@ -219,7 +217,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * @return EntityDefinition
      * the EntityDefinition good to go
      */
-    protected function createDefinition(Application $app, array $locales, array $crud, $name) {
+    protected function createDefinition(Container $app, array $locales, array $crud, $name) {
         $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
         $localeLabels        = $this->getLocaleLabels($locales, $crud);
         $standardFieldLabels = array(
@@ -253,10 +251,10 @@ class ServiceProvider implements ServiceProviderInterface {
      * the file processor used for file fields
      * @param boolean $manageI18n
      * holds whether we manage the i18n
-     * @param Application $app
+     * @param Container $app
      * the application container
      */
-    public function init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Application $app) {
+    public function init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Container $app) {
 
         $this->initMissingServiceProviders($app);
         $this->manageI18n = $manageI18n;
@@ -279,26 +277,17 @@ class ServiceProvider implements ServiceProviderInterface {
      * Implements ServiceProviderInterface::register() registering $app['crud'].
      * $app['crud'] contains an instance of the ServiceProvider afterwards.
      *
-     * @param Application $app
-     * the Application instance of the Silex application
+     * @param Container $app
+     * the Container instance of the Silex application
      */
-    public function register(Application $app) {
-        $app['crud'] = $app->share(function() use ($app) {
+    public function register(Container $app) {
+        $app['crud'] = function() use ($app) {
             $result        = new static();
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
             $manageI18n    = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
             $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
             return $result;
-        });
-    }
-
-    /**
-     * Implements ServiceProviderInterface::boot().
-     *
-     * @param Application $app
-     * the Application instance of the Silex application
-     */
-    public function boot(Application $app) {
+        };
     }
 
     /**
@@ -376,7 +365,7 @@ class ServiceProvider implements ServiceProviderInterface {
 
     /**
      * Determines the Twig template to use for the given parameters depending on
-     * the existance of certain keys in the Application $app in this order:
+     * the existance of certain keys in the Container $app in this order:
      *
      * crud.$section.$action.$entity
      * crud.$section.$action
@@ -384,7 +373,7 @@ class ServiceProvider implements ServiceProviderInterface {
      *
      * If nothing exists, this string is returned: "@crud/<action>.twig"
      *
-     * @param Application $app
+     * @param Container $app
      * the Silex application
      * @param string $section
      * the section of the template, either "layout" or "template"
@@ -396,7 +385,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * @return string
      * the best fitting template
      */
-    public function getTemplate(Application $app, $section, $action, $entity) {
+    public function getTemplate(Container $app, $section, $action, $entity) {
         $crudSection       = 'crud.'.$section;
         $crudSectionAction = $crudSection.'.'.$action;
 
