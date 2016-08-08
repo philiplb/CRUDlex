@@ -96,10 +96,10 @@ class ControllerProviderTest extends WebTestCase {
         $books = $this->dataBook->listEntries();
         $this->assertCount(1, $books);
 
-        $this->fileProcessorHandle->createFile->called();
-        $this->fileProcessorHandle->updateFile->never();
-        $this->fileProcessorHandle->deleteFile->never();
-        $this->fileProcessorHandle->renderFile->never();
+        $this->fileProcessorHandle->createFile->once()->called();
+        $this->fileProcessorHandle->updateFile->never()->called();
+        $this->fileProcessorHandle->deleteFile->never()->called();
+        $this->fileProcessorHandle->renderFile->never()->called();
 
         // Canceling events
         $before = function(Entity $entity) {
@@ -308,10 +308,10 @@ class ControllerProviderTest extends WebTestCase {
         $bookEdited = $this->dataBook->get($entityBook->get('id'));
         $this->assertSame($bookEdited->get('title'), 'titleEdited');
 
-        $this->fileProcessorHandle->createFile->never();
-        $this->fileProcessorHandle->updateFile->called();
-        $this->fileProcessorHandle->deleteFile->never();
-        $this->fileProcessorHandle->renderFile->never();
+        $this->fileProcessorHandle->createFile->never()->called();
+        $this->fileProcessorHandle->updateFile->once()->called();
+        $this->fileProcessorHandle->deleteFile->never()->called();
+        $this->fileProcessorHandle->renderFile->never()->called();
 
         // Optimistic locking
         $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
@@ -512,10 +512,10 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("rendered file")'));
 
-        $this->fileProcessorHandle->createFile->never();
-        $this->fileProcessorHandle->updateFile->never();
-        $this->fileProcessorHandle->deleteFile->never();
-        $this->fileProcessorHandle->renderFile->called();
+        $this->fileProcessorHandle->createFile->once()->called();
+        $this->fileProcessorHandle->updateFile->never()->called();
+        $this->fileProcessorHandle->deleteFile->never()->called();
+        $this->fileProcessorHandle->renderFile->once()->called();
 
     }
 
@@ -575,10 +575,10 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("File deleted.")'));
 
-        $this->fileProcessorHandle->createFile->never();
-        $this->fileProcessorHandle->updateFile->never();
-        $this->fileProcessorHandle->deleteFile->called();
-        $this->fileProcessorHandle->renderFile->never();
+        $this->fileProcessorHandle->createFile->once()->called();
+        $this->fileProcessorHandle->updateFile->never()->called();
+        $this->fileProcessorHandle->deleteFile->once()->called();
+        $this->fileProcessorHandle->renderFile->never()->called();
 
 
     }

@@ -411,10 +411,10 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $this->dataBook->createFiles($request, $entityBook, 'book');
 
-        $fileProcessorHandle->createFile->called();
-        $fileProcessorHandle->updateFile->never();
-        $fileProcessorHandle->deleteFile->never();
-        $fileProcessorHandle->renderFile->never();
+        $fileProcessorHandle->createFile->once()->called();
+        $fileProcessorHandle->updateFile->never()->called();
+        $fileProcessorHandle->deleteFile->never()->called();
+        $fileProcessorHandle->renderFile->never()->called();
     }
 
     public function testUpdateFiles() {
@@ -443,10 +443,10 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $this->dataBook->updateFiles($request, $entityBook, 'book');
 
-        $fileProcessorHandle->createFile->never();
-        $fileProcessorHandle->updateFile->called();
-        $fileProcessorHandle->deleteFile->never();
-        $fileProcessorHandle->renderFile->never();
+        $fileProcessorHandle->createFile->never()->called();
+        $fileProcessorHandle->updateFile->once()->called();
+        $fileProcessorHandle->deleteFile->never()->called();
+        $fileProcessorHandle->renderFile->never()->called();
     }
 
     public function testDeleteFile() {
@@ -466,10 +466,10 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $this->dataBook->deleteFile($entityBook, 'book', 'cover');
 
-        $fileProcessorHandle->createFile->never();
-        $fileProcessorHandle->updateFile->never();
-        $fileProcessorHandle->deleteFile->called();
-        $fileProcessorHandle->renderFile->never();
+        $fileProcessorHandle->createFile->never()->called();
+        $fileProcessorHandle->updateFile->never()->called();
+        $fileProcessorHandle->deleteFile->once()->called();
+        $fileProcessorHandle->renderFile->never()->called();
     }
 
     public function testDeleteFiles() {
@@ -489,10 +489,10 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $this->dataBook->deleteFiles($entityBook, 'book');
 
-        $fileProcessorHandle->createFile->never();
-        $fileProcessorHandle->updateFile->never();
-        $fileProcessorHandle->deleteFile->called();
-        $fileProcessorHandle->renderFile->never();
+        $fileProcessorHandle->createFile->never()->called();
+        $fileProcessorHandle->updateFile->never()->called();
+        $fileProcessorHandle->deleteFile->once()->called();
+        $fileProcessorHandle->renderFile->never()->called();
     }
 
     public function testRenderFile() {
@@ -512,10 +512,10 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $this->dataBook->renderFile($entityBook, 'book', 'cover');
 
-        $fileProcessorHandle->createFile->never();
-        $fileProcessorHandle->updateFile->never();
-        $fileProcessorHandle->deleteFile->never();
-        $fileProcessorHandle->renderFile->called();
+        $fileProcessorHandle->createFile->never()->called();
+        $fileProcessorHandle->updateFile->never()->called();
+        $fileProcessorHandle->deleteFile->never()->called();
+        $fileProcessorHandle->renderFile->once()->called();
 
     }
 
