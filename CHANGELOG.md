@@ -8,7 +8,7 @@ Released: Upcoming
 - Attention: Updated to Silex 2.0
 - Updated dependencies:
     - "silex/silex": "~2.0"
-- switched to the array shorthand
+- Switched to the array shorthand
 
 ## 0.9.10
 Released: 2016-06-19
