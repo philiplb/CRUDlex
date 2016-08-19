@@ -432,4 +432,15 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
+    public function testInvalidFieldNames() {
+        try {
+            $this->definition->setFilter(['foo', 'bar']);
+            $this->fail();
+        } catch (\InvalidArgumentException $e) {
+            $read = $e->getMessage();
+            $expected = 'Invalid fields (foo, bar) in filter, valid ones are: id, created_at, updated_at, title, author, pages, release, library, secondLibrary, cover, price';
+            $this->assertSame($expected, $read);
+        }
+    }
+
 }

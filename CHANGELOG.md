@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.9.11
 Released: Upcoming
 - Replaced handwritten mocks with Phony
+- Added a meaningful exception if invalid field names are given in "fieldList" or "filter"
 - Attention: The minimum PHP version is now 5.5
 - Attention: Updated to Silex 2.0
 - Updated dependencies:

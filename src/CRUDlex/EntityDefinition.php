@@ -195,6 +195,29 @@ class EntityDefinition {
     }
 
     /**
+     * Checks whether the given field names are declared and existing.
+     *
+     * @param string $reference
+     * a hint towards the source of an invalid field name
+     * @param array $fieldNames
+     * the field names to check
+     * @throws \InvalidArgumentException
+     * thrown with all invalid field names
+     */
+    protected function checkFieldNames($reference, $fieldNames) {
+        $validFieldNames   = $this->getPublicFieldNames();
+        $invalidFieldNames = [];
+        foreach ($fieldNames as $fieldName) {
+            if (!in_array($fieldName, $validFieldNames)) {
+                $invalidFieldNames[] = $fieldName;
+            }
+        }
+        if (!empty($invalidFieldNames)) {
+            throw new \InvalidArgumentException('Invalid fields ('.join(', ', $invalidFieldNames).') in '.$reference.', valid ones are: '.join(', ', $validFieldNames));
+        }
+    }
+
+    /**
      * Constructor.
      *
      * @param string $table
@@ -251,6 +274,7 @@ class EntityDefinition {
      * the field names to be used in the listview
      */
     public function setListFields(array $listFields) {
+        $this->checkFieldNames('listFields', $listFields);
         $this->listFields = $listFields;
     }
 
@@ -349,6 +373,7 @@ class EntityDefinition {
      * the fields to filter
      */
     public function setFilter(array $filter) {
+        $this->checkFieldNames('filter', $filter);
         $this->filter = $filter;
     }
 

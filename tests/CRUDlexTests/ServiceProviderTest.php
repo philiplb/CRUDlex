@@ -284,7 +284,12 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
         $entityDefinitionFactoryHandle = Phony::mock('\\CRUDlex\\EntityDefinitionFactory');
         $entityDefinitionFactoryHandle->createEntityDefinition->returns(new \CRUDlex\EntityDefinition(
-            '', [], '', '', [], $serviceProvider
+            '', [
+                'isOpenOnSundays' => [],
+                'author' => [],
+                'title' => [],
+                'library' => []
+            ], '', '', [], $serviceProvider
         ));
         $entityDefinitionFactoryMock = $entityDefinitionFactoryHandle->get();
         $app['crud.entitydefinitionfactory'] = $entityDefinitionFactoryMock;
