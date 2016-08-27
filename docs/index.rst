@@ -22,11 +22,11 @@ Contents:
    manual/setup
    manual/datastructures
    manual/datatypes
-   manual/extendedfeatures
    manual/constraints
    manual/layouts
    manual/templates
    manual/events
+   manual/extendedfeatures
    manual/addons
 
 .. toctree::
