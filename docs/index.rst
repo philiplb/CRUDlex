@@ -21,8 +21,8 @@ Contents:
    manual/introduction
    manual/setup
    manual/datastructures
-   manual/extendedfeatures
    manual/datatypes
+   manual/extendedfeatures
    manual/constraints
    manual/layouts
    manual/templates
