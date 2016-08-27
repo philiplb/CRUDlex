@@ -16,7 +16,6 @@ description per field. In this case, the author of a book is more informative:
     library:
         label: Library
         table: library
-        pageSize: 5
         fields:
             name:
                 type: text
