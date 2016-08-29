@@ -12,9 +12,6 @@
 namespace CRUDlex;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use CRUDlex\Entity;
-use CRUDlex\AbstractData;
-use CRUDlex\FileProcessorInterface;
 
 /**
  * MySQL Data implementation using a given Doctrine DBAL instance.

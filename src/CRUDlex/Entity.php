@@ -12,7 +12,6 @@
 namespace CRUDlex;
 
 use Symfony\Component\HttpFoundation\Request;
-use CRUDlex\EntityDefinition;
 
 /**
  * Represents a single set of data in field value pairs like the row in a

@@ -11,8 +11,6 @@
 
 namespace CRUDlex;
 
-use CRUDlex\AbstractData;
-
 /**
  * Performs validation of the field values of the given {@see Entity}.
  */

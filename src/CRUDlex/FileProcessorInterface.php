@@ -13,8 +13,6 @@ namespace CRUDlex;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use CRUDlex\Entity;
-
 /**
  * This interface is used to handle file uploads.
  */

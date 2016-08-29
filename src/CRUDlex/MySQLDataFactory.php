@@ -11,9 +11,6 @@
 
 namespace CRUDlex;
 
-use CRUDlex\DataFactoryInterface;
-use CRUDlex\MySQLData;
-
 /**
  * A factory implementation for {@see MySQLData} instances.
  */

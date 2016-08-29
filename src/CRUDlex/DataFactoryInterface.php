@@ -11,10 +11,6 @@
 
 namespace CRUDlex;
 
-use CRUDlex\AbstractData;
-use CRUDlex\EntityDefinition;
-use CRUDlex\FileProcessorInterface;
-
 /**
  * An interface used by the {@see ServiceProvider} to construct
  * {@see Data} instances. By implementing this and handing it into

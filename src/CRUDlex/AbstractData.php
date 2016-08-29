@@ -11,8 +11,6 @@
 
 namespace CRUDlex;
 
-use CRUDlex\Entity;
-use CRUDlex\EntityDefinition;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
