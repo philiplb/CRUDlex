@@ -267,13 +267,9 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $app = new Application();
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
         $data = $crudServiceProvider->getData('library');
-        $read = $data->getDefinition()->getInitialSortField();
-        $expected = 'name';
         $read = $data->getDefinition()->isInitialSortAscending();
         $this->assertFalse($read);
         $data = $crudServiceProvider->getData('book');
-        $read = $data->getDefinition()->getInitialSortField();
-        $expected = 'id';
         $read = $data->getDefinition()->isInitialSortAscending();
         $this->assertTrue($read);
     }
