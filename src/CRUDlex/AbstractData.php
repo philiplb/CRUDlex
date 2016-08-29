@@ -248,7 +248,7 @@ abstract class AbstractData {
      *
      * @param string $table
      * the table
-     * @param string nameField
+     * @param string $nameField
      * the field defining the name of the rows
      *
      * @return array
@@ -326,6 +326,9 @@ abstract class AbstractData {
      * the just created entity
      * @param string $entityName
      * the name of the entity as this class here is not aware of it
+     *
+     * @return boolean
+     * true if all before events passed
      */
     public function createFiles(Request $request, Entity $entity, $entityName) {
         $result = $this->shouldExecuteEvents($entity, 'before', 'createFiles');

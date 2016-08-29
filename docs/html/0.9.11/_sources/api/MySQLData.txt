@@ -69,7 +69,7 @@ CRUDlex\\MySQLData
         :type $id: integer
         :param $id: the current entities id
         :type $deleteCascade: boolean
-        :param $deleteCascade: whether to delete children and subchildren
+        :param $deleteCascade: whether to delete children and sub children
 
     .. php:method:: hasChildren($id)
 
@@ -130,7 +130,7 @@ CRUDlex\\MySQLData
 
     .. php:method:: generateUUID()
 
-        Genereates a new UUID.
+        Generates a new UUID.
 
         :returns: string|null the new UUID or null if this instance isn't configured to do so
 
@@ -289,6 +289,7 @@ CRUDlex\\MySQLData
         :param $entity: the just created entity
         :type $entityName: string
         :param $entityName: the name of the entity as this class here is not aware of it
+        :returns: boolean true if all before events passed
 
     .. php:method:: updateFiles(Request $request, Entity $entity, $entityName)
 

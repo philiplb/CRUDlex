@@ -78,6 +78,9 @@ class ServiceProvider implements ServiceProviderInterface {
      *
      * @return array
      * the file contents
+     *
+     * @throws \RuntimeException
+     * thrown if the file could not be read or parsed
      */
     protected function readYaml($fileName) {
         try {

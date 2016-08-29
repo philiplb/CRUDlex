@@ -59,7 +59,7 @@ class MySQLData extends AbstractData {
      * @param integer $id
      * the current entities id
      * @param boolean $deleteCascade
-     * whether to delete children and subchildren
+     * whether to delete children and sub children
      */
     protected function deleteChildren($id, $deleteCascade) {
         foreach ($this->definition->getChildren() as $childArray) {
@@ -235,7 +235,7 @@ class MySQLData extends AbstractData {
     }
 
     /**
-     * Genereates a new UUID.
+     * Generates a new UUID.
      *
      * @return string|null
      * the new UUID or null if this instance isn't configured to do so

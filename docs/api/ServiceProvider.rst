@@ -104,6 +104,15 @@ CRUDlex\\ServiceProvider
         :param $name: the name of the entity
         :returns: EntityDefinition the EntityDefinition good to go
 
+    .. php:method:: validateEntityDefinition(Container $app, $entityDefinition)
+
+        Validates the parsed entity definition.
+
+        :type $app: Container
+        :param $app: the application container
+        :type $entityDefinition: array
+        :param $entityDefinition: the entity definition to validate
+
     .. php:method:: init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Container $app)
 
         Initializes the instance.

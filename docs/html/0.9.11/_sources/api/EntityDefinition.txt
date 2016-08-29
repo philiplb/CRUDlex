@@ -168,7 +168,7 @@ CRUDlex\\EntityDefinition
         :type $table: string
         :param $table: the table of the entity
         :type $fields: array
-        :param $fields: the fieldstructure just like the CRUD YAML
+        :param $fields: the field structure just like the CRUD YAML
         :type $label: string
         :param $label: the label of the entity
         :type $localeLabels: array
@@ -319,8 +319,9 @@ CRUDlex\\EntityDefinition
         Sets whether a field is required.
 
         :type $fieldName: string
-        :param $fieldName: the new required state
-        :param $value:
+        :param $fieldName: the field name
+        :type $value: boolean
+        :param $value: the new required state
 
     .. php:method:: isUnique($fieldName)
 

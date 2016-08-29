@@ -176,7 +176,7 @@
 
 <dl class="method">
 <dt id="EntityValidator::fieldToRules">
-<code class="descname">fieldToRules</code><span class="sig-paren">(</span><em>$field</em>, <em>AbstractData $data</em>, <em>ValdiValidator $validator</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityValidator::fieldToRules" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fieldToRules</code><span class="sig-paren">(</span><em>$field</em>, <em>AbstractData $data</em>, <em>Validator $validator</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityValidator::fieldToRules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds up the validation rules for a single field according to the
 entity definition.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -186,7 +186,7 @@ entity definition.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$field</strong> (<em>string</em>) &#8211; the field for the rules</li>
 <li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance to use for validation</li>
-<li><strong>$validator</strong> (<em>ValdiValidator</em>) &#8211; </li>
+<li><strong>$validator</strong> (<em>Validator</em>) &#8211; the validator to use</li>
 </ul>
 </td>
 </tr>
@@ -199,7 +199,7 @@ entity definition.</p>
 
 <dl class="method">
 <dt id="EntityValidator::buildUpRules">
-<code class="descname">buildUpRules</code><span class="sig-paren">(</span><em>AbstractData $data</em>, <em>ValdiValidator $validator</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityValidator::buildUpRules" title="Permalink to this definition">¶</a></dt>
+<code class="descname">buildUpRules</code><span class="sig-paren">(</span><em>AbstractData $data</em>, <em>Validator $validator</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityValidator::buildUpRules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds up the validation rules for the entity according to its
 definition.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -208,7 +208,7 @@ definition.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance to use for validation</li>
-<li><strong>$validator</strong> (<em>ValdiValidator</em>) &#8211; </li>
+<li><strong>$validator</strong> (<em>Validator</em>) &#8211; the validator to use</li>
 </ul>
 </td>
 </tr>

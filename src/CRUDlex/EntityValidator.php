@@ -34,6 +34,8 @@ class EntityValidator {
      * the field for the rules
      * @param AbstractData $data
      * the data instance to use for validation
+     * @param Validator $validator
+     * the validator to use
      *
      * @return array
      * the validation rules for the field
@@ -71,6 +73,8 @@ class EntityValidator {
      * definition.
      * @param AbstractData $data
      * the data instance to use for validation
+     * @param Validator $validator
+     * the validator to use
      *
      * @return array
      * the validation rules for the entity

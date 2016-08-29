@@ -221,6 +221,7 @@ CRUDlex\\AbstractData
         :param $entity: the just created entity
         :type $entityName: string
         :param $entityName: the name of the entity as this class here is not aware of it
+        :returns: boolean true if all before events passed
 
     .. php:method:: updateFiles(Request $request, Entity $entity, $entityName)
 

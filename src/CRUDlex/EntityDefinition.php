@@ -223,7 +223,7 @@ class EntityDefinition {
      * @param string $table
      * the table of the entity
      * @param array $fields
-     * the fieldstructure just like the CRUD YAML
+     * the field structure just like the CRUD YAML
      * @param string $label
      * the label of the entity
      * @param array $localeLabels
@@ -484,7 +484,7 @@ class EntityDefinition {
      *
      * @param string $fieldName
      * the field name
-     * @param boolean $fieldName
+     * @param boolean $value
      * the new required state
      */
     public function setRequired($fieldName, $value) {
