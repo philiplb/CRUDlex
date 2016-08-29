@@ -20,3 +20,4 @@ CRUDlex\\EntityDefinitionValidatorInterface
 
         :type $data: array
         :param $data: the data to validate
+        :returns: void

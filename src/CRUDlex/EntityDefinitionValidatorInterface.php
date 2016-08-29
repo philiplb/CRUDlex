@@ -22,6 +22,8 @@ interface EntityDefinitionValidatorInterface {
      * @param array $data
      * the data to validate
      *
+     * @return void
+     *
      * @throws \LogicException
      * thrown if the validation failed
      */
