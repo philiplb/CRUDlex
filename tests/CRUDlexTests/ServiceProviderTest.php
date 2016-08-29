@@ -304,7 +304,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
         $app['crud.validateentitydefinition'] = true;
         $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
-        $entityDefinitionValidatorHandle->validate->once()->called();
+        $entityDefinitionValidatorHandle->validate->twice()->called();
     }
 
     public function testSwitchedOffEntityDefinitionValidation() {
