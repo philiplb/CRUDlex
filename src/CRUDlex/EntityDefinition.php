@@ -616,7 +616,7 @@ class EntityDefinition {
      */
     public function getSetItems($fieldName) {
         $result = $this->getFieldValue($fieldName, 'setitems');
-        if ($result == null) {
+        if ($result === null) {
             $result = [];
         }
         return $result;
