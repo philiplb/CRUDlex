@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup &mdash; CRUDlex 0.9.10 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.9.10 documentation" href="../index.html"/>
+        <link rel="next" title="Data Structure Definition" href="datastructures.html"/>
+        <link rel="prev" title="Introduction" href="introduction.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addons.html">Addons</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Setup</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/manual/setup.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<p>This chapter guides you through a minimal setup. Further options like overriding
+templates are discussed in later sections.</p>
+<p>First, you have to add CRUDlex to your composer.json:</p>
+<div class="highlight-js"><div class="highlight"><pre><span></span><span class="s2">&quot;philiplb/crudlex&quot;</span><span class="o">:</span> <span class="s2">&quot;0.9.10&quot;</span>
+</pre></div>
+</div>
+<p>Then comes the actual setup. Currently, only MySQL is supported. Although the
+database layer is kept in an abstract way, so in future more data stores will
+come. It relies on the DoctrineServiceProvider which has to be initialized and
+registered:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\DoctrineServiceProvider(), array(</span>
+<span class="x">    &#39;dbs.options&#39; =&gt; array(</span>
+<span class="x">        &#39;default&#39; =&gt; array(</span>
+<span class="x">            &#39;host&#39; =&gt; &#39;&lt;yourHost&gt;&#39;,</span>
+<span class="x">            &#39;dbname&#39; =&gt; &#39;&lt;yourDBName&gt;&#39;,</span>
+<span class="x">            &#39;user&#39; =&gt; &#39;&lt;yourDBUser&#39;,</span>
+<span class="x">            &#39;password&#39; =&gt; &#39;&lt;yourDBPassword&gt;&#39;,</span>
+<span class="x">            &#39;charset&#39; =&gt; &#39;utf8&#39;,</span>
+<span class="x">        )</span>
+<span class="x">    )</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<p>Now follows the setup of CRUDlex itself. First of all, we create an instance
+of the MySQLDataFactory, internally taking care of creating MySQL-DB-access
+objects:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;]);</span>
+</pre></div>
+</div>
+<p>Now it&#8217;s time to register the ServiceProvider itself:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
+<span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
+<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<p>The content of the crud.yml (or whatever you name it) will be discussed in the
+next chapter.</p>
+<p>Now it&#8217;s time to mount the Controller:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;mount(&#39;/crud&#39;, new CRUDlex\ControllerProvider());</span>
+</pre></div>
+</div>
+<p>And that&#8217;s it. Your CRUD UI should be available now, for example if you
+defined a book entity in the crud.yml:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>http://.../crud/book
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="datastructures.html" class="btn btn-neutral float-right" title="Data Structure Definition" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.9.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

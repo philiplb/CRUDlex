@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.9.11
 Released: Upcoming
+- Added validation of the entity definition YAML file
 - Replaced handwritten mocks with Phony
 - Added a meaningful exception if invalid field names are given in "fieldList" or "filter"
 - Attention: The minimum PHP version is now 5.5

@@ -252,15 +252,22 @@ class ServiceProvider implements ServiceProviderInterface {
      */
     public function init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Container $app) {
 
+        $parsedYaml = $this->readYaml($crudFile);
+
+        $doValidate = !$app->offsetExists('crud.validateentitydefinition') || $app['crud.validateentitydefinition'] === true;
+        if ($doValidate) {
+            $validator = $app->offsetExists('crud.entitydefinitionvalidator')
+                ? $app['crud.entitydefinitionvalidator']
+                : new EntityDefinitionValidator();
+            $validator->validate($parsedYaml);
+        }
+
         $this->initMissingServiceProviders($app);
+
         $this->manageI18n = $manageI18n;
         $locales          = $this->initLocales($app);
-        $parsedYaml       = $this->readYaml($crudFile);
         $this->datas      = [];
         foreach ($parsedYaml as $name => $crud) {
-            if (!is_array($crud) || !isset($crud['fields'])) {
-                continue;
-            }
             $definition         = $this->createDefinition($app, $locales, $crud, $name);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }

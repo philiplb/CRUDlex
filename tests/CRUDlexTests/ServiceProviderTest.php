@@ -293,4 +293,29 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionFactoryHandle->createEntityDefinition->twice()->called();
     }
 
+    public function testEntityDefinitionValidation() {
+        $serviceProvider = new ServiceProvider();
+        $app = new Application();
+        $entityDefinitionValidatorHandle = Phony::mock('\\CRUDlex\\EntityDefinitionValidator');
+        $entityDefinitionValidatorMock = $entityDefinitionValidatorHandle->get();
+        $app['crud.entitydefinitionvalidator'] = $entityDefinitionValidatorMock;
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $entityDefinitionValidatorHandle->validate->once()->called();
+
+        $app['crud.validateentitydefinition'] = true;
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $entityDefinitionValidatorHandle->validate->once()->called();
+    }
+
+    public function testSwitchedOffEntityDefinitionValidation() {
+        $serviceProvider = new ServiceProvider();
+        $app = new Application();
+        $entityDefinitionValidatorHandle = Phony::mock('\\CRUDlex\\EntityDefinitionValidator');
+        $entityDefinitionValidatorMock = $entityDefinitionValidatorHandle->get();
+        $app['crud.validateentitydefinition'] = false;
+        $app['crud.entitydefinitionvalidator'] = $entityDefinitionValidatorMock;
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $entityDefinitionValidatorHandle->validate->never()->called();
+    }
+
 }

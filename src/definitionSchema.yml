@@ -1,0 +1,271 @@
+# This file is part of the CRUDlex sample package.
+#
+# (c) Philip Lehmann-Böhm <philip@philiplb.de>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+root:
+  _type: prototype
+  _prototype:
+
+    _type: array
+    _ignore_extra_keys: true
+    _children:
+
+      label:
+        _type: text
+        _required: true
+
+      table:
+        _type: text
+        _required: true
+
+      filter:
+        _type: prototype
+        _prototype:
+          _type: text
+
+      listFields:
+        _type: prototype
+        _prototype:
+          _type: text
+
+      pageSize:
+        _type: number
+
+      initialSortField:
+        _type: text
+
+      initialSortAscending:
+        _type: boolean
+
+      childrenLabelFields:
+        _type: prototype
+        _prototype:
+          _type: text
+
+      deleteCascade:
+        _type: boolean
+
+      fields:
+        _type: prototype
+        _prototype:
+          _type: choice
+          _choices:
+              1:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^text$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+              2:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^multiline$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+              3:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^url$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+              4:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^integer$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+              5:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^float$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+                  floatStep:
+                    _type: number
+              6:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^boolean$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+              7:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^date$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+              8:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^datetime$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+              9:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^set$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+                  setitems:
+                    _type: prototype
+                    _prototype:
+                      _type: text
+              10:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^reference$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+                  reference:
+                    _type: array
+                    _required: true
+                    _children:
+                      table:
+                        _type: text
+                        _required: true
+                      nameField:
+                        _type: text
+                      entity:
+                        _type: text
+                        _required: true
+              11:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^file$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+                  filepath:
+                    _type: text
+                    _required: true
+              12:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^fixed$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean
+                  fixedvalue:
+                    _type: text
+                    _required: true
