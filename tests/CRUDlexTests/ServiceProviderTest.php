@@ -290,7 +290,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionFactoryMock = $entityDefinitionFactoryHandle->get();
         $app['crud.entitydefinitionfactory'] = $entityDefinitionFactoryMock;
         $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
-        $entityDefinitionFactoryHandle->createEntityDefinition->once();
+        $entityDefinitionFactoryHandle->createEntityDefinition->twice()->called();
     }
 
 }
