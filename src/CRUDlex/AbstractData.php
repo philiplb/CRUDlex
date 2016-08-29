@@ -140,10 +140,10 @@ abstract class AbstractData {
      * the "moment" of the event, can be either "before" or "after"
      * @param string $action
      * the "action" of the event, can be either "create", "update" or "delete"
-     * @param anonymous function $function
+     * @param \Closure $function
      * the event function to be called if set
      */
-    public function pushEvent($moment, $action, $function) {
+    public function pushEvent($moment, $action, \Closure $function) {
         $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : [];
         $events[]                          = $function;
         $this->events[$moment.'.'.$action] = $events;
@@ -158,7 +158,7 @@ abstract class AbstractData {
      * @param string $action
      * the "action" of the event, can be either "create", "update" or "delete"
      *
-     * @return anonymous function
+     * @return \Closure
      * the popped event or null if no event was available.
      */
     public function popEvent($moment, $action) {

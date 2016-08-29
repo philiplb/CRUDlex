@@ -85,7 +85,7 @@ CRUDlex\\AbstractData
         :type $function: \Closure
         :param $function: the function to perform, takes $entity, $entityName and $field as parameter
 
-    .. php:method:: pushEvent($moment, $action, $function)
+    .. php:method:: pushEvent($moment, $action, Closure $function)
 
         Adds an event to fire for the given parameters. The event function must
         have this signature:
@@ -99,8 +99,8 @@ CRUDlex\\AbstractData
         :param $moment: the "moment" of the event, can be either "before" or "after"
         :type $action: string
         :param $action: the "action" of the event, can be either "create", "update" or "delete"
-        :type $function: anonymous
-        :param $function: $function the event function to be called if set
+        :type $function: Closure
+        :param $function: the event function to be called if set
 
     .. php:method:: popEvent($moment, $action)
 
@@ -110,7 +110,7 @@ CRUDlex\\AbstractData
         :param $moment: the "moment" of the event, can be either "before" or "after"
         :type $action: string
         :param $action: the "action" of the event, can be either "create", "update" or "delete"
-        :returns: anonymous function the popped event or null if no event was available.
+        :returns: \Closure the popped event or null if no event was available.
 
     .. php:method:: get($id)
 

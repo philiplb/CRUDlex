@@ -23,7 +23,7 @@ class StreamedFileResponse {
      * @param string $file
      * the filename to stream
      *
-     * @return anonymous function
+     * @return \Closure
      * the generated lambda
      */
     public function getStreamedFileFunction($file) {

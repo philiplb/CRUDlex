@@ -15,4 +15,4 @@ CRUDlex\\StreamedFileResponse
 
         :type $file: string
         :param $file: the filename to stream
-        :returns: anonymous function the generated lambda
+        :returns: \Closure the generated lambda
