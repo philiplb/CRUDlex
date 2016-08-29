@@ -530,10 +530,7 @@ class ControllerProvider implements ControllerProviderInterface {
         }
         $instance   = $crudData->get($id);
         $definition = $crudData->getDefinition();
-        if (!$instance) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
-        }
-        if ($definition->getType($field) != 'file' || !$instance->get($field)) {
+        if (!$instance || $definition->getType($field) != 'file' || !$instance->get($field)) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
         return $crudData->renderFile($instance, $entity, $field);
