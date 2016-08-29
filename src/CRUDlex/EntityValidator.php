@@ -11,6 +11,8 @@
 
 namespace CRUDlex;
 
+use \Valdi\Validator;
+
 /**
  * Performs validation of the field values of the given {@see Entity}.
  */
@@ -40,7 +42,7 @@ class EntityValidator {
      * @return array
      * the validation rules for the field
      */
-    protected function fieldToRules($field, AbstractData $data, \Valdi\Validator $validator) {
+    protected function fieldToRules($field, AbstractData $data, Validator $validator) {
         $setItems = $this->definition->getSetItems($field);
         if ($setItems === null) {
             $setItems = [];
@@ -79,7 +81,7 @@ class EntityValidator {
      * @return array
      * the validation rules for the entity
      */
-    protected function buildUpRules(AbstractData $data, \Valdi\Validator $validator) {
+    protected function buildUpRules(AbstractData $data, Validator $validator) {
         $fields = $this->definition->getEditableFieldNames();
         $rules = [];
         foreach ($fields as $field) {
@@ -139,7 +141,7 @@ class EntityValidator {
      * failed).
      */
     public function validate(AbstractData $data, $expectedVersion) {
-        $validator = new \Valdi\Validator();
+        $validator = new Validator();
         $validator->addValidator('unique', new UniqueValidator());
         $validator->addValidator('reference', new ReferenceValidator());
         $rules                 = $this->buildUpRules($data, $validator);

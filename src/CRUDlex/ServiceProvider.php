@@ -15,6 +15,11 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
+use Silex\Provider\LocaleServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\SessionServiceProvider;
+use Silex\Provider\TwigServiceProvider;
+use Symfony\Component\Intl\Intl;
 
 /**
  * The ServiceProvider setups and initializes the whole CRUD system.
@@ -91,7 +96,7 @@ class ServiceProvider implements ServiceProviderInterface {
             }
             return $parsedYaml;
         } catch (\Exception $e) {
-            throw new \Exception('Could not open CRUD file '.$fileName);
+            throw new \RuntimeException('Could not open CRUD file '.$fileName, $e->getCode(), $e);
         }
     }
 
@@ -104,18 +109,18 @@ class ServiceProvider implements ServiceProviderInterface {
     protected function initMissingServiceProviders(Container $app) {
 
         if (!$app->offsetExists('translator')) {
-            $app->register(new \Silex\Provider\LocaleServiceProvider());
-            $app->register(new \Silex\Provider\TranslationServiceProvider(), [
+            $app->register(new LocaleServiceProvider());
+            $app->register(new TranslationServiceProvider(), [
                 'locale_fallbacks' => ['en'],
             ]);
         }
 
         if (!$app->offsetExists('session')) {
-            $app->register(new \Silex\Provider\SessionServiceProvider());
+            $app->register(new SessionServiceProvider());
         }
 
         if (!$app->offsetExists('twig')) {
-            $app->register(new \Silex\Provider\TwigServiceProvider());
+            $app->register(new TwigServiceProvider());
             $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
         }
     }
@@ -478,7 +483,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * the language name in the given language or null if not available
      */
     public function getLanguageName($language) {
-        return \Symfony\Component\Intl\Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
+        return Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
     }
 
     /**

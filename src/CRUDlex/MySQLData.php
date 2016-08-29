@@ -12,6 +12,7 @@
 namespace CRUDlex;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Connection;
 
 /**
  * MySQL Data implementation using a given Doctrine DBAL instance.
@@ -216,7 +217,7 @@ class MySQLData extends AbstractData {
             $queryBuilder->select('id');
         }
 
-        $queryBuilder->setParameter(0, $ids, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY);
+        $queryBuilder->setParameter(0, $ids, Connection::PARAM_INT_ARRAY);
 
         $queryResult = $queryBuilder->execute();
         $rows        = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
