@@ -394,7 +394,7 @@ class EntityDefinition {
      * the new service provider
      */
     public function setServiceProvider(ServiceProvider $serviceProvider) {
-        return $this->serviceProvider = $serviceProvider;
+        $this->serviceProvider = $serviceProvider;
     }
 
     /**
