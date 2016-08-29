@@ -110,7 +110,7 @@ CRUDlex\\EntityDefinition
         :param $exclude: the field names to exclude
         :returns: array all field names excluding the given ones
 
-    .. php:method:: getFieldValue($name, $key)
+    .. php:method:: getFieldValue($name, $key, $default = null)
 
         Gets the value of a field key.
 
@@ -118,6 +118,8 @@ CRUDlex\\EntityDefinition
         :param $name: the name of the field
         :type $key: string
         :param $key: the value of the key
+        :type $default: mixed
+        :param $default: the default value to return if nothing is found
         :returns: mixed the value of the field key or null if not existing
 
     .. php:method:: setFieldValue($name, $key, $value)

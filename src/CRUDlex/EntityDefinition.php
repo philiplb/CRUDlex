@@ -122,15 +122,17 @@ class EntityDefinition {
      * the name of the field
      * @param string $key
      * the value of the key
+     * @param mixed $default
+     * the default value to return if nothing is found
      *
      * @return mixed
      * the value of the field key or null if not existing
      */
-    protected function getFieldValue($name, $key) {
+    protected function getFieldValue($name, $key, $default = null) {
         if (array_key_exists($name, $this->fields) && array_key_exists($key, $this->fields[$name])) {
             return $this->fields[$name][$key];
         }
-        return null;
+        return $default;
     }
 
     /**
@@ -615,10 +617,7 @@ class EntityDefinition {
      * the items of the set field or empty array on invalid field name
      */
     public function getSetItems($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'setitems');
-        if ($result === null) {
-            $result = [];
-        }
+        $result = $this->getFieldValue($fieldName, 'setitems', []);
         return $result;
     }
 
