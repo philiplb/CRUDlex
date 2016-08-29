@@ -237,6 +237,24 @@ class ServiceProvider implements ServiceProviderInterface {
     }
 
     /**
+     * Validates the parsed entity definition.
+     *
+     * @param Container $app
+     * the application container
+     * @param array $entityDefinition
+     * the entity definition to validate
+     */
+    protected function validateEntityDefinition(Container $app, array $entityDefinition) {
+        $doValidate = !$app->offsetExists('crud.validateentitydefinition') || $app['crud.validateentitydefinition'] === true;
+        if ($doValidate) {
+            $validator = $app->offsetExists('crud.entitydefinitionvalidator')
+                ? $app['crud.entitydefinitionvalidator']
+                : new EntityDefinitionValidator();
+            $validator->validate($entityDefinition);
+        }
+    }
+
+    /**
      * Initializes the instance.
      *
      * @param DataFactoryInterface $dataFactory
@@ -254,13 +272,7 @@ class ServiceProvider implements ServiceProviderInterface {
 
         $parsedYaml = $this->readYaml($crudFile);
 
-        $doValidate = !$app->offsetExists('crud.validateentitydefinition') || $app['crud.validateentitydefinition'] === true;
-        if ($doValidate) {
-            $validator = $app->offsetExists('crud.entitydefinitionvalidator')
-                ? $app['crud.entitydefinitionvalidator']
-                : new EntityDefinitionValidator();
-            $validator->validate($parsedYaml);
-        }
+        $this->validateEntityDefinition($app, $parsedYaml);
 
         $this->initMissingServiceProviders($app);
 
