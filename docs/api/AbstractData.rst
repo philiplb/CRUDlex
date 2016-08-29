@@ -110,7 +110,7 @@ CRUDlex\\AbstractData
         :param $moment: the "moment" of the event, can be either "before" or "after"
         :type $action: string
         :param $action: the "action" of the event, can be either "create", "update" or "delete"
-        :returns: \Closure the popped event or null if no event was available.
+        :returns: \Closure|null the popped event or null if no event was available.
 
     .. php:method:: get($id)
 

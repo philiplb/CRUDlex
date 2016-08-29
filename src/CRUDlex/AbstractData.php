@@ -158,7 +158,7 @@ abstract class AbstractData {
      * @param string $action
      * the "action" of the event, can be either "create", "update" or "delete"
      *
-     * @return \Closure
+     * @return \Closure|null
      * the popped event or null if no event was available.
      */
     public function popEvent($moment, $action) {
