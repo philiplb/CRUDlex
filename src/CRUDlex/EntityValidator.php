@@ -44,9 +44,6 @@ class EntityValidator {
      */
     protected function fieldToRules($field, AbstractData $data, Validator $validator) {
         $setItems = $this->definition->getSetItems($field);
-        if ($setItems === null) {
-            $setItems = [];
-        }
         $rulesMapping = [
             'boolean' => ['boolean'],
             'float' => ['floating'],

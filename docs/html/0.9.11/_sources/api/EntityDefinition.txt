@@ -404,7 +404,7 @@ CRUDlex\\EntityDefinition
 
         :type $fieldName: string
         :param $fieldName: the field name
-        :returns: array the items of the set field or null on invalid field name
+        :returns: array the items of the set field or empty array on invalid field name
 
     .. php:method:: setSetItems($fieldName, $value)
 

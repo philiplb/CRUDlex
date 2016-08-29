@@ -612,10 +612,14 @@ class EntityDefinition {
      * the field name
      *
      * @return array
-     * the items of the set field or null on invalid field name
+     * the items of the set field or empty array on invalid field name
      */
     public function getSetItems($fieldName) {
-        return $this->getFieldValue($fieldName, 'setitems');
+        $result = $this->getFieldValue($fieldName, 'setitems');
+        if ($result == null) {
+            $result = [];
+        }
+        return $result;
     }
 
     /**

@@ -170,18 +170,18 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
 
         $read = $this->definitionLibrary->getSetItems('name');
-        $this->assertNull($read);
+        $this->assertSame([], $read);
 
         $read = $this->definitionLibrary->getSetItems('foo');
-        $this->assertNull($read);
+        $this->assertSame([], $read);
 
         $read = $this->definitionLibrary->getSetItems(null);
-        $this->assertNull($read);
+        $this->assertSame([], $read);
 
         $expected = ['red', 'green', 'blue'];
         $this->definitionLibrary->setSetItems('type', $expected);
         $read = $this->definitionLibrary->getSetItems('type');
-        $this->assertSame($read, $expected);
+        $this->assertSame($$expected, read);
     }
 
     public function testIsSetUnique() {
