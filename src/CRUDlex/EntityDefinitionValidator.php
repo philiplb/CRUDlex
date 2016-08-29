@@ -25,9 +25,9 @@ class EntityDefinitionValidator implements EntityDefinitionValidatorInterface
      * {@inheritdoc}
      */
     public function validate(array $data) {
-        $loader = new YamlLoader();
+        $loader        = new YamlLoader();
         $schemaContent = $loader->loadFromFile(__DIR__.'/../definitionSchema.yml');
-        $schema = new MetaYaml($schemaContent);
+        $schema        = new MetaYaml($schemaContent);
         try {
             $schema->validate($data);
         } catch (\Exception $e) {
