@@ -415,7 +415,7 @@ class MySQLData extends AbstractData {
             ->from('`'.$table.'`', '`'.$table.'`');
 
         $deletedExcluder = 'where';
-        $i = 0;
+        $i               = 0;
         foreach ($params as $name => $value) {
             $queryBuilder
                 ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
