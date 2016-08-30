@@ -415,16 +415,15 @@ class MySQLData extends AbstractData {
             ->from('`'.$table.'`', '`'.$table.'`');
 
         $deletedExcluder = 'where';
-        if (count($params) > 0) {
-            $i = 0;
-            foreach ($params as $name => $value) {
-                $queryBuilder
-                    ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
-                    ->setParameter($i, $value);
-                $i++;
-            }
+        $i = 0;
+        foreach ($params as $name => $value) {
+            $queryBuilder
+                ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
+                ->setParameter($i, $value);
+            $i++;
             $deletedExcluder = 'andWhere';
         }
+
         if ($excludeDeleted) {
             $queryBuilder->$deletedExcluder('deleted_at IS NULL');
         }
