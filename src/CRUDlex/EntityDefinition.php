@@ -670,11 +670,7 @@ class EntityDefinition {
      */
     public function getFieldLabel($fieldName) {
 
-        $result = null;
-
-        if ($this->locale) {
-            $result = $this->getFieldValue($fieldName, 'label_'.$this->locale);
-        }
+        $result = $this->getFieldValue($fieldName, 'label_'.$this->locale);
 
         if ($result === null) {
             $result = $this->getFieldValue($fieldName, 'label');
@@ -683,9 +679,11 @@ class EntityDefinition {
         if ($result === null && array_key_exists($fieldName, $this->standardFieldLabels)) {
             $result = $this->standardFieldLabels[$fieldName];
         }
+
         if ($result === null) {
             $result = $fieldName;
         }
+
         return $result;
     }
 
