@@ -10,6 +10,14 @@ Released: Upcoming
 - Attention: Updated to Silex 2.0
 - Updated dependencies:
     - "silex/silex": "~2.0"
+    - "symfony/twig-bridge": "~3.1"
+    - "philiplb/valdi": "~0.10"
+    - "symfony/yaml": "~3.1"
+    - "symfony/translation": "~3.1"
+    - "symfony/intl": "~3.1"
+    - "symfony/browser-kit": "~3.1"
+    - "symfony/css-selector": "~3.1"
+    - "eloquent/phony": "~0.13"
 - Switched to the array shorthand
 
 ## 0.9.10

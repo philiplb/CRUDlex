@@ -14,21 +14,21 @@
     "require": {
         "php": ">=5.5",
         "silex/silex": "~2.0",
-        "symfony/twig-bridge": "~2.8",
+        "symfony/twig-bridge": "~3.1",
         "doctrine/dbal": "~2.5",
-        "symfony/yaml": "~2.8",
-        "symfony/translation": "~2.8",
-        "symfony/intl": "~2.8",
-        "philiplb/valdi": "0.9.0",
+        "symfony/yaml": "~3.1",
+        "symfony/translation": "~3.1",
+        "symfony/intl": "~3.1",
+        "philiplb/valdi": "~0.10",
         "romaricdrigon/metayaml": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8",
         "satooshi/php-coveralls": "1.0.1",
-        "symfony/browser-kit": "~2.8",
-        "symfony/css-selector": "~2.8",
+        "symfony/browser-kit": "~3.1",
+        "symfony/css-selector": "~3.1",
         "sphpdox/sphpdox": "dev-master",
-        "eloquent/phony": "^0.13.0"
+        "eloquent/phony": "~0.13"
     },
     "autoload": {
         "psr-0": { "CRUDlex": "src" }
