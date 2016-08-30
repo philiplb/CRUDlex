@@ -23,6 +23,9 @@ make html
 
 ## Package
 
+CRUDlex uses [SemVer](http://semver.org/) for versioning. Currently, the API changes quickly due to be < 1.0.0, so take
+care about notes in the changelog when upgrading.
+
 ### Stable
 
 ```json
