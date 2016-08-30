@@ -1,8 +1,9 @@
 CRUDlex Changelog
 =================
 
-## 0.9.11
+## 0.10.0
 Released: Upcoming
+- Switched to SemVer
 - Added validation of the entity definition YAML file
 - Replaced handwritten mocks with Phony
 - Added a meaningful exception if invalid field names are given in "fieldList" or "filter"
