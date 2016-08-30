@@ -6,9 +6,9 @@ templates are discussed in later sections.
 
 First, you have to add CRUDlex to your composer.json:
 
-.. code-block:: js
+.. code-block:: bash
 
-    "philiplb/crudlex": "0.9.10"
+    composer require "philiplb/crudlex"
 
 Then comes the actual setup. Currently, only MySQL is supported. Although the
 database layer is kept in an abstract way, so in future more data stores will
