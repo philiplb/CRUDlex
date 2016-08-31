@@ -16,7 +16,7 @@ Released: Upcoming
 - Updated dependencies:
     - "silex/silex": "~2.0"
     - "symfony/twig-bridge": "~3.1"
-    - "philiplb/valdi": "~0.10"
+    - "philiplb/valdi": "0.10.0"
     - "symfony/yaml": "~3.1"
     - "symfony/translation": "~3.1"
     - "symfony/intl": "~3.1"
