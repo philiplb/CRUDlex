@@ -247,7 +247,7 @@ root:
                     _type: boolean
                   unique:
                     _type: boolean
-                  filepath:
+                  path:
                     _type: text
                     _required: true
               12:

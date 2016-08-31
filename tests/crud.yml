@@ -69,7 +69,7 @@ book:
         entity: library
     cover:
       type: file
-      filepath: 'tests/uploads'
+      path: 'tests/uploads'
       label: 'Cover Image'
       required: true
     price:

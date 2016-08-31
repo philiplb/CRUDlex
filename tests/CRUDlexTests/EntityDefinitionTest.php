@@ -260,20 +260,20 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetFilePath() {
-        $read = $this->definition->getFilePath('cover');
+    public function testGetSetPath() {
+        $read = $this->definition->getPath('cover');
         $expected = 'tests/uploads';
         $this->assertSame($read, $expected);
-        $read = $this->definition->getFilePath('title');
+        $read = $this->definition->getPath('title');
         $this->assertNull($read);
-        $read = $this->definition->getFilePath('foo');
+        $read = $this->definition->getPath('foo');
         $this->assertNull($read);
-        $read = $this->definition->getFilePath(null);
+        $read = $this->definition->getPath(null);
         $this->assertNull($read);
 
         $expected = 'tests/uploaded';
-        $this->definition->setFilePath('cover', $expected);
-        $read = $this->definition->getFilePath('cover');
+        $this->definition->setPath('cover', $expected);
+        $read = $this->definition->getPath('cover');
         $this->assertSame($read, $expected);
     }
 

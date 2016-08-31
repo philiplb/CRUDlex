@@ -566,8 +566,8 @@ class EntityDefinition {
      * @return string
      * the file path of a field or null on invalid field name
      */
-    public function getFilePath($fieldName) {
-        return $this->getFieldValue($fieldName, 'filepath');
+    public function getPath($fieldName) {
+        return $this->getFieldValue($fieldName, 'path');
     }
 
     /**
@@ -578,8 +578,8 @@ class EntityDefinition {
      * @param string $value
      * the file path of a field or null on invalid field name
      */
-    public function setFilePath($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'filepath', $value);
+    public function setPath($fieldName, $value) {
+        $this->setFieldValue($fieldName, 'path', $value);
     }
 
     /**

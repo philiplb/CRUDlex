@@ -11,6 +11,7 @@ Released: Upcoming
 - Attention: Updated to Silex 2.0
 - Attention, renamed entity definition YAML fields:
     - setitems -> items
+    - filepath -> path
 - Updated dependencies:
     - "silex/silex": "~2.0"
     - "symfony/twig-bridge": "~3.1"

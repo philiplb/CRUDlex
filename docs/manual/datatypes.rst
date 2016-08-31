@@ -329,10 +329,10 @@ To have an image field for our library, you would declare it like this:
         fields:
             image:
                 type: file
-                filepath: uploads
+                path: uploads
 
 The images are stored in the filesystem relative to your index.php within the
-subfolder you give with the filepath parameter.
+subfolder you give with the path parameter.
 
 If you edit an entity with a file and re-upload it or if you delete the file or
 if you delete the entity, the current implementation is defensive and doesn't
