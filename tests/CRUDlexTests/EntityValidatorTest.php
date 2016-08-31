@@ -63,12 +63,12 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
 
         // Fixed values should override this.
         $entityBook->set('title', null);
-        $this->dataBook->getDefinition()->setFixedValue('title', 'abc');
+        $this->dataBook->getDefinition()->setValue('title', 'abc');
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $valid;
         $this->assertSame($read, $expected);
         $entityBook->set('title', 'title');
-        $this->dataBook->getDefinition()->setFixedValue('title', null);
+        $this->dataBook->getDefinition()->setValue('title', null);
 
         $invalidLibrary = $valid;
         $invalidLibrary['valid'] = false;

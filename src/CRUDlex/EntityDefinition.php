@@ -591,8 +591,8 @@ class EntityDefinition {
      * @return string
      * the value of a fixed field or null on invalid field name
      */
-    public function getFixedValue($fieldName) {
-        return $this->getFieldValue($fieldName, 'fixedvalue');
+    public function getValue($fieldName) {
+        return $this->getFieldValue($fieldName, 'value');
     }
 
     /**
@@ -603,8 +603,8 @@ class EntityDefinition {
      * @param string $value
      * the new value for the fixed field
      */
-    public function setFixedValue($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'fixedvalue', $value);
+    public function setValue($fieldName, $value) {
+        $this->setFieldValue($fieldName, 'value', $value);
     }
 
     /**

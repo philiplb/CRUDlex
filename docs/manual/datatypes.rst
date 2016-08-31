@@ -372,7 +372,7 @@ Fixed
 .. code-block:: yaml
 
     type: fixed
-    fixedvalue: abc
+    value: abc
 
 Fills the db always with the defined, fixed value, not editable. Related MySQL-types:
 

@@ -9,9 +9,10 @@ Released: Upcoming
 - Added a meaningful exception if invalid field names are given in "fieldList" or "filter"
 - Attention: The minimum PHP version is now 5.5
 - Attention: Updated to Silex 2.0
-- Attention, renamed entity definition YAML fields:
+- Attention: Renamed entity definition YAML fields:
     - setitems -> items
     - filepath -> path
+    - fixedvalue -> value
 - Updated dependencies:
     - "silex/silex": "~2.0"
     - "symfony/twig-bridge": "~3.1"

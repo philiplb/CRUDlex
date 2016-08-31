@@ -106,8 +106,8 @@ class Entity {
      */
     public function get($field) {
 
-        if ($this->definition->getFixedValue($field) !== null) {
-            return $this->definition->getFixedValue($field);
+        if ($this->definition->getValue($field) !== null) {
+            return $this->definition->getValue($field);
         }
 
         if (!array_key_exists($field, $this->entity)) {

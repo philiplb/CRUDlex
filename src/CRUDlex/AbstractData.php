@@ -309,7 +309,7 @@ abstract class AbstractData {
         foreach ($fields as $field) {
             $value = null;
             if ($this->definition->getType($field) == 'fixed') {
-                $value = $this->definition->getFixedValue($field);
+                $value = $this->definition->getValue($field);
             }
             $entity->set($field, $value);
         }

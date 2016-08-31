@@ -266,6 +266,6 @@ root:
                     _type: boolean
                   unique:
                     _type: boolean
-                  fixedvalue:
+                  value:
                     _type: text
                     _required: true

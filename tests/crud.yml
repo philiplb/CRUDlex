@@ -26,7 +26,7 @@ library:
       label: 'Is open on sundays'
     planet:
       type: fixed
-      fixedvalue: Earth
+      value: Earth
       label: 'Planet of this library'
 
 book:

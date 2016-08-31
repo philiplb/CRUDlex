@@ -55,7 +55,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
 
         // Fixed values override
-        $definition->setFixedValue('pages', 666);
+        $definition->setValue('pages', 666);
         $entity->set('pages', 111);
         $read = $entity->get('pages');
         $expected = 666;
