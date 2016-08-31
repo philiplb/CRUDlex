@@ -14,7 +14,7 @@
 } only %}
 <select class="form-control" id="{{ field }}" name="{{ fieldNamePrefix ~ field }}">
     <option value=""></option>
-    {% set values = crudData.getDefinition().getSetItems(field) %}
+    {% set values = crudData.getDefinition().getItems(field) %}
     {% for setValue in values %}
         <option value="{{ setValue }}" {% if value and setValue == value %}selected="selected" {% endif %}>{{ setValue }}</option>
     {% endfor %}

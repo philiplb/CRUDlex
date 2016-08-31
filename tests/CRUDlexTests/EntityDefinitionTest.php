@@ -164,23 +164,23 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
-    public function testGetSetSetItems() {
-        $read = $this->definitionLibrary->getSetItems('type');
+    public function testGetSetItems() {
+        $read = $this->definitionLibrary->getItems('type');
         $expected = ['small', 'medium', 'large'];
         $this->assertSame($read, $expected);
 
-        $read = $this->definitionLibrary->getSetItems('name');
+        $read = $this->definitionLibrary->getItems('name');
         $this->assertSame([], $read);
 
-        $read = $this->definitionLibrary->getSetItems('foo');
+        $read = $this->definitionLibrary->getItems('foo');
         $this->assertSame([], $read);
 
-        $read = $this->definitionLibrary->getSetItems(null);
+        $read = $this->definitionLibrary->getItems(null);
         $this->assertSame([], $read);
 
         $expected = ['red', 'green', 'blue'];
-        $this->definitionLibrary->setSetItems('type', $expected);
-        $read = $this->definitionLibrary->getSetItems('type');
+        $this->definitionLibrary->setItems('type', $expected);
+        $read = $this->definitionLibrary->getItems('type');
         $this->assertSame($expected, $read);
     }
 

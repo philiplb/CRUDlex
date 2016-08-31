@@ -616,8 +616,8 @@ class EntityDefinition {
      * @return array
      * the items of the set field or empty array on invalid field name
      */
-    public function getSetItems($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'setitems', []);
+    public function getItems($fieldName) {
+        $result = $this->getFieldValue($fieldName, 'items', []);
         return $result;
     }
 
@@ -629,8 +629,8 @@ class EntityDefinition {
      * @param string $value
      * the new items of the set field
      */
-    public function setSetItems($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'setitems', $value);
+    public function setItems($fieldName, $value) {
+        $this->setFieldValue($fieldName, 'items', $value);
     }
 
     /**

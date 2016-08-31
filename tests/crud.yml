@@ -17,7 +17,7 @@ library:
     type:
       type: set
       label: Type
-      setitems: [small,medium,large]
+      items: [small,medium,large]
     opening:
       type: datetime
       label: Opening

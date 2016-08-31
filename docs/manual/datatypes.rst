@@ -160,7 +160,7 @@ Set
 .. code-block:: yaml
 
     type: set
-    setitems: [red, green, blue]
+    items: [red, green, blue]
 
 A fixed set of elements to be chosen from, stored as text. Related MySQL-types:
 
