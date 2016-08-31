@@ -160,7 +160,7 @@ Set
 .. code-block:: yaml
 
     type: set
-    setitems: [red, green, blue]
+    items: [red, green, blue]
 
 A fixed set of elements to be chosen from, stored as text. Related MySQL-types:
 
@@ -329,10 +329,10 @@ To have an image field for our library, you would declare it like this:
         fields:
             image:
                 type: file
-                filepath: uploads
+                path: uploads
 
 The images are stored in the filesystem relative to your index.php within the
-subfolder you give with the filepath parameter.
+subfolder you give with the path parameter.
 
 If you edit an entity with a file and re-upload it or if you delete the file or
 if you delete the entity, the current implementation is defensive and doesn't
@@ -372,7 +372,7 @@ Fixed
 .. code-block:: yaml
 
     type: fixed
-    fixedvalue: abc
+    value: abc
 
 Fills the db always with the defined, fixed value, not editable. Related MySQL-types:
 

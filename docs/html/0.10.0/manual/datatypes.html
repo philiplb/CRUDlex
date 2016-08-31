@@ -306,7 +306,7 @@ order to save space. A value of:</p>
 <div class="section" id="set">
 <h2>Set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">set</span>
-<span class="l l-Scalar l-Scalar-Plain">setitems</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">red</span><span class="p p-Indicator">,</span> <span class="nv">green</span><span class="p p-Indicator">,</span> <span class="nv">blue</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">red</span><span class="p p-Indicator">,</span> <span class="nv">green</span><span class="p p-Indicator">,</span> <span class="nv">blue</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 <p>A fixed set of elements to be chosen from, stored as text. Related MySQL-types:</p>
@@ -453,11 +453,11 @@ edit form, can be viewed, removed and replaced.</p>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
-            <span class="l l-Scalar l-Scalar-Plain">filepath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uploads</span>
+            <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uploads</span>
 </pre></div>
 </div>
 <p>The images are stored in the filesystem relative to your index.php within the
-subfolder you give with the filepath parameter.</p>
+subfolder you give with the path parameter.</p>
 <p>If you edit an entity with a file and re-upload it or if you delete the file or
 if you delete the entity, the current implementation is defensive and doesn&#8217;t
 physically delete the files.</p>
@@ -488,7 +488,7 @@ package.</p>
 <div class="section" id="fixed">
 <h2>Fixed<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">fixed</span>
-<span class="l l-Scalar l-Scalar-Plain">fixedvalue</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
+<span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
 </pre></div>
 </div>
 <p>Fills the db always with the defined, fixed value, not editable. Related MySQL-types:</p>

@@ -366,7 +366,7 @@ CRUDlex\\EntityDefinition
         :param $fieldName: the field name of the reference
         :returns: string the entity field of a reference or null on invalid field name
 
-    .. php:method:: getFilePath($fieldName)
+    .. php:method:: getPath($fieldName)
 
         Gets the file path of a field.
 
@@ -374,7 +374,7 @@ CRUDlex\\EntityDefinition
         :param $fieldName: the field name
         :returns: string the file path of a field or null on invalid field name
 
-    .. php:method:: setFilePath($fieldName, $value)
+    .. php:method:: setPath($fieldName, $value)
 
         Sets the file path of a field.
 
@@ -383,7 +383,7 @@ CRUDlex\\EntityDefinition
         :type $value: string
         :param $value: the file path of a field or null on invalid field name
 
-    .. php:method:: getFixedValue($fieldName)
+    .. php:method:: getValue($fieldName)
 
         Gets the value of a fixed field.
 
@@ -391,7 +391,7 @@ CRUDlex\\EntityDefinition
         :param $fieldName: the field name
         :returns: string the value of a fixed field or null on invalid field name
 
-    .. php:method:: setFixedValue($fieldName, $value)
+    .. php:method:: setValue($fieldName, $value)
 
         Sets the value of a fixed field.
 
@@ -400,7 +400,7 @@ CRUDlex\\EntityDefinition
         :type $value: string
         :param $value: the new value for the fixed field
 
-    .. php:method:: getSetItems($fieldName)
+    .. php:method:: getItems($fieldName)
 
         Gets the items of a set field.
 
@@ -408,7 +408,7 @@ CRUDlex\\EntityDefinition
         :param $fieldName: the field name
         :returns: array the items of the set field or empty array on invalid field name
 
-    .. php:method:: setSetItems($fieldName, $value)
+    .. php:method:: setItems($fieldName, $value)
 
         Sets the items of a set field.
 
