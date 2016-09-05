@@ -206,7 +206,8 @@ class MySQLData extends AbstractData {
             return $entity->get($field);
         }, $entities);
 
-        $table = $this->definition->getReferenceTable($field);
+        $referenceEntity = $this->definition->getReferenceEntity($field);
+        $table = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
         $queryBuilder
             ->from('`'.$table.'`', '`'.$table.'`')
             ->where('id IN (?)')
@@ -382,7 +383,9 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function getReferences($table, $nameField) {
+    public function getReferences($referenceEntity, $nameField) {
+
+        $table = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
 
         $queryBuilder = $this->database->createQueryBuilder();
         if ($nameField) {

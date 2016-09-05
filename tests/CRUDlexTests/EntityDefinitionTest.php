@@ -128,18 +128,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testGetReferenceTable() {
-        $read = $this->definition->getReferenceTable('library');
-        $expected = 'library';
-        $this->assertSame($read, $expected);
-        $read = $this->definition->getReferenceTable('title');
-        $this->assertNull($read);
-        $read = $this->definition->getReferenceTable('foo');
-        $this->assertNull($read);
-        $read = $this->definition->getReferenceTable(null);
-        $this->assertNull($read);
-    }
-
     public function testGetReferenceNameField() {
         $read = $this->definition->getReferenceNameField('library');
         $expected = 'name';
@@ -402,15 +390,15 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetInvalidReferenceField() {
         $definition = new EntityDefinition(null, ['test' => []], null, [], [], new ServiceProvider());
-        $read = $definition->getReferenceTable('test');
+        $read = $definition->getReferenceEntity('test');
         $this->assertNull($read);
 
         $definition = new EntityDefinition(null, ['test' => ['type' => 'reference']], null, [], [], new ServiceProvider());
-        $read = $definition->getReferenceTable('test');
+        $read = $definition->getReferenceEntity('test');
         $this->assertNull($read);
 
         $definition = new EntityDefinition(null, ['test' => ['type' => 'reference', 'reference' => []]], null, [], [], new ServiceProvider());
-        $read = $definition->getReferenceTable('test');
+        $read = $definition->getReferenceEntity('test');
         $this->assertNull($read);
     }
 

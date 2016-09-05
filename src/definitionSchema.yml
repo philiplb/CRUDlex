@@ -223,9 +223,6 @@ root:
                     _type: array
                     _required: true
                     _children:
-                      table:
-                        _type: text
-                        _required: true
                       nameField:
                         _type: text
                       entity:

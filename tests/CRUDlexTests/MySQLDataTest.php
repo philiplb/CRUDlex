@@ -215,9 +215,9 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $library->set('name', 'C');
         $this->dataLibrary->create($library);
 
-        $table = $this->dataBook->getDefinition()->getReferenceTable('library');
+        $referenceEntity = $this->dataBook->getDefinition()->getReferenceEntity('library');
         $nameField = $this->dataBook->getDefinition()->getReferenceNameField('library');
-        $read = $this->dataBook->getReferences($table, $nameField);
+        $read = $this->dataBook->getReferences($referenceEntity, $nameField);
         $expected = [
             '1' => 'A',
             '2' => 'B',
@@ -225,7 +225,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         ];
         $this->assertSame($read, $expected);
 
-        $read = $this->dataBook->getReferences($table, null);
+        $read = $this->dataBook->getReferences($referenceEntity, null);
         $expected = [
             '1' => '1',
             '2' => '2',
