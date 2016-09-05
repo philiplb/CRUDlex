@@ -342,14 +342,6 @@ CRUDlex\\EntityDefinition
         :type $value: boolean
         :param $value: true if so
 
-    .. php:method:: getReferenceTable($fieldName)
-
-        Gets the table field of a reference.
-
-        :type $fieldName: string
-        :param $fieldName: the field name of the reference
-        :returns: string the table field of a reference or null on invalid field name
-
     .. php:method:: getReferenceNameField($fieldName)
 
         Gets the name field of a reference.

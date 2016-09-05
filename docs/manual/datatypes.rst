@@ -182,7 +182,6 @@ Reference
 
     type: reference
     reference:
-      table: otherTable
       nameField: otherName
       entity: otherEntity
 
@@ -191,8 +190,7 @@ This is the 1-side of a one-to-many relation. Related MySQL-type:
 * INT
 
 In order to display a proper selection UI and represent the the value from the
-other table, a few more fields are needed. Those are the *table* telling
-CRUDlex where to look for the, representation, the *nameField* describing
+other table, a few more fields are needed. Those are the *nameField* describing
 which field to use from the other table to display the selected value and last,
 the referenced *entity*.
 
@@ -223,7 +221,6 @@ book-library relationship:
             library:
                 type: reference
                 reference:
-                  table: lib
                   nameField: name
                   entity: library
 
@@ -255,7 +252,6 @@ parent (library), you can activate it via the childrenLabelFields:
             library:
                 type: reference
                 reference:
-                  table: lib
                   nameField: name
                   entity: library
 
@@ -294,7 +290,6 @@ setting like this:
             library:
                 type: reference
                 reference:
-                  table: lib
                   nameField: name
                   entity: library
 

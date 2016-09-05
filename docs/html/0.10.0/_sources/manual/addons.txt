@@ -131,7 +131,6 @@ Connecting Users and Roles
                 type: reference
                 label: User
                 reference:
-                    table: user
                     nameField: username
                     entity: user
                 required: true
@@ -139,7 +138,6 @@ Connecting Users and Roles
                 type: reference
                 label: Role
                 reference:
-                    table: role
                     nameField: role
                     entity: role
                 required: true
@@ -160,7 +158,6 @@ In case you want to use the password reset features:
                 type: reference
                 label: User
                 reference:
-                    table: user
                     nameField: username
                     entity: user
                 required: true

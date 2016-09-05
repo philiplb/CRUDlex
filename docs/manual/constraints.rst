@@ -33,7 +33,6 @@ mandatory and the title of a book should be required:
             library:
                 type: reference
                 reference:
-                    table: lib
                     nameField: name
                     entity: library
 

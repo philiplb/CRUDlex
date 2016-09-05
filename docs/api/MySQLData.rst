@@ -177,11 +177,11 @@ CRUDlex\\MySQLData
         :type $entity: Entity
         :param $entity:
 
-    .. php:method:: getReferences($table, $nameField)
+    .. php:method:: getReferences($referenceEntity, $nameField)
 
         {@inheritdoc}
 
-        :param $table:
+        :param $referenceEntity:
         :param $nameField:
 
     .. php:method:: countBy($table, $params, $paramsOperators, $excludeDeleted)

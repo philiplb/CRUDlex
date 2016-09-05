@@ -163,13 +163,13 @@ CRUDlex\\AbstractData
         :param $entity: the entity to delete
         :returns: integer returns one of: - AbstractData::DELETION_SUCCESS -> successful deletion - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
 
-    .. php:method:: getReferences($table, $nameField)
+    .. php:method:: getReferences($referenceEntity, $nameField)
 
         Gets ids and names of a table. Used for building up the dropdown box of
         reference type fields.
 
-        :type $table: string
-        :param $table: the table
+        :type $referenceEntity: string
+        :param $referenceEntity: the referenced entity
         :type $nameField: string
         :param $nameField: the field defining the name of the rows
         :returns: array an array with the ids as key and the names as values
