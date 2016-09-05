@@ -207,7 +207,7 @@ class MySQLData extends AbstractData {
         }, $entities);
 
         $referenceEntity = $this->definition->getReferenceEntity($field);
-        $table = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
+        $table           = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
         $queryBuilder
             ->from('`'.$table.'`', '`'.$table.'`')
             ->where('id IN (?)')
