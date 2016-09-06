@@ -9,6 +9,7 @@ Released: Upcoming
 - Added a meaningful exception if invalid field names are given in "fieldList" or "filter"
 - Attention: The minimum PHP version is now 5.5
 - Attention: Updated to Silex 2.0
+- Attention: Switched from PSR-0 to PSR-4
 - Attention: The field entity.field.reference.table is not needed anymore
 - Attention: Renamed entity definition YAML fields:
     - setitems -> items
