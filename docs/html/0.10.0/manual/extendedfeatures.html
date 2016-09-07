@@ -404,8 +404,9 @@ book: .../book/create?author=MyAuthor</p>
 <div class="section" id="combine-with-the-web-profiler">
 <h2>Combine with the Web Profiler<a class="headerlink" href="#combine-with-the-web-profiler" title="Permalink to this headline">¶</a></h2>
 <p>If you want to use the package &#8220;silex/web-profiler&#8221;, you have to register the
-TranslationServiceProvider on your own first:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new \Silex\Provider\TranslationServiceProvider(), array(</span>
+LocaleServiceProvider and TranslationServiceProvider on your own first:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\LocaleServiceProvider());</span>
+<span class="x">$app-&gt;register(new \Silex\Provider\TranslationServiceProvider(), array(</span>
 <span class="x">    &#39;locale_fallbacks&#39; =&gt; array(&#39;en&#39;),</span>
 <span class="x">));</span>
 </pre></div>
