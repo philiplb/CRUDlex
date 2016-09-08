@@ -266,3 +266,35 @@ root:
                   value:
                     _type: text
                     _required: true
+              13:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^many$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  many:
+                    _type: array
+                    _required: true
+                    _children:
+                      nameField:
+                        _type: text
+                      entity:
+                        _type: text
+                        _required: true
+                      table:
+                        _type: text
+                        _required: true
+                      thisField:
+                        _type: text
+                        _required: true
+                      thatField:
+                        _type: text
+                        _required: true

@@ -252,6 +252,44 @@ class MySQLData extends AbstractData {
         return $uuid;
     }
 
+    protected function enrichWithMany(array $rows) {
+        $fields     = $this->definition->getFieldNames(true);
+        $manyFields = array_filter($fields, function($field) {
+            return $this->definition->getType($field) === 'many';
+        });
+        $mapping = [];
+        foreach ($rows as $row) {
+            $mapping[$row['id']] = $row;
+        }
+        foreach ($manyFields as $manyField) {
+            $queryBuilder = $this->database->createQueryBuilder();
+            $table        = $this->definition->getManyTable($manyField);
+            $nameField    = $this->definition->getManyNameField($manyField);
+            $thisField    = $this->definition->getManyThisField($manyField);
+            $thatField    = $this->definition->getManyThatField($manyField);
+            $entity       = $this->definition->getManyEntity($manyField);
+            $entityTable  = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
+            $nameSelect   = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
+            $queryBuilder
+                ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that'.$nameSelect)
+                ->from('`'.$table.'`', 't1')
+                ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
+                ->where('t1.`'.$thisField.'` IN (?)')
+                ->where('t2.deleted_at IS NULL');
+            $queryBuilder->setParameter(0, array_keys($mapping), Connection::PARAM_INT_ARRAY);
+            $queryResult    = $queryBuilder->execute();
+            $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($manyReferences as $manyReference) {
+                $many = ['id' => $manyReference['that']];
+                if ($nameField !== null) {
+                    $many['name'] = $manyReference['name'];
+                }
+                $mapping[$manyReference['this']][$manyField][] = $many;
+            }
+        }
+        return array_values($mapping);
+    }
+
     /**
      * Constructor.
      *
@@ -301,6 +339,7 @@ class MySQLData extends AbstractData {
 
         $queryResult = $queryBuilder->execute();
         $rows        = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $rows        = $this->enrichWithMany($rows);
         $entities    = [];
         foreach ($rows as $row) {
             $entities[] = $this->hydrate($row);

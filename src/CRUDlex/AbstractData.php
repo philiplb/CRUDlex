@@ -73,7 +73,7 @@ abstract class AbstractData {
      * the entity containing the array data then
      */
     protected function hydrate(array $row) {
-        $fieldNames = $this->definition->getFieldNames();
+        $fieldNames = $this->definition->getFieldNames(true);
         $entity     = new Entity($this->definition);
         foreach ($fieldNames as $fieldName) {
             $entity->set($fieldName, $row[$fieldName]);

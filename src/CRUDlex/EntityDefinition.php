@@ -105,7 +105,7 @@ class EntityDefinition {
      * all field names excluding the given ones
      */
     protected function getFilteredFieldNames(array $exclude) {
-        $fieldNames = $this->getFieldNames();
+        $fieldNames = $this->getFieldNames(true);
         $result     = [];
         foreach ($fieldNames as $fieldName) {
             if (!in_array($fieldName, $exclude)) {
@@ -156,6 +156,8 @@ class EntityDefinition {
     /**
      * Gets the value of a reference field.
      *
+     * @param string $type
+     * the reference type like "reference" or "many"
      * @param string $fieldName
      * the field name of the reference
      * @param string $key
@@ -164,17 +166,17 @@ class EntityDefinition {
      * @return string
      * the value of the reference field
      */
-    protected function getReferenceValue($fieldName, $key) {
-        if ($this->getType($fieldName) != 'reference') {
+    protected function getReferenceValue($type, $fieldName, $key) {
+        if ($this->getType($fieldName) != $type) {
             return null;
         }
-        if (!array_key_exists('reference', $this->fields[$fieldName])) {
+        if (!array_key_exists($type, $this->fields[$fieldName])) {
             return null;
         }
-        if (!array_key_exists($key, $this->fields[$fieldName]['reference'])) {
+        if (!array_key_exists($key, $this->fields[$fieldName][$type])) {
             return null;
         }
-        return $this->fields[$fieldName]['reference'][$key];
+        return $this->fields[$fieldName][$type][$key];
     }
 
     /**
@@ -258,13 +260,18 @@ class EntityDefinition {
      * Gets all field names, including the implicit ones like "id" or
      * "created_at".
      *
+     * @param boolean $includeMany
+     * whether to include the many fields as well
+     *
      * @return string[]
      * the field names
      */
-    public function getFieldNames() {
+    public function getFieldNames($includeMany = false) {
         $fieldNames = $this->getReadOnlyFields();
         foreach ($this->fields as $field => $value) {
-            $fieldNames[] = $field;
+            if ($includeMany || $this->getType($field) !== 'many') {
+                $fieldNames[] = $field;
+            }
         }
         return $fieldNames;
     }
@@ -528,7 +535,7 @@ class EntityDefinition {
      * the name field of a reference or null on invalid field name
      */
     public function getReferenceNameField($fieldName) {
-        return $this->getReferenceValue($fieldName, 'nameField');
+        return $this->getReferenceValue('reference', $fieldName, 'nameField');
     }
 
     /**
@@ -541,7 +548,7 @@ class EntityDefinition {
      * the entity field of a reference or null on invalid field name
      */
     public function getReferenceEntity($fieldName) {
-        return $this->getReferenceValue($fieldName, 'entity');
+        return $this->getReferenceValue('reference', $fieldName, 'entity');
     }
 
     /**
@@ -828,5 +835,25 @@ class EntityDefinition {
      */
     public function isInitialSortAscending() {
         return $this->initialSortAscending;
+    }
+
+    public function getManyEntity($fieldName) {
+        return $this->getReferenceValue('many', $fieldName, 'entity');
+    }
+
+    public function getManyTable($fieldName) {
+        return $this->getReferenceValue('many', $fieldName, 'table');
+    }
+
+    public function getManyNameField($fieldName) {
+        return $this->getReferenceValue('many', $fieldName, 'nameField');
+    }
+
+    public function getManyThisField($fieldName) {
+        return $this->getReferenceValue('many', $fieldName, 'thisField');
+    }
+
+    public function getManyThatField($fieldName) {
+        return $this->getReferenceValue('many', $fieldName, 'thatField');
     }
 }
