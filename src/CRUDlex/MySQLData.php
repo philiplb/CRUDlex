@@ -424,38 +424,13 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function getReferences($referenceEntity, $nameField) {
-
-        $table = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
-
+    public function getIdToNameMap($entity, $nameField) {
+        $table = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
         $queryBuilder = $this->database->createQueryBuilder();
-        if ($nameField) {
-            $queryBuilder->select('id', $nameField);
-        } else {
-            $queryBuilder->select('id');
-        }
-        $queryBuilder->from('`'.$table.'`', '`'.$table.'`')->where('deleted_at IS NULL');
-        if ($nameField) {
-            $queryBuilder->orderBy($nameField);
-        } else {
-            $queryBuilder->orderBy('id');
-        }
-        $queryResult = $queryBuilder->execute();
-        $entries     = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $result      = [];
-        foreach ($entries as $entry) {
-            $result[$entry['id']] = $nameField ? $entry[$nameField] : $entry['id'];
-        }
-        return $result;
-    }
-
-    public function getMany($manyEntity, $nameField) {
-        $queryBuilder = $this->database->createQueryBuilder();
-        $entityTable  = $this->definition->getServiceProvider()->getData($manyEntity)->getDefinition()->getTable();
         $nameSelect   = $nameField !== null ? ',`'.$nameField.'`' : '';
         $queryBuilder
             ->select('id'.$nameSelect)
-            ->from('`'.$entityTable.'`', 't1')
+            ->from('`'.$table.'`', 't1')
             ->where('deleted_at IS NULL');
         if ($nameField) {
             $queryBuilder->orderBy($nameField);

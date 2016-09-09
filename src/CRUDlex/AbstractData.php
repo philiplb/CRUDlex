@@ -244,19 +244,17 @@ abstract class AbstractData {
 
     /**
      * Gets ids and names of a table. Used for building up the dropdown box of
-     * reference type fields.
+     * reference type fields for example.
      *
-     * @param string $referenceEntity
-     * the referenced entity
+     * @param string $entity
+     * the entity
      * @param string $nameField
      * the field defining the name of the rows
      *
      * @return array
      * an array with the ids as key and the names as values
      */
-    abstract public function getReferences($referenceEntity, $nameField);
-
-    abstract public function getMany($manyEntity, $nameField);
+    abstract public function getIdToNameMap($entity, $nameField);
 
     /**
      * Retrieves the amount of entities in the datasource fulfilling the given

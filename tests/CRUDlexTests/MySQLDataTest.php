@@ -204,7 +204,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($entityBook2);
     }
 
-    public function testGetReferences() {
+    public function testGetIdToNameMap() {
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'A');
         $this->dataLibrary->create($library);
@@ -217,7 +217,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
 
         $referenceEntity = $this->dataBook->getDefinition()->getReferenceEntity('library');
         $nameField = $this->dataBook->getDefinition()->getReferenceNameField('library');
-        $read = $this->dataBook->getReferences($referenceEntity, $nameField);
+        $read = $this->dataBook->getIdToNameMap($referenceEntity, $nameField);
         $expected = [
             '1' => 'A',
             '2' => 'B',
@@ -225,7 +225,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         ];
         $this->assertSame($read, $expected);
 
-        $read = $this->dataBook->getReferences($referenceEntity, null);
+        $read = $this->dataBook->getIdToNameMap($referenceEntity, null);
         $expected = [
             '1' => '1',
             '2' => '2',

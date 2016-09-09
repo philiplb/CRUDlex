@@ -13,7 +13,7 @@
     annotations: annotations
 } only %}
 <select class="form-control" multiple="multiple" id="{{ field }}" name="{{ fieldNamePrefix ~ field }}">
-    {% set values = crudData.getMany(crudData.getDefinition().getManyEntity(field), crudData.getDefinition().getManyNameField(field)) %}
+    {% set values = crudData.getIdToNameMap(crudData.getDefinition().getManyEntity(field), crudData.getDefinition().getManyNameField(field)) %}
     {% for id, manyValue in values %}
         <option value="{{ id }}" {% if value and id in app.crud.arrayColumn(value, 'id') %}selected="selected" {% endif %}>{{ manyValue }}</option>
     {% endfor %}
