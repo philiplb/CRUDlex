@@ -138,11 +138,17 @@ class Entity {
     public function populateViaRequest(Request $request) {
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
-            if ($this->definition->getType($field) == 'file') {
+            $type = $this->definition->getType($field);
+            if ($type === 'file') {
                 $file = $request->files->get($field);
                 if ($file) {
                     $this->set($field, $file->getClientOriginalName());
                 }
+            } else if ($type === 'many') {
+                $many = array_map(function($id) {
+                   return ['id' => $id];
+                }, $request->get($field));
+                $this->set($field, $many);
             } else {
                 $this->set($field, $request->get($field));
             }
