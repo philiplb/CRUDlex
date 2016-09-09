@@ -512,4 +512,8 @@ class ServiceProvider implements ServiceProviderInterface {
         return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
     }
 
+    public function arrayColumn($array, $key) {
+        return array_column($array, $key);
+    }
+
 }

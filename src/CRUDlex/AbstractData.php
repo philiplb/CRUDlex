@@ -256,6 +256,8 @@ abstract class AbstractData {
      */
     abstract public function getReferences($referenceEntity, $nameField);
 
+    abstract public function getMany($manyEntity, $nameField);
+
     /**
      * Retrieves the amount of entities in the datasource fulfilling the given
      * parameters.

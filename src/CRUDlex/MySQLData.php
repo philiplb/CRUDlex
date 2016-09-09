@@ -449,6 +449,28 @@ class MySQLData extends AbstractData {
         return $result;
     }
 
+    public function getMany($manyEntity, $nameField) {
+        $queryBuilder = $this->database->createQueryBuilder();
+        $entityTable  = $this->definition->getServiceProvider()->getData($manyEntity)->getDefinition()->getTable();
+        $nameSelect   = $nameField !== null ? ',`'.$nameField.'`' : '';
+        $queryBuilder
+            ->select('id'.$nameSelect)
+            ->from('`'.$entityTable.'`', 't1')
+            ->where('deleted_at IS NULL');
+        if ($nameField) {
+            $queryBuilder->orderBy($nameField);
+        } else {
+            $queryBuilder->orderBy('id');
+        }
+        $queryResult    = $queryBuilder->execute();
+        $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $result         = [];
+        foreach ($manyReferences as $manyReference) {
+            $result[$manyReference['id']] = $nameField ? $manyReference[$nameField] : $manyReference['id'];
+        }
+        return $result;
+    }
+
     /**
      * {@inheritdoc}
      */
