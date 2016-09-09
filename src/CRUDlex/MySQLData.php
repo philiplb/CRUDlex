@@ -29,6 +29,25 @@ class MySQLData extends AbstractData {
      */
     protected $useUUIDs;
 
+
+    protected function getManyFields() {
+        $fields = $this->definition->getFieldNames(true);
+        return array_filter($fields, function($field) {
+            return $this->definition->getType($field) === 'many';
+        });
+    }
+
+    protected function getFormFields() {
+        $manyFields = $this->getManyFields();
+        $simpleFields = [];
+        foreach ($this->definition->getEditableFieldNames() as $field) {
+            if (!in_array($field, $manyFields)) {
+                $manyFields[] = $field;
+            }
+        }
+        return $simpleFields;
+    }
+
     /**
      * Sets the values and parameters of the upcoming given query according
      * to the entity.
@@ -41,7 +60,7 @@ class MySQLData extends AbstractData {
      * what method to use on the QueryBuilder: 'setValue' or 'set'
      */
     protected function setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod) {
-        $formFields = $this->definition->getEditableFieldNames();
+        $formFields = $this->getFormFields();
         $count      = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
             $type  = $this->definition->getType($formFields[$i]);
@@ -253,10 +272,7 @@ class MySQLData extends AbstractData {
     }
 
     protected function enrichWithMany(array $rows) {
-        $fields     = $this->definition->getFieldNames(true);
-        $manyFields = array_filter($fields, function($field) {
-            return $this->definition->getType($field) === 'many';
-        });
+        $manyFields = $this->getManyFields();
         $mapping = [];
         foreach ($rows as $row) {
             foreach ($manyFields as $manyField) {
@@ -372,7 +388,7 @@ class MySQLData extends AbstractData {
         $id = $this->generateUUID();
         if ($this->useUUIDs) {
             $queryBuilder->setValue('`id`', '?');
-            $uuidI = count($this->definition->getEditableFieldNames());
+            $uuidI = count($this->definition->getFormFields());
             $queryBuilder->setParameter($uuidI, $id);
         }
 
@@ -404,7 +420,7 @@ class MySQLData extends AbstractData {
             return false;
         }
 
-        $formFields   = $this->definition->getEditableFieldNames();
+        $formFields   = $this->getFormFields();
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
             ->update('`'.$this->definition->getTable().'`')
