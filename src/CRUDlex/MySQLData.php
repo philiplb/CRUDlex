@@ -39,13 +39,13 @@ class MySQLData extends AbstractData {
 
     protected function getFormFields() {
         $manyFields = $this->getManyFields();
-        $simpleFields = [];
+        $formFields = [];
         foreach ($this->definition->getEditableFieldNames() as $field) {
             if (!in_array($field, $manyFields)) {
-                $manyFields[] = $field;
+                $formFields[] = $field;
             }
         }
-        return $simpleFields;
+        return $formFields;
     }
 
     /**
@@ -404,7 +404,7 @@ class MySQLData extends AbstractData {
         $id = $this->generateUUID();
         if ($this->useUUIDs) {
             $queryBuilder->setValue('`id`', '?');
-            $uuidI = count($this->definition->getFormFields());
+            $uuidI = count($this->getFormFields());
             $queryBuilder->setParameter($uuidI, $id);
         }
 
