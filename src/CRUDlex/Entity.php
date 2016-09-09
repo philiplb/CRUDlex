@@ -146,7 +146,7 @@ class Entity {
                 }
             } else if ($type === 'many') {
                 $many = array_map(function($id) {
-                   return ['id' => $id];
+                    return ['id' => $id];
                 }, $request->get($field));
                 $this->set($field, $many);
             } else {
