@@ -266,7 +266,6 @@ class MySQLData extends AbstractData {
         }
         foreach ($manyFields as $manyField) {
             $queryBuilder = $this->database->createQueryBuilder();
-            $table        = $this->definition->getManyTable($manyField);
             $nameField    = $this->definition->getManyNameField($manyField);
             $thisField    = $this->definition->getManyThisField($manyField);
             $thatField    = $this->definition->getManyThatField($manyField);
@@ -275,7 +274,7 @@ class MySQLData extends AbstractData {
             $nameSelect   = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
             $queryBuilder
                 ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that'.$nameSelect)
-                ->from('`'.$table.'`', 't1')
+                ->from('`'.$manyField.'`', 't1')
                 ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
                 ->where('t1.`'.$thisField.'` IN (?)')
                 ->where('t2.deleted_at IS NULL');

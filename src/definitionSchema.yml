@@ -289,9 +289,6 @@ root:
                       entity:
                         _type: text
                         _required: true
-                      table:
-                        _type: text
-                        _required: true
                       thisField:
                         _type: text
                         _required: true

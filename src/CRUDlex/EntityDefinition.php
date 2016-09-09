@@ -841,10 +841,6 @@ class EntityDefinition {
         return $this->getReferenceValue('many', $fieldName, 'entity');
     }
 
-    public function getManyTable($fieldName) {
-        return $this->getReferenceValue('many', $fieldName, 'table');
-    }
-
     public function getManyNameField($fieldName) {
         return $this->getReferenceValue('many', $fieldName, 'nameField');
     }
