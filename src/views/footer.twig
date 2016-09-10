@@ -24,7 +24,8 @@
     $('.tooltip-crudlex').tooltip({'placement': 'auto'});
     $('.many-crudlex').select2({
     {% if app.crud.isManagingI18n() %}
-        'language': '{{ app.session.get('locale', 'en') }}'
+        'language': '{{ app.session.get('locale', 'en') }}',
     {% endif %}
+        theme: 'bootstrap'
     });
 </script>
