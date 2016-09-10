@@ -25,6 +25,7 @@ Released: Upcoming
     - "symfony/browser-kit": "~3.1"
     - "symfony/css-selector": "~3.1"
     - "eloquent/phony": "~0.13"
+    - Bootstrap 3.3.7
 - Switched to the array shorthand
 
 ## 0.9.10
