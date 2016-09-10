@@ -535,7 +535,7 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function manySetExists($field, array $thatIds) {
+    public function hasManySet($field, array $thatIds) {
         $thisField    = $this->definition->getManyThisField($field);
         $thatField    = $this->definition->getManyThatField($field);
         $thatEntity   = $this->definition->getManyEntity($field);

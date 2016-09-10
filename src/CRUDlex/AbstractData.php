@@ -299,7 +299,7 @@ abstract class AbstractData {
      * @return boolean
      * true if the set of ids exists for an entity
      */
-    abstract public function manySetExists($field, array $thatIds);
+    abstract public function hasManySet($field, array $thatIds);
 
     /**
      * Gets the {@see EntityDefinition} instance.

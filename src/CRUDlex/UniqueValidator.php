@@ -19,7 +19,7 @@ use \Valdi\Validator\ValidatorInterface;
 class UniqueValidator implements ValidatorInterface {
 
     protected function isValidUniqueMany($value, $data, $field) {
-        return !$data->manySetExists($field, array_column($value, 'id'));
+        return !$data->hasManySet($field, array_column($value, 'id'));
     }
 
     /**
