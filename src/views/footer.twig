@@ -10,6 +10,7 @@
 <script src="{{ app.url_generator.generate('static', {file: 'js/vendor/jquery-2.2.0.min.js'}) }}"></script>
 <script src="{{ app.url_generator.generate('static', {file: 'js/vendor/bootstrap/bootstrap.min.js'}) }}"></script>
 <script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/moment.min.js'}) }}"></script>
+<script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/select2/select2.full.min.js'}) }}"></script>
 <script type="text/javascript" src="{{ app.url_generator.generate('static', {file: 'js/vendor/flatpickr/flatpickr.min.js'}) }}"></script>
 <script type="text/javascript">
     flatpickr('.crudDate', {
@@ -21,4 +22,9 @@
         time_24hr: true
     });
     $('.tooltip-crudlex').tooltip({'placement': 'auto'});
+    $('.crudMany').select2({
+    {% if app.crud.isManagingI18n() %}
+        'language': '{{ app.session.get('locale', 'en') }}'
+    {% endif %}
+    });
 </script>
