@@ -51,7 +51,8 @@ class EntityValidator {
             'date' => ['dateTime', 'Y-m-d'],
             'datetime' => ['or', $validator, ['dateTime', 'Y-m-d H:i'], ['dateTime', 'Y-m-d H:i:s']],
             'set' => array_merge(['inSet'], $setItems),
-            'reference' => ['reference', $data, $field]
+            'reference' => ['reference', $data, $field],
+            'many' => ['many', $data, $field]
         ];
         $type         = $this->definition->getType($field);
         $rules        = [];
@@ -141,6 +142,7 @@ class EntityValidator {
         $validator = new Validator();
         $validator->addValidator('unique', new UniqueValidator());
         $validator->addValidator('reference', new ReferenceValidator());
+        $validator->addValidator('many', new ManyValidator());
         $rules                 = $this->buildUpRules($data, $validator);
         $toValidate            = $this->buildUpData();
         $rules['version']      = [['value', $expectedVersion]];
