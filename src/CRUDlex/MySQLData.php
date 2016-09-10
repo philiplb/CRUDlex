@@ -293,7 +293,7 @@ class MySQLData extends AbstractData {
                 ->from('`'.$manyField.'`', 't1')
                 ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
                 ->where('t1.`'.$thisField.'` IN (?)')
-                ->where('t2.deleted_at IS NULL');
+                ->andWhere('t2.deleted_at IS NULL');
             $queryBuilder->setParameter(0, array_keys($mapping), Connection::PARAM_INT_ARRAY);
             $queryResult    = $queryBuilder->execute();
             $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
