@@ -22,7 +22,7 @@
         time_24hr: true
     });
     $('.tooltip-crudlex').tooltip({'placement': 'auto'});
-    $('.crudMany').select2({
+    $('.many-crudlex').select2({
     {% if app.crud.isManagingI18n() %}
         'language': '{{ app.session.get('locale', 'en') }}'
     {% endif %}
