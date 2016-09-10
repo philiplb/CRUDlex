@@ -49,6 +49,8 @@ class Entity {
             $value = $value && $value !== '0';
         } else if ($type == 'reference') {
             $value = $value !== '' ? $value : null;
+        } else if ($type == 'many') {
+            $value = $value !== null ? $value : [];
         }
         return $value;
     }
