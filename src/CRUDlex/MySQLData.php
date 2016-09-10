@@ -158,6 +158,9 @@ class MySQLData extends AbstractData {
     protected function addFilter(QueryBuilder $queryBuilder, array $filter, array $filterOperators) {
         $i = 0;
         foreach ($filter as $field => $value) {
+            if ($this->definition->getType($field) === 'many') {
+                continue;
+            }
             if ($value === null) {
                 $queryBuilder->andWhere('`'.$field.'` IS NULL');
             } else {
@@ -500,6 +503,9 @@ class MySQLData extends AbstractData {
         $deletedExcluder = 'where';
         $i               = 0;
         foreach ($params as $name => $value) {
+            if ($this->definition->getType($name) === 'many') {
+                continue;
+            }
             $queryBuilder
                 ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
                 ->setParameter($i, $value);
