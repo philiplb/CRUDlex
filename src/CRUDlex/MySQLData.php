@@ -498,7 +498,8 @@ class MySQLData extends AbstractData {
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
             ->select('COUNT(id)')
-            ->from('`'.$table.'`', '`'.$table.'`');
+            ->from('`'.$table.'`', '`'.$table.'`')
+        ;
 
         $deletedExcluder = 'where';
         $i               = 0;
@@ -508,7 +509,8 @@ class MySQLData extends AbstractData {
             }
             $queryBuilder
                 ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
-                ->setParameter($i, $value);
+                ->setParameter($i, $value)
+            ;
             $i++;
             $deletedExcluder = 'andWhere';
         }
