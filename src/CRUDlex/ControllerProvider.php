@@ -205,7 +205,7 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     protected function buildUpListFilter(Request $request, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
         foreach ($definition->getFilter() as $filterField) {
-            $type = $definition->getType($filterField);
+            $type                 = $definition->getType($filterField);
             $filter[$filterField] = $request->get('crudFilter'.$filterField);
             if ($type === 'many') {
                 $filter[$filterField] = array_map(function($value) {
