@@ -531,4 +531,30 @@ class MySQLData extends AbstractData {
         }
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function manySetExists($field, array $thatIds) {
+        $thisField    = $this->definition->getManyThisField($field);
+        $thatField    = $this->definition->getManyThatField($field);
+        $thatEntity   = $this->definition->getManyEntity($field);
+        $entityTable  = $this->definition->getServiceProvider()->getData($thatEntity)->getDefinition()->getTable();
+        $queryBuilder = $this->database->createQueryBuilder();
+        $queryBuilder
+            ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that')
+            ->from('`'.$field.'`', 't1')
+            ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
+            ->andWhere('t2.deleted_at IS NULL')
+            ->orderBy('this, that');
+        $queryResult  = $queryBuilder->execute();
+        $existingMany = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $existingMap  = [];
+        foreach ($existingMany as $existing) {
+            $existingMap[$existing['this']][] = $existing['that'];
+        }
+        sort($thatIds);
+        return in_array($thatIds, array_values($existingMap));
+    }
+
 }

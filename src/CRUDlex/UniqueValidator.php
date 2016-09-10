@@ -18,8 +18,8 @@ use \Valdi\Validator\ValidatorInterface;
  */
 class UniqueValidator implements ValidatorInterface {
 
-    protected function isValidUniqueMany($value, $data, $entity, $field) {
-        return true;
+    protected function isValidUniqueMany($value, $data, $field) {
+        return !$data->manySetExists($field, array_column($value, 'id'));
     }
 
     /**
@@ -37,7 +37,7 @@ class UniqueValidator implements ValidatorInterface {
         $type   = $data->getDefinition()->getType($field);
 
         if ($type === 'many') {
-            return $this->isValidUniqueMany($value, $data, $entity, $field);
+            return $this->isValidUniqueMany($value, $data, $field);
         }
 
         $params          = [$field => $value];

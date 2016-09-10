@@ -287,6 +287,21 @@ abstract class AbstractData {
     abstract public function fetchReferences(array &$entities = null);
 
     /**
+     * Checks whether a given set of ids is assigned to any entity exactly
+     * like it is given (no subset, no superset).
+     *
+     * @param string $field
+     * the many field
+     *
+     * @param array $thatIds
+     * the id set to check
+     *
+     * @return boolean
+     * true if the set of ids exists for an entity
+     */
+    abstract public function manySetExists($field, array $thatIds);
+
+    /**
      * Gets the {@see EntityDefinition} instance.
      *
      * @return EntityDefinition
