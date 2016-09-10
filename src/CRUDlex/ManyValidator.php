@@ -33,7 +33,13 @@ class ManyValidator implements ValidatorInterface {
         $validIds     = array_keys($data->getIdToNameMap($manyEntity, null));
         $candidateIds = array_column($value, 'id');
 
-        return array_values(array_intersect($validIds, $candidateIds)) == $candidateIds;
+        foreach ($candidateIds as $candidateId) {
+            if (!in_array($candidateId, $validIds)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
