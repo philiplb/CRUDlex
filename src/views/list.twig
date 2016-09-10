@@ -74,12 +74,18 @@
         <tr>
             {% for i, field in fields %}
                 <th id="crudEntityField{{ i }}">
-                    <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudSortField': field, 'crudSortAscending': sortAscendingStr ? 'false' : 'true','crudPage': page}|merge(filterParams)) }}">
+
+                    {% set type = definition.getType(field) %}
+                    {% if type == 'many' %}
                         {{ definition.getFieldLabel(field) }}
-                        {% if field == sortField %}
-                            <span class="glyphicon glyphicon-chevron-{{ sortAscendingStr ? 'up' : 'down' }}" aria-hidden="true"></span>
-                        {% endif %}
-                    </a>
+                    {% else %}
+                        <a href="{{ app.url_generator.generate('crudList', {'entity': crudEntity, 'crudSortField': field, 'crudSortAscending': sortAscendingStr ? 'false' : 'true','crudPage': page}|merge(filterParams)) }}">
+                            {{ definition.getFieldLabel(field) }}
+                            {% if field == sortField %}
+                                <span class="glyphicon glyphicon-chevron-{{ sortAscendingStr ? 'up' : 'down' }}" aria-hidden="true"></span>
+                            {% endif %}
+                        </a>
+                    {% endif %}
                 </th>
             {% endfor %}
             <th>Action</th>
