@@ -148,8 +148,8 @@ class MySQLData extends AbstractData {
     protected function getManyIds($fields, $params) {
         $manyIds = [];
         foreach ($fields as $field) {
-            $thisField = $this->definition->getManyThisField($field);
-            $thatField = $this->definition->getManyThatField($field);
+            $thisField    = $this->definition->getManyThisField($field);
+            $thatField    = $this->definition->getManyThatField($field);
             $queryBuilder = $this->database->createQueryBuilder();
             $queryBuilder
                 ->select('`'.$thisField.'`')
@@ -180,7 +180,7 @@ class MySQLData extends AbstractData {
      * the operators of the filter like "=" defining the full condition of the field
      */
     protected function addFilter(QueryBuilder $queryBuilder, array $filter, array $filterOperators) {
-        $i = 0;
+        $i          = 0;
         $manyFields = [];
         foreach ($filter as $field => $value) {
             if ($this->definition->getType($field) === 'many') {
