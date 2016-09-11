@@ -29,7 +29,12 @@ class MySQLData extends AbstractData {
      */
     protected $useUUIDs;
 
-
+    /**
+     * Gets the many-to-many fields.
+     *
+     * @return array|\string[]
+     * the many-to-many fields
+     */
     protected function getManyFields() {
         $fields = $this->definition->getFieldNames(true);
         return array_filter($fields, function($field) {
@@ -37,6 +42,12 @@ class MySQLData extends AbstractData {
         });
     }
 
+    /**
+     * Gets all form fields including the many-to-many-ones.
+     *
+     * @return array
+     * all form fields
+     */
     protected function getFormFields() {
         $manyFields = $this->getManyFields();
         $formFields = [];
@@ -145,7 +156,17 @@ class MySQLData extends AbstractData {
         return static::DELETION_SUCCESS;
     }
 
-    protected function getManyIds($fields, $params) {
+    /**
+     * Gets all possible many-to-many ids existing for this definition.
+     *
+     * @param array $fields
+     * the many field names to fetch for
+     * @param $params
+     * the parameters the possible many field values to fetch for
+     * @return array
+     * an array of this many-to-many ids
+     */
+    protected function getManyIds(array $fields, array $params) {
         $manyIds = [];
         foreach ($fields as $field) {
             $thisField    = $this->definition->getManyThisField($field);
@@ -313,6 +334,14 @@ class MySQLData extends AbstractData {
         return $uuid;
     }
 
+    /**
+     * Fetches to the rows belonging many-to-many entries and adds them to the rows.
+     *
+     * @param array $rows
+     * the rows to enrich
+     * @return array
+     * the enriched rows
+     */
     protected function enrichWithMany(array $rows) {
         $manyFields = $this->getManyFields();
         $mapping = [];
@@ -347,6 +376,13 @@ class MySQLData extends AbstractData {
         return array_values($mapping);
     }
 
+    /**
+     * First, deletes all to the given entity related many-to-many entries from the DB
+     * and then writes them again.
+     *
+     * @param Entity $entity
+     * the entity to save the many-to-many entries of
+     */
     protected function saveMany(Entity $entity) {
         $manyFields = $this->getManyFields();
         $id = $entity->get('id');
