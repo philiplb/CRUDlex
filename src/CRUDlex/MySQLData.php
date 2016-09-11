@@ -155,7 +155,7 @@ class MySQLData extends AbstractData {
                 ->select('`'.$thisField.'`')
                 ->from($field)
                 ->where('`'.$thatField.'` IN (?)')
-                ->setParameter(0, array_column($params[$field], 'id'), Connection::PARAM_INT_ARRAY)
+                ->setParameter(0, array_column($params[$field], 'id'), Connection::PARAM_STR_ARRAY)
                 ->groupBy('`'.$thisField.'`')
             ;
             $queryResult = $queryBuilder->execute();
@@ -279,7 +279,7 @@ class MySQLData extends AbstractData {
             $queryBuilder->select('id');
         }
 
-        $queryBuilder->setParameter(0, $ids, Connection::PARAM_INT_ARRAY);
+        $queryBuilder->setParameter(0, $ids, Connection::PARAM_STR_ARRAY);
 
         $queryResult = $queryBuilder->execute();
         $rows        = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
@@ -336,7 +336,7 @@ class MySQLData extends AbstractData {
                 ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
                 ->where('t1.`'.$thisField.'` IN (?)')
                 ->andWhere('t2.deleted_at IS NULL');
-            $queryBuilder->setParameter(0, array_keys($mapping), Connection::PARAM_INT_ARRAY);
+            $queryBuilder->setParameter(0, array_keys($mapping), Connection::PARAM_STR_ARRAY);
             $queryResult    = $queryBuilder->execute();
             $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($manyReferences as $manyReference) {
