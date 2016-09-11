@@ -51,6 +51,8 @@ class Entity {
             $value = $value !== '' ? $value : null;
         } else if ($type == 'many') {
             $value = $value !== null ? $value : [];
+        } else if (in_array($type, ['datetime', 'date'])) {
+            $value = $value === '' ? null : $value;
         }
         return $value;
     }
