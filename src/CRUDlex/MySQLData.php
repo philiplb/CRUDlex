@@ -145,6 +145,30 @@ class MySQLData extends AbstractData {
         return static::DELETION_SUCCESS;
     }
 
+    protected function getManyIds($fields, $params) {
+        $manyIds = [];
+        foreach ($fields as $field) {
+            $thisField = $this->definition->getManyThisField($field);
+            $thatField = $this->definition->getManyThatField($field);
+            $queryBuilder = $this->database->createQueryBuilder();
+            $queryBuilder
+                ->select('`'.$thisField.'`')
+                ->from($field)
+                ->where('`'.$thatField.'` IN (?)')
+                ->setParameter(0, array_column($params[$field], 'id'), Connection::PARAM_INT_ARRAY)
+                ->groupBy('`'.$thisField.'`')
+            ;
+            $queryResult = $queryBuilder->execute();
+            $manyResults = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($manyResults as $manyResult) {
+                if (!in_array($manyResult[$thisField], $manyIds)) {
+                    $manyIds[] = $manyResult[$thisField];
+                }
+            }
+        }
+        return $manyIds;
+    }
+
     /**
      * Adds sorting parameters to the query.
      *
@@ -157,8 +181,10 @@ class MySQLData extends AbstractData {
      */
     protected function addFilter(QueryBuilder $queryBuilder, array $filter, array $filterOperators) {
         $i = 0;
+        $manyFields = [];
         foreach ($filter as $field => $value) {
             if ($this->definition->getType($field) === 'many') {
+                $manyFields[]= $field;
                 continue;
             }
             if ($value === null) {
@@ -167,9 +193,16 @@ class MySQLData extends AbstractData {
                 $operator = array_key_exists($field, $filterOperators) ? $filterOperators[$field] : '=';
                 $queryBuilder
                     ->andWhere('`'.$field.'` '.$operator.' ?')
-                    ->setParameter($i, $value);
+                    ->setParameter($i, $value, \PDO::PARAM_STR);
             }
             $i++;
+        }
+        $idsToInclude = $this->getManyIds($manyFields, $filter);
+        if (!empty($idsToInclude)) {
+            $queryBuilder
+                ->andWhere('id IN (?)')
+                ->setParameter($i, $idsToInclude, Connection::PARAM_STR_ARRAY)
+            ;
         }
     }
 
@@ -503,15 +536,26 @@ class MySQLData extends AbstractData {
 
         $deletedExcluder = 'where';
         $i               = 0;
+        $manyFields      = [];
         foreach ($params as $name => $value) {
             if ($this->definition->getType($name) === 'many') {
+                $manyFields[] = $name;
                 continue;
             }
             $queryBuilder
-                ->andWhere('`'.$name.'`'.$paramsOperators[$name].'?')
-                ->setParameter($i, $value)
+                ->andWhere('`'.$name.'` '.$paramsOperators[$name].' ?')
+                ->setParameter($i, $value, \PDO::PARAM_STR)
             ;
             $i++;
+            $deletedExcluder = 'andWhere';
+        }
+
+        $idsToInclude = $this->getManyIds($manyFields, $params);
+        if (!empty($idsToInclude)) {
+            $queryBuilder
+                ->andWhere('id IN (?)')
+                ->setParameter($i, $idsToInclude, Connection::PARAM_STR_ARRAY)
+            ;
             $deletedExcluder = 'andWhere';
         }
 

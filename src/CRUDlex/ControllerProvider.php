@@ -214,9 +214,11 @@ class ControllerProvider implements ControllerProviderInterface {
             }
             if ($filter[$filterField]) {
                 $filterActive = true;
-                if ($type == 'boolean') {
+                if ($type === 'boolean') {
                     $filterToUse[$filterField]     = $filter[$filterField] == 'true' ? 1 : 0;
                     $filterOperators[$filterField] = '=';
+                } else if ($type === 'many') {
+                    $filterToUse[$filterField] = $filter[$filterField];
                 } else {
                     $filterToUse[$filterField]     = '%'.$filter[$filterField].'%';
                     $filterOperators[$filterField] = 'LIKE';
