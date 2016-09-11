@@ -837,18 +837,57 @@ class EntityDefinition {
         return $this->initialSortAscending;
     }
 
+    /**
+     * Gets the name of the entity on the other side of a
+     * many-to-many relationship.
+     *
+     * @param string $fieldName
+     * the field name of the many-to-many relationship
+     *
+     * @return string
+     * the name of the entity
+     */
     public function getManyEntity($fieldName) {
         return $this->getReferenceValue('many', $fieldName, 'entity');
     }
 
+    /**
+     * Gets the field name to use as label for UI elements of the
+     * entity on the other side of a many-to-many relationship
+     *
+     * @param $fieldName
+     * the field name of the many-to-many relationship
+     *
+     * @return string
+     * the field name to use as label
+     */
     public function getManyNameField($fieldName) {
         return $this->getReferenceValue('many', $fieldName, 'nameField');
     }
 
+    /**
+     * Gets the field name of this field of the many-to-many relationship.
+     *
+     * @param $fieldName
+     * the field name of the many-to-many relationship
+     *
+     * @return string
+     * the field name of this field
+     */
     public function getManyThisField($fieldName) {
         return $this->getReferenceValue('many', $fieldName, 'thisField');
     }
 
+    /**
+     * Gets the field name of the field on the other side of the many-to-many
+     * relationship.
+     *
+     * @param $fieldName
+     * the field name of the many-to-many relationship
+     *
+     * @return string
+     * the field name of the field on the other side
+     */
     public function getManyThatField($fieldName) {
         return $this->getReferenceValue('many', $fieldName, 'thatField');
     }
