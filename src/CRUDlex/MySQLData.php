@@ -184,7 +184,7 @@ class MySQLData extends AbstractData {
         $manyFields = [];
         foreach ($filter as $field => $value) {
             if ($this->definition->getType($field) === 'many') {
-                $manyFields[]= $field;
+                $manyFields[] = $field;
                 continue;
             }
             if ($value === null) {
