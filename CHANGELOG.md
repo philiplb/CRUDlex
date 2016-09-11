@@ -27,6 +27,7 @@ Released: Upcoming
     - "eloquent/phony": "~0.13"
     - Bootstrap 3.3.7
 - Switched to the array shorthand
+- Correctly saving null if not required date time fields are not filled
 
 ## 0.9.10
 Released: 2016-06-19
