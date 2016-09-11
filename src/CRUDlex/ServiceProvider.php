@@ -512,6 +512,18 @@ class ServiceProvider implements ServiceProviderInterface {
         return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
     }
 
+    /**
+     * A thin wrapper for the function "array_column" to be used in templates
+     * for example.
+     *
+     * @param $array
+     * the array
+     * @param $key
+     * the key
+     *
+     * @return array
+     * the resulting array
+     */
     public function arrayColumn($array, $key) {
         return array_column($array, $key);
     }
