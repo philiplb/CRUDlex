@@ -347,7 +347,7 @@ class MySQLData extends AbstractData {
         return array_values($mapping);
     }
 
-    protected function populateMany(Entity $entity) {
+    protected function saveMany(Entity $entity) {
         $manyFields = $this->getManyFields();
         $id = $entity->get('id');
         foreach ($manyFields as $manyField) {
@@ -460,7 +460,7 @@ class MySQLData extends AbstractData {
         $entity->set('created_at', $createdEntity->get('created_at'));
         $entity->set('updated_at', $createdEntity->get('updated_at'));
 
-        $this->populateMany($entity);
+        $this->saveMany($entity);
 
         $this->shouldExecuteEvents($entity, 'after', 'create');
 
@@ -489,7 +489,7 @@ class MySQLData extends AbstractData {
         $this->setValuesAndParameters($entity, $queryBuilder, 'set');
         $affected = $queryBuilder->execute();
 
-        $this->populateMany($entity);
+        $this->saveMany($entity);
 
         $this->shouldExecuteEvents($entity, 'after', 'update');
 
