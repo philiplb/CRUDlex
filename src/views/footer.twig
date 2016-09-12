@@ -26,6 +26,8 @@
     {% if app.crud.isManagingI18n() %}
         'language': '{{ app.session.get('locale', 'en') }}',
     {% endif %}
-        theme: 'bootstrap'
+        theme: 'bootstrap',
+        tags: true,
+        allowClear: true
     });
 </script>
