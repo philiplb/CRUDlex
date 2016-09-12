@@ -103,7 +103,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'type',
             'opening',
             'isOpenOnSundays',
-            'planet'
+            'planet',
+            'libraryBook'
         ];
         $this->assertSame($read, $expected);
         $old = $read;

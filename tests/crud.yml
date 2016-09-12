@@ -28,6 +28,14 @@ library:
       type: fixed
       value: Earth
       label: 'Planet of this library'
+    libraryBook:
+      type: many
+      label: Books
+      many:
+        entity: book
+        nameField: title
+        thisField: library
+        thatField: book
 
 book:
   label: Book

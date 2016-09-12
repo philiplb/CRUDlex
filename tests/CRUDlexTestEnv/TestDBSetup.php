@@ -36,6 +36,7 @@ class TestDBSetup {
             ]
         ]);
 
+        $app['db']->executeUpdate('DROP TABLE IF EXISTS libraryBook;');
         $app['db']->executeUpdate('DROP TABLE IF EXISTS book;');
         $app['db']->executeUpdate('DROP TABLE IF EXISTS library;');
 
@@ -92,6 +93,25 @@ class TestDBSetup {
             '  CONSTRAINT `book_ibfk_1` FOREIGN KEY (`library`) REFERENCES `library` (`id`),'.
             '  CONSTRAINT `book_ibfk_2` FOREIGN KEY (`secondLibrary`) REFERENCES `library` (`id`)'.
             ') ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
+
+        $app['db']->executeUpdate($sql);
+
+
+        $sql = 'CREATE TABLE `libraryBook` (';
+
+        if ($useUUIDs) {
+            $sql .= ' `library` varchar(36) NOT NULL,'.
+                ' `book` varchar(36) NOT NULL,';
+        } else {
+            $sql .= ' `library` int(11) NOT NULL,'.
+                ' `book` int(11) NOT NULL,';
+        }
+        $sql .='  KEY `library` (`library`),'.
+            '  KEY `book` (`book`),'.
+            '  CONSTRAINT `librarybook_ibfk_1` FOREIGN KEY (`library`) REFERENCES `library` (`id`),'.
+            '  CONSTRAINT `librarybook_ibfk_2` FOREIGN KEY (`book`) REFERENCES `book` (`id`)'.
+            ') ENGINE=InnoDB DEFAULT CHARSET=utf8;';
+
         $app['db']->executeUpdate($sql);
 
         return $app;
