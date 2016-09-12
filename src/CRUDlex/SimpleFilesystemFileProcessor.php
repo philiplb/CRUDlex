@@ -95,7 +95,7 @@ class SimpleFilesystemFileProcessor implements FileProcessorInterface {
         $response   = new Response('');
         $mimeTypes  = new MimeTypes();
         $mimeType   = $mimeTypes->getMimeType($file);
-        $size = filesize($file);
+        $size       = filesize($file);
         if ($fileName && file_exists($file)) {
             $streamedFileResponse = new StreamedFileResponse();
             $response             = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, [
