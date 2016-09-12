@@ -223,6 +223,7 @@ class ControllerProviderTest extends WebTestCase {
 
         $crawler = $client->request('GET', '/crud/library?crudFilterlibraryBook[]='.$entityBook1Id);
         $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Total: 1")'));
         $this->assertCount(1, $crawler->filter('html:contains("lib a")'));
         $this->assertCount(0, $crawler->filter('html:contains("lib b1")'));
         $this->assertCount(0, $crawler->filter('html:contains("lib b2")'));
