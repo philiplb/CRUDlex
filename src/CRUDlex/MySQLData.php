@@ -627,7 +627,7 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function hasManySet($field, array $thatIds) {
+    public function hasManySet($field, array $thatIds, $excludeId = null) {
         $thisField    = $this->definition->getManyThisField($field);
         $thatField    = $this->definition->getManyThatField($field);
         $thatEntity   = $this->definition->getManyEntity($field);
@@ -639,6 +639,12 @@ class MySQLData extends AbstractData {
             ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
             ->andWhere('t2.deleted_at IS NULL')
             ->orderBy('this, that');
+        if ($excludeId) {
+            $queryBuilder
+                ->andWhere('t1.`'.$thisField.'` != ?')
+                ->setParameter(0, $excludeId)
+            ;
+        }
         $queryResult  = $queryBuilder->execute();
         $existingMany = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $existingMap  = [];

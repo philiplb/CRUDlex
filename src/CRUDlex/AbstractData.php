@@ -292,14 +292,15 @@ abstract class AbstractData {
      *
      * @param string $field
      * the many field
-     *
      * @param array $thatIds
      * the id set to check
+     * @param string $excludeId
+     * one optional own id to exclude from the check
      *
      * @return boolean
      * true if the set of ids exists for an entity
      */
-    abstract public function hasManySet($field, array $thatIds);
+    abstract public function hasManySet($field, array $thatIds, $excludeId = null);
 
     /**
      * Gets the {@see EntityDefinition} instance.
