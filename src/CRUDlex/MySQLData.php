@@ -335,6 +335,38 @@ class MySQLData extends AbstractData {
     }
 
     /**
+     * Enriches the given mapping of entity id to raw entity data with some many-to-many data.
+     *
+     * @param array $idToData
+     * a reference to the map entity id to raw entity data
+     * @param $manyField
+     * the many field to enrich data with
+     */
+    protected function enrichWithManyField(&$idToData, $manyField) {
+        $queryBuilder = $this->database->createQueryBuilder();
+        $nameField    = $this->definition->getManyNameField($manyField);
+        $thisField    = $this->definition->getManyThisField($manyField);
+        $thatField    = $this->definition->getManyThatField($manyField);
+        $entity       = $this->definition->getManyEntity($manyField);
+        $entityTable  = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
+        $nameSelect   = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
+        $queryBuilder
+            ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS id'.$nameSelect)
+            ->from('`'.$manyField.'`', 't1')
+            ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
+            ->where('t1.`'.$thisField.'` IN (?)')
+            ->andWhere('t2.deleted_at IS NULL');
+        $queryBuilder->setParameter(0, array_keys($idToData), Connection::PARAM_STR_ARRAY);
+        $queryResult    = $queryBuilder->execute();
+        $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($manyReferences as $manyReference) {
+            $entityId = $manyReference['this'];
+            unset($manyReference['this']);
+            $idToData[$entityId][$manyField][] = $manyReference;
+        }
+    }
+
+    /**
      * Fetches to the rows belonging many-to-many entries and adds them to the rows.
      *
      * @param array $rows
@@ -344,34 +376,14 @@ class MySQLData extends AbstractData {
      */
     protected function enrichWithMany(array $rows) {
         $manyFields = $this->getManyFields();
-        $mapping    = [];
+        $idToData    = [];
         foreach ($rows as $row) {
-            $mapping[$row['id']] = $row;
+            $idToData[$row['id']] = $row;
         }
         foreach ($manyFields as $manyField) {
-            $queryBuilder = $this->database->createQueryBuilder();
-            $nameField    = $this->definition->getManyNameField($manyField);
-            $thisField    = $this->definition->getManyThisField($manyField);
-            $thatField    = $this->definition->getManyThatField($manyField);
-            $entity       = $this->definition->getManyEntity($manyField);
-            $entityTable  = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
-            $nameSelect   = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
-            $queryBuilder
-                ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS id'.$nameSelect)
-                ->from('`'.$manyField.'`', 't1')
-                ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
-                ->where('t1.`'.$thisField.'` IN (?)')
-                ->andWhere('t2.deleted_at IS NULL');
-            $queryBuilder->setParameter(0, array_keys($mapping), Connection::PARAM_STR_ARRAY);
-            $queryResult    = $queryBuilder->execute();
-            $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-            foreach ($manyReferences as $manyReference) {
-                $id = $manyReference['this'];
-                unset($manyReference['this']);
-                $mapping[$id][$manyField][] = $manyReference;
-            }
+            $this->enrichWithManyField($idToData, $manyField);
         }
-        return array_values($mapping);
+        return array_values($idToData);
     }
 
     /**
