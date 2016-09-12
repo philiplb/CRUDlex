@@ -319,4 +319,16 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionValidatorHandle->validate->never()->called();
     }
 
+    public function testSetLocale() {
+        $serviceProvider = new ServiceProvider();
+        $app = new Application();
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $serviceProvider->setLocale('de');
+        $read = $serviceProvider->getData('library')->getDefinition()->getLocale();
+        $expected = 'de';
+        $this->assertSame($expected, $read);
+        $read = $serviceProvider->getData('book')->getDefinition()->getLocale();
+        $this->assertSame($expected, $read);
+    }
+
 }
