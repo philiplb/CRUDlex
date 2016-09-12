@@ -236,10 +236,9 @@ class MimeTypes {
      * the mimetype
      */
     public function getMimeTypeByFileInfo($file) {
-        $mimeType = 'application/octet-stream';
 
         // Some wrong read mimetypes
-        $fallBack = ['css', 'js'];
+        $fallBack  = ['css', 'js'];
         $extension = pathinfo($file, PATHINFO_EXTENSION);
         if (in_array(strtolower($extension), $fallBack)) {
             return $this->getMimeTypeByExtension($file);
