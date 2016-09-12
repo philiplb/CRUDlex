@@ -284,7 +284,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
                 'isOpenOnSundays' => [],
                 'author' => [],
                 'title' => [],
-                'library' => []
+                'library' => [],
+                'libraryBook' => []
             ], '', '', [], $serviceProvider
         ));
         $entityDefinitionFactoryMock = $entityDefinitionFactoryHandle->get();
