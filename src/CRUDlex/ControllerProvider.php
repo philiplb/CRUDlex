@@ -596,15 +596,9 @@ class ControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
         }
 
-        $extension = pathinfo($file, PATHINFO_EXTENSION);
-        $mimeType  = 'text/css';
-        if (strtolower($extension) !== 'css') {
-            $finfo    = finfo_open(FILEINFO_MIME_TYPE);
-            $mimeType = finfo_file($finfo, $file);
-            finfo_close($finfo);
-        }
-
-        $size = filesize($file);
+        $mimeTypes = new MimeTypes();
+        $mimeType  = $mimeTypes->getMimeType($file);
+        $size      = filesize($file);
 
         $streamedFileResponse = new StreamedFileResponse();
         $response             = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, [

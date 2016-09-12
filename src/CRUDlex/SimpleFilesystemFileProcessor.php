@@ -93,9 +93,8 @@ class SimpleFilesystemFileProcessor implements FileProcessorInterface {
         $fileName   = $entity->get($field);
         $file       = $targetPath.'/'.$fileName;
         $response   = new Response('');
-        $finfo      = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType   = finfo_file($finfo, $file);
-        finfo_close($finfo);
+        $mimeTypes  = new MimeTypes();
+        $mimeType   = $mimeTypes->getMimeType($file);
         $size = filesize($file);
         if ($fileName && file_exists($file)) {
             $streamedFileResponse = new StreamedFileResponse();

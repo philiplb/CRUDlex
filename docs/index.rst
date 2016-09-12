@@ -43,6 +43,7 @@ Contents:
    api/EntityDefinitionValidatorInterface
    api/EntityValidator
    api/FileProcessorInterface
+   api/MimeTypes
    api/ReferenceValidator
    api/ServiceProvider
    api/StreamedFileResponse
