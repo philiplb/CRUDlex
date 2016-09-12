@@ -109,6 +109,13 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $expected = 'nameA';
         $this->assertSame($expected, $list[1]->get('name'));
 
+        // Sorting by many fields should fall back to the initial sort field
+        $list = $this->dataLibrary->listEntries([], [], null, null, 'libraryBook');
+        $expected = 'nameB';
+        $this->assertSame($expected, $list[0]->get('name'));
+        $expected = 'nameA';
+        $this->assertSame($expected, $list[1]->get('name'));
+
         for ($i = 0; $i < 15; ++$i) {
             $entity->set('name', 'name'.$i);
             $this->dataLibrary->create($entity);
