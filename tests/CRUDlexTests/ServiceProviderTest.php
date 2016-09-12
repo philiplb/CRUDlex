@@ -331,4 +331,11 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
+    public function testArrayColumn() {
+        $serviceProvider = new ServiceProvider();
+        $read = $serviceProvider->arrayColumn([['id' => 1], ['id' => 2], ['id' => 3]], 'id');
+        $expected = [1, 2, 3];
+        $this->assertSame($expected, $read);
+    }
+
 }
