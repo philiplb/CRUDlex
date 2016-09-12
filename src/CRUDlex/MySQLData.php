@@ -376,7 +376,7 @@ class MySQLData extends AbstractData {
      */
     protected function enrichWithMany(array $rows) {
         $manyFields = $this->getManyFields();
-        $idToData    = [];
+        $idToData   = [];
         foreach ($rows as $row) {
             $idToData[$row['id']] = $row;
         }
