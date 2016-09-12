@@ -294,7 +294,7 @@ abstract class AbstractData {
      * the many field
      * @param array $thatIds
      * the id set to check
-     * @param string $excludeId
+     * @param string|null $excludeId
      * one optional own id to exclude from the check
      *
      * @return boolean
