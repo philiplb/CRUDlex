@@ -230,9 +230,9 @@ class ServiceProvider implements ServiceProviderInterface {
             'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
         ];
 
-        $entityDefinitionFactory = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
+        $factory = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
 
-        $definition = $entityDefinitionFactory->createEntityDefinition(
+        $definition = $factory->createEntityDefinition(
             $crud['table'],
             $crud['fields'],
             $label,
