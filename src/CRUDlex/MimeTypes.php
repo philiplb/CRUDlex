@@ -22,7 +22,7 @@ class MimeTypes {
      * @param string $file
      * the file to get the mimetype from
      *
-     * @return mixed|string
+     * @return string
      * the mimetype
      */
     public function getMimeTypeByExtension($file) {
@@ -256,7 +256,7 @@ class MimeTypes {
      * @param string $file
      * the file to get the mimetype from
      *
-     * @return mixed|string
+     * @return string
      * the mimetype
      */
     public function getMimeType($file) {
