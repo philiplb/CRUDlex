@@ -403,7 +403,8 @@ class MySQLData extends AbstractData {
             $thisField = $this->definition->getSubTypeField($manyField, 'many', 'thisField');
             $thatField = $this->definition->getSubTypeField($manyField, 'many', 'thatField');
             $this->database->delete($manyField, [$thisField => $id]);
-            foreach ($entity->get($manyField) as $thatId) {
+            $manyValues = $entity->get($manyField) ?: [];
+            foreach ($manyValues as $thatId) {
                 $this->database->insert($manyField, [
                     $thisField => $id,
                     $thatField => $thatId['id']
