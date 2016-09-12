@@ -11,8 +11,8 @@
 
 namespace CRUDlex;
 
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * MySQL Data implementation using a given Doctrine DBAL instance.
