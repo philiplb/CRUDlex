@@ -798,6 +798,16 @@ class EntityDefinition {
     }
 
     /**
+     * Gets the locale to be used.
+     *
+     * @return string
+     * the locale to be used.
+     */
+    public function getLocale() {
+        return $this->locale;
+    }
+
+    /**
      * Sets the initial sort field.
      *
      * @param string $initialSortField

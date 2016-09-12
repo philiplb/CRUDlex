@@ -213,6 +213,14 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setLocale('en');
     }
 
+    public function testGetSetLocale() {
+        $this->definition->setLocale('de');
+        $read = $this->definition->getLocale();
+        $expected = 'de';
+        $this->assertSame($expected, $read);
+        $this->definition->setLocale('en');
+    }
+
     public function testGetSetTable() {
         $read = $this->definition->getTable();
         $expected = 'book';
