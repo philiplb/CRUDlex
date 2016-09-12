@@ -552,12 +552,9 @@ class MySQLData extends AbstractData {
         $queryBuilder
             ->select('id'.$nameSelect)
             ->from('`'.$table.'`', 't1')
-            ->where('deleted_at IS NULL');
-        if ($nameField) {
-            $queryBuilder->orderBy($nameField);
-        } else {
-            $queryBuilder->orderBy('id');
-        }
+            ->where('deleted_at IS NULL')
+            ->orderBy($nameField ?: 'id')
+        ;
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result         = [];
