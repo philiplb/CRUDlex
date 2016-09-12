@@ -47,4 +47,11 @@ class ReferenceValidatorTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    public function testGetInvalidDetails() {
+        $validator = new ReferenceValidator();
+        $read = $validator->getInvalidDetails();
+        $expected = 'reference';
+        $this->assertSame($expected, $read);
+    }
+
 }
