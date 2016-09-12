@@ -50,7 +50,7 @@ class Entity {
         } else if ($type == 'reference') {
             $value = $value !== '' ? $value : null;
         } else if ($type == 'many') {
-            $value = $value !== null ? $value : [];
+            $value = $value ?: [];
         } else if (in_array($type, ['datetime', 'date'])) {
             $value = $value === '' ? null : $value;
         }
