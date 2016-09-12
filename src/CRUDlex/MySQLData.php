@@ -378,6 +378,9 @@ class MySQLData extends AbstractData {
         $manyFields = $this->getManyFields();
         $idToData   = [];
         foreach ($rows as $row) {
+            foreach ($manyFields as $manyField) {
+                $row[$manyField] = [];
+            }
             $idToData[$row['id']] = $row;
         }
         foreach ($manyFields as $manyField) {
