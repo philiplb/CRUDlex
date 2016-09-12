@@ -21,7 +21,7 @@ class MimeTypes {
      * THX to
      * http://stackoverflow.com/questions/134833/how-do-i-find-the-mime-type-of-a-file-with-php
      */
-    private $mimeTypes = [
+    protected $mimeTypes = [
         '323'       => 'text/h323',
         'acx'       => 'application/internet-property-stream',
         'ai'        => 'application/postscript',
