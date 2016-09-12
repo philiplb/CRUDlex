@@ -149,7 +149,7 @@ class Entity {
                     $this->set($field, $file->getClientOriginalName());
                 }
             } else if ($type === 'many') {
-                $array = $request->get($field);
+                $array = $request->get($field, []);
                 if (is_array($array)) {
                     $many = array_map(function($id) {
                         return ['id' => $id];
