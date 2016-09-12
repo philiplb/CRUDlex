@@ -54,38 +54,55 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testList() {
-        $entity = $this->dataLibrary->createEmpty();
-        $entity->set('name', 'nameA');
-        $this->dataLibrary->create($entity);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'nameA');
+        $this->dataLibrary->create($library);
+
+        $book = $this->dataBook->createEmpty();
+        $book->set('title', 'title');
+        $book->set('author', 'author');
+        $book->set('pages', 111);
+        $book->set('library', $library->get('id'));
+        $this->dataBook->create($book);
+
+        $library->set('libraryBook', [['id' => $book->get('id')]]);
+        $this->dataLibrary->update($library);
+
         $entity = new Entity($this->dataBook->getDefinition());
         $entity->set('name', 'nameB');
         $this->dataLibrary->create($entity);
+
+        $list = $this->dataLibrary->listEntries(['name' => 'nameA'], ['name' => '=']);
+        $read = $list[0]->get('libraryBook');
+        $expected = [['id' => $book->get('id'), 'name' => $book->get('title')]];
+        $this->assertSame($expected, $read);
+
         $list = $this->dataLibrary->listEntries();
         $read = count($list);
         $expected = 2;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries(['name' => 'nameB'], ['name' => '=']);
         $read = count($list);
         $expected = 1;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries(['name' => 'nameB', 'id' => 2], ['name' => '=', 'id' => '=']);
         $read = count($list);
         $expected = 1;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries(['type' => null], ['type' => '=']);
         $read = count($list);
         $expected = 2;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries(['name' => '%eB%'], ['name' => 'LIKE']);
         $read = count($list);
         $expected = 1;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
 
         $list = $this->dataLibrary->listEntries([], [], null, null, 'name');
         $expected = 'nameB';
-        $this->assertSame($list[0]->get('name'), $expected);
+        $this->assertSame($expected, $list[0]->get('name'));
         $expected = 'nameA';
-        $this->assertSame($list[1]->get('name'), $expected);
+        $this->assertSame($expected, $list[1]->get('name'));
 
         for ($i = 0; $i < 15; ++$i) {
             $entity->set('name', 'name'.$i);
@@ -94,23 +111,23 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $list = $this->dataLibrary->listEntries([], [], null, null);
         $read = count($list);
         $expected = 17;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries([], [], null, 5);
         $read = count($list);
         $expected = 5;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries([], [], 0, 5);
         $read = count($list);
         $expected = 5;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries([], [], 15, 5);
         $read = count($list);
         $expected = 2;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
         $list = $this->dataLibrary->listEntries([], [], 5, null);
         $read = count($list);
         $expected = 12;
-        $this->assertSame($read, $expected);
+        $this->assertSame($expected, $read);
     }
 
     public function testGet() {
