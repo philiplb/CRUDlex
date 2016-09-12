@@ -29,7 +29,7 @@ class ManyValidator implements ValidatorInterface {
 
         $data         = $parameters[0];
         $field        = $parameters[1];
-        $manyEntity   = $data->getDefinition()->getManyEntity($field);
+        $manyEntity   = $data->getDefinition()->getSubTypeField($field, 'many', 'entity');
         $validIds     = array_keys($data->getIdToNameMap($manyEntity, null));
         $candidateIds = array_column($value, 'id');
 

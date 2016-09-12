@@ -169,8 +169,8 @@ class MySQLData extends AbstractData {
     protected function getManyIds(array $fields, array $params) {
         $manyIds = [];
         foreach ($fields as $field) {
-            $thisField    = $this->definition->getManyThisField($field);
-            $thatField    = $this->definition->getManyThatField($field);
+            $thisField    = $this->definition->getSubTypeField($field, 'many', 'thisField');
+            $thatField    = $this->definition->getSubTypeField($field, 'many', 'thatField');
             $queryBuilder = $this->database->createQueryBuilder();
             $queryBuilder
                 ->select('`'.$thisField.'`')
@@ -344,10 +344,10 @@ class MySQLData extends AbstractData {
      */
     protected function enrichWithManyField(&$idToData, $manyField) {
         $queryBuilder = $this->database->createQueryBuilder();
-        $nameField    = $this->definition->getManyNameField($manyField);
-        $thisField    = $this->definition->getManyThisField($manyField);
-        $thatField    = $this->definition->getManyThatField($manyField);
-        $entity       = $this->definition->getManyEntity($manyField);
+        $nameField    = $this->definition->getSubTypeField($manyField, 'many', 'nameField');
+        $thisField    = $this->definition->getSubTypeField($manyField, 'many', 'thisField');
+        $thatField    = $this->definition->getSubTypeField($manyField, 'many', 'thatField');
+        $entity       = $this->definition->getSubTypeField($manyField, 'many', 'entity');
         $entityTable  = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
         $nameSelect   = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
         $queryBuilder
@@ -397,8 +397,8 @@ class MySQLData extends AbstractData {
         $manyFields = $this->getManyFields();
         $id = $entity->get('id');
         foreach ($manyFields as $manyField) {
-            $thisField = $this->definition->getManyThisField($manyField);
-            $thatField = $this->definition->getManyThatField($manyField);
+            $thisField = $this->definition->getSubTypeField($manyField, 'many', 'thisField');;
+            $thatField = $this->definition->getSubTypeField($manyField, 'many', 'thatField');
             $this->database->delete($manyField, [$thisField => $id]);
             foreach ($entity->get($manyField) as $thatId) {
                 $this->database->insert($manyField, [
@@ -628,9 +628,9 @@ class MySQLData extends AbstractData {
      * {@inheritdoc}
      */
     public function hasManySet($field, array $thatIds, $excludeId = null) {
-        $thisField    = $this->definition->getManyThisField($field);
-        $thatField    = $this->definition->getManyThatField($field);
-        $thatEntity   = $this->definition->getManyEntity($field);
+        $thisField    = $this->definition->getSubTypeField($field, 'many', 'thisField');
+        $thatField    = $this->definition->getSubTypeField($field, 'many', 'thatField');
+        $thatEntity   = $this->definition->getSubTypeField($field, 'many', 'entity');
         $entityTable  = $this->definition->getServiceProvider()->getData($thatEntity)->getDefinition()->getTable();
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder

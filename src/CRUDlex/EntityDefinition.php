@@ -838,57 +838,28 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the name of the entity on the other side of a
-     * many-to-many relationship.
+     * Gets a sub field of an field.
      *
      * @param string $fieldName
-     * the field name of the many-to-many relationship
+     * the field name of the sub type
+     * @param string $subType
+     * the sub type like "reference" or "many"
+     * @param string $key
+     * the key of the value
      *
      * @return string
-     * the name of the entity
+     * the value of the sub field
      */
-    public function getManyEntity($fieldName) {
-        return $this->getReferenceValue('many', $fieldName, 'entity');
-    }
-
-    /**
-     * Gets the field name to use as label for UI elements of the
-     * entity on the other side of a many-to-many relationship
-     *
-     * @param $fieldName
-     * the field name of the many-to-many relationship
-     *
-     * @return string
-     * the field name to use as label
-     */
-    public function getManyNameField($fieldName) {
-        return $this->getReferenceValue('many', $fieldName, 'nameField');
-    }
-
-    /**
-     * Gets the field name of this field of the many-to-many relationship.
-     *
-     * @param $fieldName
-     * the field name of the many-to-many relationship
-     *
-     * @return string
-     * the field name of this field
-     */
-    public function getManyThisField($fieldName) {
-        return $this->getReferenceValue('many', $fieldName, 'thisField');
-    }
-
-    /**
-     * Gets the field name of the field on the other side of the many-to-many
-     * relationship.
-     *
-     * @param $fieldName
-     * the field name of the many-to-many relationship
-     *
-     * @return string
-     * the field name of the field on the other side
-     */
-    public function getManyThatField($fieldName) {
-        return $this->getReferenceValue('many', $fieldName, 'thatField');
+    public function getSubTypeField($fieldName, $subType, $key) {
+        if ($this->getType($fieldName) != $subType) {
+            return null;
+        }
+        if (!array_key_exists($subType, $this->fields[$fieldName])) {
+            return null;
+        }
+        if (!array_key_exists($key, $this->fields[$fieldName][$subType])) {
+            return null;
+        }
+        return $this->fields[$fieldName][$subType][$key];
     }
 }

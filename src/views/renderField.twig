@@ -31,7 +31,7 @@
 {% elseif type == 'many' %}
     {% set many = entity.get(field) %}
     {% for reference in many  %}
-        <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getManyEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
+        <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getSubTypeField(field, 'many', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
             {{ reference['id'] }}
             {% if 'name' in reference|keys %}
                 : {{ reference['name'] }}
