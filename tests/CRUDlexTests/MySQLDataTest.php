@@ -274,9 +274,28 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $library->set('name', 'C');
         $this->dataLibrary->create($library);
 
-        $this->dataLibrary->delete($library);
-
         $table = $this->dataLibrary->getDefinition()->getTable();
+
+        $book = $this->dataBook->createEmpty();
+        $book->set('title', 'title');
+        $book->set('author', 'author');
+        $book->set('pages', 111);
+        $book->set('library', $library->get('id'));
+        $this->dataBook->create($book);
+
+        $library->set('libraryBook', [['id' => $book->get('id')]]);
+        $this->dataLibrary->update($library);
+
+        $read = $this->dataLibrary->countBy(
+            $table,
+            ['libraryBook' => [['id' => $book->get('id')]]],
+            ['libraryBook' => '='],
+            true
+        );
+        $expected = 1;
+        $this->assertSame($expected, $read);
+
+        $this->dataLibrary->delete($library);
 
         $read = $this->dataLibrary->countBy(
             $table,
