@@ -398,7 +398,7 @@ class MySQLData extends AbstractData {
      */
     protected function saveMany(Entity $entity) {
         $manyFields = $this->getManyFields();
-        $id = $entity->get('id');
+        $id         = $entity->get('id');
         foreach ($manyFields as $manyField) {
             $thisField = $this->definition->getSubTypeField($manyField, 'many', 'thisField');
             $thatField = $this->definition->getSubTypeField($manyField, 'many', 'thatField');
