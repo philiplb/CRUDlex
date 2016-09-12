@@ -77,6 +77,11 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $expected = [['id' => $book->get('id'), 'name' => $book->get('title')]];
         $this->assertSame($expected, $read);
 
+        $list = $this->dataLibrary->listEntries(['libraryBook' => [['id' => $book->get('id')]]], ['libraryBook' => '=']);
+        $read = count($list);
+        $expected = 1;
+        $this->assertSame($expected, $read);
+
         $list = $this->dataLibrary->listEntries();
         $read = count($list);
         $expected = 2;
