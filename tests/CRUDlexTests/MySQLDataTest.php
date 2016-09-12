@@ -715,4 +715,49 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->popEvent('after', 'delete');
     }
 
+    public function testHasManySet() {
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'nameA');
+        $this->dataLibrary->create($library);
+        $library2 = $this->dataLibrary->createEmpty();
+        $library2->set('name', 'nameB');
+        $this->dataLibrary->create($library2);
+
+        $book = $this->dataBook->createEmpty();
+        $book->set('title', 'title');
+        $book->set('author', 'author');
+        $book->set('pages', 111);
+        $book->set('library', $library->get('id'));
+        $this->dataBook->create($book);
+
+        $book2 = $this->dataBook->createEmpty();
+        $book2->set('title', 'title1');
+        $book2->set('author', 'author');
+        $book2->set('pages', 111);
+        $book2->set('library', $library->get('id'));
+        $this->dataBook->create($book2);
+
+        $book3 = $this->dataBook->createEmpty();
+        $book3->set('title', 'title2');
+        $book3->set('author', 'author');
+        $book3->set('pages', 111);
+        $book3->set('library', $library2->get('id'));
+        $this->dataBook->create($book3);
+
+        $library->set('libraryBook', [['id' => $book->get('id')], ['id' => $book2->get('id')]]);
+        $this->dataLibrary->update($library);
+
+        $library2->set('libraryBook', [['id' => $book3->get('id')]]);
+        $this->dataLibrary->update($library2);
+
+        $read = $this->dataLibrary->hasManySet('libraryBook', [$book->get('id'), $book2->get('id')]);
+        $this->assertTrue($read);
+
+        $read = $this->dataLibrary->hasManySet('libraryBook', [$book->get('id'), $book2->get('id')], $library->get('id'));
+        $this->assertFalse($read);
+
+        $read = $this->dataLibrary->hasManySet('libraryBook', [$book->get('id'), $book2->get('id')], $library2->get('id'));
+        $this->assertTrue($read);
+    }
+
 }
