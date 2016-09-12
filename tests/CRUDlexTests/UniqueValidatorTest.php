@@ -52,4 +52,11 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    public function testGetInvalidDetails() {
+        $validator = new ReferenceValidator();
+        $read = $validator->getInvalidDetails();
+        $expected = 'unique';
+        $this->assertSame($expected, $read);
+    }
+
 }
