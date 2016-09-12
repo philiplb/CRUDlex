@@ -851,15 +851,11 @@ class EntityDefinition {
      * the value of the sub field
      */
     public function getSubTypeField($fieldName, $subType, $key) {
-        if ($this->getType($fieldName) != $subType) {
+
+        if (!isset($this->fields[$fieldName][$subType][$key])) {
             return null;
         }
-        if (!array_key_exists($subType, $this->fields[$fieldName])) {
-            return null;
-        }
-        if (!array_key_exists($key, $this->fields[$fieldName][$subType])) {
-            return null;
-        }
+
         return $this->fields[$fieldName][$subType][$key];
     }
 }

@@ -432,4 +432,31 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testGetSubTypeField() {
+        $read = $this->definitionLibrary->getSubTypeField('libraryBook', 'many', 'entity');
+        $expected = 'book';
+        $this->assertSame($expected, $read);
+
+        $read = $this->definitionLibrary->getSubTypeField('name', 'many', 'entity');
+        $this->assertNull($read);
+
+        $read = $this->definitionLibrary->getSubTypeField('libraryBook', 'many', 'foo');
+        $this->assertNull($read);
+
+        $read = $this->definitionLibrary->getSubTypeField('libraryBook', 'foo', 'entity');
+        $this->assertNull($read);
+
+        $read = $this->definitionLibrary->getSubTypeField('', 'many', 'entity');
+        $this->assertNull($read);
+
+        $read = $this->definitionLibrary->getSubTypeField(null, 'many', 'entity');
+        $this->assertNull($read);
+    }
+
+    public function testGetEditableFieldNames() {
+        $read = $this->definitionLibrary->getEditableFieldNames();
+        $expected = ['name', 'type', 'opening', 'isOpenOnSundays', 'planet', 'libraryBook'];
+        $this->assertSame($expected, $read);
+    }
+
 }
