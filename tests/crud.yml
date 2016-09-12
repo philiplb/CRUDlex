@@ -3,7 +3,7 @@ library:
   table: library
   childrenLabelFields:
       book: title
-  filter: [isOpenOnSundays]
+  filter: [isOpenOnSundays, libraryBook]
   deleteCascade: true
   pageSize: 10
   initialSortField: name

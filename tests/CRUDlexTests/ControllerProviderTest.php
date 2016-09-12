@@ -148,6 +148,7 @@ class ControllerProviderTest extends WebTestCase {
         $entityBook1->set('price', 3.99);
         $entityBook1->set('library', $library->get('id'));
         $this->dataBook->create($entityBook1);
+        $entityBook1Id = $entityBook1->get('id');
 
         $entityBook2 = $this->dataBook->createEmpty();
         $entityBook2->set('title', 'titleB');
@@ -156,6 +157,9 @@ class ControllerProviderTest extends WebTestCase {
         $entityBook2->set('price', 3.99);
         $entityBook2->set('library', $library->get('id'));
         $this->dataBook->create($entityBook2);
+
+        $library->set('libraryBook', [['id' => $entityBook1Id]]);
+        $this->dataLibrary->update($library);
 
         $client = $this->createClient();
 
@@ -210,11 +214,18 @@ class ControllerProviderTest extends WebTestCase {
         $library->set('name', 'lib b2');
         $library->set('isOpenOnSundays', true);
         $this->dataLibrary->create($library);
+
         $crawler = $client->request('GET', '/crud/library?crudFilterisOpenOnSundays=true');
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("lib b1")'));
         $this->assertCount(1, $crawler->filter('html:contains("lib b2")'));
         $this->assertCount(0, $crawler->filter('html:contains("lib a")'));
+
+        $crawler = $client->request('GET', '/crud/library?crudFilterlibraryBook[]='.$entityBook1Id);
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("lib a")'));
+        $this->assertCount(0, $crawler->filter('html:contains("lib b1")'));
+        $this->assertCount(0, $crawler->filter('html:contains("lib b2")'));
     }
 
     public function testShow() {
