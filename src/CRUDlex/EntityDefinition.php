@@ -800,7 +800,7 @@ class EntityDefinition {
     /**
      * Gets the locale to be used.
      *
-     * @return string
+     * @return null|string
      * the locale to be used.
      */
     public function getLocale() {
