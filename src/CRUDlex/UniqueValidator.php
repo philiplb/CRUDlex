@@ -18,7 +18,22 @@ use \Valdi\Validator\ValidatorInterface;
  */
 class UniqueValidator implements ValidatorInterface {
 
-    protected function isValidUniqueMany($value, $data, $entity, $field) {
+    /**
+     * Checks whether the unique constraint is valid for a many-to-many field.
+     *
+     * @param array $value
+     * the value to check
+     * @param AbstractData $data
+     * the data to perform the check with
+     * @param Entity $entity
+     * the entity to perform the check on
+     * @param $field
+     * the many field to perform the check on
+     *
+     * @return boolean
+     * true if it is a valid unique many-to-many constraint
+     */
+    protected function isValidUniqueMany(array $value, AbstractData $data, Entity $entity, $field) {
         return !$data->hasManySet($field, array_column($value, 'id'), $entity->get('id'));
     }
 
