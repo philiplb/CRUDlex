@@ -357,7 +357,7 @@ class MySQLData extends AbstractData {
             $entityTable  = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
             $nameSelect   = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
             $queryBuilder
-                ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that'.$nameSelect)
+                ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS id'.$nameSelect)
                 ->from('`'.$manyField.'`', 't1')
                 ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
                 ->where('t1.`'.$thisField.'` IN (?)')
@@ -366,11 +366,9 @@ class MySQLData extends AbstractData {
             $queryResult    = $queryBuilder->execute();
             $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($manyReferences as $manyReference) {
-                $many = ['id' => $manyReference['that']];
-                if ($nameField !== null) {
-                    $many['name'] = $manyReference['name'];
-                }
-                $mapping[$manyReference['this']][$manyField][] = $many;
+                $id = $manyReference['this'];
+                unset($manyReference['this']);
+                $mapping[$id][$manyField][] = $manyReference;
             }
         }
         return array_values($mapping);
