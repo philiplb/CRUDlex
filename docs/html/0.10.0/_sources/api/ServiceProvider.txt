@@ -233,3 +233,12 @@ CRUDlex\\ServiceProvider
         :type $float: float
         :param $float: the float to format
         :returns: double|string the formated float
+
+    .. php:method:: arrayColumn($array, $key)
+
+        A thin wrapper for the function "array_column" to be used in templates
+        for example.
+
+        :param $array:
+        :param $key:
+        :returns: array the resulting array

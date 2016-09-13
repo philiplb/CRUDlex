@@ -226,6 +226,9 @@ order:
                 type: integer
                 label: Pages
 
+Attention: In the list view, it is not possible to sort by many fields as it
+doesn't make that much sense.
+
 ---------------------------------------------------------------
 Using UUIDs as Primary Key Instead of an Auto Incremented Value
 ---------------------------------------------------------------

@@ -106,6 +106,8 @@
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -333,13 +335,14 @@ don&#8217;t exist, they get created.</p>
 
 <dl class="method">
 <dt id="EntityDefinition::getReferenceValue">
-<code class="descname">getReferenceValue</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getReferenceValue" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getReferenceValue</code><span class="sig-paren">(</span><em>$type</em>, <em>$fieldName</em>, <em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getReferenceValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the value of a reference field.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$type</strong> (<em>string</em>) &#8211; the reference type like &#8220;reference&#8221; or &#8220;many&#8221;</li>
 <li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name of the reference</li>
 <li><strong>$key</strong> (<em>string</em>) &#8211; the key of the reference value</li>
 </ul>
@@ -415,14 +418,20 @@ don&#8217;t exist, they get created.</p>
 
 <dl class="method">
 <dt id="EntityDefinition::getFieldNames">
-<code class="descname">getFieldNames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFieldNames" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getFieldNames</code><span class="sig-paren">(</span><em>$includeMany = false</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFieldNames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all field names, including the implicit ones like &#8220;id&#8221; or
 &#8220;created_at&#8221;.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string[] the field names</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$includeMany</strong> (<em>boolean</em>) &#8211; whether to include the many fields as well</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string[] the field names</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1160,6 +1169,20 @@ definition has a reference to this one.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="EntityDefinition::getLocale">
+<code class="descname">getLocale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the locale to be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">null|string the locale to be used.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="EntityDefinition::setInitialSortField">
 <code class="descname">setInitialSortField</code><span class="sig-paren">(</span><em>$initialSortField</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setInitialSortField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the initial sort field.</p>
@@ -1216,6 +1239,28 @@ definition has a reference to this one.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean the initial sort order, true if ascending</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getSubTypeField">
+<code class="descname">getSubTypeField</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$subType</em>, <em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getSubTypeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a sub field of an field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name of the sub type</li>
+<li><strong>$subType</strong> (<em>string</em>) &#8211; the sub type like &#8220;reference&#8221; or &#8220;many&#8221;</li>
+<li><strong>$key</strong> (<em>string</em>) &#8211; the key of the value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the value of the sub field</p>
+</td>
 </tr>
 </tbody>
 </table>

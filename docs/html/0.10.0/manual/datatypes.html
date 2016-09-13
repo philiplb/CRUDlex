@@ -102,6 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#mysql-foreign-key-hint">MySQL Foreign Key Hint</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#many">Many</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#file">File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fixed">Fixed</a></li>
 </ul>
@@ -125,6 +126,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -436,6 +439,69 @@ setting like this:</p>
 <p>If a book still references a library, CRUDlex refuses to delete the library if
 you try.</p>
 </div>
+</div>
+<div class="section" id="many">
+<h2>Many<a class="headerlink" href="#many" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">libraryBook</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">many</span>
+    <span class="l l-Scalar l-Scalar-Plain">many</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+        <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">title</span>
+        <span class="l l-Scalar l-Scalar-Plain">thisField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+        <span class="l l-Scalar l-Scalar-Plain">thatField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+</pre></div>
+</div>
+<p>A many-to-many relation. For MySQL, the field key is the name of the cross table.
+So the sample above translates to this structure:</p>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">libraryBook</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">library</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">book</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">library</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">library</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">book</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">book</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">librarybook_ibfk_1</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">library</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">library</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">librarybook_ibfk_2</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">book</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">book</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The fields of the many key have the following meaning:</p>
+<ul class="simple">
+<li><strong>entity</strong>: the other entity</li>
+<li><strong>nameField</strong>: the representing field on the other entity for button labels,
+selection etc.; this key is optional, if it is not given, only the id will
+be shown</li>
+<li><strong>thisField</strong>: the field of the cross table referencing the entity with the
+many field</li>
+<li><strong>thatField</strong>: the field of the cross table referencing the other entity
+named with the entity field of the many key</li>
+</ul>
+<p>Think about a library having many books and a book being in many libraries.
+The library is stored in the table &#8220;library&#8221; and has a field &#8220;name&#8221;. Here is
+the needed yml for this book-library many-to-many relationship:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+        <span class="l l-Scalar l-Scalar-Plain">libraryBook</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">many</span>
+            <span class="l l-Scalar l-Scalar-Plain">many</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+                <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">title</span>
+                <span class="l l-Scalar l-Scalar-Plain">thisField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+                <span class="l l-Scalar l-Scalar-Plain">thatField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+<span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+</pre></div>
+</div>
+<p>Attention: In the list view, it is not possible to sort by many fields as it
+doesn&#8217;t make that much sense.</p>
 </div>
 <div class="section" id="file">
 <h2>File<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h2>

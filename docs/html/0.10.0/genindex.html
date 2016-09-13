@@ -105,6 +105,8 @@
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -226,12 +228,12 @@
   <dt><a href="api/AbstractData.html#AbstractData::DELETION_SUCCESS"><strong>AbstractData::DELETION_SUCCESS (class constant)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::addChild"><strong>addChild() (EntityDefinition method)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/MySQLData.html#MySQLData::addFilter"><strong>addFilter() (MySQLData method)</strong></a>
   </dt>
@@ -242,6 +244,10 @@
 
       
   <dt><a href="api/MySQLData.html#MySQLData::addSort"><strong>addSort() (MySQLData method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/ServiceProvider.html#ServiceProvider::arrayColumn"><strong>arrayColumn() (ServiceProvider method)</strong></a>
   </dt>
 
   </dl></td>
@@ -501,6 +507,14 @@
   </dt>
 
       
+  <dt><a href="api/MySQLData.html#MySQLData::enrichWithMany"><strong>enrichWithMany() (MySQLData method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MySQLData.html#MySQLData::enrichWithManyField"><strong>enrichWithManyField() (MySQLData method)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/Entity.html#Entity"><strong>Entity (class)</strong></a>
   </dt>
 
@@ -518,12 +532,12 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition"><strong>EntityDefinition (class)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinitionFactory.html#EntityDefinitionFactory"><strong>EntityDefinitionFactory (class)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinitionFactoryInterface.html#EntityDefinitionFactoryInterface"><strong>EntityDefinitionFactoryInterface (interface)</strong></a>
   </dt>
@@ -705,14 +719,32 @@
   </dt>
 
       
+  <dt><a href="api/MySQLData.html#MySQLData::getFormFields"><strong>getFormFields() (MySQLData method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::getIdToNameMap"><strong>getIdToNameMap() (AbstractData method)</strong></a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/MySQLData.html#MySQLData::getIdToNameMap"><strong>(MySQLData method)</strong></a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getInitialSortField"><strong>getInitialSortField() (EntityDefinition method)</strong></a>
   </dt>
 
       
-  <dt><a href="api/ReferenceValidator.html#ReferenceValidator::getInvalidDetails"><strong>getInvalidDetails() (ReferenceValidator method)</strong></a>
+  <dt><a href="api/ManyValidator.html#ManyValidator::getInvalidDetails"><strong>getInvalidDetails() (ManyValidator method)</strong></a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="api/ReferenceValidator.html#ReferenceValidator::getInvalidDetails"><strong>(ReferenceValidator method)</strong></a>
+  </dt>
+
         
   <dt><a href="api/UniqueValidator.html#UniqueValidator::getInvalidDetails"><strong>(UniqueValidator method)</strong></a>
   </dt>
@@ -726,8 +758,6 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getLabel"><strong>getLabel() (EntityDefinition method)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::getLanguageName"><strong>getLanguageName() (ServiceProvider method)</strong></a>
   </dt>
@@ -736,12 +766,38 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getListFields"><strong>getListFields() (EntityDefinition method)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/EntityDefinition.html#EntityDefinition::getLocale"><strong>getLocale() (EntityDefinition method)</strong></a>
+  </dt>
+
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::getLocaleLabels"><strong>getLocaleLabels() (ServiceProvider method)</strong></a>
   </dt>
 
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::getLocales"><strong>getLocales() (ServiceProvider method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MySQLData.html#MySQLData::getManyFields"><strong>getManyFields() (MySQLData method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MySQLData.html#MySQLData::getManyIds"><strong>getManyIds() (MySQLData method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MimeTypes.html#MimeTypes::getMimeType"><strong>getMimeType() (MimeTypes method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MimeTypes.html#MimeTypes::getMimeTypeByExtension"><strong>getMimeTypeByExtension() (MimeTypes method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MimeTypes.html#MimeTypes::getMimeTypeByFileInfo"><strong>getMimeTypeByFileInfo() (MimeTypes method)</strong></a>
   </dt>
 
       
@@ -783,16 +839,6 @@
   </dt>
 
       
-  <dt><a href="api/AbstractData.html#AbstractData::getReferences"><strong>getReferences() (AbstractData method)</strong></a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::getReferences"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
-      
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getReferenceValue"><strong>getReferenceValue() (EntityDefinition method)</strong></a>
   </dt>
 
@@ -802,6 +848,10 @@
 
       
   <dt><a href="api/StreamedFileResponse.html#StreamedFileResponse::getStreamedFileFunction"><strong>getStreamedFileFunction() (StreamedFileResponse method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/EntityDefinition.html#EntityDefinition::getSubTypeField"><strong>getSubTypeField() (EntityDefinition method)</strong></a>
   </dt>
 
       
@@ -830,6 +880,16 @@
   <dt><a href="api/MySQLData.html#MySQLData::hasChildren"><strong>hasChildren() (MySQLData method)</strong></a>
   </dt>
 
+      
+  <dt><a href="api/AbstractData.html#AbstractData::hasManySet"><strong>hasManySet() (AbstractData method)</strong></a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/MySQLData.html#MySQLData::hasManySet"><strong>(MySQLData method)</strong></a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -899,15 +959,23 @@
   </dt>
 
       
-  <dt><a href="api/ReferenceValidator.html#ReferenceValidator::isValid"><strong>isValid() (ReferenceValidator method)</strong></a>
+  <dt><a href="api/ManyValidator.html#ManyValidator::isValid"><strong>isValid() (ManyValidator method)</strong></a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="api/ReferenceValidator.html#ReferenceValidator::isValid"><strong>(ReferenceValidator method)</strong></a>
+  </dt>
+
         
   <dt><a href="api/UniqueValidator.html#UniqueValidator::isValid"><strong>(UniqueValidator method)</strong></a>
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="api/UniqueValidator.html#UniqueValidator::isValidUniqueMany"><strong>isValidUniqueMany() (UniqueValidator method)</strong></a>
+  </dt>
+
   </dl></td>
 </tr></table>
 
@@ -953,6 +1021,18 @@
   </dt>
 
       
+  <dt><a href="api/ManyValidator.html#ManyValidator"><strong>ManyValidator (class)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MimeTypes.html#MimeTypes"><strong>MimeTypes (class)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/MimeTypes.html#MimeTypes::$mimeTypes"><strong>mimeTypes (MimeTypes property)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/ControllerProvider.html#ControllerProvider::modifyEntity"><strong>modifyEntity() (ControllerProvider method)</strong></a>
   </dt>
 
@@ -960,12 +1040,12 @@
   <dt><a href="api/ControllerProvider.html#ControllerProvider::modifyFilesAndSetFlashBag"><strong>modifyFilesAndSetFlashBag() (ControllerProvider method)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/MySQLData.html#MySQLData"><strong>MySQLData (class)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/MySQLData.html#MySQLData::DELETION_FAILED_EVENT"><strong>MySQLData::DELETION_FAILED_EVENT (class constant)</strong></a>
   </dt>
@@ -1076,6 +1156,10 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/MySQLData.html#MySQLData::saveMany"><strong>saveMany() (MySQLData method)</strong></a>
+  </dt>
+
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider"><strong>ServiceProvider (class)</strong></a>
   </dt>

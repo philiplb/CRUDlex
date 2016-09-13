@@ -110,6 +110,8 @@
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -220,6 +222,34 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="MySQLData::getManyFields">
+<code class="descname">getManyFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::getManyFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the many-to-many fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array|string[] the many-to-many fields</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::getFormFields">
+<code class="descname">getFormFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::getFormFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all form fields including the many-to-many-ones.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array all form fields</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="MySQLData::setValuesAndParameters">
 <code class="descname">setValuesAndParameters</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>QueryBuilder $queryBuilder</em>, <em>$setMethod</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::setValuesAndParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the values and parameters of the upcoming given query according
@@ -289,6 +319,27 @@ to the entity.</p>
 <li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
 <li><strong>$deleteCascade</strong> &#8211; </li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::getManyIds">
+<code class="descname">getManyIds</code><span class="sig-paren">(</span><em>$fields</em>, <em>$params</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::getManyIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all possible many-to-many ids existing for this definition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fields</strong> (<em>array</em>) &#8211; the many field names to fetch for</li>
+<li><strong>$params</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array an array of this many-to-many ids</p>
 </td>
 </tr>
 </tbody>
@@ -381,6 +432,65 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string|null the new UUID or null if this instance isn&#8217;t configured to do so</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::enrichWithManyField">
+<code class="descname">enrichWithManyField</code><span class="sig-paren">(</span><em>$idToData</em>, <em>$manyField</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::enrichWithManyField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enriches the given mapping of entity id to raw entity data with some
+many-to-many data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$idToData</strong> (<em>array</em>) &#8211; a reference to the map entity id to raw entity data</li>
+<li><strong>$manyField</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::enrichWithMany">
+<code class="descname">enrichWithMany</code><span class="sig-paren">(</span><em>$rows</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::enrichWithMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches to the rows belonging many-to-many entries and adds them to the
+rows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$rows</strong> (<em>array</em>) &#8211; the rows to enrich</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the enriched rows</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::saveMany">
+<code class="descname">saveMany</code><span class="sig-paren">(</span><em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::saveMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>First, deletes all to the given entity related many-to-many entries from
+the DB
+and then writes them again.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to save the many-to-many entries of</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -480,15 +590,15 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="MySQLData::getReferences">
-<code class="descname">getReferences</code><span class="sig-paren">(</span><em>$referenceEntity</em>, <em>$nameField</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::getReferences" title="Permalink to this definition">¶</a></dt>
+<dt id="MySQLData::getIdToNameMap">
+<code class="descname">getIdToNameMap</code><span class="sig-paren">(</span><em>$entity</em>, <em>$nameField</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::getIdToNameMap" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$referenceEntity</strong> &#8211; </li>
+<li><strong>$entity</strong> &#8211; </li>
 <li><strong>$nameField</strong> &#8211; </li>
 </ul>
 </td>
@@ -527,6 +637,25 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>$entities</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::hasManySet">
+<code class="descname">hasManySet</code><span class="sig-paren">(</span><em>$field</em>, <em>$thatIds</em>, <em>$excludeId = null</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::hasManySet" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$field</strong> &#8211; </li>
+<li><strong>$thatIds</strong> &#8211; </li>
+<li><strong>$excludeId</strong> &#8211; </li>
 </ul>
 </td>
 </tr>

@@ -105,6 +105,8 @@
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -159,6 +161,29 @@
 <dt id="UniqueValidator">
 <em class="property">class </em><code class="descname">UniqueValidator</code><a class="headerlink" href="#UniqueValidator" title="Permalink to this definition">¶</a></dt>
 <dd><p>A validator to check for an unique field.</p>
+<dl class="method">
+<dt id="UniqueValidator::isValidUniqueMany">
+<code class="descname">isValidUniqueMany</code><span class="sig-paren">(</span><em>$value</em>, <em>AbstractData $data</em>, <em>Entity $entity</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#UniqueValidator::isValidUniqueMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the unique constraint is valid for a many-to-many field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$value</strong> (<em>array</em>) &#8211; the value to check</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data to perform the check with</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to perform the check on</li>
+<li><strong>$field</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true if it is a valid unique many-to-many constraint</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="UniqueValidator::isValid">
 <code class="descname">isValid</code><span class="sig-paren">(</span><em>$value</em>, <em>$parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#UniqueValidator::isValid" title="Permalink to this definition">¶</a></dt>

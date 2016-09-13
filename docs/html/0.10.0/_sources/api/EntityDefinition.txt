@@ -134,10 +134,12 @@ CRUDlex\\EntityDefinition
         :type $value: mixed
         :param $value: the new value
 
-    .. php:method:: getReferenceValue($fieldName, $key)
+    .. php:method:: getReferenceValue($type, $fieldName, $key)
 
         Gets the value of a reference field.
 
+        :type $type: string
+        :param $type: the reference type like "reference" or "many"
         :type $fieldName: string
         :param $fieldName: the field name of the reference
         :type $key: string
@@ -180,11 +182,13 @@ CRUDlex\\EntityDefinition
         :type $serviceProvider: ServiceProvider
         :param $serviceProvider: The current service provider
 
-    .. php:method:: getFieldNames()
+    .. php:method:: getFieldNames($includeMany = false)
 
         Gets all field names, including the implicit ones like "id" or
         "created_at".
 
+        :type $includeMany: boolean
+        :param $includeMany: whether to include the many fields as well
         :returns: string[] the field names
 
     .. php:method:: setListFields($listFields)
@@ -511,6 +515,12 @@ CRUDlex\\EntityDefinition
         :type $locale: string
         :param $locale: the locale to be used.
 
+    .. php:method:: getLocale()
+
+        Gets the locale to be used.
+
+        :returns: null|string the locale to be used.
+
     .. php:method:: setInitialSortField($initialSortField)
 
         Sets the initial sort field.
@@ -536,3 +546,15 @@ CRUDlex\\EntityDefinition
         Gets the initial sort order.
 
         :returns: boolean the initial sort order, true if ascending
+
+    .. php:method:: getSubTypeField($fieldName, $subType, $key)
+
+        Gets a sub field of an field.
+
+        :type $fieldName: string
+        :param $fieldName: the field name of the sub type
+        :type $subType: string
+        :param $subType: the sub type like "reference" or "many"
+        :type $key: string
+        :param $key: the key of the value
+        :returns: string the value of the sub field
