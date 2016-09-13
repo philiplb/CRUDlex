@@ -20,6 +20,8 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
 
     protected $entityLibrary;
 
+    protected $entityBook;
+
     protected function setUp() {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataLibrary = $crudServiceProvider->getData('library');
@@ -29,6 +31,17 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib b');
         $this->dataLibrary->create($entityLibrary);
+
+        $dataBook = $crudServiceProvider->getData('book');
+        $this->entityBook = $dataBook->createEmpty();
+        $this->entityBook->set('title', 'title');
+        $this->entityBook->set('author', 'author');
+        $this->entityBook->set('pages', 111);
+        $this->entityBook->set('library', $entityLibrary->get('id'));
+        $dataBook->create($this->entityBook);
+
+        $entityLibrary->set('libraryBook', [['id' => $this->entityBook->get('id')]]);
+        $this->dataLibrary->update($entityLibrary);
     }
 
     public function testValidate() {
@@ -49,6 +62,14 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $read = $validator->isValid('', $parameters);
         $this->assertTrue($read);
+
+        $parameters[2] = 'libraryBook';
+
+        $read = $validator->isValid([['id' => $this->entityBook->get('id') + 1]], $parameters);
+        $this->assertTrue($read);
+
+        $read = $validator->isValid([['id' => $this->entityBook->get('id')]], $parameters);
+        $this->assertFalse($read);
 
     }
 
