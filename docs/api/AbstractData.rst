@@ -163,13 +163,13 @@ CRUDlex\\AbstractData
         :param $entity: the entity to delete
         :returns: integer returns one of: - AbstractData::DELETION_SUCCESS -> successful deletion - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
 
-    .. php:method:: getReferences($referenceEntity, $nameField)
+    .. php:method:: getIdToNameMap($entity, $nameField)
 
         Gets ids and names of a table. Used for building up the dropdown box of
-        reference type fields.
+        reference type fields for example.
 
-        :type $referenceEntity: string
-        :param $referenceEntity: the referenced entity
+        :type $entity: string
+        :param $entity: the entity
         :type $nameField: string
         :param $nameField: the field defining the name of the rows
         :returns: array an array with the ids as key and the names as values
@@ -197,6 +197,19 @@ CRUDlex\\AbstractData
 
         :param $entities:
         :returns: void
+
+    .. php:method:: hasManySet($field, $thatIds, $excludeId = null)
+
+        Checks whether a given set of ids is assigned to any entity exactly
+        like it is given (no subset, no superset).
+
+        :type $field: string
+        :param $field: the many field
+        :type $thatIds: array
+        :param $thatIds: the id set to check
+        :type $excludeId: string|null
+        :param $excludeId: one optional own id to exclude from the check
+        :returns: boolean true if the set of ids exists for an entity
 
     .. php:method:: getDefinition()
 

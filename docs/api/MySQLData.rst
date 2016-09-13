@@ -50,6 +50,18 @@ CRUDlex\\MySQLData
 
         Holds the events.
 
+    .. php:method:: getManyFields()
+
+        Gets the many-to-many fields.
+
+        :returns: array|\string[] the many-to-many fields
+
+    .. php:method:: getFormFields()
+
+        Gets all form fields including the many-to-many-ones.
+
+        :returns: array all form fields
+
     .. php:method:: setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod)
 
         Sets the values and parameters of the upcoming given query according
@@ -86,6 +98,15 @@ CRUDlex\\MySQLData
         :type $entity: Entity
         :param $entity:
         :param $deleteCascade:
+
+    .. php:method:: getManyIds($fields, $params)
+
+        Gets all possible many-to-many ids existing for this definition.
+
+        :type $fields: array
+        :param $fields: the many field names to fetch for
+        :param $params:
+        :returns: array an array of this many-to-many ids
 
     .. php:method:: addFilter(QueryBuilder $queryBuilder, $filter, $filterOperators)
 
@@ -134,6 +155,33 @@ CRUDlex\\MySQLData
 
         :returns: string|null the new UUID or null if this instance isn't configured to do so
 
+    .. php:method:: enrichWithManyField($idToData, $manyField)
+
+        Enriches the given mapping of entity id to raw entity data with some
+        many-to-many data.
+
+        :type $idToData: array
+        :param $idToData: a reference to the map entity id to raw entity data
+        :param $manyField:
+
+    .. php:method:: enrichWithMany($rows)
+
+        Fetches to the rows belonging many-to-many entries and adds them to the
+        rows.
+
+        :type $rows: array
+        :param $rows: the rows to enrich
+        :returns: array the enriched rows
+
+    .. php:method:: saveMany(Entity $entity)
+
+        First, deletes all to the given entity related many-to-many entries from
+        the DB
+        and then writes them again.
+
+        :type $entity: Entity
+        :param $entity: the entity to save the many-to-many entries of
+
     .. php:method:: __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $database, $useUUIDs)
 
         Constructor.
@@ -177,11 +225,11 @@ CRUDlex\\MySQLData
         :type $entity: Entity
         :param $entity:
 
-    .. php:method:: getReferences($referenceEntity, $nameField)
+    .. php:method:: getIdToNameMap($entity, $nameField)
 
         {@inheritdoc}
 
-        :param $referenceEntity:
+        :param $entity:
         :param $nameField:
 
     .. php:method:: countBy($table, $params, $paramsOperators, $excludeDeleted)
@@ -198,6 +246,14 @@ CRUDlex\\MySQLData
         {@inheritdoc}
 
         :param $entities:
+
+    .. php:method:: hasManySet($field, $thatIds, $excludeId = null)
+
+        {@inheritdoc}
+
+        :param $field:
+        :param $thatIds:
+        :param $excludeId:
 
     .. php:method:: hydrate($row)
 
