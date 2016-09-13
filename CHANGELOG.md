@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.10.0
 Released: Upcoming
+- Added a new data type implementing a many-to-many relationship: many
 - Switched to SemVer
 - Added validation of the entity definition YAML file
 - Replaced handwritten mocks with Phony
