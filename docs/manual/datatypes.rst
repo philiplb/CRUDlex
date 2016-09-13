@@ -307,6 +307,77 @@ Don't forget to set the MySQL foreign key.
 If a book still references a library, CRUDlex refuses to delete the library if
 you try.
 
+
+----
+Many
+----
+
+.. code-block:: yaml
+
+    libraryBook:
+        type: many
+        many:
+            entity: book
+            nameField: title
+            thisField: library
+            thatField: book
+
+A many-to-many relation. For MySQL, the field key is the name of the cross table.
+So the sample above translates to this structure:
+
+.. code-block:: sql
+
+    CREATE TABLE `libraryBook` (
+      `library` int(11) NOT NULL,
+      `book` int(11) NOT NULL,
+      KEY `library` (`library`),
+      KEY `book` (`book`),
+      CONSTRAINT `librarybook_ibfk_1` FOREIGN KEY (`library`) REFERENCES `library` (`id`),
+      CONSTRAINT `librarybook_ibfk_2` FOREIGN KEY (`book`) REFERENCES `book` (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+The fields of the many key have the following meaning:
+
+* **entity**: the other entity
+* **nameField**: the representing field on the other entity for button labels,
+  selection etc.; this key is optional, if it is not given, only the id will
+  be shown
+* **thisField**: the field of the cross table referencing the entity with the
+  many field
+* **thatField**: the field of the cross table referencing the other entity
+  named with the entity field of the many key
+
+Think about a library having many books and a book being in many libraries.
+The library is stored in the table "library" and has a field "name". Here is
+the needed yml for this book-library many-to-many relationship:
+
+.. code-block:: yaml
+
+    library:
+        table: lib
+        label: Library
+        fields:
+            name:
+                type: text
+            libraryBook:
+                type: many
+                many:
+                    entity: book
+                    nameField: title
+                    thisField: library
+                    thatField: book
+    book:
+        table: book
+        label: Book
+        fields:
+            title:
+                type: text
+            author:
+                type: text
+
+Attention: In the list view, it is not possible to sort by many fields as it
+doesn't make that much sense.
+
 ----
 File
 ----
