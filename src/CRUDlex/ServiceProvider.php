@@ -17,7 +17,6 @@ use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
-use Symfony\Component\Intl\Intl;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 
@@ -474,19 +473,6 @@ class ServiceProvider implements ServiceProviderInterface {
         }
         sort($locales);
         return $locales;
-    }
-
-    /**
-     * Gets a language name in the given language.
-     *
-     * @param string $language
-     * the language code of the desired language name
-     *
-     * @return string
-     * the language name in the given language or null if not available
-     */
-    public function getLanguageName($language) {
-        return Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
     }
 
     /**

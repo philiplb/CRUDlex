@@ -253,15 +253,6 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetLanguageName() {
-        $crudServiceProvider = new ServiceProvider();
-        $expected = 'Deutsch';
-        $read = $crudServiceProvider->getLanguageName('de');
-        $this->assertSame($read, $expected);
-        $read = $crudServiceProvider->getLanguageName('invalid');
-        $this->assertNull($read);
-    }
-
     public function testInitialSort() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();

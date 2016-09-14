@@ -33,4 +33,20 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
+    public function testLanguageName() {
+        $twigExtensions = new TwigExtensions();
+        $twigExtensions->registerTwigExtensions($this->app);
+        $filter = $this->app['twig']->getFilter('languageName');
+        $read = call_user_func($filter->getCallable(), 'en');
+        $expected = 'English';
+        $this->assertSame($expected, $read);
+
+        $expected = 'Deutsch';
+        $read = call_user_func($filter->getCallable(), 'de');
+        $this->assertSame($read, $expected);
+
+        $read = call_user_func($filter->getCallable(), 'invalid');
+        $this->assertNull($read);
+    }
+
 }

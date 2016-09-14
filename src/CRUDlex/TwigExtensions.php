@@ -12,6 +12,7 @@
 namespace CRUDlex;
 
 use Pimple\Container;
+use Symfony\Component\Intl\Intl;
 
 /**
  * Provides and setups the Twig extensions like filters.
@@ -28,6 +29,7 @@ class TwigExtensions {
         $self = $this;
         $app->extend('twig', function(\Twig_Environment $twig) use ($self) {
             $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', [$self, 'arrayColumn']));
+            $twig->addFilter(new \Twig_SimpleFilter('languageName', [$self, 'getLanguageName']));
             return $twig;
         });
     }
@@ -44,6 +46,19 @@ class TwigExtensions {
      */
     public function arrayColumn($array, $key) {
         return array_column($array, $key);
+    }
+
+    /**
+     * Gets a language name in the given language.
+     *
+     * @param string $language
+     * the language code of the desired language name
+     *
+     * @return string
+     * the language name in the given language or null if not available
+     */
+    public function getLanguageName($language) {
+        return Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
     }
 
 }
