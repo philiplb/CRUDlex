@@ -22,21 +22,21 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
     protected function setUp() {
         $this->app = new Application();
         $this->app->register(new TwigServiceProvider());
+        $twigExtensions = new TwigExtensions();
+        $twigExtensions->registerTwigExtensions($this->app);
     }
 
     public function testArrayColumn() {
-        $twigExtensions = new TwigExtensions();
-        $twigExtensions->registerTwigExtensions($this->app);
         $filter = $this->app['twig']->getFilter('arrayColumn');
+
         $read = call_user_func($filter->getCallable(), [['id' => 1], ['id' => 2], ['id' => 3]], 'id');
         $expected = [1, 2, 3];
         $this->assertSame($expected, $read);
     }
 
     public function testLanguageName() {
-        $twigExtensions = new TwigExtensions();
-        $twigExtensions->registerTwigExtensions($this->app);
         $filter = $this->app['twig']->getFilter('languageName');
+
         $read = call_user_func($filter->getCallable(), 'en');
         $expected = 'English';
         $this->assertSame($expected, $read);
