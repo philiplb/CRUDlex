@@ -71,6 +71,10 @@ The project roadmap is organized via milestones:
 Beware that not each new feature will get its own ticket there. Some are
 implemented on the fly when needed.
 
+Each milestone is loosely organized as project in the columns "Backlog"
+(Todo), "Staging" (Being worked on (next)) and "Done" (done):
+
+[CRUDlex Milestone Projects](https://github.com/philiplb/CRUDlex/projects)
 
 ## Older Versions Documentation
 
