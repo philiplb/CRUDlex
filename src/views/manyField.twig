@@ -15,6 +15,6 @@
 <select class="form-control many-crudlex" multiple="multiple" id="{{ field }}" name="{{ fieldNamePrefix ~ field }}[]">
     {% set values = crudData.getIdToNameMap(crudData.getDefinition().getSubTypeField(field, 'many', 'entity'), crudData.getDefinition().getSubTypeField(field, 'many', 'nameField')) %}
     {% for id, manyValue in values %}
-        <option value="{{ id }}" {% if value and id in app.crud.arrayColumn(value, 'id') %}selected="selected" {% endif %}>{{ manyValue }}</option>
+        <option value="{{ id }}" {% if value and id in value|arrayColumn('id') %}selected="selected" {% endif %}>{{ manyValue }}</option>
     {% endfor %}
 </select>

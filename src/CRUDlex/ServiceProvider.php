@@ -292,6 +292,9 @@ class ServiceProvider implements ServiceProviderInterface {
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }
 
+        $twigExtensions = new TwigExtensions();
+        $twigExtensions->registerTwigExtensions($app);
+
         $this->initChildren();
 
     }
@@ -510,22 +513,6 @@ class ServiceProvider implements ServiceProviderInterface {
 
         // We don't want values like 0.00004 converted to its scientific notation 4.0E-5
         return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
-    }
-
-    /**
-     * A thin wrapper for the function "array_column" to be used in templates
-     * for example.
-     *
-     * @param $array
-     * the array
-     * @param $key
-     * the key
-     *
-     * @return array
-     * the resulting array
-     */
-    public function arrayColumn($array, $key) {
-        return array_column($array, $key);
     }
 
 }
