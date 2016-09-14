@@ -10,6 +10,7 @@
 
 {% set rtlLanguages = ['ar'] %}
 {% set locale = app.session.get('locale', 'en') %}
+{% set localeToFlag = {'en': 'gb', 'de': 'de', 'el': 'gr'} %}
 {% set localeDir = locale in rtlLanguages ? ' dir="rtl" ' : '' %}
 
 <html{{ localeDir|raw }}>
@@ -32,6 +33,10 @@
             .select2-container {
                 width: 100% !important;
                 padding: 0;
+            }
+
+            .flag {
+                background: url('{{ app.url_generator.generate('static', {file: 'images/flags/flags.png'}) }}') no-repeat;
             }
 
             @font-face {
@@ -84,13 +89,13 @@
                       <small{{ localeDir|raw }}>{{ 'crudlex.chooseLanguage'|trans }}</small>
                       <div class="dropdown">
                           <a id="drop4" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
-                          <img src="{{ app.url_generator.generate('static', {file: 'images/flags/' ~ locale ~ '.png'}) }}" alt="{{ app.crud.getLanguageName(locale) }}" /> {{ app.crud.getLanguageName(locale) }}
+                              <img src="{{ app.url_generator.generate('static', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ app.crud.getLanguageName(locale) }}" /> {{ app.crud.getLanguageName(locale) }}
                           <span class="caret"></a>
                           <ul class="dropdown-menu" aria-labelledby="dLabel">
                               {% for locale in app.crud.getLocales() %}
                                   <li>
                                       <a href="{{ app.url_generator.generate('crudSetLocale', {'locale': locale, 'redirect': app.request_stack.getCurrentRequest().getUri()}) }}">
-                                          <img src="{{ app.url_generator.generate('static', {file: 'images/flags/' ~ locale ~ '.png'}) }}" alt="{{ app.crud.getLanguageName(locale) }}" /> {{ app.crud.getLanguageName(locale) }}
+                                          <img src="{{ app.url_generator.generate('static', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ app.crud.getLanguageName(locale) }}" /> {{ app.crud.getLanguageName(locale) }}
                                       </a>
                                   </li>
                               {% endfor %}
