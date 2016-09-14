@@ -5,6 +5,10 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. 
 
 ![List View of CRUDlex](docs/_static/01_List.png)
 
+[![Total Downloads](https://poser.pugx.org/philiplb/crudlex/downloads.svg)](https://packagist.org/packages/philiplb/crudlex)
+[![Latest Stable Version](https://poser.pugx.org/philiplb/crudlex/v/stable.svg)](https://packagist.org/packages/philiplb/crudlex)
+[![Latest Unstable Version](https://poser.pugx.org/philiplb/crudlex/v/unstable.svg)](https://packagist.org/packages/philiplb/crudlex) [![License](https://poser.pugx.org/philiplb/crudlex/license.svg)](https://packagist.org/packages/philiplb/crudlex)
+
 ## Documentation
 
 - [Documentation 0.10.0](http://philiplb.github.io/CRUDlex/docs/html/0.10.0/) (upcoming)
@@ -67,9 +71,6 @@ The project roadmap is organized via milestones:
 Beware that not each new feature will get its own ticket there. Some are
 implemented on the fly when needed.
 
-[![Total Downloads](https://poser.pugx.org/philiplb/crudlex/downloads.svg)](https://packagist.org/packages/philiplb/crudlex)
-[![Latest Stable Version](https://poser.pugx.org/philiplb/crudlex/v/stable.svg)](https://packagist.org/packages/philiplb/crudlex)
-[![Latest Unstable Version](https://poser.pugx.org/philiplb/crudlex/v/unstable.svg)](https://packagist.org/packages/philiplb/crudlex) [![License](https://poser.pugx.org/philiplb/crudlex/license.svg)](https://packagist.org/packages/philiplb/crudlex)
 
 ## Older Versions Documentation
 
