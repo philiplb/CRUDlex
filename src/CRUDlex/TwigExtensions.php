@@ -26,7 +26,7 @@ class TwigExtensions {
      */
     public function registerTwigExtensions(Container $app) {
         $self = $this;
-        $app->extend('twig', function($twig, $app) use ($self) {
+        $app->extend('twig', function(\Twig_Environment $twig, Container $app) use ($self) {
             $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', [$self, 'arrayColumn']));
             return $twig;
         });
