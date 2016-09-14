@@ -17,6 +17,7 @@ Released: Upcoming
     - setitems -> items
     - filepath -> path
     - fixedvalue -> value
+- Switched to a flag-sprites.com generated css sprite for the language flags
 - Updated dependencies:
     - "silex/silex": "~2.0"
     - "symfony/twig-bridge": "~3.1"
