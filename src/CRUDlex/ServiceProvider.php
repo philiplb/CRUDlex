@@ -108,30 +108,16 @@ class ServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Initializes the children of the data fields.
-     *
-     * @param AbstractData $data
-     * the data having the children
-     * @param string $name
-     * the name of the $data
-     * @param array $fields
-     * the childrens fields
-     */
-    protected function initFieldsChildren(AbstractData $data, $name, array $fields) {
-        foreach ($fields as $field) {
-            if ($data->getDefinition()->getType($field) == 'reference') {
-                $this->datas[$data->getDefinition()->getReferenceEntity($field)]->getDefinition()->addChild($data->getDefinition()->getTable(), $field, $name);
-            }
-        }
-    }
-
-    /**
      * Initializes the children of the data entries.
      */
     protected function initChildren() {
         foreach ($this->datas as $name => $data) {
             $fields = $data->getDefinition()->getFieldNames();
-            $this->initFieldsChildren($data, $name, $fields);
+            foreach ($fields as $field) {
+                if ($data->getDefinition()->getType($field) == 'reference') {
+                    $this->datas[$data->getDefinition()->getReferenceEntity($field)]->getDefinition()->addChild($data->getDefinition()->getTable(), $field, $name);
+                }
+            }
         }
     }
 
