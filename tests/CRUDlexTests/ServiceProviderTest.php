@@ -226,26 +226,6 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testFormatFloat() {
-        $float = 0.000004;
-        $crudServiceProvider = new ServiceProvider();
-        $read = $crudServiceProvider->formatFloat($float);
-        $expected = '0.000004';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->formatFloat(null);
-        $this->assertNull($read);
-
-        $read = $crudServiceProvider->formatFloat(1.0);
-        $expected = '1.0';
-        $this->assertSame($read, $expected);
-
-        $float = 0.004;
-        $read = $crudServiceProvider->formatFloat($float);
-        $expected = '0.004';
-        $this->assertSame($read, $expected);
-    }
-
     public function testGetLocales() {
         $crudServiceProvider = new ServiceProvider();
         $expected = ['de', 'el', 'en'];

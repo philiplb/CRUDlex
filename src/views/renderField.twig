@@ -95,7 +95,7 @@
     {{ entity.get(field) ? 'true' : 'false' }}
 
 {% elseif type == 'float' %}
-    {{ app.crud.formatFloat(entity.get(field)) }}
+    {{ entity.get(field)|float }}
 
 {% else %}
     {{ entity.get(field) }}

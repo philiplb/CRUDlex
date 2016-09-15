@@ -30,9 +30,11 @@ class TwigExtensions {
         $app->extend('twig', function(\Twig_Environment $twig) use ($self) {
             $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', [$self, 'arrayColumn']));
             $twig->addFilter(new \Twig_SimpleFilter('languageName', [$self, 'getLanguageName']));
+            $twig->addFilter(new \Twig_SimpleFilter('float', [$self, 'formatFloat']));
             return $twig;
         });
     }
+
     /**
      * To have array_column available as Twig filter.
      *
@@ -61,4 +63,29 @@ class TwigExtensions {
         return Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
     }
 
+    /**
+     * Formats a float to not display in scientific notation.
+     *
+     * @param float $float
+     * the float to format
+     *
+     * @return double|string
+     * the formated float
+     */
+    public function formatFloat($float) {
+
+        if (!$float) {
+            return $float;
+        }
+
+        $zeroFraction = $float - floor($float) == 0 ? '0' : '';
+
+        // We don't want values like 0.004 converted to  0.00400000000000000008
+        if ($float > 0.0001) {
+            return $float.($zeroFraction === '0' ? '.'.$zeroFraction : '');
+        }
+
+        // We don't want values like 0.00004 converted to its scientific notation 4.0E-5
+        return rtrim(sprintf('%.20F', $float), '0').$zeroFraction;
+    }
 }

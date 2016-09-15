@@ -49,4 +49,26 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
+
+    public function testFormatFloat() {
+        $filter = $this->app['twig']->getFilter('float');
+
+        $float = 0.000004;
+        $read = call_user_func($filter->getCallable(), $float);
+        $expected = '0.000004';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), null);
+        $this->assertNull($read);
+
+        $read = call_user_func($filter->getCallable(), 1.0);
+        $expected = '1.0';
+        $this->assertSame($expected, $read);
+
+        $float = 0.004;
+        $read = call_user_func($filter->getCallable(), $float);
+        $expected = '0.004';
+        $this->assertSame($expected, $read);
+    }
+
 }
