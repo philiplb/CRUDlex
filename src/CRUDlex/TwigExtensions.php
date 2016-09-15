@@ -31,6 +31,7 @@ class TwigExtensions {
             $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', [$self, 'arrayColumn']));
             $twig->addFilter(new \Twig_SimpleFilter('languageName', [$self, 'getLanguageName']));
             $twig->addFilter(new \Twig_SimpleFilter('float', [$self, 'formatFloat']));
+            $twig->addFilter(new \Twig_SimpleFilter('basename', 'basename'));
             return $twig;
         });
     }

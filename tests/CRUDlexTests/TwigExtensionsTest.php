@@ -71,4 +71,24 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
+    public function testBasename() {
+        $filter = $this->app['twig']->getFilter('basename');
+
+        $read = call_user_func($filter->getCallable(), 'http://www.philiplb.de/foo.txt');
+        $expected = 'foo.txt';
+        $this->assertSame($read, $expected);
+
+        $read = call_user_func($filter->getCallable(), 'foo.txt');
+        $expected = 'foo.txt';
+        $this->assertSame($read, $expected);
+
+        $read = call_user_func($filter->getCallable(), '');
+        $expected = '';
+        $this->assertSame($read, $expected);
+
+        $read = call_user_func($filter->getCallable(), null);
+        $expected = '';
+        $this->assertSame($read, $expected);
+    }
+
 }

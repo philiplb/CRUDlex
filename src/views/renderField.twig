@@ -58,10 +58,10 @@
         {% set value = entity.get(field) %}
         {% if value|length > 12 %}
             <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
-                <u><a href="{{ entity.get(field) }}" target="_blank">{{ app.crud.basename(entity.get(field))|slice(0, 12) }}...</a></u>
+                <u><a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field)|basename|slice(0, 12) }}...</a></u>
             </span>
         {% else %}
-            <a href="{{ entity.get(field) }}" target="_blank">{{ app.crud.basename(entity.get(field)) }}</a>
+            <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field)|basename }}</a>
         {% endif %}
     {% else %}
         <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field) }}</a>
@@ -72,13 +72,13 @@
         {% set url = app.url_generator.generate('crudRenderFile', {entity: crudEntity, field: field, id: entity.get('id')}) %}
         {% if mode == 'list' %}
             {% set value = entity.get(field) %}
-            {% set basename = app.crud.basename(entity.get(field)) %}
+            {% set fieldBasename = entity.get(field)|basename %}
             {% if value|length > 12 %}
                 <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
-                    <u><a href="{{ url }}" target="_blank">{{ basename|slice(0, 12) }}...</a></u>
+                    <u><a href="{{ url }}" target="_blank">{{ fieldBasename|slice(0, 12) }}...</a></u>
                 </span>
             {% else %}
-                <a href="{{ url }}" target="_blank">{{ basename }}</a>
+                <a href="{{ url }}" target="_blank">{{ fieldBasename }}</a>
             {% endif %}
         {% else %}
             <a href="{{ url }}" target="_blank">{{ entity.get(field) }}</a>

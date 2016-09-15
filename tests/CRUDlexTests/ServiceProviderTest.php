@@ -163,26 +163,6 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         date_default_timezone_set($previousTimezone);
     }
 
-    public function testBasename() {
-        $crudServiceProvider = new ServiceProvider();
-
-        $read = $crudServiceProvider->basename('http://www.philiplb.de/foo.txt');
-        $expected = 'foo.txt';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->basename('foo.txt');
-        $expected = 'foo.txt';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->basename('');
-        $expected = '';
-        $this->assertSame($read, $expected);
-
-        $read = $crudServiceProvider->basename(null);
-        $expected = '';
-        $this->assertSame($read, $expected);
-    }
-
     public function testGetTemplate() {
         $app = new Application();
         $app['crud.template.list.book'] = 'testTemplateListBook.twig';

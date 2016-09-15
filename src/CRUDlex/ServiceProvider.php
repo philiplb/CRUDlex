@@ -374,21 +374,6 @@ class ServiceProvider implements ServiceProviderInterface {
     }
 
     /**
-     * Calls PHPs
-     * {@link http://php.net/manual/en/function.basename.php basename} and
-     * returns it's result.
-     *
-     * @param string $value
-     * the value to be handed to basename
-     *
-     * @return string
-     * the result of basename
-     */
-    public function basename($value) {
-        return basename($value);
-    }
-
-    /**
      * Determines the Twig template to use for the given parameters depending on
      * the existance of certain keys in the Container $app in this order:
      *
