@@ -17,6 +17,13 @@ Released: Upcoming
     - setitems -> items
     - filepath -> path
     - fixedvalue -> value
+- Attention: Moved the following functions from the ServiceProvider to Twig extensions:
+    - arrayColumn -> Twig Filter arrayColumn
+    - getLanguageName -> Twig Filter languageName
+    - formatFloat -> Twig Filter float
+    - basename -> basename
+    - formatDate -> formatDate
+    - formatDateTime -> formatDateTime
 - Switched to a flag-sprites.com generated css sprite for the language flags
 - Updated dependencies:
     - "silex/silex": "~2.0"
