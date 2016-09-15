@@ -28,27 +28,12 @@ class TwigExtensions {
     public function registerTwigExtensions(Container $app) {
         $self = $this;
         $app->extend('twig', function(\Twig_Environment $twig) use ($self) {
-            $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', [$self, 'arrayColumn']));
+            $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', 'array_column'));
             $twig->addFilter(new \Twig_SimpleFilter('languageName', [$self, 'getLanguageName']));
             $twig->addFilter(new \Twig_SimpleFilter('float', [$self, 'formatFloat']));
             $twig->addFilter(new \Twig_SimpleFilter('basename', 'basename'));
             return $twig;
         });
-    }
-
-    /**
-     * To have array_column available as Twig filter.
-     *
-     * @param $array
-     * the array
-     * @param $key
-     * the key
-     *
-     * @return array
-     * the resulting array
-     */
-    public function arrayColumn($array, $key) {
-        return array_column($array, $key);
     }
 
     /**
