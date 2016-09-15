@@ -12,4 +12,4 @@
     definition: crudData.getDefinition(),
     annotations: annotations
 } only %}
-<input type='text' class="form-control crudDate" id="{{ field }}" value="{{ app.crud.formatDate(value, false) }}" name="{{ fieldNamePrefix ~ field }}"/>
+<input type='text' class="form-control crudDate" id="{{ field }}" value="{{ value|formatDate(false) }}" name="{{ fieldNamePrefix ~ field }}"/>

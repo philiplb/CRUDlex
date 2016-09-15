@@ -91,4 +91,66 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testFormatDate() {
+        $filter = $this->app['twig']->getFilter('formatDate');
+
+        $read = call_user_func($filter->getCallable(), '2014-08-30 12:00:00', false);
+        $expected = '2014-08-30';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), '2014-08-30', false);
+        $expected = '2014-08-30';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), '', false);
+        $expected = '';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), null, false);
+        $expected = '';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), 'foo', false);
+        $expected = 'foo';
+        $this->assertSame($expected, $read);
+
+        $previousTimezone = date_default_timezone_get();
+        date_default_timezone_set('America/Adak');
+        $read = call_user_func($filter->getCallable(), '2016-02-01 00:00:00', true);
+        $expected = '2016-01-31';
+        $this->assertSame($expected, $read);
+        date_default_timezone_set($previousTimezone);
+    }
+
+    public function testFormatDateTime() {
+        $filter = $this->app['twig']->getFilter('formatDateTime');
+
+        $read = call_user_func($filter->getCallable(), '2014-08-30 12:00:00', false);
+        $expected = '2014-08-30 12:00';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), '2014-08-30 12:00', false);
+        $expected = '2014-08-30 12:00';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), '', false);
+        $expected = '';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), null, false);
+        $expected = '';
+        $this->assertSame($expected, $read);
+
+        $read = call_user_func($filter->getCallable(), 'foo', false);
+        $expected = 'foo';
+        $this->assertSame($expected, $read);
+
+        $previousTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
+        $read = call_user_func($filter->getCallable(), '2016-02-01 12:00', true);
+        $expected = '2016-02-01 13:00';
+        $this->assertSame($expected, $read);
+        date_default_timezone_set($previousTimezone);
+    }
+
 }
