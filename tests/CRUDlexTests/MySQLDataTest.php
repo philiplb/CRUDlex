@@ -244,8 +244,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $library->set('name', 'C');
         $this->dataLibrary->create($library);
 
-        $referenceEntity = $this->dataBook->getDefinition()->getReferenceEntity('library');
-        $nameField = $this->dataBook->getDefinition()->getReferenceNameField('library');
+        $referenceEntity = $this->dataBook->getDefinition()->getSubTypeField('library', 'reference', 'entity');
+        $nameField = $this->dataBook->getDefinition()->getSubTypeField('library', 'reference', 'nameField');
         $read = $this->dataBook->getIdToNameMap($referenceEntity, $nameField);
         $expected = [
             '1' => 'A',

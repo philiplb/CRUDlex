@@ -154,32 +154,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the value of a reference field.
-     *
-     * @param string $type
-     * the reference type like "reference" or "many"
-     * @param string $fieldName
-     * the field name of the reference
-     * @param string $key
-     * the key of the reference value
-     *
-     * @return string
-     * the value of the reference field
-     */
-    protected function getReferenceValue($type, $fieldName, $key) {
-        if ($this->getType($fieldName) != $type) {
-            return null;
-        }
-        if (!array_key_exists($type, $this->fields[$fieldName])) {
-            return null;
-        }
-        if (!array_key_exists($key, $this->fields[$fieldName][$type])) {
-            return null;
-        }
-        return $this->fields[$fieldName][$type][$key];
-    }
-
-    /**
      * Checks if the given field has the given constraint.
      *
      * @param string $fieldName
@@ -523,19 +497,6 @@ class EntityDefinition {
      */
     public function setUnique($fieldName, $value) {
         $this->setFieldValue($fieldName, 'unique', $value);
-    }
-
-    /**
-     * Gets the entity field of a reference.
-     *
-     * @param string $fieldName
-     * the field name of the reference
-     *
-     * @return string
-     * the entity field of a reference or null on invalid field name
-     */
-    public function getReferenceEntity($fieldName) {
-        return $this->getReferenceValue('reference', $fieldName, 'entity');
     }
 
     /**

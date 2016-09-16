@@ -129,18 +129,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testGetReferenceEntity() {
-        $read = $this->definition->getReferenceEntity('library');
-        $expected = 'library';
-        $this->assertSame($read, $expected);
-        $read = $this->definition->getReferenceEntity('title');
-        $this->assertNull($read);
-        $read = $this->definition->getReferenceEntity('foo');
-        $this->assertNull($read);
-        $read = $this->definition->getReferenceEntity(null);
-        $this->assertNull($read);
-    }
-
     public function testGetSetItems() {
         $read = $this->definitionLibrary->getItems('type');
         $expected = ['small', 'medium', 'large'];
@@ -383,20 +371,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setFilter($expected);
         $read = $this->definition->getFilter();
         $this->assertSame($read, $expected);
-    }
-
-    public function testGetInvalidReferenceField() {
-        $definition = new EntityDefinition(null, ['test' => []], null, [], [], new ServiceProvider());
-        $read = $definition->getReferenceEntity('test');
-        $this->assertNull($read);
-
-        $definition = new EntityDefinition(null, ['test' => ['type' => 'reference']], null, [], [], new ServiceProvider());
-        $read = $definition->getReferenceEntity('test');
-        $this->assertNull($read);
-
-        $definition = new EntityDefinition(null, ['test' => ['type' => 'reference', 'reference' => []]], null, [], [], new ServiceProvider());
-        $read = $definition->getReferenceEntity('test');
-        $this->assertNull($read);
     }
 
     public function testIsSetInitialSortField() {

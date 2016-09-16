@@ -18,7 +18,7 @@
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
     {% if reference is iterable %}
-        <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getReferenceEntity(field), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
+        <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getSubTypeField(field, 'reference', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
             {{ reference['id'] }}
             {% if 'name' in reference|keys %}
                 : {{ reference['name'] }}

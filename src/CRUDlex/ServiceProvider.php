@@ -115,7 +115,7 @@ class ServiceProvider implements ServiceProviderInterface {
             $fields = $data->getDefinition()->getFieldNames();
             foreach ($fields as $field) {
                 if ($data->getDefinition()->getType($field) == 'reference') {
-                    $this->datas[$data->getDefinition()->getReferenceEntity($field)]->getDefinition()->addChild($data->getDefinition()->getTable(), $field, $name);
+                    $this->datas[$data->getDefinition()->getSubTypeField($field, 'reference', 'entity')]->getDefinition()->addChild($data->getDefinition()->getTable(), $field, $name);
                 }
             }
         }

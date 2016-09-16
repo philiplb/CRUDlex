@@ -288,7 +288,7 @@ class MySQLData extends AbstractData {
             return $entity->get($field);
         }, $entities);
 
-        $referenceEntity = $this->definition->getReferenceEntity($field);
+        $referenceEntity = $this->definition->getSubTypeField($field, 'reference', 'entity');
         $table           = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
         $queryBuilder
             ->from('`'.$table.'`', '`'.$table.'`')
