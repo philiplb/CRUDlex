@@ -132,7 +132,7 @@ abstract class AbstractData {
      * Enriches an entity with metadata:
      * id, version, created_at, updated_at
      *
-     * @param $id
+     * @param mixed $id
      * the id of the entity to enrich
      * @param Entity $entity
      * the entity to enrich
