@@ -547,7 +547,18 @@ class MySQLData extends AbstractData {
     public function getIdToNameMap($entity, $nameField) {
         $table = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
         $queryBuilder = $this->database->createQueryBuilder();
-        $nameSelect   = $nameField !== null ? ',`'.$nameField.'`' : '';
+
+        $nameSelect = '';
+        $getValue   = function($manyReference) {
+            return $manyReference['id'];
+        };
+        if ($nameField !== null) {
+            $nameSelect = ',`'.$nameField.'`';
+            $getValue   = function($manyReference) use ($nameField) {
+                return $manyReference[$nameField];
+            };
+        }
+
         $queryBuilder
             ->select('id'.$nameSelect)
             ->from('`'.$table.'`', 't1')
@@ -557,11 +568,8 @@ class MySQLData extends AbstractData {
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result         = [];
-        $getValue       = function($nameField, array $manyReference) {
-            return $nameField ? $manyReference[$nameField] : $manyReference['id'];
-        };
         foreach ($manyReferences as $manyReference) {
-            $result[$manyReference['id']] = $getValue($nameField, $manyReference);
+            $result[$manyReference['id']] = $getValue($manyReference);
         }
         return $result;
     }
