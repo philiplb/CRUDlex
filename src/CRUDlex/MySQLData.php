@@ -545,11 +545,10 @@ class MySQLData extends AbstractData {
      * {@inheritdoc}
      */
     public function getIdToNameMap($entity, $nameField) {
-        $table = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
+        $table        = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
         $queryBuilder = $this->database->createQueryBuilder();
-
-        $nameSelect = '';
-        $getValue   = function($manyReference) {
+        $nameSelect   = '';
+        $getValue     = function($manyReference) {
             return $manyReference['id'];
         };
         if ($nameField !== null) {
