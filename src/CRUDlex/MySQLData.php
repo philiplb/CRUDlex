@@ -545,17 +545,11 @@ class MySQLData extends AbstractData {
      * {@inheritdoc}
      */
     public function getIdToNameMap($entity, $nameField) {
-        $nameSelect = '';
-        $order      = 'id';
-        $getValue   = function($manyReference) {
-            return $manyReference['id'];
-        };
+        $nameSelect   = '';
+        $drivingField = 'id';
         if ($nameField !== null) {
-            $nameSelect = ',`'.$nameField.'`';
-            $order      = $nameField;
-            $getValue   = function($manyReference) use ($nameField) {
-                return $manyReference[$nameField];
-            };
+            $nameSelect   = ',`'.$nameField.'`';
+            $drivingField = $nameField;
         }
 
         $table        = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
@@ -564,12 +558,12 @@ class MySQLData extends AbstractData {
             ->select('id'.$nameSelect)
             ->from('`'.$table.'`', 't1')
             ->where('deleted_at IS NULL')
-            ->orderBy($order)
+            ->orderBy($drivingField)
         ;
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $result         = array_reduce($manyReferences, function(&$carry, $manyReference) use ($getValue) {
-            $carry[$manyReference['id']] = $getValue($manyReference);
+        $result         = array_reduce($manyReferences, function(&$carry, $manyReference) use ($drivingField) {
+            $carry[$manyReference['id']] = $manyReference[$drivingField];
             return $carry;
         }, []);
         return $result;
