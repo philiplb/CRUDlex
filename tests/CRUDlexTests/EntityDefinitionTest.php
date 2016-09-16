@@ -129,18 +129,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testGetReferenceNameField() {
-        $read = $this->definition->getReferenceNameField('library');
-        $expected = 'name';
-        $this->assertSame($read, $expected);
-        $read = $this->definition->getReferenceNameField('title');
-        $this->assertNull($read);
-        $read = $this->definition->getReferenceNameField('foo');
-        $this->assertNull($read);
-        $read = $this->definition->getReferenceNameField(null);
-        $this->assertNull($read);
-    }
-
     public function testGetReferenceEntity() {
         $read = $this->definition->getReferenceEntity('library');
         $expected = 'library';

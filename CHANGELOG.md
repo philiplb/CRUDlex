@@ -24,6 +24,8 @@ Released: Upcoming
     - basename -> basename
     - formatDate -> formatDate
     - formatDateTime -> formatDateTime
+- Attention: Replaced the following functions of the class EntityDefinition with getSubTypeField:
+    - getReferenceNameField
 - Switched to a flag-sprites.com generated css sprite for the language flags
 - Updated dependencies:
     - "silex/silex": "~2.0"

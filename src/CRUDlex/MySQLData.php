@@ -281,7 +281,7 @@ class MySQLData extends AbstractData {
      * the reference field
      */
     protected function fetchReferencesForField(array &$entities, $field) {
-        $nameField    = $this->definition->getReferenceNameField($field);
+        $nameField    = $this->definition->getSubTypeField($field, 'reference', 'nameField');
         $queryBuilder = $this->database->createQueryBuilder();
 
         $ids = array_map(function(Entity $entity) use ($field) {

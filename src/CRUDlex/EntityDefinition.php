@@ -526,19 +526,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the name field of a reference.
-     *
-     * @param string $fieldName
-     * the field name of the reference
-     *
-     * @return string
-     * the name field of a reference or null on invalid field name
-     */
-    public function getReferenceNameField($fieldName) {
-        return $this->getReferenceValue('reference', $fieldName, 'nameField');
-    }
-
-    /**
      * Gets the entity field of a reference.
      *
      * @param string $fieldName
