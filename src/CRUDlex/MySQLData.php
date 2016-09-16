@@ -557,8 +557,11 @@ class MySQLData extends AbstractData {
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result         = [];
+        $getValue       = function($nameField, array $manyReference) {
+            return $nameField ? $manyReference[$nameField] : $manyReference['id'];
+        };
         foreach ($manyReferences as $manyReference) {
-            $result[$manyReference['id']] = $nameField ? $manyReference[$nameField] : $manyReference['id'];
+            $result[$manyReference['id']] = $getValue($nameField, $manyReference);
         }
         return $result;
     }
