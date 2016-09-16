@@ -181,11 +181,8 @@ class MySQLData extends AbstractData {
             ;
             $queryResult = $queryBuilder->execute();
             $manyResults = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-            foreach ($manyResults as $manyResult) {
-                if (!in_array($manyResult[$thisField], $manyIds)) {
-                    $manyIds[] = $manyResult[$thisField];
-                }
-            }
+            $manyIds     = array_merge($manyIds, array_column($manyResults, $thisField));
+
         }
         return $manyIds;
     }
