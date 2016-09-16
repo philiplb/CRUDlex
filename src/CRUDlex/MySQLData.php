@@ -545,12 +545,8 @@ class MySQLData extends AbstractData {
      * {@inheritdoc}
      */
     public function getIdToNameMap($entity, $nameField) {
-        $nameSelect   = '';
-        $drivingField = 'id';
-        if ($nameField !== null) {
-            $nameSelect   = ',`'.$nameField.'`';
-            $drivingField = $nameField;
-        }
+        $nameSelect   = $nameField !== null ? ',`'.$nameField.'`' : '';
+        $drivingField = $nameField ?: 'id';
 
         $table        = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
         $queryBuilder = $this->database->createQueryBuilder();
