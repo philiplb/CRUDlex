@@ -503,7 +503,7 @@ class MySQLData extends AbstractData {
             $id = $this->database->lastInsertId();
         }
 
-        $this->enrichEntityWithMetaData($entity, $id);
+        $this->enrichEntityWithMetaData($id, $entity);
 
         $this->saveMany($entity);
 
