@@ -127,6 +127,25 @@ abstract class AbstractData {
         }
     }
 
+
+    /**
+     * Enriches an entity with metadata:
+     * id, version, created_at, updated_at
+     *
+     * @param $id
+     * the id of the entity to enrich
+     * @param Entity $entity
+     * the entity to enrich
+     */
+    protected function enrichEntityWithMetaData($id, Entity $entity) {
+        $entity->set('id', $id);
+        $createdEntity = $this->get($entity->get('id'));
+        $entity->set('version', $createdEntity->get('version'));
+        $entity->set('created_at', $createdEntity->get('created_at'));
+        $entity->set('updated_at', $createdEntity->get('updated_at'));
+    }
+
+
     /**
      * Adds an event to fire for the given parameters. The event function must
      * have this signature:

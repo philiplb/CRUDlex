@@ -503,12 +503,7 @@ class MySQLData extends AbstractData {
             $id = $this->database->lastInsertId();
         }
 
-        $entity->set('id', $id);
-
-        $createdEntity = $this->get($entity->get('id'));
-        $entity->set('version', $createdEntity->get('version'));
-        $entity->set('created_at', $createdEntity->get('created_at'));
-        $entity->set('updated_at', $createdEntity->get('updated_at'));
+        $this->enrichEntityWithMetaData($entity, $id);
 
         $this->saveMany($entity);
 
