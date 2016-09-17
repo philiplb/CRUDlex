@@ -628,24 +628,19 @@ class MySQLData extends AbstractData {
         $thatEntity   = $this->definition->getSubTypeField($field, 'many', 'entity');
         $entityTable  = $this->definition->getServiceProvider()->getData($thatEntity)->getDefinition()->getTable();
         $queryBuilder = $this->database->createQueryBuilder();
-        $queryBuilder
-            ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that')
+        $queryBuilder->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that')
             ->from('`'.$field.'`', 't1')
             ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
-            ->andWhere('t2.deleted_at IS NULL')
+            ->where('t2.deleted_at IS NULL')
             ->orderBy('this, that');
         if ($excludeId) {
-            $queryBuilder
-                ->andWhere('t1.`'.$thisField.'` != ?')
-                ->setParameter(0, $excludeId)
-            ;
+            $queryBuilder->andWhere('t1.`'.$thisField.'` != ?')->setParameter(0, $excludeId);
         }
-        $queryResult  = $queryBuilder->execute();
-        $existingMany = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $existingMap  = [];
-        foreach ($existingMany as $existing) {
-            $existingMap[$existing['this']][] = $existing['that'];
-        }
+        $existingMany = $queryBuilder->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $existingMap = array_reduce($existingMany, function(&$carry, $existing) {
+            $carry[$existing['this']][] = $existing['that'];
+            return $carry;
+        }, []);
         sort($thatIds);
         return in_array($thatIds, array_values($existingMap));
     }
