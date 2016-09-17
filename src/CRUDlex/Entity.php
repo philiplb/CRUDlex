@@ -44,7 +44,7 @@ class Entity {
      */
     protected function toType($value, $type) {
         if (in_array($type, ['integer', 'float']) && !in_array($value, ['', null])) {
-            settype($value, $type == 'integer' ? 'int' : 'float');
+            settype($value, $type);
             return $value;
         }
         if ($type == 'boolean') {
