@@ -43,18 +43,14 @@ class Entity {
      * the converted value
      */
     protected function toType($value, $type) {
-        if (in_array($type, ['integer', 'float']) && $value !== '' && $value !== null) {
+        if (in_array($type, ['integer', 'float']) && !in_array($value, ['', null])) {
             settype($value, $type == 'integer' ? 'int' : 'float');
         } else if ($type == 'boolean') {
-            $value = $value && $value !== '0';
-        } else if ($type == 'reference') {
-            $value = $value !== '' ? $value : null;
+            $value = (bool)$value;
         } else if ($type == 'many') {
             $value = $value ?: [];
-        } else if (in_array($type, ['datetime', 'date'])) {
-            $value = $value === '' ? null : $value;
         }
-        return $value;
+        return $value ?: null;
     }
 
     /**
