@@ -47,11 +47,9 @@ class Entity {
             settype($value, $type);
         } else if ($type == 'boolean') {
             $value = $value && $value !== '0';
-        } else if ($type == 'reference') {
-            $value = $value !== '' ? $value : null;
         } else if ($type == 'many') {
             $value = $value ?: [];
-        } else if (in_array($type, ['datetime', 'date'])) {
+        } else if (in_array($type, ['datetime', 'date', 'reference'])) {
             $value = $value === '' ? null : $value;
         }
         return $value;
