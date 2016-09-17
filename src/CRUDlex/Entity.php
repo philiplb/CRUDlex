@@ -45,10 +45,13 @@ class Entity {
     protected function toType($value, $type) {
         if (in_array($type, ['integer', 'float']) && !in_array($value, ['', null])) {
             settype($value, $type == 'integer' ? 'int' : 'float');
-        } else if ($type == 'boolean') {
-            $value = (bool)$value;
-        } else if ($type == 'many') {
-            $value = $value ?: [];
+            return $value;
+        }
+        if ($type == 'boolean') {
+            return (bool)$value;
+        }
+        if ($type == 'many') {
+            return $value ?: [];
         }
         return $value ?: null;
     }
