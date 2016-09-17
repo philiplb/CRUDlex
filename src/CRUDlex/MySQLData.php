@@ -633,7 +633,7 @@ class MySQLData extends AbstractData {
             ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
             ->where('t2.deleted_at IS NULL')
             ->orderBy('this, that');
-        if ($excludeId) {
+        if ($excludeId !== null) {
             $queryBuilder->andWhere('t1.`'.$thisField.'` != ?')->setParameter(0, $excludeId);
         }
         $existingMany = $queryBuilder->execute()->fetchAll(\PDO::FETCH_ASSOC);
