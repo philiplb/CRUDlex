@@ -46,7 +46,7 @@ class Entity {
         if (in_array($type, ['integer', 'float']) && $value !== '' && $value !== null) {
             settype($value, $type);
         } else if ($type == 'boolean') {
-            $value = $value && $value !== '0';
+            $value = (bool)$value;
         } else if ($type == 'many') {
             $value = $value ?: [];
         } else if (in_array($type, ['datetime', 'date', 'reference'])) {
