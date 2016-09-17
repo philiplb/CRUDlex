@@ -514,19 +514,16 @@ class MySQLData extends AbstractData {
      */
     public function update(Entity $entity) {
 
-        $result = $this->shouldExecuteEvents($entity, 'before', 'update');
-        if (!$result) {
+        if (!$this->shouldExecuteEvents($entity, 'before', 'update')) {
             return false;
         }
 
-        $formFields   = $this->getFormFields();
         $queryBuilder = $this->database->createQueryBuilder();
-        $queryBuilder
-            ->update('`'.$this->definition->getTable().'`')
+        $queryBuilder->update('`'.$this->definition->getTable().'`')
             ->set('updated_at', 'UTC_TIMESTAMP()')
             ->set('version', 'version + 1')
             ->where('id = ?')
-            ->setParameter(count($formFields), $entity->get('id'));
+            ->setParameter(count($this->getFormFields()), $entity->get('id'));
 
         $this->setValuesAndParameters($entity, $queryBuilder, 'set');
         $affected = $queryBuilder->execute();
