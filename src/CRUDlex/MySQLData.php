@@ -637,7 +637,7 @@ class MySQLData extends AbstractData {
             $queryBuilder->andWhere('t1.`'.$thisField.'` != ?')->setParameter(0, $excludeId);
         }
         $existingMany = $queryBuilder->execute()->fetchAll(\PDO::FETCH_ASSOC);
-        $existingMap = array_reduce($existingMany, function(&$carry, $existing) {
+        $existingMap  = array_reduce($existingMany, function(&$carry, $existing) {
             $carry[$existing['this']][] = $existing['that'];
             return $carry;
         }, []);
