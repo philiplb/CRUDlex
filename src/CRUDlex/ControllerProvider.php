@@ -263,31 +263,15 @@ class ControllerProvider implements ControllerProviderInterface {
 
         $class   = get_class($this);
         $factory = $app['controllers_factory'];
-        $factory->get('/resource/static', $class.'::staticFile')
-                ->bind('static');
-        $factory->match('/{entity}/create', $class.'::create')
-                ->bind('crudCreate')
-                ->before($entityCheck);
-        $factory->match('/{entity}', $class.'::showList')
-                ->bind('crudList')
-                ->before($entityCheck);
-        $factory->match('/{entity}/{id}', $class.'::show')
-                ->bind('crudShow')
-                ->before($entityCheck);
-        $factory->match('/{entity}/{id}/edit', $class.'::edit')
-                ->bind('crudEdit')
-                ->before($entityCheck);
-        $factory->post('/{entity}/{id}/delete', $class.'::delete')
-                ->bind('crudDelete')
-                ->before($entityCheck);
-        $factory->match('/{entity}/{id}/{field}/file', $class.'::renderFile')
-                ->bind('crudRenderFile')
-                ->before($entityCheck);
-        $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')
-                ->bind('crudDeleteFile')
-                ->before($entityCheck);
-        $factory->get('/setting/locale/{locale}', $class.'::setLocale')
-                ->bind('crudSetLocale');
+        $factory->get('/resource/static', $class.'::staticFile')->bind('static');
+        $factory->match('/{entity}/create', $class.'::create')->bind('crudCreate')->before($entityCheck);
+        $factory->match('/{entity}', $class.'::showList')->bind('crudList')->before($entityCheck);
+        $factory->match('/{entity}/{id}', $class.'::show')->bind('crudShow')->before($entityCheck);
+        $factory->match('/{entity}/{id}/edit', $class.'::edit')->bind('crudEdit')->before($entityCheck);
+        $factory->post('/{entity}/{id}/delete', $class.'::delete')->bind('crudDelete')->before($entityCheck);
+        $factory->match('/{entity}/{id}/{field}/file', $class.'::renderFile')->bind('crudRenderFile')->before($entityCheck);
+        $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')->bind('crudDeleteFile')->before($entityCheck);
+        $factory->get('/setting/locale/{locale}', $class.'::setLocale')->bind('crudSetLocale');
 
         return $factory;
     }
