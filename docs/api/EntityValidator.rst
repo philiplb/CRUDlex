@@ -20,10 +20,10 @@ CRUDlex\\EntityValidator
 
         The entities definition.
 
-    .. php:method:: fieldToRules($field, AbstractData $data, Validator $validator)
+    .. php:method:: fieldTypeToRules($field, AbstractData $data, Validator $validator)
 
         Builds up the validation rules for a single field according to the
-        entity definition.
+        entity definition type.
 
         :type $field: string
         :param $field: the field for the rules
@@ -31,6 +31,17 @@ CRUDlex\\EntityValidator
         :param $data: the data instance to use for validation
         :type $validator: Validator
         :param $validator: the validator to use
+        :returns: array the validation rules for the field
+
+    .. php:method:: fieldConstraintsToRules($field, AbstractData $data)
+
+        Builds up the validation rules for a single field according to the
+        entity definition constraints.
+
+        :type $field: string
+        :param $field: the field for the rules
+        :type $data: AbstractData
+        :param $data: the data instance to use for validation
         :returns: array the validation rules for the field
 
     .. php:method:: buildUpRules(AbstractData $data, Validator $validator)
