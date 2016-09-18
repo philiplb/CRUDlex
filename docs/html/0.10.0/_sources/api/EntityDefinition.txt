@@ -110,52 +110,6 @@ CRUDlex\\EntityDefinition
         :param $exclude: the field names to exclude
         :returns: array all field names excluding the given ones
 
-    .. php:method:: getFieldValue($name, $key, $default = null)
-
-        Gets the value of a field key.
-
-        :type $name: string
-        :param $name: the name of the field
-        :type $key: string
-        :param $key: the value of the key
-        :type $default: mixed
-        :param $default: the default value to return if nothing is found
-        :returns: mixed the value of the field key or null if not existing
-
-    .. php:method:: setFieldValue($name, $key, $value)
-
-        Sets the value of a field key. If the field or the key in the field
-        don't exist, they get created.
-
-        :type $name: string
-        :param $name: the name of the field
-        :type $key: string
-        :param $key: the value of the key
-        :type $value: mixed
-        :param $value: the new value
-
-    .. php:method:: getReferenceValue($type, $fieldName, $key)
-
-        Gets the value of a reference field.
-
-        :type $type: string
-        :param $type: the reference type like "reference" or "many"
-        :type $fieldName: string
-        :param $fieldName: the field name of the reference
-        :type $key: string
-        :param $key: the key of the reference value
-        :returns: string the value of the reference field
-
-    .. php:method:: isConstraint($fieldName, $constraint)
-
-        Checks if the given field has the given constraint.
-
-        :type $fieldName: string
-        :param $fieldName: the field name maybe having the constraint
-        :type $constraint: string
-        :param $constraint: the constraint to check, 'required' or 'unique'
-        :returns: boolean true if the given field has the given constraint
-
     .. php:method:: checkFieldNames($reference, $fieldNames)
 
         Checks whether the given field names are declared and existing.
@@ -312,124 +266,6 @@ CRUDlex\\EntityDefinition
         :type $value: string
         :param $value: the new field type
 
-    .. php:method:: isRequired($fieldName)
-
-        Gets whether a field is required.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :returns: boolean true if so
-
-    .. php:method:: setRequired($fieldName, $value)
-
-        Sets whether a field is required.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :type $value: boolean
-        :param $value: the new required state
-
-    .. php:method:: isUnique($fieldName)
-
-        Gets whether a field is unique.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :returns: boolean true if so
-
-    .. php:method:: setUnique($fieldName, $value)
-
-        Sets whether a field is unique.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :type $value: boolean
-        :param $value: true if so
-
-    .. php:method:: getReferenceNameField($fieldName)
-
-        Gets the name field of a reference.
-
-        :type $fieldName: string
-        :param $fieldName: the field name of the reference
-        :returns: string the name field of a reference or null on invalid field name
-
-    .. php:method:: getReferenceEntity($fieldName)
-
-        Gets the entity field of a reference.
-
-        :type $fieldName: string
-        :param $fieldName: the field name of the reference
-        :returns: string the entity field of a reference or null on invalid field name
-
-    .. php:method:: getPath($fieldName)
-
-        Gets the file path of a field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :returns: string the file path of a field or null on invalid field name
-
-    .. php:method:: setPath($fieldName, $value)
-
-        Sets the file path of a field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :type $value: string
-        :param $value: the file path of a field or null on invalid field name
-
-    .. php:method:: getValue($fieldName)
-
-        Gets the value of a fixed field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :returns: string the value of a fixed field or null on invalid field name
-
-    .. php:method:: setValue($fieldName, $value)
-
-        Sets the value of a fixed field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :type $value: string
-        :param $value: the new value for the fixed field
-
-    .. php:method:: getItems($fieldName)
-
-        Gets the items of a set field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :returns: array the items of the set field or empty array on invalid field name
-
-    .. php:method:: setItems($fieldName, $value)
-
-        Sets the items of a set field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :type $value: string
-        :param $value: the new items of the set field
-
-    .. php:method:: getFloatStep($fieldName)
-
-        Gets the step size of a float field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :returns: array the step size of a float field or null on invalid field name
-
-    .. php:method:: setFloatStep($fieldName, $value)
-
-        Sets the step size of a float field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :type $value: string
-        :param $value: the new step size of the float field
-
     .. php:method:: getFieldLabel($fieldName)
 
         Gets the label of a field.
@@ -472,23 +308,6 @@ CRUDlex\\EntityDefinition
 
         :type $label: string
         :param $label: the new label for the entity
-
-    .. php:method:: getDescription($fieldName)
-
-        Gets the description of a field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :returns: string the description of the field
-
-    .. php:method:: setDescription($fieldName, $value)
-
-        Sets the description of a field.
-
-        :type $fieldName: string
-        :param $fieldName: the field name
-        :type $value: string
-        :param $value: the new description of the field
 
     .. php:method:: addChild($table, $fieldName, $entity)
 
@@ -558,3 +377,27 @@ CRUDlex\\EntityDefinition
         :type $key: string
         :param $key: the key of the value
         :returns: string the value of the sub field
+
+    .. php:method:: getField($name, $key, $default = null)
+
+        Gets the value of a field key.
+
+        :type $name: string
+        :param $name: the name of the field
+        :type $key: string
+        :param $key: the value of the key
+        :type $default: mixed
+        :param $default: the default value to return if nothing is found
+        :returns: mixed the value of the field key or null if not existing
+
+    .. php:method:: setField($name, $key, $value)
+
+        Sets the value of a field key. If the field or the key in the field
+        don't exist, they get created.
+
+        :type $name: string
+        :param $name: the name of the field
+        :type $key: string
+        :param $key: the value of the key
+        :type $value: mixed
+        :param $value: the new value

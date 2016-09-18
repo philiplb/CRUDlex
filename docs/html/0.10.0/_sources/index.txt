@@ -48,6 +48,7 @@ Contents:
    api/ReferenceValidator
    api/ServiceProvider
    api/StreamedFileResponse
+   api/TwigExtensions
    api/UniqueValidator
 
 Indices and tables

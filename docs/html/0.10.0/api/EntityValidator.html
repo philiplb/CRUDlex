@@ -111,6 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
@@ -177,10 +178,10 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="EntityValidator::fieldToRules">
-<code class="descname">fieldToRules</code><span class="sig-paren">(</span><em>$field</em>, <em>AbstractData $data</em>, <em>Validator $validator</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityValidator::fieldToRules" title="Permalink to this definition">¶</a></dt>
+<dt id="EntityValidator::fieldTypeToRules">
+<code class="descname">fieldTypeToRules</code><span class="sig-paren">(</span><em>$field</em>, <em>AbstractData $data</em>, <em>Validator $validator</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityValidator::fieldTypeToRules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds up the validation rules for a single field according to the
-entity definition.</p>
+entity definition type.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -189,6 +190,28 @@ entity definition.</p>
 <li><strong>$field</strong> (<em>string</em>) &#8211; the field for the rules</li>
 <li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance to use for validation</li>
 <li><strong>$validator</strong> (<em>Validator</em>) &#8211; the validator to use</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the validation rules for the field</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityValidator::fieldConstraintsToRules">
+<code class="descname">fieldConstraintsToRules</code><span class="sig-paren">(</span><em>$field</em>, <em>AbstractData $data</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityValidator::fieldConstraintsToRules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds up the validation rules for a single field according to the
+entity definition constraints.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$field</strong> (<em>string</em>) &#8211; the field for the rules</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance to use for validation</li>
 </ul>
 </td>
 </tr>

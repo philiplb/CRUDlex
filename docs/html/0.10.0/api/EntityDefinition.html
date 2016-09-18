@@ -111,6 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
@@ -285,91 +286,6 @@ field names.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array all field names excluding the given ones</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getFieldValue">
-<code class="descname">getFieldValue</code><span class="sig-paren">(</span><em>$name</em>, <em>$key</em>, <em>$default = null</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFieldValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the value of a field key.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$name</strong> (<em>string</em>) &#8211; the name of the field</li>
-<li><strong>$key</strong> (<em>string</em>) &#8211; the value of the key</li>
-<li><strong>$default</strong> (<em>mixed</em>) &#8211; the default value to return if nothing is found</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">mixed the value of the field key or null if not existing</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setFieldValue">
-<code class="descname">setFieldValue</code><span class="sig-paren">(</span><em>$name</em>, <em>$key</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setFieldValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the value of a field key. If the field or the key in the field
-don&#8217;t exist, they get created.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$name</strong> (<em>string</em>) &#8211; the name of the field</li>
-<li><strong>$key</strong> (<em>string</em>) &#8211; the value of the key</li>
-<li><strong>$value</strong> (<em>mixed</em>) &#8211; the new value</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getReferenceValue">
-<code class="descname">getReferenceValue</code><span class="sig-paren">(</span><em>$type</em>, <em>$fieldName</em>, <em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getReferenceValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the value of a reference field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$type</strong> (<em>string</em>) &#8211; the reference type like &#8220;reference&#8221; or &#8220;many&#8221;</li>
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name of the reference</li>
-<li><strong>$key</strong> (<em>string</em>) &#8211; the key of the reference value</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the value of the reference field</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::isConstraint">
-<code class="descname">isConstraint</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$constraint</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isConstraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if the given field has the given constraint.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name maybe having the constraint</li>
-<li><strong>$constraint</strong> (<em>string</em>) &#8211; the constraint to check, &#8216;required&#8217; or &#8216;unique&#8217;</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true if the given field has the given constraint</p>
 </td>
 </tr>
 </tbody>
@@ -712,274 +628,6 @@ id or the created_at.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="EntityDefinition::isRequired">
-<code class="descname">isRequired</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isRequired" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets whether a field is required.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true if so</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setRequired">
-<code class="descname">setRequired</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setRequired" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets whether a field is required.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-<li><strong>$value</strong> (<em>boolean</em>) &#8211; the new required state</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::isUnique">
-<code class="descname">isUnique</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isUnique" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets whether a field is unique.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true if so</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setUnique">
-<code class="descname">setUnique</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setUnique" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets whether a field is unique.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-<li><strong>$value</strong> (<em>boolean</em>) &#8211; true if so</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getReferenceNameField">
-<code class="descname">getReferenceNameField</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getReferenceNameField" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the name field of a reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name of the reference</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the name field of a reference or null on invalid field name</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getReferenceEntity">
-<code class="descname">getReferenceEntity</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getReferenceEntity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the entity field of a reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name of the reference</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the entity field of a reference or null on invalid field name</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getPath">
-<code class="descname">getPath</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getPath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the file path of a field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the file path of a field or null on invalid field name</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setPath">
-<code class="descname">setPath</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setPath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the file path of a field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-<li><strong>$value</strong> (<em>string</em>) &#8211; the file path of a field or null on invalid field name</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getValue">
-<code class="descname">getValue</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the value of a fixed field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the value of a fixed field or null on invalid field name</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setValue">
-<code class="descname">setValue</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the value of a fixed field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-<li><strong>$value</strong> (<em>string</em>) &#8211; the new value for the fixed field</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getItems">
-<code class="descname">getItems</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getItems" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the items of a set field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the items of the set field or empty array on invalid field name</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setItems">
-<code class="descname">setItems</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setItems" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the items of a set field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-<li><strong>$value</strong> (<em>string</em>) &#8211; the new items of the set field</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getFloatStep">
-<code class="descname">getFloatStep</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFloatStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the step size of a float field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the step size of a float field or null on invalid field name</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setFloatStep">
-<code class="descname">setFloatStep</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setFloatStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the step size of a float field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-<li><strong>$value</strong> (<em>string</em>) &#8211; the new step size of the float field</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="EntityDefinition::getFieldLabel">
 <code class="descname">getFieldLabel</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFieldLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the label of a field.</p>
@@ -1072,44 +720,6 @@ id or the created_at.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>$label</strong> (<em>string</em>) &#8211; the new label for the entity</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::getDescription">
-<code class="descname">getDescription</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getDescription" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the description of a field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the description of the field</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="EntityDefinition::setDescription">
-<code class="descname">setDescription</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setDescription" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the description of a field.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fieldName</strong> (<em>string</em>) &#8211; the field name</li>
-<li><strong>$value</strong> (<em>string</em>) &#8211; the new description of the field</li>
 </ul>
 </td>
 </tr>
@@ -1260,6 +870,48 @@ definition has a reference to this one.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the value of the sub field</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getField">
+<code class="descname">getField</code><span class="sig-paren">(</span><em>$name</em>, <em>$key</em>, <em>$default = null</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the value of a field key.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$name</strong> (<em>string</em>) &#8211; the name of the field</li>
+<li><strong>$key</strong> (<em>string</em>) &#8211; the value of the key</li>
+<li><strong>$default</strong> (<em>mixed</em>) &#8211; the default value to return if nothing is found</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">mixed the value of the field key or null if not existing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setField">
+<code class="descname">setField</code><span class="sig-paren">(</span><em>$name</em>, <em>$key</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the value of a field key. If the field or the key in the field
+don&#8217;t exist, they get created.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$name</strong> (<em>string</em>) &#8211; the name of the field</li>
+<li><strong>$key</strong> (<em>string</em>) &#8211; the value of the key</li>
+<li><strong>$value</strong> (<em>mixed</em>) &#8211; the new value</li>
+</ul>
 </td>
 </tr>
 </tbody>

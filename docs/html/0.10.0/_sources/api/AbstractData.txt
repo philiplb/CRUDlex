@@ -85,6 +85,16 @@ CRUDlex\\AbstractData
         :type $function: \Closure
         :param $function: the function to perform, takes $entity, $entityName and $field as parameter
 
+    .. php:method:: enrichEntityWithMetaData($id, Entity $entity)
+
+        Enriches an entity with metadata:
+        id, version, created_at, updated_at
+
+        :type $id: mixed
+        :param $id: the id of the entity to enrich
+        :type $entity: Entity
+        :param $entity: the entity to enrich
+
     .. php:method:: pushEvent($moment, $action, Closure $function)
 
         Adds an event to fire for the given parameters. The event function must

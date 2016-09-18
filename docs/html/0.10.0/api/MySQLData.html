@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 </ul>
 
@@ -718,6 +719,25 @@ as keys and field values as values.</p>
 <li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the just created entity</li>
 <li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
 <li><strong>$function</strong> (<em>Closure</em>) &#8211; the function to perform, takes $entity, $entityName and $field as parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::enrichEntityWithMetaData">
+<code class="descname">enrichEntityWithMetaData</code><span class="sig-paren">(</span><em>$id</em>, <em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::enrichEntityWithMetaData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enriches an entity with metadata:
+id, version, created_at, updated_at</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$id</strong> (<em>mixed</em>) &#8211; the id of the entity to enrich</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to enrich</li>
 </ul>
 </td>
 </tr>

@@ -21,6 +21,18 @@ CRUDlex\\UniqueValidator
         :param $field:
         :returns: boolean true if it is a valid unique many-to-many constraint
 
+    .. php:method:: isValidUnique($value, AbstractData $data, Entity $entity, $field)
+
+        Performs the regular unique validation.
+
+        :param $value:
+        :type $data: AbstractData
+        :param $data:
+        :type $entity: Entity
+        :param $entity:
+        :param $field:
+        :returns: boolean true if everything is valid
+
     .. php:method:: isValid($value, $parameters)
 
         {@inheritdoc}
