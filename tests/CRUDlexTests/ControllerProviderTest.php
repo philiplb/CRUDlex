@@ -564,7 +564,7 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("File could not be deleted.")'));
 
-        $this->dataBook->getDefinition()->setRequired('cover', false);
+        $this->dataBook->getDefinition()->setField('cover', 'required', false);
 
         // Canceling events
         $before = function(Entity $entity) {

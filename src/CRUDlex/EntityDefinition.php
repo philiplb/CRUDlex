@@ -116,25 +116,6 @@ class EntityDefinition {
     }
 
     /**
-     * Checks if the given field has the given constraint.
-     *
-     * @param string $fieldName
-     * the field name maybe having the constraint
-     * @param string $constraint
-     * the constraint to check, 'required' or 'unique'
-     *
-     * @return boolean
-     * true if the given field has the given constraint
-     */
-    protected function isConstraint($fieldName, $constraint) {
-        $result = $this->getField($fieldName, $constraint);
-        if ($result === null) {
-            $result = false;
-        }
-        return $result;
-    }
-
-    /**
      * Checks whether the given field names are declared and existing.
      *
      * @param string $reference
@@ -409,31 +390,6 @@ class EntityDefinition {
      */
     public function setType($fieldName, $value) {
         $this->setField($fieldName, 'type', $value);
-    }
-
-    /**
-     * Gets whether a field is required.
-     *
-     * @param string $fieldName
-     * the field name
-     *
-     * @return boolean
-     * true if so
-     */
-    public function isRequired($fieldName) {
-        return $this->isConstraint($fieldName, 'required');
-    }
-
-    /**
-     * Sets whether a field is required.
-     *
-     * @param string $fieldName
-     * the field name
-     * @param boolean $value
-     * the new required state
-     */
-    public function setRequired($fieldName, $value) {
-        $this->setField($fieldName, 'required', $value);
     }
 
     /**

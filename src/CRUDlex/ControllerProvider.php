@@ -544,7 +544,7 @@ class ControllerProvider implements ControllerProviderInterface {
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
-        if (!$crudData->getDefinition()->isRequired($field) && $crudData->deleteFile($instance, $entity, $field)) {
+        if (!$crudData->getDefinition()->getField($field, 'required', false) && $crudData->deleteFile($instance, $entity, $field)) {
             $instance->set($field, '');
             $crudData->update($instance);
             $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.file.deleted'));

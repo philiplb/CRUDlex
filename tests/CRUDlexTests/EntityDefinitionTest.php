@@ -118,17 +118,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definitionLibrary->setListFields($old);
     }
 
-    public function testIsRequired() {
-        $read = $this->definition->isRequired('title');
-        $this->assertTrue($read);
-        $read = $this->definition->isRequired('release');
-        $this->assertFalse($read);
-        $read = $this->definition->isRequired('false');
-        $this->assertFalse($read);
-        $read = $this->definition->isRequired(null);
-        $this->assertFalse($read);
-    }
-
     public function testGetSetFieldLabel() {
         $read = $this->definition->getFieldLabel('library');
         $expected = 'Library';
@@ -196,20 +185,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             ['foo', 'bar', 'bla']
         ];
         $this->assertSame($read, $expected);
-    }
-
-    public function testSetRequired() {
-        $this->definition->setRequired('cover', false);
-        $read = $this->definition->isRequired('cover');
-        $expected = false;
-        $this->assertSame($read, $expected);
-        $this->definition->setRequired('cover', true);
-        $read = $this->definition->isRequired('cover');
-        $expected = true;
-        $this->assertSame($read, $expected);
-        $this->definition->setRequired('foo', true);
-        $read = $this->definition->isRequired('foo');
-        $this->assertTrue($read);
     }
 
     public function testGetSetChildrenLabelFields() {

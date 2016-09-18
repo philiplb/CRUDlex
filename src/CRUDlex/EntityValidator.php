@@ -79,7 +79,7 @@ class EntityValidator {
      */
     protected function fieldConstraintsToRules($field, AbstractData $data) {
         $rules = [];
-        if ($this->definition->isRequired($field)) {
+        if ($this->definition->getField($field, 'required', false)) {
             $rules[] = ['required'];
         }
         if ($this->definition->getField($field, 'unique', false)) {

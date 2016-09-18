@@ -11,7 +11,7 @@
     {{ definition.getFieldLabel(field) }}
     {% if annotations %}
         {% set markers = [] %}
-        {% if definition.isRequired(field) %}
+        {% if definition.getField(field, 'required', false) %}
             {% set markers = markers|merge(['crudlex.field.required'|trans]) %}
         {% endif %}
         {% if definition.getField(field, 'unique', false) %}
