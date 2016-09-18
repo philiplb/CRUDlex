@@ -512,32 +512,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the items of a set field.
-     *
-     * @param string $fieldName
-     * the field name
-     *
-     * @return array
-     * the items of the set field or empty array on invalid field name
-     */
-    public function getItems($fieldName) {
-        $result = $this->getField($fieldName, 'items', []);
-        return $result;
-    }
-
-    /**
-     * Sets the items of a set field.
-     *
-     * @param string $fieldName
-     * the field name
-     * @param string $value
-     * the new items of the set field
-     */
-    public function setItems($fieldName, $value) {
-        $this->setField($fieldName, 'items', $value);
-    }
-
-    /**
      * Gets the label of a field.
      *
      * @param string $fieldName

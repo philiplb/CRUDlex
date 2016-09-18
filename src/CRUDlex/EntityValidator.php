@@ -45,7 +45,7 @@ class EntityValidator {
      * the validation rules for the field
      */
     protected function fieldTypeToRules($field, AbstractData $data, Validator $validator) {
-        $setItems     = $this->definition->getItems($field);
+        $setItems     = $this->definition->getField($field, 'items');
         $rulesMapping = [
             'boolean' => ['boolean'],
             'float' => ['floating'],
