@@ -45,7 +45,7 @@ class EntityValidator {
      * the validation rules for the field
      */
     protected function fieldTypeToRules($field, AbstractData $data, Validator $validator) {
-        $setItems     = $this->definition->getField($field, 'items');
+        $setItems     = $this->definition->getField($field, 'items', []);
         $rulesMapping = [
             'boolean' => ['boolean'],
             'float' => ['floating'],
@@ -82,7 +82,7 @@ class EntityValidator {
         if ($this->definition->isRequired($field)) {
             $rules[] = ['required'];
         }
-        if ($this->definition->getField($field, 'unique')) {
+        if ($this->definition->getField($field, 'unique', false)) {
             $rules[] = ['unique', $data, $this->entity, $field];
         }
         return $rules;
