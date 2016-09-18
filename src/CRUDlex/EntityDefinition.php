@@ -487,31 +487,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the value of a fixed field.
-     *
-     * @param string $fieldName
-     * the field name
-     *
-     * @return string
-     * the value of a fixed field or null on invalid field name
-     */
-    public function getValue($fieldName) {
-        return $this->getField($fieldName, 'value');
-    }
-
-    /**
-     * Sets the value of a fixed field.
-     *
-     * @param string $fieldName
-     * the field name
-     * @param string $value
-     * the new value for the fixed field
-     */
-    public function setValue($fieldName, $value) {
-        $this->setField($fieldName, 'value', $value);
-    }
-
-    /**
      * Gets the label of a field.
      *
      * @param string $fieldName
