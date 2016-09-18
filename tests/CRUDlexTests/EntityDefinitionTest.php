@@ -429,4 +429,30 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
+    public function testGetSetField() {
+        $read = $this->definition->getField('author', 'description');
+        $expected = 'The Author of the Book';
+        $this->assertSame($expected, $read);
+        $read = $this->definition->getField('title', 'description');
+        $this->assertNull($read);
+        $read = $this->definition->getField('foo', 'description');
+        $this->assertNull($read);
+        $read = $this->definition->getField(null, 'description');
+        $this->assertNull($read);
+        $read = $this->definition->getField('author', null);
+        $this->assertNull($read);
+        $read = $this->definition->getField('foo', 'bar');
+        $this->assertNull($read);
+        $read = $this->definition->getField(null, null);
+        $this->assertNull($read);
+        $read = $this->definition->getField(null, null, 'foo');
+        $expected = 'foo';
+        $this->assertSame($expected, $read);
+
+        $expected = 'The Great Author of the Book';
+        $this->definition->setField('description', 'author', $expected);
+        $read = $this->definition->getField('description', 'author');
+        $this->assertSame($expected, $read);
+    }
+
 }

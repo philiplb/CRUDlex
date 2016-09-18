@@ -116,44 +116,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the value of a field key.
-     *
-     * @param string $name
-     * the name of the field
-     * @param string $key
-     * the value of the key
-     * @param mixed $default
-     * the default value to return if nothing is found
-     *
-     * @return mixed
-     * the value of the field key or null if not existing
-     */
-    protected function getFieldValue($name, $key, $default = null) {
-        if (array_key_exists($name, $this->fields) && array_key_exists($key, $this->fields[$name])) {
-            return $this->fields[$name][$key];
-        }
-        return $default;
-    }
-
-    /**
-     * Sets the value of a field key. If the field or the key in the field
-     * don't exist, they get created.
-     *
-     * @param string $name
-     * the name of the field
-     * @param string $key
-     * the value of the key
-     * @param mixed $value
-     * the new value
-     */
-    protected function setFieldValue($name, $key, $value) {
-        if (!array_key_exists($name, $this->fields)) {
-            $this->fields[$name] = [];
-        }
-        $this->fields[$name][$key] = $value;
-    }
-
-    /**
      * Checks if the given field has the given constraint.
      *
      * @param string $fieldName
@@ -165,7 +127,7 @@ class EntityDefinition {
      * true if the given field has the given constraint
      */
     protected function isConstraint($fieldName, $constraint) {
-        $result = $this->getFieldValue($fieldName, $constraint);
+        $result = $this->getField($fieldName, $constraint);
         if ($result === null) {
             $result = false;
         }
@@ -434,7 +396,7 @@ class EntityDefinition {
         if (in_array($fieldName, ['created_at', 'updated_at', 'deleted_at'])) {
             return 'datetime';
         }
-        return $this->getFieldValue($fieldName, 'type');
+        return $this->getField($fieldName, 'type');
     }
 
     /**
@@ -446,7 +408,7 @@ class EntityDefinition {
      * the new field type
      */
     public function setType($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'type', $value);
+        $this->setField($fieldName, 'type', $value);
     }
 
     /**
@@ -471,7 +433,7 @@ class EntityDefinition {
      * the new required state
      */
     public function setRequired($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'required', $value);
+        $this->setField($fieldName, 'required', $value);
     }
 
     /**
@@ -496,7 +458,7 @@ class EntityDefinition {
      * true if so
      */
     public function setUnique($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'unique', $value);
+        $this->setField($fieldName, 'unique', $value);
     }
 
     /**
@@ -509,7 +471,7 @@ class EntityDefinition {
      * the file path of a field or null on invalid field name
      */
     public function getPath($fieldName) {
-        return $this->getFieldValue($fieldName, 'path');
+        return $this->getField($fieldName, 'path');
     }
 
     /**
@@ -521,7 +483,7 @@ class EntityDefinition {
      * the file path of a field or null on invalid field name
      */
     public function setPath($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'path', $value);
+        $this->setField($fieldName, 'path', $value);
     }
 
     /**
@@ -534,7 +496,7 @@ class EntityDefinition {
      * the value of a fixed field or null on invalid field name
      */
     public function getValue($fieldName) {
-        return $this->getFieldValue($fieldName, 'value');
+        return $this->getField($fieldName, 'value');
     }
 
     /**
@@ -546,7 +508,7 @@ class EntityDefinition {
      * the new value for the fixed field
      */
     public function setValue($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'value', $value);
+        $this->setField($fieldName, 'value', $value);
     }
 
     /**
@@ -559,7 +521,7 @@ class EntityDefinition {
      * the items of the set field or empty array on invalid field name
      */
     public function getItems($fieldName) {
-        $result = $this->getFieldValue($fieldName, 'items', []);
+        $result = $this->getField($fieldName, 'items', []);
         return $result;
     }
 
@@ -572,7 +534,7 @@ class EntityDefinition {
      * the new items of the set field
      */
     public function setItems($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'items', $value);
+        $this->setField($fieldName, 'items', $value);
     }
 
     /**
@@ -585,7 +547,7 @@ class EntityDefinition {
      * the step size of a float field or null on invalid field name
      */
     public function getFloatStep($fieldName) {
-        return $this->getFieldValue($fieldName, 'floatStep');
+        return $this->getField($fieldName, 'floatStep');
     }
 
     /**
@@ -597,7 +559,7 @@ class EntityDefinition {
      * the new step size of the float field
      */
     public function setFloatStep($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'floatStep', $value);
+        $this->setField($fieldName, 'floatStep', $value);
     }
 
     /**
@@ -612,10 +574,10 @@ class EntityDefinition {
      */
     public function getFieldLabel($fieldName) {
 
-        $result = $this->getFieldValue($fieldName, 'label_'.$this->locale);
+        $result = $this->getField($fieldName, 'label_'.$this->locale);
 
         if ($result === null) {
-            $result = $this->getFieldValue($fieldName, 'label');
+            $result = $this->getField($fieldName, 'label');
         }
 
         if ($result === null && array_key_exists($fieldName, $this->standardFieldLabels)) {
@@ -638,7 +600,7 @@ class EntityDefinition {
      * the new label of the field
      */
     public function setFieldLabel($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'label', $value);
+        $this->setField($fieldName, 'label', $value);
     }
 
     /**
@@ -694,7 +656,7 @@ class EntityDefinition {
      * the description of the field
      */
     public function getDescription($fieldName) {
-        return $this->getFieldValue($fieldName, 'description');
+        return $this->getField($fieldName, 'description');
     }
 
     /**
@@ -706,7 +668,7 @@ class EntityDefinition {
      * the new description of the field
      */
     public function setDescription($fieldName, $value) {
-        $this->setFieldValue($fieldName, 'description', $value);
+        $this->setField($fieldName, 'description', $value);
     }
 
     /**
@@ -816,4 +778,43 @@ class EntityDefinition {
 
         return $this->fields[$fieldName][$subType][$key];
     }
+
+    /**
+     * Gets the value of a field key.
+     *
+     * @param string $name
+     * the name of the field
+     * @param string $key
+     * the value of the key
+     * @param mixed $default
+     * the default value to return if nothing is found
+     *
+     * @return mixed
+     * the value of the field key or null if not existing
+     */
+    public function getField($name, $key, $default = null) {
+        if (array_key_exists($name, $this->fields) && array_key_exists($key, $this->fields[$name])) {
+            return $this->fields[$name][$key];
+        }
+        return $default;
+    }
+
+    /**
+     * Sets the value of a field key. If the field or the key in the field
+     * don't exist, they get created.
+     *
+     * @param string $name
+     * the name of the field
+     * @param string $key
+     * the value of the key
+     * @param mixed $value
+     * the new value
+     */
+    public function setField($name, $key, $value) {
+        if (!array_key_exists($name, $this->fields)) {
+            $this->fields[$name] = [];
+        }
+        $this->fields[$name][$key] = $value;
+    }
+
 }
