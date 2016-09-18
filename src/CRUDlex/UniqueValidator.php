@@ -54,10 +54,10 @@ class UniqueValidator implements ValidatorInterface {
      */
     protected function isValidUnique($value, AbstractData $data, Entity $entity, $field)
     {
-        $params = [$field => $value];
+        $params          = [$field => $value];
         $paramsOperators = [$field => '='];
         if ($entity->get('id') !== null) {
-            $params['id'] = $entity->get('id');
+            $params['id']          = $entity->get('id');
             $paramsOperators['id'] = '!=';
         }
         $amount = intval($data->countBy($data->getDefinition()->getTable(), $params, $paramsOperators, true));
