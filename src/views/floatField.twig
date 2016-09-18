@@ -12,4 +12,4 @@
     definition: crudData.getDefinition(),
     annotations: annotations
 } only %}
-<input type="number" step="{{ crudData.getDefinition().getFloatStep(field) }}" class="form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ value }}" name="{{ fieldNamePrefix ~ field }}" />
+<input type="number" step="{{ crudData.getDefinition().getField(field, 'floatStep') }}" class="form-control" id="{{ field }}" placeholder="{{ field }}" value="{{ value }}" name="{{ fieldNamePrefix ~ field }}" />

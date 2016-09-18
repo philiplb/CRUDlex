@@ -538,31 +538,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the step size of a float field.
-     *
-     * @param string $fieldName
-     * the field name
-     *
-     * @return array
-     * the step size of a float field or null on invalid field name
-     */
-    public function getFloatStep($fieldName) {
-        return $this->getField($fieldName, 'floatStep');
-    }
-
-    /**
-     * Sets the step size of a float field.
-     *
-     * @param string $fieldName
-     * the field name
-     * @param string $value
-     * the new step size of the float field
-     */
-    public function setFloatStep($fieldName, $value) {
-        $this->setField($fieldName, 'floatStep', $value);
-    }
-
-    /**
      * Gets the label of a field.
      *
      * @param string $fieldName

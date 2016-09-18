@@ -293,23 +293,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetFloatStep() {
-        $read = $this->definition->getFloatStep('price');
-        $expected = 0.1;
-        $this->assertSame($read, $expected);
-        $read = $this->definition->getFloatStep('title');
-        $this->assertNull($read);
-        $read = $this->definition->getFloatStep('foo');
-        $this->assertNull($read);
-        $read = $this->definition->getFloatStep(null);
-        $this->assertNull($read);
-
-        $expected = 0.2;
-        $this->definition->setFloatStep('price', $expected);
-        $read = $this->definition->getFloatStep('price');
-        $this->assertSame($read, $expected);
-    }
-
     public function testIsSetDeleteCascade() {
         $this->definitionLibrary->setDeleteCascade(true);
         $read = $this->definitionLibrary->isDeleteCascade();
