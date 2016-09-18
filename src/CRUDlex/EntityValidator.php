@@ -81,7 +81,7 @@ class EntityValidator {
      */
     protected function buildUpRules(AbstractData $data, Validator $validator) {
         $fields = $this->definition->getEditableFieldNames();
-        $rules = [];
+        $rules  = [];
         foreach ($fields as $field) {
             $fieldRules = $this->fieldToRules($field, $data, $validator);
             if (!empty($fieldRules)) {
