@@ -251,26 +251,44 @@ class ControllerProvider implements ControllerProviderInterface {
      * the created controller factory
      */
     protected function setupRoutes(Application $app) {
+
+        $self = $this;
+        $entityCheck = function(Request $request, Application $app) use ($self) {
+            $entity = $request->get('entity');
+            $crudData = $app['crud']->getData($entity);
+            if (!$crudData) {
+                return $self->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
+            }
+        };
+
         $class   = get_class($this);
         $factory = $app['controllers_factory'];
         $factory->get('/resource/static', $class.'::staticFile')
                 ->bind('static');
         $factory->match('/{entity}/create', $class.'::create')
-                ->bind('crudCreate');
+                ->bind('crudCreate')
+                ->before($entityCheck);
         $factory->match('/{entity}', $class.'::showList')
-                ->bind('crudList');
+                ->bind('crudList')
+                ->before($entityCheck);
         $factory->match('/{entity}/{id}', $class.'::show')
-                ->bind('crudShow');
+                ->bind('crudShow')
+                ->before($entityCheck);
         $factory->match('/{entity}/{id}/edit', $class.'::edit')
-                ->bind('crudEdit');
+                ->bind('crudEdit')
+                ->before($entityCheck);
         $factory->post('/{entity}/{id}/delete', $class.'::delete')
-                ->bind('crudDelete');
+                ->bind('crudDelete')
+                ->before($entityCheck);
         $factory->match('/{entity}/{id}/{field}/file', $class.'::renderFile')
-                ->bind('crudRenderFile');
+                ->bind('crudRenderFile')
+                ->before($entityCheck);
         $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')
-                ->bind('crudDeleteFile');
+                ->bind('crudDeleteFile')
+                ->before($entityCheck);
         $factory->get('/setting/locale/{locale}', $class.'::setLocale')
                 ->bind('crudSetLocale');
+
         return $factory;
     }
 
@@ -321,10 +339,6 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     public function create(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
-        if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-        }
-
         $instance = $crudData->createEmpty();
         return $this->modifyEntity($app, $crudData, $instance, $entity, false);
     }
@@ -343,10 +357,7 @@ class ControllerProvider implements ControllerProviderInterface {
      * the HTTP response of this action or 404 on invalid input
      */
     public function showList(Request $request, Application $app, $entity) {
-        $crudData = $app['crud']->getData($entity);
-        if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-        }
+        $crudData   = $app['crud']->getData($entity);
         $definition = $crudData->getDefinition();
 
         $filter          = [];
@@ -406,9 +417,6 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     public function show(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
-        if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
@@ -458,9 +466,6 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     public function edit(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
-        if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
@@ -484,9 +489,6 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     public function delete(Application $app, $entity, $id) {
         $crudData = $app['crud']->getData($entity);
-        if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
@@ -529,11 +531,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the rendered file
      */
-    public function renderFile(Application $app, $entity, $id, $field) {
-        $crudData = $app['crud']->getData($entity);
-        if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-        }
+        public function renderFile(Application $app, $entity, $id, $field) {
+        $crudData   = $app['crud']->getData($entity);
         $instance   = $crudData->get($id);
         $definition = $crudData->getDefinition();
         if (!$instance || $definition->getType($field) != 'file' || !$instance->get($field)) {
@@ -559,9 +558,6 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     public function deleteFile(Application $app, $entity, $id, $field) {
         $crudData = $app['crud']->getData($entity);
-        if (!$crudData) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
