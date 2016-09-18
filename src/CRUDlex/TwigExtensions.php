@@ -104,7 +104,7 @@ class TwigExtensions {
 
         $zeroFraction = $float - floor($float) == 0 ? '0' : '';
 
-        // We don't want values like 0.004 converted to  0.00400000000000000008
+        // We don't want values like 0.004 converted to 0.00400000000000000008
         if ($float > 0.0001) {
             return $float.($zeroFraction === '0' ? '.'.$zeroFraction : '');
         }
