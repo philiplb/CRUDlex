@@ -38,6 +38,33 @@ class UniqueValidator implements ValidatorInterface {
     }
 
     /**
+     * Performs the regular unique validation.
+     *
+     * @param $value
+     * the value to validate
+     * @param $data
+     * the data instance to validate with
+     * @param $entity
+     * the entity of the field
+     * @param $field
+     * the field to validate
+     *
+     * @return boolean
+     * true if everything is valid
+     */
+    protected function isValidUnique($value, AbstractData $data, Entity $entity, $field)
+    {
+        $params = [$field => $value];
+        $paramsOperators = [$field => '='];
+        if ($entity->get('id') !== null) {
+            $params['id'] = $entity->get('id');
+            $paramsOperators['id'] = '!=';
+        }
+        $amount = intval($data->countBy($data->getDefinition()->getTable(), $params, $paramsOperators, true));
+        return $amount == 0;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function isValid($value, array $parameters) {
@@ -55,14 +82,7 @@ class UniqueValidator implements ValidatorInterface {
             return $this->isValidUniqueMany($value, $data, $entity, $field);
         }
 
-        $params          = [$field => $value];
-        $paramsOperators = [$field => '='];
-        if ($entity->get('id') !== null) {
-            $params['id']          = $entity->get('id');
-            $paramsOperators['id'] = '!=';
-        }
-        $amount = intval($data->countBy($data->getDefinition()->getTable(), $params, $paramsOperators, true));
-        return $amount == 0;
+        return $this->isValidUnique($value, $data, $entity, $field);
     }
 
     /**
