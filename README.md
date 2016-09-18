@@ -11,7 +11,8 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. 
 
 ## Documentation
 
-- [Documentation 0.10.0](http://philiplb.github.io/CRUDlex/docs/html/0.10.0/) (upcoming)
+- [Documentation 0.11.0](http://philiplb.github.io/CRUDlex/docs/html/0.11.0/) (upcoming)
+- [Documentation 0.10.0](http://philiplb.github.io/CRUDlex/docs/html/0.10.0/)
 - [Documentation 0.9.10](http://philiplb.github.io/CRUDlex/docs/html/0.9.10/)
 
 How to build the documentation:
@@ -34,7 +35,7 @@ care about notes in the changelog when upgrading.
 
 ```json
 "require": {
-    "philiplb/crudlex": "0.9.10"
+    "philiplb/crudlex": "0.10.0"
 }
 ```
 
@@ -42,7 +43,7 @@ care about notes in the changelog when upgrading.
 
 ```json
 "require": {
-    "philiplb/crudlex": "0.10.x-dev"
+    "philiplb/crudlex": "0.11.x-dev"
 }
 ```
 

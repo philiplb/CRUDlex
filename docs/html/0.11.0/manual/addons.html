@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Addons &mdash; CRUDlex 0.11.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.11.0 documentation" href="../index.html"/>
+        <link rel="next" title="CRUDlex\AbstractData" href="../api/AbstractData.html"/>
+        <link rel="prev" title="Extended Features" href="extendedfeatures.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.11.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Addons</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#crudlexamazons3fileprocessor">CRUDlexAmazonS3FileProcessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crudlexuser">CRUDlexUser</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-admin-panel">The Admin Panel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#users">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#roles">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connecting-users-and-roles">Connecting Users and Roles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#password-reset">Password Reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-userprovider">The UserProvider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-data-of-the-logged-in-user">Accessing Data of the Logged in User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/MimeTypes.html">CRUDlex\MimeTypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Addons</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/manual/addons.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="addons">
+<h1>Addons<a class="headerlink" href="#addons" title="Permalink to this headline">¶</a></h1>
+<p>There are several surrounding projects around CRUDlex. Each of them is described
+here.</p>
+<p>Each addon has tags following the versioning of CRUDlex. So the version 0.9.9
+will work with CRUDlex 0.9.9 etc.. The master branch works against the master of
+CRUDlex.</p>
+<div class="section" id="crudlexamazons3fileprocessor">
+<h2>CRUDlexAmazonS3FileProcessor<a class="headerlink" href="#crudlexamazons3fileprocessor" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://github.com/philiplb/CRUDlexAmazonS3FileProcessor)">CRUDlexAmazonS3FileProcessor</a>
+handles the file uploads via Amazon S3.</p>
+<p>This is how to use it:</p>
+<p>First, create an instance of the Amazon S3 FileProcessor:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$fileProcessor = new CRUDlex\AmazonS3FileProcessor(</span>
+<span class="x">    &#39;yourBucket&#39;,</span>
+<span class="x">    &#39;yourAccessKey&#39;,</span>
+<span class="x">    &#39;yourSecretAccessKey&#39;</span>
+<span class="x">);</span>
+</pre></div>
+</div>
+<p>And then hand it in when registering the CRUDlex ServiceProvider:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
+<span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
+<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
+<span class="x">    &#39;crud.fileprocessor&#39; =&gt; $fileProcessor</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="crudlexuser">
+<h2>CRUDlexUser<a class="headerlink" href="#crudlexuser" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/philiplb/CRUDlexUser)">CRUDlexUser</a> is a library offering
+an user provider for symfony/security</p>
+<p>This library offers two parts. First, a management interface for your admin panel to
+perform CRUD operations on your userbase and second, an symfony/security UserProvider
+offering in order to connect the users with the application.</p>
+<div class="section" id="the-admin-panel">
+<h3>The Admin Panel<a class="headerlink" href="#the-admin-panel" title="Permalink to this headline">¶</a></h3>
+<p>All you have to do is to add the needed entities to your crud.yml from the
+following sub chapters.</p>
+<p>In order to get the salt generated and the password hashed, you have to let the
+library add some CRUDlex events in your initialization:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$crudUserSetup = new CRUDlex\UserSetup();</span>
+<span class="x">$crudUserSetup-&gt;addEvents($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;));</span>
+</pre></div>
+</div>
+<div class="section" id="users">
+<h4>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">username</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Username</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+            <span class="l l-Scalar l-Scalar-Plain">unique</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="l l-Scalar l-Scalar-Plain">password</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Password Hash</span>
+            <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&#39;Set</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">desired</span><span class="nv"> </span><span class="s">password.</span><span class="nv"> </span><span class="s">Will</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">automatically</span><span class="nv"> </span><span class="s">converted</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">an</span><span class="nv"> </span><span class="s">hash</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">meant</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">readable.&#39;</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="l l-Scalar l-Scalar-Plain">salt</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Password Salt</span>
+            <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="s">&#39;Auto</span><span class="nv"> </span><span class="s">populated</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">user</span><span class="nv"> </span><span class="s">creation.</span><span class="nv"> </span><span class="s">Used</span><span class="nv"> </span><span class="s">internally.&#39;</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>Plus any more fields you need.</p>
+<p>Recommended for the password reset features:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">email</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">E-Mail</span>
+    <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">unique</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="roles">
+<h4>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">role</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Roles</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">role</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">role</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Role</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="connecting-users-and-roles">
+<h4>Connecting Users and Roles<a class="headerlink" href="#connecting-users-and-roles" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">userRole</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">User Roles</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">userRole</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">reference</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
+            <span class="l l-Scalar l-Scalar-Plain">reference</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">username</span>
+                <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="l l-Scalar l-Scalar-Plain">role</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">reference</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Role</span>
+            <span class="l l-Scalar l-Scalar-Plain">reference</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">role</span>
+                <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">role</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="password-reset">
+<h3>Password Reset<a class="headerlink" href="#password-reset" title="Permalink to this headline">¶</a></h3>
+<p>In case you want to use the password reset features:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">passwordReset</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Password Resets</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">password_reset</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">reference</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
+            <span class="l l-Scalar l-Scalar-Plain">reference</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">username</span>
+                <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="l l-Scalar l-Scalar-Plain">token</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Token</span>
+            <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="l l-Scalar l-Scalar-Plain">reset</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">datetime</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Reset</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-userprovider">
+<h3>The UserProvider<a class="headerlink" href="#the-userprovider" title="Permalink to this headline">¶</a></h3>
+<p>Simply instantiate and add it to your symfony/security configuration:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$userProvider = new CRUDlex\UserProvider($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;), $app[&#39;crud&#39;]-&gt;getData(&#39;userRole&#39;));</span>
+<span class="x">$app-&gt;register(new Silex\Provider\SecurityServiceProvider(), array(</span>
+<span class="x">    &#39;security.firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;admin&#39; =&gt; array(</span>
+<span class="x">            //...</span>
+<span class="x">            &#39;users&#39; =&gt; $userProvider</span>
+<span class="x">        ),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-data-of-the-logged-in-user">
+<h3>Accessing Data of the Logged in User<a class="headerlink" href="#accessing-data-of-the-logged-in-user" title="Permalink to this headline">¶</a></h3>
+<p>In order to get the user data from the logged in user in your controller, you
+might grab him like this:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$user = $app[&#39;security.token_storage&#39;]-&gt;getToken()</span>
+</pre></div>
+</div>
+<p>You get back a CRUDlex\User instance having some getters, see the API docs.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/AbstractData.html" class="btn btn-neutral float-right" title="CRUDlex\AbstractData" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="extendedfeatures.html" class="btn btn-neutral" title="Extended Features" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.11.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
