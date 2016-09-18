@@ -404,11 +404,7 @@ class EntityDefinition {
      */
     public function getFieldLabel($fieldName) {
 
-        $result = $this->getField($fieldName, 'label_'.$this->locale);
-
-        if ($result === null) {
-            $result = $this->getField($fieldName, 'label');
-        }
+        $result = $this->getField($fieldName, 'label_'.$this->locale, $this->getField($fieldName, 'label'));
 
         if ($result === null && array_key_exists($fieldName, $this->standardFieldLabels)) {
             $result = $this->standardFieldLabels[$fieldName];
