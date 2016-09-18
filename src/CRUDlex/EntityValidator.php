@@ -32,7 +32,7 @@ class EntityValidator {
 
     /**
      * Builds up the validation rules for a single field according to the
-     * entity definition.
+     * entity definition type.
      *
      * @param string $field
      * the field for the rules
@@ -44,7 +44,7 @@ class EntityValidator {
      * @return array
      * the validation rules for the field
      */
-    protected function fieldToRules($field, AbstractData $data, Validator $validator) {
+    protected function fieldTypeToRules($field, AbstractData $data, Validator $validator) {
         $setItems     = $this->definition->getItems($field);
         $rulesMapping = [
             'boolean' => ['boolean'],
@@ -61,6 +61,24 @@ class EntityValidator {
         if (array_key_exists($type, $rulesMapping)) {
             $rules[] = $rulesMapping[$type];
         }
+        return $rules;
+    }
+
+
+    /**
+     * Builds up the validation rules for a single field according to the
+     * entity definition constraints.
+     *
+     * @param string $field
+     * the field for the rules
+     * @param AbstractData $data
+     * the data instance to use for validation
+     *
+     * @return array
+     * the validation rules for the field
+     */
+    protected function fieldConstraintsToRules($field, AbstractData $data) {
+        $rules = [];
         if ($this->definition->isRequired($field)) {
             $rules[] = ['required'];
         }
@@ -86,7 +104,8 @@ class EntityValidator {
         $fields = $this->definition->getEditableFieldNames();
         $rules  = [];
         foreach ($fields as $field) {
-            $fieldRules = $this->fieldToRules($field, $data, $validator);
+            $fieldRules = $this->fieldTypeToRules($field, $data, $validator);
+            $fieldRules = array_merge($fieldRules, $this->fieldConstraintsToRules($field, $data));
             if (!empty($fieldRules)) {
                 $rules[$field] = $fieldRules;
             }
