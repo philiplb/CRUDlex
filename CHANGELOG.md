@@ -29,6 +29,7 @@ Released: Upcoming
     - getReferenceEntity
     - getItems
     - getValue
+    - getPath
 - Attention: Replaced the following functions of the class EntityDefinition with getField:
     - getDescription
     - getFloatStep
@@ -37,6 +38,7 @@ Released: Upcoming
     - setFloatStep
     - setItems
     - setValue
+    - setPath
 - Switched to a flag-sprites.com generated css sprite for the language flags
 - Updated dependencies:
     - "silex/silex": "~2.0"

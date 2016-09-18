@@ -462,31 +462,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the file path of a field.
-     *
-     * @param string $fieldName
-     * the field name
-     *
-     * @return string
-     * the file path of a field or null on invalid field name
-     */
-    public function getPath($fieldName) {
-        return $this->getField($fieldName, 'path');
-    }
-
-    /**
-     * Sets the file path of a field.
-     *
-     * @param string $fieldName
-     * the field name
-     * @param string $value
-     * the file path of a field or null on invalid field name
-     */
-    public function setPath($fieldName, $value) {
-        $this->setField($fieldName, 'path', $value);
-    }
-
-    /**
      * Gets the label of a field.
      *
      * @param string $fieldName
