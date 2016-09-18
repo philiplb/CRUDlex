@@ -23,10 +23,12 @@ class EntityValidator {
      */
     protected $entity;
 
+
     /**
      * The entities definition.
      */
     protected $definition;
+
 
     /**
      * Builds up the validation rules for a single field according to the
@@ -68,6 +70,7 @@ class EntityValidator {
         return $rules;
     }
 
+
     /**
      * Builds up the validation rules for the entity according to its
      * definition.
@@ -91,6 +94,7 @@ class EntityValidator {
         return $rules;
     }
 
+
     /**
      * Builds up the data to validate from the entity.
      *
@@ -110,6 +114,7 @@ class EntityValidator {
         return $data;
     }
 
+
     /**
      * Constructor.
      *
@@ -120,6 +125,7 @@ class EntityValidator {
         $this->entity     = $entity;
         $this->definition = $entity->getDefinition();
     }
+
 
     /**
      * Validates the entity against the definition.
