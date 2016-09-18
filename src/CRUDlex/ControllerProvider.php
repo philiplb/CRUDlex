@@ -254,9 +254,7 @@ class ControllerProvider implements ControllerProviderInterface {
 
         $self        = $this;
         $entityCheck = function(Request $request, Application $app) use ($self) {
-            $entity   = $request->get('entity');
-            $crudData = $app['crud']->getData($entity);
-            if (!$crudData) {
+            if (!$app['crud']->getData($request->get('entity'))) {
                 return $self->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
             }
         };
