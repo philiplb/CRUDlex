@@ -82,7 +82,7 @@ class EntityValidator {
         if ($this->definition->isRequired($field)) {
             $rules[] = ['required'];
         }
-        if ($this->definition->isUnique($field)) {
+        if ($this->definition->getField($field, 'unique')) {
             $rules[] = ['unique', $data, $this->entity, $field];
         }
         return $rules;

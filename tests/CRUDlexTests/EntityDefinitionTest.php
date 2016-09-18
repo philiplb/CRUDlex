@@ -129,21 +129,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testIsSetUnique() {
-        $read = $this->definitionLibrary->isUnique('name');
-        $this->assertTrue($read);
-        $read = $this->definition->isUnique('release');
-        $this->assertFalse($read);
-        $read = $this->definition->isUnique('false');
-        $this->assertFalse($read);
-        $read = $this->definition->isUnique(null);
-        $this->assertFalse($read);
-
-        $this->definitionLibrary->setUnique('name', false);
-        $read = $this->definitionLibrary->isUnique('name');
-        $this->assertFalse($read);
-    }
-
     public function testGetSetFieldLabel() {
         $read = $this->definition->getFieldLabel('library');
         $expected = 'Library';
