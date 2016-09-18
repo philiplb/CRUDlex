@@ -310,23 +310,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetDescription() {
-        $read = $this->definition->getDescription('author');
-        $expected = 'The Author of the Book';
-        $this->assertSame($read, $expected);
-        $read = $this->definition->getDescription('title');
-        $this->assertNull($read);
-        $read = $this->definition->getDescription('foo');
-        $this->assertNull($read);
-        $read = $this->definition->getDescription(null);
-        $this->assertNull($read);
-
-        $expected = 'The Great Author of the Book';
-        $this->definition->setDescription('author', $expected);
-        $read = $this->definition->getDescription('author');
-        $this->assertSame($read, $expected);
-    }
-
     public function testIsSetDeleteCascade() {
         $this->definitionLibrary->setDeleteCascade(true);
         $read = $this->definitionLibrary->isDeleteCascade();

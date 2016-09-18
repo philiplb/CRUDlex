@@ -647,31 +647,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets the description of a field.
-     *
-     * @param string $fieldName
-     * the field name
-     *
-     * @return string
-     * the description of the field
-     */
-    public function getDescription($fieldName) {
-        return $this->getField($fieldName, 'description');
-    }
-
-    /**
-     * Sets the description of a field.
-     *
-     * @param string $fieldName
-     * the field name
-     * @param string $value
-     * the new description of the field
-     */
-    public function setDescription($fieldName, $value) {
-        $this->setField($fieldName, 'description', $value);
-    }
-
-    /**
      * Adds a child to this definition in case the other
      * definition has a reference to this one.
      *

@@ -19,7 +19,7 @@
         {% endif %}
         {{ markers|join('crudlex.field.separator'|trans) }}
     {% endif %}
-    {% if definition.getDescription(field) %}
-        <p><small>{{ definition.getDescription(field) }}</small></p>
+    {% if definition.getField(field, 'description') %}
+        <p><small>{{ definition.getField(field, 'description') }}</small></p>
     {% endif %}
 </label>

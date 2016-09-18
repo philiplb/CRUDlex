@@ -25,8 +25,8 @@
             <tr id="crudRow{{ field }}">
                 <td>
                     {{ definition.getFieldLabel(field) }}
-                    {% if definition.getDescription(field) %}
-                        <p><small>{{ definition.getDescription(field) }}</small></p>
+                    {% if definition.getField(field, 'description') %}
+                        <p><small>{{ definition.getField(field, 'description') }}</small></p>
                     {% endif %}
                 </td>
                 <td id="crudField{{ field }}">
