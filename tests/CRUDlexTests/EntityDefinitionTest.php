@@ -230,25 +230,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetValue() {
-        $read = $this->definitionLibrary->getValue('planet');
-        $expected = 'Earth';
-        $this->assertSame($read, $expected);
-        $read = $this->definitionLibrary->getValue('title');
-        $this->assertNull($read);
-        $read = $this->definitionLibrary->getValue('foo');
-        $this->assertNull($read);
-        $read = $this->definitionLibrary->getValue(null);
-        $this->assertNull($read);
-    }
-
-    public function testSetValue() {
-        $this->definitionLibrary->setValue('planet', 'Mars');
-        $read = $this->definitionLibrary->getValue('planet');
-        $expected = 'Mars';
-        $this->assertSame($read, $expected);
-    }
-
     public function testSetRequired() {
         $this->definition->setRequired('cover', false);
         $read = $this->definition->isRequired('cover');

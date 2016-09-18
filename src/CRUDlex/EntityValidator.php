@@ -125,7 +125,7 @@ class EntityValidator {
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             $data[$field] = $this->entity->getRaw($field);
-            $fixed        = $this->definition->getValue($field);
+            $fixed        = $this->definition->getField($field, 'value');
             if ($fixed) {
                 $data[$field] = $fixed;
             }
