@@ -88,6 +88,14 @@ Users
                 label: Password Salt
                 description: 'Auto populated field on user creation. Used internally.'
                 required: false
+            userRoles:
+                type: many
+                label: Roles
+                many:
+                    entity: role
+                    nameField: role
+                    thisField: user
+                    thatField: role
 
 
 Plus any more fields you need.
@@ -115,31 +123,6 @@ Roles
             role:
                 type: text
                 label: Role
-                required: true
-
-""""""""""""""""""""""""""
-Connecting Users and Roles
-""""""""""""""""""""""""""
-
-.. code-block:: yaml
-
-    userRole:
-        label: User Roles
-        table: userRole
-        fields:
-            user:
-                type: reference
-                label: User
-                reference:
-                    nameField: username
-                    entity: user
-                required: true
-            role:
-                type: reference
-                label: Role
-                reference:
-                    nameField: role
-                    entity: role
                 required: true
 
 ^^^^^^^^^^^^^^
