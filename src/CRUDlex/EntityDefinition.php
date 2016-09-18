@@ -437,31 +437,6 @@ class EntityDefinition {
     }
 
     /**
-     * Gets whether a field is unique.
-     *
-     * @param string $fieldName
-     * the field name
-     *
-     * @return boolean
-     * true if so
-     */
-    public function isUnique($fieldName) {
-        return $this->isConstraint($fieldName, 'unique');
-    }
-
-    /**
-     * Sets whether a field is unique.
-     *
-     * @param string $fieldName
-     * the field name
-     * @param boolean $value
-     * true if so
-     */
-    public function setUnique($fieldName, $value) {
-        $this->setField($fieldName, 'unique', $value);
-    }
-
-    /**
      * Gets the label of a field.
      *
      * @param string $fieldName
