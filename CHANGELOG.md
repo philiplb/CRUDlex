@@ -7,7 +7,7 @@ Released: Upcoming
 
 ## 0.10.0
 Released: 2016-09-18
-- Added a new data type implementing a many-to-many relationship: many
+- Added a new data type implementing a many-to-many relationship called "many", sponsored by [italic](https://github.com/italic)
 - Switched to SemVer
 - Added validation of the entity definition YAML file
 - Replaced handwritten mocks with Phony
