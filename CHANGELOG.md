@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.11.0
 Released: Upcoming
+- The endpoint for static files now uses ETag caching speeding up the rendering of the UI
 
 ## 0.10.0
 Released: 2016-09-18

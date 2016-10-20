@@ -582,6 +582,11 @@ class ControllerProvider implements ControllerProviderInterface {
             'Content-Disposition' => 'attachment; filename="'.basename($file).'"',
             'Content-length' => $size
         ]);
+
+        $eTag = filemtime($file);
+        $response->setETag($eTag);
+        $response->setPublic();
+        $response->isNotModified($request);
         $response->send();
 
         return $response;
