@@ -583,10 +583,7 @@ class ControllerProvider implements ControllerProviderInterface {
             'Content-length' => $size
         ]);
 
-        $eTag = filemtime($file);
-        $response->setETag($eTag);
-        $response->setPublic();
-        $response->isNotModified($request);
+        $response->setETag(filemtime($file))->setPublic()->isNotModified($request);
         $response->send();
 
         return $response;
