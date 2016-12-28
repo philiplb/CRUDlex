@@ -264,9 +264,9 @@ you can hand in an own implementation of the EntityDefinitionFactory like this:
         'crud.entitydefinitionfactory' => $entityDefinitionFactory
     ));
 
-------------------------------------------
-Prefilled Form Fields on the Creation Page
-------------------------------------------
+---------------------------------------------
+Prepopulated Form Fields on the Creation Page
+---------------------------------------------
 
 You can set some initial values when you link the creation page from somewhere
 else by handing in the appropriate GET parameter. Example for the author of a
