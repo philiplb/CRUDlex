@@ -322,6 +322,8 @@ class ControllerProvider implements ControllerProviderInterface {
     public function create(Application $app, $entity) {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->createEmpty();
+        $request  = $app['request_stack']->getCurrentRequest();
+        $instance->populateViaRequest($request);
         return $this->modifyEntity($app, $crudData, $instance, $entity, false);
     }
 

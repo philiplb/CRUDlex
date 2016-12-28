@@ -133,6 +133,11 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertRegExp('/Could not create\./', $client->getResponse()->getContent());
         $this->dataBook->popEvent('before', 'createFiles');
 
+        // Prefilled form
+        $client->request('GET', '/crud/book/create?author=myAuthor');
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertRegExp('/value="myAuthor"/', $client->getResponse()->getContent());
+
     }
 
     public function testShowList() {

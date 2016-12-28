@@ -5,6 +5,7 @@ CRUDlex Changelog
 Released: Upcoming
 - The endpoint for static files now uses ETag caching speeding up the rendering of the UI
 - Fixed the initialization of the TwigServiceProvider using the Silex 2 API now
+- Fixed the feature of prepopulated creation forms via GET parameter
 
 ## 0.10.0
 Released: 2016-09-18
