@@ -142,7 +142,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetLocales() {
         $crudServiceProvider = new ServiceProvider();
-        $expected = ['de', 'el', 'en'];
+        $expected = ['de', 'el', 'en', 'fr'];
         $read = $crudServiceProvider->getLocales();
         $this->assertSame($read, $expected);
     }

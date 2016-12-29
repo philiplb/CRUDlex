@@ -1,0 +1,61 @@
+#
+# This file is part of the CRUDlex package.
+#
+# (c) Philip Lehmann-Böhm <philip@philiplb.de>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+crudlex:
+  entityNotFound: 'Entité non trouvée.'
+  instanceNotFound: 'Instance non trouvée.'
+  resourceNotFound: 'Ressource non trouvée.'
+  deleteEntityConfirmation: 'Etes vous sûr de vouloir supprimer cette entité %id%?'
+  chooseLanguage: 'Langue :'
+  label:
+    id: 'Id'
+    created_at: 'Créé à'
+    updated_at: 'Mis à jour à'
+  file:
+    delete: 'Etes vous sûr de vouloir supprimer ce %file%?'
+    deleted: 'Fichier supprimé.'
+    notDeleted: 'Le fichier ne peux pas être supprimé.'
+  button:
+    new: 'Ajouter'
+    list: 'Lister'
+    show: 'Visualiser'
+    edit: 'Editer'
+    delete: 'Supprimer'
+    submit: 'Envoyer'
+  field:
+    required: '*'
+    unique: 'doit être unique'
+    separator: ', '
+  list:
+    button:
+      filter: 'Filtrer'
+      doFilter: 'Appliquer le filtre'
+      first: 'Premier'
+      previous: 'Précédent'
+      next: 'Suivant'
+      last: 'Dernier'
+    total: 'Total : %total%'
+  show:
+    field: 'Champ'
+    value: 'Valeur'
+    childName: 'Nom'
+    childAction: 'Action'
+  create:
+    error: 'Ne peut pas être créé, voir les champs avec une astérisque rouge.'
+    failed: 'Ne peut pas être créé.'
+    success: "%label% créé avec l'%id%"
+  edit:
+    error: 'Ne peut pas être édité, voir les champs avec une astérisque rouge.'
+    locked: 'Il y a des données plus à jour disponibles.'
+    success: "%label% édité avec l'%id%"
+    failed: 'Ne peut pas être édité.'
+  delete:
+    error: 'Ne peut pas supprimer %label% car il est encore référencée par une autre entité.'
+    success: '%label% supprimé.'
+    failed: 'Ne peut pas être supprimé.'
