@@ -159,29 +159,6 @@ abstract class AbstractData {
     }
 
     /**
-     * Fetches to the rows belonging many-to-many entries and adds them to the rows.
-     *
-     * @param array $rows
-     * the rows to enrich
-     * @return array
-     * the enriched rows
-     */
-    protected function enrichWithMany(array $rows) {
-        $manyFields = $this->getManyFields();
-        $idToData   = [];
-        foreach ($rows as $row) {
-            foreach ($manyFields as $manyField) {
-                $row[$manyField] = [];
-            }
-            $idToData[$row['id']] = $row;
-        }
-        foreach ($manyFields as $manyField) {
-            $this->enrichWithManyField($idToData, $manyField);
-        }
-        return array_values($idToData);
-    }
-
-    /**
      * Gets all form fields including the many-to-many-ones.
      *
      * @return array

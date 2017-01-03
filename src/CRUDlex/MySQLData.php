@@ -317,6 +317,29 @@ class MySQLData extends AbstractData {
     }
 
     /**
+     * Fetches to the rows belonging many-to-many entries and adds them to the rows.
+     *
+     * @param array $rows
+     * the rows to enrich
+     * @return array
+     * the enriched rows
+     */
+    protected function enrichWithMany(array $rows) {
+        $manyFields = $this->getManyFields();
+        $idToData   = [];
+        foreach ($rows as $row) {
+            foreach ($manyFields as $manyField) {
+                $row[$manyField] = [];
+            }
+            $idToData[$row['id']] = $row;
+        }
+        foreach ($manyFields as $manyField) {
+            $this->enrichWithManyField($idToData, $manyField);
+        }
+        return array_values($idToData);
+    }
+
+    /**
      * First, deletes all to the given entity related many-to-many entries from the DB
      * and then writes them again.
      *
