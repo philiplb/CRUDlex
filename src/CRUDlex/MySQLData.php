@@ -283,7 +283,7 @@ class MySQLData extends AbstractData {
      * the extracted ids
      */
     protected function getReferenceIds(array $entities, $field) {
-        $ids = array_map(function (Entity $entity) use ($field) {
+        $ids = array_map(function(Entity $entity) use ($field) {
             $id = $entity->get($field);
             return is_array($id) ? $id['id'] : $id;
         }, $entities);
