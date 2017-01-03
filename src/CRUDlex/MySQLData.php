@@ -79,6 +79,9 @@ class MySQLData extends AbstractData {
             if ($type == 'boolean') {
                 $value = $value ? 1 : 0;
             }
+            if ($type == 'reference' && is_array($value)) {
+                $value = $value['id'];
+            }
             $queryBuilder->$setMethod('`'.$formFields[$i].'`', '?');
             $queryBuilder->setParameter($i, $value);
         }
@@ -282,7 +285,8 @@ class MySQLData extends AbstractData {
         $queryBuilder = $this->database->createQueryBuilder();
 
         $ids = array_map(function(Entity $entity) use ($field) {
-            return $entity->get($field);
+            $id = $entity->get($field);
+            return is_array($id) ? $id['id'] : $id;
         }, $entities);
 
         $referenceEntity = $this->definition->getSubTypeField($field, 'reference', 'entity');
@@ -411,6 +415,28 @@ class MySQLData extends AbstractData {
     }
 
     /**
+     * Adds the id and name of referenced entities to the given entities. Each
+     * reference field is before the raw id of the referenced entity and after
+     * the fetch, it's an array with the keys id and name.
+     *
+     * @param Entity[] &$entities
+     * the entities to fetch the references for
+     *
+     * @return void
+     */
+    protected function enrichWithReference(array &$entities) {
+        if (!$entities) {
+            return;
+        }
+        foreach ($this->definition->getFieldNames() as $field) {
+            if ($this->definition->getType($field) !== 'reference') {
+                continue;
+            }
+            $this->fetchReferencesForField($entities, $field);
+        }
+    }
+
+    /**
      * Constructor.
      *
      * @param EntityDefinition $definition
@@ -464,6 +490,7 @@ class MySQLData extends AbstractData {
         foreach ($rows as $row) {
             $entities[] = $this->hydrate($row);
         }
+        $this->enrichWithReference($entities);
         return $entities;
     }
 
@@ -501,8 +528,9 @@ class MySQLData extends AbstractData {
         }
 
         $this->enrichEntityWithMetaData($id, $entity);
-
         $this->saveMany($entity);
+        $entities = [$entity];
+        $this->enrichWithReference($entities);
 
         $this->shouldExecuteEvents($entity, 'after', 'create');
 
@@ -529,6 +557,8 @@ class MySQLData extends AbstractData {
         $affected = $queryBuilder->execute();
 
         $this->saveMany($entity);
+        $entities = [$entity];
+        $this->enrichWithReference($entities);
 
         $this->shouldExecuteEvents($entity, 'after', 'update');
 
@@ -602,22 +632,6 @@ class MySQLData extends AbstractData {
         $result      = $queryResult->fetch(\PDO::FETCH_NUM);
         return intval($result[0]);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function fetchReferences(array &$entities = null) {
-        if (!$entities) {
-            return;
-        }
-        foreach ($this->definition->getFieldNames() as $field) {
-            if ($this->definition->getType($field) !== 'reference') {
-                continue;
-            }
-            $this->fetchReferencesForField($entities, $field);
-        }
-    }
-
 
     /**
      * {@inheritdoc}

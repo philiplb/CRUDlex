@@ -32,17 +32,17 @@ class ReferenceValidatorTest extends \PHPUnit_Framework_TestCase {
     public function testValidate() {
 
         $validator = new ReferenceValidator();
-        $parameters =[$this->dataBook, 'library'];
-        $read = $validator->isValid(1, $parameters);
+        $parameters = [$this->dataBook, 'library'];
+        $read = $validator->isValid(['id' => 1], $parameters);
         $this->assertTrue($read);
 
-        $read = $validator->isValid(2, $parameters);
+        $read = $validator->isValid(['id' => 2], $parameters);
         $this->assertFalse($read);
 
-        $read = $validator->isValid(null, $parameters);
+        $read = $validator->isValid(['id' => null], $parameters);
         $this->assertTrue($read);
 
-        $read = $validator->isValid('', $parameters);
+        $read = $validator->isValid(['id' => ''], $parameters);
         $this->assertTrue($read);
 
     }

@@ -140,6 +140,29 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $read = count($list);
         $expected = 12;
         $this->assertSame($expected, $read);
+
+        // Test for references
+        $entityLibrary = $this->dataLibrary->createEmpty();
+        $entityLibrary->set('name', 'lib');
+        $this->dataLibrary->create($entityLibrary);
+
+        $libraryId = $entityLibrary->get('id');
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $libraryId);
+        $entityBook->set('secondLibrary', $libraryId);
+        $this->dataBook->create($entityBook);
+
+        $read = $entityBook->get('library');
+        $expected = ['id' => $libraryId, 'name' => 'lib'];
+        $this->assertSame($read, $expected);
+
+        $read = $entityBook->get('secondLibrary');
+        $expected = ['id' => $libraryId];
+        $this->assertSame($read, $expected);
     }
 
     public function testGet() {
@@ -368,40 +391,6 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
             );
         $expected = 0;
         $this->assertSame($read, $expected);
-    }
-
-    public function testFetchReferences() {
-        $entityLibrary = $this->dataLibrary->createEmpty();
-        $entityLibrary->set('name', 'lib');
-        $this->dataLibrary->create($entityLibrary);
-
-        $entityBook = $this->dataBook->createEmpty();
-        $entityBook->set('title', 'title');
-        $entityBook->set('author', 'author');
-        $entityBook->set('pages', 111);
-        $entityBook->set('library', $entityLibrary->get('id'));
-        $entityBook->set('secondLibrary', $entityLibrary->get('id'));
-        $this->dataBook->create($entityBook);
-
-        $read = $entityBook->get('library');
-        $expected = '1';
-        $this->assertSame($read, $expected);
-
-        $books = [$entityBook];
-        $this->dataBook->fetchReferences($books);
-        $read = $books[0]->get('library');
-        $expected = ['id' => '1', 'name' => 'lib'];
-        $this->assertSame($read, $expected);
-
-        $read = $books[0]->get('secondLibrary');
-        $expected = ['id' => '1'];
-        $this->assertSame($read, $expected);
-
-        $nullBooks = null;
-        $this->dataBook->fetchReferences($nullBooks);
-
-        $emptyBooks = [];
-        $this->dataBook->fetchReferences($emptyBooks);
     }
 
     public function testBoolHandling() {

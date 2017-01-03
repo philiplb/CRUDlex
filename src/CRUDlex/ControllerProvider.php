@@ -367,7 +367,6 @@ class ControllerProvider implements ControllerProviderInterface {
         $sortAscending        = $sortAscendingRequest !== null ? $sortAscendingRequest === 'true' : $definition->isInitialSortAscending();
 
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
-        $crudData->fetchReferences($entities);
 
         return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'list', $entity), [
             'crudEntity' => $entity,
@@ -405,9 +404,6 @@ class ControllerProvider implements ControllerProviderInterface {
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
-        $instance = [$instance];
-        $crudData->fetchReferences($instance);
-        $instance   = $instance[0];
         $definition = $crudData->getDefinition();
 
         $childrenLabelFields = $definition->getChildrenLabelFields();

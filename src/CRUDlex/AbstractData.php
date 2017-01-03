@@ -294,18 +294,6 @@ abstract class AbstractData {
     abstract public function countBy($table, array $params, array $paramsOperators, $excludeDeleted);
 
     /**
-     * Adds the id and name of referenced entities to the given entities. Each
-     * reference field is before the raw id of the referenced entity and after
-     * the fetch, it's an array with the keys id and name.
-     *
-     * @param Entity[] &$entities
-     * the entities to fetch the references for
-     *
-     * @return void
-     */
-    abstract public function fetchReferences(array &$entities = null);
-
-    /**
      * Checks whether a given set of ids is assigned to any entity exactly
      * like it is given (no subset, no superset).
      *

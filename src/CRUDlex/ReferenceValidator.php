@@ -23,18 +23,17 @@ class ReferenceValidator implements ValidatorInterface {
      */
     public function isValid($value, array $parameters) {
 
-        if (in_array($value, [null, ''])) {
+        if (key_exists('id', $value) && in_array($value['id'], [null, ''])) {
             return true;
         }
 
         $data            = $parameters[0];
         $field           = $parameters[1];
         $definition      = $data->getDefinition();
-        $params          = ['id' => $value];
         $paramsOperators = ['id' => '='];
         $referenceEntity = $definition->getSubTypeField($field, 'reference', 'entity');
         $table           = $definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
-        $amount          = $data->countBy($table, $params, $paramsOperators, false);
+        $amount          = $data->countBy($table, $value, $paramsOperators, false);
         return $amount > 0;
     }
 

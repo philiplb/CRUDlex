@@ -147,6 +147,12 @@ class Entity {
                 if ($file) {
                     $this->set($field, $file->getClientOriginalName());
                 }
+            } else if ($type === 'reference') {
+                $value = $request->get($field);
+                if ($value === '') {
+                    $value = null;
+                }
+                $this->set($field, ['id' => $value]);
             } else if ($type === 'many') {
                 $array = $request->get($field, []);
                 if (is_array($array)) {

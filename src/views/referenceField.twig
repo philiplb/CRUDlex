@@ -16,6 +16,6 @@
     <option value=""></option>
     {% set values = crudData.getIdToNameMap(crudData.getDefinition().getSubTypeField(field, 'reference', 'entity'), crudData.getDefinition().getSubTypeField(field, 'reference', 'nameField')) %}
     {% for id, referenceValue in values %}
-        <option value="{{ id }}" {% if value and id == value %}selected="selected" {% endif %}>{{ referenceValue }}</option>
+        <option value="{{ id }}" {% if value and id == value['id'] %}selected="selected" {% endif %}>{{ referenceValue }}</option>
     {% endfor %}
 </select>

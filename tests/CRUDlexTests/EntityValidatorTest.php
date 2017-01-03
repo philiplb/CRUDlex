@@ -37,8 +37,8 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('title', 'title');
         $entityBook->set('author', 'author');
         $entityBook->set('pages', 111);
-        $entityBook->set('library', $entityLibrary1->get('id'));
-        $entityBook->set('secondLibrary', $entityLibrary1->get('id'));
+        $entityBook->set('library', ['id' => $entityLibrary1->get('id')]);
+        $entityBook->set('secondLibrary', ['id' => $entityLibrary1->get('id')]);
         $entityBook->set('cover', 'cover');
         $entityBook->set('price', 3.99);
 
@@ -169,7 +169,7 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
         $entityBook->set('release', '2014-08-31');
 
-        $entityBook->set('library', 666);
+        $entityBook->set('library', ['id' => 666]);
         $read = $validatorBook->validate($this->dataBook, 0);
         $expected = $invalid;
         $expected['errors']['library'] = ['reference'];
