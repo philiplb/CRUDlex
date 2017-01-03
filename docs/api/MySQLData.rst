@@ -143,6 +143,15 @@ CRUDlex\\MySQLData
         :param $idToData: a reference to the map entity id to raw entity data
         :param $manyField:
 
+    .. php:method:: enrichWithMany($rows)
+
+        Fetches to the rows belonging many-to-many entries and adds them to the
+        rows.
+
+        :type $rows: array
+        :param $rows: the rows to enrich
+        :returns: array the enriched rows
+
     .. php:method:: saveMany(Entity $entity)
 
         First, deletes all to the given entity related many-to-many entries from
@@ -276,15 +285,6 @@ CRUDlex\\MySQLData
 
         :returns: array|\string[] the many-to-many fields
 
-    .. php:method:: enrichWithMany($rows)
-
-        Fetches to the rows belonging many-to-many entries and adds them to the
-        rows.
-
-        :type $rows: array
-        :param $rows: the rows to enrich
-        :returns: array the enriched rows
-
     .. php:method:: getFormFields()
 
         Gets all form fields including the many-to-many-ones.
@@ -306,7 +306,8 @@ CRUDlex\\MySQLData
 
         :type $entities: array
         :param $entities: the entities to extract the ids
-        :param $field:
+        :type $field: string
+        :param $field: the reference field
         :returns: array the extracted ids
 
     .. php:method:: pushEvent($moment, $action, Closure $function)

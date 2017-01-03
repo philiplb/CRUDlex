@@ -2,11 +2,6 @@
 CRUDlex\\FileProcessorInterface
 -------------------------------
 
-.. toctree::
-   :maxdepth: 1
-
-   SimpleFilesystemFileProcessor
-
 .. php:namespace: CRUDlex
 
 .. php:interface:: FileProcessorInterface

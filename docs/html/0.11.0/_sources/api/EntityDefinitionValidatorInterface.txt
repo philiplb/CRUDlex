@@ -2,11 +2,6 @@
 CRUDlex\\EntityDefinitionValidatorInterface
 -------------------------------------------
 
-.. toctree::
-   :maxdepth: 1
-
-   EntityDefinitionValidator
-
 .. php:namespace: CRUDlex
 
 .. php:interface:: EntityDefinitionValidatorInterface

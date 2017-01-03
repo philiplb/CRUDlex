@@ -2,11 +2,6 @@
 CRUDlex\\DataFactoryInterface
 -----------------------------
 
-.. toctree::
-   :maxdepth: 1
-
-   MySQLDataFactory
-
 .. php:namespace: CRUDlex
 
 .. php:interface:: DataFactoryInterface

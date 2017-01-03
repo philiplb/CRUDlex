@@ -101,15 +101,6 @@ CRUDlex\\AbstractData
 
         :returns: array|\string[] the many-to-many fields
 
-    .. php:method:: enrichWithMany($rows)
-
-        Fetches to the rows belonging many-to-many entries and adds them to the
-        rows.
-
-        :type $rows: array
-        :param $rows: the rows to enrich
-        :returns: array the enriched rows
-
     .. php:method:: getFormFields()
 
         Gets all form fields including the many-to-many-ones.
@@ -131,7 +122,8 @@ CRUDlex\\AbstractData
 
         :type $entities: array
         :param $entities: the entities to extract the ids
-        :param $field:
+        :type $field: string
+        :param $field: the reference field
         :returns: array the extracted ids
 
     .. php:method:: pushEvent($moment, $action, Closure $function)
