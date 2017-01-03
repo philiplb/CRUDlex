@@ -270,6 +270,26 @@ class MySQLData extends AbstractData {
         }
     }
 
+
+    /**
+     * Gets an array of reference ids for the given entities.
+     *
+     * @param array $entities
+     * the entities to extract the ids
+     * @param $field
+     * the reference field
+     *
+     * @return array
+     * the extracted ids
+     */
+    protected function getReferenceIds(array $entities, $field) {
+        $ids = array_map(function (Entity $entity) use ($field) {
+            $id = $entity->get($field);
+            return is_array($id) ? $id['id'] : $id;
+        }, $entities);
+        return $ids;
+    }
+
     /**
      * Adds the id and name of referenced entities to the given entities. The
      * reference field is before the raw id of the referenced entity and after
@@ -284,10 +304,7 @@ class MySQLData extends AbstractData {
         $nameField    = $this->definition->getSubTypeField($field, 'reference', 'nameField');
         $queryBuilder = $this->database->createQueryBuilder();
 
-        $ids = array_map(function(Entity $entity) use ($field) {
-            $id = $entity->get($field);
-            return is_array($id) ? $id['id'] : $id;
-        }, $entities);
+        $ids = $this->getReferenceIds($entities, $field);
 
         $referenceEntity = $this->definition->getSubTypeField($field, 'reference', 'entity');
         $table           = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
@@ -303,10 +320,10 @@ class MySQLData extends AbstractData {
 
         $queryBuilder->setParameter(0, $ids, Connection::PARAM_STR_ARRAY);
 
-        $queryResult          = $queryBuilder->execute();
-        $rows                 = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
-        $amount               = count($entities);
-        $enrichReferenceFields = function(array $row) use ($field, $entities, $nameField, $amount) {
+        $queryResult = $queryBuilder->execute();
+        $rows        = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
+        $amount      = count($entities);
+        foreach ($rows as $row) {
             for ($i = 0; $i < $amount; ++$i) {
                 if ($entities[$i]->get($field) == $row['id']) {
                     $value = ['id' => $entities[$i]->get($field)];
@@ -316,9 +333,6 @@ class MySQLData extends AbstractData {
                     $entities[$i]->set($field, $value);
                 }
             }
-        };
-        foreach ($rows as $row) {
-            $enrichReferenceFields($row);
         }
     }
 
