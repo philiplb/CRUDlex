@@ -425,7 +425,7 @@ class MySQLData extends AbstractData {
      * @return void
      */
     protected function enrichWithReference(array &$entities) {
-        if (!$entities) {
+        if (empty($entities)) {
             return;
         }
         foreach ($this->definition->getFieldNames() as $field) {
