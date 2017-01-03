@@ -182,6 +182,15 @@ CRUDlex\\MySQLData
         :type $entity: Entity
         :param $entity: the entity to save the many-to-many entries of
 
+    .. php:method:: enrichWithReference($entities)
+
+        Adds the id and name of referenced entities to the given entities. Each
+        reference field is before the raw id of the referenced entity and after
+        the fetch, it's an array with the keys id and name.
+
+        :param $entities:
+        :returns: void
+
     .. php:method:: __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $database, $useUUIDs)
 
         Constructor.
@@ -240,12 +249,6 @@ CRUDlex\\MySQLData
         :param $params:
         :param $paramsOperators:
         :param $excludeDeleted:
-
-    .. php:method:: fetchReferences($entities = null)
-
-        {@inheritdoc}
-
-        :param $entities:
 
     .. php:method:: hasManySet($field, $thatIds, $excludeId = null)
 

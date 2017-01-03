@@ -199,15 +199,6 @@ CRUDlex\\AbstractData
         :param $excludeDeleted: false, if soft deleted entries in the datasource should be counted, too
         :returns: integer the count fulfilling the given parameters
 
-    .. php:method:: fetchReferences($entities = null)
-
-        Adds the id and name of referenced entities to the given entities. Each
-        reference field is before the raw id of the referenced entity and after
-        the fetch, it's an array with the keys id and name.
-
-        :param $entities:
-        :returns: void
-
     .. php:method:: hasManySet($field, $thatIds, $excludeId = null)
 
         Checks whether a given set of ids is assigned to any entity exactly
