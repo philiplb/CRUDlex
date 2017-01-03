@@ -221,7 +221,7 @@ abstract class AbstractData {
      *
      * @param array $entities
      * the entities to extract the ids
-     * @param $field
+     * @param string $field
      * the reference field
      *
      * @return array
