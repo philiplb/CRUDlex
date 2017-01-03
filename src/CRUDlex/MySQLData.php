@@ -306,19 +306,19 @@ class MySQLData extends AbstractData {
         $queryResult          = $queryBuilder->execute();
         $rows                 = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $amount               = count($entities);
-        $enrichReferenceField = function($i, array $row) use ($field, $entities, $nameField) {
-            if ($entities[$i]->get($field) == $row['id']) {
-                $value = ['id' => $entities[$i]->get($field)];
-                if ($nameField) {
-                    $value['name'] = $row[$nameField];
+        $enrichReferenceFields = function(array $row) use ($field, $entities, $nameField, $amount) {
+            for ($i = 0; $i < $amount; ++$i) {
+                if ($entities[$i]->get($field) == $row['id']) {
+                    $value = ['id' => $entities[$i]->get($field)];
+                    if ($nameField) {
+                        $value['name'] = $row[$nameField];
+                    }
+                    $entities[$i]->set($field, $value);
                 }
-                $entities[$i]->set($field, $value);
             }
         };
         foreach ($rows as $row) {
-            for ($i = 0; $i < $amount; ++$i) {
-                $enrichReferenceField($i, $row);
-            }
+            $enrichReferenceFields($row);
         }
     }
 
