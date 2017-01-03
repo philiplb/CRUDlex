@@ -50,18 +50,6 @@ CRUDlex\\MySQLData
 
         Holds the events.
 
-    .. php:method:: getManyFields()
-
-        Gets the many-to-many fields.
-
-        :returns: array|\string[] the many-to-many fields
-
-    .. php:method:: getFormFields()
-
-        Gets all form fields including the many-to-many-ones.
-
-        :returns: array all form fields
-
     .. php:method:: setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod)
 
         Sets the values and parameters of the upcoming given query according
@@ -73,15 +61,6 @@ CRUDlex\\MySQLData
         :param $queryBuilder: the upcoming query
         :type $setMethod: string
         :param $setMethod: what method to use on the QueryBuilder: 'setValue' or 'set'
-
-    .. php:method:: deleteChildren($id, $deleteCascade)
-
-        Performs the cascading children deletion.
-
-        :type $id: integer
-        :param $id: the current entities id
-        :type $deleteCascade: boolean
-        :param $deleteCascade: whether to delete children and sub children
 
     .. php:method:: hasChildren($id)
 
@@ -163,15 +142,6 @@ CRUDlex\\MySQLData
         :type $idToData: array
         :param $idToData: a reference to the map entity id to raw entity data
         :param $manyField:
-
-    .. php:method:: enrichWithMany($rows)
-
-        Fetches to the rows belonging many-to-many entries and adds them to the
-        rows.
-
-        :type $rows: array
-        :param $rows: the rows to enrich
-        :returns: array the enriched rows
 
     .. php:method:: saveMany(Entity $entity)
 
@@ -299,6 +269,45 @@ CRUDlex\\MySQLData
         :param $id: the id of the entity to enrich
         :type $entity: Entity
         :param $entity: the entity to enrich
+
+    .. php:method:: getManyFields()
+
+        Gets the many-to-many fields.
+
+        :returns: array|\string[] the many-to-many fields
+
+    .. php:method:: enrichWithMany($rows)
+
+        Fetches to the rows belonging many-to-many entries and adds them to the
+        rows.
+
+        :type $rows: array
+        :param $rows: the rows to enrich
+        :returns: array the enriched rows
+
+    .. php:method:: getFormFields()
+
+        Gets all form fields including the many-to-many-ones.
+
+        :returns: array all form fields
+
+    .. php:method:: deleteChildren($id, $deleteCascade)
+
+        Performs the cascading children deletion.
+
+        :type $id: integer
+        :param $id: the current entities id
+        :type $deleteCascade: boolean
+        :param $deleteCascade: whether to delete children and sub children
+
+    .. php:method:: getReferenceIds($entities, $field)
+
+        Gets an array of reference ids for the given entities.
+
+        :type $entities: array
+        :param $entities: the entities to extract the ids
+        :param $field:
+        :returns: array the extracted ids
 
     .. php:method:: pushEvent($moment, $action, Closure $function)
 

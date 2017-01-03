@@ -313,6 +313,94 @@ id, version, created_at, updated_at</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="AbstractData::getManyFields">
+<code class="descname">getManyFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::getManyFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the many-to-many fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array|string[] the many-to-many fields</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="AbstractData::enrichWithMany">
+<code class="descname">enrichWithMany</code><span class="sig-paren">(</span><em>$rows</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::enrichWithMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches to the rows belonging many-to-many entries and adds them to the
+rows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$rows</strong> (<em>array</em>) &#8211; the rows to enrich</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the enriched rows</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="AbstractData::getFormFields">
+<code class="descname">getFormFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::getFormFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all form fields including the many-to-many-ones.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array all form fields</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="AbstractData::deleteChildren">
+<code class="descname">deleteChildren</code><span class="sig-paren">(</span><em>$id</em>, <em>$deleteCascade</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::deleteChildren" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the cascading children deletion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$id</strong> (<em>integer</em>) &#8211; the current entities id</li>
+<li><strong>$deleteCascade</strong> (<em>boolean</em>) &#8211; whether to delete children and sub children</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="AbstractData::getReferenceIds">
+<code class="descname">getReferenceIds</code><span class="sig-paren">(</span><em>$entities</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::getReferenceIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets an array of reference ids for the given entities.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$entities</strong> (<em>array</em>) &#8211; the entities to extract the ids</li>
+<li><strong>$field</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the extracted ids</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="AbstractData::pushEvent">
 <code class="descname">pushEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em>, <em>Closure $function</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::pushEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds an event to fire for the given parameters. The event function must
