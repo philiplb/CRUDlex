@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.11.0
 Released: Upcoming
 - Added a french translation, thanks to, https://github.com/k20human
+- The referencing children list of an entity has now an "Create New" button, thanks to, https://github.com/k20human
 - The endpoint for static files now uses ETag caching speeding up the rendering of the UI
 - Fixed the initialization of the TwigServiceProvider using the Silex 2 API now
 - Attention: Removed the method AbstractData::fetchReferences and so simplified further implementations
