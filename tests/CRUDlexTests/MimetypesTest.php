@@ -36,7 +36,7 @@ class MimeTypesTest extends \PHPUnit_Framework_TestCase {
         $expected = 'image/png';
         $this->assertSame($expected, $read);
 
-        $read     = $mimeTypes->getMimeType(__DIR__.'/../../src/static/js/vendor/moment.min.js');
+        $read     = $mimeTypes->getMimeType(__DIR__.'/../../src/static/js/vendor/select2/select2.js');
         $expected = 'application/x-javascript';
         $this->assertSame($expected, $read);
 

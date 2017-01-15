@@ -10,6 +10,8 @@ Released: Upcoming
 - Attention: Removed the method AbstractData::fetchReferences and so simplified further implementations
 - Fixed the feature of prepopulated creation forms via GET parameter
 - Nicer visualization of boolean values using icons
+- Removed dependencies:
+    - Moment.js
 - Updated dependencies:
     - "eloquent/phony": "~0.14"
     - "symfony/browser-kit": "~3.2"
@@ -18,7 +20,6 @@ Released: Upcoming
     - "symfony/yaml": "~3.2"
     - flatpickr 2.3.4
     - jQuery 3.1.1
-    - Moment.js 2.17.1
     
 ## 0.10.0
 Released: 2016-09-18
