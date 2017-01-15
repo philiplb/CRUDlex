@@ -418,7 +418,8 @@ class ControllerProvider implements ControllerProviderInterface {
                     $childCrud->getDefinition()->getLabel(),
                     $childEntity,
                     $childLabelField,
-                    $childCrud->listEntries([$childField => $instance->get('id')])
+                    $childCrud->listEntries([$childField => $instance->get('id')]),
+					$childField
                 ];
             }
         }
