@@ -5,6 +5,20 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. 
 
 ![List View of CRUDlex](docs/_static/01_List.png)
 
+## Features
+
+- Generates a web application for managing MySQL stored data
+    - **C** reate entries
+    - **R** ead entries in a list and the details of single ones
+    - **U** pdate entries
+    - **D** elete entries
+- The list of entries is paginated, sortable and filterable
+- The entries can be relational, one-to-many and many-to-many is supported
+- Managing files is supported, either stored in the filesystem or at AWS S3 as addon
+- The UI is available in multiple languages
+- File storage is abstract, implementing other systems than the filesystem and AWS S3 is easy
+- Data storage is abstract, implementing other backends than MySQL is easy
+
 [![Total Downloads](https://poser.pugx.org/philiplb/crudlex/downloads.svg)](https://packagist.org/packages/philiplb/crudlex)
 [![Latest Stable Version](https://poser.pugx.org/philiplb/crudlex/v/stable.svg)](https://packagist.org/packages/philiplb/crudlex)
 [![Latest Unstable Version](https://poser.pugx.org/philiplb/crudlex/v/unstable.svg)](https://packagist.org/packages/philiplb/crudlex) [![License](https://poser.pugx.org/philiplb/crudlex/license.svg)](https://packagist.org/packages/philiplb/crudlex)
