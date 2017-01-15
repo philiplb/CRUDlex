@@ -92,7 +92,7 @@
     {% endif %}
 
 {% elseif type == 'boolean' %}
-    {{ entity.get(field) ? 'true' : 'false' }}
+    <span class="glyphicon glyphicon-{{ entity.get(field) ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 
 {% elseif type == 'float' %}
     {{ entity.get(field)|float }}

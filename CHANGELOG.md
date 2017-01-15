@@ -9,6 +9,7 @@ Released: Upcoming
 - Fixed the initialization of the TwigServiceProvider using the Silex 2 API now
 - Attention: Removed the method AbstractData::fetchReferences and so simplified further implementations
 - Fixed the feature of prepopulated creation forms via GET parameter
+- Nicer visualization of boolean values using icons
 - Updated dependencies:
     - "eloquent/phony": "~0.14"
     - "symfony/browser-kit": "~3.2"
