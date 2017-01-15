@@ -9,7 +9,16 @@ Released: Upcoming
 - Fixed the initialization of the TwigServiceProvider using the Silex 2 API now
 - Attention: Removed the method AbstractData::fetchReferences and so simplified further implementations
 - Fixed the feature of prepopulated creation forms via GET parameter
-
+- Updated dependencies:
+    - "eloquent/phony": "~0.14"
+    - "symfony/browser-kit": "~3.2"
+    - "symfony/css-selector": "~3.2"
+    - "symfony/twig-bridge": "~3.2"
+    - "symfony/yaml": "~3.2"
+    - flatpickr 2.3.4
+    - jQuery 3.1.1
+    - Moment.js 2.17.1
+    
 ## 0.10.0
 Released: 2016-09-18
 - Added a new data type implementing a many-to-many relationship called "many", sponsored by [italic](https://github.com/italic)
