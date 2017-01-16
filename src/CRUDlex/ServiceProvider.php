@@ -83,10 +83,9 @@ class ServiceProvider implements ServiceProviderInterface {
         }
 
         if (!$app->offsetExists('twig')) {
-            $app->register(new TwigServiceProvider(), [
-                'twig.path' => ['crud' => __DIR__.'/../views/']
-            ]);
+            $app->register(new TwigServiceProvider());
         }
+        $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
     }
 
     /**
