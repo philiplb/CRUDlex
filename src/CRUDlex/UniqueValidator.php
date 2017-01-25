@@ -48,13 +48,15 @@ class UniqueValidator implements ValidatorInterface {
      * the entity of the field
      * @param $field
      * the field to validate
+     * @param $type
+     * the type of the field to validate
      *
      * @return boolean
      * true if everything is valid
      */
-    protected function isValidUnique($value, AbstractData $data, Entity $entity, $field)
+    protected function isValidUnique($value, AbstractData $data, Entity $entity, $field, $type)
     {
-        $params          = [$field => $value];
+        $params          = [$field => $type === 'reference' ? $value['id'] : $value];
         $paramsOperators = [$field => '='];
         if ($entity->get('id') !== null) {
             $params['id']          = $entity->get('id');
@@ -82,7 +84,7 @@ class UniqueValidator implements ValidatorInterface {
             return $this->isValidUniqueMany($value, $data, $entity, $field);
         }
 
-        return $this->isValidUnique($value, $data, $entity, $field);
+        return $this->isValidUnique($value, $data, $entity, $field, $type);
     }
 
     /**
