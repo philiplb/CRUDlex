@@ -11,6 +11,7 @@ Released: Upcoming
 - Fixed the feature of prepopulated creation forms via GET parameter
 - Nicer visualization of boolean values using icons
 - Fixed the initialization of the TwigServiceProvider if it wasn't present yet
+- Fixed a crash if a many field was a reserved MySQL word
 - Removed dependencies:
     - Moment.js
 - Updated dependencies:
