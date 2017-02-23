@@ -18,6 +18,7 @@ use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -101,7 +102,10 @@ class ServiceProvider implements ServiceProviderInterface {
      * the available locales
      */
     protected function initLocales(Container $app) {
-        $app['translator']->addLoader('yaml', new YamlFileLoader());
+        $app->extend('translator', function(Translator $translator) {
+            $translator->addLoader('yaml', new YamlFileLoader());
+            return $translator;
+        });
         $localeDir = __DIR__.'/../locales';
         $locales   = $this->getLocales();
         foreach ($locales as $locale) {

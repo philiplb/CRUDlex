@@ -135,6 +135,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
         $read = $crudServiceProvider->isManagingI18n();
         $this->assertTrue($read);
+
+        $app = new Application();
         $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, false, $app);
         $read = $crudServiceProvider->isManagingI18n();
         $this->assertFalse($read);
@@ -188,9 +190,10 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
         $entityDefinitionValidatorHandle->validate->once()->called();
 
+        $app = new Application();
         $app['crud.validateentitydefinition'] = true;
         $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
-        $entityDefinitionValidatorHandle->validate->twice()->called();
+        $entityDefinitionValidatorHandle->validate->once()->called();
     }
 
     public function testSwitchedOffEntityDefinitionValidation() {
