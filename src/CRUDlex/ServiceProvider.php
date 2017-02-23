@@ -102,7 +102,7 @@ class ServiceProvider implements ServiceProviderInterface {
      * the available locales
      */
     protected function initLocales(Container $app) {
-        $locales   = $this->getLocales();
+        $locales = $this->getLocales();
         $app->extend('translator', function(Translator $translator) use ($locales) {
             $translator->addLoader('yaml', new YamlFileLoader());
             $localeDir = __DIR__.'/../locales';
