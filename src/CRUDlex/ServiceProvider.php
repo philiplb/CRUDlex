@@ -273,8 +273,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the Container instance of the Silex application
      */
     public function register(Container $app) {
-        $app['crud'] = function() use ($app) {
-            $result        = new static();
+        $app['crud'] = function() {
+            $result = new static();
             return $result;
         };
     }
