@@ -13,6 +13,8 @@ namespace CRUDlex;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Silex\Api\BootableProviderInterface;
+use Silex\Application;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
@@ -26,7 +28,7 @@ use Symfony\Component\Yaml\Yaml;
  * After adding it to your Silex-setup, it offers access to {@see AbstractData}
  * instances, one for each defined entity off the CRUD YAML file.
  */
-class ServiceProvider implements ServiceProviderInterface {
+class ServiceProvider implements ServiceProviderInterface, BootableProviderInterface {
 
     /**
      * Holds the {@see AbstractData} instances.
@@ -86,10 +88,7 @@ class ServiceProvider implements ServiceProviderInterface {
         if (!$app->offsetExists('twig')) {
             $app->register(new TwigServiceProvider());
         }
-        $app->extend('twig.loader.filesystem', function(\Twig_Loader_Filesystem $twigLoader) {
-            $twigLoader->addPath(__DIR__.'/../views/', 'crud');
-            return $twigLoader;
-        });
+        $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
     }
 
     /**
@@ -103,14 +102,11 @@ class ServiceProvider implements ServiceProviderInterface {
      */
     protected function initLocales(Container $app) {
         $locales = $this->getLocales();
-        $app->extend('translator', function(Translator $translator) use ($locales) {
-            $translator->addLoader('yaml', new YamlFileLoader());
-            $localeDir = __DIR__.'/../locales';
-            foreach ($locales as $locale) {
-                $translator->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
-            }
-            return $translator;
-        });
+        $localeDir = __DIR__.'/../locales';
+        $app['translator']->addLoader('yaml', new YamlFileLoader());
+        foreach ($locales as $locale) {
+            $app['translator']->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
+        }
         return $locales;
     }
 
@@ -279,11 +275,20 @@ class ServiceProvider implements ServiceProviderInterface {
     public function register(Container $app) {
         $app['crud'] = function() use ($app) {
             $result        = new static();
-            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
-            $manageI18n    = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
-            $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
             return $result;
         };
+    }
+
+    /**
+     * Initializes the crud service right after boot.
+     *
+     * @param Application $app
+     * the Container instance of the Silex application
+     */
+    public function boot(Application $app) {
+        $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
+        $manageI18n    = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
+        $app['crud']->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
     }
 
     /**

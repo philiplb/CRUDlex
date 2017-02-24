@@ -47,13 +47,14 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testRegister() {
+    public function testRegisterAndBoot() {
         $app = new Application();
         $app->register(new ServiceProvider(), [
             'crud.file' => $this->crudFile,
             'crud.datafactory' => $this->dataFactory
         ]);
         $this->assertTrue($app->offsetExists('crud'));
+        $app->boot();
         $app['crud']->getEntities();
     }
 

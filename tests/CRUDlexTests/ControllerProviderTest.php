@@ -44,10 +44,12 @@ class ControllerProviderTest extends WebTestCase {
             'crud.fileprocessor' => $fileProcessorMock
         ]);
 
-        $app->mount('/crud', new CRUDlex\ControllerProvider());
         $app->register(new Silex\Provider\TwigServiceProvider(), [
             'twig.path' => __DIR__.'/../views'
         ]);
+
+        $app->mount('/crud', new CRUDlex\ControllerProvider());
+        $app->boot();
 
         $this->dataBook = $app['crud']->getData('book');
         $this->dataLibrary = $app['crud']->getData('library');

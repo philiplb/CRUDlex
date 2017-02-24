@@ -11,7 +11,7 @@ Released: Upcoming
 - Fixed the feature of prepopulated creation forms via GET parameter
 - Nicer visualization of boolean values using icons
 - Fixed the initialization of the TwigServiceProvider if it wasn't present yet
-- Fixed adding the YAML loader to the translator by extending the Pimple container rather than just using the translator service
+- Fixed adding the YAML loader and languages to the translator by moving it to the boot phase of the service provider
 - Fixed a crash if a many field was a reserved MySQL word
 - Removed dependencies:
     - Moment.js
