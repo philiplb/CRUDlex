@@ -100,7 +100,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the available locales
      */
     protected function initLocales(Container $app) {
-        $locales = $this->getLocales();
+        $locales   = $this->getLocales();
         $localeDir = __DIR__.'/../locales';
         $app['translator']->addLoader('yaml', new YamlFileLoader());
         foreach ($locales as $locale) {
