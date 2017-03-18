@@ -84,7 +84,8 @@
             <div class="container">
                 {% block content %}{% endblock %}
 
-                {% if app.crud.isManagingI18n() %}
+                {% set manageI18n = app['crud.manageI18n'] is defined ? app['crud.manageI18n'] : true %}
+                {% if manageI18n %}
                     <div dir="ltr">
                       <small{{ localeDir|raw }}>{{ 'crudlex.chooseLanguage'|trans }}</small>
                       <div class="dropdown">

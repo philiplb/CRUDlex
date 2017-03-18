@@ -13,6 +13,7 @@ Released: Upcoming
 - Fixed the initialization of the TwigServiceProvider if it wasn't present yet
 - Fixed adding the YAML loader and languages to the translator by moving it to the boot phase of the service provider
 - Fixed a crash if a many field was a reserved MySQL word
+- Removed the function ServiceProvider::isManagingI18n and finding it out dynamically when needed; this way the 'crud' provider is properly lazily initialized and the YaML not parsed for routes outside CRUDlex
 - Removed dependencies:
     - Moment.js
 - Updated dependencies:

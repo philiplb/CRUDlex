@@ -63,7 +63,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $crudServiceProvider = new ServiceProvider();
 
         try {
-            $crudServiceProvider->init($this->dataFactory, 'foo', $this->fileProcessorMock, true, $app);
+            $crudServiceProvider->init($this->dataFactory, 'foo', $this->fileProcessorMock, $app);
             $this->fail('Expected exception');
         } catch (\Exception $e) {
             // Wanted.
@@ -74,13 +74,13 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testInitWithEmptyFile() {
         $app = new Application();
         $crudServiceProvider = new ServiceProvider();
-        $crudServiceProvider->init($this->dataFactory, __DIR__.'/../emptyCrud.yml', $this->fileProcessorMock, true, $app);
+        $crudServiceProvider->init($this->dataFactory, __DIR__.'/../emptyCrud.yml', $this->fileProcessorMock, $app);
     }
 
     public function testGetEntities() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $expected = ['library', 'book'];
         $read = $crudServiceProvider->getEntities();
         $this->assertSame($read, $expected);
@@ -89,7 +89,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testGetData() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $read = $crudServiceProvider->getData('book');
         $this->assertNotNull($read);
         $read = $crudServiceProvider->getData('library');
@@ -130,19 +130,6 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testIsManagingI18n() {
-        $crudServiceProvider = new ServiceProvider();
-        $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
-        $read = $crudServiceProvider->isManagingI18n();
-        $this->assertTrue($read);
-
-        $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, false, $app);
-        $read = $crudServiceProvider->isManagingI18n();
-        $this->assertFalse($read);
-    }
-
     public function testGetLocales() {
         $crudServiceProvider = new ServiceProvider();
         $expected = ['de', 'el', 'en', 'fr'];
@@ -153,7 +140,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
     public function testInitialSort() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();
-        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $data = $crudServiceProvider->getData('library');
         $read = $data->getDefinition()->isInitialSortAscending();
         $this->assertFalse($read);
@@ -178,7 +165,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         ));
         $entityDefinitionFactoryMock = $entityDefinitionFactoryHandle->get();
         $app['crud.entitydefinitionfactory'] = $entityDefinitionFactoryMock;
-        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $entityDefinitionFactoryHandle->createEntityDefinition->twice()->called();
     }
 
@@ -188,12 +175,12 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionValidatorHandle = Phony::mock('\\CRUDlex\\EntityDefinitionValidator');
         $entityDefinitionValidatorMock = $entityDefinitionValidatorHandle->get();
         $app['crud.entitydefinitionvalidator'] = $entityDefinitionValidatorMock;
-        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $entityDefinitionValidatorHandle->validate->once()->called();
 
         $app = new Application();
         $app['crud.validateentitydefinition'] = true;
-        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $entityDefinitionValidatorHandle->validate->once()->called();
     }
 
@@ -204,14 +191,14 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionValidatorMock = $entityDefinitionValidatorHandle->get();
         $app['crud.validateentitydefinition'] = false;
         $app['crud.entitydefinitionvalidator'] = $entityDefinitionValidatorMock;
-        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $entityDefinitionValidatorHandle->validate->never()->called();
     }
 
     public function testSetLocale() {
         $serviceProvider = new ServiceProvider();
         $app = new Application();
-        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, true, $app);
+        $serviceProvider->init($this->dataFactory, $this->crudFile, $this->fileProcessorMock, $app);
         $serviceProvider->setLocale('de');
         $read = $serviceProvider->getData('library')->getDefinition()->getLocale();
         $expected = 'de';

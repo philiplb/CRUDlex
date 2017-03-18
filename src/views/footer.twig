@@ -23,7 +23,8 @@
     });
     $('.tooltip-crudlex').tooltip({'placement': 'auto'});
     $('.many-crudlex').select2({
-    {% if app.crud.isManagingI18n() %}
+    {% set manageI18n = app['crud.manageI18n'] is defined ? app['crud.manageI18n'] : true %}
+    {% if manageI18n %}
         'language': '{{ app.session.get('locale', 'en') }}',
     {% endif %}
         theme: 'bootstrap',

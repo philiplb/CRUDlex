@@ -35,11 +35,6 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     protected $datas;
 
     /**
-     * Holds whether we manage the i18n.
-     */
-    protected $manageI18n;
-
-    /**
      * Reads and returns the contents of the given Yaml file. If
      * it goes wrong, it throws an exception.
      *
@@ -236,12 +231,10 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the CRUD YAML file to parse
      * @param FileProcessorInterface $fileProcessor
      * the file processor used for file fields
-     * @param boolean $manageI18n
-     * holds whether we manage the i18n
      * @param Container $app
      * the application container
      */
-    public function init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Container $app) {
+    public function init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, Container $app) {
 
         $parsedYaml = $this->readYaml($crudFile);
 
@@ -249,9 +242,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
 
         $this->initMissingServiceProviders($app);
 
-        $this->manageI18n = $manageI18n;
-        $locales          = $this->initLocales($app);
-        $this->datas      = [];
+        $locales     = $this->initLocales($app);
+        $this->datas = [];
         foreach ($parsedYaml as $name => $crud) {
             $definition         = $this->createDefinition($app, $locales, $crud, $name);
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
@@ -286,8 +278,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      */
     public function boot(Application $app) {
         $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
-        $manageI18n    = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
-        $app['crud']->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $manageI18n, $app);
+        $app['crud']->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $app);
     }
 
     /**
@@ -355,16 +346,6 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
         }
 
         return '@crud/'.$action.'.twig';
-    }
-
-    /**
-     * Gets whether CRUDlex manages the i18n system.
-     *
-     * @return boolean
-     * true if CRUDlex manages the i18n system
-     */
-    public function isManagingI18n() {
-        return $this->manageI18n;
     }
 
     /**
