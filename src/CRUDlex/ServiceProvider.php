@@ -240,8 +240,6 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
 
         $this->validateEntityDefinition($app, $parsedYaml);
 
-        $this->initMissingServiceProviders($app);
-
         $locales     = $this->initLocales($app);
         $this->datas = [];
         foreach ($parsedYaml as $name => $crud) {
@@ -264,8 +262,10 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the Container instance of the Silex application
      */
     public function register(Container $app) {
-        $app['crud'] = function() {
+        $app['crud'] = function() use ($app) {
             $result = new static();
+            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
+            $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $app);
             return $result;
         };
     }
@@ -277,8 +277,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the Container instance of the Silex application
      */
     public function boot(Application $app) {
-        $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
-        $app['crud']->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $app);
+        $this->initMissingServiceProviders($app);
     }
 
     /**
