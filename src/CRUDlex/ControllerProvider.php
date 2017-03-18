@@ -252,8 +252,8 @@ class ControllerProvider implements ControllerProviderInterface {
      */
     protected function setupRoutes(Application $app) {
 
-        $self                    = $this;
-        $setLocaleAndCheckEntity = function(Request $request, Application $app) use ($self) {
+        $self                 = $this;
+        $localeAndCheckEntity = function(Request $request, Application $app) use ($self) {
             $locale = $app['translator']->getLocale();
             $app['crud']->setLocale($locale);
             if (!$app['crud']->getData($request->get('entity'))) {
@@ -264,13 +264,13 @@ class ControllerProvider implements ControllerProviderInterface {
         $class   = get_class($this);
         $factory = $app['controllers_factory'];
         $factory->get('/resource/static', $class.'::staticFile')->bind('static');
-        $factory->match('/{entity}/create', $class.'::create')->bind('crudCreate')->before($setLocaleAndCheckEntity, 10);
-        $factory->match('/{entity}', $class.'::showList')->bind('crudList')->before($setLocaleAndCheckEntity, 10);
-        $factory->match('/{entity}/{id}', $class.'::show')->bind('crudShow')->before($setLocaleAndCheckEntity, 10);
-        $factory->match('/{entity}/{id}/edit', $class.'::edit')->bind('crudEdit')->before($setLocaleAndCheckEntity, 10);
-        $factory->post('/{entity}/{id}/delete', $class.'::delete')->bind('crudDelete')->before($setLocaleAndCheckEntity, 10);
-        $factory->match('/{entity}/{id}/{field}/file', $class.'::renderFile')->bind('crudRenderFile')->before($setLocaleAndCheckEntity, 10);
-        $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')->bind('crudDeleteFile')->before($setLocaleAndCheckEntity, 10);
+        $factory->match('/{entity}/create', $class.'::create')->bind('crudCreate')->before($localeAndCheckEntity, 10);
+        $factory->match('/{entity}', $class.'::showList')->bind('crudList')->before($localeAndCheckEntity, 10);
+        $factory->match('/{entity}/{id}', $class.'::show')->bind('crudShow')->before($localeAndCheckEntity, 10);
+        $factory->match('/{entity}/{id}/edit', $class.'::edit')->bind('crudEdit')->before($localeAndCheckEntity, 10);
+        $factory->post('/{entity}/{id}/delete', $class.'::delete')->bind('crudDelete')->before($localeAndCheckEntity, 10);
+        $factory->match('/{entity}/{id}/{field}/file', $class.'::renderFile')->bind('crudRenderFile')->before($localeAndCheckEntity, 10);
+        $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')->bind('crudDeleteFile')->before($localeAndCheckEntity, 10);
         $factory->get('/setting/locale/{locale}', $class.'::setLocale')->bind('crudSetLocale');
 
         return $factory;
