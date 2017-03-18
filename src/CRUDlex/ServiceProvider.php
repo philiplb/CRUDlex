@@ -263,7 +263,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      */
     public function register(Container $app) {
         $app['crud'] = function() use ($app) {
-            $result = new static();
+            $result        = new static();
             $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
             $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $app);
             return $result;
