@@ -2,6 +2,11 @@
 CRUDlex\\AbstractData
 ---------------------
 
+.. toctree::
+  :maxdepth: 1
+
+  MySQLData
+
 .. php:namespace: CRUDlex
 
 .. php:class:: AbstractData

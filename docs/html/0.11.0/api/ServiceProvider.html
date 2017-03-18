@@ -172,13 +172,6 @@ instances, one for each defined entity off the CRUD YAML file.</p>
 <p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> AbstractData} instances.</p>
 </dd></dl>
 
-<dl class="attr">
-<dt id="ServiceProvider::$manageI18n">
-<em class="property">property </em><code class="descname">manageI18n</code><a class="headerlink" href="#ServiceProvider::$manageI18n" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
-<p>Holds whether we manage the i18n.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="ServiceProvider::readYaml">
 <code class="descname">readYaml</code><span class="sig-paren">(</span><em>$fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::readYaml" title="Permalink to this definition">¶</a></dt>
@@ -326,7 +319,7 @@ CRUD entity map.</p>
 
 <dl class="method">
 <dt id="ServiceProvider::init">
-<code class="descname">init</code><span class="sig-paren">(</span><em>DataFactoryInterface $dataFactory</em>, <em>$crudFile</em>, <em>FileProcessorInterface $fileProcessor</em>, <em>$manageI18n</em>, <em>Container $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">init</code><span class="sig-paren">(</span><em>DataFactoryInterface $dataFactory</em>, <em>$crudFile</em>, <em>FileProcessorInterface $fileProcessor</em>, <em>Container $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the instance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -336,7 +329,6 @@ CRUD entity map.</p>
 <li><strong>$dataFactory</strong> (<a class="reference internal" href="DataFactoryInterface.html#DataFactoryInterface" title="DataFactoryInterface"><em>DataFactoryInterface</em></a>) &#8211; the factory to create the concrete AbstractData instances</li>
 <li><strong>$crudFile</strong> (<em>string</em>) &#8211; the CRUD YAML file to parse</li>
 <li><strong>$fileProcessor</strong> (<a class="reference internal" href="FileProcessorInterface.html#FileProcessorInterface" title="FileProcessorInterface"><em>FileProcessorInterface</em></a>) &#8211; the file processor used for file fields</li>
-<li><strong>$manageI18n</strong> (<em>boolean</em>) &#8211; holds whether we manage the i18n</li>
 <li><strong>$app</strong> (<em>Container</em>) &#8211; the application container</li>
 </ul>
 </td>
@@ -356,6 +348,23 @@ $app[&#8216;crud&#8217;] contains an instance of the ServiceProvider afterwards.
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>$app</strong> (<em>Container</em>) &#8211; the Container instance of the Silex application</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ServiceProvider::boot">
+<code class="descname">boot</code><span class="sig-paren">(</span><em>Application $app</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::boot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the crud service right after boot.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$app</strong> (<em>Application</em>) &#8211; the Container instance of the Silex application</li>
 </ul>
 </td>
 </tr>
@@ -418,20 +427,6 @@ the existance of certain keys in the Container $app in this order:</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the best fitting template</p>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="ServiceProvider::isManagingI18n">
-<code class="descname">isManagingI18n</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::isManagingI18n" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets whether CRUDlex manages the i18n system.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if CRUDlex manages the i18n system</td>
 </tr>
 </tbody>
 </table>

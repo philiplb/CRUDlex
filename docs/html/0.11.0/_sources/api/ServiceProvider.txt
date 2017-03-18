@@ -16,12 +16,6 @@ CRUDlex\\ServiceProvider
 
         Holds the {@see AbstractData} instances.
 
-    .. php:attr:: manageI18n
-
-        protected
-
-        Holds whether we manage the i18n.
-
     .. php:method:: readYaml($fileName)
 
         Reads and returns the contents of the given Yaml file. If
@@ -93,7 +87,7 @@ CRUDlex\\ServiceProvider
         :type $entityDefinition: array
         :param $entityDefinition: the entity definition to validate
 
-    .. php:method:: init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, $manageI18n, Container $app)
+    .. php:method:: init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, Container $app)
 
         Initializes the instance.
 
@@ -103,8 +97,6 @@ CRUDlex\\ServiceProvider
         :param $crudFile: the CRUD YAML file to parse
         :type $fileProcessor: FileProcessorInterface
         :param $fileProcessor: the file processor used for file fields
-        :type $manageI18n: boolean
-        :param $manageI18n: holds whether we manage the i18n
         :type $app: Container
         :param $app: the application container
 
@@ -114,6 +106,13 @@ CRUDlex\\ServiceProvider
         $app['crud'] contains an instance of the ServiceProvider afterwards.
 
         :type $app: Container
+        :param $app: the Container instance of the Silex application
+
+    .. php:method:: boot(Application $app)
+
+        Initializes the crud service right after boot.
+
+        :type $app: Application
         :param $app: the Container instance of the Silex application
 
     .. php:method:: getData($name)
@@ -148,12 +147,6 @@ CRUDlex\\ServiceProvider
         :type $entity: string
         :param $entity: the current calling entity
         :returns: string the best fitting template
-
-    .. php:method:: isManagingI18n()
-
-        Gets whether CRUDlex manages the i18n system.
-
-        :returns: boolean true if CRUDlex manages the i18n system
 
     .. php:method:: setLocale($locale)
 

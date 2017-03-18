@@ -2,6 +2,11 @@
 CRUDlex\\EntityDefinitionFactoryInterface
 -----------------------------------------
 
+.. toctree::
+  :maxdepth: 1
+
+  EntityDefinitionFactory
+
 .. php:namespace: CRUDlex
 
 .. php:interface:: EntityDefinitionFactoryInterface
