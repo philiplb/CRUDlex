@@ -247,9 +247,6 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
             $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
         }
 
-        $twigExtensions = new TwigExtensions();
-        $twigExtensions->registerTwigExtensions($app);
-
         $this->initChildren();
 
     }
@@ -278,6 +275,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      */
     public function boot(Application $app) {
         $this->initMissingServiceProviders($app);
+        $twigExtensions = new TwigExtensions();
+        $twigExtensions->registerTwigExtensions($app);
     }
 
     /**
