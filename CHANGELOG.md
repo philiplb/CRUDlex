@@ -14,6 +14,7 @@ Released: Upcoming
 - Fixed adding the YAML loader and languages to the translator by moving it to the boot phase of the service provider
 - Fixed a crash if a many field was a reserved MySQL word
 - Restructured the i18n handling and initialization a bit so the 'crud' provider is properly lazily initialized and the YaML not parsed for routes outside CRUDlex
+- Nullable fields with empty form input are now properly stored as null
 - Removed dependencies:
     - Moment.js
 - Updated dependencies:

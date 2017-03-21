@@ -56,6 +56,11 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
         $expected = 3.99;
         $this->assertSame($expected, $read);
 
+        $entity->set('price', '');
+        $read = $entity->get('price');
+        $expected = null;
+        $this->assertSame($expected, $read);
+
         $entity->set('pages', 111);
         $read = $entity->get('pages');
         $expected = 111;
@@ -95,6 +100,11 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 
         $entity->set('opening', '');
         $read = $entity->get('opening');
+        $expected = null;
+        $this->assertSame($expected, $read);
+
+        $entity->set('name', '');
+        $read = $entity->get('name');
         $expected = null;
         $this->assertSame($expected, $read);
 

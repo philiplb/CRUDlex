@@ -53,7 +53,7 @@ class TestDBSetup {
             '  `updated_at` datetime NOT NULL,'.
             '  `deleted_at` datetime DEFAULT NULL,'.
             '  `version` int(11) NOT NULL,'.
-            '  `name` varchar(255) NOT NULL,'.
+            '  `name` varchar(255) DEFAULT NULL,'.
             '  `type` varchar(255) DEFAULT NULL,'.
             '  `opening` datetime DEFAULT NULL,'.
             '  `isOpenOnSundays` tinyint(1) NOT NULL,'.
