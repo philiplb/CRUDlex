@@ -148,6 +148,10 @@ class ControllerProviderTest extends WebTestCase {
         $library->set('name', 'lib a');
         $this->dataLibrary->create($library);
 
+        $library2 = $this->dataLibrary->createEmpty();
+        $library2->set('name', 'lib b');
+        $this->dataLibrary->create($library2);
+
         $entityBook1 = $this->dataBook->createEmpty();
         $entityBook1->set('title', 'titleA');
         $entityBook1->set('author', 'author');
@@ -186,7 +190,7 @@ class ControllerProviderTest extends WebTestCase {
             $entityBookA->set('author', 'author'.$i);
             $entityBookA->set('pages', 111);
             $entityBookA->set('price', 3.99);
-            $entityBookA->set('library', $library->get('id'));
+            $entityBookA->set('library', $i % 2 == 0 ? $library->get('id') : $library2->get('id'));
             $this->dataBook->create($entityBookA);
             sleep(1);
         }
@@ -234,6 +238,14 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("lib a")'));
         $this->assertCount(0, $crawler->filter('html:contains("lib b1")'));
         $this->assertCount(0, $crawler->filter('html:contains("lib b2")'));
+
+        $crawler = $client->request('GET', '/crud/book?crudFilterlibrary='.$library2->get('id'));
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('html:contains("Total: 4")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB1")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB3")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB5")'));
+        $this->assertCount(1, $crawler->filter('html:contains("titleB7")'));
     }
 
     public function testShow() {

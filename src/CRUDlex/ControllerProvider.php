@@ -209,15 +209,18 @@ class ControllerProvider implements ControllerProviderInterface {
             $filter[$filterField] = $request->get('crudFilter'.$filterField);
             if ($filter[$filterField]) {
                 $filterActive = true;
+                $filterToUse[$filterField]     = $filter[$filterField];
+                $filterOperators[$filterField] = '=';
                 if ($type === 'boolean') {
-                    $filterToUse[$filterField]     = $filter[$filterField] == 'true' ? 1 : 0;
-                    $filterOperators[$filterField] = '=';
+                    $filterToUse[$filterField] = $filter[$filterField] == 'true' ? 1 : 0;
+                } else if ($type === 'reference') {
+                    $filter[$filterField] = ['id' => $filter[$filterField]];
                 } else if ($type === 'many') {
                     $filter[$filterField] = array_map(function($value) {
                         return ['id' => $value];
                     }, $filter[$filterField]);
                     $filterToUse[$filterField] = $filter[$filterField];
-                } else {
+                } else if (in_array($type, ['text', 'multiline', 'fixed'])){
                     $filterToUse[$filterField]     = '%'.$filter[$filterField].'%';
                     $filterOperators[$filterField] = 'LIKE';
                 }
