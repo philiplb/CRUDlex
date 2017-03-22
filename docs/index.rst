@@ -29,6 +29,7 @@ Contents:
    manual/definitionvalidation
    manual/extendedfeatures
    manual/addons
+   manual/crudyamlreference
 
 .. toctree::
    :maxdepth: 2

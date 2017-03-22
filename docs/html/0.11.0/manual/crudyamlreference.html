@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CRUD YAML Reference &mdash; CRUDlex 0.11.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.11.0 documentation" href="../index.html"/>
+        <link rel="next" title="CRUDlex\AbstractData" href="../api/AbstractData.html"/>
+        <link rel="prev" title="Addons" href="addons.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.11.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addons.html">Addons</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">CRUD YAML Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/MimeTypes.html">CRUDlex\MimeTypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>CRUD YAML Reference</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/manual/crudyamlreference.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="crud-yaml-reference">
+<h1>CRUD YAML Reference<a class="headerlink" href="#crud-yaml-reference" title="Permalink to this headline">¶</a></h1>
+<p>Here is an overview of all possible CRUD YAML instructions. Be it optional or
+required, along with the default value or behaviour.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># an entity named &quot;library&quot; starts here, used in URLs and in some API functions</span>
+<span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+  <span class="c1"># the label used in the UI like the navigation and flashes</span>
+  <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+  <span class="c1"># the table of this entity in the data source</span>
+  <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+  <span class="c1"># if this property is given, then the named, referencing children of this</span>
+  <span class="c1"># entity are listed on the details page</span>
+  <span class="l l-Scalar l-Scalar-Plain">childrenLabelFields</span><span class="p p-Indicator">:</span>
+    <span class="c1"># list the book children of a specific library entity, represented by</span>
+    <span class="c1"># their title field</span>
+    <span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">title</span>
+  <span class="c1"># activates the filter feature for all given fields</span>
+  <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">name</span><span class="p p-Indicator">,</span> <span class="nv">isOpenOnSundays</span><span class="p p-Indicator">]</span>
+  <span class="c1"># if this is set to true, the deletion of a parent with children referencing</span>
+  <span class="c1"># it, causes no error but the deletion of the children, defaults to false</span>
+  <span class="l l-Scalar l-Scalar-Plain">deleteCascade</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="c1"># the size of one page on the list view, defaults to 25</span>
+  <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="c1"># the initial sort field on the list view, defaults to created_at</span>
+  <span class="l l-Scalar l-Scalar-Plain">initialSortField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+  <span class="c1"># whether the list view is initially ascending (true) or descending (false)</span>
+  <span class="c1"># sorted, defaults to true</span>
+  <span class="l l-Scalar l-Scalar-Plain">initialSortAscending</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="c1"># the displayed fields on the list view, defaults to id, created_at, updated_at,</span>
+  <span class="c1"># and all given ones</span>
+  <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">name</span><span class="p p-Indicator">,</span> <span class="nv">type</span><span class="p p-Indicator">,</span> <span class="nv">opening</span><span class="p p-Indicator">,</span> <span class="nv">isOpenOnSundays</span><span class="p p-Indicator">]</span>
+  <span class="c1"># the fields of this entity</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+    <span class="c1"># the name of the field, must be identical to the column of the data source</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+      <span class="c1"># the type of the field, in this case a single line text</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+      <span class="c1"># how the field is named in the UI, defaults to the field key if not given</span>
+      <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+      <span class="c1"># whether this field is a required one when entering data in the UI</span>
+      <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="c1"># whether the value of this field should occur only once, soft deleted rows</span>
+      <span class="c1"># not counting</span>
+      <span class="l l-Scalar l-Scalar-Plain">unique</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span>
+      <span class="c1"># this field can have one value of a given set</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">set</span>
+      <span class="c1"># the allowed and presented values</span>
+      <span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">small</span><span class="p p-Indicator">,</span><span class="nv">medium</span><span class="p p-Indicator">,</span><span class="nv">large</span><span class="p p-Indicator">]</span>
+    <span class="l l-Scalar l-Scalar-Plain">opening</span><span class="p p-Indicator">:</span>
+      <span class="c1"># this field represents a date and a time</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">datetime</span>
+    <span class="l l-Scalar l-Scalar-Plain">isOpenOnSundays</span><span class="p p-Indicator">:</span>
+      <span class="c1"># this field can either be true or false</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+    <span class="l l-Scalar l-Scalar-Plain">planet</span><span class="p p-Indicator">:</span>
+      <span class="c1"># the user can&#39;t change the value, a predefined one is always taken,</span>
+      <span class="c1"># useful for default values which might change to be editable in the</span>
+      <span class="c1"># future</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">fixed</span>
+      <span class="c1"># the fixed value to take</span>
+      <span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Earth</span>
+    <span class="c1"># as this is one side of a many-to-many relationship, this field key</span>
+    <span class="c1"># must be the name of the cross table</span>
+    <span class="l l-Scalar l-Scalar-Plain">libraryBook</span><span class="p p-Indicator">:</span>
+      <span class="c1"># this field is one end of a many-to-many relationship</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">many</span>
+      <span class="l l-Scalar l-Scalar-Plain">many</span><span class="p p-Indicator">:</span>
+        <span class="c1"># the related entity</span>
+        <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+        <span class="c1"># what field to take from the related entity to visualize it</span>
+        <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">title</span>
+        <span class="c1"># the column of the cross table pointing to this entity</span>
+        <span class="l l-Scalar l-Scalar-Plain">thisField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+        <span class="c1"># the column of the cross table pointing to the related entity</span>
+        <span class="l l-Scalar l-Scalar-Plain">thatField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">homepage</span><span class="p p-Indicator">:</span>
+      <span class="c1"># this field is a text represented as URL in the UI</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">url</span>
+<span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+  <span class="c1"># the label which should be displayed if the &quot;de&quot; is selected as language</span>
+  <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Bücher</span>
+  <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+      <span class="c1"># the label which should be displayed if &quot;de&quot; is selected as language</span>
+      <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Titel</span>
+    <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+      <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+      <span class="c1"># the longer description explaining the field to the user on the details</span>
+      <span class="c1"># and form page</span>
+      <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">The Author of the Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">abstract</span><span class="p p-Indicator">:</span>
+        <span class="c1"># a multi line text field</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiline</span>
+    <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+      <span class="c1"># an integer field</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+    <span class="l l-Scalar l-Scalar-Plain">release</span><span class="p p-Indicator">:</span>
+      <span class="c1"># a date field</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>
+    <span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+      <span class="c1"># this field references another entity and so builds up an one-to-many relationship</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">reference</span>
+      <span class="c1"># the reference data</span>
+      <span class="l l-Scalar l-Scalar-Plain">reference</span><span class="p p-Indicator">:</span>
+        <span class="c1"># the referenced entity</span>
+        <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+        <span class="c1"># what field to take from the related entity to visualize it, defaults to the id</span>
+        <span class="c1"># if not given</span>
+        <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+    <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span>
+      <span class="c1"># this field is a floating point number</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+      <span class="c1"># the precision of a single step in the UI</span>
+      <span class="l l-Scalar l-Scalar-Plain">floatStep</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>
+    <span class="l l-Scalar l-Scalar-Plain">cover</span><span class="p p-Indicator">:</span>
+        <span class="c1"># this fields points to an uploaded file</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
+        <span class="c1"># the sub path of the file processor to store the uploads of this field in</span>
+        <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uploads</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/AbstractData.html" class="btn btn-neutral float-right" title="CRUDlex\AbstractData" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="addons.html" class="btn btn-neutral" title="Addons" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.11.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
