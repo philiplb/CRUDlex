@@ -97,6 +97,9 @@
 {% elseif type == 'float' %}
     {{ entity.get(field)|float }}
 
+{% elseif type == 'wysiwym' %}
+    {{ entity.get(field)|raw }}
+
 {% else %}
     {{ entity.get(field) }}
 {% endif %}

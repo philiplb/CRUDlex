@@ -1,0 +1,52 @@
+{#
+ # This file is part of the CRUDlex package.
+ #
+ # (c) Philip Lehmann-Böhm <philip@philiplb.de>
+ #
+ # For the full copyright and license information, please view the LICENSE
+ # file that was distributed with this source code.
+ #}
+
+{% include app.crud.getTemplate(app, 'template', 'fieldLabel', crudEntity) with {
+    field: field,
+    definition: crudData.getDefinition(),
+    annotations: annotations
+} only %}
+<div id="{{ field }}">{{ value|raw }}</div>
+<input type="hidden" id="{{ field }}content" name="{{ fieldNamePrefix ~ field }}" />
+<script type="text/javascript">
+    $(function() {
+
+        var toolbarOptions = [
+            [{ 'font': [] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'direction': 'rtl' }],
+            ['blockquote', 'code-block'],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            ['link', 'image', 'video'],
+            ['clean']
+        ];
+
+        new Quill('#{{ field }}', {
+            modules: {
+                toolbar: toolbarOptions,
+                history: {
+                    delay: 2000,
+                    maxStack: 500,
+                    userOnly: true
+                }
+            },
+            theme: 'snow',
+            placeholder: '{{ crudData.getDefinition().getFieldLabel(field) }}',
+        });
+        $('#crudForm').submit(function() {
+            var content = $('#{{ field }} .ql-editor').html();
+            content = content === '<p><br></p>' ? '' : content;
+            $('#{{ field }}content').val(content);
+            return true;
+        });
+    });
+</script>

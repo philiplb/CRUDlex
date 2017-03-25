@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.11.0
 Released: Upcoming
 - Added a french translation, thanks to, https://github.com/k20human
+- Added a new data type: WYSIWYM (What You See Is What You Mean), with a visual editor producing HTML
 - Added a "CRUD YAML Reference" chapter in the documentation
 - The referencing children list of an entity has now an "Create New" button, thanks to, https://github.com/k20human
 - The endpoint for static files now uses ETag caching speeding up the rendering of the UI

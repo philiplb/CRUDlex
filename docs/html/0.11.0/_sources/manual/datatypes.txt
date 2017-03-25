@@ -48,6 +48,26 @@ Would be shown in the list view as:
 
 "Lorem ipsum dolor sit amet,..."
 
+-------
+WYSIWYM
+-------
+
+.. code-block:: yaml
+
+    type: multiline
+
+A visual WYSIWYM (what you see is what you mean) editor producing HTML. Related
+MySQL-types:
+
+* CHAR
+* VARCHAR
+* TINYTEXT
+* TEXT (recommended)
+* MEDIUMTEXT
+* LONGTEXT
+
+Pay attention that the database type can store all content. Else, the HTML might be just cut and broken.
+
 ---
 Url
 ---

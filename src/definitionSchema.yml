@@ -295,3 +295,19 @@ root:
                       thatField:
                         _type: text
                         _required: true
+              14:
+                _type: array
+                _ignore_extra_keys: true
+                _children:
+                  type:
+                    _type: pattern
+                    _pattern: /^wysiwym$/
+                    _required: true
+                  label:
+                    _type: text
+                  description:
+                    _type: text
+                  required:
+                    _type: boolean
+                  unique:
+                    _type: boolean

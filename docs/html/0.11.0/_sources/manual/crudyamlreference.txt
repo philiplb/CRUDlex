@@ -98,8 +98,11 @@ required, along with the default value or behaviour.
           # and form page
           description: The Author of the Book
         abstract:
-            # a multi line text field
-            type: multiline
+          # a multi line text field
+          type: multiline
+        frontpage:
+          # a visual WYSIWYM editor
+          type: wysiwym
         pages:
           # an integer field
           type: integer

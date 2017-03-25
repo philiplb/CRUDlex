@@ -89,6 +89,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Data Types</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#text">Text</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#multiline">Multiline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wysiwym">WYSIWYM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#url">Url</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#integer">Integer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#float">Float</a></li>
@@ -217,6 +218,23 @@ available as tooltip in the list view though. Example with 50 characters:</p>
 <p>&#8220;Lorem ipsum dolor sit amet, consetetur sadipscing&#8221;</p>
 <p>Would be shown in the list view as:</p>
 <p>&#8220;Lorem ipsum dolor sit amet,...&#8221;</p>
+</div>
+<div class="section" id="wysiwym">
+<h2>WYSIWYM<a class="headerlink" href="#wysiwym" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiline</span>
+</pre></div>
+</div>
+<p>A visual WYSIWYM (what you see is what you mean) editor producing HTML. Related
+MySQL-types:</p>
+<ul class="simple">
+<li>CHAR</li>
+<li>VARCHAR</li>
+<li>TINYTEXT</li>
+<li>TEXT (recommended)</li>
+<li>MEDIUMTEXT</li>
+<li>LONGTEXT</li>
+</ul>
+<p>Pay attention that the database type can store all content. Else, the HTML might be just cut and broken.</p>
 </div>
 <div class="section" id="url">
 <h2>Url<a class="headerlink" href="#url" title="Permalink to this headline">¶</a></h2>
