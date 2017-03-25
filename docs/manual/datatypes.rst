@@ -324,10 +324,6 @@ Don't forget to set the MySQL foreign key.
     ALTER TABLE `book`
     ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`library`) REFERENCES `lib` (`id`);
 
-If a book still references a library, CRUDlex refuses to delete the library if
-you try.
-
-
 ----
 Many
 ----
