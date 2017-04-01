@@ -26,8 +26,8 @@ Released: Upcoming
     - "symfony/css-selector": "~3.2"
     - "symfony/twig-bridge": "~3.2"
     - "symfony/yaml": "~3.2"
-    - flatpickr 2.3.4
-    - jQuery 3.1.1
+    - flatpickr 2.4.8
+    - jQuery 3.2.1
     
 ## 0.10.0
 Released: 2016-09-18

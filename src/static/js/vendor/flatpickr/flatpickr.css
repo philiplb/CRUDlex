@@ -6,19 +6,15 @@
   visibility: hidden;
   text-align: center;
   padding: 0;
-  -webkit-animation: none;
-          animation: none;
+  animation: none;
   direction: ltr;
   border: 0;
   font-size: 14px;
   line-height: 24px;
   border-radius: 5px;
   position: absolute;
-  width: 293.75px;
+  width: 315px;
   box-sizing: border-box;
-  -webkit-transition: top cubic-bezier(0, 1, 0.5, 1) 100ms;
-  transition: top cubic-bezier(0, 1, 0.5, 1) 100ms;
-  z-index: 99999999;
   background: #fff;
   box-shadow: 1px 0 0 #e6e6e6, -1px 0 0 #e6e6e6, 0 1px 0 #e6e6e6, 0 -1px 0 #e6e6e6, 0 3px 13px rgba(0,0,0,0.08);
 }
@@ -31,8 +27,8 @@
 }
 .flatpickr-calendar.open {
   display: inline-block;
-  -webkit-animation: flatpickrFadeInDown 300ms cubic-bezier(0, 1, 0.5, 1);
-          animation: flatpickrFadeInDown 300ms cubic-bezier(0, 1, 0.5, 1);
+  animation: flatpickrFadeInDown 300ms cubic-bezier(0, 1, 0.5, 1);
+  z-index: 99999;
 }
 .flatpickr-calendar.inline {
   display: block;
@@ -40,16 +36,17 @@
   top: 2px;
 }
 .flatpickr-calendar.static {
-  position: relative;
-  top: 2px;
+  position: absolute;
+  top: calc(100% + 2px);
 }
 .flatpickr-calendar.static.open {
+  z-index: 999;
   display: block;
 }
 .flatpickr-calendar.hasWeeks {
   width: auto;
 }
-.flatpickr-calendar.dateIsPicked.hasTime .flatpickr-time {
+.flatpickr-calendar.showTimeInput.hasTime .flatpickr-time {
   height: 40px;
   border-top: 1px solid #e6e6e6;
 }
@@ -100,6 +97,10 @@
 .flatpickr-calendar.arrowBottom:after {
   border-top-color: #fff;
 }
+.flatpickr-wrapper {
+  position: relative;
+  display: inline-block;
+}
 .flatpickr-month {
   background: transparent;
   color: rgba(0,0,0,0.9);
@@ -108,10 +109,7 @@
   line-height: 24px;
   text-align: center;
   position: relative;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 .flatpickr-prev-month,
 .flatpickr-next-month {
@@ -172,7 +170,6 @@
 }
 .flatpickr-prev-month svg path,
 .flatpickr-next-month svg path {
-  -webkit-transition: fill 0.1s;
   transition: fill 0.1s;
   fill: inherit;
 }
@@ -258,7 +255,11 @@
   font-weight: 700;
   color: inherit;
   display: inline-block;
-  padding-left: 7px;
+  margin-left: 7px;
+  padding: 0;
+}
+.flatpickr-current-month span.cur-month:hover {
+  background: rgba(0,0,0,0.05);
 }
 .flatpickr-current-month .numInputWrapper {
   width: 6ch;
@@ -308,19 +309,18 @@
   padding: 1px 0 0 0;
 }
 .flatpickr-days {
-  padding: 0 2.375px;
+  padding: 0;
   outline: 0;
   text-align: left;
-  width: 293.75px;
+  width: 315px;
   box-sizing: border-box;
   display: inline-block;
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-wrap: wrap;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
 }
 .flatpickr-day {
   background: none;
@@ -331,17 +331,14 @@
   cursor: pointer;
   font-weight: 400;
   width: 14.2857143%;
-  -ms-flex-preferred-size: 14.2857143%;
-      flex-basis: 14.2857143%;
-  max-width: 38px;
-  height: 38px;
-  line-height: 38px;
+  flex-basis: 14.2857143%;
+  max-width: 40px;
+  height: 40px;
+  line-height: 40px;
   margin: 0;
   display: inline-block;
   position: relative;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   text-align: center;
 }
 .flatpickr-day.inRange,
@@ -399,9 +396,14 @@
 .flatpickr-day.endRange.endRange {
   border-radius: 0 50px 50px 0;
 }
+.flatpickr-day.selected.startRange.endRange,
+.flatpickr-day.startRange.startRange.endRange,
+.flatpickr-day.endRange.startRange.endRange {
+  border-radius: 50px;
+}
 .flatpickr-day.inRange {
   border-radius: 0;
-  box-shadow: -3.75px 0 0 #e6e6e6, 3.75px 0 0 #e6e6e6;
+  box-shadow: -5px 0 0 #e6e6e6, 5px 0 0 #e6e6e6;
 }
 .flatpickr-day.disabled,
 .flatpickr-day.disabled:hover {
@@ -423,7 +425,7 @@ span.flatpickr-weekday {
   cursor: default;
   font-size: 90%;
   color: rgba(0,0,0,0.54);
-  height: 27.166666666666668px;
+  height: 27.333333333333332px;
   line-height: 24px;
   margin: 0;
   background: transparent;
@@ -433,7 +435,7 @@ span.flatpickr-weekday {
   width: 14.28%;
   font-weight: bold;
   margin: 0;
-  padding-top: 3.166666666666667px;
+  padding-top: 3.333333333333333px;
 }
 .rangeMode .flatpickr-day {
   margin-top: 1px;
@@ -457,8 +459,6 @@ span.flatpickr-weekday {
 }
 .flatpickr-innerContainer {
   display: block;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   box-sizing: border-box;
   overflow: hidden;
@@ -477,10 +477,7 @@ span.flatpickr-weekday {
   max-height: 40px;
   box-sizing: border-box;
   overflow: hidden;
-  -webkit-transition: height 0.33s cubic-bezier(0, 1, 0.5, 1);
   transition: height 0.33s cubic-bezier(0, 1, 0.5, 1);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 .flatpickr-time:after {
@@ -489,9 +486,7 @@ span.flatpickr-weekday {
   clear: both;
 }
 .flatpickr-time .numInputWrapper {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1 1 0%;
+  flex: 1;
   width: 40%;
   height: 40px;
   float: left;
@@ -544,10 +539,7 @@ span.flatpickr-weekday {
   color: #393939;
   font-weight: bold;
   width: 2%;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 .flatpickr-time .flatpickr-am-pm {
   outline: 0;
@@ -577,28 +569,47 @@ span.flatpickr-weekday {
     top: 0 !important;
   }
 }
-@-webkit-keyframes flatpickrFadeInDown {
+.flatpickr-input[readonly] {
+  cursor: pointer;
+}
+@-moz-keyframes flatpickrFadeInDown {
   from {
     opacity: 0;
-    -webkit-transform: translate3d(0, -20px, 0);
-            transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
   }
   to {
     opacity: 1;
-    -webkit-transform: none;
-            transform: none;
+    transform: none;
+  }
+}
+@-webkit-keyframes flatpickrFadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@-o-keyframes flatpickrFadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 @keyframes flatpickrFadeInDown {
   from {
     opacity: 0;
-    -webkit-transform: translate3d(0, -20px, 0);
-            transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
   }
   to {
     opacity: 1;
-    -webkit-transform: none;
-            transform: none;
+    transform: none;
   }
 }
 
