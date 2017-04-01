@@ -1,8 +1,11 @@
 CRUDlex Changelog
 =================
 
-## 0.11.0
+## 0.12.0
 Released: Upcoming
+
+## 0.11.0
+Released: 2017-04-02
 - Added a french translation, thanks to, https://github.com/k20human
 - Added a new data type: WYSIWYM (What You See Is What You Mean), with a visual editor producing HTML
 - Added a "CRUD YAML Reference" chapter in the documentation
