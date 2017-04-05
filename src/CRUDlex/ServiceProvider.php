@@ -157,6 +157,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
             'pageSize',
             'initialSortField',
             'initialSortAscending'
+            'navBarGroup'
         ];
         foreach ($toConfigure as $field) {
             if (array_key_exists($field, $crud)) {
@@ -303,6 +304,24 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      */
     public function getEntities() {
         return array_keys($this->datas);
+    }
+
+    /**
+     * Getter for the entitis fot the navigation bar.
+     *
+     * @return string[]
+     * a list of all available entity names with theirs group
+     */
+    public function getEntitiesNavBar() {
+      foreach ($this->datas as $entity => $data) {
+        $navBarGroup = $data->getDefinition()->getNavBarGroup();
+        if ($navBarGroup !== 'main'){
+          $result[$navBarGroup][] = $entity;
+        }else{
+          $result[$entity] = 'main';
+        }
+      }
+        return $result;
     }
 
     /**
