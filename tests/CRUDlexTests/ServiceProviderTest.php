@@ -81,6 +81,16 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
+    public function testGetEntitiesNavBar() {
+        $crudServiceProvider = new ServiceProvider();
+        $app = new Application();
+        $crudServiceProvider->boot($app);
+        $crudServiceProvider->init($this->dataFactory, $this->crudFile, null, $this->fileProcessorMock, $app);
+        $expected = ['entities' => ['library', 'book']];
+        $read = $crudServiceProvider->getEntitiesNavBar();
+        $this->assertSame($read, $expected);
+    }
+
     public function testGetData() {
         $crudServiceProvider = new ServiceProvider();
         $app = new Application();

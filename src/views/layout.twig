@@ -73,8 +73,20 @@
                 <div class="container">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            {% for entity in app.crud.getEntities() %}
-                                <li {% if crudEntity == entity %} class="active" {% endif%}><a href="{{ app.url_generator.generate('crudList', {'entity': entity}) }}">{{ app.crud.getData(entity).getDefinition().getLabel() }}</a></li>
+                            {% for entity, navBarGroup in app.crud.getEntitiesNavBar() %}
+                                {% if navBarGroup == 'main' %}
+                                    <li {% if crudEntity == entity %} class="active" {% endif%}><a href="{{ app.url_generator.generate('crudList', {'entity': entity}) }}">{{ app.crud.getData(entity).getDefinition().getLabel() }}</a></li>
+                                {% else %}
+                                  <li class="dropdown {% if crudEntity in navBarGroup %} active {% endif%}" >
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ entity }}
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                      {% for subentity in navBarGroup %}
+                                          <li {% if crudEntity == subentity %} class="active" {% endif%}><a href="{{ app.url_generator.generate('crudList', {'entity': subentity}) }}">{{ app.crud.getData(subentity).getDefinition().getLabel() }}</a></li>
+                                      {% endfor %}
+                                    </ul>
+                                  </li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>

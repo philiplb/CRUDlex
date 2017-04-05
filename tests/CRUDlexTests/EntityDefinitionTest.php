@@ -336,4 +336,14 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
+    public function testGetSetNavBarGroup() {
+        $read = $this->definition->getNavBarGroup();
+        $expected = 'entities';
+        $this->assertSame($read, $expected);
+        $this->definition->setNavBarGroup('main');
+        $read = $this->definition->getNavBarGroup();
+        $expected = 'main';
+        $this->assertSame($read, $expected);
+    }
+
 }
