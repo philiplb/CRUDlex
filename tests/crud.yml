@@ -36,6 +36,7 @@ library:
         nameField: title
         thisField: library
         thatField: book
+        hideId: true
 
 book:
   label: Book
@@ -67,6 +68,7 @@ book:
       reference:
         nameField: name
         entity: library
+        hideId: true
       required: true
     secondLibrary:
       type: reference

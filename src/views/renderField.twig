@@ -17,11 +17,13 @@
 
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
+    {% set hideId = definition.getSubTypeField(field, type, 'hideId') %}
+    {% set noName = 'name' not in reference|keys %}
     {% if reference is iterable %}
         <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getSubTypeField(field, 'reference', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
-            {{ reference['id'] }}
-            {% if 'name' in reference|keys %}
-                : {{ reference['name'] }}
+            {% if noName %}      {{ reference['id'] }}
+            {% elseif hideId %}  {{ reference['name'] }}
+            {% else %}           {{ reference['id'] }} :  {{ reference['name'] }}
             {% endif %}
         </a>
     {% else %}
@@ -31,10 +33,12 @@
 {% elseif type == 'many' %}
     {% set many = entity.get(field) %}
     {% for reference in many  %}
+        {% set hideId = definition.getSubTypeField(field, type, 'hideId') %}
+        {% set noName = 'name' not in reference|keys %}
         <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getSubTypeField(field, 'many', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
-            {{ reference['id'] }}
-            {% if 'name' in reference|keys %}
-                : {{ reference['name'] }}
+            {% if noName %}      {{ reference['id'] }}
+            {% elseif hideId %}  {{ reference['name'] }}
+            {% else %}           {{ reference['id'] }} :  {{ reference['name'] }}
             {% endif %}
         </a>
     {% endfor %}
