@@ -156,7 +156,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
             'childrenLabelFields',
             'pageSize',
             'initialSortField',
-            'initialSortAscending'
+            'initialSortAscending',
             'navBarGroup'
         ];
         foreach ($toConfigure as $field) {
