@@ -16,15 +16,6 @@ CRUDlex\\ServiceProvider
 
         Holds the {@see AbstractData} instances.
 
-    .. php:method:: readYaml($fileName)
-
-        Reads and returns the contents of the given Yaml file. If
-        it goes wrong, it throws an exception.
-
-        :type $fileName: string
-        :param $fileName: the file to read
-        :returns: array the file contents
-
     .. php:method:: initMissingServiceProviders(Container $app)
 
         Initializes needed but yet missing service providers.
@@ -87,7 +78,7 @@ CRUDlex\\ServiceProvider
         :type $entityDefinition: array
         :param $entityDefinition: the entity definition to validate
 
-    .. php:method:: init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, Container $app)
+    .. php:method:: init(DataFactoryInterface $dataFactory, $crudFile, $crudFileCachingDirectory, FileProcessorInterface $fileProcessor, Container $app)
 
         Initializes the instance.
 
@@ -95,6 +86,8 @@ CRUDlex\\ServiceProvider
         :param $dataFactory: the factory to create the concrete AbstractData instances
         :type $crudFile: string
         :param $crudFile: the CRUD YAML file to parse
+        :type $crudFileCachingDirectory: string|null
+        :param $crudFileCachingDirectory: the writable directory to store the CRUD YAML file cache
         :type $fileProcessor: FileProcessorInterface
         :param $fileProcessor: the file processor used for file fields
         :type $app: Container

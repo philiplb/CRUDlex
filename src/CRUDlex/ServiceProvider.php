@@ -35,32 +35,6 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     protected $datas;
 
     /**
-     * Reads and returns the contents of the given Yaml file. If
-     * it goes wrong, it throws an exception.
-     *
-     * @param string $fileName
-     * the file to read
-     *
-     * @return array
-     * the file contents
-     *
-     * @throws \RuntimeException
-     * thrown if the file could not be read or parsed
-     */
-    protected function readYaml($fileName) {
-        try {
-            $fileContent = file_get_contents($fileName);
-            $parsedYaml  = Yaml::parse($fileContent);
-            if (!is_array($parsedYaml)) {
-                $parsedYaml = [];
-            }
-            return $parsedYaml;
-        } catch (\Exception $e) {
-            throw new \RuntimeException('Could not open CRUD file '.$fileName, $e->getCode(), $e);
-        }
-    }
-
-    /**
      * Initializes needed but yet missing service providers.
      *
      * @param Container $app
@@ -229,14 +203,17 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the factory to create the concrete AbstractData instances
      * @param string $crudFile
      * the CRUD YAML file to parse
+     * @param string|null $crudFileCachingDirectory
+     * the writable directory to store the CRUD YAML file cache
      * @param FileProcessorInterface $fileProcessor
      * the file processor used for file fields
      * @param Container $app
      * the application container
      */
-    public function init(DataFactoryInterface $dataFactory, $crudFile, FileProcessorInterface $fileProcessor, Container $app) {
+    public function init(DataFactoryInterface $dataFactory, $crudFile, $crudFileCachingDirectory, FileProcessorInterface $fileProcessor, Container $app) {
 
-        $parsedYaml = $this->readYaml($crudFile);
+        $reader     = new YamlReader($crudFileCachingDirectory);
+        $parsedYaml = $reader->read($crudFile);
 
         $this->validateEntityDefinition($app, $parsedYaml);
 
@@ -260,9 +237,10 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      */
     public function register(Container $app) {
         $app['crud'] = function() use ($app) {
-            $result        = new static();
-            $fileProcessor = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
-            $result->init($app['crud.datafactory'], $app['crud.file'], $fileProcessor, $app);
+            $result                   = new static();
+            $crudFileCachingDirectory = $app->offsetExists('crud.filecachingdirectory') ? $app['crud.filecachingdirectory'] : null;
+            $fileProcessor            = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
+            $result->init($app['crud.datafactory'], $app['crud.file'], $crudFileCachingDirectory, $fileProcessor, $app);
             return $result;
         };
     }

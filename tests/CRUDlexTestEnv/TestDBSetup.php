@@ -129,7 +129,7 @@ class TestDBSetup {
         $dataFactory = new MySQLDataFactory($app['db'], $useUUIDs);
         $crudFile = __DIR__.'/../crud.yml';
         $crudServiceProvider->boot($app);
-        $crudServiceProvider->init($dataFactory, $crudFile, $fileProcessorMock, $app);
+        $crudServiceProvider->init($dataFactory, $crudFile, null, $fileProcessorMock, $app);
         return $crudServiceProvider;
     }
 

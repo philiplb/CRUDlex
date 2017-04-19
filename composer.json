@@ -20,7 +20,8 @@
         "symfony/translation": "~3.2",
         "symfony/intl": "~3.2",
         "philiplb/valdi": "0.10.0",
-        "romaricdrigon/metayaml": "~1.1"
+        "romaricdrigon/metayaml": "~1.1",
+        "riimu/kit-phpencoder": "^2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8",

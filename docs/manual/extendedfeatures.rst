@@ -250,6 +250,25 @@ CRUDDataFactoryInterface:
 
     $dataFactory = new CRUDlex\MySQLDataFactory($app['db'], true);
 
+------------------------------
+Using the CRUD YAML file cache
+------------------------------
+
+Parsing the CRUD YAML file cache on each request can have an impact on the performance with bigger files. To mitigate
+this, CRUDlex can cache the parsed content to a PHP file. Using a PHP file has the advantage, that this is then cached
+for free by the opcode cache of PHP.
+
+To activate the caching, you simply pass a path to a writable directory on registration:
+
+.. code-block:: php
+
+    $app->register(new CRUDlex\ServiceProvider(), array(
+        'crud.filecachingdirectory' => '/path/to/a/writable/directory'
+    ));
+
+Note that CRUDlex doesn't do any cache invalidation. You have to delete the cached files yourself if needed. This is the
+case if the crud.yml got modified for example.
+
 ---------------------------------------------------
 Using an own Implementation of the EntityDefinition
 ---------------------------------------------------

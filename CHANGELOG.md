@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.12.0
 Released: Upcoming
+- Added a caching mechanism for the parsing of the CRUD YAML files
 
 ## 0.11.0
 Released: 2017-04-02
