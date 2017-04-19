@@ -204,6 +204,7 @@ Reference
     reference:
       nameField: otherName
       entity: otherEntity
+      hideId: false
 
 This is the 1-side of a one-to-many relation. Related MySQL-type:
 
@@ -216,6 +217,8 @@ the referenced *entity*.
 
 The *nameField* is optional. If it is not given, only the id of the referenced
 *entity* is shown.
+
+The optional parameter *hideId* allows to display the reference without its id, if set to *true*.
 
 Think about a book in a library. The library is stored in the table "library" and
 has a field "name". A book belongs to a library, so it has an integer field
@@ -337,6 +340,7 @@ Many
             nameField: title
             thisField: library
             thatField: book
+            hideId: false
 
 A many-to-many relation. For MySQL, the field key is the name of the cross table.
 So the sample above translates to this structure:
@@ -362,6 +366,7 @@ The fields of the many key have the following meaning:
   many field
 * **thatField**: the field of the cross table referencing the other entity
   named with the entity field of the many key
+* **hideId** (optional) allows to display the reference without its id, if set to *true*.
 
 Think about a library having many books and a book being in many libraries.
 The library is stored in the table "library" and has a field "name". Here is
