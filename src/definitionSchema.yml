@@ -230,7 +230,6 @@ root:
                         _required: true
                       hideId:
                         _type: boolean
-                        _required: false
               11:
                 _type: array
                 _ignore_extra_keys: true
@@ -300,7 +299,6 @@ root:
                         _required: true
                       hideId:
                         _type: boolean
-                        _required: false
 
               14:
                 _type: array
