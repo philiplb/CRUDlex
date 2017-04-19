@@ -18,8 +18,10 @@ use CRUDlex\EntityDefinition;
 
 class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
 
+    /** @var $definition EntityDefinition */
     protected $definition;
 
+    /** @var $definitionLibrary EntityDefinition */
     protected $definitionLibrary;
 
     protected function setUp() {
@@ -276,6 +278,15 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definitionLibrary->getSubTypeField('libraryBook', 'many', 'entity');
         $expected = 'book';
         $this->assertSame($expected, $read);
+
+        $read = $this->definitionLibrary->getSubTypeField('libraryBook', 'many', 'hideId');
+        $this->assertSame(true, $read);
+
+        $read = $this->definition->getSubTypeField('library', 'reference', 'hideId');
+        $this->assertSame(true, $read);
+
+        $read = $this->definitionLibrary->getSubTypeField('secondLibrary', 'reference', 'hideId');
+        $this->assertSame(null, $read);
 
         $read = $this->definitionLibrary->getSubTypeField('name', 'many', 'entity');
         $this->assertNull($read);

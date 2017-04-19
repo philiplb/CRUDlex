@@ -79,6 +79,8 @@ required, along with the default value or behaviour.
             thisField: library
             # the column of the cross table pointing to the related entity
             thatField: book
+            # if set to true, the reference will be displayed without its id
+            hideId : false
         homepage:
           # this field is a text represented as URL in the UI
           type: url
@@ -119,6 +121,8 @@ required, along with the default value or behaviour.
             # what field to take from the related entity to visualize it, defaults to the id
             # if not given
             nameField: name
+            # if set to true, the reference will be displayed without its id
+            hideId : false
         price:
           # this field is a floating point number
           type: float
