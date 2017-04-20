@@ -96,6 +96,11 @@ class EntityDefinition {
     protected $initialSortAscending;
 
     /**
+     * Holds if the entity must be displayed grouped in the nav bar.
+     */
+    protected $navBarGroup;
+
+    /**
      * Gets the field names exluding the given ones.
      *
      * @param string[] $exclude
@@ -171,6 +176,7 @@ class EntityDefinition {
         $this->locale               = null;
         $this->initialSortField     = 'created_at';
         $this->initialSortAscending = true;
+        $this->navBarGroup          = 'main';
     }
 
     /**
@@ -556,6 +562,26 @@ class EntityDefinition {
      */
     public function isInitialSortAscending() {
         return $this->initialSortAscending;
+    }
+    
+    /**
+     * Gets the navigation bar group where the entity belongs
+     *
+     * @return string
+     * the navigation bar group where the entity belongs
+     */
+    public function getNavBarGroup() {
+        return $this->navBarGroup;
+    }
+
+    /**
+     * Sets the navigation bar group where the entity belongs
+     *
+     * @param string $navBarGroup
+     * the navigation bar group where the entity belongs
+     */
+    public function setNavBarGroup($navBarGroup) {
+        $this->navBarGroup = $navBarGroup;
     }
 
     /**

@@ -23,8 +23,6 @@ description per field. In this case, the author of a book is more informative:
     book:
         label: Book
         table: book
-        listFields: [id, created_at, updated_at, author, title]
-        filter: [author, title]
         fields:
             author:
                 type: text
