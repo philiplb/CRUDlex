@@ -8,6 +8,7 @@ library:
   pageSize: 10
   initialSortField: name
   initialSortAscending: false
+  navBarGroup: entities
   fields:
     name:
       type: text
@@ -44,6 +45,7 @@ book:
   table: book
   listFields: [author, title, library]
   filter: [author, title, library]
+  navBarGroup: entities
   fields:
     title:
       type: text

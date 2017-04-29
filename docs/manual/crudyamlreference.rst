@@ -31,6 +31,10 @@ required, along with the default value or behaviour.
       # whether the list view is initially ascending (true) or descending (false)
       # sorted, defaults to true
       initialSortAscending: false
+      # This will create a top level item in the navigation bar called "learning"
+      # and put the library entity in a dropdown below the option. Defaults to
+      # 'main' (The entity will be in the top level of the navigation bar)
+      navBarGroup: learning
       # the displayed fields on the list view, defaults to id, created_at, updated_at,
       # and all given ones
       listFields: [id, created_at, updated_at, name, type, opening, isOpenOnSundays]

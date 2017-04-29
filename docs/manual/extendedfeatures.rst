@@ -23,8 +23,6 @@ description per field. In this case, the author of a book is more informative:
     book:
         label: Book
         table: book
-        listFields: [id, created_at, updated_at, author, title]
-        filter: [author, title]
         fields:
             author:
                 type: text
@@ -129,6 +127,40 @@ Currently, the listview contains all entries on the pages. Often, it is desirabl
         table: book
         listFields: [id, created_at, updated_at, author, title]
         filter: [author, title]
+        fields:
+            author:
+                type: text
+                label: Author
+            title:
+                type: text
+                label: Title
+            pages:
+                type: integer
+                label: Pages
+
+------------------------------------
+Group entities in the Navigation Bar
+------------------------------------
+
+Each entity represents and option in the navigation bar at the top. If there are
+too many entities or want to group based on relations between the entities, you
+can add a “navBarGroup” option. In this case we group library and books under
+“Learning Resources”:
+
+.. code-block:: yaml
+
+    library:
+        label: Library
+        table: library
+        navBarGroup: Learning Resources
+        fields:
+            name:
+                type: text
+                label: Name
+    book:
+        label: Book
+        table: book
+        navBarGroup: Learning Resources
         fields:
             author:
                 type: text

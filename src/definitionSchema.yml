@@ -40,6 +40,9 @@ root:
       initialSortAscending:
         _type: boolean
 
+      navBarGroup:
+        _type: text
+
       childrenLabelFields:
         _type: prototype
         _prototype:
