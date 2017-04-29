@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.12.0
 Released: Upcoming
 - Added a caching mechanism for the parsing of the CRUD YAML files
+- Added the possibility to group entities in the navigation bar, thanks to https://github.com/dmaciel
 - Added an optional hideId parameter for references and many relations so the id is hidden in the reference buttons, thanks to https://github.com/jmfayard
 
 ## 0.11.0
