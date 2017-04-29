@@ -293,9 +293,9 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
         $result = [];
         foreach ($this->datas as $entity => $data) {
             $navBarGroup = $data->getDefinition()->getNavBarGroup();
-            if ($navBarGroup !== 'main'){
+            if ($navBarGroup !== 'main') {
                 $result[$navBarGroup][] = $entity;
-            }else{
+            } else {
                 $result[$entity] = 'main';
             }
         }
