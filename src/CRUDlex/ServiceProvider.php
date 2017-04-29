@@ -290,6 +290,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * a list of all available entity names with their group
      */
     public function getEntitiesNavBar() {
+        $result = [];
         foreach ($this->datas as $entity => $data) {
             $navBarGroup = $data->getDefinition()->getNavBarGroup();
             if ($navBarGroup !== 'main'){
