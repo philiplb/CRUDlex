@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CRUDlex\SimpleFilesystemFileProcessor &mdash; CRUDlex 0.12.0 documentation</title>
+  <title>CRUDlex\YamlReader &mdash; CRUDlex 0.12.0 documentation</title>
   
 
   
@@ -31,9 +31,7 @@
 
   
     <link rel="top" title="CRUDlex 0.12.0 documentation" href="../index.html"/>
-        <link rel="up" title="CRUDlex\FileProcessorInterface" href="FileProcessorInterface.html"/>
-        <link rel="next" title="CRUDlex\ManyValidator" href="ManyValidator.html"/>
-        <link rel="prev" title="CRUDlex\FileProcessorInterface" href="FileProcessorInterface.html"/> 
+        <link rel="prev" title="CRUDlex\UniqueValidator" href="UniqueValidator.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -107,10 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">CRUDlex\SimpleFilesystemFileProcessor</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
@@ -118,7 +113,7 @@
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="YamlReader.html">CRUDlex\YamlReader</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\YamlReader</a></li>
 </ul>
 
             
@@ -149,13 +144,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a> &raquo;</li>
-      
-    <li>CRUDlex\SimpleFilesystemFileProcessor</li>
+    <li>CRUDlex\YamlReader</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/SimpleFilesystemFileProcessor.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/YamlReader.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -165,37 +158,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="crudlex-simplefilesystemfileprocessor">
-<h1>CRUDlex\SimpleFilesystemFileProcessor<a class="headerlink" href="#crudlex-simplefilesystemfileprocessor" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="crudlex-yamlreader">
+<h1>CRUDlex\YamlReader<a class="headerlink" href="#crudlex-yamlreader" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="SimpleFilesystemFileProcessor">
-<em class="property">class </em><code class="descname">SimpleFilesystemFileProcessor</code><a class="headerlink" href="#SimpleFilesystemFileProcessor" title="Permalink to this definition">¶</a></dt>
-<dd><p>An implementation of the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> FileProcessorInterface} simply using the
-file system.</p>
+<dt id="YamlReader">
+<em class="property">class </em><code class="descname">YamlReader</code><a class="headerlink" href="#YamlReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads Yaml files and caches them if a writable path is given. The cache is used first on the next read.
+It is a simple PHP class internally.</p>
 <dl class="attr">
-<dt id="SimpleFilesystemFileProcessor::$basePath">
-<em class="property">property </em><code class="descname">basePath</code><a class="headerlink" href="#SimpleFilesystemFileProcessor::$basePath" title="Permalink to this definition">¶</a></dt>
+<dt id="YamlReader::$cachePath">
+<em class="property">property </em><code class="descname">cachePath</code><a class="headerlink" href="#YamlReader::$cachePath" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected</p>
-<p>Holds the base path where all files will be stored into subfolders.</p>
+<p>The path for the cache files.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="SimpleFilesystemFileProcessor::getPath">
-<code class="descname">getPath</code><span class="sig-paren">(</span><em>$entityName</em>, <em>Entity $entity</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::getPath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a file system path for the given parameters for storing the
-file of the file field.</p>
+<dt id="YamlReader::getCacheFile">
+<code class="descname">getCacheFile</code><span class="sig-paren">(</span><em>$fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#YamlReader::getCacheFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets an absolute path for a cache file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the entity name</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the file field in the entity</li>
+<li><strong>$fileName</strong> (<em>string</em>) &#8211; the file to cache</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the constructed path for storing the file of the file field</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the absolute path of the cache file</p>
 </td>
 </tr>
 </tbody>
@@ -203,16 +193,19 @@ file of the file field.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="SimpleFilesystemFileProcessor::__construct">
-<code class="descname">__construct</code><span class="sig-paren">(</span><em>$basePath = ''</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::__construct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor.</p>
+<dt id="YamlReader::readFromCache">
+<code class="descname">readFromCache</code><span class="sig-paren">(</span><em>$fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#YamlReader::readFromCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the content of the cached file if it exists.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$basePath</strong> (<em>string</em>) &#8211; the base path where all files will be stored into subfolders</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fileName</strong> (<em>string</em>) &#8211; the cache file to read from</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">null|array the cached data structure or null if the cache file was not available</p>
 </td>
 </tr>
 </tbody>
@@ -220,39 +213,16 @@ file of the file field.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="SimpleFilesystemFileProcessor::createFile">
-<code class="descname">createFile</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::createFile" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<dt id="YamlReader::writeToCache">
+<code class="descname">writeToCache</code><span class="sig-paren">(</span><em>$fileName</em>, <em>$content</em><span class="sig-paren">)</span><a class="headerlink" href="#YamlReader::writeToCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the given content to a cached PHP file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$request</strong> (<em>Request</em>) &#8211; </li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
-<li><strong>$entityName</strong> &#8211; </li>
-<li><strong>$field</strong> &#8211; </li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="SimpleFilesystemFileProcessor::updateFile">
-<code class="descname">updateFile</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::updateFile" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}
-For now, this implementation is defensive and doesn&#8217;t delete ever.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$request</strong> (<em>Request</em>) &#8211; </li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
-<li><strong>$entityName</strong> &#8211; </li>
-<li><strong>$field</strong> &#8211; </li>
+<li><strong>$fileName</strong> (<em>string</em>) &#8211; the original filename</li>
+<li><strong>$content</strong> (<em>array</em>) &#8211; the content to cache</li>
 </ul>
 </td>
 </tr>
@@ -261,18 +231,15 @@ For now, this implementation is defensive and doesn&#8217;t delete ever.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="SimpleFilesystemFileProcessor::deleteFile">
-<code class="descname">deleteFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::deleteFile" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}
-For now, this implementation is defensive and doesn&#8217;t delete ever.</p>
+<dt id="YamlReader::__construct">
+<code class="descname">__construct</code><span class="sig-paren">(</span><em>$cachePath</em><span class="sig-paren">)</span><a class="headerlink" href="#YamlReader::__construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>YamlReader constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
-<li><strong>$entityName</strong> &#8211; </li>
-<li><strong>$field</strong> &#8211; </li>
+<li><strong>$cachePath</strong> (<em>string|null</em>) &#8211; if given, the path for the cache files which should be a writable directory</li>
 </ul>
 </td>
 </tr>
@@ -281,18 +248,20 @@ For now, this implementation is defensive and doesn&#8217;t delete ever.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="SimpleFilesystemFileProcessor::renderFile">
-<code class="descname">renderFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#SimpleFilesystemFileProcessor::renderFile" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<dt id="YamlReader::read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>$fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#YamlReader::read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads and returns the contents of the given Yaml file. If
+it goes wrong, it throws an exception.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
-<li><strong>$entityName</strong> &#8211; </li>
-<li><strong>$field</strong> &#8211; </li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fileName</strong> (<em>string</em>) &#8211; the file to read</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the file contents</p>
 </td>
 </tr>
 </tbody>
@@ -310,10 +279,8 @@ For now, this implementation is defensive and doesn&#8217;t delete ever.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ManyValidator.html" class="btn btn-neutral float-right" title="CRUDlex\ManyValidator" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="FileProcessorInterface.html" class="btn btn-neutral" title="CRUDlex\FileProcessorInterface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="UniqueValidator.html" class="btn btn-neutral" title="CRUDlex\UniqueValidator" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

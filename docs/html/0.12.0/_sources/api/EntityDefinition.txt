@@ -102,6 +102,12 @@ CRUDlex\\EntityDefinition
 
         Holds the initial sort order.
 
+    .. php:attr:: navBarGroup
+
+        protected
+
+        Holds if the entity must be displayed grouped in the nav bar.
+
     .. php:method:: getFilteredFieldNames($exclude)
 
         Gets the field names exluding the given ones.
@@ -365,6 +371,19 @@ CRUDlex\\EntityDefinition
         Gets the initial sort order.
 
         :returns: boolean the initial sort order, true if ascending
+
+    .. php:method:: getNavBarGroup()
+
+        Gets the navigation bar group where the entity belongs.
+
+        :returns: string the navigation bar group where the entity belongs
+
+    .. php:method:: setNavBarGroup($navBarGroup)
+
+        Sets the navigation bar group where the entity belongs.
+
+        :type $navBarGroup: string
+        :param $navBarGroup: the navigation bar group where the entity belongs
 
     .. php:method:: getSubTypeField($fieldName, $subType, $key)
 

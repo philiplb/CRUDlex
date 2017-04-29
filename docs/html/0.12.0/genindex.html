@@ -113,6 +113,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/YamlReader.html">CRUDlex\YamlReader</a></li>
 </ul>
 
             
@@ -171,12 +172,15 @@
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -205,6 +209,10 @@
 
         
   <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::__construct"><strong>(SimpleFilesystemFileProcessor method)</strong></a>
+  </dt>
+
+        
+  <dt><a href="api/YamlReader.html#YamlReader::__construct"><strong>(YamlReader method)</strong></a>
   </dt>
 
       </dl></dd>
@@ -282,6 +290,10 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/YamlReader.html#YamlReader::$cachePath"><strong>cachePath (YamlReader property)</strong></a>
+  </dt>
+
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::checkFieldNames"><strong>checkFieldNames() (EntityDefinition method)</strong></a>
   </dt>
@@ -669,6 +681,10 @@
   </dt>
 
       
+  <dt><a href="api/YamlReader.html#YamlReader::getCacheFile"><strong>getCacheFile() (YamlReader method)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getChildren"><strong>getChildren() (EntityDefinition method)</strong></a>
   </dt>
 
@@ -700,6 +716,10 @@
 
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::getEntities"><strong>getEntities() (ServiceProvider method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/ServiceProvider.html#ServiceProvider::getEntitiesNavBar"><strong>getEntitiesNavBar() (ServiceProvider method)</strong></a>
   </dt>
 
       
@@ -810,6 +830,10 @@
 
       
   <dt><a href="api/MimeTypes.html#MimeTypes::getMimeTypeByFileInfo"><strong>getMimeTypeByFileInfo() (MimeTypes method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/EntityDefinition.html#EntityDefinition::getNavBarGroup"><strong>getNavBarGroup() (EntityDefinition method)</strong></a>
   </dt>
 
       
@@ -1049,6 +1073,16 @@
   </dl></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/EntityDefinition.html#EntityDefinition::$navBarGroup"><strong>navBarGroup (EntityDefinition property)</strong></a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
@@ -1099,19 +1133,23 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/ServiceProvider.html#ServiceProvider::readYaml"><strong>readYaml() (ServiceProvider method)</strong></a>
+  <dt><a href="api/YamlReader.html#YamlReader::read"><strong>read() (YamlReader method)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/YamlReader.html#YamlReader::readFromCache"><strong>readFromCache() (YamlReader method)</strong></a>
   </dt>
 
       
   <dt><a href="api/ReferenceValidator.html#ReferenceValidator"><strong>ReferenceValidator (class)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::register"><strong>register() (ServiceProvider method)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/TwigExtensions.html#TwigExtensions::registerTwigExtensions"><strong>registerTwigExtensions() (TwigExtensions method)</strong></a>
   </dt>
@@ -1210,6 +1248,10 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="api/EntityDefinition.html#EntityDefinition::setNavBarGroup"><strong>setNavBarGroup() (EntityDefinition method)</strong></a>
+  </dt>
+
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::setPageSize"><strong>setPageSize() (EntityDefinition method)</strong></a>
   </dt>
@@ -1378,6 +1420,26 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/ServiceProvider.html#ServiceProvider::validateEntityDefinition"><strong>validateEntityDefinition() (ServiceProvider method)</strong></a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/YamlReader.html#YamlReader::writeToCache"><strong>writeToCache() (YamlReader method)</strong></a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/YamlReader.html#YamlReader"><strong>YamlReader (class)</strong></a>
   </dt>
 
   </dl></td>

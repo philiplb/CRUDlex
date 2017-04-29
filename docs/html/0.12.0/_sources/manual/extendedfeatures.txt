@@ -23,8 +23,6 @@ description per field. In this case, the author of a book is more informative:
     book:
         label: Book
         table: book
-        listFields: [id, created_at, updated_at, author, title]
-        filter: [author, title]
         fields:
             author:
                 type: text
@@ -129,6 +127,40 @@ Currently, the listview contains all entries on the pages. Often, it is desirabl
         table: book
         listFields: [id, created_at, updated_at, author, title]
         filter: [author, title]
+        fields:
+            author:
+                type: text
+                label: Author
+            title:
+                type: text
+                label: Title
+            pages:
+                type: integer
+                label: Pages
+
+------------------------------------
+Group entities in the Navigation Bar
+------------------------------------
+
+Each entity represents and option in the navigation bar at the top. If there are
+too many entities or want to group based on relations between the entities, you
+can add a “navBarGroup” option. In this case we group library and books under
+“Learning Resources”:
+
+.. code-block:: yaml
+
+    library:
+        label: Library
+        table: library
+        navBarGroup: Learning Resources
+        fields:
+            name:
+                type: text
+                label: Name
+    book:
+        label: Book
+        table: book
+        navBarGroup: Learning Resources
         fields:
             author:
                 type: text
@@ -249,6 +281,25 @@ CRUDDataFactoryInterface:
 .. code-block:: php
 
     $dataFactory = new CRUDlex\MySQLDataFactory($app['db'], true);
+
+------------------------------
+Using the CRUD YAML file cache
+------------------------------
+
+Parsing the CRUD YAML file cache on each request can have an impact on the performance with bigger files. To mitigate
+this, CRUDlex can cache the parsed content to a PHP file. Using a PHP file has the advantage, that this is then cached
+for free by the opcode cache of PHP.
+
+To activate the caching, you simply pass a path to a writable directory on registration:
+
+.. code-block:: php
+
+    $app->register(new CRUDlex\ServiceProvider(), array(
+        'crud.filecachingdirectory' => '/path/to/a/writable/directory'
+    ));
+
+Note that CRUDlex doesn't do any cache invalidation. You have to delete the cached files yourself if needed. This is the
+case if the crud.yml got modified for example.
 
 ---------------------------------------------------
 Using an own Implementation of the EntityDefinition

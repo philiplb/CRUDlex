@@ -31,6 +31,10 @@ required, along with the default value or behaviour.
       # whether the list view is initially ascending (true) or descending (false)
       # sorted, defaults to true
       initialSortAscending: false
+      # This will create a top level item in the navigation bar called "learning"
+      # and put the library entity in a dropdown below the option. Defaults to
+      # 'main' (The entity will be in the top level of the navigation bar)
+      navBarGroup: learning
       # the displayed fields on the list view, defaults to id, created_at, updated_at,
       # and all given ones
       listFields: [id, created_at, updated_at, name, type, opening, isOpenOnSundays]
@@ -79,6 +83,8 @@ required, along with the default value or behaviour.
             thisField: library
             # the column of the cross table pointing to the related entity
             thatField: book
+            # if set to true, the reference will be displayed without its id
+            hideId : false
         homepage:
           # this field is a text represented as URL in the UI
           type: url
@@ -119,6 +125,8 @@ required, along with the default value or behaviour.
             # what field to take from the related entity to visualize it, defaults to the id
             # if not given
             nameField: name
+            # if set to true, the reference will be displayed without its id
+            hideId : false
         price:
           # this field is a floating point number
           type: float

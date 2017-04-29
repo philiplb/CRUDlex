@@ -51,6 +51,7 @@ Contents:
    api/StreamedFileResponse
    api/TwigExtensions
    api/UniqueValidator
+   api/YamlReader
 
 Indices and tables
 ==================

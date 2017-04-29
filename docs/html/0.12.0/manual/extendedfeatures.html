@@ -97,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#displayed-fields-in-the-list">Displayed Fields in the List</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pagination">Pagination</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#filters">Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#group-entities-in-the-navigation-bar">Group entities in the Navigation Bar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#i18n">I18n</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#set-the-translations-of-entity-and-field-labels">Set the Translations of Entity- and Field-Labels</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#switch-off-i18n-management">Switch off I18n Management</a></li>
@@ -104,6 +105,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#initial-sorting-parameters">Initial Sorting Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-uuids-as-primary-key-instead-of-an-auto-incremented-value">Using UUIDs as Primary Key Instead of an Auto Incremented Value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-crud-yaml-file-cache">Using the CRUD YAML file cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-an-own-implementation-of-the-entitydefinition">Using an own Implementation of the EntityDefinition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prepopulated-form-fields-on-the-creation-page">Prepopulated Form Fields on the Creation Page</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#combine-with-the-web-profiler">Combine with the Web Profiler</a></li>
@@ -130,6 +132,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/YamlReader.html">CRUDlex\YamlReader</a></li>
 </ul>
 
             
@@ -192,8 +195,6 @@ description per field. In this case, the author of a book is more informative:</
 <span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
-    <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
-    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
@@ -300,6 +301,37 @@ data types are presented.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="group-entities-in-the-navigation-bar">
+<h2>Group entities in the Navigation Bar<a class="headerlink" href="#group-entities-in-the-navigation-bar" title="Permalink to this headline">¶</a></h2>
+<p>Each entity represents and option in the navigation bar at the top. If there are
+too many entities or want to group based on relations between the entities, you
+can add a “navBarGroup” option. In this case we group library and books under
+“Learning Resources”:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+    <span class="l l-Scalar l-Scalar-Plain">navBarGroup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Learning Resources</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+<span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+    <span class="l l-Scalar l-Scalar-Plain">navBarGroup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Learning Resources</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">author</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Author</span>
+        <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Title</span>
+        <span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="i18n">
 <h2>I18n<a class="headerlink" href="#i18n" title="Permalink to this headline">¶</a></h2>
 <p>Here are some features around the i18n support.</p>
@@ -389,6 +421,20 @@ CRUDDataFactoryInterface:</p>
 <div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;], true);</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="using-the-crud-yaml-file-cache">
+<h2>Using the CRUD YAML file cache<a class="headerlink" href="#using-the-crud-yaml-file-cache" title="Permalink to this headline">¶</a></h2>
+<p>Parsing the CRUD YAML file cache on each request can have an impact on the performance with bigger files. To mitigate
+this, CRUDlex can cache the parsed content to a PHP file. Using a PHP file has the advantage, that this is then cached
+for free by the opcode cache of PHP.</p>
+<p>To activate the caching, you simply pass a path to a writable directory on registration:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
+<span class="x">    &#39;crud.filecachingdirectory&#39; =&gt; &#39;/path/to/a/writable/directory&#39;</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<p>Note that CRUDlex doesn&#8217;t do any cache invalidation. You have to delete the cached files yourself if needed. This is the
+case if the crud.yml got modified for example.</p>
 </div>
 <div class="section" id="using-an-own-implementation-of-the-entitydefinition">
 <h2>Using an own Implementation of the EntityDefinition<a class="headerlink" href="#using-an-own-implementation-of-the-entitydefinition" title="Permalink to this headline">¶</a></h2>

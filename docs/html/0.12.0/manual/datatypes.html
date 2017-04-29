@@ -135,6 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/YamlReader.html">CRUDlex\YamlReader</a></li>
 </ul>
 
             
@@ -350,6 +351,7 @@ and &#8220;blue&#8221;.</p>
 <span class="l l-Scalar l-Scalar-Plain">reference</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">otherName</span>
   <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">otherEntity</span>
+  <span class="l l-Scalar l-Scalar-Plain">hideId</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 </div>
 <p>This is the 1-side of a one-to-many relation. Related MySQL-type:</p>
@@ -362,6 +364,7 @@ which field to use from the other table to display the selected value and last,
 the referenced <em>entity</em>.</p>
 <p>The <em>nameField</em> is optional. If it is not given, only the id of the referenced
 <em>entity</em> is shown.</p>
+<p>The optional parameter <em>hideId</em> allows to display the reference without its id, if set to <em>true</em>.</p>
 <p>Think about a book in a library. The library is stored in the table &#8220;library&#8221; and
 has a field &#8220;name&#8221;. A book belongs to a library, so it has an integer field
 &#8220;library&#8221; referencing ids of libraries. Here is the needed yml for this
@@ -467,6 +470,7 @@ setting like this:</p>
         <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">title</span>
         <span class="l l-Scalar l-Scalar-Plain">thisField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
         <span class="l l-Scalar l-Scalar-Plain">thatField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+        <span class="l l-Scalar l-Scalar-Plain">hideId</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 </div>
 <p>A many-to-many relation. For MySQL, the field key is the name of the cross table.
@@ -491,6 +495,7 @@ be shown</li>
 many field</li>
 <li><strong>thatField</strong>: the field of the cross table referencing the other entity
 named with the entity field of the many key</li>
+<li><strong>hideId</strong> (optional) allows to display the reference without its id, if set to <em>true</em>.</li>
 </ul>
 <p>Think about a library having many books and a book being in many libraries.
 The library is stored in the table &#8220;library&#8221; and has a field &#8220;name&#8221;. Here is

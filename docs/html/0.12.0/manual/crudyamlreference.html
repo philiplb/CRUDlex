@@ -114,6 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/YamlReader.html">CRUDlex\YamlReader</a></li>
 </ul>
 
             
@@ -186,6 +187,10 @@ required, along with the default value or behaviour.</p>
   <span class="c1"># whether the list view is initially ascending (true) or descending (false)</span>
   <span class="c1"># sorted, defaults to true</span>
   <span class="l l-Scalar l-Scalar-Plain">initialSortAscending</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="c1"># This will create a top level item in the navigation bar called &quot;learning&quot;</span>
+  <span class="c1"># and put the library entity in a dropdown below the option. Defaults to</span>
+  <span class="c1"># &#39;main&#39; (The entity will be in the top level of the navigation bar)</span>
+  <span class="l l-Scalar l-Scalar-Plain">navBarGroup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">learning</span>
   <span class="c1"># the displayed fields on the list view, defaults to id, created_at, updated_at,</span>
   <span class="c1"># and all given ones</span>
   <span class="l l-Scalar l-Scalar-Plain">listFields</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">created_at</span><span class="p p-Indicator">,</span> <span class="nv">updated_at</span><span class="p p-Indicator">,</span> <span class="nv">name</span><span class="p p-Indicator">,</span> <span class="nv">type</span><span class="p p-Indicator">,</span> <span class="nv">opening</span><span class="p p-Indicator">,</span> <span class="nv">isOpenOnSundays</span><span class="p p-Indicator">]</span>
@@ -234,6 +239,8 @@ required, along with the default value or behaviour.</p>
         <span class="l l-Scalar l-Scalar-Plain">thisField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
         <span class="c1"># the column of the cross table pointing to the related entity</span>
         <span class="l l-Scalar l-Scalar-Plain">thatField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
+        <span class="c1"># if set to true, the reference will be displayed without its id</span>
+        <span class="l l-Scalar l-Scalar-Plain">hideId</span> <span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
     <span class="l l-Scalar l-Scalar-Plain">homepage</span><span class="p p-Indicator">:</span>
       <span class="c1"># this field is a text represented as URL in the UI</span>
       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">url</span>
@@ -274,6 +281,8 @@ required, along with the default value or behaviour.</p>
         <span class="c1"># what field to take from the related entity to visualize it, defaults to the id</span>
         <span class="c1"># if not given</span>
         <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+        <span class="c1"># if set to true, the reference will be displayed without its id</span>
+        <span class="l l-Scalar l-Scalar-Plain">hideId</span> <span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span>
       <span class="c1"># this field is a floating point number</span>
       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
