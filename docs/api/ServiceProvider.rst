@@ -122,6 +122,12 @@ CRUDlex\\ServiceProvider
 
         :returns: string[] a list of all available entity names
 
+    .. php:method:: getEntitiesNavBar()
+
+        Getter for the entities for the navigation bar.
+
+        :returns: string[] a list of all available entity names with their group
+
     .. php:method:: getTemplate(Container $app, $section, $action, $entity)
 
         Determines the Twig template to use for the given parameters depending on
