@@ -268,11 +268,11 @@ class ControllerProvider implements ControllerProviderInterface {
         $factory = $app['controllers_factory'];
         $factory->get('/resource/static', $class.'::staticFile')->bind('crudStatic');
         $factory->match('/{entity}/create', $class.'::create')->bind('crudCreate')->before($localeAndCheckEntity, 10);
-        $factory->match('/{entity}', $class.'::showList')->bind('crudList')->before($localeAndCheckEntity, 10);
-        $factory->match('/{entity}/{id}', $class.'::show')->bind('crudShow')->before($localeAndCheckEntity, 10);
+        $factory->get('/{entity}', $class.'::showList')->bind('crudList')->before($localeAndCheckEntity, 10);
+        $factory->get('/{entity}/{id}', $class.'::show')->bind('crudShow')->before($localeAndCheckEntity, 10);
         $factory->match('/{entity}/{id}/edit', $class.'::edit')->bind('crudEdit')->before($localeAndCheckEntity, 10);
         $factory->post('/{entity}/{id}/delete', $class.'::delete')->bind('crudDelete')->before($localeAndCheckEntity, 10);
-        $factory->match('/{entity}/{id}/{field}/file', $class.'::renderFile')->bind('crudRenderFile')->before($localeAndCheckEntity, 10);
+        $factory->get('/{entity}/{id}/{field}/file', $class.'::renderFile')->bind('crudRenderFile')->before($localeAndCheckEntity, 10);
         $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')->bind('crudDeleteFile')->before($localeAndCheckEntity, 10);
         $factory->get('/setting/locale/{locale}', $class.'::setLocale')->bind('crudSetLocale');
 
