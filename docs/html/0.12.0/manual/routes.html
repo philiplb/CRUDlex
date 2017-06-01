@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Setup &mdash; CRUDlex 0.12.0 documentation</title>
+  <title>Routes &mdash; CRUDlex 0.12.0 documentation</title>
   
 
   
@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="CRUDlex 0.12.0 documentation" href="../index.html"/>
-        <link rel="next" title="Data Structure Definition" href="datastructures.html"/>
-        <link rel="prev" title="Introduction" href="introduction.html"/> 
+        <link rel="next" title="Extended Features" href="extendedfeatures.html"/>
+        <link rel="prev" title="Definition Validation" href="definitionvalidation.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,7 +84,7 @@
                 <p class="caption"><span class="caption-text">Manual</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
@@ -92,7 +92,11 @@
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
 <li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Routes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#list">List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-middleware">Adding Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="addons.html">Addons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crudyamlreference.html">CRUD YAML Reference</a></li>
@@ -146,11 +150,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Setup</li>
+    <li>Routes</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/setup.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/routes.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -160,54 +164,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="setup">
-<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
-<p>This chapter guides you through a minimal setup. Further options like overriding
-templates are discussed in later sections.</p>
-<p>First, you have to add CRUDlex to your composer.json:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>composer require <span class="s2">&quot;philiplb/crudlex&quot;</span>
+  <div class="section" id="routes">
+<h1>Routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h1>
+<p>The ControllerProvider adds a bunch of routes used by CRUDlex which are useful to know if one wants to link to them or
+add middleware.</p>
+<div class="section" id="list">
+<h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
+<p>This are the name of the routes added by the ControllerProvider.</p>
+<ul class="simple">
+<li><strong>crudStatic:</strong> fetches static resources like CSS files (GET)</li>
+<li><strong>crudCreate:</strong> shows the new entity form (GET) and creates it (POST)</li>
+<li><strong>crudList:</strong> shows the list of entities (GET)</li>
+<li><strong>crudShow:</strong> shows a specific entity (GET)</li>
+<li><strong>crudEdit:</strong> shows the update entity form (GET) and updates it (POST)</li>
+<li><strong>crudDelete:</strong> deletes an entity (POST)</li>
+<li><strong>crudRenderFile:</strong> shows a file of an entity (GET)</li>
+<li><strong>crudDeleteFile:</strong> deletes a file of an entity (POST)</li>
+<li><strong>crudSetLocale:</strong> switches the locale of the UI (GET)</li>
+</ul>
+</div>
+<div class="section" id="adding-middleware">
+<h2>Adding Middleware<a class="headerlink" href="#adding-middleware" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example of how to add a middleware after mounting the ControllerProvider:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;flush();</span>
+<span class="x">$route = $app[&#39;routes&#39;]-&gt;get(&#39;crudList&#39;);</span>
+<span class="x">$route-&gt;before(function(Symfony\Component\HttpFoundation\Request $request) use ($app) {</span>
+<span class="x">    // Do your stuff.</span>
+<span class="x">});</span>
 </pre></div>
 </div>
-<p>Then comes the actual setup. Currently, only MySQL is supported. Although the
-database layer is kept in an abstract way, so in future more data stores will
-come. It relies on the DoctrineServiceProvider which has to be initialized and
-registered:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\DoctrineServiceProvider(), array(</span>
-<span class="x">    &#39;dbs.options&#39; =&gt; array(</span>
-<span class="x">        &#39;default&#39; =&gt; array(</span>
-<span class="x">            &#39;host&#39; =&gt; &#39;&lt;yourHost&gt;&#39;,</span>
-<span class="x">            &#39;dbname&#39; =&gt; &#39;&lt;yourDBName&gt;&#39;,</span>
-<span class="x">            &#39;user&#39; =&gt; &#39;&lt;yourDBUser&#39;,</span>
-<span class="x">            &#39;password&#39; =&gt; &#39;&lt;yourDBPassword&gt;&#39;,</span>
-<span class="x">            &#39;charset&#39; =&gt; &#39;utf8&#39;,</span>
-<span class="x">        )</span>
-<span class="x">    )</span>
-<span class="x">));</span>
-</pre></div>
-</div>
-<p>Now follows the setup of CRUDlex itself. First of all, we create an instance
-of the MySQLDataFactory, internally taking care of creating MySQL-DB-access
-objects:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;]);</span>
-</pre></div>
-</div>
-<p>Now it&#8217;s time to register the ServiceProvider itself:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
-<span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
-<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory</span>
-<span class="x">));</span>
-</pre></div>
-</div>
-<p>The content of the crud.yml (or whatever you name it) will be discussed in the
-next chapter.</p>
-<p>Now it&#8217;s time to mount the Controller:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;mount(&#39;/crud&#39;, new CRUDlex\ControllerProvider());</span>
-</pre></div>
-</div>
-<p>And that&#8217;s it. Your CRUD UI should be available now, for example if you
-defined a book entity in the crud.yml:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>http://.../crud/book
-</pre></div>
 </div>
 </div>
 
@@ -218,10 +203,10 @@ defined a book entity in the crud.yml:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="datastructures.html" class="btn btn-neutral float-right" title="Data Structure Definition" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="extendedfeatures.html" class="btn btn-neutral float-right" title="Extended Features" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="definitionvalidation.html" class="btn btn-neutral" title="Definition Validation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

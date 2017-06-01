@@ -27,6 +27,7 @@ Contents:
    manual/templates
    manual/events
    manual/definitionvalidation
+   manual/routes
    manual/extendedfeatures
    manual/addons
    manual/crudyamlreference
