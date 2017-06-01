@@ -110,6 +110,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#using-an-own-implementation-of-the-entitydefinition">Using an own Implementation of the EntityDefinition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prepopulated-form-fields-on-the-creation-page">Prepopulated Form Fields on the Creation Page</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#combine-with-the-web-profiler">Combine with the Web Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#serving-static-content-via-the-webserver">Serving Static Content via the Webserver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apache">Apache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nginx">nginx</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="addons.html">Addons</a></li>
@@ -463,6 +468,31 @@ LocaleServiceProvider and TranslationServiceProvider on your own first:</p>
 <span class="x">    &#39;locale_fallbacks&#39; =&gt; array(&#39;en&#39;),</span>
 <span class="x">));</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="serving-static-content-via-the-webserver">
+<h2>Serving Static Content via the Webserver<a class="headerlink" href="#serving-static-content-via-the-webserver" title="Permalink to this headline">¶</a></h2>
+<p>It might be beneficial to serve the static content like CSS files directly via the webserver as it has some performance
+advantages.</p>
+<p>Both solutions assume that the folder <em>vendor/philiplb/crudlex/src/static</em> is accessible. <em>&lt;mountPath&gt;</em> is the path the
+ControllerProvider is mounted to.</p>
+<div class="section" id="apache">
+<h3>Apache<a class="headerlink" href="#apache" title="Permalink to this headline">¶</a></h3>
+<p>The requests to the static route can be redirected to the static files:</p>
+<div class="highlight-apache"><div class="highlight"><pre><span></span><span class="nb">RewriteCond</span> %{REQUEST_FILENAME} !-f
+<span class="nb">RewriteCond</span> %{QUERY_STRING} ^file=(.*)$
+<span class="nb">RewriteRule</span> &lt;mountPath&gt;/resource/static$ vendor/philiplb/crudlex/src/static/%1 [QSA,L]
+</pre></div>
+</div>
+</div>
+<div class="section" id="nginx">
+<h3>nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h3>
+<p>A location with the try_files directive can serve the static files like this:</p>
+<div class="highlight-nginx"><div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/&lt;mountPath&gt;/resource/static</span> <span class="p">{</span>
+    <span class="kn">try_files</span> <span class="s">/vendor/philiplb/crudlex/src/static/</span><span class="nv">$arg_file</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

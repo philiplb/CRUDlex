@@ -12,6 +12,7 @@ Released: Upcoming
     - crudList
     - crudShow
     - crudRenderFile
+- Added documentation about how to optimize serving the static content
 
 ## 0.11.0
 Released: 2017-04-02

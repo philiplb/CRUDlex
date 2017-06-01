@@ -336,3 +336,38 @@ LocaleServiceProvider and TranslationServiceProvider on your own first:
     $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
         'locale_fallbacks' => array('en'),
     ));
+
+----------------------------------------
+Serving Static Content via the Webserver
+----------------------------------------
+
+It might be beneficial to serve the static content like CSS files directly via the webserver as it has some performance
+advantages.
+
+Both solutions assume that the folder *vendor/philiplb/crudlex/src/static* is accessible. *<mountPath>* is the path the
+ControllerProvider is mounted to.
+
+^^^^^^
+Apache
+^^^^^^
+
+The requests to the static route can be redirected to the static files:
+
+.. code-block:: apache
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{QUERY_STRING} ^file=(.*)$
+    RewriteRule <mountPath>/resource/static$ vendor/philiplb/crudlex/src/static/%1 [QSA,L]
+
+
+^^^^^
+nginx
+^^^^^
+
+A location with the try_files directive can serve the static files like this:
+
+.. code-block:: nginx
+
+    location /<mountPath>/resource/static {
+        try_files /vendor/philiplb/crudlex/src/static/$arg_file =404;
+    }
