@@ -6,6 +6,7 @@ Released: Upcoming
 - Added a caching mechanism for the parsing of the CRUD YAML files
 - Added the possibility to group entities in the navigation bar, thanks to https://github.com/dmaciel
 - Added an optional hideId parameter for references and many relations so the id is hidden in the reference buttons, thanks to https://github.com/jmfayard
+- Attention: Prefixed the name of the route for static assets from "static" to "crudStatic" just like the other routes
 
 ## 0.11.0
 Released: 2017-04-02

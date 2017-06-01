@@ -266,7 +266,7 @@ class ControllerProvider implements ControllerProviderInterface {
 
         $class   = get_class($this);
         $factory = $app['controllers_factory'];
-        $factory->get('/resource/static', $class.'::staticFile')->bind('static');
+        $factory->get('/resource/static', $class.'::staticFile')->bind('crudStatic');
         $factory->match('/{entity}/create', $class.'::create')->bind('crudCreate')->before($localeAndCheckEntity, 10);
         $factory->match('/{entity}', $class.'::showList')->bind('crudList')->before($localeAndCheckEntity, 10);
         $factory->match('/{entity}/{id}', $class.'::show')->bind('crudShow')->before($localeAndCheckEntity, 10);
