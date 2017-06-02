@@ -1,3 +1,5 @@
 exclude_paths:
 - "tests/**"
 - "docs/**"
+- "src/static/css/vendor/**"
+- "src/static/js/vendor/**"
