@@ -119,7 +119,7 @@ The CRUDlex API itself is documented here:
 ## Build Status
 
 [![Build Status](https://travis-ci.org/philiplb/CRUDlex.svg?branch=master)](https://travis-ci.org/philiplb/CRUDlex)
-[![Coverage Status](https://coveralls.io/repos/philiplb/CRUDlex/badge.png?branch=master)](https://coveralls.io/r/philiplb/CRUDlex?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/philiplb/CRUDlex/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/philiplb/CRUDlex/?branch=master)
 
 ## Code Quality
 
