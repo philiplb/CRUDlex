@@ -126,6 +126,24 @@ CRUDlex\\AbstractData
         :param $field: the reference field
         :returns: array the extracted ids
 
+    .. php:method:: doCreate(Entity $entity)
+
+        Performs the persistence of the given entity as new entry in the
+        datasource.
+
+        :type $entity: Entity
+        :param $entity: the entity to persist
+        :returns: boolean true on successful creation
+
+    .. php:method:: doUpdate(Entity $entity)
+
+        Performs the updates of an existing entry in the datasource having the
+        same id.
+
+        :type $entity: Entity
+        :param $entity: the entity with the new data
+        :returns: boolean true on successful update
+
     .. php:method:: pushEvent($moment, $action, Closure $function)
 
         Adds an event to fire for the given parameters. The event function must
@@ -194,7 +212,7 @@ CRUDlex\\AbstractData
 
         :type $entity: Entity
         :param $entity: the entity with the new data
-        :returns: void
+        :returns: boolean true on successful update
 
     .. php:method:: delete($entity)
 

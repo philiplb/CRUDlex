@@ -88,10 +88,6 @@ class MySQLData extends AbstractData {
      * {@inheritdoc}
      */
     protected function doDelete(Entity $entity, $deleteCascade) {
-        $result = $this->shouldExecuteEvents($entity, 'before', 'delete');
-        if (!$result) {
-            return static::DELETION_FAILED_EVENT;
-        }
         $id = $entity->get('id');
         if ($deleteCascade) {
             $this->deleteChildren($id, $deleteCascade);
@@ -107,7 +103,6 @@ class MySQLData extends AbstractData {
             ->setParameter(0, $id);
 
         $query->execute();
-        $this->shouldExecuteEvents($entity, 'after', 'delete');
         return static::DELETION_SUCCESS;
     }
 
@@ -386,6 +381,62 @@ class MySQLData extends AbstractData {
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function doCreate(Entity $entity) {
+
+        $queryBuilder = $this->database->createQueryBuilder();
+        $queryBuilder
+            ->insert('`'.$this->definition->getTable().'`')
+            ->setValue('created_at', 'UTC_TIMESTAMP()')
+            ->setValue('updated_at', 'UTC_TIMESTAMP()')
+            ->setValue('version', 0);
+
+
+        $this->setValuesAndParameters($entity, $queryBuilder, 'setValue');
+
+        $id = $this->generateUUID();
+        if ($this->useUUIDs) {
+            $queryBuilder->setValue('`id`', '?');
+            $uuidI = count($this->getFormFields());
+            $queryBuilder->setParameter($uuidI, $id);
+        }
+
+        $queryBuilder->execute();
+
+        if (!$this->useUUIDs) {
+            $id = $this->database->lastInsertId();
+        }
+
+        $this->enrichEntityWithMetaData($id, $entity);
+        $this->saveMany($entity);
+        $entities = [$entity];
+        $this->enrichWithReference($entities);
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doUpdate(Entity $entity) {
+        $queryBuilder = $this->database->createQueryBuilder();
+        $queryBuilder->update('`'.$this->definition->getTable().'`')
+            ->set('updated_at', 'UTC_TIMESTAMP()')
+            ->set('version', 'version + 1')
+            ->where('id = ?')
+            ->setParameter(count($this->getFormFields()), $entity->get('id'));
+
+        $this->setValuesAndParameters($entity, $queryBuilder, 'set');
+        $affected = $queryBuilder->execute();
+
+        $this->saveMany($entity);
+        $entities = [$entity];
+        $this->enrichWithReference($entities);
+        return $affected > 0;
+    }
+
+    /**
      * Constructor.
      *
      * @param EntityDefinition $definition
@@ -441,77 +492,6 @@ class MySQLData extends AbstractData {
         }
         $this->enrichWithReference($entities);
         return $entities;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function create(Entity $entity) {
-
-        $result = $this->shouldExecuteEvents($entity, 'before', 'create');
-        if (!$result) {
-            return false;
-        }
-
-        $queryBuilder = $this->database->createQueryBuilder();
-        $queryBuilder
-            ->insert('`'.$this->definition->getTable().'`')
-            ->setValue('created_at', 'UTC_TIMESTAMP()')
-            ->setValue('updated_at', 'UTC_TIMESTAMP()')
-            ->setValue('version', 0);
-
-
-        $this->setValuesAndParameters($entity, $queryBuilder, 'setValue');
-
-        $id = $this->generateUUID();
-        if ($this->useUUIDs) {
-            $queryBuilder->setValue('`id`', '?');
-            $uuidI = count($this->getFormFields());
-            $queryBuilder->setParameter($uuidI, $id);
-        }
-
-        $queryBuilder->execute();
-
-        if (!$this->useUUIDs) {
-            $id = $this->database->lastInsertId();
-        }
-
-        $this->enrichEntityWithMetaData($id, $entity);
-        $this->saveMany($entity);
-        $entities = [$entity];
-        $this->enrichWithReference($entities);
-
-        $this->shouldExecuteEvents($entity, 'after', 'create');
-
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function update(Entity $entity) {
-
-        if (!$this->shouldExecuteEvents($entity, 'before', 'update')) {
-            return false;
-        }
-
-        $queryBuilder = $this->database->createQueryBuilder();
-        $queryBuilder->update('`'.$this->definition->getTable().'`')
-            ->set('updated_at', 'UTC_TIMESTAMP()')
-            ->set('version', 'version + 1')
-            ->where('id = ?')
-            ->setParameter(count($this->getFormFields()), $entity->get('id'));
-
-        $this->setValuesAndParameters($entity, $queryBuilder, 'set');
-        $affected = $queryBuilder->execute();
-
-        $this->saveMany($entity);
-        $entities = [$entity];
-        $this->enrichWithReference($entities);
-
-        $this->shouldExecuteEvents($entity, 'after', 'update');
-
-        return $affected;
     }
 
     /**

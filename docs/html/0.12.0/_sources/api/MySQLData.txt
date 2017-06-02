@@ -170,6 +170,20 @@ CRUDlex\\MySQLData
         :param $entities:
         :returns: void
 
+    .. php:method:: doCreate(Entity $entity)
+
+        {@inheritdoc}
+
+        :type $entity: Entity
+        :param $entity:
+
+    .. php:method:: doUpdate(Entity $entity)
+
+        {@inheritdoc}
+
+        :type $entity: Entity
+        :param $entity:
+
     .. php:method:: __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $database, $useUUIDs)
 
         Constructor.
@@ -198,20 +212,6 @@ CRUDlex\\MySQLData
         :param $amount:
         :param $sortField:
         :param $sortAscending:
-
-    .. php:method:: create(Entity $entity)
-
-        {@inheritdoc}
-
-        :type $entity: Entity
-        :param $entity:
-
-    .. php:method:: update(Entity $entity)
-
-        {@inheritdoc}
-
-        :type $entity: Entity
-        :param $entity:
 
     .. php:method:: getIdToNameMap($entity, $nameField)
 
@@ -336,6 +336,22 @@ CRUDlex\\MySQLData
         :type $action: string
         :param $action: the "action" of the event, can be either "create", "update" or "delete"
         :returns: \Closure|null the popped event or null if no event was available.
+
+    .. php:method:: create(Entity $entity)
+
+        Persists the given entity as new entry in the datasource.
+
+        :type $entity: Entity
+        :param $entity: the entity to persist
+        :returns: boolean true on successful creation
+
+    .. php:method:: update(Entity $entity)
+
+        Updates an existing entry in the datasource having the same id.
+
+        :type $entity: Entity
+        :param $entity: the entity with the new data
+        :returns: boolean true on successful update
 
     .. php:method:: delete($entity)
 

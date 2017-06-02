@@ -13,6 +13,7 @@ Released: Upcoming
     - crudShow
     - crudRenderFile
 - Added documentation about how to optimize serving the static content
+- Attention: Moved the events code up to the abstract data class which changed the signatures a bit
 
 ## 0.11.0
 Released: 2017-04-02

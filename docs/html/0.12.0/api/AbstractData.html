@@ -383,6 +383,48 @@ id, version, created_at, updated_at</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="AbstractData::doCreate">
+<code class="descname">doCreate</code><span class="sig-paren">(</span><em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::doCreate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the persistence of the given entity as new entry in the
+datasource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to persist</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful creation</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="AbstractData::doUpdate">
+<code class="descname">doUpdate</code><span class="sig-paren">(</span><em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::doUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the updates of an existing entry in the datasource having the
+same id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity with the new data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful update</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="AbstractData::pushEvent">
 <code class="descname">pushEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em>, <em>Closure $function</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::pushEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds an event to fire for the given parameters. The event function must
@@ -507,7 +549,7 @@ selection was given.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">void</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful update</p>
 </td>
 </tr>
 </tbody>

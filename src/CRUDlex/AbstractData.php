@@ -188,7 +188,12 @@ abstract class AbstractData {
             $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
             $children  = $childData->listEntries([$childArray[1] => $id]);
             foreach ($children as $child) {
+                $result = $this->shouldExecuteEvents($child, 'before', 'delete');
+                if (!$result) {
+                    return;
+                }
                 $childData->doDelete($child, $deleteCascade);
+                $this->shouldExecuteEvents($child, 'after', 'delete');
             }
         }
     }
@@ -211,6 +216,28 @@ abstract class AbstractData {
         }, $entities);
         return $ids;
     }
+
+    /**
+     * Performs the persistence of the given entity as new entry in the datasource.
+     *
+     * @param Entity $entity
+     * the entity to persist
+     *
+     * @return boolean
+     * true on successful creation
+     */
+    abstract protected function doCreate(Entity $entity);
+
+    /**
+     * Performs the updates of an existing entry in the datasource having the same id.
+     *
+     * @param Entity $entity
+     * the entity with the new data
+     *
+     * @return boolean
+     * true on successful update
+     */
+    abstract protected function doUpdate(Entity $entity);
 
     /**
      * Adds an event to fire for the given parameters. The event function must
@@ -299,7 +326,15 @@ abstract class AbstractData {
      * @return boolean
      * true on successful creation
      */
-    abstract public function create(Entity $entity);
+    public function create(Entity $entity) {
+        $result = $this->shouldExecuteEvents($entity, 'before', 'create');
+        if (!$result) {
+            return false;
+        }
+        $result = $this->doCreate($entity);
+        $this->shouldExecuteEvents($entity, 'after', 'create');
+        return $result;
+    }
 
     /**
      * Updates an existing entry in the datasource having the same id.
@@ -307,9 +342,17 @@ abstract class AbstractData {
      * @param Entity $entity
      * the entity with the new data
      *
-     * @return void
+     * @return boolean
+     * true on successful update
      */
-    abstract public function update(Entity $entity);
+    public function update(Entity $entity) {
+        if (!$this->shouldExecuteEvents($entity, 'before', 'update')) {
+            return false;
+        }
+        $result = $this->doUpdate($entity);
+        $this->shouldExecuteEvents($entity, 'after', 'update');
+        return $result;
+    }
 
     /**
      * Deletes an entry from the datasource.
@@ -324,7 +367,13 @@ abstract class AbstractData {
      * - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
     public function delete($entity) {
-        return $this->doDelete($entity, $this->definition->isDeleteCascade());
+        $result = $this->shouldExecuteEvents($entity, 'before', 'delete');
+        if (!$result) {
+            return static::DELETION_FAILED_EVENT;
+        }
+        $result = $this->doDelete($entity, $this->definition->isDeleteCascade());
+        $this->shouldExecuteEvents($entity, 'after', 'delete');
+        return $result;
     }
 
     /**
