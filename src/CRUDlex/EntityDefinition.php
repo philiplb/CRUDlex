@@ -101,6 +101,11 @@ class EntityDefinition {
     protected $navBarGroup;
 
     /**
+     * Holds whether optimistic locking is switched on.
+     */
+    protected $optimisticLocking;
+
+    /**
      * Gets the field names exluding the given ones.
      *
      * @param string[] $exclude
@@ -177,6 +182,7 @@ class EntityDefinition {
         $this->initialSortField     = 'created_at';
         $this->initialSortAscending = true;
         $this->navBarGroup          = 'main';
+        $this->optimisticLocking    = true;
     }
 
     /**
@@ -361,7 +367,11 @@ class EntityDefinition {
      * the read only field names
      */
     public function getReadOnlyFields() {
-        return ['id', 'created_at', 'updated_at', 'version', 'deleted_at'];
+        $result = ['id', 'created_at', 'updated_at', 'deleted_at'];
+        if ($this->optimisticLocking) {
+            $result[] = 'version';
+        }
+        return $result;
     }
 
     /**
@@ -582,6 +592,25 @@ class EntityDefinition {
      */
     public function setNavBarGroup($navBarGroup) {
         $this->navBarGroup = $navBarGroup;
+    }
+
+    /**
+     * Returns whether optimistic locking via the version field is activated.
+     * @return boolean
+     * true if optimistic locking is activated
+     */
+    public function getOptimisticLocking() {
+        return $this->optimisticLocking;
+    }
+
+
+    /**
+     * Sets whether optimistic locking via the version field is activated.
+     * @param boolean $optimisticLocking
+     * true if optimistic locking is activated
+     */
+    public function setOptimisticLocking($optimisticLocking) {
+        $this->optimisticLocking = $optimisticLocking;
     }
 
     /**

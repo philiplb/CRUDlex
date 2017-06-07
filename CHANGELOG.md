@@ -6,6 +6,7 @@ Released: Upcoming
 - Added a caching mechanism for the parsing of the CRUD YAML files
 - Added the possibility to group entities in the navigation bar, thanks to https://github.com/dmaciel
 - Added an optional hideId parameter for references and many relations so the id is hidden in the reference buttons, thanks to https://github.com/jmfayard
+- Optimistic locking can now be turned off per entity
 - Attention: Prefixed the name of the route for static assets from "static" to "crudStatic" just like the other routes
 - Added documentation about the routes added by ControllerProvider
 - Attention: Changed the following routes from "match" to just "get", so only HTTP GET is allowed on them:

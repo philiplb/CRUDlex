@@ -26,6 +26,7 @@ Contents:
    manual/layouts
    manual/templates
    manual/events
+   manual/optimisticlocking
    manual/definitionvalidation
    manual/routes
    manual/extendedfeatures

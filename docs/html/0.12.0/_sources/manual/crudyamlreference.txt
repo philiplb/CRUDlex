@@ -38,6 +38,9 @@ required, along with the default value or behaviour.
       # the displayed fields on the list view, defaults to id, created_at, updated_at,
       # and all given ones
       listFields: [id, created_at, updated_at, name, type, opening, isOpenOnSundays]
+      # Whether the optimistic locking should be enabled. If this is false, the
+      # version field is unused and so not needed. Defaults to true.
+      optimisticLocking: true
       # the fields of this entity
       fields:
         # the name of the field, must be identical to the column of the data source

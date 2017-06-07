@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Routes &mdash; CRUDlex 0.12.0 documentation</title>
+  <title>Optimistic Locking &mdash; CRUDlex 0.12.0 documentation</title>
   
 
   
@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="CRUDlex 0.12.0 documentation" href="../index.html"/>
-        <link rel="next" title="Extended Features" href="extendedfeatures.html"/>
-        <link rel="prev" title="Definition Validation" href="definitionvalidation.html"/> 
+        <link rel="next" title="Definition Validation" href="definitionvalidation.html"/>
+        <link rel="prev" title="Events" href="events.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -91,13 +91,9 @@
 <li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimisticlocking.html">Optimistic Locking</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Optimistic Locking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Routes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#list">List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-middleware">Adding Middleware</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="addons.html">Addons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crudyamlreference.html">CRUD YAML Reference</a></li>
@@ -151,11 +147,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Routes</li>
+    <li>Optimistic Locking</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/routes.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/optimisticlocking.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -165,36 +161,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="routes">
-<h1>Routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h1>
-<p>The ControllerProvider adds a bunch of routes used by CRUDlex which are useful to know if one wants to link to them or
-add middleware.</p>
-<div class="section" id="list">
-<h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
-<p>This are the name of the routes added by the ControllerProvider.</p>
-<ul class="simple">
-<li><strong>crudStatic:</strong> fetches static resources like CSS files (GET)</li>
-<li><strong>crudCreate:</strong> shows the new entity form (GET) and creates it (POST)</li>
-<li><strong>crudList:</strong> shows the list of entities (GET)</li>
-<li><strong>crudShow:</strong> shows a specific entity (GET)</li>
-<li><strong>crudEdit:</strong> shows the update entity form (GET) and updates it (POST)</li>
-<li><strong>crudDelete:</strong> deletes an entity (POST)</li>
-<li><strong>crudRenderFile:</strong> shows a file of an entity (GET)</li>
-<li><strong>crudDeleteFile:</strong> deletes a file of an entity (POST)</li>
-<li><strong>crudSetLocale:</strong> switches the locale of the UI (GET)</li>
-</ul>
-</div>
-<div class="section" id="adding-middleware">
-<h2>Adding Middleware<a class="headerlink" href="#adding-middleware" title="Permalink to this headline">¶</a></h2>
-<p>Here is an example of how to add a middleware after mounting the ControllerProvider:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;flush();</span>
-<span class="x">$route = $app[&#39;routes&#39;]-&gt;get(&#39;crudList&#39;);</span>
-<span class="x">$route-&gt;before(function(Symfony\Component\HttpFoundation\Request $request) use ($app) {</span>
-<span class="x">    // Do your stuff.</span>
-<span class="x">});</span>
+  <div class="section" id="optimistic-locking">
+<h1>Optimistic Locking<a class="headerlink" href="#optimistic-locking" title="Permalink to this headline">¶</a></h1>
+<p>By default, CRUDlex uses optimistic locking via the version field. This means that the version field is incremented on
+each update of an entity. The current version is sent on submitting the edit form and then compared to the existing one
+in the database. If those two values are not equal, someone else was faster in editing the entity. Now, the update is
+rejected as the new values in the database sent by the other person would be lost.</p>
+<p>This behaviour can be adjusted:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+    <span class="l l-Scalar l-Scalar-Plain">optimisticLocking</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
 </pre></div>
 </div>
-</div>
+<p>The default value is true and so optimistic locking is activated. If it is set to false, it is switched off and the
+version field is not used. Neither incremented nor checked on form submission. It then doesn&#8217;t need to exist in the
+database table.</p>
 </div>
 
 
@@ -204,10 +190,10 @@ add middleware.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="extendedfeatures.html" class="btn btn-neutral float-right" title="Extended Features" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="definitionvalidation.html" class="btn btn-neutral float-right" title="Definition Validation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="definitionvalidation.html" class="btn btn-neutral" title="Definition Validation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="events.html" class="btn btn-neutral" title="Events" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

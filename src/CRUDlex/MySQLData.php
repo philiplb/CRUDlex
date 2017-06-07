@@ -389,9 +389,10 @@ class MySQLData extends AbstractData {
         $queryBuilder
             ->insert('`'.$this->definition->getTable().'`')
             ->setValue('created_at', 'UTC_TIMESTAMP()')
-            ->setValue('updated_at', 'UTC_TIMESTAMP()')
-            ->setValue('version', 0);
-
+            ->setValue('updated_at', 'UTC_TIMESTAMP()');
+        if ($this->definition->getOptimisticLocking()) {
+            $queryBuilder->setValue('version', 0);
+        }
 
         $this->setValuesAndParameters($entity, $queryBuilder, 'setValue');
 
@@ -423,9 +424,11 @@ class MySQLData extends AbstractData {
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder->update('`'.$this->definition->getTable().'`')
             ->set('updated_at', 'UTC_TIMESTAMP()')
-            ->set('version', 'version + 1')
             ->where('id = ?')
             ->setParameter(count($this->getFormFields()), $entity->get('id'));
+        if ($this->definition->getOptimisticLocking()) {
+            $queryBuilder->set('version', 'version + 1');
+        }
 
         $this->setValuesAndParameters($entity, $queryBuilder, 'set');
         $affected = $queryBuilder->execute();

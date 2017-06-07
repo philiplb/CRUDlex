@@ -322,7 +322,7 @@ class ControllerProviderTest extends WebTestCase {
 
         $file = __DIR__.'/../test1.xml';
 
-        $crawler = $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
+        $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
             'version' => 0,
             'title' => 'titleEdited',
             'author' => 'author',
@@ -357,6 +357,25 @@ class ControllerProviderTest extends WebTestCase {
         ]);
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertRegExp('/There was a more up to date version of the data available\./', $client->getResponse()->getContent());
+
+        // Optimistic locking switched off
+        $this->dataBook->getDefinition()->setOptimisticLocking(false);
+        $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
+            'version' => 0,
+            'title' => 'titleEdited',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ], [
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ]);
+        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/'.$entityBook->get('id')));
+        $crawler = $client->followRedirect();
+        $this->assertCount(1, $crawler->filter('html:contains("Book edited with id '.$entityBook->get('id').'")'));
+
+        $bookEdited = $this->dataBook->get($entityBook->get('id'));
+        $this->assertSame($bookEdited->get('title'), 'titleEdited');
 
         // Canceling events
         $before = function(Entity $entity) {

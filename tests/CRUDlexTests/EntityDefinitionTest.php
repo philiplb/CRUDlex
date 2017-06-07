@@ -36,8 +36,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
             'id',
             'created_at',
             'updated_at',
-            'version',
             'deleted_at',
+            'version',
             'title',
             'author',
             'pages',
@@ -344,6 +344,14 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $read = $this->definition->getNavBarGroup();
         $expected = 'main';
         $this->assertSame($read, $expected);
+    }
+
+    public function testGetSetOptimisticLocking() {
+        $read = $this->definition->getOptimisticLocking();
+        $this->assertTrue($read);
+        $this->definition->setOptimisticLocking(false);
+        $read = $this->definition->getOptimisticLocking();
+        $this->assertFalse($read);
     }
 
 }

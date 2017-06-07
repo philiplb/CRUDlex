@@ -168,11 +168,13 @@ class EntityValidator {
         $validator->addValidator('unique', new UniqueValidator());
         $validator->addValidator('reference', new ReferenceValidator());
         $validator->addValidator('many', new ManyValidator());
-        $rules                 = $this->buildUpRules($data, $validator);
-        $toValidate            = $this->buildUpData();
-        $rules['version']      = [['value', $expectedVersion]];
-        $toValidate['version'] = $this->entity->get('version');
-        $validation            = $validator->isValid($rules, $toValidate);
+        $rules      = $this->buildUpRules($data, $validator);
+        $toValidate = $this->buildUpData();
+        if ($this->definition->getOptimisticLocking()) {
+            $rules['version']      = [['value', $expectedVersion]];
+            $toValidate['version'] = $this->entity->get('version');
+        }
+        $validation = $validator->isValid($rules, $toValidate);
         return $validation;
     }
 

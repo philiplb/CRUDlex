@@ -9,6 +9,7 @@ library:
   initialSortField: name
   initialSortAscending: false
   navBarGroup: entities
+  optimisticLocking: false
   fields:
     name:
       type: text
