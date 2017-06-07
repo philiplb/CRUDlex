@@ -346,11 +346,11 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetOptimisticLocking() {
-        $read = $this->definition->getOptimisticLocking();
+    public function testHasSetOptimisticLocking() {
+        $read = $this->definition->hasOptimisticLocking();
         $this->assertTrue($read);
         $this->definition->setOptimisticLocking(false);
-        $read = $this->definition->getOptimisticLocking();
+        $read = $this->definition->hasOptimisticLocking();
         $this->assertFalse($read);
     }
 

@@ -599,7 +599,7 @@ class EntityDefinition {
      * @return boolean
      * true if optimistic locking is activated
      */
-    public function getOptimisticLocking() {
+    public function hasOptimisticLocking() {
         return $this->optimisticLocking;
     }
 

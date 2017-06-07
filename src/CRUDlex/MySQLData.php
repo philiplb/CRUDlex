@@ -390,7 +390,7 @@ class MySQLData extends AbstractData {
             ->insert('`'.$this->definition->getTable().'`')
             ->setValue('created_at', 'UTC_TIMESTAMP()')
             ->setValue('updated_at', 'UTC_TIMESTAMP()');
-        if ($this->definition->getOptimisticLocking()) {
+        if ($this->definition->hasOptimisticLocking()) {
             $queryBuilder->setValue('version', 0);
         }
 
@@ -426,7 +426,7 @@ class MySQLData extends AbstractData {
             ->set('updated_at', 'UTC_TIMESTAMP()')
             ->where('id = ?')
             ->setParameter(count($this->getFormFields()), $entity->get('id'));
-        if ($this->definition->getOptimisticLocking()) {
+        if ($this->definition->hasOptimisticLocking()) {
             $queryBuilder->set('version', 'version + 1');
         }
 

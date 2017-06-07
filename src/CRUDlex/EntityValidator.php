@@ -170,7 +170,7 @@ class EntityValidator {
         $validator->addValidator('many', new ManyValidator());
         $rules      = $this->buildUpRules($data, $validator);
         $toValidate = $this->buildUpData();
-        if ($this->definition->getOptimisticLocking()) {
+        if ($this->definition->hasOptimisticLocking()) {
             $rules['version']      = [['value', $expectedVersion]];
             $toValidate['version'] = $this->entity->get('version');
         }
