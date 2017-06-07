@@ -108,6 +108,12 @@ CRUDlex\\EntityDefinition
 
         Holds if the entity must be displayed grouped in the nav bar.
 
+    .. php:attr:: optimisticLocking
+
+        protected
+
+        Holds whether optimistic locking is switched on.
+
     .. php:method:: getFilteredFieldNames($exclude)
 
         Gets the field names exluding the given ones.
@@ -384,6 +390,19 @@ CRUDlex\\EntityDefinition
 
         :type $navBarGroup: string
         :param $navBarGroup: the navigation bar group where the entity belongs
+
+    .. php:method:: hasOptimisticLocking()
+
+        Returns whether optimistic locking via the version field is activated.
+
+        :returns: boolean true if optimistic locking is activated
+
+    .. php:method:: setOptimisticLocking($optimisticLocking)
+
+        Sets whether optimistic locking via the version field is activated.
+
+        :type $optimisticLocking: boolean
+        :param $optimisticLocking: true if optimistic locking is activated
 
     .. php:method:: getSubTypeField($fieldName, $subType, $key)
 

@@ -283,6 +283,13 @@ field names.</p>
 <p>Holds if the entity must be displayed grouped in the nav bar.</p>
 </dd></dl>
 
+<dl class="attr">
+<dt id="EntityDefinition::$optimisticLocking">
+<em class="property">property </em><code class="descname">optimisticLocking</code><a class="headerlink" href="#EntityDefinition::$optimisticLocking" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected</p>
+<p>Holds whether optimistic locking is switched on.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="EntityDefinition::getFilteredFieldNames">
 <code class="descname">getFilteredFieldNames</code><span class="sig-paren">(</span><em>$exclude</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFilteredFieldNames" title="Permalink to this definition">¶</a></dt>
@@ -889,6 +896,37 @@ definition has a reference to this one.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>$navBarGroup</strong> (<em>string</em>) &#8211; the navigation bar group where the entity belongs</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::hasOptimisticLocking">
+<code class="descname">hasOptimisticLocking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::hasOptimisticLocking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether optimistic locking via the version field is activated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if optimistic locking is activated</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setOptimisticLocking">
+<code class="descname">setOptimisticLocking</code><span class="sig-paren">(</span><em>$optimisticLocking</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setOptimisticLocking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets whether optimistic locking via the version field is activated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$optimisticLocking</strong> (<em>boolean</em>) &#8211; true if optimistic locking is activated</li>
 </ul>
 </td>
 </tr>
