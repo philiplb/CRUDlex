@@ -361,14 +361,13 @@ class ControllerProviderTest extends WebTestCase {
         // Optimistic locking switched off
         $this->dataBook->getDefinition()->setOptimisticLocking(false);
         $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
-            'version' => 0,
             'title' => 'titleEdited',
             'author' => 'author',
             'pages' => 111,
             'price' => 3.99,
             'library' => $library->get('id')
         ], [
-            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+            'cover' => new UploadedFile($file, 'test2.xml', 'application/xml', filesize($file), null, true)
         ]);
         $this->assertTrue($client->getResponse()->isRedirect('/crud/book/'.$entityBook->get('id')));
         $crawler = $client->followRedirect();
@@ -376,6 +375,7 @@ class ControllerProviderTest extends WebTestCase {
 
         $bookEdited = $this->dataBook->get($entityBook->get('id'));
         $this->assertSame($bookEdited->get('title'), 'titleEdited');
+        $this->dataBook->getDefinition()->setOptimisticLocking(true);
 
         // Canceling events
         $before = function(Entity $entity) {
