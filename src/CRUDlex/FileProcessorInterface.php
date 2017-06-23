@@ -79,4 +79,18 @@ interface FileProcessorInterface {
      * the HTTP response, likely to be a streamed one
      */
     public function renderFile(Entity $entity, $entityName, $field);
+
+    /**
+     * Returns a FileResource.
+     *
+     * @param Entity $entity
+     * the entity to render the file from
+     * @param string $entityName
+     * the name of the entity as this class here is not aware of it
+     * @param string $field
+     * the field of the entity containing the file to be rendered
+     *
+     * @return resource
+     */
+    public function getFile(Entity $entity, $entityName, $field);
 }
