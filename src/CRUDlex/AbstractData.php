@@ -572,4 +572,21 @@ abstract class AbstractData {
         return $this->fileProcessor->renderFile($entity, $entityName, $field);
     }
 
+
+    /**
+     * Get File Resource of a Entity or false if not found
+     *
+     * @param Entity $entity
+     * the entity to render the file from
+     * @param string $entityName
+     * the name of the entity as this class here is not aware of it
+     * @param string $field
+     * the field of the entity containing the file to be rendered
+     *
+     * @return resource | false
+     * the resource or false in case it could not open / find
+     */
+    public function getFile(Entity $entity, $entityName, $field) {
+        return $this->fileProcessor->getFile($entity, $entityName, $field);
+    }
 }

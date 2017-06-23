@@ -107,4 +107,16 @@ class SimpleFilesystemFileProcessor implements FileProcessorInterface {
         }
         return $response;
     }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFile(Entity $entity, $entityName, $field) {
+        $targetPath = $this->getPath($entityName, $entity, $field);
+        $fileName   = $entity->get($field);
+        $file       = $targetPath.'/'.$fileName;
+
+        return fopen($file, 'r');
+    }
 }
