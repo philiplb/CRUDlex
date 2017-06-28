@@ -578,8 +578,8 @@ class ControllerProvider implements ControllerProviderInterface {
         }
 
         $filesystem = new Filesystem(new Local(dirname($file)));
-        $mimeType  = $filesystem->getMimetype(basename($file));
-        $size      = filesize($file);
+        $mimeType   = $filesystem->getMimetype(basename($file));
+        $size       = filesize($file);
 
         $streamedFileResponse = new StreamedFileResponse();
         $response             = new StreamedResponse($streamedFileResponse->getStreamedFileFunction($file), 200, [
