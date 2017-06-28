@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+namespace CRUDlexTests;
+
+use League\Flysystem\Adapter\Local;
 use Silex\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -23,32 +26,31 @@ class ControllerProviderTest extends WebTestCase {
 
     protected $dataLibrary;
 
-    protected $fileProcessorHandle;
+    protected $filesystemHandle;
 
     public function createApplication() {
 
         $app = TestDBSetup::createAppAndDB();
 
-        $app->register(new Silex\Provider\SessionServiceProvider());
+        $app->register(new \Silex\Provider\SessionServiceProvider());
         $app['session.test'] = true;
         $app['debug'] = true;
 
-        $this->fileProcessorHandle = Phony::mock('\\CRUDlex\\SimpleFilesystemFileProcessor');
-        $this->fileProcessorHandle->renderFile->returns('rendered file');
-        $fileProcessorMock = $this->fileProcessorHandle->get();
+        $this->filesystemHandle = Phony::partialMock('\\League\\Flysystem\\Filesystem', [new Local(__DIR__.'/../tmp')]);
+        $filesystemMock = $this->filesystemHandle->get();
 
-        $dataFactory = new CRUDlex\MySQLDataFactory($app['db']);
-        $app->register(new CRUDlex\ServiceProvider(), [
+        $dataFactory = new \CRUDlex\MySQLDataFactory($app['db']);
+        $app->register(new \CRUDlex\ServiceProvider(), [
             'crud.file' => __DIR__ . '/../crud.yml',
             'crud.datafactory' => $dataFactory,
-            'crud.fileprocessor' => $fileProcessorMock
+            'crud.filesystem' => $filesystemMock
         ]);
 
-        $app->register(new Silex\Provider\TwigServiceProvider(), [
+        $app->register(new \Silex\Provider\TwigServiceProvider(), [
             'twig.path' => __DIR__.'/../views'
         ]);
 
-        $app->mount('/crud', new CRUDlex\ControllerProvider());
+        $app->mount('/crud', new \CRUDlex\ControllerProvider());
         $app->boot();
 
         $this->dataBook = $app['crud']->getData('book');
@@ -98,10 +100,8 @@ class ControllerProviderTest extends WebTestCase {
         $books = $this->dataBook->listEntries();
         $this->assertCount(1, $books);
 
-        $this->fileProcessorHandle->createFile->once()->called();
-        $this->fileProcessorHandle->updateFile->never()->called();
-        $this->fileProcessorHandle->deleteFile->never()->called();
-        $this->fileProcessorHandle->renderFile->never()->called();
+        $this->filesystemHandle->writeStream->once()->called();
+        $this->filesystemHandle->readStream->never()->called();
 
         // Canceling events
         $before = function(Entity $entity) {
@@ -339,10 +339,8 @@ class ControllerProviderTest extends WebTestCase {
         $bookEdited = $this->dataBook->get($entityBook->get('id'));
         $this->assertSame($bookEdited->get('title'), 'titleEdited');
 
-        $this->fileProcessorHandle->createFile->never()->called();
-        $this->fileProcessorHandle->updateFile->once()->called();
-        $this->fileProcessorHandle->deleteFile->never()->called();
-        $this->fileProcessorHandle->renderFile->never()->called();
+        $this->filesystemHandle->writeStream->once()->called();
+        $this->filesystemHandle->readStream->never()->called();
 
         // Optimistic locking
         $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
@@ -558,14 +556,11 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isNotFound());
         $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
 
-        $crawler = $client->request('GET', '/crud/book/1/cover/file');
+        $client->request('GET', '/crud/book/1/cover/file');
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("rendered file")'));
 
-        $this->fileProcessorHandle->createFile->once()->called();
-        $this->fileProcessorHandle->updateFile->never()->called();
-        $this->fileProcessorHandle->deleteFile->never()->called();
-        $this->fileProcessorHandle->renderFile->once()->called();
+        $this->filesystemHandle->writeStream->once()->called();
+        $this->filesystemHandle->readStream->once()->called();
 
     }
 
@@ -625,10 +620,8 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('html:contains("File deleted.")'));
 
-        $this->fileProcessorHandle->createFile->once()->called();
-        $this->fileProcessorHandle->updateFile->never()->called();
-        $this->fileProcessorHandle->deleteFile->once()->called();
-        $this->fileProcessorHandle->renderFile->never()->called();
+        $this->filesystemHandle->writeStream->once()->called();
+        $this->filesystemHandle->readStream->never()->called();
 
 
     }

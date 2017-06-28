@@ -13,6 +13,7 @@ namespace CRUDlex;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use League\Flysystem\FilesystemInterface;
 
 /**
  * MySQL Data implementation using a given Doctrine DBAL instance.
@@ -444,18 +445,18 @@ class MySQLData extends AbstractData {
      *
      * @param EntityDefinition $definition
      * the entity definition
-     * @param FileProcessorInterface $fileProcessor
-     * the file processor to use
+     * @param FilesystemInterface $filesystem
+     * the filesystem to use
      * @param $database
      * the Doctrine DBAL instance to use
      * @param boolean $useUUIDs
      * flag whether to use UUIDs as primary key
      */
-    public function __construct(EntityDefinition $definition, FileProcessorInterface $fileProcessor, $database, $useUUIDs) {
-        $this->definition    = $definition;
-        $this->fileProcessor = $fileProcessor;
-        $this->database      = $database;
-        $this->useUUIDs      = $useUUIDs;
+    public function __construct(EntityDefinition $definition, FilesystemInterface $filesystem, $database, $useUUIDs) {
+        $this->definition = $definition;
+        $this->filesystem = $filesystem;
+        $this->database   = $database;
+        $this->useUUIDs   = $useUUIDs;
     }
 
     /**

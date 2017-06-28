@@ -10,6 +10,7 @@
  */
 
 namespace CRUDlex;
+use League\Flysystem\FilesystemInterface;
 
 /**
  * An interface used by the {@see ServiceProvider} to construct
@@ -24,12 +25,12 @@ interface DataFactoryInterface {
      *
      * @param EntityDefinition $definition
      * the definition of the entities managed by the to be created instance
-     * @param FileProcessorInterface $fileProcessor
-     * the file processor managing uploaded files
+     * @param FilesystemInterface $filesystem
+     * the filesystem managing uploaded files
      *
      * @return AbstractData
      * the newly created instance
      */
-    public function createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor);
+    public function createData(EntityDefinition $definition, FilesystemInterface $filesystem);
 
 }

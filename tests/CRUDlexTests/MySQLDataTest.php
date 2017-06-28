@@ -441,17 +441,15 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
             'pages' => 111,
             'library' => $entityLibrary->get('id')
         ], [], [], [
-            'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
+            'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml', null, null, null, true)
         ]);
 
-        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
+        $filesystemHandle = TestDBSetup::getFilesystemHandle();
 
         $this->dataBook->createFiles($request, $entityBook, 'book');
 
-        $fileProcessorHandle->createFile->once()->called();
-        $fileProcessorHandle->updateFile->never()->called();
-        $fileProcessorHandle->deleteFile->never()->called();
-        $fileProcessorHandle->renderFile->never()->called();
+        $filesystemHandle->writeStream->once()->called();
+        $filesystemHandle->readStream->never()->called();
     }
 
     public function testUpdateFiles() {
@@ -473,17 +471,15 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
             'pages' => 111,
             'library' => $entityLibrary->get('id')
         ], [], [], [
-            'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml')
+            'cover' => new UploadedFile(__DIR__.'/../test1.xml', 'test1.xml', null, null, null, true)
         ]);
 
-        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
+        $filesystemHandle = TestDBSetup::getFilesystemHandle();
 
         $this->dataBook->updateFiles($request, $entityBook, 'book');
 
-        $fileProcessorHandle->createFile->never()->called();
-        $fileProcessorHandle->updateFile->once()->called();
-        $fileProcessorHandle->deleteFile->never()->called();
-        $fileProcessorHandle->renderFile->never()->called();
+        $filesystemHandle->writeStream->once()->called();
+        $filesystemHandle->readStream->never()->called();
     }
 
     public function testDeleteFile() {
@@ -499,14 +495,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
-
         $this->dataBook->deleteFile($entityBook, 'book', 'cover');
-
-        $fileProcessorHandle->createFile->never()->called();
-        $fileProcessorHandle->updateFile->never()->called();
-        $fileProcessorHandle->deleteFile->once()->called();
-        $fileProcessorHandle->renderFile->never()->called();
     }
 
     public function testDeleteFiles() {
@@ -521,15 +510,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('pages', 111);
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
-
-        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
-
         $this->dataBook->deleteFiles($entityBook, 'book');
-
-        $fileProcessorHandle->createFile->never()->called();
-        $fileProcessorHandle->updateFile->never()->called();
-        $fileProcessorHandle->deleteFile->once()->called();
-        $fileProcessorHandle->renderFile->never()->called();
     }
 
     public function testRenderFile() {
@@ -545,14 +526,12 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $fileProcessorHandle = TestDBSetup::getFileProcessorHandle();
+        $filesystemHandle = TestDBSetup::getFilesystemHandle();
 
         $this->dataBook->renderFile($entityBook, 'book', 'cover');
 
-        $fileProcessorHandle->createFile->never()->called();
-        $fileProcessorHandle->updateFile->never()->called();
-        $fileProcessorHandle->deleteFile->never()->called();
-        $fileProcessorHandle->renderFile->once()->called();
+        $filesystemHandle->writeStream->never()->called();
+        $filesystemHandle->readStream->once()->called();
 
     }
 

@@ -5,4 +5,4 @@ coverageReport/
 build/logs/clover.xml
 tests/uploads/
 docs/_build/
-tests/tmp/*.php
+tests/tmp/

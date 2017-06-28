@@ -10,6 +10,7 @@ namespace CRUDlexTestEnv;
  * file that was distributed with this source code.
  */
 
+use League\Flysystem\Adapter\NullAdapter;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
@@ -20,7 +21,7 @@ use CRUDlex\ServiceProvider;
 
 class TestDBSetup {
 
-    private static $fileProcessorHandle;
+    private static $filesystemHandle;
 
     public static function createAppAndDB($useUUIDs = false) {
         $app = new Application();
@@ -117,23 +118,23 @@ class TestDBSetup {
     }
 
     public static function createServiceProvider($useUUIDs = false) {
-
-
-        static::$fileProcessorHandle = Phony::mock('\\CRUDlex\\SimpleFilesystemFileProcessor');
-        static::$fileProcessorHandle->renderFile->returns('rendered file');
-        $fileProcessorMock = static::$fileProcessorHandle->get();
+        static::$filesystemHandle = Phony::partialMock('\\League\\Flysystem\\Filesystem', [new NullAdapter()]);
+        static::$filesystemHandle->readStream->returns(null);
+        static::$filesystemHandle->getMimetype->returns('test');
+        static::$filesystemHandle->getSize->returns(42);
 
         $app = static::createAppAndDB($useUUIDs);
+        $app['crud.filesystem'] = static::$filesystemHandle->get();
+        $app['crud.datafactory'] = new MySQLDataFactory($app['db'], $useUUIDs);
+        $app['crud.file'] = __DIR__.'/../crud.yml';
         $crudServiceProvider = new ServiceProvider();
-        $dataFactory = new MySQLDataFactory($app['db'], $useUUIDs);
-        $crudFile = __DIR__.'/../crud.yml';
         $crudServiceProvider->boot($app);
-        $crudServiceProvider->init($dataFactory, $crudFile, null, $fileProcessorMock, $app);
+        $crudServiceProvider->init(null, $app);
         return $crudServiceProvider;
     }
 
-    public static function getFileProcessorHandle() {
-        return static::$fileProcessorHandle;
+    public static function getFilesystemHandle() {
+        return static::$filesystemHandle;
     }
 
 }

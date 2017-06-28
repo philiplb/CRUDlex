@@ -11,8 +11,10 @@
 
 namespace CRUDlex;
 
+use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * The abstract class for reading and writing data.
@@ -40,9 +42,10 @@ abstract class AbstractData {
     protected $definition;
 
     /**
-     * Holds the {@see FileProcessorInterface} file processor.
+     * Holds the filesystem.
+     * @var FilesystemInterface
      */
-    protected $fileProcessor;
+    protected $filesystem;
 
     /**
      * Holds the events.
@@ -215,6 +218,62 @@ abstract class AbstractData {
             return is_array($id) ? $id['id'] : $id;
         }, $entities);
         return $ids;
+    }
+
+    /**
+     * Constructs a file system path for the given parameters for storing the
+     * file of the file field.
+     *
+     * @param string $entityName
+     * the entity name
+     * @param Entity $entity
+     * the entity
+     * @param string $field
+     * the file field in the entity
+     *
+     * @return string
+     * the constructed path for storing the file of the file field
+     */
+    protected function getPath($entityName, Entity $entity, $field) {
+        return $this->definition->getField($field, 'path').'/'.$entityName.'/'.$entity->get('id').'/'.$field;
+    }
+
+    /**
+     * Writes the uploaded files.
+     *
+     * @param Request $request
+     * the HTTP request containing the file data
+     * @param Entity $entity
+     * the just manipulated entity
+     * @param string $entityName
+     * the name of the entity as this class here is not aware of it
+     * @param string $action
+     * the name of the performed action
+     *
+     * @return boolean
+     * true if all before events passed
+     */
+    protected function writeFile(Request $request, Entity $entity, $entityName, $action) {
+        $result = $this->shouldExecuteEvents($entity, 'before', $action);
+        if (!$result) {
+            return false;
+        }
+        $filesystem = $this->filesystem;
+        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($filesystem, $request) {
+            $file = $request->files->get($field);
+            if ($file->isValid()) {
+                $path     = $this->getPath($entityName, $entity, $field);
+                $filename = $path.'/'.$file->getClientOriginalName();
+                if ($filesystem->has($filename)) {
+                    $filesystem->delete($filename);
+                }
+                $stream = fopen($file->getRealPath(), 'r+');
+                $filesystem->writeStream($filename, $stream);
+                fclose($stream);
+            }
+        });
+        $this->shouldExecuteEvents($entity, 'after', $action);
+        return true;
     }
 
     /**
@@ -469,16 +528,7 @@ abstract class AbstractData {
      * true if all before events passed
      */
     public function createFiles(Request $request, Entity $entity, $entityName) {
-        $result = $this->shouldExecuteEvents($entity, 'before', 'createFiles');
-        if (!$result) {
-            return false;
-        }
-        $fileProcessor = $this->fileProcessor;
-        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
-            $fileProcessor->createFile($request, $entity, $entityName, $field);
-        });
-        $this->shouldExecuteEvents($entity, 'after', 'createFiles');
-        return true;
+        return $this->writeFile($request, $entity, $entityName, 'createFiles');
     }
 
     /**
@@ -495,16 +545,8 @@ abstract class AbstractData {
      * true on successful update
      */
     public function updateFiles(Request $request, Entity $entity, $entityName) {
-        $result = $this->shouldExecuteEvents($entity, 'before', 'updateFiles');
-        if (!$result) {
-            return false;
-        }
-        $fileProcessor = $this->fileProcessor;
-        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor, $request) {
-            $fileProcessor->updateFile($request, $entity, $entityName, $field);
-        });
-        $this->shouldExecuteEvents($entity, 'after', 'updateFiles');
-        return true;
+        // With optional soft deletion, the file should be deleted first.
+        return $this->writeFile($request, $entity, $entityName, 'updateFiles');
     }
 
     /**
@@ -525,7 +567,7 @@ abstract class AbstractData {
         if (!$result) {
             return false;
         }
-        $this->fileProcessor->deleteFile($entity, $entityName, $field);
+        // For now, we are defensive and don't delete ever. As soon as soft deletion is optional, files will get deleted.
         $this->shouldExecuteEvents($entity, 'after', 'deleteFile');
         return true;
     }
@@ -546,9 +588,8 @@ abstract class AbstractData {
         if (!$result) {
             return false;
         }
-        $fileProcessor = $this->fileProcessor;
-        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($fileProcessor) {
-            $fileProcessor->deleteFile($entity, $entityName, $field);
+        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) {
+            // For now, we are defensive and don't delete ever. As soon as soft deletion is optional, files will get deleted.
         });
         $this->shouldExecuteEvents($entity, 'after', 'deleteFiles');
         return true;
@@ -566,10 +607,28 @@ abstract class AbstractData {
      * the field of the entity containing the file to be rendered
      *
      * @return Response
-     * the HTTP response, likely to be a streamed one
+     * the HTTP streamed response
      */
     public function renderFile(Entity $entity, $entityName, $field) {
-        return $this->fileProcessor->renderFile($entity, $entityName, $field);
+        $targetPath = $this->getPath($entityName, $entity, $field);
+        $fileName   = $entity->get($field);
+        $file       = $targetPath.'/'.$fileName;
+        $mimeType   = $this->filesystem->getMimetype($file);
+        $size       = $this->filesystem->getSize($file);
+        $stream     = $this->filesystem->readStream($file);
+        $response   = new StreamedResponse(function() use ($stream) {
+            while ($data = fread($stream, 1024)) {
+                echo $data;
+                flush();
+            }
+            fclose($stream);
+        }, 200, [
+            'Cache-Control' => 'public, max-age=86400',
+            'Content-length' => $size,
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'"'
+        ]);
+        return $response;
     }
 
 }

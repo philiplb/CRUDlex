@@ -10,6 +10,7 @@
  */
 
 namespace CRUDlex;
+use League\Flysystem\FilesystemInterface;
 
 /**
  * A factory implementation for {@see MySQLData} instances.
@@ -42,8 +43,8 @@ class MySQLDataFactory implements DataFactoryInterface {
     /**
      * {@inheritdoc}
      */
-    public function createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor) {
-        return new MySQLData($definition, $fileProcessor, $this->database, $this->useUUIDs);
+    public function createData(EntityDefinition $definition, FilesystemInterface $filesystem) {
+        return new MySQLData($definition, $filesystem, $this->database, $this->useUUIDs);
     }
 
 }

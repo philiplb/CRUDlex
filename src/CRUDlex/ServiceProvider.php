@@ -11,6 +11,7 @@
 
 namespace CRUDlex;
 
+use League\Flysystem\FilesystemInterface;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\BootableProviderInterface;
@@ -20,6 +21,8 @@ use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Adapter\Local;
 
 /**
  * The ServiceProvider setups and initializes the whole CRUD system.
@@ -206,15 +209,13 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the CRUD YAML file to parse
      * @param string|null $crudFileCachingDirectory
      * the writable directory to store the CRUD YAML file cache
-     * @param FileProcessorInterface $fileProcessor
-     * the file processor used for file fields
      * @param Container $app
      * the application container
      */
-    public function init(DataFactoryInterface $dataFactory, $crudFile, $crudFileCachingDirectory, FileProcessorInterface $fileProcessor, Container $app) {
+    public function init($crudFileCachingDirectory, Container $app) {
 
         $reader     = new YamlReader($crudFileCachingDirectory);
-        $parsedYaml = $reader->read($crudFile);
+        $parsedYaml = $reader->read($app['crud.file']);
 
         $this->validateEntityDefinition($app, $parsedYaml);
 
@@ -222,7 +223,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
         $this->datas = [];
         foreach ($parsedYaml as $name => $crud) {
             $definition         = $this->createDefinition($app, $locales, $crud, $name);
-            $this->datas[$name] = $dataFactory->createData($definition, $fileProcessor);
+            $this->datas[$name] = $app['crud.datafactory']->createData($definition, $app['crud.filesystem']);
         }
 
         $this->initChildren();
@@ -237,11 +238,13 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the Container instance of the Silex application
      */
     public function register(Container $app) {
+        if (!$app->offsetExists('crud.filesystem')) {
+            $app['crud.filesystem'] = new Filesystem(new Local(getcwd()));
+        }
         $app['crud'] = function() use ($app) {
             $result                   = new static();
             $crudFileCachingDirectory = $app->offsetExists('crud.filecachingdirectory') ? $app['crud.filecachingdirectory'] : null;
-            $fileProcessor            = $app->offsetExists('crud.fileprocessor') ? $app['crud.fileprocessor'] : new SimpleFilesystemFileProcessor();
-            $result->init($app['crud.datafactory'], $app['crud.file'], $crudFileCachingDirectory, $fileProcessor, $app);
+            $result->init($crudFileCachingDirectory, $app);
             return $result;
         };
     }
