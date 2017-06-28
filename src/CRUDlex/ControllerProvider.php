@@ -11,6 +11,8 @@
 
 namespace CRUDlex;
 
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -575,8 +577,8 @@ class ControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
         }
 
-        $mimeTypes = new MimeTypes();
-        $mimeType  = $mimeTypes->getMimeType($file);
+        $filesystem = new Filesystem(new Local(dirname($file)));
+        $mimeType  = $filesystem->getMimetype(basename($file));
         $size      = filesize($file);
 
         $streamedFileResponse = new StreamedFileResponse();
