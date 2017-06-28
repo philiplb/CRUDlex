@@ -13,7 +13,6 @@ namespace CRUDlex;
 
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -253,7 +252,7 @@ abstract class AbstractData {
      * @return boolean
      * true if all before events passed
      */
-    protected function writeFile(Request $request, Entity $entity, $entityName, $action) {
+    protected function shouldWriteFile(Request $request, Entity $entity, $entityName, $action) {
         $result = $this->shouldExecuteEvents($entity, 'before', $action);
         if (!$result) {
             return false;
@@ -528,7 +527,7 @@ abstract class AbstractData {
      * true if all before events passed
      */
     public function createFiles(Request $request, Entity $entity, $entityName) {
-        return $this->writeFile($request, $entity, $entityName, 'createFiles');
+        return $this->shouldWriteFile($request, $entity, $entityName, 'createFiles');
     }
 
     /**
@@ -546,7 +545,7 @@ abstract class AbstractData {
      */
     public function updateFiles(Request $request, Entity $entity, $entityName) {
         // With optional soft deletion, the file should be deleted first.
-        return $this->writeFile($request, $entity, $entityName, 'updateFiles');
+        return $this->shouldWriteFile($request, $entity, $entityName, 'updateFiles');
     }
 
     /**
@@ -606,7 +605,7 @@ abstract class AbstractData {
      * @param string $field
      * the field of the entity containing the file to be rendered
      *
-     * @return Response
+     * @return StreamedResponse
      * the HTTP streamed response
      */
     public function renderFile(Entity $entity, $entityName, $field) {
