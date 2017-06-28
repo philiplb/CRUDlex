@@ -203,10 +203,6 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     /**
      * Initializes the instance.
      *
-     * @param DataFactoryInterface $dataFactory
-     * the factory to create the concrete AbstractData instances
-     * @param string $crudFile
-     * the CRUD YAML file to parse
      * @param string|null $crudFileCachingDirectory
      * the writable directory to store the CRUD YAML file cache
      * @param Container $app
