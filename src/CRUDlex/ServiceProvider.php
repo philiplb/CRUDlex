@@ -11,7 +11,8 @@
 
 namespace CRUDlex;
 
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\BootableProviderInterface;
@@ -21,8 +22,6 @@ use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
-use League\Flysystem\Filesystem;
-use League\Flysystem\Adapter\Local;
 
 /**
  * The ServiceProvider setups and initializes the whole CRUD system.
