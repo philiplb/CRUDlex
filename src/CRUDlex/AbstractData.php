@@ -135,20 +135,27 @@ abstract class AbstractData {
      * the current entities id
      * @param boolean $deleteCascade
      * whether to delete children and sub children
+     *
+     * @return integer
+     * returns one of:
+     * - AbstractData::DELETION_SUCCESS -> successful deletion
+     * - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
+     * - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
     protected function deleteChildren($id, $deleteCascade) {
         foreach ($this->definition->getChildren() as $childArray) {
             $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
             $children  = $childData->listEntries([$childArray[1] => $id]);
             foreach ($children as $child) {
-                $result = $this->shouldExecuteEvents($child, 'before', 'delete');
+                $result = $childData->shouldExecuteEvents($child, 'before', 'delete');
                 if (!$result) {
-                    return;
+                    return static::DELETION_FAILED_EVENT;
                 }
                 $childData->doDelete($child, $deleteCascade);
-                $this->shouldExecuteEvents($child, 'after', 'delete');
+                $childData->shouldExecuteEvents($child, 'after', 'delete');
             }
         }
+        return static::DELETION_SUCCESS;
     }
 
     /**

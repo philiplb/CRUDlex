@@ -249,10 +249,20 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
+        $this->dataBook->pushEvent('before', 'delete', function(Entity $entity) {
+            return false;
+        });
+        $deleted = $this->dataLibrary->delete($entityLibrary);
+        $expected = AbstractData::DELETION_FAILED_EVENT;
+        $this->assertSame($deleted, $expected);
+        $entityBook2 = $this->dataBook->get($entityBook->get('id'));
+        $this->assertNotNull($entityBook2);
+
+        $this->dataBook->popEvent('before', 'delete');
         $deleted = $this->dataLibrary->delete($entityLibrary);
         $expected = AbstractData::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
-        $entityBook2 = $this->dataBook->get($entityBook->get('id'));
+        $entityBook2 = $this->dataLibrary->get($entityBook->get('id'));
         $this->assertNull($entityBook2);
     }
 
