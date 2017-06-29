@@ -27,11 +27,11 @@ CRUDlex\\MySQLDataFactory
         :param $database:
         :param $useUUIDs:
 
-    .. php:method:: createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor)
+    .. php:method:: createData(EntityDefinition $definition, FilesystemInterface $filesystem)
 
         {@inheritdoc}
 
         :type $definition: EntityDefinition
         :param $definition:
-        :type $fileProcessor: FileProcessorInterface
-        :param $fileProcessor:
+        :type $filesystem: FilesystemInterface
+        :param $filesystem:

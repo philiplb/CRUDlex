@@ -16,12 +16,12 @@ CRUDlex\\DataFactoryInterface
     the service provider, the user can control what database (-variation) he
     wants to use.
 
-    .. php:method:: createData(EntityDefinition $definition, FileProcessorInterface $fileProcessor)
+    .. php:method:: createData(EntityDefinition $definition, FilesystemInterface $filesystem)
 
         Creates instances.
 
         :type $definition: EntityDefinition
         :param $definition: the definition of the entities managed by the to be created instance
-        :type $fileProcessor: FileProcessorInterface
-        :param $fileProcessor: the file processor managing uploaded files
+        :type $filesystem: FilesystemInterface
+        :param $filesystem: the filesystem managing uploaded files
         :returns: AbstractData the newly created instance

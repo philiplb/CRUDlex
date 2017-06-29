@@ -45,9 +45,8 @@ Contents:
    api/EntityDefinitionFactoryInterface
    api/EntityDefinitionValidatorInterface
    api/EntityValidator
-   api/FileProcessorInterface
+   api/FileHandler
    api/ManyValidator
-   api/MimeTypes
    api/ReferenceValidator
    api/ServiceProvider
    api/StreamedFileResponse

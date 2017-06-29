@@ -78,18 +78,12 @@ CRUDlex\\ServiceProvider
         :type $entityDefinition: array
         :param $entityDefinition: the entity definition to validate
 
-    .. php:method:: init(DataFactoryInterface $dataFactory, $crudFile, $crudFileCachingDirectory, FileProcessorInterface $fileProcessor, Container $app)
+    .. php:method:: init($crudFileCachingDirectory, Container $app)
 
         Initializes the instance.
 
-        :type $dataFactory: DataFactoryInterface
-        :param $dataFactory: the factory to create the concrete AbstractData instances
-        :type $crudFile: string
-        :param $crudFile: the CRUD YAML file to parse
         :type $crudFileCachingDirectory: string|null
         :param $crudFileCachingDirectory: the writable directory to store the CRUD YAML file cache
-        :type $fileProcessor: FileProcessorInterface
-        :param $fileProcessor: the file processor used for file fields
         :type $app: Container
         :param $app: the application container
 
