@@ -23,6 +23,7 @@ Contents:
    manual/datastructures
    manual/datatypes
    manual/constraints
+   manual/filehandling
    manual/layouts
    manual/templates
    manual/events
