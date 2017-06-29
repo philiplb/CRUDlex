@@ -12,8 +12,6 @@
 namespace CRUDlex;
 
 use League\Flysystem\FilesystemInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * The abstract class for reading and writing data.
@@ -82,53 +80,6 @@ abstract class AbstractData {
         }
         return $entity;
     }
-
-    /**
-     * Executes the event chain of an entity.
-     *
-     * @param Entity $entity
-     * the entity having the event chain to execute
-     * @param string $moment
-     * the "moment" of the event, can be either "before" or "after"
-     * @param string $action
-     * the "action" of the event, can be either "create", "update" or "delete"
-     *
-     * @return boolean
-     * true on successful execution of the full chain or false if it broke at
-     * any point (and stopped the execution)
-     */
-    protected function shouldExecuteEvents(Entity $entity, $moment, $action) {
-        if (!isset($this->events[$moment.'.'.$action])) {
-            return true;
-        }
-        foreach ($this->events[$moment.'.'.$action] as $event) {
-            $result = $event($entity);
-            if (!$result) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Executes a function for each file field of this entity.
-     *
-     * @param Entity $entity
-     * the just created entity
-     * @param string $entityName
-     * the name of the entity as this class here is not aware of it
-     * @param \Closure $function
-     * the function to perform, takes $entity, $entityName and $field as parameter
-     */
-    protected function performOnFiles(Entity $entity, $entityName, $function) {
-        $fields = $this->definition->getEditableFieldNames();
-        foreach ($fields as $field) {
-            if ($this->definition->getType($field) == 'file') {
-                $function($entity, $entityName, $field);
-            }
-        }
-    }
-
 
     /**
      * Enriches an entity with metadata:
@@ -220,62 +171,6 @@ abstract class AbstractData {
     }
 
     /**
-     * Constructs a file system path for the given parameters for storing the
-     * file of the file field.
-     *
-     * @param string $entityName
-     * the entity name
-     * @param Entity $entity
-     * the entity
-     * @param string $field
-     * the file field in the entity
-     *
-     * @return string
-     * the constructed path for storing the file of the file field
-     */
-    protected function getPath($entityName, Entity $entity, $field) {
-        return $this->definition->getField($field, 'path').'/'.$entityName.'/'.$entity->get('id').'/'.$field;
-    }
-
-    /**
-     * Writes the uploaded files.
-     *
-     * @param Request $request
-     * the HTTP request containing the file data
-     * @param Entity $entity
-     * the just manipulated entity
-     * @param string $entityName
-     * the name of the entity as this class here is not aware of it
-     * @param string $action
-     * the name of the performed action
-     *
-     * @return boolean
-     * true if all before events passed
-     */
-    protected function shouldWriteFile(Request $request, Entity $entity, $entityName, $action) {
-        $result = $this->shouldExecuteEvents($entity, 'before', $action);
-        if (!$result) {
-            return false;
-        }
-        $filesystem = $this->filesystem;
-        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($filesystem, $request) {
-            $file = $request->files->get($field);
-            if ($file->isValid()) {
-                $path     = $this->getPath($entityName, $entity, $field);
-                $filename = $path.'/'.$file->getClientOriginalName();
-                if ($filesystem->has($filename)) {
-                    $filesystem->delete($filename);
-                }
-                $stream = fopen($file->getRealPath(), 'r+');
-                $filesystem->writeStream($filename, $stream);
-                fclose($stream);
-            }
-        });
-        $this->shouldExecuteEvents($entity, 'after', $action);
-        return true;
-    }
-
-    /**
      * Performs the persistence of the given entity as new entry in the datasource.
      *
      * @param Entity $entity
@@ -296,6 +191,33 @@ abstract class AbstractData {
      * true on successful update
      */
     abstract protected function doUpdate(Entity $entity);
+
+    /**
+     * Executes the event chain of an entity.
+     *
+     * @param Entity $entity
+     * the entity having the event chain to execute
+     * @param string $moment
+     * the "moment" of the event, can be either "before" or "after"
+     * @param string $action
+     * the "action" of the event, can be either "create", "update" or "delete"
+     *
+     * @return boolean
+     * true on successful execution of the full chain or false if it broke at
+     * any point (and stopped the execution)
+     */
+    public function shouldExecuteEvents(Entity $entity, $moment, $action) {
+        if (!isset($this->events[$moment.'.'.$action])) {
+            return true;
+        }
+        foreach ($this->events[$moment.'.'.$action] as $event) {
+            $result = $event($entity);
+            if (!$result) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Adds an event to fire for the given parameters. The event function must
@@ -513,121 +435,5 @@ abstract class AbstractData {
         return $entity;
     }
 
-    /**
-     * Creates the uploaded files of a newly created entity.
-     *
-     * @param Request $request
-     * the HTTP request containing the file data
-     * @param Entity $entity
-     * the just created entity
-     * @param string $entityName
-     * the name of the entity as this class here is not aware of it
-     *
-     * @return boolean
-     * true if all before events passed
-     */
-    public function createFiles(Request $request, Entity $entity, $entityName) {
-        return $this->shouldWriteFile($request, $entity, $entityName, 'createFiles');
-    }
-
-    /**
-     * Updates the uploaded files of an updated entity.
-     *
-     * @param Request $request
-     * the HTTP request containing the file data
-     * @param Entity $entity
-     * the updated entity
-     * @param string $entityName
-     * the name of the entity as this class here is not aware of it
-     *
-     * @return boolean
-     * true on successful update
-     */
-    public function updateFiles(Request $request, Entity $entity, $entityName) {
-        // With optional soft deletion, the file should be deleted first.
-        return $this->shouldWriteFile($request, $entity, $entityName, 'updateFiles');
-    }
-
-    /**
-     * Deletes a specific file from an existing entity.
-     *
-     * @param Entity $entity
-     * the entity to delete the file from
-     * @param string $entityName
-     * the name of the entity as this class here is not aware of it
-     * @param string $field
-     * the field of the entity containing the file to be deleted
-     *
-     * @return boolean
-     * true on successful deletion
-     */
-    public function deleteFile(Entity $entity, $entityName, $field) {
-        $result = $this->shouldExecuteEvents($entity, 'before', 'deleteFile');
-        if (!$result) {
-            return false;
-        }
-        // For now, we are defensive and don't delete ever. As soon as soft deletion is optional, files will get deleted.
-        $this->shouldExecuteEvents($entity, 'after', 'deleteFile');
-        return true;
-    }
-
-    /**
-     * Deletes all files of an existing entity.
-     *
-     * @param Entity $entity
-     * the entity to delete the files from
-     * @param string $entityName
-     * the name of the entity as this class here is not aware of it
-     *
-     * @return boolean
-     * true on successful deletion
-     */
-    public function deleteFiles(Entity $entity, $entityName) {
-        $result = $this->shouldExecuteEvents($entity, 'before', 'deleteFiles');
-        if (!$result) {
-            return false;
-        }
-        $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) {
-            // For now, we are defensive and don't delete ever. As soon as soft deletion is optional, files will get deleted.
-        });
-        $this->shouldExecuteEvents($entity, 'after', 'deleteFiles');
-        return true;
-    }
-
-    /**
-     * Renders (outputs) a file of an entity. This includes setting headers
-     * like the file size, mimetype and name, too.
-     *
-     * @param Entity $entity
-     * the entity to render the file from
-     * @param string $entityName
-     * the name of the entity as this class here is not aware of it
-     * @param string $field
-     * the field of the entity containing the file to be rendered
-     *
-     * @return StreamedResponse
-     * the HTTP streamed response
-     */
-    public function renderFile(Entity $entity, $entityName, $field) {
-        $targetPath = $this->getPath($entityName, $entity, $field);
-        $fileName   = $entity->get($field);
-        $file       = $targetPath.'/'.$fileName;
-        $mimeType   = $this->filesystem->getMimetype($file);
-        $size       = $this->filesystem->getSize($file);
-        $stream     = $this->filesystem->readStream($file);
-        $response   = new StreamedResponse(function() use ($stream) {
-            while ($data = fread($stream, 1024)) {
-                echo $data;
-                flush();
-            }
-            fclose($stream);
-        }, 200, [
-            'Cache-Control' => 'public, max-age=86400',
-            'Content-length' => $size,
-            'Content-Type' => $mimeType,
-            'Content-Disposition' => 'attachment; filename="'.$fileName.'"'
-        ]);
-        return $response;
-    }
 
 }

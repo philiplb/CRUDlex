@@ -80,9 +80,10 @@ class ControllerProvider implements ControllerProviderInterface {
      * the HTTP response of this modification
      */
     protected function modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode) {
-        $id      = $instance->get('id');
-        $request = $app['request_stack']->getCurrentRequest();
-        $result  = $mode == 'edit' ? $crudData->updateFiles($request, $instance, $entity) : $crudData->createFiles($request, $instance, $entity);
+        $id          = $instance->get('id');
+        $request     = $app['request_stack']->getCurrentRequest();
+        $fileHandler = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
+        $result      = $mode == 'edit' ? $fileHandler->updateFiles($crudData, $request, $instance, $entity) : $fileHandler->createFiles($crudData, $request, $instance, $entity);
         if (!$result) {
             return null;
         }
@@ -481,7 +482,8 @@ class ControllerProvider implements ControllerProviderInterface {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
-        $filesDeleted = $crudData->deleteFiles($instance, $entity);
+        $fileHandler  = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
+        $filesDeleted = $fileHandler->deleteFiles($crudData, $instance, $entity);
         $deleted      = $filesDeleted ? $crudData->delete($instance) : AbstractData::DELETION_FAILED_EVENT;
 
         if ($deleted === AbstractData::DELETION_FAILED_EVENT) {
@@ -525,7 +527,8 @@ class ControllerProvider implements ControllerProviderInterface {
         if (!$instance || $definition->getType($field) != 'file' || !$instance->get($field)) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
-        return $crudData->renderFile($instance, $entity, $field);
+        $fileHandler = new FileHandler($app['crud.filesystem'], $definition);
+        return $fileHandler->renderFile($instance, $entity, $field);
     }
 
     /**
@@ -549,7 +552,8 @@ class ControllerProvider implements ControllerProviderInterface {
         if (!$instance) {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
-        if (!$crudData->getDefinition()->getField($field, 'required', false) && $crudData->deleteFile($instance, $entity, $field)) {
+        $fileHandler = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
+        if (!$crudData->getDefinition()->getField($field, 'required', false) && $fileHandler->deleteFile($crudData, $instance, $entity, $field)) {
             $instance->set($field, '');
             $crudData->update($instance);
             $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.file.deleted'));
