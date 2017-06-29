@@ -46,6 +46,12 @@ And then configure it and hand it over to CRUDlex:
         'crud.filesystem' => $filesystem,
     ));
 
+In any way, overriding or not, the underlying FilesystemInterface is available via
+
+.. code-block:: php
+
+    $app['crud.filesystem']
+
 Many more adapters are available for Flysystem, including (as of writing):
 
 * Local
