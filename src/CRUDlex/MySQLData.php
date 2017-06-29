@@ -91,7 +91,7 @@ class MySQLData extends AbstractData {
     protected function doDelete(Entity $entity, $deleteCascade) {
         $id = $entity->get('id');
         if ($deleteCascade) {
-            $result =  $this->deleteChildren($id, $deleteCascade);
+            $result = $this->deleteChildren($id, $deleteCascade);
             if ($result !== static::DELETION_SUCCESS) {
                 return $result;
             }
