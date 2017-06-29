@@ -109,6 +109,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filehandling.html">File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
@@ -129,9 +130,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -547,20 +547,7 @@ subfolder you give with the path parameter.</p>
 <p>If you edit an entity with a file and re-upload it or if you delete the file or
 if you delete the entity, the current implementation is defensive and doesn&#8217;t
 physically delete the files.</p>
-<p>You can override the storage-mechanism by giving an instance of a class
-implementing the FileProcessorInterface:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
-<span class="x">    &#39;crud.file&#39; =&gt; *DIR* . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
-<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
-<span class="x">    &#39;crud.fileprocessor&#39; =&gt; $myFileProcessor</span>
-<span class="x">));</span>
-</pre></div>
-</div>
-<p>If this parameter is not given, an instance of the SimpleFilesystemFileProcessor
-is used.</p>
-<p>There is an implementation available for storing and retrieving the files at
-Amazon S3 within the <a class="reference external" href="https://github.com/philiplb/CRUDlexAddons">CRUDlex Addons</a>
-package.</p>
+<p>See the <a class="reference internal" href="filehandling.html"><em>File Handling</em></a> chapter for more details.</p>
 <p>Related MySQL-types:</p>
 <ul class="simple">
 <li>CHAR</li>

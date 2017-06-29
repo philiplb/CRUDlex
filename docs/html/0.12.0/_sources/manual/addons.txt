@@ -1,41 +1,7 @@
 Addons
 ======
 
-There are several surrounding projects around CRUDlex. Each of them is described
-here.
-
-Each addon has tags following the versioning of CRUDlex. So the version 0.9.9
-will work with CRUDlex 0.9.9 etc.. The master branch works against the master of
-CRUDlex.
-
-----------------------------
-CRUDlexAmazonS3FileProcessor
-----------------------------
-
-The `CRUDlexAmazonS3FileProcessor <https://github.com/philiplb/CRUDlexAmazonS3FileProcessor)>`_
-handles the file uploads via Amazon S3.
-
-This is how to use it:
-
-First, create an instance of the Amazon S3 FileProcessor:
-
-.. code-block:: php
-
-    $fileProcessor = new CRUDlex\AmazonS3FileProcessor(
-        'yourBucket',
-        'yourAccessKey',
-        'yourSecretAccessKey'
-    );
-
-And then hand it in when registering the CRUDlex ServiceProvider:
-
-.. code-block:: php
-
-    $app->register(new CRUDlex\ServiceProvider(), array(
-        'crud.file' => __DIR__ . '<yourCrud.yml>',
-        'crud.datafactory' => $dataFactory,
-        'crud.fileprocessor' => $fileProcessor
-    ));
+There are several surrounding projects around CRUDlex. Each of them is described here.
 
 -----------
 CRUDlexUser

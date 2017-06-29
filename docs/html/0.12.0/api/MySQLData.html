@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../manual/datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/filehandling.html">File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/events.html">Events</a></li>
@@ -112,9 +113,8 @@
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -213,10 +213,10 @@
 </dd></dl>
 
 <dl class="attr">
-<dt id="MySQLData::$fileProcessor">
-<em class="property">property </em><code class="descname">fileProcessor</code><a class="headerlink" href="#MySQLData::$fileProcessor" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
-<p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> FileProcessorInterface} file processor.</p>
+<dt id="MySQLData::$filesystem">
+<em class="property">property </em><code class="descname">filesystem</code><a class="headerlink" href="#MySQLData::$filesystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected FilesystemInterface</p>
+<p>Holds the filesystem.</p>
 </dd></dl>
 
 <dl class="attr">
@@ -513,7 +513,7 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 
 <dl class="method">
 <dt id="MySQLData::__construct">
-<code class="descname">__construct</code><span class="sig-paren">(</span><em>EntityDefinition $definition</em>, <em>FileProcessorInterface $fileProcessor</em>, <em>$database</em>, <em>$useUUIDs</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::__construct" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__construct</code><span class="sig-paren">(</span><em>EntityDefinition $definition</em>, <em>FilesystemInterface $filesystem</em>, <em>$database</em>, <em>$useUUIDs</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::__construct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -521,7 +521,7 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; the entity definition</li>
-<li><strong>$fileProcessor</strong> (<a class="reference internal" href="FileProcessorInterface.html#FileProcessorInterface" title="FileProcessorInterface"><em>FileProcessorInterface</em></a>) &#8211; the file processor to use</li>
+<li><strong>$filesystem</strong> (<em>FilesystemInterface</em>) &#8211; the filesystem to use</li>
 <li><strong>$database</strong> &#8211; </li>
 <li><strong>$useUUIDs</strong> (<em>boolean</em>) &#8211; flag whether to use UUIDs as primary key</li>
 </ul>
@@ -649,47 +649,6 @@ as keys and field values as values.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="MySQLData::shouldExecuteEvents">
-<code class="descname">shouldExecuteEvents</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::shouldExecuteEvents" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the event chain of an entity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity having the event chain to execute</li>
-<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful execution of the full chain or false if it broke at any point (and stopped the execution)</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="MySQLData::performOnFiles">
-<code class="descname">performOnFiles</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$function</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::performOnFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes a function for each file field of this entity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the just created entity</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-<li><strong>$function</strong> (<em>Closure</em>) &#8211; the function to perform, takes $entity, $entityName and $field as parameter</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="MySQLData::enrichEntityWithMetaData">
 <code class="descname">enrichEntityWithMetaData</code><span class="sig-paren">(</span><em>$id</em>, <em>Entity $entity</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::enrichEntityWithMetaData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enriches an entity with metadata:
@@ -744,10 +703,13 @@ id, version, created_at, updated_at</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>$id</strong> (<em>integer</em>) &#8211; the current entities id</li>
 <li><strong>$deleteCascade</strong> (<em>boolean</em>) &#8211; whether to delete children and sub children</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">integer returns one of: - AbstractData::DELETION_SUCCESS -&gt; successful deletion - AbstractData::DELETION_FAILED_STILL_REFERENCED -&gt; failed deletion due to existing references - AbstractData::DELETION_FAILED_EVENT -&gt; failed deletion due to a failed before delete event</p>
 </td>
 </tr>
 </tbody>
@@ -769,6 +731,28 @@ id, version, created_at, updated_at</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the extracted ids</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MySQLData::shouldExecuteEvents">
+<code class="descname">shouldExecuteEvents</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::shouldExecuteEvents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the event chain of an entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity having the event chain to execute</li>
+<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
+<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful execution of the full chain or false if it broke at any point (and stopped the execution)</p>
 </td>
 </tr>
 </tbody>
@@ -905,116 +889,6 @@ null or the defined value in case of fixed fields.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Entity the newly created entity</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="MySQLData::createFiles">
-<code class="descname">createFiles</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::createFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the uploaded files of a newly created entity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$request</strong> (<em>Request</em>) &#8211; the HTTP request containing the file data</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the just created entity</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true if all before events passed</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="MySQLData::updateFiles">
-<code class="descname">updateFiles</code><span class="sig-paren">(</span><em>Request $request</em>, <em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::updateFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates the uploaded files of an updated entity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$request</strong> (<em>Request</em>) &#8211; the HTTP request containing the file data</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the updated entity</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful update</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="MySQLData::deleteFile">
-<code class="descname">deleteFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::deleteFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a specific file from an existing entity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete the file from</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field of the entity containing the file to be deleted</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful deletion</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="MySQLData::deleteFiles">
-<code class="descname">deleteFiles</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::deleteFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes all files of an existing entity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete the files from</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful deletion</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="MySQLData::renderFile">
-<code class="descname">renderFile</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$entityName</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::renderFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Renders (outputs) a file of an entity. This includes setting headers
-like the file size, mimetype and name, too.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to render the file from</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field of the entity containing the file to be rendered</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response, likely to be a streamed one</p>
-</td>
 </tr>
 </tbody>
 </table>

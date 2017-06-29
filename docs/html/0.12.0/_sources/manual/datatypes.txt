@@ -425,23 +425,7 @@ If you edit an entity with a file and re-upload it or if you delete the file or
 if you delete the entity, the current implementation is defensive and doesn't
 physically delete the files.
 
-You can override the storage-mechanism by giving an instance of a class
-implementing the FileProcessorInterface:
-
-.. code-block:: php
-
-    $app->register(new CRUDlex\ServiceProvider(), array(
-        'crud.file' => *DIR* . '<yourCrud.yml>',
-        'crud.datafactory' => $dataFactory,
-        'crud.fileprocessor' => $myFileProcessor
-    ));
-
-If this parameter is not given, an instance of the SimpleFilesystemFileProcessor
-is used.
-
-There is an implementation available for storing and retrieving the files at
-Amazon S3 within the `CRUDlex Addons <https://github.com/philiplb/CRUDlexAddons>`_
-package.
+See the :doc:`filehandling` chapter for more details.
 
 Related MySQL-types:
 

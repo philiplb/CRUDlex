@@ -31,11 +31,11 @@ CRUDlex\\AbstractData
 
         Holds the {@see EntityDefinition} entity definition.
 
-    .. php:attr:: fileProcessor
+    .. php:attr:: filesystem
 
-        protected
+        protected FilesystemInterface
 
-        Holds the {@see FileProcessorInterface} file processor.
+        Holds the filesystem.
 
     .. php:attr:: events
 
@@ -61,29 +61,6 @@ CRUDlex\\AbstractData
         :type $row: array
         :param $row: the array with the raw data
         :returns: Entity the entity containing the array data then
-
-    .. php:method:: shouldExecuteEvents(Entity $entity, $moment, $action)
-
-        Executes the event chain of an entity.
-
-        :type $entity: Entity
-        :param $entity: the entity having the event chain to execute
-        :type $moment: string
-        :param $moment: the "moment" of the event, can be either "before" or "after"
-        :type $action: string
-        :param $action: the "action" of the event, can be either "create", "update" or "delete"
-        :returns: boolean true on successful execution of the full chain or false if it broke at any point (and stopped the execution)
-
-    .. php:method:: performOnFiles(Entity $entity, $entityName, $function)
-
-        Executes a function for each file field of this entity.
-
-        :type $entity: Entity
-        :param $entity: the just created entity
-        :type $entityName: string
-        :param $entityName: the name of the entity as this class here is not aware of it
-        :type $function: \Closure
-        :param $function: the function to perform, takes $entity, $entityName and $field as parameter
 
     .. php:method:: enrichEntityWithMetaData($id, Entity $entity)
 
@@ -115,6 +92,7 @@ CRUDlex\\AbstractData
         :param $id: the current entities id
         :type $deleteCascade: boolean
         :param $deleteCascade: whether to delete children and sub children
+        :returns: integer returns one of: - AbstractData::DELETION_SUCCESS -> successful deletion - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
 
     .. php:method:: getReferenceIds($entities, $field)
 
@@ -143,6 +121,18 @@ CRUDlex\\AbstractData
         :type $entity: Entity
         :param $entity: the entity with the new data
         :returns: boolean true on successful update
+
+    .. php:method:: shouldExecuteEvents(Entity $entity, $moment, $action)
+
+        Executes the event chain of an entity.
+
+        :type $entity: Entity
+        :param $entity: the entity having the event chain to execute
+        :type $moment: string
+        :param $moment: the "moment" of the event, can be either "before" or "after"
+        :type $action: string
+        :param $action: the "action" of the event, can be either "create", "update" or "delete"
+        :returns: boolean true on successful execution of the full chain or false if it broke at any point (and stopped the execution)
 
     .. php:method:: pushEvent($moment, $action, Closure $function)
 
@@ -273,62 +263,3 @@ CRUDlex\\AbstractData
         null or the defined value in case of fixed fields.
 
         :returns: Entity the newly created entity
-
-    .. php:method:: createFiles(Request $request, Entity $entity, $entityName)
-
-        Creates the uploaded files of a newly created entity.
-
-        :type $request: Request
-        :param $request: the HTTP request containing the file data
-        :type $entity: Entity
-        :param $entity: the just created entity
-        :type $entityName: string
-        :param $entityName: the name of the entity as this class here is not aware of it
-        :returns: boolean true if all before events passed
-
-    .. php:method:: updateFiles(Request $request, Entity $entity, $entityName)
-
-        Updates the uploaded files of an updated entity.
-
-        :type $request: Request
-        :param $request: the HTTP request containing the file data
-        :type $entity: Entity
-        :param $entity: the updated entity
-        :type $entityName: string
-        :param $entityName: the name of the entity as this class here is not aware of it
-        :returns: boolean true on successful update
-
-    .. php:method:: deleteFile(Entity $entity, $entityName, $field)
-
-        Deletes a specific file from an existing entity.
-
-        :type $entity: Entity
-        :param $entity: the entity to delete the file from
-        :type $entityName: string
-        :param $entityName: the name of the entity as this class here is not aware of it
-        :type $field: string
-        :param $field: the field of the entity containing the file to be deleted
-        :returns: boolean true on successful deletion
-
-    .. php:method:: deleteFiles(Entity $entity, $entityName)
-
-        Deletes all files of an existing entity.
-
-        :type $entity: Entity
-        :param $entity: the entity to delete the files from
-        :type $entityName: string
-        :param $entityName: the name of the entity as this class here is not aware of it
-        :returns: boolean true on successful deletion
-
-    .. php:method:: renderFile(Entity $entity, $entityName, $field)
-
-        Renders (outputs) a file of an entity. This includes setting headers
-        like the file size, mimetype and name, too.
-
-        :type $entity: Entity
-        :param $entity: the entity to render the file from
-        :type $entityName: string
-        :param $entityName: the name of the entity as this class here is not aware of it
-        :type $field: string
-        :param $field: the field of the entity containing the file to be rendered
-        :returns: Response the HTTP response, likely to be a streamed one

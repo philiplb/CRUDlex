@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="manual/datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual/datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/filehandling.html">File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual/layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual/templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual/events.html">Events</a></li>
@@ -107,9 +108,8 @@
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -203,15 +203,15 @@
   </dt>
 
         
+  <dt><a href="api/FileHandler.html#FileHandler::__construct"><strong>(FileHandler method)</strong></a>
+  </dt>
+
+        
   <dt><a href="api/MySQLData.html#MySQLData::__construct"><strong>(MySQLData method)</strong></a>
   </dt>
 
         
   <dt><a href="api/MySQLDataFactory.html#MySQLDataFactory::__construct"><strong>(MySQLDataFactory method)</strong></a>
-  </dt>
-
-        
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::__construct"><strong>(SimpleFilesystemFileProcessor method)</strong></a>
   </dt>
 
         
@@ -266,10 +266,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::$basePath"><strong>basePath (SimpleFilesystemFileProcessor property)</strong></a>
-  </dt>
-
-      
   <dt><a href="api/ServiceProvider.html#ServiceProvider::boot"><strong>boot() (ServiceProvider method)</strong></a>
   </dt>
 
@@ -321,6 +317,8 @@
   <dt><a href="api/ControllerProvider.html#ControllerProvider"><strong>ControllerProvider (class)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/AbstractData.html#AbstractData::countBy"><strong>countBy() (AbstractData method)</strong></a>
   </dt>
@@ -331,8 +329,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/AbstractData.html#AbstractData::create"><strong>create() (AbstractData method)</strong></a>
   </dt>
@@ -382,25 +378,9 @@
 
       </dl></dd>
       
-  <dt><a href="api/FileProcessorInterface.html#FileProcessorInterface::createFile"><strong>createFile() (FileProcessorInterface method)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::createFiles"><strong>createFiles() (FileHandler method)</strong></a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::createFile"><strong>(SimpleFilesystemFileProcessor method)</strong></a>
-  </dt>
-
-      </dl></dd>
-      
-  <dt><a href="api/AbstractData.html#AbstractData::createFiles"><strong>createFiles() (AbstractData method)</strong></a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::createFiles"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -474,37 +454,19 @@
 
       </dl></dd>
       
-  <dt><a href="api/AbstractData.html#AbstractData::deleteFile"><strong>deleteFile() (AbstractData method)</strong></a>
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::deleteFile"><strong>deleteFile() (ControllerProvider method)</strong></a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="api/ControllerProvider.html#ControllerProvider::deleteFile"><strong>(ControllerProvider method)</strong></a>
-  </dt>
-
-        
-  <dt><a href="api/FileProcessorInterface.html#FileProcessorInterface::deleteFile"><strong>(FileProcessorInterface method)</strong></a>
-  </dt>
-
-        
-  <dt><a href="api/MySQLData.html#MySQLData::deleteFile"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-        
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::deleteFile"><strong>(SimpleFilesystemFileProcessor method)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::deleteFile"><strong>(FileHandler method)</strong></a>
   </dt>
 
       </dl></dd>
       
-  <dt><a href="api/AbstractData.html#AbstractData::deleteFiles"><strong>deleteFiles() (AbstractData method)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::deleteFiles"><strong>deleteFiles() (FileHandler method)</strong></a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::deleteFiles"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="api/AbstractData.html#AbstractData::doCreate"><strong>doCreate() (AbstractData method)</strong></a>
   </dt>
@@ -581,10 +543,14 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="api/EntityDefinition.html#EntityDefinition"><strong>EntityDefinition (class)</strong></a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/EntityDefinition.html#EntityDefinition"><strong>EntityDefinition (class)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::$entityDefinition"><strong>entityDefinition (FileHandler property)</strong></a>
   </dt>
 
       
@@ -640,19 +606,23 @@
   </dt>
 
       
-  <dt><a href="api/AbstractData.html#AbstractData::$fileProcessor"><strong>fileProcessor (AbstractData property)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler"><strong>FileHandler (class)</strong></a>
+  </dt>
+
+      
+  <dt><a href="api/AbstractData.html#AbstractData::$filesystem"><strong>filesystem (AbstractData property)</strong></a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="api/MySQLData.html#MySQLData::$fileProcessor"><strong>(MySQLData property)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::$filesystem"><strong>(FileHandler property)</strong></a>
+  </dt>
+
+        
+  <dt><a href="api/MySQLData.html#MySQLData::$filesystem"><strong>(MySQLData property)</strong></a>
   </dt>
 
       </dl></dd>
-      
-  <dt><a href="api/FileProcessorInterface.html#FileProcessorInterface"><strong>FileProcessorInterface (interface)</strong></a>
-  </dt>
-
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -807,6 +777,8 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getLabel"><strong>getLabel() (EntityDefinition method)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/TwigExtensions.html#TwigExtensions::getLanguageName"><strong>getLanguageName() (TwigExtensions method)</strong></a>
   </dt>
@@ -815,8 +787,6 @@
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getListFields"><strong>getListFields() (EntityDefinition method)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getLocale"><strong>getLocale() (EntityDefinition method)</strong></a>
   </dt>
@@ -844,18 +814,6 @@
   </dt>
 
       
-  <dt><a href="api/MimeTypes.html#MimeTypes::getMimeType"><strong>getMimeType() (MimeTypes method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/MimeTypes.html#MimeTypes::getMimeTypeByExtension"><strong>getMimeTypeByExtension() (MimeTypes method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/MimeTypes.html#MimeTypes::getMimeTypeByFileInfo"><strong>getMimeTypeByFileInfo() (MimeTypes method)</strong></a>
-  </dt>
-
-      
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getNavBarGroup"><strong>getNavBarGroup() (EntityDefinition method)</strong></a>
   </dt>
 
@@ -868,7 +826,7 @@
   </dt>
 
       
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::getPath"><strong>getPath() (SimpleFilesystemFileProcessor method)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::getPath"><strong>getPath() (FileHandler method)</strong></a>
   </dt>
 
       
@@ -1060,14 +1018,6 @@
   </dt>
 
       
-  <dt><a href="api/MimeTypes.html#MimeTypes"><strong>MimeTypes (class)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/MimeTypes.html#MimeTypes::$mimeTypes"><strong>mimeTypes (MimeTypes property)</strong></a>
-  </dt>
-
-      
   <dt><a href="api/ControllerProvider.html#ControllerProvider::modifyEntity"><strong>modifyEntity() (ControllerProvider method)</strong></a>
   </dt>
 
@@ -1075,12 +1025,12 @@
   <dt><a href="api/ControllerProvider.html#ControllerProvider::modifyFilesAndSetFlashBag"><strong>modifyFilesAndSetFlashBag() (ControllerProvider method)</strong></a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/MySQLData.html#MySQLData"><strong>MySQLData (class)</strong></a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/MySQLData.html#MySQLData::DELETION_FAILED_EVENT"><strong>MySQLData::DELETION_FAILED_EVENT (class constant)</strong></a>
   </dt>
@@ -1128,15 +1078,9 @@
   </dt>
 
       
-  <dt><a href="api/AbstractData.html#AbstractData::performOnFiles"><strong>performOnFiles() (AbstractData method)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::performOnFiles"><strong>performOnFiles() (FileHandler method)</strong></a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::performOnFiles"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="api/AbstractData.html#AbstractData::popEvent"><strong>popEvent() (AbstractData method)</strong></a>
   </dt>
@@ -1192,24 +1136,12 @@
   </dt>
 
       
-  <dt><a href="api/AbstractData.html#AbstractData::renderFile"><strong>renderFile() (AbstractData method)</strong></a>
+  <dt><a href="api/ControllerProvider.html#ControllerProvider::renderFile"><strong>renderFile() (ControllerProvider method)</strong></a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="api/ControllerProvider.html#ControllerProvider::renderFile"><strong>(ControllerProvider method)</strong></a>
-  </dt>
-
-        
-  <dt><a href="api/FileProcessorInterface.html#FileProcessorInterface::renderFile"><strong>(FileProcessorInterface method)</strong></a>
-  </dt>
-
-        
-  <dt><a href="api/MySQLData.html#MySQLData::renderFile"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-        
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::renderFile"><strong>(SimpleFilesystemFileProcessor method)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::renderFile"><strong>(FileHandler method)</strong></a>
   </dt>
 
       </dl></dd>
@@ -1342,15 +1274,15 @@
 
       </dl></dd>
       
+  <dt><a href="api/FileHandler.html#FileHandler::shouldWriteFile"><strong>shouldWriteFile() (FileHandler method)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/ControllerProvider.html#ControllerProvider::show"><strong>show() (ControllerProvider method)</strong></a>
   </dt>
 
       
   <dt><a href="api/ControllerProvider.html#ControllerProvider::showList"><strong>showList() (ControllerProvider method)</strong></a>
-  </dt>
-
-      
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor"><strong>SimpleFilesystemFileProcessor (class)</strong></a>
   </dt>
 
       
@@ -1405,28 +1337,12 @@
   </dt>
 
       </dl></dd>
-      
-  <dt><a href="api/FileProcessorInterface.html#FileProcessorInterface::updateFile"><strong>updateFile() (FileProcessorInterface method)</strong></a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="api/SimpleFilesystemFileProcessor.html#SimpleFilesystemFileProcessor::updateFile"><strong>(SimpleFilesystemFileProcessor method)</strong></a>
-  </dt>
-
-      </dl></dd>
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/AbstractData.html#AbstractData::updateFiles"><strong>updateFiles() (AbstractData method)</strong></a>
+  <dt><a href="api/FileHandler.html#FileHandler::updateFiles"><strong>updateFiles() (FileHandler method)</strong></a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::updateFiles"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="api/MySQLData.html#MySQLData::$useUUIDs"><strong>useUUIDs (MySQLData property)</strong></a>
   </dt>

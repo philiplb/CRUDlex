@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filehandling.html">File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
@@ -96,7 +97,6 @@
 <li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Addons</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#crudlexamazons3fileprocessor">CRUDlexAmazonS3FileProcessor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#crudlexuser">CRUDlexUser</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#the-admin-panel">The Admin Panel</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#users">Users</a></li>
@@ -122,9 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/FileProcessorInterface.html">CRUDlex\FileProcessorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/MimeTypes.html">CRUDlex\MimeTypes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
@@ -177,33 +176,7 @@
             
   <div class="section" id="addons">
 <h1>Addons<a class="headerlink" href="#addons" title="Permalink to this headline">¶</a></h1>
-<p>There are several surrounding projects around CRUDlex. Each of them is described
-here.</p>
-<p>Each addon has tags following the versioning of CRUDlex. So the version 0.9.9
-will work with CRUDlex 0.9.9 etc.. The master branch works against the master of
-CRUDlex.</p>
-<div class="section" id="crudlexamazons3fileprocessor">
-<h2>CRUDlexAmazonS3FileProcessor<a class="headerlink" href="#crudlexamazons3fileprocessor" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="https://github.com/philiplb/CRUDlexAmazonS3FileProcessor)">CRUDlexAmazonS3FileProcessor</a>
-handles the file uploads via Amazon S3.</p>
-<p>This is how to use it:</p>
-<p>First, create an instance of the Amazon S3 FileProcessor:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$fileProcessor = new CRUDlex\AmazonS3FileProcessor(</span>
-<span class="x">    &#39;yourBucket&#39;,</span>
-<span class="x">    &#39;yourAccessKey&#39;,</span>
-<span class="x">    &#39;yourSecretAccessKey&#39;</span>
-<span class="x">);</span>
-</pre></div>
-</div>
-<p>And then hand it in when registering the CRUDlex ServiceProvider:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
-<span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
-<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
-<span class="x">    &#39;crud.fileprocessor&#39; =&gt; $fileProcessor</span>
-<span class="x">));</span>
-</pre></div>
-</div>
-</div>
+<p>There are several surrounding projects around CRUDlex. Each of them is described here.</p>
 <div class="section" id="crudlexuser">
 <h2>CRUDlexUser<a class="headerlink" href="#crudlexuser" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/philiplb/CRUDlexUser)">CRUDlexUser</a> is a library offering
