@@ -3,6 +3,14 @@ CRUDlex Changelog
 
 ## 0.12.0
 Released: Upcoming
+- Attention: Switched from the own abstraction "FileProcessorInterface" to the library Flysystem for file handling, API changes:
+    - All implementations of the FileProcessorInterface are gone now
+    - The class "MimeTypes" is gone now
+    - DataFactoryInterface::createData now needs a League\Flysystem\FilesystemInterface as last parameter
+    - The constructor of MySQLData now takes a FilesystemInterface instead of a FileProcessorInterface
+    - ServiceProvider::init now takes only two parameters: $crudFileCachingDirectory, Container $app
+    - AbstractData::shouldExecuteEvents is now public
+    - AbstractData::createFiles, ::updateFiles, ::deleteFile, ::deleteFiles and ::renderFile are moved to an own class: FileHandler
 - Added a caching mechanism for the parsing of the CRUD YAML files
 - Added the possibility to group entities in the navigation bar, thanks to https://github.com/dmaciel
 - Added an optional hideId parameter for references and many relations so the id is hidden in the reference buttons, thanks to https://github.com/jmfayard
