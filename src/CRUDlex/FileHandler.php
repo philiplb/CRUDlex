@@ -20,11 +20,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class FileHandler {
 
     /**
+     * Brings the abstract access to the filesystem.
      * @var FilesystemInterface
      */
     protected $filesystem;
 
     /**
+     * Holds the entity definition.
      * @var EntityDefinition
      */
     protected $entityDefinition;

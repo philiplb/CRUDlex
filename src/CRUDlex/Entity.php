@@ -15,18 +15,20 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Represents a single set of data in field value pairs like the row in a
- * database. Depends of course on the {@see AbstractData} implementation being used.
+ * database. Depends of course on the AbstractData implementation being used.
  * With this objects, the data is passed arround and validated.
  */
 class Entity {
 
     /**
-     * The {@see EntityDefinition} defining how this entity looks like.
+     * The definition how this entity looks like.
+     * @var EntityDefinition
      */
     protected $definition;
 
     /**
      * Holds the key value data of the entity.
+     * @var array
      */
     protected $entity;
 

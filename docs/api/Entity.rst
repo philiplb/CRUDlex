@@ -7,18 +7,18 @@ CRUDlex\\Entity
 .. php:class:: Entity
 
     Represents a single set of data in field value pairs like the row in a
-    database. Depends of course on the {@see AbstractData} implementation being used.
+    database. Depends of course on the AbstractData implementation being used.
     With this objects, the data is passed arround and validated.
 
     .. php:attr:: definition
 
-        protected
+        protected EntityDefinition
 
-        The {@see EntityDefinition} defining how this entity looks like.
+        The definition how this entity looks like.
 
     .. php:attr:: entity
 
-        protected
+        protected array
 
         Holds the key value data of the entity.
 

@@ -34,7 +34,8 @@ abstract class AbstractData {
     const DELETION_FAILED_EVENT = 2;
 
     /**
-     * Holds the {@see EntityDefinition} entity definition.
+     * Holds the entity definition.
+     * @var EntityDefinition
      */
     protected $definition;
 
@@ -46,6 +47,7 @@ abstract class AbstractData {
 
     /**
      * Holds the events.
+     * @var array
      */
     protected $events;
 
@@ -63,7 +65,7 @@ abstract class AbstractData {
     abstract protected function doDelete(Entity $entity, $deleteCascade);
 
     /**
-     * Creates an {@see Entity} from the raw data array with the field name
+     * Creates an Entity from the raw data array with the field name
      * as keys and field values as values.
      *
      * @param array $row
@@ -412,7 +414,7 @@ abstract class AbstractData {
     abstract public function hasManySet($field, array $thatIds, $excludeId = null);
 
     /**
-     * Gets the {@see EntityDefinition} instance.
+     * Gets the EntityDefinition instance.
      *
      * @return EntityDefinition
      * the definition instance

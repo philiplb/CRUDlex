@@ -14,18 +14,20 @@ namespace CRUDlex;
 use \Valdi\Validator;
 
 /**
- * Performs validation of the field values of the given {@see Entity}.
+ * Performs validation of the field values of the given Entity.
  */
 class EntityValidator {
 
     /**
      * The entity to validate.
+     * @var Entity
      */
     protected $entity;
 
 
     /**
      * The entities definition.
+     * @var EntityDefinition
      */
     protected $definition;
 

@@ -18,38 +18,45 @@ class EntityDefinition {
 
     /**
      * The table where the data is stored.
+     * @var string
      */
     protected $table;
 
     /**
      * Holds all fields in the same structure as in the CRUD YAML file.
+     * @var array
      */
     protected $fields;
 
     /**
      * The label for the entity.
+     * @var string
      */
     protected $label;
 
     /**
      * The labels  of the entity in the locales.
+     * @var array
      */
     protected $localeLabels;
 
     /**
      * An array with the children referencing the entity. All entries are
      * arrays with three referencing elements: table, fieldName, entity
+     * @var array
      */
     protected $children;
 
     /**
      * Labels for the fields "id", "created_at" and "updated_at".
+     * @var array
      */
     protected $standardFieldLabels;
 
     /**
      * An array containing the fields which should appear in the list view
      * of the entity.
+     * @var array
      */
     protected $listFields;
 
@@ -57,51 +64,61 @@ class EntityDefinition {
      * The fields used to display the children on the details page of an entity.
      * The keys are the entity names as in the CRUD YAML and the values are the
      * field names.
+     * @var array
      */
     protected $childrenLabelFields;
 
     /**
      * Whether to delete its children when an instance is deleted.
+     * @var bool
      */
     protected $deleteCascade;
 
     /**
      * The amount of items to display per page on the listview.
+     * @var int
      */
     protected $pageSize;
 
     /**
      * The fields offering to be filtered.
+     * @var array
      */
     protected $filter;
 
     /**
-     * Holds the {@see ServiceProvider}.
+     * Holds the ServiceProvider.
+     * @var ServiceProvider
      */
     protected $serviceProvider;
 
     /**
      * Holds the locale.
+     * @var string
      */
     protected $locale;
 
     /**
      * Holds the initial sort field.
+     * @var string
      */
     protected $initialSortField;
 
     /**
      * Holds the initial sort order.
+     * @var bool
      */
     protected $initialSortAscending;
 
     /**
      * Holds if the entity must be displayed grouped in the nav bar.
+     * @var string
      */
     protected $navBarGroup;
 
     /**
      * Holds whether optimistic locking is switched on.
+     * @var bool
      */
     protected $optimisticLocking;
 

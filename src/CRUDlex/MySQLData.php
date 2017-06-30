@@ -22,11 +22,13 @@ class MySQLData extends AbstractData {
 
     /**
      * Holds the Doctrine DBAL instance.
+     * @var Connection
      */
     protected $database;
 
     /**
      * Flag whether to use UUIDs as primary key.
+     * @var bool
      */
     protected $useUUIDs;
 
@@ -450,12 +452,12 @@ class MySQLData extends AbstractData {
      * the entity definition
      * @param FilesystemInterface $filesystem
      * the filesystem to use
-     * @param $database
+     * @param Connection $database
      * the Doctrine DBAL instance to use
      * @param boolean $useUUIDs
      * flag whether to use UUIDs as primary key
      */
-    public function __construct(EntityDefinition $definition, FilesystemInterface $filesystem, $database, $useUUIDs) {
+    public function __construct(EntityDefinition $definition, FilesystemInterface $filesystem, Connection $database, $useUUIDs) {
         $this->definition = $definition;
         $this->filesystem = $filesystem;
         $this->database   = $database;

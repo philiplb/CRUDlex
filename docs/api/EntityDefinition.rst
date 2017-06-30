@@ -10,51 +10,51 @@ CRUDlex\\EntityDefinition
 
     .. php:attr:: table
 
-        protected
+        protected string
 
         The table where the data is stored.
 
     .. php:attr:: fields
 
-        protected
+        protected array
 
         Holds all fields in the same structure as in the CRUD YAML file.
 
     .. php:attr:: label
 
-        protected
+        protected string
 
         The label for the entity.
 
     .. php:attr:: localeLabels
 
-        protected
+        protected array
 
         The labels  of the entity in the locales.
 
     .. php:attr:: children
 
-        protected
+        protected array
 
         An array with the children referencing the entity. All entries are
         arrays with three referencing elements: table, fieldName, entity
 
     .. php:attr:: standardFieldLabels
 
-        protected
+        protected array
 
         Labels for the fields "id", "created_at" and "updated_at".
 
     .. php:attr:: listFields
 
-        protected
+        protected array
 
         An array containing the fields which should appear in the list view
         of the entity.
 
     .. php:attr:: childrenLabelFields
 
-        protected
+        protected array
 
         The fields used to display the children on the details page of an entity.
         The keys are the entity names as in the CRUD YAML and the values are the
@@ -62,55 +62,55 @@ CRUDlex\\EntityDefinition
 
     .. php:attr:: deleteCascade
 
-        protected
+        protected bool
 
         Whether to delete its children when an instance is deleted.
 
     .. php:attr:: pageSize
 
-        protected
+        protected int
 
         The amount of items to display per page on the listview.
 
     .. php:attr:: filter
 
-        protected
+        protected array
 
         The fields offering to be filtered.
 
     .. php:attr:: serviceProvider
 
-        protected
+        protected ServiceProvider
 
-        Holds the {@see ServiceProvider}.
+        Holds the ServiceProvider.
 
     .. php:attr:: locale
 
-        protected
+        protected string
 
         Holds the locale.
 
     .. php:attr:: initialSortField
 
-        protected
+        protected string
 
         Holds the initial sort field.
 
     .. php:attr:: initialSortAscending
 
-        protected
+        protected bool
 
         Holds the initial sort order.
 
     .. php:attr:: navBarGroup
 
-        protected
+        protected string
 
         Holds if the entity must be displayed grouped in the nav bar.
 
     .. php:attr:: optimisticLocking
 
-        protected
+        protected bool
 
         Holds whether optimistic locking is switched on.
 

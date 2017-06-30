@@ -21,6 +21,7 @@ class YamlReader {
 
     /**
      * The path for the cache files.
+     * @var string
      */
     protected $cachePath;
 

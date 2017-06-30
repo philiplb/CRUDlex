@@ -27,9 +27,9 @@ CRUDlex\\AbstractData
 
     .. php:attr:: definition
 
-        protected
+        protected EntityDefinition
 
-        Holds the {@see EntityDefinition} entity definition.
+        Holds the entity definition.
 
     .. php:attr:: filesystem
 
@@ -39,7 +39,7 @@ CRUDlex\\AbstractData
 
     .. php:attr:: events
 
-        protected
+        protected array
 
         Holds the events.
 
@@ -55,7 +55,7 @@ CRUDlex\\AbstractData
 
     .. php:method:: hydrate($row)
 
-        Creates an {@see Entity} from the raw data array with the field name
+        Creates an Entity from the raw data array with the field name
         as keys and field values as values.
 
         :type $row: array
@@ -253,7 +253,7 @@ CRUDlex\\AbstractData
 
     .. php:method:: getDefinition()
 
-        Gets the {@see EntityDefinition} instance.
+        Gets the EntityDefinition instance.
 
         :returns: EntityDefinition the definition instance
 

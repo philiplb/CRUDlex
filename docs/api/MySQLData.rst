@@ -22,21 +22,21 @@ CRUDlex\\MySQLData
 
     .. php:attr:: database
 
-        protected
+        protected Connection
 
         Holds the Doctrine DBAL instance.
 
     .. php:attr:: useUUIDs
 
-        protected
+        protected bool
 
         Flag whether to use UUIDs as primary key.
 
     .. php:attr:: definition
 
-        protected
+        protected EntityDefinition
 
-        Holds the {@see EntityDefinition} entity definition.
+        Holds the entity definition.
 
     .. php:attr:: filesystem
 
@@ -46,7 +46,7 @@ CRUDlex\\MySQLData
 
     .. php:attr:: events
 
-        protected
+        protected array
 
         Holds the events.
 
@@ -184,7 +184,7 @@ CRUDlex\\MySQLData
         :type $entity: Entity
         :param $entity:
 
-    .. php:method:: __construct(EntityDefinition $definition, FilesystemInterface $filesystem, $database, $useUUIDs)
+    .. php:method:: __construct(EntityDefinition $definition, FilesystemInterface $filesystem, Connection $database, $useUUIDs)
 
         Constructor.
 
@@ -192,7 +192,8 @@ CRUDlex\\MySQLData
         :param $definition: the entity definition
         :type $filesystem: FilesystemInterface
         :param $filesystem: the filesystem to use
-        :param $database:
+        :type $database: Connection
+        :param $database: the Doctrine DBAL instance to use
         :type $useUUIDs: boolean
         :param $useUUIDs: flag whether to use UUIDs as primary key
 
@@ -239,7 +240,7 @@ CRUDlex\\MySQLData
 
     .. php:method:: hydrate($row)
 
-        Creates an {@see Entity} from the raw data array with the field name
+        Creates an Entity from the raw data array with the field name
         as keys and field values as values.
 
         :type $row: array
@@ -353,7 +354,7 @@ CRUDlex\\MySQLData
 
     .. php:method:: getDefinition()
 
-        Gets the {@see EntityDefinition} instance.
+        Gets the EntityDefinition instance.
 
         :returns: EntityDefinition the definition instance
 
