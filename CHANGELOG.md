@@ -25,6 +25,7 @@ Released: Upcoming
 - Attention: Moved the events code up to the abstract data class which changed the signatures a bit
 - "before" "delete" Events of cascade deleted children are now properly taken into account
 - added @var annotations to class members for better IDE usage
+- switched code formatting from Javaish style to the PSR-2 standard
 
 ## 0.11.0
 Released: 2017-04-02
