@@ -167,13 +167,13 @@
 <dt id="ServiceProvider">
 <em class="property">class </em><code class="descname">ServiceProvider</code><a class="headerlink" href="#ServiceProvider" title="Permalink to this definition">¶</a></dt>
 <dd><p>The ServiceProvider setups and initializes the whole CRUD system.
-After adding it to your Silex-setup, it offers access to <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> AbstractData}
+After adding it to your Silex-setup, it offers access to AbstractData
 instances, one for each defined entity off the CRUD YAML file.</p>
 <dl class="attr">
 <dt id="ServiceProvider::$datas">
 <em class="property">property </em><code class="descname">datas</code><a class="headerlink" href="#ServiceProvider::$datas" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
-<p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> AbstractData} instances.</p>
+<dd><p>protected AbstractData</p>
+<p>Holds the data instances.</p>
 </dd></dl>
 
 <dl class="method">
@@ -356,7 +356,7 @@ $app[&#8216;crud&#8217;] contains an instance of the ServiceProvider afterwards.
 <dl class="method">
 <dt id="ServiceProvider::getData">
 <code class="descname">getData</code><span class="sig-paren">(</span><em>$name</em><span class="sig-paren">)</span><a class="headerlink" href="#ServiceProvider::getData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getter for the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> AbstractData} instances.</p>
+<dd><p>Getter for the AbstractData instances.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

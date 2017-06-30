@@ -6,17 +6,17 @@ CRUDlex\\EntityValidator
 
 .. php:class:: EntityValidator
 
-    Performs validation of the field values of the given {@see Entity}.
+    Performs validation of the field values of the given Entity.
 
     .. php:attr:: entity
 
-        protected
+        protected Entity
 
         The entity to validate.
 
     .. php:attr:: definition
 
-        protected
+        protected EntityDefinition
 
         The entities definition.
 

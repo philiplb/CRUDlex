@@ -6,24 +6,25 @@ CRUDlex\\MySQLDataFactory
 
 .. php:class:: MySQLDataFactory
 
-    A factory implementation for {@see MySQLData} instances.
+    A factory implementation for MySQLData instances.
 
     .. php:attr:: database
 
-        protected
+        protected Connection
 
         Holds the Doctrine DBAL instance.
 
     .. php:attr:: useUUIDs
 
-        protected
+        protected bool
 
         Flag whether to use UUIDs as primary key.
 
-    .. php:method:: __construct($database, $useUUIDs = false)
+    .. php:method:: __construct(Connection $database, $useUUIDs = false)
 
         Constructor.
 
+        :type $database: Connection
         :param $database:
         :param $useUUIDs:
 

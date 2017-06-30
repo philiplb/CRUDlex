@@ -174,10 +174,9 @@
 <dl class="interface">
 <dt id="DataFactoryInterface">
 <em class="property">interface </em><code class="descname">DataFactoryInterface</code><a class="headerlink" href="#DataFactoryInterface" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface used by the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> ServiceProvider} to construct
-<a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> Data} instances. By implementing this and handing it into
-the service provider, the user can control what database (-variation) he
-wants to use.</p>
+<dd><p>An interface used by the ServiceProvider to construct
+Data instances. By implementing this and handing it into the service
+provider, the user can control what database (-variation) he wants to use.</p>
 <dl class="method">
 <dt id="DataFactoryInterface::createData">
 <code class="descname">createData</code><span class="sig-paren">(</span><em>EntityDefinition $definition</em>, <em>FilesystemInterface $filesystem</em><span class="sig-paren">)</span><a class="headerlink" href="#DataFactoryInterface::createData" title="Permalink to this definition">¶</a></dt>

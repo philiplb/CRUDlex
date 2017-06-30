@@ -172,31 +172,31 @@
 <dl class="class">
 <dt id="MySQLDataFactory">
 <em class="property">class </em><code class="descname">MySQLDataFactory</code><a class="headerlink" href="#MySQLDataFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>A factory implementation for <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> MySQLData} instances.</p>
+<dd><p>A factory implementation for MySQLData instances.</p>
 <dl class="attr">
 <dt id="MySQLDataFactory::$database">
 <em class="property">property </em><code class="descname">database</code><a class="headerlink" href="#MySQLDataFactory::$database" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected Connection</p>
 <p>Holds the Doctrine DBAL instance.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="MySQLDataFactory::$useUUIDs">
 <em class="property">property </em><code class="descname">useUUIDs</code><a class="headerlink" href="#MySQLDataFactory::$useUUIDs" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected bool</p>
 <p>Flag whether to use UUIDs as primary key.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="MySQLDataFactory::__construct">
-<code class="descname">__construct</code><span class="sig-paren">(</span><em>$database</em>, <em>$useUUIDs = false</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLDataFactory::__construct" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__construct</code><span class="sig-paren">(</span><em>Connection $database</em>, <em>$useUUIDs = false</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLDataFactory::__construct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$database</strong> &#8211; </li>
+<li><strong>$database</strong> (<em>Connection</em>) &#8211; </li>
 <li><strong>$useUUIDs</strong> &#8211; </li>
 </ul>
 </td>

@@ -11,7 +11,7 @@ CRUDlex\\YamlReader
 
     .. php:attr:: cachePath
 
-        protected
+        protected string
 
         The path for the cache files.
 

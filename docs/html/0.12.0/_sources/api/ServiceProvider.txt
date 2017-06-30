@@ -7,14 +7,14 @@ CRUDlex\\ServiceProvider
 .. php:class:: ServiceProvider
 
     The ServiceProvider setups and initializes the whole CRUD system.
-    After adding it to your Silex-setup, it offers access to {@see AbstractData}
+    After adding it to your Silex-setup, it offers access to AbstractData
     instances, one for each defined entity off the CRUD YAML file.
 
     .. php:attr:: datas
 
-        protected
+        protected AbstractData
 
-        Holds the {@see AbstractData} instances.
+        Holds the data instances.
 
     .. php:method:: initMissingServiceProviders(Container $app)
 
@@ -104,7 +104,7 @@ CRUDlex\\ServiceProvider
 
     .. php:method:: getData($name)
 
-        Getter for the {@see AbstractData} instances.
+        Getter for the AbstractData instances.
 
         :type $name: string
         :param $name: the entity name of the desired Data instance

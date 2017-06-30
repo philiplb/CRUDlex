@@ -170,35 +170,35 @@
 <dl class="attr">
 <dt id="EntityDefinition::$table">
 <em class="property">property </em><code class="descname">table</code><a class="headerlink" href="#EntityDefinition::$table" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected string</p>
 <p>The table where the data is stored.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$fields">
 <em class="property">property </em><code class="descname">fields</code><a class="headerlink" href="#EntityDefinition::$fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected array</p>
 <p>Holds all fields in the same structure as in the CRUD YAML file.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$label">
 <em class="property">property </em><code class="descname">label</code><a class="headerlink" href="#EntityDefinition::$label" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected string</p>
 <p>The label for the entity.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$localeLabels">
 <em class="property">property </em><code class="descname">localeLabels</code><a class="headerlink" href="#EntityDefinition::$localeLabels" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected array</p>
 <p>The labels  of the entity in the locales.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$children">
 <em class="property">property </em><code class="descname">children</code><a class="headerlink" href="#EntityDefinition::$children" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected array</p>
 <p>An array with the children referencing the entity. All entries are
 arrays with three referencing elements: table, fieldName, entity</p>
 </dd></dl>
@@ -206,14 +206,14 @@ arrays with three referencing elements: table, fieldName, entity</p>
 <dl class="attr">
 <dt id="EntityDefinition::$standardFieldLabels">
 <em class="property">property </em><code class="descname">standardFieldLabels</code><a class="headerlink" href="#EntityDefinition::$standardFieldLabels" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected array</p>
 <p>Labels for the fields &#8220;id&#8221;, &#8220;created_at&#8221; and &#8220;updated_at&#8221;.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$listFields">
 <em class="property">property </em><code class="descname">listFields</code><a class="headerlink" href="#EntityDefinition::$listFields" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected array</p>
 <p>An array containing the fields which should appear in the list view
 of the entity.</p>
 </dd></dl>
@@ -221,7 +221,7 @@ of the entity.</p>
 <dl class="attr">
 <dt id="EntityDefinition::$childrenLabelFields">
 <em class="property">property </em><code class="descname">childrenLabelFields</code><a class="headerlink" href="#EntityDefinition::$childrenLabelFields" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected array</p>
 <p>The fields used to display the children on the details page of an entity.
 The keys are the entity names as in the CRUD YAML and the values are the
 field names.</p>
@@ -230,63 +230,63 @@ field names.</p>
 <dl class="attr">
 <dt id="EntityDefinition::$deleteCascade">
 <em class="property">property </em><code class="descname">deleteCascade</code><a class="headerlink" href="#EntityDefinition::$deleteCascade" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected bool</p>
 <p>Whether to delete its children when an instance is deleted.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$pageSize">
 <em class="property">property </em><code class="descname">pageSize</code><a class="headerlink" href="#EntityDefinition::$pageSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected int</p>
 <p>The amount of items to display per page on the listview.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$filter">
 <em class="property">property </em><code class="descname">filter</code><a class="headerlink" href="#EntityDefinition::$filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected array</p>
 <p>The fields offering to be filtered.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$serviceProvider">
 <em class="property">property </em><code class="descname">serviceProvider</code><a class="headerlink" href="#EntityDefinition::$serviceProvider" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
-<p>Holds the <a class="reference external" href="mailto:{&#37;&#52;&#48;see">{<span>&#64;</span>see</a> ServiceProvider}.</p>
+<dd><p>protected ServiceProvider</p>
+<p>Holds the ServiceProvider.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$locale">
 <em class="property">property </em><code class="descname">locale</code><a class="headerlink" href="#EntityDefinition::$locale" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected string</p>
 <p>Holds the locale.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$initialSortField">
 <em class="property">property </em><code class="descname">initialSortField</code><a class="headerlink" href="#EntityDefinition::$initialSortField" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected string</p>
 <p>Holds the initial sort field.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$initialSortAscending">
 <em class="property">property </em><code class="descname">initialSortAscending</code><a class="headerlink" href="#EntityDefinition::$initialSortAscending" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected bool</p>
 <p>Holds the initial sort order.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$navBarGroup">
 <em class="property">property </em><code class="descname">navBarGroup</code><a class="headerlink" href="#EntityDefinition::$navBarGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected string</p>
 <p>Holds if the entity must be displayed grouped in the nav bar.</p>
 </dd></dl>
 
 <dl class="attr">
 <dt id="EntityDefinition::$optimisticLocking">
 <em class="property">property </em><code class="descname">optimisticLocking</code><a class="headerlink" href="#EntityDefinition::$optimisticLocking" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected</p>
+<dd><p>protected bool</p>
 <p>Holds whether optimistic locking is switched on.</p>
 </dd></dl>
 

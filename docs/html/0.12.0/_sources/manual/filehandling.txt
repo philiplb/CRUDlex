@@ -16,8 +16,19 @@ Usually, this is the path to your index.php. So this example stores the image fi
 
 One big drawback here is that the application is not stateless anymore according to https://12factor.net/processes. But
 luckily, the file handling is done via `Flysystem <http://flysystem.thephpleague.com//>`_ and the used
-FilesystemInterface can be overridden easily by setting a service called "crud.filesystem". Here is an example of using
-Amazon S3 as storage.
+FilesystemInterface can be overridden easily by setting a service called "crud.filesystem".
+
+In any way, overriding or not, the underlying FilesystemInterface is available via
+
+.. code-block:: php
+
+    $app['crud.filesystem']
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Overriding the Default Storage with Amazon S3 as Filesystem
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Here is an example of using Amazon S3 as storage.
 
 First, get the AwsS3Adapter:
 
@@ -46,11 +57,9 @@ And then configure it and hand it over to CRUDlex:
         'crud.filesystem' => $filesystem,
     ));
 
-In any way, overriding or not, the underlying FilesystemInterface is available via
-
-.. code-block:: php
-
-    $app['crud.filesystem']
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Filesystem Storage Adapters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Many more adapters are available for Flysystem, including (as of writing):
 

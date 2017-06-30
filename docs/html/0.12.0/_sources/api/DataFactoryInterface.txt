@@ -11,10 +11,9 @@ CRUDlex\\DataFactoryInterface
 
 .. php:interface:: DataFactoryInterface
 
-    An interface used by the {@see ServiceProvider} to construct
-    {@see Data} instances. By implementing this and handing it into
-    the service provider, the user can control what database (-variation) he
-    wants to use.
+    An interface used by the ServiceProvider to construct
+    Data instances. By implementing this and handing it into the service
+    provider, the user can control what database (-variation) he wants to use.
 
     .. php:method:: createData(EntityDefinition $definition, FilesystemInterface $filesystem)
 

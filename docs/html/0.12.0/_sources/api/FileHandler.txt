@@ -12,9 +12,13 @@ CRUDlex\\FileHandler
 
         protected FilesystemInterface
 
+        Brings the abstract access to the filesystem.
+
     .. php:attr:: entityDefinition
 
         protected EntityDefinition
+
+        Holds the entity definition.
 
     .. php:method:: getPath($entityName, Entity $entity, $field)
 

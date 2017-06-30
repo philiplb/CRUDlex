@@ -88,7 +88,11 @@
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">File Handling</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">File Handling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overriding-the-default-storage-with-amazon-s3-as-filesystem">Overriding the Default Storage with Amazon S3 as Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filesystem-storage-adapters">Filesystem Storage Adapters</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
@@ -176,8 +180,14 @@ Usually, this is the path to your index.php. So this example stores the image fi
 </div>
 <p>One big drawback here is that the application is not stateless anymore according to <a class="reference external" href="https://12factor.net/processes">https://12factor.net/processes</a>. But
 luckily, the file handling is done via <a class="reference external" href="http://flysystem.thephpleague.com//">Flysystem</a> and the used
-FilesystemInterface can be overridden easily by setting a service called &#8220;crud.filesystem&#8221;. Here is an example of using
-Amazon S3 as storage.</p>
+FilesystemInterface can be overridden easily by setting a service called &#8220;crud.filesystem&#8221;.</p>
+<p>In any way, overriding or not, the underlying FilesystemInterface is available via</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.filesystem&#39;]</span>
+</pre></div>
+</div>
+<div class="section" id="overriding-the-default-storage-with-amazon-s3-as-filesystem">
+<h2>Overriding the Default Storage with Amazon S3 as Filesystem<a class="headerlink" href="#overriding-the-default-storage-with-amazon-s3-as-filesystem" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example of using Amazon S3 as storage.</p>
 <p>First, get the AwsS3Adapter:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>composer require league/flysystem-aws-s3-v3
 </pre></div>
@@ -201,10 +211,9 @@ Amazon S3 as storage.</p>
 <span class="x">));</span>
 </pre></div>
 </div>
-<p>In any way, overriding or not, the underlying FilesystemInterface is available via</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.filesystem&#39;]</span>
-</pre></div>
 </div>
+<div class="section" id="filesystem-storage-adapters">
+<h2>Filesystem Storage Adapters<a class="headerlink" href="#filesystem-storage-adapters" title="Permalink to this headline">¶</a></h2>
 <p>Many more adapters are available for Flysystem, including (as of writing):</p>
 <ul class="simple">
 <li>Local</li>
@@ -225,6 +234,7 @@ Amazon S3 as storage.</p>
 <li>ZipArchive</li>
 </ul>
 <p>See the <a class="reference external" href="http://flysystem.thephpleague.com//">Flysystem</a> page for their usage.</p>
+</div>
 </div>
 
 
