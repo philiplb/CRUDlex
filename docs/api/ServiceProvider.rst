@@ -12,7 +12,7 @@ CRUDlex\\ServiceProvider
 
     .. php:attr:: datas
 
-        protected AbstractData
+        protected array
 
         Holds the data instances.
 

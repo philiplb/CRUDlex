@@ -32,7 +32,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
 
     /**
      * Holds the data instances.
-     * @var AbstractData
+     * @var array
      */
     protected $datas;
 
