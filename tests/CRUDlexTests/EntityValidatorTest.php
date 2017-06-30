@@ -15,19 +15,22 @@ use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
 use CRUDlex\EntityValidator;
 
-class EntityValidatorTest extends \PHPUnit_Framework_TestCase {
+class EntityValidatorTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $dataBook;
 
     protected $dataLibrary;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $crudServiceProvider->getData('book');
         $this->dataLibrary = $crudServiceProvider->getData('library');
     }
 
-    public function testValidate() {
+    public function testValidate()
+    {
 
         $entityLibrary1 = $this->dataLibrary->createEmpty();
         $entityLibrary1->set('name', 'lib a');

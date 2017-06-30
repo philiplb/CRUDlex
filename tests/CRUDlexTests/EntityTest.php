@@ -16,7 +16,8 @@ use CRUDlex\Entity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
-class EntityTest extends \PHPUnit_Framework_TestCase {
+class EntityTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $crudServiceProvider;
 
@@ -24,13 +25,15 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 
     protected $dataLibrary;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $this->crudServiceProvider->getData('book');
         $this->dataLibrary = $this->crudServiceProvider->getData('library');
     }
 
-    public function testGetSet() {
+    public function testGetSet()
+    {
         $definitionLibrary = $this->crudServiceProvider->getData('library')->getDefinition();
         $library = $this->crudServiceProvider->getData('library')->createEmpty();
         $library->set('name', 'lib a');
@@ -115,7 +118,8 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testGetRaw() {
+    public function testGetRaw()
+    {
         $definition = $this->crudServiceProvider->getData('book')->getDefinition();
         $entity = new Entity($definition);
         $entity->set('test', 'testdata');
@@ -126,14 +130,16 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
-    public function testGetDefinition() {
+    public function testGetDefinition()
+    {
         $entityLibrary = $this->dataLibrary->createEmpty();
         $read = $entityLibrary->getDefinition();
         $expected = $this->dataLibrary->getDefinition();
         $this->assertSame($expected, $read);
     }
 
-    public function testPopulateViaRequest() {
+    public function testPopulateViaRequest()
+    {
         $book = $this->dataBook->createEmpty();
         $file = __DIR__.'/../test1.xml';
         $request = Request::create('', 'POST', [

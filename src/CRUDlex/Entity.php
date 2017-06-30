@@ -18,7 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
  * database. Depends of course on the AbstractData implementation being used.
  * With this objects, the data is passed arround and validated.
  */
-class Entity {
+class Entity
+{
 
     /**
      * The definition how this entity looks like.
@@ -44,7 +45,8 @@ class Entity {
      * @return mixed
      * the converted value
      */
-    protected function toType($value, $type) {
+    protected function toType($value, $type)
+    {
         if (in_array($type, ['integer', 'float']) && !in_array($value, ['', null], true)) {
             settype($value, $type);
         } else if ($type == 'boolean') {
@@ -62,7 +64,8 @@ class Entity {
      * @param EntityDefinition $definition
      * the definition how this entity looks
      */
-    public function __construct(EntityDefinition $definition) {
+    public function __construct(EntityDefinition $definition)
+    {
         $this->definition = $definition;
         $this->entity     = [];
     }
@@ -75,7 +78,8 @@ class Entity {
      * @param mixed $value
      * the value
      */
-    public function set($field, $value) {
+    public function set($field, $value)
+    {
         $this->entity[$field] = $value;
     }
 
@@ -89,7 +93,8 @@ class Entity {
      * @return mixed
      * null on invalid field or else the raw value
      */
-    public function getRaw($field) {
+    public function getRaw($field)
+    {
         if (!array_key_exists($field, $this->entity)) {
             return null;
         }
@@ -107,8 +112,8 @@ class Entity {
      * type of the field is an integer, a boolean if the field is a boolean or
      * else the raw value
      */
-    public function get($field) {
-
+    public function get($field)
+    {
         if ($this->definition->getField($field, 'value') !== null) {
             return $this->definition->getField($field, 'value');
         }
@@ -128,7 +133,8 @@ class Entity {
      * @return EntityDefinition
      * the definition
      */
-    public function getDefinition() {
+    public function getDefinition()
+    {
         return $this->definition;
     }
 
@@ -138,7 +144,8 @@ class Entity {
      * @param Request $request
      * the request to take the field data from
      */
-    public function populateViaRequest(Request $request) {
+    public function populateViaRequest(Request $request)
+    {
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
             $type = $this->definition->getType($field);

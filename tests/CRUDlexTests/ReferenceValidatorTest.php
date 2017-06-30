@@ -14,13 +14,15 @@ namespace CRUDlexTests;
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\ReferenceValidator;
 
-class ReferenceValidatorTest extends \PHPUnit_Framework_TestCase {
+class ReferenceValidatorTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $dataBook;
 
     protected $dataLibrary;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataLibrary = $crudServiceProvider->getData('library');
         $this->dataBook = $crudServiceProvider->getData('book');
@@ -29,7 +31,8 @@ class ReferenceValidatorTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->create($entityLibrary);
     }
 
-    public function testValidate() {
+    public function testValidate()
+    {
 
         $validator = new ReferenceValidator();
         $parameters = [$this->dataBook, 'library'];
@@ -47,7 +50,8 @@ class ReferenceValidatorTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testGetInvalidDetails() {
+    public function testGetInvalidDetails()
+    {
         $validator = new ReferenceValidator();
         $read = $validator->getInvalidDetails();
         $expected = 'reference';

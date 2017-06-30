@@ -17,7 +17,8 @@ use Symfony\Component\Yaml\Yaml;
  * Reads Yaml files and caches them if a writable path is given. The cache is used first on the next read.
  * It is a simple PHP class internally.
  */
-class YamlReader {
+class YamlReader
+{
 
     /**
      * The path for the cache files.
@@ -33,7 +34,8 @@ class YamlReader {
      * @return string
      * the absolute path of the cache file
      */
-    protected function getCacheFile($fileName) {
+    protected function getCacheFile($fileName)
+    {
         return $this->cachePath.'/'.basename($fileName).'CRUDlexCache.php';
     }
 
@@ -45,7 +47,8 @@ class YamlReader {
      * @return null|array
      * the cached data structure or null if the cache file was not available
      */
-    protected function readFromCache($fileName) {
+    protected function readFromCache($fileName)
+    {
         $cacheFile = $this->getCacheFile($fileName);
         if (file_exists($cacheFile) && is_readable($cacheFile)) {
             include($cacheFile);
@@ -64,7 +67,8 @@ class YamlReader {
      * @param array $content
      * the content to cache
      */
-    protected function writeToCache($fileName, $content) {
+    protected function writeToCache($fileName, $content)
+    {
         if ($this->cachePath === null || !is_dir($this->cachePath) || !is_writable($this->cachePath)) {
             return;
         }
@@ -82,7 +86,8 @@ class YamlReader {
      * @param string|null $cachePath
      * if given, the path for the cache files which should be a writable directory
      */
-    public function __construct($cachePath) {
+    public function __construct($cachePath)
+    {
         $this->cachePath = $cachePath;
     }
 
@@ -99,8 +104,8 @@ class YamlReader {
      * @throws \RuntimeException
      * thrown if the file could not be read or parsed
      */
-    public function read($fileName) {
-
+    public function read($fileName)
+    {
         $parsedYaml = $this->readFromCache($fileName);
         if ($parsedYaml !== null) {
             return $parsedYaml;

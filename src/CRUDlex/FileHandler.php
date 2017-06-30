@@ -10,6 +10,7 @@
  */
 
 namespace CRUDlex;
+
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -17,7 +18,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 /**
  * Handles the files.
  */
-class FileHandler {
+class FileHandler
+{
 
     /**
      * Brings the abstract access to the filesystem.
@@ -45,7 +47,8 @@ class FileHandler {
      * @return string
      * the constructed path for storing the file of the file field
      */
-    protected function getPath($entityName, Entity $entity, $field) {
+    protected function getPath($entityName, Entity $entity, $field)
+    {
         return $this->entityDefinition->getField($field, 'path').'/'.$entityName.'/'.$entity->get('id').'/'.$field;
     }
 
@@ -59,7 +62,8 @@ class FileHandler {
      * @param \Closure $function
      * the function to perform, takes $entity, $entityName and $field as parameter
      */
-    protected function performOnFiles(Entity $entity, $entityName, $function) {
+    protected function performOnFiles(Entity $entity, $entityName, $function)
+    {
         $fields = $this->entityDefinition->getEditableFieldNames();
         foreach ($fields as $field) {
             if ($this->entityDefinition->getType($field) == 'file') {
@@ -85,7 +89,8 @@ class FileHandler {
      * @return boolean
      * true if all before events passed
      */
-    protected function shouldWriteFile(AbstractData $data, Request $request, Entity $entity, $entityName, $action) {
+    protected function shouldWriteFile(AbstractData $data, Request $request, Entity $entity, $entityName, $action)
+    {
         $result = $data->shouldExecuteEvents($entity, 'before', $action);
         if (!$result) {
             return false;
@@ -113,7 +118,8 @@ class FileHandler {
      * @param FilesystemInterface $filesystem
      * the filesystem to use
      */
-    public function __construct(FilesystemInterface $filesystem, EntityDefinition $entityDefinition) {
+    public function __construct(FilesystemInterface $filesystem, EntityDefinition $entityDefinition)
+    {
         $this->filesystem       = $filesystem;
         $this->entityDefinition = $entityDefinition;
     }
@@ -133,7 +139,8 @@ class FileHandler {
      * @return StreamedResponse
      * the HTTP streamed response
      */
-    public function renderFile(Entity $entity, $entityName, $field) {
+    public function renderFile(Entity $entity, $entityName, $field)
+    {
         $targetPath = $this->getPath($entityName, $entity, $field);
         $fileName   = $entity->get($field);
         $file       = $targetPath.'/'.$fileName;
@@ -169,7 +176,8 @@ class FileHandler {
      * @return boolean
      * true on successful deletion
      */
-    public function deleteFiles(AbstractData $data, Entity $entity, $entityName) {
+    public function deleteFiles(AbstractData $data, Entity $entity, $entityName)
+    {
         $result = $data->shouldExecuteEvents($entity, 'before', 'deleteFiles');
         if (!$result) {
             return false;
@@ -195,7 +203,8 @@ class FileHandler {
      * @return bool true on successful deletion
      * true on successful deletion
      */
-    public function deleteFile(AbstractData $data, Entity $entity, $entityName, $field) {
+    public function deleteFile(AbstractData $data, Entity $entity, $entityName, $field)
+    {
         $result = $data->shouldExecuteEvents($entity, 'before', 'deleteFile');
         if (!$result) {
             return false;
@@ -220,7 +229,8 @@ class FileHandler {
      * @return boolean
      * true if all before events passed
      */
-    public function createFiles(AbstractData $data, Request $request, Entity $entity, $entityName) {
+    public function createFiles(AbstractData $data, Request $request, Entity $entity, $entityName)
+    {
         return $this->shouldWriteFile($data, $request, $entity, $entityName, 'createFiles');
     }
 
@@ -239,7 +249,8 @@ class FileHandler {
      * @return boolean
      * true on successful update
      */
-    public function updateFiles(AbstractData $data, Request $request, Entity $entity, $entityName) {
+    public function updateFiles(AbstractData $data, Request $request, Entity $entity, $entityName)
+    {
         // With optional soft deletion, the file should be deleted first.
         return $this->shouldWriteFile($data, $request, $entity, $entityName, 'updateFiles');
     }

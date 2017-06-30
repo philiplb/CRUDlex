@@ -9,12 +9,16 @@
  * file that was distributed with this source code.
  */
 
+namespace CRUDlexTests;
+
 use CRUDlex\EntityDefinitionValidator;
 use Symfony\Component\Yaml\Yaml;
 
-class EntityTest extends \PHPUnit_Framework_TestCase {
+class EntityDefinitionValidatorTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testValidate() {
+    public function testValidate()
+    {
 
         $fileContent = file_get_contents(__DIR__.'/../crud.yml');
         $validDefinition = Yaml::parse($fileContent);

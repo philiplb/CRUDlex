@@ -20,7 +20,8 @@ use Eloquent\Phony\Phpunit\Phony;
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
 
-class ControllerProviderTest extends WebTestCase {
+class ControllerProviderTest extends WebTestCase
+{
 
     protected $dataBook;
 
@@ -28,7 +29,8 @@ class ControllerProviderTest extends WebTestCase {
 
     protected $filesystemHandle;
 
-    public function createApplication() {
+    public function createApplication()
+    {
 
         $app = TestDBSetup::createAppAndDB();
 
@@ -58,7 +60,8 @@ class ControllerProviderTest extends WebTestCase {
         return $app;
     }
 
-    public function testCreate() {
+    public function testCreate()
+    {
         $client = $this->createClient();
 
         $crawler = $client->request('GET', '/crud/foo/create');
@@ -142,7 +145,8 @@ class ControllerProviderTest extends WebTestCase {
 
     }
 
-    public function testShowList() {
+    public function testShowList()
+    {
 
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'lib a');
@@ -248,7 +252,8 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("titleB7")'));
     }
 
-    public function testShow() {
+    public function testShow()
+    {
 
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'lib a');
@@ -285,7 +290,8 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("titleA")'));
     }
 
-    public function testEdit() {
+    public function testEdit()
+    {
         $client = $this->createClient();
 
         $library = $this->dataLibrary->createEmpty();
@@ -410,7 +416,8 @@ class ControllerProviderTest extends WebTestCase {
         $this->dataBook->popEvent('before', 'updateFiles');
     }
 
-    public function testDelete() {
+    public function testDelete()
+    {
         $client = $this->createClient();
 
         $library = $this->dataLibrary->createEmpty();
@@ -496,7 +503,8 @@ class ControllerProviderTest extends WebTestCase {
         $this->dataBook->popEvent('before', 'deleteFiles');
     }
 
-    public function testLayouts() {
+    public function testLayouts()
+    {
         $client = $this->createClient();
 
         $this->app['crud.layout'] = 'layout.twig';
@@ -525,7 +533,8 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertCount(1, $crawler->filter('html:contains("Library show layout")'));
     }
 
-    public function testRenderFile() {
+    public function testRenderFile()
+    {
         $client = $this->createClient();
 
         $crawler = $client->request('GET', '/crud/foo/1/cover/file');
@@ -564,7 +573,8 @@ class ControllerProviderTest extends WebTestCase {
 
     }
 
-    public function testDeleteFile() {
+    public function testDeleteFile()
+    {
         $client = $this->createClient();
 
         $crawler = $client->request('POST', '/crud/foo/1/cover/delete');
@@ -626,7 +636,8 @@ class ControllerProviderTest extends WebTestCase {
 
     }
 
-    public function testStatic() {
+    public function testStatic()
+    {
         $client = $this->createClient();
 
         $crawler = $client->request('GET', '/crud/resource/static');
@@ -654,7 +665,8 @@ class ControllerProviderTest extends WebTestCase {
         $this->assertTrue(strpos($response, '* Bootstrap v') !== false);
     }
 
-    public function testSettingsLocale() {
+    public function testSettingsLocale()
+    {
         $client = $this->createClient();
 
         $crawler = $client->request('GET', '/crud/setting/locale/foo?redirect=/crud/book');

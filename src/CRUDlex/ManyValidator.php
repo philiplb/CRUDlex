@@ -16,12 +16,14 @@ use \Valdi\Validator\ValidatorInterface;
 /**
  * A validator to check many.
  */
-class ManyValidator implements ValidatorInterface {
+class ManyValidator implements ValidatorInterface
+{
 
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, array $parameters) {
+    public function isValid($value, array $parameters)
+    {
 
         if (in_array($value, [null, ''])) {
             return true;
@@ -45,7 +47,8 @@ class ManyValidator implements ValidatorInterface {
     /**
      * {@inheritdoc}
      */
-    public function getInvalidDetails() {
+    public function getInvalidDetails()
+    {
         return 'many';
     }
 

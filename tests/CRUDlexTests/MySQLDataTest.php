@@ -18,19 +18,22 @@ use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
 use CRUDlex\AbstractData;
 
-class MySQLDataTest extends \PHPUnit_Framework_TestCase {
+class MySQLDataTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $dataBook;
 
     protected $dataLibrary;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $crudServiceProvider->getData('book');
         $this->dataLibrary = $crudServiceProvider->getData('library');
     }
 
-    public function testCreate() {
+    public function testCreate()
+    {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'name');
         $this->dataLibrary->create($entity);
@@ -39,7 +42,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($id > 0);
     }
 
-    public function testCreateWithUUID() {
+    public function testCreateWithUUID()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider(true);
         $dataLibrary = $crudServiceProvider->getData('library');
 
@@ -53,7 +57,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->setUp();
     }
 
-    public function testList() {
+    public function testList()
+    {
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'nameA');
         $this->dataLibrary->create($library);
@@ -165,7 +170,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGet() {
+    public function testGet()
+    {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameC');
         $this->dataLibrary->create($entity);
@@ -179,18 +185,21 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($entity);
     }
 
-    public function testGetDefinition() {
+    public function testGetDefinition()
+    {
         $definition = $this->dataLibrary->getDefinition();
         $this->assertNotNull($definition);
     }
 
-    public function testCreateEmpty() {
+    public function testCreateEmpty()
+    {
         $entity = $this->dataLibrary->createEmpty();
         $read = $entity->get('id');
         $this->assertNull($read);
     }
 
-    public function testUpdate() {
+    public function testUpdate()
+    {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameUpdate');
         $this->dataLibrary->create($entity);
@@ -203,7 +212,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testDelete() {
+    public function testDelete()
+    {
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameDelete');
         $this->dataLibrary->create($entity);
@@ -266,7 +276,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($entityBook2);
     }
 
-    public function testGetIdToNameMap() {
+    public function testGetIdToNameMap()
+    {
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'A');
         $this->dataLibrary->create($library);
@@ -296,7 +307,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testCountBy() {
+    public function testCountBy()
+    {
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'A');
         $this->dataLibrary->create($library);
@@ -403,7 +415,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testBoolHandling() {
+    public function testBoolHandling()
+    {
         $libraryA = $this->dataLibrary->createEmpty();
         $libraryA->set('name', 'lib');
         $this->dataLibrary->create($libraryA);
@@ -432,7 +445,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testPushPopEvent() {
+    public function testPushPopEvent()
+    {
         $function = function() {
             return true;
         };
@@ -447,7 +461,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
-    public function testCreateEvents() {
+    public function testCreateEvents()
+    {
         $beforeCalled = false;
         $beforeEvent = function(Entity $entity) use (&$beforeCalled) {
             $beforeCalled = true;
@@ -487,7 +502,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->popEvent('after', 'create');
     }
 
-    public function testUpdateEvents() {
+    public function testUpdateEvents()
+    {
 
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameUpdate');
@@ -535,7 +551,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->popEvent('after', 'update');
     }
 
-    public function testDeleteEvents() {
+    public function testDeleteEvents()
+    {
 
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameDelete');
@@ -580,7 +597,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->popEvent('after', 'delete');
     }
 
-    public function testHasManySet() {
+    public function testHasManySet()
+    {
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'nameA');
         $this->dataLibrary->create($library);

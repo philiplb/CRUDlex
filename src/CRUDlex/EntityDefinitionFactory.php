@@ -15,12 +15,14 @@ namespace CRUDlex;
  * Default implementation of the EntiyDefinitionFactoryInterface being used if the key "crud.entitydefinitionfactory" is
  * not given during the registration of the ServiceProvider.
  */
-class EntityDefinitionFactory implements EntityDefinitionFactoryInterface {
+class EntityDefinitionFactory implements EntityDefinitionFactoryInterface
+{
 
     /**
      * {@inheritdoc}
      */
-    public function createEntityDefinition($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider) {
+    public function createEntityDefinition($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider)
+    {
         return new EntityDefinition($table, $fields, $label, $localeLabels, $standardFieldLabels, $serviceProvider);
     }
 }

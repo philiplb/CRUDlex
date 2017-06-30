@@ -18,7 +18,8 @@ use League\Flysystem\FilesystemInterface;
 /**
  * MySQL Data implementation using a given Doctrine DBAL instance.
  */
-class MySQLData extends AbstractData {
+class MySQLData extends AbstractData
+{
 
     /**
      * Holds the Doctrine DBAL instance.
@@ -43,7 +44,8 @@ class MySQLData extends AbstractData {
      * @param string $setMethod
      * what method to use on the QueryBuilder: 'setValue' or 'set'
      */
-    protected function setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod) {
+    protected function setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod)
+    {
         $formFields = $this->getFormFields();
         $count      = count($formFields);
         for ($i = 0; $i < $count; ++$i) {
@@ -69,7 +71,8 @@ class MySQLData extends AbstractData {
      * @return boolean
      * true if the entity still has children
      */
-    protected function hasChildren($id) {
+    protected function hasChildren($id)
+    {
         foreach ($this->definition->getChildren() as $child) {
             $queryBuilder = $this->database->createQueryBuilder();
             $queryBuilder
@@ -90,7 +93,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    protected function doDelete(Entity $entity, $deleteCascade) {
+    protected function doDelete(Entity $entity, $deleteCascade)
+    {
         $id = $entity->get('id');
         if ($deleteCascade) {
             $result = $this->deleteChildren($id, $deleteCascade);
@@ -122,7 +126,8 @@ class MySQLData extends AbstractData {
      * @return array
      * an array of this many-to-many ids
      */
-    protected function getManyIds(array $fields, array $params) {
+    protected function getManyIds(array $fields, array $params)
+    {
         $manyIds = [];
         foreach ($fields as $field) {
             $thisField    = $this->definition->getSubTypeField($field, 'many', 'thisField');
@@ -153,7 +158,8 @@ class MySQLData extends AbstractData {
      * @param $filterOperators
      * the operators of the filter like "=" defining the full condition of the field
      */
-    protected function addFilter(QueryBuilder $queryBuilder, array $filter, array $filterOperators) {
+    protected function addFilter(QueryBuilder $queryBuilder, array $filter, array $filterOperators)
+    {
         $i          = 0;
         $manyFields = [];
         foreach ($filter as $field => $value) {
@@ -190,7 +196,8 @@ class MySQLData extends AbstractData {
      * @param integer|null $amount
      * the maximum amount of rows
      */
-    protected function addPagination(QueryBuilder $queryBuilder, $skip, $amount) {
+    protected function addPagination(QueryBuilder $queryBuilder, $skip, $amount)
+    {
         $queryBuilder->setMaxResults(9999999999);
         if ($amount !== null) {
             $queryBuilder->setMaxResults(abs(intval($amount)));
@@ -210,7 +217,8 @@ class MySQLData extends AbstractData {
      * @param boolean|null $sortAscending
      * true if sort ascending, false if descending
      */
-    protected function addSort(QueryBuilder $queryBuilder, $sortField, $sortAscending) {
+    protected function addSort(QueryBuilder $queryBuilder, $sortField, $sortAscending)
+    {
         if ($sortField !== null) {
 
             $type = $this->definition->getType($sortField);
@@ -233,7 +241,8 @@ class MySQLData extends AbstractData {
      * @param string $field
      * the reference field
      */
-    protected function fetchReferencesForField(array &$entities, $field) {
+    protected function fetchReferencesForField(array &$entities, $field)
+    {
         $nameField    = $this->definition->getSubTypeField($field, 'reference', 'nameField');
         $queryBuilder = $this->database->createQueryBuilder();
 
@@ -269,13 +278,14 @@ class MySQLData extends AbstractData {
         }
     }
 
-    /**
-     * Generates a new UUID.
-     *
-     * @return string|null
-     * the new UUID or null if this instance isn't configured to do so
-     */
-    protected function generateUUID() {
+        /**
+         * Generates a new UUID.
+         *
+         * @return string|null
+         * the new UUID or null if this instance isn't configured to do so
+         */
+        protected function generateUUID()
+        {
         $uuid = null;
         if ($this->useUUIDs) {
             $sql    = 'SELECT UUID() as id';
@@ -293,7 +303,8 @@ class MySQLData extends AbstractData {
      * @param $manyField
      * the many field to enrich data with
      */
-    protected function enrichWithManyField(&$idToData, $manyField) {
+    protected function enrichWithManyField(&$idToData, $manyField)
+    {
         $queryBuilder = $this->database->createQueryBuilder();
         $nameField    = $this->definition->getSubTypeField($manyField, 'many', 'nameField');
         $thisField    = $this->definition->getSubTypeField($manyField, 'many', 'thisField');
@@ -325,7 +336,8 @@ class MySQLData extends AbstractData {
      * @return array
      * the enriched rows
      */
-    protected function enrichWithMany(array $rows) {
+    protected function enrichWithMany(array $rows)
+    {
         $manyFields = $this->getManyFields();
         $idToData   = [];
         foreach ($rows as $row) {
@@ -347,7 +359,8 @@ class MySQLData extends AbstractData {
      * @param Entity $entity
      * the entity to save the many-to-many entries of
      */
-    protected function saveMany(Entity $entity) {
+    protected function saveMany(Entity $entity)
+    {
         $manyFields = $this->getManyFields();
         $id         = $entity->get('id');
         foreach ($manyFields as $manyField) {
@@ -374,7 +387,8 @@ class MySQLData extends AbstractData {
      *
      * @return void
      */
-    protected function enrichWithReference(array &$entities) {
+    protected function enrichWithReference(array &$entities)
+    {
         if (empty($entities)) {
             return;
         }
@@ -389,7 +403,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    protected function doCreate(Entity $entity) {
+    protected function doCreate(Entity $entity)
+    {
 
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
@@ -426,7 +441,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    protected function doUpdate(Entity $entity) {
+    protected function doUpdate(Entity $entity)
+    {
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder->update('`'.$this->definition->getTable().'`')
             ->set('updated_at', 'UTC_TIMESTAMP()')
@@ -457,7 +473,8 @@ class MySQLData extends AbstractData {
      * @param boolean $useUUIDs
      * flag whether to use UUIDs as primary key
      */
-    public function __construct(EntityDefinition $definition, FilesystemInterface $filesystem, Connection $database, $useUUIDs) {
+    public function __construct(EntityDefinition $definition, FilesystemInterface $filesystem, Connection $database, $useUUIDs)
+    {
         $this->definition = $definition;
         $this->filesystem = $filesystem;
         $this->database   = $database;
@@ -467,7 +484,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function get($id) {
+    public function get($id)
+    {
         $entities = $this->listEntries(['id' => $id]);
         if (count($entities) == 0) {
             return null;
@@ -478,7 +496,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function listEntries(array $filter = [], array $filterOperators = [], $skip = null, $amount = null, $sortField = null, $sortAscending = null) {
+    public function listEntries(array $filter = [], array $filterOperators = [], $skip = null, $amount = null, $sortField = null, $sortAscending = null)
+    {
         $fieldNames = $this->definition->getFieldNames();
 
         $queryBuilder = $this->database->createQueryBuilder();
@@ -506,7 +525,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function getIdToNameMap($entity, $nameField) {
+    public function getIdToNameMap($entity, $nameField)
+    {
         $nameSelect   = $nameField !== null ? ',`'.$nameField.'`' : '';
         $drivingField = $nameField ?: 'id';
 
@@ -530,7 +550,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function countBy($table, array $params, array $paramsOperators, $excludeDeleted) {
+    public function countBy($table, array $params, array $paramsOperators, $excludeDeleted)
+    {
         $queryBuilder = $this->database->createQueryBuilder();
         $queryBuilder
             ->select('COUNT(id)')
@@ -574,7 +595,8 @@ class MySQLData extends AbstractData {
     /**
      * {@inheritdoc}
      */
-    public function hasManySet($field, array $thatIds, $excludeId = null) {
+    public function hasManySet($field, array $thatIds, $excludeId = null)
+    {
         $thisField    = $this->definition->getSubTypeField($field, 'many', 'thisField');
         $thatField    = $this->definition->getSubTypeField($field, 'many', 'thatField');
         $thatEntity   = $this->definition->getSubTypeField($field, 'many', 'entity');

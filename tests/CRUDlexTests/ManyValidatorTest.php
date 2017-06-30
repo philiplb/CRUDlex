@@ -14,7 +14,8 @@ namespace CRUDlexTests;
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\ManyValidator;
 
-class ManyValidatorTest extends \PHPUnit_Framework_TestCase {
+class ManyValidatorTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $dataLibrary;
 
@@ -22,7 +23,8 @@ class ManyValidatorTest extends \PHPUnit_Framework_TestCase {
 
     protected $entityBook;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataLibrary = $crudServiceProvider->getData('library');
         $this->entityLibrary = $this->dataLibrary->createEmpty();
@@ -44,7 +46,8 @@ class ManyValidatorTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->update($entityLibrary);
     }
 
-    public function testValidate() {
+    public function testValidate()
+    {
 
         $validator = new ManyValidator();
         $parameters = [$this->dataLibrary, 'libraryBook'];
@@ -62,7 +65,8 @@ class ManyValidatorTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testGetInvalidDetails() {
+    public function testGetInvalidDetails()
+    {
         $validator = new ManyValidator();
         $read = $validator->getInvalidDetails();
         $expected = 'many';

@@ -28,7 +28,8 @@ use Symfony\Component\Translation\Loader\YamlFileLoader;
  * After adding it to your Silex-setup, it offers access to AbstractData
  * instances, one for each defined entity off the CRUD YAML file.
  */
-class ServiceProvider implements ServiceProviderInterface, BootableProviderInterface {
+class ServiceProvider implements ServiceProviderInterface, BootableProviderInterface
+{
 
     /**
      * Holds the data instances.
@@ -42,7 +43,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @param Container $app
      * the application container
      */
-    protected function initMissingServiceProviders(Container $app) {
+    protected function initMissingServiceProviders(Container $app)
+    {
 
         if (!$app->offsetExists('translator')) {
             $app->register(new LocaleServiceProvider());
@@ -70,7 +72,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return array
      * the available locales
      */
-    protected function initLocales(Container $app) {
+    protected function initLocales(Container $app)
+    {
         $locales   = $this->getLocales();
         $localeDir = __DIR__.'/../locales';
         $app['translator']->addLoader('yaml', new YamlFileLoader());
@@ -83,7 +86,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     /**
      * Initializes the children of the data entries.
      */
-    protected function initChildren() {
+    protected function initChildren()
+    {
         foreach ($this->datas as $name => $data) {
             $fields = $data->getDefinition()->getFieldNames();
             foreach ($fields as $field) {
@@ -105,7 +109,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return array
      * the map with localized entity labels
      */
-    protected function getLocaleLabels($locales, $crud) {
+    protected function getLocaleLabels(array $locales, array $crud)
+    {
         $localeLabels = [];
         foreach ($locales as $locale) {
             if (array_key_exists('label_'.$locale, $crud)) {
@@ -124,7 +129,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @param array $crud
      * the CRUD entity map
      */
-    protected function configureDefinition(EntityDefinition $definition, array $crud) {
+    protected function configureDefinition(EntityDefinition $definition, array $crud)
+    {
         $toConfigure = [
             'deleteCascade',
             'listFields',
@@ -159,7 +165,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return EntityDefinition
      * the EntityDefinition good to go
      */
-    protected function createDefinition(Container $app, array $locales, array $crud, $name) {
+    protected function createDefinition(Container $app, array $locales, array $crud, $name)
+    {
         $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
         $localeLabels        = $this->getLocaleLabels($locales, $crud);
         $standardFieldLabels = [
@@ -190,7 +197,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @param array $entityDefinition
      * the entity definition to validate
      */
-    protected function validateEntityDefinition(Container $app, array $entityDefinition) {
+    protected function validateEntityDefinition(Container $app, array $entityDefinition)
+    {
         $doValidate = !$app->offsetExists('crud.validateentitydefinition') || $app['crud.validateentitydefinition'] === true;
         if ($doValidate) {
             $validator = $app->offsetExists('crud.entitydefinitionvalidator')
@@ -208,7 +216,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @param Container $app
      * the application container
      */
-    public function init($crudFileCachingDirectory, Container $app) {
+    public function init($crudFileCachingDirectory, Container $app)
+    {
 
         $reader     = new YamlReader($crudFileCachingDirectory);
         $parsedYaml = $reader->read($app['crud.file']);
@@ -233,7 +242,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @param Container $app
      * the Container instance of the Silex application
      */
-    public function register(Container $app) {
+    public function register(Container $app)
+    {
         if (!$app->offsetExists('crud.filesystem')) {
             $app['crud.filesystem'] = new Filesystem(new Local(getcwd()));
         }
@@ -251,7 +261,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @param Application $app
      * the Container instance of the Silex application
      */
-    public function boot(Application $app) {
+    public function boot(Application $app)
+    {
         $this->initMissingServiceProviders($app);
         $twigExtensions = new TwigExtensions();
         $twigExtensions->registerTwigExtensions($app);
@@ -266,7 +277,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return AbstractData
      * the AbstractData instance or null on invalid name
      */
-    public function getData($name) {
+    public function getData($name)
+    {
         if (!array_key_exists($name, $this->datas)) {
             return null;
         }
@@ -279,7 +291,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return string[]
      * a list of all available entity names
      */
-    public function getEntities() {
+    public function getEntities()
+    {
         return array_keys($this->datas);
     }
 
@@ -289,7 +302,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return string[]
      * a list of all available entity names with their group
      */
-    public function getEntitiesNavBar() {
+    public function getEntitiesNavBar()
+    {
         $result = [];
         foreach ($this->datas as $entity => $data) {
             $navBarGroup = $data->getDefinition()->getNavBarGroup();
@@ -324,7 +338,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return string
      * the best fitting template
      */
-    public function getTemplate(Container $app, $section, $action, $entity) {
+    public function getTemplate(Container $app, $section, $action, $entity)
+    {
         $crudSection       = 'crud.'.$section;
         $crudSectionAction = $crudSection.'.'.$action;
 
@@ -349,7 +364,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @param string $locale
      * the locale to be used.
      */
-    public function setLocale($locale) {
+    public function setLocale($locale)
+    {
         foreach ($this->datas as $data) {
             $data->getDefinition()->setLocale($locale);
         }
@@ -361,7 +377,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return array
      * the available locales
      */
-    public function getLocales() {
+    public function getLocales()
+    {
         $localeDir     = __DIR__.'/../locales';
         $languageFiles = scandir($localeDir);
         $locales       = [];

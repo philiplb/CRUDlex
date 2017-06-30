@@ -14,7 +14,8 @@ namespace CRUDlex;
 /**
  * An interface for validating entity definitions.
  */
-interface EntityDefinitionValidatorInterface {
+interface EntityDefinitionValidatorInterface
+{
 
     /**
      * Validates the given entity definition data which was parsed from the crud.yml.

@@ -15,18 +15,21 @@ use CRUDlex\TwigExtensions;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 
-class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
+class TwigExtensionsTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $app;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->app = new Application();
         $this->app->register(new TwigServiceProvider());
         $twigExtensions = new TwigExtensions();
         $twigExtensions->registerTwigExtensions($this->app);
     }
 
-    public function testArrayColumn() {
+    public function testArrayColumn()
+    {
         $filter = $this->app['twig']->getFilter('arrayColumn');
 
         $read = call_user_func($filter->getCallable(), [['id' => 1], ['id' => 2], ['id' => 3]], 'id');
@@ -34,7 +37,8 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
-    public function testLanguageName() {
+    public function testLanguageName()
+    {
         $filter = $this->app['twig']->getFilter('languageName');
 
         $read = call_user_func($filter->getCallable(), 'en');
@@ -50,7 +54,8 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testFormatFloat() {
+    public function testFormatFloat()
+    {
         $filter = $this->app['twig']->getFilter('float');
 
         $float = 0.000004;
@@ -71,7 +76,8 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
-    public function testBasename() {
+    public function testBasename()
+    {
         $filter = $this->app['twig']->getFilter('basename');
 
         $read = call_user_func($filter->getCallable(), 'http://www.philiplb.de/foo.txt');
@@ -91,7 +97,8 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testFormatDate() {
+    public function testFormatDate()
+    {
         $filter = $this->app['twig']->getFilter('formatDate');
 
         $read = call_user_func($filter->getCallable(), '2014-08-30 12:00:00', false);
@@ -122,7 +129,8 @@ class TwigExtensionsTest extends \PHPUnit_Framework_TestCase {
         date_default_timezone_set($previousTimezone);
     }
 
-    public function testFormatDateTime() {
+    public function testFormatDateTime()
+    {
         $filter = $this->app['twig']->getFilter('formatDateTime');
 
         $read = call_user_func($filter->getCallable(), '2014-08-30 12:00:00', false);

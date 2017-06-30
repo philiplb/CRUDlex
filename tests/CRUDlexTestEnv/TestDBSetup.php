@@ -1,5 +1,4 @@
 <?php
-namespace CRUDlexTestEnv;
 
 /*
  * This file is part of the CRUDlex package.
@@ -10,6 +9,8 @@ namespace CRUDlexTestEnv;
  * file that was distributed with this source code.
  */
 
+namespace CRUDlexTestEnv;
+
 use League\Flysystem\Adapter\NullAdapter;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
@@ -19,11 +20,13 @@ use Eloquent\Phony\Phpunit\Phony;
 use CRUDlex\MySQLDataFactory;
 use CRUDlex\ServiceProvider;
 
-class TestDBSetup {
+class TestDBSetup
+{
 
     private static $filesystemHandle;
 
-    public static function createAppAndDB($useUUIDs = false) {
+    public static function createAppAndDB($useUUIDs = false)
+    {
         $app = new Application();
         $app->register(new DoctrineServiceProvider(), [
             'dbs.options' => [
@@ -117,7 +120,8 @@ class TestDBSetup {
         return $app;
     }
 
-    public static function createServiceProvider($useUUIDs = false) {
+    public static function createServiceProvider($useUUIDs = false)
+    {
         static::$filesystemHandle = Phony::partialMock('\\League\\Flysystem\\Filesystem', [new NullAdapter()]);
         static::$filesystemHandle->readStream->returns(null);
         static::$filesystemHandle->getMimetype->returns('test');
@@ -133,7 +137,8 @@ class TestDBSetup {
         return $crudServiceProvider;
     }
 
-    public static function getFilesystemHandle() {
+    public static function getFilesystemHandle()
+    {
         return static::$filesystemHandle;
     }
 

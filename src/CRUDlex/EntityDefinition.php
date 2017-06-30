@@ -14,7 +14,8 @@ namespace CRUDlex;
 /**
  * The class for defining a single entity.
  */
-class EntityDefinition {
+class EntityDefinition
+{
 
     /**
      * The table where the data is stored.
@@ -131,7 +132,8 @@ class EntityDefinition {
      * @return array
      * all field names excluding the given ones
      */
-    protected function getFilteredFieldNames(array $exclude) {
+    protected function getFilteredFieldNames(array $exclude)
+    {
         $fieldNames = $this->getFieldNames(true);
         $result     = [];
         foreach ($fieldNames as $fieldName) {
@@ -152,7 +154,8 @@ class EntityDefinition {
      * @throws \InvalidArgumentException
      * thrown with all invalid field names
      */
-    protected function checkFieldNames($reference, $fieldNames) {
+    protected function checkFieldNames($reference, $fieldNames)
+    {
         $validFieldNames   = $this->getPublicFieldNames();
         $invalidFieldNames = [];
         foreach ($fieldNames as $fieldName) {
@@ -181,7 +184,8 @@ class EntityDefinition {
      * @param ServiceProvider $serviceProvider
      * The current service provider
      */
-    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider) {
+    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider)
+    {
         $this->table               = $table;
         $this->fields              = $fields;
         $this->label               = $label;
@@ -212,7 +216,8 @@ class EntityDefinition {
      * @return string[]
      * the field names
      */
-    public function getFieldNames($includeMany = false) {
+    public function getFieldNames($includeMany = false)
+    {
         $fieldNames = $this->getReadOnlyFields();
         foreach ($this->fields as $field => $value) {
             if ($includeMany || $this->getType($field) !== 'many') {
@@ -228,7 +233,8 @@ class EntityDefinition {
      * @param array $listFields
      * the field names to be used in the listview
      */
-    public function setListFields(array $listFields) {
+    public function setListFields(array $listFields)
+    {
         $this->checkFieldNames('listFields', $listFields);
         $this->listFields = $listFields;
     }
@@ -240,7 +246,8 @@ class EntityDefinition {
      * @return array
      * the field names to be used in the listview
      */
-    public function getListFields() {
+    public function getListFields()
+    {
         if (!empty($this->listFields)) {
             return $this->listFields;
         }
@@ -255,7 +262,8 @@ class EntityDefinition {
      * @return array
      * the fields used to display the children on the details page
      */
-    public function getChildrenLabelFields() {
+    public function getChildrenLabelFields()
+    {
         return $this->childrenLabelFields;
     }
 
@@ -267,7 +275,8 @@ class EntityDefinition {
      * @param array $childrenLabelFields
      * the fields used to display the children on the details page
      */
-    public function setChildrenLabelFields(array $childrenLabelFields) {
+    public function setChildrenLabelFields(array $childrenLabelFields)
+    {
         $this->childrenLabelFields = $childrenLabelFields;
     }
 
@@ -277,7 +286,8 @@ class EntityDefinition {
      * @return boolean
      * true if so
      */
-    public function isDeleteCascade() {
+    public function isDeleteCascade()
+    {
         return $this->deleteCascade;
     }
 
@@ -287,7 +297,8 @@ class EntityDefinition {
      * @param boolean $deleteCascade
      * whether to delete its children when an instance is deleted
      */
-    public function setDeleteCascade($deleteCascade) {
+    public function setDeleteCascade($deleteCascade)
+    {
         $this->deleteCascade = $deleteCascade;
     }
 
@@ -297,7 +308,8 @@ class EntityDefinition {
      * @return integer
      * the amount of items to display per page on the listview
      */
-    public function getPageSize() {
+    public function getPageSize()
+    {
         return $this->pageSize;
     }
 
@@ -307,7 +319,8 @@ class EntityDefinition {
      * @param integer $pageSize
      * the amount of items to display per page on the listview
      */
-    public function setPageSize($pageSize) {
+    public function setPageSize($pageSize)
+    {
         $this->pageSize = $pageSize;
     }
 
@@ -317,7 +330,8 @@ class EntityDefinition {
      * @return array
      * the fields to filter
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         return $this->filter;
     }
 
@@ -327,7 +341,8 @@ class EntityDefinition {
      * @param array $filter
      * the fields to filter
      */
-    public function setFilter(array $filter) {
+    public function setFilter(array $filter)
+    {
         $this->checkFieldNames('filter', $filter);
         $this->filter = $filter;
     }
@@ -338,7 +353,8 @@ class EntityDefinition {
      * @return ServiceProvider
      * the service provider
      */
-    public function getServiceProvider() {
+    public function getServiceProvider()
+    {
         return $this->serviceProvider;
     }
 
@@ -348,7 +364,8 @@ class EntityDefinition {
      * @param ServiceProvider $serviceProvider
      * the new service provider
      */
-    public function setServiceProvider(ServiceProvider $serviceProvider) {
+    public function setServiceProvider(ServiceProvider $serviceProvider)
+    {
         $this->serviceProvider = $serviceProvider;
     }
 
@@ -359,7 +376,8 @@ class EntityDefinition {
      * @return array
      * the public field names
      */
-    public function getPublicFieldNames() {
+    public function getPublicFieldNames()
+    {
         $exclude = ['version', 'deleted_at'];
         $result  = $this->getFilteredFieldNames($exclude);
         return $result;
@@ -372,7 +390,8 @@ class EntityDefinition {
      * @return array
      * the editable field names
      */
-    public function getEditableFieldNames() {
+    public function getEditableFieldNames()
+    {
         $result = $this->getFilteredFieldNames($this->getReadOnlyFields());
         return $result;
     }
@@ -383,7 +402,8 @@ class EntityDefinition {
      * @return string[]
      * the read only field names
      */
-    public function getReadOnlyFields() {
+    public function getReadOnlyFields()
+    {
         $result = ['id', 'created_at', 'updated_at', 'deleted_at'];
         if ($this->optimisticLocking) {
             $result[] = 'version';
@@ -400,7 +420,8 @@ class EntityDefinition {
      * @return string
      * the type or null on invalid field name
      */
-    public function getType($fieldName) {
+    public function getType($fieldName)
+    {
         if ($fieldName === 'id') {
             return 'string';
         }
@@ -421,7 +442,8 @@ class EntityDefinition {
      * @param string $value
      * the new field type
      */
-    public function setType($fieldName, $value) {
+    public function setType($fieldName, $value)
+    {
         $this->setField($fieldName, 'type', $value);
     }
 
@@ -435,8 +457,8 @@ class EntityDefinition {
      * the label of the field or the field name if no label is set in the CRUD
      * YAML
      */
-    public function getFieldLabel($fieldName) {
-
+    public function getFieldLabel($fieldName)
+    {
         $result = $this->getField($fieldName, 'label_'.$this->locale, $this->getField($fieldName, 'label'));
 
         if ($result === null && array_key_exists($fieldName, $this->standardFieldLabels)) {
@@ -458,7 +480,8 @@ class EntityDefinition {
      * @param string $value
      * the new label of the field
      */
-    public function setFieldLabel($fieldName, $value) {
+    public function setFieldLabel($fieldName, $value)
+    {
         $this->setField($fieldName, 'label', $value);
     }
 
@@ -468,7 +491,8 @@ class EntityDefinition {
      * @return string
      * the table where the data is stored
      */
-    public function getTable() {
+    public function getTable()
+    {
         return $this->table;
     }
 
@@ -478,7 +502,8 @@ class EntityDefinition {
      * @param string $table
      * the new table where the data is stored
      */
-    public function setTable($table) {
+    public function setTable($table)
+    {
         $this->table = $table;
     }
 
@@ -488,7 +513,8 @@ class EntityDefinition {
      * @return string
      * the label for the entity
      */
-    public function getLabel() {
+    public function getLabel()
+    {
         if ($this->locale && array_key_exists($this->locale, $this->localeLabels)) {
             return $this->localeLabels[$this->locale];
         }
@@ -501,7 +527,8 @@ class EntityDefinition {
      * @param string $label
      * the new label for the entity
      */
-    public function setLabel($label) {
+    public function setLabel($label)
+    {
         $this->label = $label;
     }
 
@@ -516,7 +543,8 @@ class EntityDefinition {
      * @param string $entity
      * the entity of the referencing definition
      */
-    public function addChild($table, $fieldName, $entity) {
+    public function addChild($table, $fieldName, $entity)
+    {
         $this->children[] = [$table, $fieldName, $entity];
     }
 
@@ -527,7 +555,8 @@ class EntityDefinition {
      * an array with the children referencing the entity. All entries are arrays
      * with three referencing elements: table, fieldName, entity
      */
-    public function getChildren() {
+    public function getChildren()
+    {
         return $this->children;
     }
 
@@ -537,7 +566,8 @@ class EntityDefinition {
      * @param string $locale
      * the locale to be used.
      */
-    public function setLocale($locale) {
+    public function setLocale($locale)
+    {
         $this->locale = $locale;
     }
 
@@ -547,7 +577,8 @@ class EntityDefinition {
      * @return null|string
      * the locale to be used.
      */
-    public function getLocale() {
+    public function getLocale()
+    {
         return $this->locale;
     }
 
@@ -557,7 +588,8 @@ class EntityDefinition {
      * @param string $initialSortField
      * the new initial sort field
      */
-    public function setInitialSortField($initialSortField) {
+    public function setInitialSortField($initialSortField)
+    {
         $this->initialSortField = $initialSortField;
     }
 
@@ -567,7 +599,8 @@ class EntityDefinition {
      * @return string
      * the initial sort field
      */
-    public function getInitialSortField() {
+    public function getInitialSortField()
+    {
         return $this->initialSortField;
     }
 
@@ -577,7 +610,8 @@ class EntityDefinition {
      * @param boolean $initialSortAscending
      * the initial sort order, true if ascending
      */
-    public function setInitialSortAscending($initialSortAscending) {
+    public function setInitialSortAscending($initialSortAscending)
+    {
         $this->initialSortAscending = $initialSortAscending;
     }
 
@@ -587,7 +621,8 @@ class EntityDefinition {
      * @return boolean
      * the initial sort order, true if ascending
      */
-    public function isInitialSortAscending() {
+    public function isInitialSortAscending()
+    {
         return $this->initialSortAscending;
     }
 
@@ -597,7 +632,8 @@ class EntityDefinition {
      * @return string
      * the navigation bar group where the entity belongs
      */
-    public function getNavBarGroup() {
+    public function getNavBarGroup()
+    {
         return $this->navBarGroup;
     }
 
@@ -607,7 +643,8 @@ class EntityDefinition {
      * @param string $navBarGroup
      * the navigation bar group where the entity belongs
      */
-    public function setNavBarGroup($navBarGroup) {
+    public function setNavBarGroup($navBarGroup)
+    {
         $this->navBarGroup = $navBarGroup;
     }
 
@@ -616,7 +653,8 @@ class EntityDefinition {
      * @return boolean
      * true if optimistic locking is activated
      */
-    public function hasOptimisticLocking() {
+    public function hasOptimisticLocking()
+    {
         return $this->optimisticLocking;
     }
 
@@ -626,7 +664,8 @@ class EntityDefinition {
      * @param boolean $optimisticLocking
      * true if optimistic locking is activated
      */
-    public function setOptimisticLocking($optimisticLocking) {
+    public function setOptimisticLocking($optimisticLocking)
+    {
         $this->optimisticLocking = $optimisticLocking;
     }
 
@@ -643,7 +682,8 @@ class EntityDefinition {
      * @return string
      * the value of the sub field
      */
-    public function getSubTypeField($fieldName, $subType, $key) {
+    public function getSubTypeField($fieldName, $subType, $key)
+    {
 
         if (!isset($this->fields[$fieldName][$subType][$key])) {
             return null;
@@ -665,7 +705,8 @@ class EntityDefinition {
      * @return mixed
      * the value of the field key or null if not existing
      */
-    public function getField($name, $key, $default = null) {
+    public function getField($name, $key, $default = null)
+    {
         if (array_key_exists($name, $this->fields) && array_key_exists($key, $this->fields[$name])) {
             return $this->fields[$name][$key];
         }
@@ -683,7 +724,8 @@ class EntityDefinition {
      * @param mixed $value
      * the new value
      */
-    public function setField($name, $key, $value) {
+    public function setField($name, $key, $value)
+    {
         if (!array_key_exists($name, $this->fields)) {
             $this->fields[$name] = [];
         }

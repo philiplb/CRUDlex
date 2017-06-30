@@ -10,6 +10,7 @@
  */
 
 namespace CRUDlex;
+
 use League\Flysystem\FilesystemInterface;
 
 /**
@@ -17,7 +18,8 @@ use League\Flysystem\FilesystemInterface;
  * Data instances. By implementing this and handing it into the service
  * provider, the user can control what database (-variation) he wants to use.
  */
-interface DataFactoryInterface {
+interface DataFactoryInterface
+{
 
     /**
      * Creates instances.

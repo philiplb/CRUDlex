@@ -10,13 +10,15 @@
  */
 
 namespace CRUDlex;
+
 use Doctrine\DBAL\Connection;
 use League\Flysystem\FilesystemInterface;
 
 /**
  * A factory implementation for MySQLData instances.
  */
-class MySQLDataFactory implements DataFactoryInterface {
+class MySQLDataFactory implements DataFactoryInterface
+{
 
     /**
      * Holds the Doctrine DBAL instance.
@@ -38,7 +40,8 @@ class MySQLDataFactory implements DataFactoryInterface {
      * @param $useUUIDs
      * flag whether to use UUIDs as primary key
      */
-    public function __construct(Connection $database, $useUUIDs = false) {
+    public function __construct(Connection $database, $useUUIDs = false)
+    {
         $this->database = $database;
         $this->useUUIDs = $useUUIDs;
     }
@@ -46,7 +49,8 @@ class MySQLDataFactory implements DataFactoryInterface {
     /**
      * {@inheritdoc}
      */
-    public function createData(EntityDefinition $definition, FilesystemInterface $filesystem) {
+    public function createData(EntityDefinition $definition, FilesystemInterface $filesystem)
+    {
         return new MySQLData($definition, $filesystem, $this->database, $this->useUUIDs);
     }
 

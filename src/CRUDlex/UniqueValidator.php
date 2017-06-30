@@ -16,7 +16,8 @@ use \Valdi\Validator\ValidatorInterface;
 /**
  * A validator to check for an unique field.
  */
-class UniqueValidator implements ValidatorInterface {
+class UniqueValidator implements ValidatorInterface
+{
 
     /**
      * Checks whether the unique constraint is valid for a many-to-many field.
@@ -33,7 +34,8 @@ class UniqueValidator implements ValidatorInterface {
      * @return boolean
      * true if it is a valid unique many-to-many constraint
      */
-    protected function isValidUniqueMany(array $value, AbstractData $data, Entity $entity, $field) {
+    protected function isValidUniqueMany(array $value, AbstractData $data, Entity $entity, $field)
+    {
         return !$data->hasManySet($field, array_column($value, 'id'), $entity->get('id'));
     }
 
@@ -69,7 +71,8 @@ class UniqueValidator implements ValidatorInterface {
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, array $parameters) {
+    public function isValid($value, array $parameters)
+    {
 
         if (in_array($value, [null, ''])) {
             return true;
@@ -90,7 +93,8 @@ class UniqueValidator implements ValidatorInterface {
     /**
      * {@inheritdoc}
      */
-    public function getInvalidDetails() {
+    public function getInvalidDetails()
+    {
         return 'unique';
     }
 

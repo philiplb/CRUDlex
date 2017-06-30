@@ -15,7 +15,8 @@ namespace CRUDlex;
  * Small utility class to generate functions for streamed responses returning
  * a file.
  */
-class StreamedFileResponse {
+class StreamedFileResponse
+{
 
     /**
      * Generates a lambda which is streaming the given file to standard output.
@@ -26,7 +27,8 @@ class StreamedFileResponse {
      * @return \Closure
      * the generated lambda
      */
-    public function getStreamedFileFunction($file) {
+    public function getStreamedFileFunction($file)
+    {
         return function() use ($file) {
             set_time_limit(0);
             $handle = fopen($file, 'rb');

@@ -20,7 +20,8 @@ use League\Flysystem\Adapter\NullAdapter;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
-class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
+class ServiceProviderTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $crudFile;
 
@@ -28,7 +29,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     protected $filesystem;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $app = new Application();
         $app->register(new DoctrineServiceProvider(), [
             'dbs.options' => [
@@ -46,7 +48,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->filesystem = new Filesystem(new NullAdapter());
     }
 
-    protected function createServiceProvider() {
+    protected function createServiceProvider()
+    {
         $app = new Application();
         $app['crud.filesystem'] = $this->filesystem;
         $app['crud.datafactory'] = $this->dataFactory;
@@ -57,7 +60,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         return $crudServiceProvider;
     }
 
-    public function testRegisterAndBoot() {
+    public function testRegisterAndBoot()
+    {
         $app = new Application();
         $app->register(new ServiceProvider(), [
             'crud.file' => $this->crudFile,
@@ -68,7 +72,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $app['crud']->getEntities();
     }
 
-    public function testInvalidInit() {
+    public function testInvalidInit()
+    {
         $app = new Application();
         $app['crud.file'] = 'foo';
         $crudServiceProvider = new ServiceProvider();
@@ -83,21 +88,24 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testGetEntities() {
+    public function testGetEntities()
+    {
         $crudServiceProvider = $this->createServiceProvider();
         $expected = ['library', 'book'];
         $read = $crudServiceProvider->getEntities();
         $this->assertSame($read, $expected);
     }
 
-    public function testGetEntitiesNavBar() {
+    public function testGetEntitiesNavBar()
+    {
         $crudServiceProvider = $this->createServiceProvider();
         $expected = ['entities' => ['library', 'book']];
         $read = $crudServiceProvider->getEntitiesNavBar();
         $this->assertSame($read, $expected);
     }
 
-    public function testGetData() {
+    public function testGetData()
+    {
         $crudServiceProvider = $this->createServiceProvider();
         $read = $crudServiceProvider->getData('book');
         $this->assertNotNull($read);
@@ -107,7 +115,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
-    public function testGetTemplate() {
+    public function testGetTemplate()
+    {
 
         $app = new Application();
         $app['crud.template.list.book'] = 'testTemplateListBook.twig';
@@ -140,14 +149,16 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetLocales() {
+    public function testGetLocales()
+    {
         $crudServiceProvider = new ServiceProvider();
         $expected = ['de', 'el', 'en', 'fr'];
         $read = $crudServiceProvider->getLocales();
         $this->assertSame($read, $expected);
     }
 
-    public function testInitialSort() {
+    public function testInitialSort()
+    {
         $crudServiceProvider = $this->createServiceProvider();
         $data = $crudServiceProvider->getData('library');
         $read = $data->getDefinition()->isInitialSortAscending();
@@ -157,7 +168,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($read);
     }
 
-    public function testCustomEntityDefinitionFactory() {
+    public function testCustomEntityDefinitionFactory()
+    {
         $serviceProvider = new ServiceProvider();
         $app = new Application();
 
@@ -181,7 +193,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionFactoryHandle->createEntityDefinition->twice()->called();
     }
 
-    public function testEntityDefinitionValidation() {
+    public function testEntityDefinitionValidation()
+    {
         $serviceProvider = new ServiceProvider();
         $app = new Application();
         $entityDefinitionValidatorHandle = Phony::mock('\\CRUDlex\\EntityDefinitionValidator');
@@ -204,7 +217,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionValidatorHandle->validate->once()->called();
     }
 
-    public function testSwitchedOffEntityDefinitionValidation() {
+    public function testSwitchedOffEntityDefinitionValidation()
+    {
         $serviceProvider = new ServiceProvider();
         $app = new Application();
         $entityDefinitionValidatorHandle = Phony::mock('\\CRUDlex\\EntityDefinitionValidator');
@@ -219,7 +233,8 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $entityDefinitionValidatorHandle->validate->never()->called();
     }
 
-    public function testSetLocale() {
+    public function testSetLocale()
+    {
         $serviceProvider = $this->createServiceProvider();
         $serviceProvider->setLocale('de');
         $read = $serviceProvider->getData('library')->getDefinition()->getLocale();

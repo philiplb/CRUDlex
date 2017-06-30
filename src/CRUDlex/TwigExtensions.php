@@ -17,7 +17,8 @@ use Symfony\Component\Intl\Intl;
 /**
  * Provides and setups the Twig extensions like filters.
  */
-class TwigExtensions {
+class TwigExtensions
+{
 
     /**
      * Formats the given time value to a timestring defined by the $pattern
@@ -40,7 +41,8 @@ class TwigExtensions {
      * @return string
      * the formatted value
      */
-    protected function formatTime($value, $timezone, $pattern) {
+    protected function formatTime($value, $timezone, $pattern)
+    {
         if (!$value) {
             return '';
         }
@@ -61,7 +63,8 @@ class TwigExtensions {
      * @param Container $app
      * the current application
      */
-    public function registerTwigExtensions(Container $app) {
+    public function registerTwigExtensions(Container $app)
+    {
         $self = $this;
         $app->extend('twig', function(\Twig_Environment $twig) use ($self) {
             $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', 'array_column'));
@@ -83,7 +86,8 @@ class TwigExtensions {
      * @return string
      * the language name in the given language or null if not available
      */
-    public function getLanguageName($language) {
+    public function getLanguageName($language)
+    {
         return Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
     }
 
@@ -96,7 +100,8 @@ class TwigExtensions {
      * @return double|string
      * the formated float
      */
-    public function formatFloat($float) {
+    public function formatFloat($float)
+    {
 
         if (!$float) {
             return $float;
@@ -124,7 +129,8 @@ class TwigExtensions {
      * @return string
      * the formatted result or an empty string on null value
      */
-    public function formatDate($value, $isUTC) {
+    public function formatDate($value, $isUTC)
+    {
         $timezone = $isUTC ? 'UTC' : date_default_timezone_get();
         return $this->formatTime($value, $timezone, 'Y-m-d');
     }
@@ -140,7 +146,8 @@ class TwigExtensions {
      * @return string
      * the formatted result or an empty string on null value
      */
-    public function formatDateTime($value, $isUTC) {
+    public function formatDateTime($value, $isUTC)
+    {
         $timezone = $isUTC ? 'UTC' : date_default_timezone_get();
         return $this->formatTime($value, $timezone, 'Y-m-d H:i');
     }

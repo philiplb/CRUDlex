@@ -16,7 +16,8 @@ use \Valdi\Validator;
 /**
  * Performs validation of the field values of the given Entity.
  */
-class EntityValidator {
+class EntityValidator
+{
 
     /**
      * The entity to validate.
@@ -46,7 +47,8 @@ class EntityValidator {
      * @return array
      * the validation rules for the field
      */
-    protected function fieldTypeToRules($field, AbstractData $data, Validator $validator) {
+    protected function fieldTypeToRules($field, AbstractData $data, Validator $validator)
+    {
         $setItems     = $this->definition->getField($field, 'items', []);
         $rulesMapping = [
             'boolean' => ['boolean'],
@@ -79,7 +81,8 @@ class EntityValidator {
      * @return array
      * the validation rules for the field
      */
-    protected function fieldConstraintsToRules($field, AbstractData $data) {
+    protected function fieldConstraintsToRules($field, AbstractData $data)
+    {
         $rules = [];
         if ($this->definition->getField($field, 'required', false)) {
             $rules[] = ['required'];
@@ -102,7 +105,8 @@ class EntityValidator {
      * @return array
      * the validation rules for the entity
      */
-    protected function buildUpRules(AbstractData $data, Validator $validator) {
+    protected function buildUpRules(AbstractData $data, Validator $validator)
+    {
         $fields = $this->definition->getEditableFieldNames();
         $rules  = [];
         foreach ($fields as $field) {
@@ -122,7 +126,8 @@ class EntityValidator {
      * @return array
      * a map field to raw value
      */
-    protected function buildUpData() {
+    protected function buildUpData()
+    {
         $data   = [];
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {
@@ -142,7 +147,8 @@ class EntityValidator {
      * @param Entity $entity
      * the entity to validate
      */
-    public function __construct(Entity $entity) {
+    public function __construct(Entity $entity)
+    {
         $this->entity     = $entity;
         $this->definition = $entity->getDefinition();
     }
@@ -165,7 +171,8 @@ class EntityValidator {
      * "unique", "value" (only for the version field, set if the optimistic locking
      * failed).
      */
-    public function validate(AbstractData $data, $expectedVersion) {
+    public function validate(AbstractData $data, $expectedVersion)
+    {
         $validator = new Validator();
         $validator->addValidator('unique', new UniqueValidator());
         $validator->addValidator('reference', new ReferenceValidator());

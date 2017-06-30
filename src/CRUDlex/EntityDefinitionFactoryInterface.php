@@ -15,7 +15,8 @@ namespace CRUDlex;
  * Interface to make the creation of the EntityDefinitions flexible. To be handed into
  * the ServiceProvider registration via the key "crud.entitydefinitionfactory".
  */
-interface EntityDefinitionFactoryInterface {
+interface EntityDefinitionFactoryInterface
+{
 
     /**
      * Creates an EntityDefinition instance.

@@ -16,19 +16,22 @@ use CRUDlexTestEnv\TestDBSetup;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
-class FileHandlerTest extends \PHPUnit_Framework_TestCase {
+class FileHandlerTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $dataBook;
 
     protected $dataLibrary;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataBook = $crudServiceProvider->getData('book');
         $this->dataLibrary = $crudServiceProvider->getData('library');
     }
 
-    public function testRenderFile() {
+    public function testRenderFile()
+    {
 
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib');
@@ -51,7 +54,8 @@ class FileHandlerTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testDeleteFiles() {
+    public function testDeleteFiles()
+    {
 
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib');
@@ -68,7 +72,8 @@ class FileHandlerTest extends \PHPUnit_Framework_TestCase {
         $fileHandler->deleteFiles($this->dataBook, $entityBook, 'book');
     }
 
-    public function testDeleteFile() {
+    public function testDeleteFile()
+    {
 
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib');
@@ -86,7 +91,8 @@ class FileHandlerTest extends \PHPUnit_Framework_TestCase {
         $fileHandler->deleteFile($this->dataBook, $entityBook, 'book', 'cover');
     }
 
-    public function testCreateFiles() {
+    public function testCreateFiles()
+    {
 
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib');
@@ -116,7 +122,8 @@ class FileHandlerTest extends \PHPUnit_Framework_TestCase {
         $filesystemHandle->readStream->never()->called();
     }
 
-    public function testUpdateFiles() {
+    public function testUpdateFiles()
+    {
 
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib');

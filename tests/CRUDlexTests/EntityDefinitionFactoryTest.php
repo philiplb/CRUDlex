@@ -15,9 +15,11 @@ use CRUDlex\EntityDefinition;
 use CRUDlex\ServiceProvider;
 use CRUDlex\EntityDefinitionFactory;
 
-class EntityDefinitionFactoryTest extends \PHPUnit_Framework_TestCase {
+class EntityDefinitionFactoryTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testCreateEntityDefinition() {
+    public function testCreateEntityDefinition()
+    {
         $crudServiceProvider = new ServiceProvider();
         $entityDefinitionFactory = new EntityDefinitionFactory();
         $instance = $entityDefinitionFactory->createEntityDefinition('', [], '', [], [], $crudServiceProvider);

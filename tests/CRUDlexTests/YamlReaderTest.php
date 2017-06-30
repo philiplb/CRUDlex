@@ -14,9 +14,11 @@ namespace CRUDlexTests;
 use CRUDlex\YamlReader;
 use Eloquent\Phony\Phony;
 
-class YamlReaderTest extends \PHPUnit_Framework_TestCase {
+class YamlReaderTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testInvalidFile() {
+    public function testInvalidFile()
+    {
         $reader = new YamlReader(null);
         try {
             $reader->read('foo');
@@ -25,12 +27,14 @@ class YamlReaderTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testReadEmptyFile() {
+    public function testReadEmptyFile()
+    {
         $reader = new YamlReader(null);
         $reader->read(__DIR__.'/../emptyCrud.yml');
     }
 
-    public function testRead() {
+    public function testRead()
+    {
         if (file_exists(__DIR__.'/../tmp/crud.ymlCRUDlexCache.php')) {
             unlink(__DIR__.'/../tmp/crud.ymlCRUDlexCache.php');
         }

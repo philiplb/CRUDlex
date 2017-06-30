@@ -14,7 +14,8 @@ namespace CRUDlexTests;
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\UniqueValidator;
 
-class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
+class UniqueValidatorTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $dataLibrary;
 
@@ -22,7 +23,8 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
 
     protected $entityBook;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->dataLibrary = $crudServiceProvider->getData('library');
         $this->entityLibrary = $this->dataLibrary->createEmpty();
@@ -44,7 +46,8 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
         $this->dataLibrary->update($entityLibrary);
     }
 
-    public function testValidate() {
+    public function testValidate()
+    {
 
         $validator = new UniqueValidator();
         $parameters = [$this->dataLibrary, $this->entityLibrary, 'name'];
@@ -73,7 +76,8 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testGetInvalidDetails() {
+    public function testGetInvalidDetails()
+    {
         $validator = new UniqueValidator();
         $read = $validator->getInvalidDetails();
         $expected = 'unique';

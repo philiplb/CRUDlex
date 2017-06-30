@@ -16,7 +16,8 @@ use CRUDlex\ServiceProvider;
 use CRUDlex\Entity;
 use CRUDlex\EntityDefinition;
 
-class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
+class EntityDefinitionTest extends \PHPUnit_Framework_TestCase
+{
 
     /** @var $definition EntityDefinition */
     protected $definition;
@@ -24,13 +25,15 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
     /** @var $definitionLibrary EntityDefinition */
     protected $definitionLibrary;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $crudServiceProvider = TestDBSetup::createServiceProvider();
         $this->definition = $crudServiceProvider->getData('book')->getDefinition();
         $this->definitionLibrary = $crudServiceProvider->getData('library')->getDefinition();
     }
 
-    public function testGetSetFieldNames() {
+    public function testGetSetFieldNames()
+    {
         $read = $this->definition->getFieldNames();
         $expected = [
             'id',
@@ -50,7 +53,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetType() {
+    public function testGetType()
+    {
         $fields = ['title', 'pages', 'release', 'library',
             'id', 'created_at', 'updated_at', 'deleted_at', 'version'];
         $expected = ['text', 'integer', 'date', 'reference',
@@ -63,14 +67,16 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testSetType() {
+    public function testSetType()
+    {
         $read = $this->definitionLibrary->setType('name', 'multiline');
         $read = $this->definitionLibrary->getType('name');
         $expected = 'multiline';
         $this->assertSame($read, $expected);
     }
 
-    public function testGetPublicFieldNames() {
+    public function testGetPublicFieldNames()
+    {
         $read = $this->definition->getPublicFieldNames();
         $expected = [
             'id',
@@ -88,7 +94,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testgetListFields() {
+    public function testgetListFields()
+    {
         $read = $this->definition->getListFields();
         $expected = [
             'author',
@@ -120,7 +127,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definitionLibrary->setListFields($old);
     }
 
-    public function testGetSetFieldLabel() {
+    public function testGetSetFieldLabel()
+    {
         $read = $this->definition->getFieldLabel('library');
         $expected = 'Library';
         $this->assertSame($read, $expected);
@@ -145,7 +153,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setLocale('en');
     }
 
-    public function testGetSetLocale() {
+    public function testGetSetLocale()
+    {
         $this->definition->setLocale('de');
         $read = $this->definition->getLocale();
         $expected = 'de';
@@ -153,7 +162,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->definition->setLocale('en');
     }
 
-    public function testGetSetTable() {
+    public function testGetSetTable()
+    {
         $read = $this->definition->getTable();
         $expected = 'book';
         $this->assertSame($read, $expected);
@@ -164,7 +174,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetLabel() {
+    public function testGetSetLabel()
+    {
         $read = $this->definition->getLabel();
         $expected = 'Book';
         $this->assertSame($read, $expected);
@@ -180,7 +191,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testAddAndGetChild() {
+    public function testAddAndGetChild()
+    {
         $this->definition->addChild('foo', 'bar', 'bla');
         $read = $this->definition->getChildren();
         $expected = [
@@ -189,7 +201,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetChildrenLabelFields() {
+    public function testGetSetChildrenLabelFields()
+    {
         $read = $this->definitionLibrary->getChildrenLabelFields();
         $expected = ['book' => 'title'];
         $this->assertSame($read, $expected);
@@ -199,7 +212,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testIsSetDeleteCascade() {
+    public function testIsSetDeleteCascade()
+    {
         $this->definitionLibrary->setDeleteCascade(true);
         $read = $this->definitionLibrary->isDeleteCascade();
         $this->assertTrue($read);
@@ -208,7 +222,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testGetSetPageSize() {
+    public function testGetSetPageSize()
+    {
         $read = $this->definition->getPageSize();
         $expected = 25;
         $this->assertSame($read, $expected);
@@ -218,7 +233,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetServiceProvider() {
+    public function testGetSetServiceProvider()
+    {
         $read = $this->definition->getServiceProvider();
         $this->assertNotNull($read);
 
@@ -228,7 +244,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetFilter() {
+    public function testGetSetFilter()
+    {
         $read = $this->definition->getFilter();
         $expected = [
             'author',
@@ -245,7 +262,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testIsSetInitialSortField() {
+    public function testIsSetInitialSortField()
+    {
         $read = $this->definition->getInitialSortField();
         $expected = 'created_at';
         $this->assertSame($read, $expected);
@@ -255,7 +273,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetInitialSortAscending() {
+    public function testGetSetInitialSortAscending()
+    {
         $read = $this->definition->isInitialSortAscending();
         $this->assertTrue($read);
         $this->definition->setInitialSortAscending(false);
@@ -263,7 +282,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($read);
     }
 
-    public function testInvalidFieldNames() {
+    public function testInvalidFieldNames()
+    {
         try {
             $this->definition->setFilter(['foo', 'bar']);
             $this->fail();
@@ -274,7 +294,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testGetSubTypeField() {
+    public function testGetSubTypeField()
+    {
         $read = $this->definitionLibrary->getSubTypeField('libraryBook', 'many', 'entity');
         $expected = 'book';
         $this->assertSame($expected, $read);
@@ -304,13 +325,15 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($read);
     }
 
-    public function testGetEditableFieldNames() {
+    public function testGetEditableFieldNames()
+    {
         $read = $this->definitionLibrary->getEditableFieldNames();
         $expected = ['name', 'type', 'opening', 'isOpenOnSundays', 'planet', 'libraryBook'];
         $this->assertSame($expected, $read);
     }
 
-    public function testGetSetField() {
+    public function testGetSetField()
+    {
         $read = $this->definition->getField('author', 'description');
         $expected = 'The Author of the Book';
         $this->assertSame($expected, $read);
@@ -336,7 +359,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($expected, $read);
     }
 
-    public function testGetSetNavBarGroup() {
+    public function testGetSetNavBarGroup()
+    {
         $read = $this->definition->getNavBarGroup();
         $expected = 'entities';
         $this->assertSame($read, $expected);
@@ -346,7 +370,8 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($read, $expected);
     }
 
-    public function testHasSetOptimisticLocking() {
+    public function testHasSetOptimisticLocking()
+    {
         $read = $this->definition->hasOptimisticLocking();
         $this->assertTrue($read);
         $this->definition->setOptimisticLocking(false);

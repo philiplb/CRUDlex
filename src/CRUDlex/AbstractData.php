@@ -16,7 +16,8 @@ use League\Flysystem\FilesystemInterface;
 /**
  * The abstract class for reading and writing data.
  */
-abstract class AbstractData {
+abstract class AbstractData
+{
 
     /**
      * Return value on successful deletion.
@@ -74,7 +75,8 @@ abstract class AbstractData {
      * @return Entity
      * the entity containing the array data then
      */
-    protected function hydrate(array $row) {
+    protected function hydrate(array $row)
+    {
         $fieldNames = $this->definition->getFieldNames(true);
         $entity     = new Entity($this->definition);
         foreach ($fieldNames as $fieldName) {
@@ -92,7 +94,8 @@ abstract class AbstractData {
      * @param Entity $entity
      * the entity to enrich
      */
-    protected function enrichEntityWithMetaData($id, Entity $entity) {
+    protected function enrichEntityWithMetaData($id, Entity $entity)
+    {
         $entity->set('id', $id);
         $createdEntity = $this->get($entity->get('id'));
         $entity->set('version', $createdEntity->get('version'));
@@ -106,7 +109,8 @@ abstract class AbstractData {
      * @return array|\string[]
      * the many-to-many fields
      */
-    protected function getManyFields() {
+    protected function getManyFields()
+    {
         $fields = $this->definition->getFieldNames(true);
         return array_filter($fields, function($field) {
             return $this->definition->getType($field) === 'many';
@@ -119,7 +123,8 @@ abstract class AbstractData {
      * @return array
      * all form fields
      */
-    protected function getFormFields() {
+    protected function getFormFields()
+    {
         $manyFields = $this->getManyFields();
         $formFields = [];
         foreach ($this->definition->getEditableFieldNames() as $field) {
@@ -144,7 +149,8 @@ abstract class AbstractData {
      * - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
      * - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
-    protected function deleteChildren($id, $deleteCascade) {
+    protected function deleteChildren($id, $deleteCascade)
+    {
         foreach ($this->definition->getChildren() as $childArray) {
             $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
             $children  = $childData->listEntries([$childArray[1] => $id]);
@@ -171,7 +177,8 @@ abstract class AbstractData {
      * @return array
      * the extracted ids
      */
-    protected function getReferenceIds(array $entities, $field) {
+    protected function getReferenceIds(array $entities, $field)
+    {
         $ids = array_map(function(Entity $entity) use ($field) {
             $id = $entity->get($field);
             return is_array($id) ? $id['id'] : $id;
@@ -215,7 +222,8 @@ abstract class AbstractData {
      * true on successful execution of the full chain or false if it broke at
      * any point (and stopped the execution)
      */
-    public function shouldExecuteEvents(Entity $entity, $moment, $action) {
+    public function shouldExecuteEvents(Entity $entity, $moment, $action)
+    {
         if (!isset($this->events[$moment.'.'.$action])) {
             return true;
         }
@@ -244,7 +252,8 @@ abstract class AbstractData {
      * @param \Closure $function
      * the event function to be called if set
      */
-    public function pushEvent($moment, $action, \Closure $function) {
+    public function pushEvent($moment, $action, \Closure $function)
+    {
         $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : [];
         $events[]                          = $function;
         $this->events[$moment.'.'.$action] = $events;
@@ -262,7 +271,8 @@ abstract class AbstractData {
      * @return \Closure|null
      * the popped event or null if no event was available.
      */
-    public function popEvent($moment, $action) {
+    public function popEvent($moment, $action)
+    {
         if (array_key_exists($moment.'.'.$action, $this->events)) {
             return array_pop($this->events[$moment.'.'.$action]);
         }
@@ -315,7 +325,8 @@ abstract class AbstractData {
      * @return boolean
      * true on successful creation
      */
-    public function create(Entity $entity) {
+    public function create(Entity $entity)
+    {
         $result = $this->shouldExecuteEvents($entity, 'before', 'create');
         if (!$result) {
             return false;
@@ -334,7 +345,8 @@ abstract class AbstractData {
      * @return boolean
      * true on successful update
      */
-    public function update(Entity $entity) {
+    public function update(Entity $entity)
+    {
         if (!$this->shouldExecuteEvents($entity, 'before', 'update')) {
             return false;
         }
@@ -355,7 +367,8 @@ abstract class AbstractData {
      * - AbstractData::DELETION_FAILED_STILL_REFERENCED -> failed deletion due to existing references
      * - AbstractData::DELETION_FAILED_EVENT -> failed deletion due to a failed before delete event
      */
-    public function delete($entity) {
+    public function delete($entity)
+    {
         $result = $this->shouldExecuteEvents($entity, 'before', 'delete');
         if (!$result) {
             return static::DELETION_FAILED_EVENT;
@@ -419,7 +432,8 @@ abstract class AbstractData {
      * @return EntityDefinition
      * the definition instance
      */
-    public function getDefinition() {
+    public function getDefinition()
+    {
         return $this->definition;
     }
 
@@ -430,7 +444,8 @@ abstract class AbstractData {
      * @return Entity
      * the newly created entity
      */
-    public function createEmpty() {
+    public function createEmpty()
+    {
         $entity = new Entity($this->definition);
         $fields = $this->definition->getEditableFieldNames();
         foreach ($fields as $field) {

@@ -40,7 +40,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  *
  * "/{entity}/{id}/{field}/delete" POST only deletion of a file field of an entity instance
  */
-class ControllerProvider implements ControllerProviderInterface {
+class ControllerProvider implements ControllerProviderInterface
+{
 
     /**
      * Generates the not found page.
@@ -53,7 +54,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the rendered not found page with the status code 404
      */
-    protected function getNotFoundPage(Application $app, $error) {
+    protected function getNotFoundPage(Application $app, $error)
+    {
         return new Response($app['twig']->render('@crud/notFound.twig', [
             'error' => $error,
             'crudEntity' => '',
@@ -79,7 +81,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return null|\Symfony\Component\HttpFoundation\RedirectResponse
      * the HTTP response of this modification
      */
-    protected function modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode) {
+    protected function modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode)
+    {
         $id          = $instance->get('id');
         $request     = $app['request_stack']->getCurrentRequest();
         $fileHandler = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
@@ -104,7 +107,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param string $mode
      * the modification mode, either 'create' or 'edit'
      */
-    protected function setValidationFailedFlashes(Application $app, $optimisticLocking, $mode) {
+    protected function setValidationFailedFlashes(Application $app, $optimisticLocking, $mode)
+    {
         $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
         if ($optimisticLocking) {
             $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
@@ -129,7 +133,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this modification
      */
-    protected function modifyEntity(Application $app, AbstractData $crudData, Entity $instance, $entity, $edit) {
+    protected function modifyEntity(Application $app, AbstractData $crudData, Entity $instance, $entity, $edit)
+    {
         $fieldErrors = [];
         $mode        = $edit ? 'edit' : 'create';
         $request     = $app['request_stack']->getCurrentRequest();
@@ -175,7 +180,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return array<string,string>
      * the parameters of the redirection, entity and id
      */
-    protected function getAfterDeleteRedirectParameters(Request $request, $entity, &$redirectPage) {
+    protected function getAfterDeleteRedirectParameters(Request $request, $entity, &$redirectPage)
+    {
         $redirectPage       = 'crudList';
         $redirectParameters = ['entity' => $entity];
         $redirectEntity     = $request->get('redirectEntity');
@@ -206,7 +212,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param array $filterOperators
      * reference, will hold a map of fields to operators for AbstractData::listEntries()
      */
-    protected function buildUpListFilter(Request $request, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators) {
+    protected function buildUpListFilter(Request $request, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators)
+    {
         foreach ($definition->getFilter() as $filterField) {
             $type                 = $definition->getType($filterField);
             $filter[$filterField] = $request->get('crudFilter'.$filterField);
@@ -237,7 +244,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param Application $app
      * the Application instance of the Silex application
      */
-    protected function setupTemplates(Application $app) {
+    protected function setupTemplates(Application $app)
+    {
         if ($app->offsetExists('twig.loader.filesystem')) {
             $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
         }
@@ -256,7 +264,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return mixed
      * the created controller factory
      */
-    protected function setupRoutes(Application $app) {
+    protected function setupRoutes(Application $app)
+    {
 
         $self                 = $this;
         $localeAndCheckEntity = function(Request $request, Application $app) use ($self) {
@@ -288,7 +297,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @param Application $app
      * the Application instance of the Silex application
      */
-    protected function setupI18n(Application $app) {
+    protected function setupI18n(Application $app)
+    {
         $app->before(function(Request $request, Application $app) {
             $manageI18n = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
             if ($manageI18n) {
@@ -308,7 +318,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return \SilexController\Collection
      * this method is expected to return the used ControllerCollection instance
      */
-    public function connect(Application $app) {
+    public function connect(Application $app)
+    {
         $this->setupTemplates($app);
         $factory = $this->setupRoutes($app);
         $this->setupI18n($app);
@@ -326,7 +337,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this action
      */
-    public function create(Application $app, $entity) {
+    public function create(Application $app, $entity)
+    {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->createEmpty();
         $request  = $app['request_stack']->getCurrentRequest();
@@ -347,7 +359,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function showList(Request $request, Application $app, $entity) {
+    public function showList(Request $request, Application $app, $entity)
+    {
         $crudData   = $app['crud']->getData($entity);
         $definition = $crudData->getDefinition();
 
@@ -405,7 +418,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function show(Application $app, $entity, $id) {
+    public function show(Application $app, $entity, $id)
+    {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
@@ -452,7 +466,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function edit(Application $app, $entity, $id) {
+    public function edit(Application $app, $entity, $id)
+    {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
@@ -475,7 +490,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * redirects to the entity list page or 404 on invalid input
      */
-    public function delete(Application $app, $entity, $id) {
+    public function delete(Application $app, $entity, $id)
+    {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
@@ -520,7 +536,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * the rendered file
      */
-        public function renderFile(Application $app, $entity, $id, $field) {
+    public function renderFile(Application $app, $entity, $id, $field)
+    {
         $crudData   = $app['crud']->getData($entity);
         $instance   = $crudData->get($id);
         $definition = $crudData->getDefinition();
@@ -546,7 +563,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function deleteFile(Application $app, $entity, $id, $field) {
+    public function deleteFile(Application $app, $entity, $id, $field)
+    {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
@@ -574,7 +592,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function staticFile(Request $request, Application $app) {
+    public function staticFile(Request $request, Application $app)
+    {
         $fileParam = str_replace('..', '', $request->get('file'));
         $file      = __DIR__.'/../static/'.$fileParam;
         if (!$fileParam || !file_exists($file)) {
@@ -611,7 +630,8 @@ class ControllerProvider implements ControllerProviderInterface {
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function setLocale(Request $request, Application $app, $locale) {
+    public function setLocale(Request $request, Application $app, $locale)
+    {
 
         if (!in_array($locale, $app['crud']->getLocales())) {
             return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');

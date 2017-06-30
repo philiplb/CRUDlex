@@ -16,12 +16,14 @@ use \Valdi\Validator\ValidatorInterface;
 /**
  * A validator to check references.
  */
-class ReferenceValidator implements ValidatorInterface {
+class ReferenceValidator implements ValidatorInterface
+{
 
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, array $parameters) {
+    public function isValid($value, array $parameters)
+    {
 
         if (key_exists('id', $value) && in_array($value['id'], [null, ''])) {
             return true;
@@ -40,7 +42,8 @@ class ReferenceValidator implements ValidatorInterface {
     /**
      * {@inheritdoc}
      */
-    public function getInvalidDetails() {
+    public function getInvalidDetails()
+    {
         return 'reference';
     }
 
