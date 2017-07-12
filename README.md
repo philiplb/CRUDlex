@@ -3,6 +3,8 @@ CRUDlex
 
 CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. It is very useful to generate admin pages for example.
 
+[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/CRUDlex)
+
 ![List View of CRUDlex](docs/_static/01_List.png)
 
 ## Features
