@@ -48,7 +48,7 @@ abstract class AbstractData
 
     /**
      * Holds the events.
-     * @var array
+     * @var EntityEvents
      */
     protected $events;
 
@@ -155,12 +155,12 @@ abstract class AbstractData
             $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
             $children  = $childData->listEntries([$childArray[1] => $id]);
             foreach ($children as $child) {
-                $result = $childData->shouldExecuteEvents($child, 'before', 'delete');
+                $result = $childData->events->shouldExecute($child, 'before', 'delete');
                 if (!$result) {
                     return static::DELETION_FAILED_EVENT;
                 }
                 $childData->doDelete($child, $deleteCascade);
-                $childData->shouldExecuteEvents($child, 'after', 'delete');
+                $childData->events->shouldExecute($child, 'after', 'delete');
             }
         }
         return static::DELETION_SUCCESS;
@@ -209,76 +209,15 @@ abstract class AbstractData
     abstract protected function doUpdate(Entity $entity);
 
     /**
-     * Executes the event chain of an entity.
+     * Gets the events instance.
      *
-     * @param Entity $entity
-     * the entity having the event chain to execute
-     * @param string $moment
-     * the "moment" of the event, can be either "before" or "after"
-     * @param string $action
-     * the "action" of the event, can be either "create", "update" or "delete"
-     *
-     * @return boolean
-     * true on successful execution of the full chain or false if it broke at
-     * any point (and stopped the execution)
+     * @return EntityEvents
+     * the events instance
      */
-    public function shouldExecuteEvents(Entity $entity, $moment, $action)
+    public function getEvents()
     {
-        if (!isset($this->events[$moment.'.'.$action])) {
-            return true;
-        }
-        foreach ($this->events[$moment.'.'.$action] as $event) {
-            $result = $event($entity);
-            if (!$result) {
-                return false;
-            }
-        }
-        return true;
+        return $this->events;
     }
-
-    /**
-     * Adds an event to fire for the given parameters. The event function must
-     * have this signature:
-     * function (Entity $entity)
-     * and has to return true or false.
-     * The events are executed one after another in the added order as long as
-     * they return "true". The first event returning "false" will stop the
-     * process.
-     *
-     * @param string $moment
-     * the "moment" of the event, can be either "before" or "after"
-     * @param string $action
-     * the "action" of the event, can be either "create", "update" or "delete"
-     * @param \Closure $function
-     * the event function to be called if set
-     */
-    public function pushEvent($moment, $action, \Closure $function)
-    {
-        $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : [];
-        $events[]                          = $function;
-        $this->events[$moment.'.'.$action] = $events;
-    }
-
-
-    /**
-     * Removes and returns the latest event for the given parameters.
-     *
-     * @param string $moment
-     * the "moment" of the event, can be either "before" or "after"
-     * @param string $action
-     * the "action" of the event, can be either "create", "update" or "delete"
-     *
-     * @return \Closure|null
-     * the popped event or null if no event was available.
-     */
-    public function popEvent($moment, $action)
-    {
-        if (array_key_exists($moment.'.'.$action, $this->events)) {
-            return array_pop($this->events[$moment.'.'.$action]);
-        }
-        return null;
-    }
-
 
     /**
      * Gets the entity with the given id.
@@ -327,12 +266,12 @@ abstract class AbstractData
      */
     public function create(Entity $entity)
     {
-        $result = $this->shouldExecuteEvents($entity, 'before', 'create');
+        $result = $this->events->shouldExecute($entity, 'before', 'create');
         if (!$result) {
             return false;
         }
         $result = $this->doCreate($entity);
-        $this->shouldExecuteEvents($entity, 'after', 'create');
+        $this->events->shouldExecute($entity, 'after', 'create');
         return $result;
     }
 
@@ -347,11 +286,11 @@ abstract class AbstractData
      */
     public function update(Entity $entity)
     {
-        if (!$this->shouldExecuteEvents($entity, 'before', 'update')) {
+        if (!$this->events->shouldExecute($entity, 'before', 'update')) {
             return false;
         }
         $result = $this->doUpdate($entity);
-        $this->shouldExecuteEvents($entity, 'after', 'update');
+        $this->events->shouldExecute($entity, 'after', 'update');
         return $result;
     }
 
@@ -369,12 +308,12 @@ abstract class AbstractData
      */
     public function delete($entity)
     {
-        $result = $this->shouldExecuteEvents($entity, 'before', 'delete');
+        $result = $this->events->shouldExecute($entity, 'before', 'delete');
         if (!$result) {
             return static::DELETION_FAILED_EVENT;
         }
         $result = $this->doDelete($entity, $this->definition->isDeleteCascade());
-        $this->shouldExecuteEvents($entity, 'after', 'delete');
+        $this->events->shouldExecute($entity, 'after', 'delete');
         return $result;
     }
 

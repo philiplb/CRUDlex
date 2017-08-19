@@ -259,7 +259,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
 
-        $this->dataBook->pushEvent('before', 'delete', function(Entity $entity) {
+        $this->dataBook->getEvents()->push('before', 'delete', function(Entity $entity) {
             return false;
         });
         $deleted = $this->dataLibrary->delete($entityLibrary);
@@ -268,7 +268,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $entityBook2 = $this->dataBook->get($entityBook->get('id'));
         $this->assertNotNull($entityBook2);
 
-        $this->dataBook->popEvent('before', 'delete');
+        $this->dataBook->getEvents()->pop('before', 'delete');
         $deleted = $this->dataLibrary->delete($entityLibrary);
         $expected = AbstractData::DELETION_SUCCESS;
         $this->assertSame($deleted, $expected);
@@ -445,22 +445,6 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($read);
     }
 
-    public function testPushPopEvent()
-    {
-        $function = function() {
-            return true;
-        };
-        $this->dataBook->pushEvent('before', 'create', $function);
-        $read = $this->dataBook->popEvent('before', 'create');
-        $this->assertSame($function, $read);
-
-        $read = $this->dataBook->popEvent('before', 'create');
-        $this->assertNull($read);
-
-        $read = $this->dataBook->popEvent('before', 'update');
-        $this->assertNull($read);
-    }
-
     public function testCreateEvents()
     {
         $beforeCalled = false;
@@ -468,14 +452,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
             $beforeCalled = true;
             return true;
         };
-        $this->dataLibrary->pushEvent('before', 'create', $beforeEvent);
+        $this->dataLibrary->getEvents()->push('before', 'create', $beforeEvent);
 
         $afterCalled = false;
         $afterEvent = function(Entity $entity) use (&$afterCalled) {
             $afterCalled = true;
             return true;
         };
-        $this->dataLibrary->pushEvent('after', 'create', $afterEvent);
+        $this->dataLibrary->getEvents()->push('after', 'create', $afterEvent);
 
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'name');
@@ -489,7 +473,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $beforeEvent = function(Entity $entity) {
             return false;
         };
-        $this->dataLibrary->pushEvent('before', 'create', $beforeEvent);
+        $this->dataLibrary->getEvents()->push('before', 'create', $beforeEvent);
 
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'name');
@@ -497,9 +481,9 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $id = $entity->get('id');
         $this->assertNull($id);
 
-        $this->dataLibrary->popEvent('before', 'create');
-        $this->dataLibrary->popEvent('before', 'create');
-        $this->dataLibrary->popEvent('after', 'create');
+        $this->dataLibrary->getEvents()->pop('before', 'create');
+        $this->dataLibrary->getEvents()->pop('before', 'create');
+        $this->dataLibrary->getEvents()->pop('after', 'create');
     }
 
     public function testUpdateEvents()
@@ -514,14 +498,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
             $beforeCalled = true;
             return true;
         };
-        $this->dataLibrary->pushEvent('before', 'update', $beforeEvent);
+        $this->dataLibrary->getEvents()->push('before', 'update', $beforeEvent);
 
         $afterCalled = false;
         $afterEvent = function(Entity $entity) use (&$afterCalled) {
             $afterCalled = true;
             return true;
         };
-        $this->dataLibrary->pushEvent('after', 'update', $afterEvent);
+        $this->dataLibrary->getEvents()->push('after', 'update', $afterEvent);
         $entity->set('name', 'newName');
         $this->dataLibrary->update($entity);
 
@@ -537,7 +521,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $beforeEvent = function(Entity $entity) {
             return false;
         };
-        $this->dataLibrary->pushEvent('before', 'update', $beforeEvent);
+        $this->dataLibrary->getEvents()->push('before', 'update', $beforeEvent);
 
         $entity->set('name', 'newName2');
         $this->dataLibrary->update($entity);
@@ -546,9 +530,9 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $expected = 'newName';
         $this->assertSame($read, $expected);
 
-        $this->dataLibrary->popEvent('before', 'update');
-        $this->dataLibrary->popEvent('before', 'update');
-        $this->dataLibrary->popEvent('after', 'update');
+        $this->dataLibrary->getEvents()->pop('before', 'update');
+        $this->dataLibrary->getEvents()->pop('before', 'update');
+        $this->dataLibrary->getEvents()->pop('after', 'update');
     }
 
     public function testDeleteEvents()
@@ -563,14 +547,14 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
             $beforeCalled = true;
             return true;
         };
-        $this->dataLibrary->pushEvent('before', 'delete', $beforeEvent);
+        $this->dataLibrary->getEvents()->push('before', 'delete', $beforeEvent);
 
         $afterCalled = false;
         $afterEvent = function(Entity $entity) use (&$afterCalled) {
             $afterCalled = true;
             return true;
         };
-        $this->dataLibrary->pushEvent('after', 'delete', $afterEvent);
+        $this->dataLibrary->getEvents()->push('after', 'delete', $afterEvent);
         $this->dataLibrary->delete($entity);
 
         $dbEntity = $this->dataLibrary->get($entity->get('id'));
@@ -582,7 +566,7 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $beforeEvent = function(Entity $entity) use (&$beforeCalled) {
             return false;
         };
-        $this->dataLibrary->pushEvent('before', 'delete', $beforeEvent);
+        $this->dataLibrary->getEvents()->push('before', 'delete', $beforeEvent);
 
         $entity = $this->dataLibrary->createEmpty();
         $entity->set('name', 'nameDelete2');
@@ -592,9 +576,9 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($dbEntity);
         $this->assertSame($entity->get('id'), $dbEntity->get('id'));
 
-        $this->dataLibrary->popEvent('before', 'delete');
-        $this->dataLibrary->popEvent('before', 'delete');
-        $this->dataLibrary->popEvent('after', 'delete');
+        $this->dataLibrary->getEvents()->pop('before', 'delete');
+        $this->dataLibrary->getEvents()->pop('before', 'delete');
+        $this->dataLibrary->getEvents()->pop('after', 'delete');
     }
 
     public function testHasManySet()

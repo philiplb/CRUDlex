@@ -11,6 +11,7 @@ Released: Upcoming
     - ServiceProvider::init now takes only two parameters: $crudFileCachingDirectory, Container $app
     - AbstractData::shouldExecuteEvents is now public
     - AbstractData::createFiles, ::updateFiles, ::deleteFile, ::deleteFiles and ::renderFile are moved to an own class: FileHandler
+- Attention: Moved the event handling to an own class and so the API changed
 - Added a caching mechanism for the parsing of the CRUD YAML files
 - Added the possibility to group entities in the navigation bar, thanks to https://github.com/dmaciel
 - Added an optional hideId parameter for references and many relations so the id is hidden in the reference buttons, thanks to https://github.com/jmfayard

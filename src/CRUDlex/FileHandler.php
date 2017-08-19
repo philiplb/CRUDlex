@@ -91,7 +91,7 @@ class FileHandler
      */
     protected function shouldWriteFile(AbstractData $data, Request $request, Entity $entity, $entityName, $action)
     {
-        $result = $data->shouldExecuteEvents($entity, 'before', $action);
+        $result = $data->getEvents()->shouldExecute($entity, 'before', $action);
         if (!$result) {
             return false;
         }
@@ -109,7 +109,7 @@ class FileHandler
                 fclose($stream);
             }
         });
-        $data->shouldExecuteEvents($entity, 'after', $action);
+        $data->getEvents()->shouldExecute($entity, 'after', $action);
         return true;
     }
 
@@ -178,14 +178,14 @@ class FileHandler
      */
     public function deleteFiles(AbstractData $data, Entity $entity, $entityName)
     {
-        $result = $data->shouldExecuteEvents($entity, 'before', 'deleteFiles');
+        $result = $data->getEvents()->shouldExecute($entity, 'before', 'deleteFiles');
         if (!$result) {
             return false;
         }
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) {
             // For now, we are defensive and don't delete ever. As soon as soft deletion is optional, files will get deleted.
         });
-        $data->shouldExecuteEvents($entity, 'after', 'deleteFiles');
+        $data->getEvents()->shouldExecute($entity, 'after', 'deleteFiles');
         return true;
     }
 
@@ -205,12 +205,12 @@ class FileHandler
      */
     public function deleteFile(AbstractData $data, Entity $entity, $entityName, $field)
     {
-        $result = $data->shouldExecuteEvents($entity, 'before', 'deleteFile');
+        $result = $data->getEvents()->shouldExecute($entity, 'before', 'deleteFile');
         if (!$result) {
             return false;
         }
         // For now, we are defensive and don't delete ever. As soon as soft deletion is optional, files will get deleted.
-        $data->shouldExecuteEvents($entity, 'after', 'deleteFile');
+        $data->getEvents()->shouldExecute($entity, 'after', 'deleteFile');
         return true;
     }
 

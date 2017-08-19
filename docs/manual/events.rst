@@ -13,7 +13,7 @@ This is how you define an event which is executed before an entity is created:
 
 .. code-block:: php
 
-    $app['crud']->getData('library')->pushEvent('before', 'create', function(CRUDlex\Entity $entity) {
+    $app['crud']->getData('library')->getEvents()->push('before', 'create', function(CRUDlex\Entity $entity) {
         // Do something with the entity which is about to be saved.
         return true;
     });
@@ -21,7 +21,7 @@ This is how you define an event which is executed before an entity is created:
 This code should go in your setup directly after the ServiceProvider is
 registered.
 
-*pushEvent* takes three parameters:
+*push* takes three parameters:
 
 * The moment of the event, can be:
 
@@ -47,11 +47,11 @@ The before events must return a boolean. The first event returning false is
 canceling the whole action and so the entity doesn't get created, updated or
 deleted.
 
-With *popEvent*, the last added event of the given moment and action is
+With *pop*, the last added event of the given moment and action is
 removed from the list and the closure is returned:
 
 .. code-block:: php
 
-    $closure = $app['crud']->getData('library')->popEvent('before', 'create');
+    $closure = $app['crud']->getData('library')->getEvents()->pop('before', 'create');
 
-If no more events are available, *popEvent* will return *null*.
+If no more events are available, *pop* will return *null*.

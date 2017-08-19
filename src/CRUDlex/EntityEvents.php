@@ -37,7 +37,7 @@ class EntityEvents
      * true on successful execution of the full chain or false if it broke at
      * any point (and stopped the execution)
      */
-    public function shouldExecuteEvents(Entity $entity, $moment, $action)
+    public function shouldExecute(Entity $entity, $moment, $action)
     {
         if (!isset($this->events[$moment.'.'.$action])) {
             return true;
@@ -67,7 +67,7 @@ class EntityEvents
      * @param \Closure $function
      * the event function to be called if set
      */
-    public function pushEvent($moment, $action, \Closure $function)
+    public function push($moment, $action, \Closure $function)
     {
         $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : [];
         $events[]                          = $function;
@@ -85,7 +85,7 @@ class EntityEvents
      * @return \Closure|null
      * the popped event or null if no event was available.
      */
-    public function popEvent($moment, $action)
+    public function pop($moment, $action)
     {
         if (array_key_exists($moment.'.'.$action, $this->events)) {
             return array_pop($this->events[$moment.'.'.$action]);

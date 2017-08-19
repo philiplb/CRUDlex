@@ -26,24 +26,24 @@ class EntityEventsTest extends \PHPUnit_Framework_TestCase
         $this->entity = $dataBook->createEmpty();
     }
 
-    public function testPushPopEvent()
+    public function testPushPop()
     {
         $function = function() {
             return true;
         };
         $events = new EntityEvents();
-        $events->pushEvent('before', 'create', $function);
-        $read = $events->popEvent('before', 'create');
+        $events->push('before', 'create', $function);
+        $read = $events->pop('before', 'create');
         $this->assertSame($function, $read);
 
-        $read = $events->popEvent('before', 'create');
+        $read = $events->pop('before', 'create');
         $this->assertNull($read);
 
-        $read = $events->popEvent('before', 'update');
+        $read = $events->pop('before', 'update');
         $this->assertNull($read);
     }
 
-    public function testShouldExecuteEvents()
+    public function testShouldExecute()
     {
         $functionTrue = function() {
             return true;
@@ -53,17 +53,17 @@ class EntityEventsTest extends \PHPUnit_Framework_TestCase
         };
 
         $events = new EntityEvents();
-        $result = $events->shouldExecuteEvents($this->entity, 'invalidMoment', 'invalidAction');
+        $result = $events->shouldExecute($this->entity, 'invalidMoment', 'invalidAction');
         $this->assertTrue($result);
 
-        $events->pushEvent('moment', 'action', $functionTrue);
-        $result = $events->shouldExecuteEvents($this->entity, 'moment', 'action');
+        $events->push('moment', 'action', $functionTrue);
+        $result = $events->shouldExecute($this->entity, 'moment', 'action');
         $this->assertTrue($result);
-        $result = $events->shouldExecuteEvents($this->entity, 'invalidMoment', 'invalidAction');
+        $result = $events->shouldExecute($this->entity, 'invalidMoment', 'invalidAction');
         $this->assertTrue($result);
 
-        $events->pushEvent('moment', 'action', $functionFalse);
-        $result = $events->shouldExecuteEvents($this->entity, 'moment', 'action');
+        $events->push('moment', 'action', $functionFalse);
+        $result = $events->shouldExecute($this->entity, 'moment', 'action');
         $this->assertFalse($result);
 
     }

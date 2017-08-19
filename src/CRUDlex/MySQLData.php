@@ -479,6 +479,7 @@ class MySQLData extends AbstractData
         $this->filesystem = $filesystem;
         $this->database   = $database;
         $this->useUUIDs   = $useUUIDs;
+        $this->events     = new EntityEvents();
     }
 
     /**
