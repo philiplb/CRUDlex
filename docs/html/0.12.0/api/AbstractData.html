@@ -111,6 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityEvents.html">CRUDlex\EntityEvents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
@@ -210,7 +211,7 @@
 <dl class="attr">
 <dt id="AbstractData::$events">
 <em class="property">property </em><code class="descname">events</code><a class="headerlink" href="#AbstractData::$events" title="Permalink to this definition">¶</a></dt>
-<dd><p>protected array</p>
+<dd><p>protected EntityEvents</p>
 <p>Holds the events.</p>
 </dd></dl>
 
@@ -388,68 +389,14 @@ same id.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="AbstractData::shouldExecuteEvents">
-<code class="descname">shouldExecuteEvents</code><span class="sig-paren">(</span><em>Entity $entity</em>, <em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::shouldExecuteEvents" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the event chain of an entity.</p>
+<dt id="AbstractData::getEvents">
+<code class="descname">getEvents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::getEvents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the events instance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity having the event chain to execute</li>
-<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean true on successful execution of the full chain or false if it broke at any point (and stopped the execution)</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="AbstractData::pushEvent">
-<code class="descname">pushEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em>, <em>Closure $function</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::pushEvent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds an event to fire for the given parameters. The event function must
-have this signature:
-function (Entity $entity)
-and has to return true or false.
-The events are executed one after another in the added order as long as
-they return &#8220;true&#8221;. The first event returning &#8220;false&#8221; will stop the
-process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
-<li><strong>$function</strong> (<em>Closure</em>) &#8211; the event function to be called if set</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="AbstractData::popEvent">
-<code class="descname">popEvent</code><span class="sig-paren">(</span><em>$moment</em>, <em>$action</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::popEvent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes and returns the latest event for the given parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Closure|null the popped event or null if no event was available.</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">EntityEvents the events instance</td>
 </tr>
 </tbody>
 </table>

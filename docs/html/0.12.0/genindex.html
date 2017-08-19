@@ -107,6 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/EntityEvents.html">CRUDlex\EntityEvents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
@@ -570,6 +571,10 @@
   </dt>
 
       
+  <dt><a href="api/EntityEvents.html#EntityEvents"><strong>EntityEvents (class)</strong></a>
+  </dt>
+
+      
   <dt><a href="api/EntityValidator.html#EntityValidator"><strong>EntityValidator (class)</strong></a>
   </dt>
 
@@ -578,6 +583,10 @@
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="api/EntityEvents.html#EntityEvents::$events"><strong>(EntityEvents property)</strong></a>
+  </dt>
+
         
   <dt><a href="api/MySQLData.html#MySQLData::$events"><strong>(MySQLData property)</strong></a>
   </dt>
@@ -715,6 +724,16 @@
   <dt><a href="api/ServiceProvider.html#ServiceProvider::getEntitiesNavBar"><strong>getEntitiesNavBar() (ServiceProvider method)</strong></a>
   </dt>
 
+      
+  <dt><a href="api/AbstractData.html#AbstractData::getEvents"><strong>getEvents() (AbstractData method)</strong></a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/MySQLData.html#MySQLData::getEvents"><strong>(MySQLData method)</strong></a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="api/EntityDefinition.html#EntityDefinition::getField"><strong>getField() (EntityDefinition method)</strong></a>
   </dt>
@@ -1082,15 +1101,9 @@
   </dt>
 
       
-  <dt><a href="api/AbstractData.html#AbstractData::popEvent"><strong>popEvent() (AbstractData method)</strong></a>
+  <dt><a href="api/EntityEvents.html#EntityEvents::pop"><strong>pop() (EntityEvents method)</strong></a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::popEvent"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -1098,15 +1111,9 @@
   </dt>
 
       
-  <dt><a href="api/AbstractData.html#AbstractData::pushEvent"><strong>pushEvent() (AbstractData method)</strong></a>
+  <dt><a href="api/EntityEvents.html#EntityEvents::push"><strong>push() (EntityEvents method)</strong></a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::pushEvent"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -1264,15 +1271,9 @@
   </dt>
 
       
-  <dt><a href="api/AbstractData.html#AbstractData::shouldExecuteEvents"><strong>shouldExecuteEvents() (AbstractData method)</strong></a>
+  <dt><a href="api/EntityEvents.html#EntityEvents::shouldExecute"><strong>shouldExecute() (EntityEvents method)</strong></a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="api/MySQLData.html#MySQLData::shouldExecuteEvents"><strong>(MySQLData method)</strong></a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="api/FileHandler.html#FileHandler::shouldWriteFile"><strong>shouldWriteFile() (FileHandler method)</strong></a>
   </dt>

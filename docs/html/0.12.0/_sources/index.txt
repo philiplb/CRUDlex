@@ -45,6 +45,7 @@ Contents:
    api/EntityDefinition
    api/EntityDefinitionFactoryInterface
    api/EntityDefinitionValidatorInterface
+   api/EntityEvents
    api/EntityValidator
    api/FileHandler
    api/ManyValidator
