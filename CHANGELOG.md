@@ -27,6 +27,18 @@ Released: Upcoming
 - "before" "delete" Events of cascade deleted children are now properly taken into account
 - added @var annotations to class members for better IDE usage
 - switched code formatting from Javaish style to the PSR-2 standard
+- Updated dependencies:
+    - "silex/silex": "~2.2"
+    - "doctrine/dbal": "~2.5"
+    - "symfony/twig-bridge": "~3.2"
+    - "symfony/yaml": "~3.3"
+    - "symfony/translation": "~3.3"
+    - "symfony/intl": "~3.3"
+    - "symfony/browser-kit": "~3.3"
+    - "symfony/css-selector": "~3.3"
+    - "eloquent/phony": "~1.0"
+    - Quill Editor v1.3.1
+    - flatpickr v3.0.7
 
 ## 0.11.0
 Released: 2017-04-02
