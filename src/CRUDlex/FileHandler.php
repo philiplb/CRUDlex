@@ -98,7 +98,7 @@ class FileHandler
         $filesystem = $this->filesystem;
         $this->performOnFiles($entity, $entityName, function($entity, $entityName, $field) use ($filesystem, $request) {
             $file = $request->files->get($field);
-            if ($file->isValid()) {
+            if ($file != null && $file->isValid()) {
                 $path     = $this->getPath($entityName, $entity, $field);
                 $filename = $path.'/'.$file->getClientOriginalName();
                 if ($filesystem->has($filename)) {
