@@ -1,8 +1,11 @@
 CRUDlex Changelog
 =================
 
-## 0.12.0
+## 0.13.0
 Released: Upcoming
+
+## 0.12.0
+Released: 2017-08-22
 - Attention: Switched from the own abstraction "FileProcessorInterface" to the library Flysystem for file handling, API changes:
     - All implementations of the FileProcessorInterface are gone now
     - The class "MimeTypes" is gone now
