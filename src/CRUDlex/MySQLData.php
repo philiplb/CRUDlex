@@ -278,13 +278,13 @@ class MySQLData extends AbstractData
         }
     }
 
-        /**
-         * Generates a new UUID.
-         *
-         * @return string|null
-         * the new UUID or null if this instance isn't configured to do so
-         */
-        protected function generateUUID()
+    /**
+     * Generates a new UUID.
+     *
+     * @return string|null
+     * the new UUID or null if this instance isn't configured to do so
+     */
+    protected function generateUUID()
         {
         $uuid = null;
         if ($this->useUUIDs) {
