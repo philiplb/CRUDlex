@@ -36,6 +36,8 @@ class MySQLData extends AbstractData
     /**
      * Adds the soft deletion parameters if activated.
      *
+     * @param EntityDefinition $definition
+     * the entity definition which might have soft deletion activated
      * @param QueryBuilder $queryBuilder
      * the query builder to add the deletion condition to
      * @param string $fieldPrefix
@@ -43,9 +45,9 @@ class MySQLData extends AbstractData
      * @param string $method
      * the method to use of the query builder, "where" or "andWhere"
      */
-    protected function addSoftDeletionToQuery(QueryBuilder $queryBuilder, $fieldPrefix = '', $method = 'andWhere')
+    protected function addSoftDeletionToQuery(EntityDefinition $definition, QueryBuilder $queryBuilder, $fieldPrefix = '', $method = 'andWhere')
     {
-        if (!$this->definition->isHardDeletion()) {
+        if (!$definition->isHardDeletion()) {
             $queryBuilder->$method($fieldPrefix.'deleted_at IS NULL');
         }
     }
@@ -98,9 +100,7 @@ class MySQLData extends AbstractData
                 ->where('`'.$child[1].'` = ?')
                 ->setParameter(0, $id)
             ;
-            if (!$this->getDefinition()->getServiceProvider()->getData($child[2])->getDefinition()->isHardDeletion()) {
-                $queryBuilder->andWhere('deleted_at IS NULL');
-            }
+            $this->addSoftDeletionToQuery($this->getDefinition()->getServiceProvider()->getData($child[2])->getDefinition(), $queryBuilder);
             $queryResult = $queryBuilder->execute();
             $result      = $queryResult->fetch(\PDO::FETCH_NUM);
             if ($result[0] > 0) {
@@ -311,7 +311,7 @@ class MySQLData extends AbstractData
             ->from('`'.$table.'`', '`'.$table.'`')
             ->where('id IN (?)')
         ;
-        $this->addSoftDeletionToQuery($queryBuilder);
+        $this->addSoftDeletionToQuery($this->definition, $queryBuilder);
         if ($nameField) {
             $queryBuilder->select('id', $nameField);
         } else {
@@ -377,9 +377,7 @@ class MySQLData extends AbstractData
             ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
             ->where('t1.`'.$thisField.'` IN (?)')
         ;
-        if (!$entityDefinition->isHardDeletion()) {
-            $queryBuilder->andWhere('t2.deleted_at IS NULL');
-        }
+        $this->addSoftDeletionToQuery($entityDefinition, $queryBuilder);
         $queryBuilder->setParameter(0, array_keys($idToData), Connection::PARAM_STR_ARRAY);
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
@@ -571,7 +569,7 @@ class MySQLData extends AbstractData
         ;
 
         $this->addFilter($queryBuilder, $filter, $filterOperators);
-        $this->addSoftDeletionToQuery($queryBuilder);
+        $this->addSoftDeletionToQuery($this->definition, $queryBuilder);
         $this->addPagination($queryBuilder, $skip, $amount);
         $this->addSort($queryBuilder, $sortField, $sortAscending);
 
@@ -602,9 +600,7 @@ class MySQLData extends AbstractData
             ->from('`'.$table.'`', 't1')
             ->orderBy($drivingField)
         ;
-        if (!$entityDefinition->isHardDeletion()) {
-            $queryBuilder->where('deleted_at IS NULL');
-        }
+        $this->addSoftDeletionToQuery($entityDefinition, $queryBuilder);
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result         = array_reduce($manyReferences, function(&$carry, $manyReference) use ($drivingField) {
@@ -651,7 +647,7 @@ class MySQLData extends AbstractData
         }
 
         if ($excludeDeleted) {
-            $this->addSoftDeletionToQuery($queryBuilder, '', $deletedExcluder);
+            $this->addSoftDeletionToQuery($this->definition, $queryBuilder, '', $deletedExcluder);
         }
 
         $queryResult = $queryBuilder->execute();
