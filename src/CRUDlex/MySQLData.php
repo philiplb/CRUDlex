@@ -123,9 +123,9 @@ class MySQLData extends AbstractData
             foreach ($data->getDefinition()->getFieldNames(true) as $field) {
                 if ($data->getDefinition()->getType($field) == 'many') {
                     $otherEntity = $data->getDefinition()->getSubTypeField($field, 'many', 'entity');
-                    $otherData = $this->definition->getServiceProvider()->getData($otherEntity);
+                    $otherData   = $this->definition->getServiceProvider()->getData($otherEntity);
                     if ($entity->getDefinition()->getTable() == $otherData->getDefinition()->getTable()) {
-                        $thatField = $data->getDefinition()->getSubTypeField($field, 'many', 'thatField');
+                        $thatField    = $data->getDefinition()->getSubTypeField($field, 'many', 'thatField');
                         $queryBuilder = $this->database->createQueryBuilder();
                         $queryBuilder
                             ->delete('`'.$field.'`')
