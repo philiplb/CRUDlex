@@ -238,7 +238,8 @@ more fields per table:</p>
 <li>updated_at datetime NOT NULL: a timestamp in UTC when the row was the last time
 updated</li>
 <li>deleted_at datetime DEFAULT NULL: defines when this entry was deleted in UTC.
-CRUDlex uses a soft delete mechanism hiding all rows where this is not null</li>
+CRUDlex uses a soft delete mechanism hiding all rows where this is not null
+(only if hard deletion is not activated)</li>
 <li>version int(11) NOT NULL: used for optimistic locking</li>
 </ul>
 <p>See the CRUDlexSample.sql in the <a class="reference external" href="https://github.com/philiplb/CRUDlexSample">sample</a>

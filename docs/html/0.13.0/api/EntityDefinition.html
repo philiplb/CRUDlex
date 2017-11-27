@@ -278,6 +278,13 @@ field names.</p>
 </dd></dl>
 
 <dl class="attr">
+<dt id="EntityDefinition::$hardDeletion">
+<em class="property">property </em><code class="descname">hardDeletion</code><a class="headerlink" href="#EntityDefinition::$hardDeletion" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected bool</p>
+<p>Holds whether hard deletion is activated.</p>
+</dd></dl>
+
+<dl class="attr">
 <dt id="EntityDefinition::$navBarGroup">
 <em class="property">property </em><code class="descname">navBarGroup</code><a class="headerlink" href="#EntityDefinition::$navBarGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>protected string</p>
@@ -845,7 +852,7 @@ definition has a reference to this one.</p>
 <dl class="method">
 <dt id="EntityDefinition::setInitialSortAscending">
 <code class="descname">setInitialSortAscending</code><span class="sig-paren">(</span><em>$initialSortAscending</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setInitialSortAscending" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the initial sort order.</p>
+<dd><p>Sets whether the initial sort order is ascending.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -862,12 +869,43 @@ definition has a reference to this one.</p>
 <dl class="method">
 <dt id="EntityDefinition::isInitialSortAscending">
 <code class="descname">isInitialSortAscending</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isInitialSortAscending" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the initial sort order.</p>
+<dd><p>Gets whether the initial sort order is ascending.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean the initial sort order, true if ascending</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setHardDeletion">
+<code class="descname">setHardDeletion</code><span class="sig-paren">(</span><em>$hardDeletion</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setHardDeletion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the hard deletion state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$hardDeletion</strong> (<em>boolean</em>) &#8211; the hard deletion state</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::isHardDeletion">
+<code class="descname">isHardDeletion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isHardDeletion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the hard deletion state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean the hard deletion state</td>
 </tr>
 </tbody>
 </table>

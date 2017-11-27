@@ -100,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#displayed-fields-in-the-list">Displayed Fields in the List</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pagination">Pagination</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#filters">Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hard-deletion">Hard Deletion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#group-entities-in-the-navigation-bar">Group entities in the Navigation Bar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#i18n">I18n</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#set-the-translations-of-entity-and-field-labels">Set the Translations of Entity- and Field-Labels</a></li>
@@ -308,6 +309,21 @@ data types are presented.</p>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="hard-deletion">
+<h2>Hard Deletion<a class="headerlink" href="#hard-deletion" title="Permalink to this headline">¶</a></h2>
+<p>By default, CRUDlex uses a soft deletion mechanism by only setting a deleted_at field. Hard deletion from the database
+can be activated though via the &#8220;hardDeletion&#8221; flag like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
+    <span class="l l-Scalar l-Scalar-Plain">hardDeletion</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+</pre></div>
+</div>
+<p>If activated, the column &#8220;deleted_at&#8221; is not needed in the entities table.</p>
 </div>
 <div class="section" id="group-entities-in-the-navigation-bar">
 <h2>Group entities in the Navigation Bar<a class="headerlink" href="#group-entities-in-the-navigation-bar" title="Permalink to this headline">¶</a></h2>

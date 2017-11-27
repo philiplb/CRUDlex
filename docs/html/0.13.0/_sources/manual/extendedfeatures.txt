@@ -138,6 +138,25 @@ Currently, the listview contains all entries on the pages. Often, it is desirabl
                 type: integer
                 label: Pages
 
+-------------
+Hard Deletion
+-------------
+
+By default, CRUDlex uses a soft deletion mechanism by only setting a deleted_at field. Hard deletion from the database
+can be activated though via the "hardDeletion" flag like this:
+
+.. code-block:: yaml
+
+    library:
+        table: library
+        hardDeletion: true
+        fields:
+            name:
+                type: text
+                label: Name
+
+If activated, the column "deleted_at" is not needed in the entities table.
+
 ------------------------------------
 Group entities in the Navigation Bar
 ------------------------------------
