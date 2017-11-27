@@ -83,6 +83,7 @@ more fields per table:
   updated
 * deleted_at datetime DEFAULT NULL: defines when this entry was deleted in UTC.
   CRUDlex uses a soft delete mechanism hiding all rows where this is not null
+  (only if hard deletion is not activated)
 * version int(11) NOT NULL: used for optimistic locking
 
 See the CRUDlexSample.sql in the `sample <https://github.com/philiplb/CRUDlexSample>`_

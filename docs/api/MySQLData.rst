@@ -50,6 +50,19 @@ CRUDlex\\MySQLData
 
         Holds the events.
 
+    .. php:method:: addSoftDeletionToQuery(EntityDefinition $definition, QueryBuilder $queryBuilder, $fieldPrefix = '', $method = 'andWhere')
+
+        Adds the soft deletion parameters if activated.
+
+        :type $definition: EntityDefinition
+        :param $definition: the entity definition which might have soft deletion activated
+        :type $queryBuilder: QueryBuilder
+        :param $queryBuilder: the query builder to add the deletion condition to
+        :type $fieldPrefix: string
+        :param $fieldPrefix: the prefix to add before the deleted_at field like an table alias
+        :type $method: string
+        :param $method: the method to use of the query builder, "where" or "andWhere"
+
     .. php:method:: setValuesAndParameters(Entity $entity, QueryBuilder $queryBuilder, $setMethod)
 
         Sets the values and parameters of the upcoming given query according
@@ -69,6 +82,13 @@ CRUDlex\\MySQLData
         :type $id: integer
         :param $id: the current entities id
         :returns: boolean true if the entity still has children
+
+    .. php:method:: deleteManyToManyReferences(Entity $entity)
+
+        Deletes any many to many references pointing to the given entity.
+
+        :type $entity: Entity
+        :param $entity: the referenced entity
 
     .. php:method:: doDelete(Entity $entity, $deleteCascade)
 

@@ -102,6 +102,12 @@ CRUDlex\\EntityDefinition
 
         Holds the initial sort order.
 
+    .. php:attr:: hardDeletion
+
+        protected bool
+
+        Holds whether hard deletion is activated.
+
     .. php:attr:: navBarGroup
 
         protected string
@@ -367,16 +373,29 @@ CRUDlex\\EntityDefinition
 
     .. php:method:: setInitialSortAscending($initialSortAscending)
 
-        Sets the initial sort order.
+        Sets whether the initial sort order is ascending.
 
         :type $initialSortAscending: boolean
         :param $initialSortAscending: the initial sort order, true if ascending
 
     .. php:method:: isInitialSortAscending()
 
-        Gets the initial sort order.
+        Gets whether the initial sort order is ascending.
 
         :returns: boolean the initial sort order, true if ascending
+
+    .. php:method:: setHardDeletion($hardDeletion)
+
+        Sets the hard deletion state.
+
+        :type $hardDeletion: boolean
+        :param $hardDeletion: the hard deletion state
+
+    .. php:method:: isHardDeletion()
+
+        Gets the hard deletion state.
+
+        :returns: boolean the hard deletion state
 
     .. php:method:: getNavBarGroup()
 

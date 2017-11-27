@@ -95,6 +95,8 @@ required, along with the default value or behaviour.
       # the label which should be displayed if the "de" is selected as language
       label_de: Bücher
       table: book
+      # database entries will be hard deleted for this entry
+      hardDeletion: true
       fields:
         title:
           type: text
