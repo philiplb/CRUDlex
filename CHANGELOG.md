@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.13.0
 Released: Upcoming
+- The soft deletion is now optional (but switched on by default)
 
 ## 0.12.0
 Released: 2017-08-22
