@@ -140,7 +140,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
             'initialSortField',
             'initialSortAscending',
             'navBarGroup',
-            'optimisticLocking'
+            'optimisticLocking',
+            'hardDeletion',
         ];
         foreach ($toConfigure as $field) {
             if (array_key_exists($field, $crud)) {

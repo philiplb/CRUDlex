@@ -39,7 +39,6 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase
             'id',
             'created_at',
             'updated_at',
-            'deleted_at',
             'version',
             'title',
             'author',
@@ -48,7 +47,21 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase
             'library',
             'secondLibrary',
             'cover',
-            'price'
+            'price',
+        ];
+        $this->assertSame($read, $expected);
+
+        $read = $this->definitionLibrary->getFieldNames();
+        $expected = [
+            'id',
+            'created_at',
+            'updated_at',
+            'deleted_at',
+            'name',
+            'type',
+            'opening',
+            'isOpenOnSundays',
+            'planet',
         ];
         $this->assertSame($read, $expected);
     }
@@ -280,6 +293,15 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase
         $this->definition->setInitialSortAscending(false);
         $read = $this->definition->isInitialSortAscending();
         $this->assertFalse($read);
+    }
+
+    public function testGetSetHardDeletion()
+    {
+        $read = $this->definitionLibrary->isHardDeletion();
+        $this->assertFalse($read);
+        $this->definitionLibrary->setHardDeletion(true);
+        $read = $this->definitionLibrary->isHardDeletion();
+        $this->assertTrue($read);
     }
 
     public function testInvalidFieldNames()

@@ -47,6 +47,7 @@ book:
   listFields: [author, title, library]
   filter: [author, title, library]
   navBarGroup: entities
+  hardDeletion: true
   fields:
     title:
       type: text

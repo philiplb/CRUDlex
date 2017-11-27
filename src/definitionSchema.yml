@@ -51,6 +51,9 @@ root:
       deleteCascade:
         _type: boolean
 
+      hardDeletion:
+        _type: boolean
+
       fields:
         _type: prototype
         _prototype:

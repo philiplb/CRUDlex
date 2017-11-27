@@ -234,6 +234,18 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
         $entityBook->set('pages', 111);
         $entityBook->set('library', $entityLibrary->get('id'));
         $this->dataBook->create($entityBook);
+        $deleted = $this->dataBook->delete($entityBook);
+        $read = $this->dataLibrary->get($entityBook->get('id'));
+        $expected = AbstractData::DELETION_SUCCESS;
+        $this->assertSame($deleted, $expected);
+        $this->assertNull($read);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'title');
+        $entityBook->set('author', 'author');
+        $entityBook->set('pages', 111);
+        $entityBook->set('library', $entityLibrary->get('id'));
+        $this->dataBook->create($entityBook);
 
         $this->dataLibrary->getDefinition()->setDeleteCascade(false);
         $deleted = $this->dataLibrary->delete($entityLibrary);

@@ -34,6 +34,23 @@ class MySQLData extends AbstractData
     protected $useUUIDs;
 
     /**
+     * Adds the soft deletion parameters if activated.
+     *
+     * @param QueryBuilder $queryBuilder
+     * the query builder to add the deletion condition to
+     * @param string $fieldPrefix
+     * the prefix to add before the deleted_at field like an table alias
+     * @param string $method
+     * the method to use of the query builder, "where" or "andWhere"
+     */
+    protected function addSoftDeletionToQuery(QueryBuilder $queryBuilder, $fieldPrefix = '', $method = 'andWhere')
+    {
+        if (!$this->definition->isHardDeletion()) {
+            $queryBuilder->$method($fieldPrefix.'deleted_at IS NULL');
+        }
+    }
+
+    /**
      * Sets the values and parameters of the upcoming given query according
      * to the entity.
      *
@@ -79,8 +96,11 @@ class MySQLData extends AbstractData
                 ->select('COUNT(id)')
                 ->from('`'.$child[0].'`', '`'.$child[0].'`')
                 ->where('`'.$child[1].'` = ?')
-                ->andWhere('deleted_at IS NULL')
-                ->setParameter(0, $id);
+                ->setParameter(0, $id)
+            ;
+            if (!$this->getDefinition()->getServiceProvider()->getData($child[2])->getDefinition()->isHardDeletion()) {
+                $queryBuilder->andWhere('deleted_at IS NULL');
+            }
             $queryResult = $queryBuilder->execute();
             $result      = $queryResult->fetch(\PDO::FETCH_NUM);
             if ($result[0] > 0) {
@@ -88,6 +108,35 @@ class MySQLData extends AbstractData
             }
         }
         return false;
+    }
+
+    /**
+     * Deletes any many to many references pointing to the given entity.
+     *
+     * @param Entity $entity
+     * the referenced entity
+     */
+    protected function deleteManyToManyReferences(Entity $entity)
+    {
+        foreach ($this->definition->getServiceProvider()->getEntities() as $entityName) {
+            $data = $this->definition->getServiceProvider()->getData($entityName);
+            foreach ($data->getDefinition()->getFieldNames(true) as $field) {
+                if ($data->getDefinition()->getType($field) == 'many') {
+                    $otherEntity = $data->getDefinition()->getSubTypeField($field, 'many', 'entity');
+                    $otherData = $this->definition->getServiceProvider()->getData($otherEntity);
+                    if ($entity->getDefinition()->getTable() == $otherData->getDefinition()->getTable()) {
+                        $thatField = $data->getDefinition()->getSubTypeField($field, 'many', 'thatField');
+                        $queryBuilder = $this->database->createQueryBuilder();
+                        $queryBuilder
+                            ->delete('`'.$field.'`')
+                            ->where('`'.$thatField.'` = ?')
+                            ->setParameter(0, $entity->get('id'))
+                            ->execute()
+                        ;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -105,14 +154,22 @@ class MySQLData extends AbstractData
             return static::DELETION_FAILED_STILL_REFERENCED;
         }
 
-        $query = $this->database->createQueryBuilder();
-        $query
-            ->update('`'.$this->definition->getTable().'`')
-            ->set('deleted_at', 'UTC_TIMESTAMP()')
-            ->where('id = ?')
-            ->setParameter(0, $id);
+        $this->deleteManyToManyReferences($entity);
 
-        $query->execute();
+        $query = $this->database->createQueryBuilder();
+        if ($this->definition->isHardDeletion()) {
+            $query->delete('`'.$this->definition->getTable().'`');
+        } else {
+            $query
+                ->update('`'.$this->definition->getTable().'`')
+                ->set('deleted_at', 'UTC_TIMESTAMP()')
+            ;
+        }
+        $query
+            ->where('id = ?')
+            ->setParameter(0, $id)
+            ->execute()
+        ;
         return static::DELETION_SUCCESS;
     }
 
@@ -253,7 +310,8 @@ class MySQLData extends AbstractData
         $queryBuilder
             ->from('`'.$table.'`', '`'.$table.'`')
             ->where('id IN (?)')
-            ->andWhere('deleted_at IS NULL');
+        ;
+        $this->addSoftDeletionToQuery($queryBuilder);
         if ($nameField) {
             $queryBuilder->select('id', $nameField);
         } else {
@@ -305,19 +363,23 @@ class MySQLData extends AbstractData
      */
     protected function enrichWithManyField(&$idToData, $manyField)
     {
-        $queryBuilder = $this->database->createQueryBuilder();
-        $nameField    = $this->definition->getSubTypeField($manyField, 'many', 'nameField');
-        $thisField    = $this->definition->getSubTypeField($manyField, 'many', 'thisField');
-        $thatField    = $this->definition->getSubTypeField($manyField, 'many', 'thatField');
-        $entity       = $this->definition->getSubTypeField($manyField, 'many', 'entity');
-        $entityTable  = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
-        $nameSelect   = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
+        $queryBuilder     = $this->database->createQueryBuilder();
+        $nameField        = $this->definition->getSubTypeField($manyField, 'many', 'nameField');
+        $thisField        = $this->definition->getSubTypeField($manyField, 'many', 'thisField');
+        $thatField        = $this->definition->getSubTypeField($manyField, 'many', 'thatField');
+        $entity           = $this->definition->getSubTypeField($manyField, 'many', 'entity');
+        $entityDefinition = $this->definition->getServiceProvider()->getData($entity)->getDefinition();
+        $entityTable      = $entityDefinition->getTable();
+        $nameSelect       = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
         $queryBuilder
             ->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS id'.$nameSelect)
             ->from('`'.$manyField.'`', 't1')
             ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
             ->where('t1.`'.$thisField.'` IN (?)')
-            ->andWhere('t2.deleted_at IS NULL');
+        ;
+        if (!$entityDefinition->isHardDeletion()) {
+            $queryBuilder->andWhere('t2.deleted_at IS NULL');
+        }
         $queryBuilder->setParameter(0, array_keys($idToData), Connection::PARAM_STR_ARRAY);
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
@@ -506,9 +568,10 @@ class MySQLData extends AbstractData
         $queryBuilder
             ->select('`'.implode('`,`', $fieldNames).'`')
             ->from('`'.$table.'`', '`'.$table.'`')
-            ->where('deleted_at IS NULL');
+        ;
 
         $this->addFilter($queryBuilder, $filter, $filterOperators);
+        $this->addSoftDeletionToQuery($queryBuilder);
         $this->addPagination($queryBuilder, $skip, $amount);
         $this->addSort($queryBuilder, $sortField, $sortAscending);
 
@@ -531,14 +594,17 @@ class MySQLData extends AbstractData
         $nameSelect   = $nameField !== null ? ',`'.$nameField.'`' : '';
         $drivingField = $nameField ?: 'id';
 
-        $table        = $this->definition->getServiceProvider()->getData($entity)->getDefinition()->getTable();
-        $queryBuilder = $this->database->createQueryBuilder();
+        $entityDefinition = $this->definition->getServiceProvider()->getData($entity)->getDefinition();
+        $table            = $entityDefinition->getTable();
+        $queryBuilder     = $this->database->createQueryBuilder();
         $queryBuilder
             ->select('id'.$nameSelect)
             ->from('`'.$table.'`', 't1')
-            ->where('deleted_at IS NULL')
             ->orderBy($drivingField)
         ;
+        if (!$entityDefinition->isHardDeletion()) {
+            $queryBuilder->where('deleted_at IS NULL');
+        }
         $queryResult    = $queryBuilder->execute();
         $manyReferences = $queryResult->fetchAll(\PDO::FETCH_ASSOC);
         $result         = array_reduce($manyReferences, function(&$carry, $manyReference) use ($drivingField) {
@@ -585,7 +651,7 @@ class MySQLData extends AbstractData
         }
 
         if ($excludeDeleted) {
-            $queryBuilder->$deletedExcluder('deleted_at IS NULL');
+            $this->addSoftDeletionToQuery($queryBuilder, '', $deletedExcluder);
         }
 
         $queryResult = $queryBuilder->execute();
@@ -598,18 +664,24 @@ class MySQLData extends AbstractData
      */
     public function hasManySet($field, array $thatIds, $excludeId = null)
     {
-        $thisField    = $this->definition->getSubTypeField($field, 'many', 'thisField');
-        $thatField    = $this->definition->getSubTypeField($field, 'many', 'thatField');
-        $thatEntity   = $this->definition->getSubTypeField($field, 'many', 'entity');
-        $entityTable  = $this->definition->getServiceProvider()->getData($thatEntity)->getDefinition()->getTable();
-        $queryBuilder = $this->database->createQueryBuilder();
+        $thisField        = $this->definition->getSubTypeField($field, 'many', 'thisField');
+        $thatField        = $this->definition->getSubTypeField($field, 'many', 'thatField');
+        $thatEntity       = $this->definition->getSubTypeField($field, 'many', 'entity');
+        $entityDefinition = $this->definition->getServiceProvider()->getData($thatEntity)->getDefinition();
+        $entityTable      = $entityDefinition->getTable();
+        $queryBuilder     = $this->database->createQueryBuilder();
         $queryBuilder->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that')
             ->from('`'.$field.'`', 't1')
             ->leftJoin('t1', '`'.$entityTable.'`', 't2', 't2.id = t1.`'.$thatField.'`')
-            ->where('t2.deleted_at IS NULL')
-            ->orderBy('this, that');
+            ->orderBy('this, that')
+        ;
+        $excludeMethod = 'where';
+        if (!$entityDefinition->isHardDeletion()) {
+            $queryBuilder->where('t2.deleted_at IS NULL');
+            $excludeMethod = 'andWhere';
+        }
         if ($excludeId !== null) {
-            $queryBuilder->andWhere('t1.`'.$thisField.'` != ?')->setParameter(0, $excludeId);
+            $queryBuilder->$excludeMethod('t1.`'.$thisField.'` != ?')->setParameter(0, $excludeId);
         }
         $existingMany = $queryBuilder->execute()->fetchAll(\PDO::FETCH_ASSOC);
         $existingMap  = array_reduce($existingMany, function(&$carry, $existing) {

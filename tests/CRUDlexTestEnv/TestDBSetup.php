@@ -75,7 +75,6 @@ class TestDBSetup
 
         $sql .= '  `created_at` datetime NOT NULL,'.
             '  `updated_at` datetime NOT NULL,'.
-            '  `deleted_at` datetime DEFAULT NULL,'.
             '  `version` int(11) NOT NULL,'.
             '  `title` varchar(255) NOT NULL,'.
             '  `author` varchar(255) NOT NULL,'.

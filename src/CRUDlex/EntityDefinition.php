@@ -112,6 +112,12 @@ class EntityDefinition
     protected $initialSortAscending;
 
     /**
+     * Holds whether hard deletion is activated.
+     * @var bool
+     */
+    protected $hardDeletion;
+
+    /**
      * Holds if the entity must be displayed grouped in the nav bar.
      * @var string
      */
@@ -202,6 +208,7 @@ class EntityDefinition
         $this->locale               = null;
         $this->initialSortField     = 'created_at';
         $this->initialSortAscending = true;
+        $this->hardDeletion         = false;
         $this->navBarGroup          = 'main';
         $this->optimisticLocking    = true;
     }
@@ -404,9 +411,12 @@ class EntityDefinition
      */
     public function getReadOnlyFields()
     {
-        $result = ['id', 'created_at', 'updated_at', 'deleted_at'];
+        $result = ['id', 'created_at', 'updated_at'];
         if ($this->optimisticLocking) {
             $result[] = 'version';
+        }
+        if (!$this->hardDeletion) {
+            $result[] = 'deleted_at';
         }
         return $result;
     }
@@ -624,6 +634,28 @@ class EntityDefinition
     public function isInitialSortAscending()
     {
         return $this->initialSortAscending;
+    }
+
+    /**
+     * Sets the hard deletion state.
+     *
+     * @param boolean $hardDeletion
+     * the hard deletion state
+     */
+    public function setHardDeletion($hardDeletion)
+    {
+        $this->hardDeletion = $hardDeletion;
+    }
+
+    /**
+     * Gets the hard deletion state.
+     *
+     * @return boolean
+     * the hard deletion state
+     */
+    public function isHardDeletion()
+    {
+        return $this->hardDeletion;
     }
 
     /**
