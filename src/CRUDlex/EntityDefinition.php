@@ -605,7 +605,7 @@ class EntityDefinition
     }
 
     /**
-     * Sets the initial sort order.
+     * Sets whether the initial sort order is ascending.
      *
      * @param boolean $initialSortAscending
      * the initial sort order, true if ascending
@@ -616,7 +616,7 @@ class EntityDefinition
     }
 
     /**
-     * Gets the initial sort order.
+     * Gets whether the initial sort order is ascending.
      *
      * @return boolean
      * the initial sort order, true if ascending
