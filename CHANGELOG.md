@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.13.0
 Released: Upcoming
 - The soft deletion is now optional (but switched on by default)
+- Fixed content type of static files by detecting the mimetype by their name
 
 ## 0.12.0
 Released: 2017-08-22
