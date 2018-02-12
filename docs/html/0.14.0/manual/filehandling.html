@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>File Handling &mdash; CRUDlex 0.14.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
+        <link rel="next" title="Overriding Layouts" href="layouts.html"/>
+        <link rel="prev" title="Constraints" href="constraints.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">File Handling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overriding-the-default-storage-with-amazon-s3-as-filesystem">Overriding the Default Storage with Amazon S3 as Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filesystem-storage-adapters">Filesystem Storage Adapters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimisticlocking.html">Optimistic Locking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addons.html">Addons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crudyamlreference.html">CRUD YAML Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityEvents.html">CRUDlex\EntityEvents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/YamlReader.html">CRUDlex\YamlReader</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>File Handling</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/manual/filehandling.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="file-handling">
+<h1>File Handling<a class="headerlink" href="#file-handling" title="Permalink to this headline">¶</a></h1>
+<p>By default, CRUDlex uses the filesystem to store uploaded files. The current working directory is taken as root here.
+Usually, this is the path to your index.php. So this example stores the image files under &lt;workingDirectory&gt;/uploads</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
+    <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">file</span>
+            <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uploads</span>
+</pre></div>
+</div>
+<p>One big drawback here is that the application is not stateless anymore according to <a class="reference external" href="https://12factor.net/processes">https://12factor.net/processes</a>. But
+luckily, the file handling is done via <a class="reference external" href="http://flysystem.thephpleague.com//">Flysystem</a> and the used
+FilesystemInterface can be overridden easily by setting a service called &#8220;crud.filesystem&#8221;.</p>
+<p>In any way, overriding or not, the underlying FilesystemInterface is available via</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.filesystem&#39;]</span>
+</pre></div>
+</div>
+<div class="section" id="overriding-the-default-storage-with-amazon-s3-as-filesystem">
+<h2>Overriding the Default Storage with Amazon S3 as Filesystem<a class="headerlink" href="#overriding-the-default-storage-with-amazon-s3-as-filesystem" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example of using Amazon S3 as storage.</p>
+<p>First, get the AwsS3Adapter:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>composer require league/flysystem-aws-s3-v3
+</pre></div>
+</div>
+<p>And then configure it and hand it over to CRUDlex:</p>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$client = S3Client::factory([</span>
+<span class="x">    &#39;credentials&#39; =&gt; [</span>
+<span class="x">        &#39;key&#39;    =&gt; $key,</span>
+<span class="x">        &#39;secret&#39; =&gt; $secret</span>
+<span class="x">    ],</span>
+<span class="x">    &#39;region&#39; =&gt; $region,</span>
+<span class="x">    &#39;version&#39; =&gt; &#39;latest&#39;,</span>
+<span class="x">]);</span>
+<span class="x">$adapter = new \League\Flysystem\AwsS3v3\AwsS3Adapter($client, $bucket);</span>
+<span class="x">$filesystem = new \League\Flysystem\Filesystem($adapter);</span>
+<span class="x">$dataFactory = new \CRUDlex\MySQLDataFactory($app[&#39;db&#39;]);</span>
+<span class="x">$app-&gt;register(new \CRUDlex\ServiceProvider(), array(</span>
+<span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;/../crud.yml&#39;,</span>
+<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
+<span class="x">    &#39;crud.filesystem&#39; =&gt; $filesystem,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filesystem-storage-adapters">
+<h2>Filesystem Storage Adapters<a class="headerlink" href="#filesystem-storage-adapters" title="Permalink to this headline">¶</a></h2>
+<p>Many more adapters are available for Flysystem, including (as of writing):</p>
+<ul class="simple">
+<li>Local</li>
+<li>Azure</li>
+<li>AWS S3 V2</li>
+<li>AWS S3 V3</li>
+<li>Copy.com</li>
+<li>Dropbox</li>
+<li>FTP</li>
+<li>GridFS</li>
+<li>Memory</li>
+<li>Null / Test</li>
+<li>Rackspace</li>
+<li>ReplicateAdapter</li>
+<li>SFTP</li>
+<li>WebDAV</li>
+<li>PHPCR</li>
+<li>ZipArchive</li>
+</ul>
+<p>See the <a class="reference external" href="http://flysystem.thephpleague.com//">Flysystem</a> page for their usage.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="layouts.html" class="btn btn-neutral float-right" title="Overriding Layouts" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="constraints.html" class="btn btn-neutral" title="Constraints" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.14.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
