@@ -15,7 +15,7 @@ use Pimple\Container;
 use Symfony\Component\Intl\Intl;
 
 /**
- * Provides and setups the Twig extensions like filters.
+ * Provides the Twig extensions like filters.
  */
 class TwigExtensions
 {
@@ -55,26 +55,6 @@ class TwigExtensions
         }
         $result->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         return $result->format($pattern);
-    }
-
-    /**
-     * Registers all extensions.
-     *
-     * @param Container $app
-     * the current application
-     */
-    public function registerTwigExtensions(Container $app)
-    {
-        $self = $this;
-        $app->extend('twig', function(\Twig_Environment $twig) use ($self) {
-            $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', 'array_column'));
-            $twig->addFilter(new \Twig_SimpleFilter('languageName', [$self, 'getLanguageName']));
-            $twig->addFilter(new \Twig_SimpleFilter('float', [$self, 'formatFloat']));
-            $twig->addFilter(new \Twig_SimpleFilter('basename', 'basename'));
-            $twig->addFilter(new \Twig_SimpleFilter('formatDate', [$self, 'formatDate']));
-            $twig->addFilter(new \Twig_SimpleFilter('formatDateTime', [$self, 'formatDateTime']));
-            return $twig;
-        });
     }
 
     /**

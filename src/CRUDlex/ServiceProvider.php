@@ -11,6 +11,7 @@
 
 namespace CRUDlex;
 
+use CRUDlex\Silex\TwigSetup;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Pimple\Container;
@@ -265,8 +266,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     public function boot(Application $app)
     {
         $this->initMissingServiceProviders($app);
-        $twigExtensions = new TwigExtensions();
-        $twigExtensions->registerTwigExtensions($app);
+        $twigSetup = new TwigSetup();
+        $twigSetup->registerTwigExtensions($app);
     }
 
     /**
