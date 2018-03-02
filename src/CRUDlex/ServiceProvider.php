@@ -23,6 +23,7 @@ use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Symfony\Component\Translation\Translator;
 
 /**
  * The ServiceProvider setups and initializes the whole CRUD system.
@@ -67,19 +68,19 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     /**
      * Initializes the available locales.
      *
-     * @param Container $app
-     * the application container
+     * @param Translator $translator
+     * the translator
      *
      * @return array
      * the available locales
      */
-    protected function initLocales(Container $app)
+    protected function initLocales(Translator $translator)
     {
         $locales   = $this->getLocales();
         $localeDir = __DIR__.'/../locales';
-        $app['translator']->addLoader('yaml', new YamlFileLoader());
+        $translator->addLoader('yaml', new YamlFileLoader());
         foreach ($locales as $locale) {
-            $app['translator']->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
+            $translator->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
         }
         return $locales;
     }
@@ -155,8 +156,10 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     /**
      * Creates and setups an EntityDefinition instance.
      *
-     * @param Container $app
-     * the application container
+     * @param Translator $translator
+     * the Translator to use for some standard field labels
+     * @param EntityDefinitionFactoryInterface $entityDefinitionFactory
+     * the EntityDefinitionFactory to use
      * @param array $locales
      * the available locales
      * @param array $crud
@@ -167,19 +170,17 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return EntityDefinition
      * the EntityDefinition good to go
      */
-    protected function createDefinition(Container $app, array $locales, array $crud, $name)
+    protected function createDefinition(Translator $translator, EntityDefinitionFactoryInterface $entityDefinitionFactory, array $locales, array $crud, $name)
     {
         $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
         $localeLabels        = $this->getLocaleLabels($locales, $crud);
         $standardFieldLabels = [
-            'id' => $app['translator']->trans('crudlex.label.id'),
-            'created_at' => $app['translator']->trans('crudlex.label.created_at'),
-            'updated_at' => $app['translator']->trans('crudlex.label.updated_at')
+            'id' => $translator->trans('crudlex.label.id'),
+            'created_at' => $translator->trans('crudlex.label.created_at'),
+            'updated_at' => $translator->trans('crudlex.label.updated_at')
         ];
 
-        $factory = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
-
-        $definition = $factory->createEntityDefinition(
+        $definition = $entityDefinitionFactory->createEntityDefinition(
             $crud['table'],
             $crud['fields'],
             $label,
@@ -226,10 +227,11 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
 
         $this->validateEntityDefinition($app, $parsedYaml);
 
-        $locales     = $this->initLocales($app);
+        $locales     = $this->initLocales($app['translator']);
         $this->datas = [];
+        $entityDefinitionFactory = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
         foreach ($parsedYaml as $name => $crud) {
-            $definition         = $this->createDefinition($app, $locales, $crud, $name);
+            $definition         = $this->createDefinition($app['translator'], $entityDefinitionFactory, $locales, $crud, $name);
             $this->datas[$name] = $app['crud.datafactory']->createData($definition, $app['crud.filesystem']);
         }
 
