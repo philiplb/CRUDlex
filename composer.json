@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.5",
-        "silex/silex": "~2.2",
+        "silex/silex": "~2.2, !=2.2.3",
         "symfony/twig-bridge": "~3.3",
         "doctrine/dbal": "~2.5",
         "symfony/yaml": "~3.3",
