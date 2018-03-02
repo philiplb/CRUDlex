@@ -227,8 +227,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
 
         $this->validateEntityDefinition($app, $parsedYaml);
 
-        $locales     = $this->initLocales($app['translator']);
-        $this->datas = [];
+        $locales                 = $this->initLocales($app['translator']);
+        $this->datas             = [];
         $entityDefinitionFactory = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
         foreach ($parsedYaml as $name => $crud) {
             $definition         = $this->createDefinition($app['translator'], $entityDefinitionFactory, $locales, $crud, $name);
