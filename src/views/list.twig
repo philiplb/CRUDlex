@@ -32,7 +32,7 @@
                     {% for filterField, filterValue in filter %}
                         {% set type = crudData.getDefinition().getType(filterField) %}
                         {% if type == 'boolean' %}
-                            {% include app.crud.getTemplate('template', 'fieldLabel', crudEntity) with {
+                            {% include crud.getTemplate('template', 'fieldLabel', crudEntity) with {
                                 field: filterField,
                                 definition: definition,
                                 annotations: false
@@ -48,7 +48,8 @@
                                 {% if type == 'file' %}
                                     {% set type = 'text' %}
                                 {% endif %}
-                                {% include app.crud.getTemplate('template', type ~ 'Field', crudEntity) with {
+                                {% include crud.getTemplate('template', type ~ 'Field', crudEntity) with {
+                                    crud: crud,
                                     field: filterField,
                                     fieldNamePrefix: 'crudFilter',
                                     crudData: crudData,

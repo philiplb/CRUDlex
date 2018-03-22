@@ -56,6 +56,7 @@ class ControllerProvider implements ControllerProviderInterface
     protected function getNotFoundPage(Application $app, $error)
     {
         return new Response($app['twig']->render('@crud/notFound.twig', [
+            'crud' => $app['crud'],
             'error' => $error,
             'crudEntity' => '',
             'layout' => $app['crud']->getTemplate('layout', '', '')
@@ -157,6 +158,7 @@ class ControllerProvider implements ControllerProviderInterface
         }
 
         return $app['twig']->render($app['crud']->getTemplate('template', 'form', $entity), [
+            'crud' => $app['crud'],
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'entity' => $instance,
@@ -384,6 +386,7 @@ class ControllerProvider implements ControllerProviderInterface
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
 
         return $app['twig']->render($app['crud']->getTemplate('template', 'list', $entity), [
+            'crud' => $app['crud'],
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'definition' => $definition,
@@ -441,6 +444,7 @@ class ControllerProvider implements ControllerProviderInterface
         }
 
         return $app['twig']->render($app['crud']->getTemplate('template', 'show', $entity), [
+            'crud' => $app['crud'],
             'crudEntity' => $entity,
             'entity' => $instance,
             'children' => $children,

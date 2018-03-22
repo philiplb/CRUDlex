@@ -18,7 +18,7 @@
         <title>CRUDlex</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {% include app.crud.getTemplate('template', 'header', crudEntity) %}
+        {% include crud.getTemplate('template', 'header', crudEntity) %}
 
         <style type="text/css">
             body {
@@ -73,9 +73,9 @@
                 <div class="container">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            {% for entity, navBarGroup in app.crud.getEntitiesNavBar() %}
+                            {% for entity, navBarGroup in crud.getEntitiesNavBar() %}
                                 {% if navBarGroup == 'main' %}
-                                    <li {% if crudEntity == entity %} class="active" {% endif%}><a href="{{ app.url_generator.generate('crudList', {'entity': entity}) }}">{{ app.crud.getData(entity).getDefinition().getLabel() }}</a></li>
+                                    <li {% if crudEntity == entity %} class="active" {% endif%}><a href="{{ app.url_generator.generate('crudList', {'entity': entity}) }}">{{ crud.getData(entity).getDefinition().getLabel() }}</a></li>
                                 {% else %}
                                   <li class="dropdown {% if crudEntity in navBarGroup %} active {% endif%}" >
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ entity }}
@@ -105,7 +105,7 @@
                               <img src="{{ app.url_generator.generate('crudStatic', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ locale|languageName }}" /> {{ locale|languageName }}
                           <span class="caret"></a>
                           <ul class="dropdown-menu" aria-labelledby="dLabel">
-                              {% for locale in app.crud.getLocales() %}
+                              {% for locale in crud.getLocales() %}
                                   <li>
                                       <a href="{{ app.url_generator.generate('crudSetLocale', {'locale': locale, 'redirect': app.request_stack.getCurrentRequest().getUri()}) }}">
                                           <img src="{{ app.url_generator.generate('crudStatic', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ locale|languageName }}" /> {{ locale|languageName }}
@@ -118,7 +118,7 @@
                 {% endif %}
             </div>
 
-            {% include app.crud.getTemplate('template', 'footer', crudEntity) %}
+            {% include crud.getTemplate('template', 'footer', crudEntity) %}
 
             <script type="text/javascript">
                 {% block js %}{% endblock %}

@@ -40,7 +40,8 @@
             {% set type = crudData.getDefinition().getType(field) %}
             {% set class = type == 'boolean' ? 'checkbox' : 'form-group' %}
             <div id="crudField{{ field }}" class="{{ class }} {{ field in fieldErrors|keys ? 'has-error' : '' }}">
-                {% include app.crud.getTemplate('template', type ~ 'Field', crudEntity) with {
+                {% include crud.getTemplate('template', type ~ 'Field', crudEntity) with {
+                    crud: crud,
                     field: field,
                     fieldNamePrefix: '',
                     crudData: crudData,
