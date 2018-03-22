@@ -11,7 +11,6 @@
 
 namespace CRUDlex;
 
-use Pimple\Container;
 use Symfony\Component\Intl\Intl;
 
 /**
