@@ -30,7 +30,7 @@
                     {% endif %}
                 </td>
                 <td id="crudField{{ field }}">
-                    {% include app.crud.getTemplate(app, 'template', 'renderField', crudEntity) with {
+                    {% include app.crud.getTemplate('template', 'renderField', crudEntity) with {
                         entity: entity,
                         crudEntity: crudEntity,
                         definition: definition,

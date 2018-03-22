@@ -58,7 +58,7 @@ class ControllerProvider implements ControllerProviderInterface
         return new Response($app['twig']->render('@crud/notFound.twig', [
             'error' => $error,
             'crudEntity' => '',
-            'layout' => $app['crud.layout']
+            'layout' => $app['crud']->getTemplate('layout', '', '')
         ]), 404);
     }
 
@@ -156,13 +156,13 @@ class ControllerProvider implements ControllerProviderInterface
             }
         }
 
-        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'form', $entity), [
+        return $app['twig']->render($app['crud']->getTemplate('template', 'form', $entity), [
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => $mode,
             'fieldErrors' => $fieldErrors,
-            'layout' => $app['crud']->getTemplate($app, 'layout', $mode, $entity)
+            'layout' => $app['crud']->getTemplate('layout', $mode, $entity)
         ]);
     }
 
@@ -247,10 +247,6 @@ class ControllerProvider implements ControllerProviderInterface
     {
         if ($app->offsetExists('twig.loader.filesystem')) {
             $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
-        }
-
-        if (!$app->offsetExists('crud.layout')) {
-            $app['crud.layout'] = '@crud/layout.twig';
         }
     }
 
@@ -387,7 +383,7 @@ class ControllerProvider implements ControllerProviderInterface
 
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
 
-        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'list', $entity), [
+        return $app['twig']->render($app['crud']->getTemplate('template', 'list', $entity), [
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'definition' => $definition,
@@ -400,7 +396,7 @@ class ControllerProvider implements ControllerProviderInterface
             'filterActive' => $filterActive,
             'sortField' => $sortField,
             'sortAscending' => $sortAscending,
-            'layout' => $app['crud']->getTemplate($app, 'layout', 'list', $entity)
+            'layout' => $app['crud']->getTemplate('layout', 'list', $entity)
         ]);
     }
 
@@ -444,11 +440,11 @@ class ControllerProvider implements ControllerProviderInterface
             }
         }
 
-        return $app['twig']->render($app['crud']->getTemplate($app, 'template', 'show', $entity), [
+        return $app['twig']->render($app['crud']->getTemplate('template', 'show', $entity), [
             'crudEntity' => $entity,
             'entity' => $instance,
             'children' => $children,
-            'layout' => $app['crud']->getTemplate($app, 'layout', 'show', $entity)
+            'layout' => $app['crud']->getTemplate('layout', 'show', $entity)
         ]);
     }
 

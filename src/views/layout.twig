@@ -18,7 +18,7 @@
         <title>CRUDlex</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {% include app.crud.getTemplate(app, 'template', 'header', crudEntity) %}
+        {% include app.crud.getTemplate('template', 'header', crudEntity) %}
 
         <style type="text/css">
             body {
@@ -118,7 +118,7 @@
                 {% endif %}
             </div>
 
-            {% include app.crud.getTemplate(app, 'template', 'footer', crudEntity) %}
+            {% include app.crud.getTemplate('template', 'footer', crudEntity) %}
 
             <script type="text/javascript">
                 {% block js %}{% endblock %}

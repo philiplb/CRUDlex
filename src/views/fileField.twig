@@ -7,7 +7,7 @@
  # file that was distributed with this source code.
  #}
 
-{% include app.crud.getTemplate(app, 'template', 'fieldLabel', crudEntity) with {
+{% include app.crud.getTemplate('template', 'fieldLabel', crudEntity) with {
     field: field,
     definition: crudData.getDefinition(),
     annotations: annotations

@@ -12,7 +12,7 @@ In this case, you can override the template of a single page:
 
 .. code-block:: php
 
-    $app['crud.template.list.book'] = 'bookList.twig';
+    $app['crud']->setTemplate('template.list.book', 'bookList.twig');
 
 Note the changed part "template" of the key!
 

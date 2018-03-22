@@ -29,12 +29,12 @@ hierarchy, from general to specific.
 Global
 ------
 
-If you want to override the general layout of all CRUDlex pages, you set this
-property of your Silex Application instance:
+If you want to override the general layout of all CRUDlex pages, you set the
+key "layout" template via the the setTemplate function of the provider:
 
 .. code-block:: php
 
-    $app['crud.layout'] = 'myLayout.twig';
+    $app['crud']->setTemplate('layout', 'myLayout.twig');
 
 --------------
 Single Actions
@@ -47,35 +47,35 @@ You can override the layout of single actions:
 * show
 * edit
 
-Just prepend a dot and the desired action when defining the layout for it, for
+Just prepend a dot and the desired action at the key when defining the layout for it, for
 example the action "show":
 
 .. code-block:: php
 
-    $app['crud.layout.show'] = 'myShowLayout.twig';
+    $app['crud']->setTemplate('layout.show', 'myShowLayout.twig');
 
 ---------------
 Single Entities
 ---------------
 
 To override the layout of a single entity, you prepend a dot and the desired
-entity name, for example for the book entity:
+entity name at the key, for example for the book entity:
 
 .. code-block:: php
 
-    $app['crud.layout.book'] = 'myBookLayout.twig';
+    $app['crud']->setTemplate('layout.book', 'myBookLayout.twig');
 
 ---------------------------
 Single Actions of an Entity
 ---------------------------
 
 The most specific layout you can set is for a single action of a specific
-entity. The prefix is a dot, the action another dot and the entity. To override
-the create action of the book entity, you would define your layout like this:
+entity. The key is "layout" plus a dot, the action, another dot and the entity. To
+override the create action of the book entity, you would define your layout like this:
 
 .. code-block:: php
 
-    $app['crud.layout.create.book'] = 'myCreateBookLayout.twig';
+    $app['crud']->setTemplate('layout.create.book', 'myCreateBookLayout.twig');
 
 ----------------------------
 Your own Layout from Scratch

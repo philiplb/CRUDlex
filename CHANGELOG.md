@@ -3,6 +3,7 @@ CRUDlex Changelog
 
 ## 0.14.0
 Released: Upcoming
+- Attention: Changed the mechanism to define custom layouts and templates from Pimple keys like $app['crud.layout'] = 'myLayout.twig' to the Provider function $app['crud']->setTemplate('layout', 'myLayout.twig')
 
 ## 0.13.0
 Released: 2018-02-12

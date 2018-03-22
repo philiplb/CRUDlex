@@ -40,6 +40,12 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     protected $datas;
 
     /**
+     * Holds the map for overriding templates.
+     * @var array
+     */
+    protected $templates = [];
+
+    /**
      * Initializes needed but yet missing service providers.
      *
      * @param Container $app
@@ -253,6 +259,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
         }
         $app['crud'] = function() use ($app) {
             $result                   = new static();
+            $result->setTemplate('layout', '@crud/layout.twig');
             $crudFileCachingDirectory = $app->offsetExists('crud.filecachingdirectory') ? $app['crud.filecachingdirectory'] : null;
             $result->init($crudFileCachingDirectory, $app);
             return $result;
@@ -321,17 +328,30 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     }
 
     /**
-     * Determines the Twig template to use for the given parameters depending on
-     * the existance of certain keys in the Container $app in this order:
+     * Sets a template to use instead of the build in ones.
      *
-     * crud.$section.$action.$entity
-     * crud.$section.$action
-     * crud.$section
+     * @param $key
+     * the template key to use in this format:
+     * $section.$action.$entity
+     * $section.$action
+     * $section
+     * @param $template
+     */
+    public function setTemplate($key, $template)
+    {
+        $this->templates[$key] = $template;
+    }
+
+    /**
+     * Determines the Twig template to use for the given parameters depending on
+     * the existance of certain template keys set in this order:
+     *
+     * $section.$action.$entity
+     * $section.$action
+     * $section
      *
      * If nothing exists, this string is returned: "@crud/<action>.twig"
      *
-     * @param Container $app
-     * the Silex application
      * @param string $section
      * the section of the template, either "layout" or "template"
      * @param string $action
@@ -342,20 +362,19 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * @return string
      * the best fitting template
      */
-    public function getTemplate(Container $app, $section, $action, $entity)
+    public function getTemplate($section, $action, $entity)
     {
-        $crudSection       = 'crud.'.$section;
-        $crudSectionAction = $crudSection.'.'.$action;
+        $sectionAction = $section.'.'.$action;
 
         $offsets = [
-            $crudSectionAction.'.'.$entity,
-            $crudSection.'.'.$entity,
-            $crudSectionAction,
-            $crudSection
+            $sectionAction.'.'.$entity,
+            $section.'.'.$entity,
+            $sectionAction,
+            $section
         ];
         foreach ($offsets as $offset) {
-            if ($app->offsetExists($offset)) {
-                return $app[$offset];
+            if (array_key_exists($offset, $this->templates)) {
+                return $this->templates[$offset];
             }
         }
 

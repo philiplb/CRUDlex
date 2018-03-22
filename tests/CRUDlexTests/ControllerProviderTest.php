@@ -507,10 +507,10 @@ class ControllerProviderTest extends WebTestCase
     {
         $client = $this->createClient();
 
-        $this->app['crud.layout'] = 'layout.twig';
-        $this->app['crud.layout.book'] = 'layoutBook.twig';
-        $this->app['crud.layout.create'] = 'layoutCreate.twig';
-        $this->app['crud.layout.show.library'] = 'layoutLibraryShow.twig';
+        $this->app['crud']->setTemplate('layout', 'layout.twig');
+        $this->app['crud']->setTemplate('layout.book', 'layoutBook.twig');
+        $this->app['crud']->setTemplate('layout.create', 'layoutCreate.twig');
+        $this->app['crud']->setTemplate('layout.show.library', 'layoutLibraryShow.twig');
 
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'lib a');
