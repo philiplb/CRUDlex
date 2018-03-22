@@ -314,7 +314,7 @@ class ControllerProvider implements ControllerProviderInterface
      * @param Application $app
      * the Application instance of the Silex application
      *
-     * @return \SilexController\Collection
+     * @return \Silex\ControllerCollection
      * this method is expected to return the used ControllerCollection instance
      */
     public function connect(Application $app)
