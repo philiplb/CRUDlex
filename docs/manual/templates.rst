@@ -59,6 +59,7 @@ And this are the form field templates for each type:
 * setField: The form field for the type set (@crud/setField.twig)
 * textField: The form field for the type text (@crud/textField.twig)
 * urlField: The form field for the type url (@crud/urlField.twig)
+* wysiwymField: The form field for the type wysiwym (@crud/wysiwymField.twig)
 
 --------------------
 Additional Templates
