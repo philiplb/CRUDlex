@@ -117,6 +117,8 @@ class FileHandler
      * FileHandler constructor.
      * @param FilesystemInterface $filesystem
      * the filesystem to use
+     * @param EntityDefinition $entityDefinition
+     * the entity definition to use
      */
     public function __construct(FilesystemInterface $filesystem, EntityDefinition $entityDefinition)
     {
