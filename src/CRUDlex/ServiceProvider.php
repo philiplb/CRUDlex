@@ -258,7 +258,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
             $app['crud.filesystem'] = new Filesystem(new Local(getcwd()));
         }
         $app['crud'] = function() use ($app) {
-            $result                   = new static();
+            $result = new static();
             $result->setTemplate('layout', '@crud/layout.twig');
             $crudFileCachingDirectory = $app->offsetExists('crud.filecachingdirectory') ? $app['crud.filecachingdirectory'] : null;
             $result->init($crudFileCachingDirectory, $app);
@@ -330,12 +330,13 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     /**
      * Sets a template to use instead of the build in ones.
      *
-     * @param $key
+     * @param string $key
      * the template key to use in this format:
      * $section.$action.$entity
      * $section.$action
      * $section
-     * @param $template
+     * @param string $template
+     * the template to use for this key
      */
     public function setTemplate($key, $template)
     {
