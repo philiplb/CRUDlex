@@ -297,7 +297,7 @@ class ControllerProvider implements ControllerProviderInterface
     protected function setupI18n(Application $app)
     {
         $app->before(function(Request $request, Application $app) {
-            $manageI18n = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
+            $manageI18n = $app['crud']->isManageI18n();
             if ($manageI18n) {
                 $locale = $app['session']->get('locale', 'en');
                 $app['translator']->setLocale($locale);
@@ -635,7 +635,7 @@ class ControllerProvider implements ControllerProviderInterface
             return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
         }
 
-        $manageI18n = $app->offsetExists('crud.manageI18n') ? $app['crud.manageI18n'] : true;
+        $manageI18n = $app['crud']->isManageI18n();
         if ($manageI18n) {
             $app['session']->set('locale', $locale);
         }

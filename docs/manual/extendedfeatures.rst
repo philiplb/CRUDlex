@@ -232,15 +232,11 @@ Switch off I18n Management
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Per default, CRUDlex manages i18n for you. But this might be not desired in
-bigger projects, so you can disable it on registration like this:
+bigger projects with existing i18n management, so you can disable it on registration like this:
 
 .. code-block:: php
 
-    $app->register(new CRUDlex\ServiceProvider(), array(
-        'crud.file' => __DIR__ . '<yourCrud.yml>',
-        'crud.datafactory' => $dataFactory,
-        'crud.manageI18n' => false
-    ));
+    $app['crud']->setManageI18n(false);
 
 --------------------------
 Initial Sorting Parameters

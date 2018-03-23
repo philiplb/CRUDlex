@@ -46,6 +46,12 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     protected $templates = [];
 
     /**
+     * Holds whether CRUDlex manages i18n.
+     * @var bool
+     */
+    protected $manageI18n = true;
+
+    /**
      * Initializes needed but yet missing service providers.
      *
      * @param Container $app
@@ -418,6 +424,26 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
         }
         sort($locales);
         return $locales;
+    }
+
+    /**
+     * Gets whether CRUDlex manages the i18n.
+     * @return bool
+     * true if so
+     */
+    public function isManageI18n()
+    {
+        return $this->manageI18n;
+    }
+
+    /**
+     * Sets whether CRUDlex manages the i18n.
+     * @param bool $manageI18n
+     * true if so
+     */
+    public function setManageI18n($manageI18n)
+    {
+        $this->manageI18n = $manageI18n;
     }
 
 }

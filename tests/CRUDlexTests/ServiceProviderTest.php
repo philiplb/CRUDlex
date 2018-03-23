@@ -243,4 +243,12 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $read);
     }
 
+    public function testGetIsManageI18n()
+    {
+        $serviceProvider = $this->createServiceProvider();
+        $this->assertTrue($serviceProvider->isManageI18n());
+        $serviceProvider->setManageI18n(false);
+        $this->assertFalse($serviceProvider->isManageI18n());
+    }
+
 }
