@@ -11,6 +11,8 @@
 
 namespace CRUDlex;
 
+use CRUDlex\Silex\ServiceProvider;
+
 /**
  * Interface to make the creation of the EntityDefinitions flexible. To be handed into
  * the ServiceProvider registration via the key "crud.entitydefinitionfactory".

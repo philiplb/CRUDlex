@@ -11,6 +11,7 @@
 
 namespace CRUDlexTests;
 
+use CRUDlex\Silex\ServiceProvider;
 use League\Flysystem\Adapter\Local;
 use Silex\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -42,7 +43,7 @@ class ControllerProviderTest extends WebTestCase
         $filesystemMock = $this->filesystemHandle->get();
 
         $dataFactory = new \CRUDlex\MySQLDataFactory($app['db']);
-        $app->register(new \CRUDlex\ServiceProvider(), [
+        $app->register(new ServiceProvider(), [
             'crud.file' => __DIR__ . '/../crud.yml',
             'crud.datafactory' => $dataFactory,
             'crud.filesystem' => $filesystemMock

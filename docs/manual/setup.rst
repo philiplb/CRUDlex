@@ -41,7 +41,7 @@ Now it's time to register the ServiceProvider itself:
 
 .. code-block:: php
 
-    $app->register(new CRUDlex\ServiceProvider(), array(
+    $app->register(new CRUDlex\Silex\ServiceProvider(), array(
         'crud.file' => __DIR__ . '<yourCrud.yml>',
         'crud.datafactory' => $dataFactory
     ));

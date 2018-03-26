@@ -5,6 +5,7 @@ CRUDlex Changelog
 Released: Upcoming
 - Attention: Changed the mechanism to define custom layouts and templates from Pimple keys like $app['crud.layout'] = 'myLayout.twig' to the Provider function $app['crud']->setTemplate('layout', 'myLayout.twig')
 - Attention: Changed the i18n management flag from the Pimple key "crud.manageI18n" to the Provider functions $app['crud']->isManageI18n() and $app['crud']->setManageI18n()
+- Attention: Moved the Class "ServiceProvider" from the namespace "CRUDlex" to the namespace "CRUDlex\Silex"
 
 ## 0.13.0
 Released: 2018-02-12

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace CRUDlexTests;
+namespace CRUDlexTests\Silex;
 
 use Eloquent\Phony\Phpunit\Phony;
 
-use CRUDlex\ServiceProvider;
+use CRUDlex\Silex\ServiceProvider;
 use CRUDlex\MySQLDataFactory;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\NullAdapter;
@@ -43,7 +43,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
         ]);
-        $this->crudFile = __DIR__.'/../crud.yml';
+        $this->crudFile = __DIR__.'/../../crud.yml';
         $this->dataFactory = new MySQLDataFactory($app['db']);
         $this->filesystem = new Filesystem(new NullAdapter());
     }

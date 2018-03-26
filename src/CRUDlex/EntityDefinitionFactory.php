@@ -11,6 +11,8 @@
 
 namespace CRUDlex;
 
+use CRUDlex\Silex\ServiceProvider;
+
 /**
  * Default implementation of the EntiyDefinitionFactoryInterface being used if the key "crud.entitydefinitionfactory" is
  * not given during the registration of the ServiceProvider.

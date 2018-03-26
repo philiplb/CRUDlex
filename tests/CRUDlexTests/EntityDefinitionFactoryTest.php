@@ -12,7 +12,7 @@
 namespace CRUDlexTests;
 
 use CRUDlex\EntityDefinition;
-use CRUDlex\ServiceProvider;
+use CRUDlex\Silex\ServiceProvider;
 use CRUDlex\EntityDefinitionFactory;
 
 class EntityDefinitionFactoryTest extends \PHPUnit_Framework_TestCase

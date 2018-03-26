@@ -9,9 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace CRUDlex;
+namespace CRUDlex\Silex;
 
-use CRUDlex\Silex\TwigSetup;
+use CRUDlex\EntityDefinition;
+use CRUDlex\EntityDefinitionFactory;
+use CRUDlex\EntityDefinitionFactoryInterface;
+use CRUDlex\EntityDefinitionValidator;
+use CRUDlex\YamlReader;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Pimple\Container;
@@ -74,7 +78,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
         if (!$app->offsetExists('twig')) {
             $app->register(new TwigServiceProvider());
         }
-        $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
+        $app['twig.loader.filesystem']->addPath(__DIR__.'/../../views/', 'crud');
     }
 
     /**
@@ -89,7 +93,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     protected function initLocales(Translator $translator)
     {
         $locales   = $this->getLocales();
-        $localeDir = __DIR__.'/../locales';
+        $localeDir = __DIR__.'/../../locales';
         $translator->addLoader('yaml', new YamlFileLoader());
         foreach ($locales as $locale) {
             $translator->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
@@ -409,7 +413,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      */
     public function getLocales()
     {
-        $localeDir     = __DIR__.'/../locales';
+        $localeDir     = __DIR__.'/../../locales';
         $languageFiles = scandir($localeDir);
         $locales       = [];
         foreach ($languageFiles as $languageFile) {

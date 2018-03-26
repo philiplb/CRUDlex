@@ -11,6 +11,8 @@
 
 namespace CRUDlex;
 
+use CRUDlex\Silex\ServiceProvider;
+
 /**
  * The class for defining a single entity.
  */

@@ -18,7 +18,7 @@ use Silex\Provider\DoctrineServiceProvider;
 use Eloquent\Phony\Phpunit\Phony;
 
 use CRUDlex\MySQLDataFactory;
-use CRUDlex\ServiceProvider;
+use CRUDlex\Silex\ServiceProvider;
 
 class TestDBSetup
 {
