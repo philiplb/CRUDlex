@@ -251,4 +251,21 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($serviceProvider->isManageI18n());
     }
 
+    public function testGenerateURL()
+    {
+        $serviceProvider = $this->createServiceProvider();
+        $app = new Application();
+        $app['crud.file'] = $this->crudFile;
+        $app['crud.datafactory'] = $this->dataFactory;
+        $app['crud.filesystem'] = $this->filesystem;
+        $urlGeneratorHandle = Phony::mock('\\Symfony\\Component\\Routing\\Generator\\UrlGenerator');
+        $urlGeneratorHandle->generate->returns('foo');
+        $app['url_generator'] = $urlGeneratorHandle->get();
+        $serviceProvider->boot($app);
+        $serviceProvider->init(null, $app);
+        $read = $serviceProvider->generateURL('list', ['entity' => 'library']);
+        $this->assertEquals('foo', $read);
+        $urlGeneratorHandle->generate->once()->calledWith('list', ['entity' => 'library']);
+    }
+
 }

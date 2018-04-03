@@ -55,7 +55,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             {% for entity in crud.getEntities() %}
-                                <li {% if crudEntity == entity %} class="active" {% endif%}><a href="{{ app.url_generator.generate('crudList', {'entity': entity}) }}">{{ crud.getData(entity).getDefinition().getLabel() }}</a></li>
+                                <li {% if crudEntity == entity %} class="active" {% endif%}><a href="{{ crud.generateURL('crudList', {'entity': entity}) }}">{{ crud.getData(entity).getDefinition().getLabel() }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>

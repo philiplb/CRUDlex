@@ -13,8 +13,8 @@
     {% set definition = entity.getDefinition() %}
     {% set fields = definition.getPublicFieldNames() %}
 
-    <a id="crudBtnList" href="{{ app.url_generator.generate('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-success btn-crudlex">{{ 'crudlex.button.list'|trans }}</a>
-    <a id="crudBtnNew" href="{{ app.url_generator.generate('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
+    <a id="crudBtnList" href="{{ crud.generateURL('crudList', {'entity': crudEntity}) }}" type="button" class="btn btn-default btn-success btn-crudlex">{{ 'crudlex.button.list'|trans }}</a>
+    <a id="crudBtnNew" href="{{ crud.generateURL('crudCreate', {'entity': crudEntity}) }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
     <table class="table table-striped crudEntityShowTable" id="crudEntity{{ crudEntity }}">
         <tr>
             <th>{{ 'crudlex.show.field'|trans }}</th>
@@ -35,6 +35,7 @@
                         crudEntity: crudEntity,
                         definition: definition,
                         field: field,
+                        crud: crud,
                         mode: 'show'
                     } only %}
                 </td>
@@ -42,8 +43,8 @@
         {% endfor %}
         <tr>
             <td colspan="2">
-                <a id="crudBtnEdit" href="{{ app.url_generator.generate('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-warning">{{ 'crudlex.button.edit'|trans }}</a>
-                <form class="crudFormDelete" style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.deleteEntityConfirmation'|trans({'%id%': entity.get('id')}) }}');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
+                <a id="crudBtnEdit" href="{{ crud.generateURL('crudEdit', {'entity': crudEntity, 'id': entity.get('id')}) }}" type="button" class="btn btn-default btn-warning">{{ 'crudlex.button.edit'|trans }}</a>
+                <form class="crudFormDelete" style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.deleteEntityConfirmation'|trans({'%id%': entity.get('id')}) }}');" method="POST" action="{{ crud.generateURL('crudDelete', {'entity': crudEntity, 'id': entity.get('id')}) }}">
                     <input id="crudBtnDelete" type="submit" class="btn btn-default btn-danger" value="{{ 'crudlex.button.delete'|trans }}" />
                 </form>
             </td>
@@ -54,7 +55,7 @@
     {% for i, child in children %}
         <h2>
             {{ child[0] }}
-            <a id="crudBtnNew{{ i }}" href="{{ app.url_generator.generate('crudCreate', {'entity': child[1]}) }}?{{ child[4] }}={{ entity.get('id') }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
+            <a id="crudBtnNew{{ i }}" href="{{ crud.generateURL('crudCreate', {'entity': child[1]}) }}?{{ child[4] }}={{ entity.get('id') }}" class="btn btn-success btn-crudlex">{{ 'crudlex.button.new'|trans }}</a>
         </h2>
         <table class="table table-striped crudEntityChildListTable" id="crudChild{{ i }}">
             <tr>
@@ -67,9 +68,9 @@
                         {{ childEntity.get(child[2]) }}
                     </td>
                     <td>
-                        <a id="crudBtnShow{{ childEntity.get('id') }}" href="{{ app.url_generator.generate('crudShow', {'entity': child[1], 'id': childEntity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-success">{{ 'crudlex.button.show'|trans }}</a>
-                        <a id="crudBtnEdit{{ childEntity.get('id') }}" href="{{ app.url_generator.generate('crudEdit', {'entity': child[1], 'id': childEntity.get('id')}) }}" type="button" class="crudBtnEdit btn btn-default btn-xs btn-warning">{{ 'crudlex.button.edit'|trans }}</a>
-                        <form style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.deleteEntityConfirmation'|trans({'%id%': childEntity.get('id')}) }}');" method="POST" action="{{ app.url_generator.generate('crudDelete', {'entity': child[1], 'id': childEntity.get('id')}) }}">
+                        <a id="crudBtnShow{{ childEntity.get('id') }}" href="{{ crud.generateURL('crudShow', {'entity': child[1], 'id': childEntity.get('id')}) }}" type="button" class="btn btn-default btn-xs btn-success">{{ 'crudlex.button.show'|trans }}</a>
+                        <a id="crudBtnEdit{{ childEntity.get('id') }}" href="{{ crud.generateURL('crudEdit', {'entity': child[1], 'id': childEntity.get('id')}) }}" type="button" class="crudBtnEdit btn btn-default btn-xs btn-warning">{{ 'crudlex.button.edit'|trans }}</a>
+                        <form style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.deleteEntityConfirmation'|trans({'%id%': childEntity.get('id')}) }}');" method="POST" action="{{ crud.generateURL('crudDelete', {'entity': child[1], 'id': childEntity.get('id')}) }}">
                             <input type="hidden" name="redirectEntity" value="{{ crudEntity }}" />
                             <input type="hidden" name="redirectId" value="{{ entity.get('id') }}" />
                             <input id="crudBtnDelete{{ childEntity.get('id') }}" type="submit" class="crudBtnDelete btn btn-default btn-xs btn-danger" value="{{ 'crudlex.button.delete'|trans }}" />

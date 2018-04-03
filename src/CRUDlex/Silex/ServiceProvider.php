@@ -56,6 +56,12 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     protected $manageI18n = true;
 
     /**
+     * Holds the URL generator.
+     * @var \Symfony\Component\Routing\Generator\UrlGenerator
+     */
+    protected $urlGenerator;
+
+    /**
      * Initializes needed but yet missing service providers.
      *
      * @param Container $app
@@ -237,6 +243,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      */
     public function init($crudFileCachingDirectory, Container $app)
     {
+
+        $this->urlGenerator = $app['url_generator'];
 
         $reader     = new YamlReader($crudFileCachingDirectory);
         $parsedYaml = $reader->read($app['crud.file']);
@@ -448,6 +456,20 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
     public function setManageI18n($manageI18n)
     {
         $this->manageI18n = $manageI18n;
+    }
+
+    /**
+     * Generates an URL.
+     * @param string $name
+     * the name of the route
+     * @param mixed $parameters
+     * an array of parameters
+     * @return string
+     * the generated URL
+     */
+    public function generateURL($name, $parameters)
+    {
+        return $this->urlGenerator->generate($name, $parameters);
     }
 
 }

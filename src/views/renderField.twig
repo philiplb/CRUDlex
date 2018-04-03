@@ -20,7 +20,7 @@
     {% set hideId = definition.getSubTypeField(field, type, 'hideId') %}
     {% set noName = 'name' not in reference|keys %}
     {% if reference is iterable %}
-        <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getSubTypeField(field, 'reference', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
+        <a href="{{ crud.generateURL('crudShow', {'entity': definition.getSubTypeField(field, 'reference', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
             {% if noName %}
                 {{ reference['id'] }}
             {% elseif hideId %}
@@ -38,7 +38,7 @@
     {% for reference in many  %}
         {% set hideId = definition.getSubTypeField(field, type, 'hideId') %}
         {% set noName = 'name' not in reference|keys %}
-        <a href="{{ app.url_generator.generate('crudShow', {'entity': definition.getSubTypeField(field, 'many', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
+        <a href="{{ crud.generateURL('crudShow', {'entity': definition.getSubTypeField(field, 'many', 'entity'), 'id': reference['id']}) }}" type="button" class="btn btn-default btn-xs btn-success">
             {% if noName %}
                 {{ reference['id'] }}
             {% elseif hideId %}
@@ -79,7 +79,7 @@
 
 {% elseif type == 'file' %}
     {% if entity.get(field) %}
-        {% set url = app.url_generator.generate('crudRenderFile', {entity: crudEntity, field: field, id: entity.get('id')}) %}
+        {% set url = crud.generateURL('crudRenderFile', {entity: crudEntity, field: field, id: entity.get('id')}) %}
         {% if mode == 'list' %}
             {% set value = entity.get(field) %}
             {% set fieldBasename = entity.get(field)|basename %}
@@ -94,7 +94,7 @@
             <a href="{{ url }}" target="_blank">{{ entity.get(field) }}</a>
 
             {% if not definition.getField(field, 'required', false) %}
-                <form style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.file.delete'|trans({'%file%': entity.get(field)}) }}');" method="POST" action="{{ app.url_generator.generate('crudDeleteFile', {entity: crudEntity, field: field, id: entity.get('id')}) }}">
+                <form style="display: inline-block" onSubmit="return confirm('{{ 'crudlex.file.delete'|trans({'%file%': entity.get(field)}) }}');" method="POST" action="{{ crud.generateURL('crudDeleteFile', {entity: crudEntity, field: field, id: entity.get('id')}) }}">
                     <input type="submit" class="btn btn-default btn-xs btn-danger" value="{{ 'crudlex.button.delete'|trans }}" />
                 </form>
             {% endif %}

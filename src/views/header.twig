@@ -7,11 +7,11 @@
  # file that was distributed with this source code.
  #}
 
-<link rel="stylesheet" href="{{ app.url_generator.generate('crudStatic', {file: 'css/vendor/bootstrap/bootstrap.min.css'}) }}">
-<link rel="stylesheet" type="text/css" media="screen" href="{{ app.url_generator.generate('crudStatic', {file: 'js/vendor/flatpickr/flatpickr.min.css'}) }}">
-<link rel="stylesheet" type="text/css" media="screen" href="{{ app.url_generator.generate('crudStatic', {file: 'css/vendor/select2/select2.min.css'}) }}">
-<link rel="stylesheet" type="text/css" media="screen" href="{{ app.url_generator.generate('crudStatic', {file: 'css/vendor/select2/select2-bootstrap.min.css'}) }}">
-<link rel="stylesheet" type="text/css" media="screen" href="{{ app.url_generator.generate('crudStatic', {file: 'images/flags/flags.css'}) }}">
-<link rel="stylesheet" type="text/css" media="screen" href="{{ app.url_generator.generate('crudStatic', {file: 'js/vendor/quill/quill.snow.css'}) }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ crud.generateURL('crudStatic', {file: 'css/vendor/bootstrap/bootstrap.min.css'}) }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ crud.generateURL('crudStatic', {file: 'js/vendor/flatpickr/flatpickr.min.css'}) }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ crud.generateURL('crudStatic', {file: 'css/vendor/select2/select2.min.css'}) }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ crud.generateURL('crudStatic', {file: 'css/vendor/select2/select2-bootstrap.min.css'}) }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ crud.generateURL('crudStatic', {file: 'images/flags/flags.css'}) }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ crud.generateURL('crudStatic', {file: 'js/vendor/quill/quill.snow.css'}) }}" rel="stylesheet">
 
-<script src="{{ app.url_generator.generate('crudStatic', {file: 'js/vendor/jquery-3.2.1.min.js'}) }}"></script>
+<script src="{{ crud.generateURL('crudStatic', {file: 'js/vendor/jquery-3.2.1.min.js'}) }}"></script>

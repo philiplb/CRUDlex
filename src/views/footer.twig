@@ -7,10 +7,10 @@
  # file that was distributed with this source code.
  #}
 
-<script src="{{ app.url_generator.generate('crudStatic', {file: 'js/vendor/bootstrap/bootstrap.min.js'}) }}"></script>
-<script type="text/javascript" src="{{ app.url_generator.generate('crudStatic', {file: 'js/vendor/select2/select2.full.min.js'}) }}"></script>
-<script type="text/javascript" src="{{ app.url_generator.generate('crudStatic', {file: 'js/vendor/flatpickr/flatpickr.min.js'}) }}"></script>
-<script type="text/javascript" src="{{ app.url_generator.generate('crudStatic', {file: 'js/vendor/quill/quill.min.js'}) }}"></script>
+<script src="{{ crud.generateURL('crudStatic', {file: 'js/vendor/bootstrap/bootstrap.min.js'}) }}"></script>
+<script type="text/javascript" src="{{ crud.generateURL('crudStatic', {file: 'js/vendor/select2/select2.full.min.js'}) }}"></script>
+<script type="text/javascript" src="{{ crud.generateURL('crudStatic', {file: 'js/vendor/flatpickr/flatpickr.min.js'}) }}"></script>
+<script type="text/javascript" src="{{ crud.generateURL('crudStatic', {file: 'js/vendor/quill/quill.min.js'}) }}"></script>
 <script type="text/javascript">
     flatpickr('.crudDate', {
         dateFormat: 'Y-m-d'
