@@ -96,7 +96,7 @@
             <tr id="crudId{{ entity.get('id') }}">
                 {% for field in fields %}
                     <td class="crudField{{ field }}">
-                        {% include  app.crud.getTemplate('template', 'renderField', crudEntity) with {
+                        {% include  crud.getTemplate('template', 'renderField', crudEntity) with {
                             entity: entity,
                             crudEntity: crudEntity,
                             definition: definition,

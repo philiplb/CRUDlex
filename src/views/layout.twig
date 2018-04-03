@@ -82,7 +82,7 @@
                                     <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                       {% for subentity in navBarGroup %}
-                                          <li {% if crudEntity == subentity %} class="active" {% endif%}><a href="{{ crud.generateURL('crudList', {'entity': subentity}) }}">{{ app.crud.getData(subentity).getDefinition().getLabel() }}</a></li>
+                                          <li {% if crudEntity == subentity %} class="active" {% endif%}><a href="{{ crud.generateURL('crudList', {'entity': subentity}) }}">{{ crud.getData(subentity).getDefinition().getLabel() }}</a></li>
                                       {% endfor %}
                                     </ul>
                                   </li>
