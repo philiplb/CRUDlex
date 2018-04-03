@@ -464,7 +464,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
      * the name of the route
      * @param mixed $parameters
      * an array of parameters
-     * @return string
+     * @return null|string
      * the generated URL
      */
     public function generateURL($name, $parameters)
