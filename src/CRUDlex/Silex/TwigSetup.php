@@ -41,6 +41,9 @@ class TwigSetup
             $twig->addFunction(new \Twig_SimpleFunction('sessionGet', function($name, $default) use ($app) {
                 return $app['session']->get($name, $default);
             }));
+            $twig->addFunction(new \Twig_SimpleFunction('sessionFlashBagGet', function($type) use ($app) {
+                return $app['session']->getFlashBag()->get($type);
+            }));
             return $twig;
         });
     }

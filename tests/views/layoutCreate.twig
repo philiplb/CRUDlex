@@ -41,7 +41,7 @@
             {% if app.session.flashBag is defined %}
                 {% set flashTypeAvailable = [ 'success', 'danger'] %}
                 {% for flashType in flashTypeAvailable %}
-                    {% for flash in app.session.flashBag.get(flashType) %}
+                    {% for flash in sessionFlashBagGet(flashType) %}
                       <div class="alert alert-{{ flashType }}" >
                           <button class="close" data-dismiss="alert">×</button>
                           {{ flash }}
