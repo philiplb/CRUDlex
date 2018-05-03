@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 
 {% set rtlLanguages = ['ar'] %}
-{% set locale = app.session.get('locale', 'en') %}
+{% set locale = sessionGet('locale', 'en') %}
 {% set localeToFlag = {'en': 'gb', 'de': 'de', 'el': 'gr', 'fr': 'fr'} %}
 {% set localeDir = locale in rtlLanguages ? ' dir="rtl" ' : '' %}
 

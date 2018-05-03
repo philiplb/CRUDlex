@@ -38,6 +38,9 @@ class TwigSetup
             $twig->addFunction(new \Twig_SimpleFunction('getCurrentUri', function() use ($app) {
                 return $app['request_stack']->getCurrentRequest()->getUri();
             }));
+            $twig->addFunction(new \Twig_SimpleFunction('sessionGet', function($name, $default) use ($app) {
+                return $app['session']->get($name, $default);
+            }));
             return $twig;
         });
     }
