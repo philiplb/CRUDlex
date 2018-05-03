@@ -38,17 +38,15 @@
       <h1>Create layout</h1>
       <div id="page">
 
-            {% if app.session.flashBag is defined %}
-                {% set flashTypeAvailable = [ 'success', 'danger'] %}
-                {% for flashType in flashTypeAvailable %}
-                    {% for flash in sessionFlashBagGet(flashType) %}
-                      <div class="alert alert-{{ flashType }}" >
-                          <button class="close" data-dismiss="alert">×</button>
-                          {{ flash }}
-                      </div>
-                    {% endfor %}
+            {% set flashTypeAvailable = [ 'success', 'danger'] %}
+            {% for flashType in flashTypeAvailable %}
+                {% for flash in sessionFlashBagGet(flashType) %}
+                  <div class="alert alert-{{ flashType }}" >
+                      <button class="close" data-dismiss="alert">×</button>
+                      {{ flash }}
+                  </div>
                 {% endfor %}
-            {% endif %}
+            {% endfor %}
 
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
