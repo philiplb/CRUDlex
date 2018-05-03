@@ -28,13 +28,16 @@ class TwigSetup
     public function registerTwigExtensions(Container $app)
     {
         $twigExtensions = new TwigExtensions();
-        $app->extend('twig', function(\Twig_Environment $twig) use ($twigExtensions) {
+        $app->extend('twig', function(\Twig_Environment $twig) use ($twigExtensions, $app) {
             $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', 'array_column'));
             $twig->addFilter(new \Twig_SimpleFilter('languageName', [$twigExtensions, 'getLanguageName']));
             $twig->addFilter(new \Twig_SimpleFilter('float', [$twigExtensions, 'formatFloat']));
             $twig->addFilter(new \Twig_SimpleFilter('basename', 'basename'));
             $twig->addFilter(new \Twig_SimpleFilter('formatDate', [$twigExtensions, 'formatDate']));
             $twig->addFilter(new \Twig_SimpleFilter('formatDateTime', [$twigExtensions, 'formatDateTime']));
+            $twig->addFunction(new \Twig_SimpleFunction('getCurrentUri', function() use ($app) {
+                return $app['request_stack']->getCurrentRequest()->getUri();
+            }));
             return $twig;
         });
     }
