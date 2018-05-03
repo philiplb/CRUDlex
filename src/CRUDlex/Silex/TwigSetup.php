@@ -29,19 +29,19 @@ class TwigSetup
     {
         $twigExtensions = new TwigExtensions();
         $app->extend('twig', function(\Twig_Environment $twig) use ($twigExtensions, $app) {
-            $twig->addFilter(new \Twig_SimpleFilter('arrayColumn', 'array_column'));
-            $twig->addFilter(new \Twig_SimpleFilter('languageName', [$twigExtensions, 'getLanguageName']));
-            $twig->addFilter(new \Twig_SimpleFilter('float', [$twigExtensions, 'formatFloat']));
-            $twig->addFilter(new \Twig_SimpleFilter('basename', 'basename'));
-            $twig->addFilter(new \Twig_SimpleFilter('formatDate', [$twigExtensions, 'formatDate']));
-            $twig->addFilter(new \Twig_SimpleFilter('formatDateTime', [$twigExtensions, 'formatDateTime']));
-            $twig->addFunction(new \Twig_SimpleFunction('getCurrentUri', function() use ($app) {
+            $twig->addFilter(new \Twig_SimpleFilter('crudlex_arrayColumn', 'array_column'));
+            $twig->addFilter(new \Twig_SimpleFilter('crudlex_languageName', [$twigExtensions, 'getLanguageName']));
+            $twig->addFilter(new \Twig_SimpleFilter('crudlex_float', [$twigExtensions, 'formatFloat']));
+            $twig->addFilter(new \Twig_SimpleFilter('crudlex_basename', 'basename'));
+            $twig->addFilter(new \Twig_SimpleFilter('crudlex_formatDate', [$twigExtensions, 'formatDate']));
+            $twig->addFilter(new \Twig_SimpleFilter('crudlex_formatDateTime', [$twigExtensions, 'formatDateTime']));
+            $twig->addFunction(new \Twig_SimpleFunction('crudlex_getCurrentUri', function() use ($app) {
                 return $app['request_stack']->getCurrentRequest()->getUri();
             }));
-            $twig->addFunction(new \Twig_SimpleFunction('sessionGet', function($name, $default) use ($app) {
+            $twig->addFunction(new \Twig_SimpleFunction('crudlex_sessionGet', function($name, $default) use ($app) {
                 return $app['session']->get($name, $default);
             }));
-            $twig->addFunction(new \Twig_SimpleFunction('sessionFlashBagGet', function($type) use ($app) {
+            $twig->addFunction(new \Twig_SimpleFunction('crudlex_sessionFlashBagGet', function($type) use ($app) {
                 return $app['session']->getFlashBag()->get($type);
             }));
             return $twig;

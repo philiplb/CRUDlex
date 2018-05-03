@@ -24,14 +24,14 @@ class TwigSetupTest extends \PHPUnit_Framework_TestCase
         $app->register(new TwigServiceProvider());
         $twigSetup = new TwigSetup();
         $twigSetup->registerTwigExtensions($app);
-        $filter = $app['twig']->getFilter('arrayColumn');
+        $filter = $app['twig']->getFilter('crudlex_arrayColumn');
         $this->assertNotNull($filter);
 
         $read = call_user_func($filter->getCallable(), [['id' => 1], ['id' => 2], ['id' => 3]], 'id');
         $expected = [1, 2, 3];
         $this->assertSame($expected, $read);
 
-        $filter = $app['twig']->getFilter('basename');
+        $filter = $app['twig']->getFilter('crudlex_basename');
 
         $read = call_user_func($filter->getCallable(), 'http://www.philiplb.de/foo.txt');
         $expected = 'foo.txt';

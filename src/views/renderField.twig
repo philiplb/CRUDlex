@@ -10,10 +10,10 @@
 {% set type = definition.getType(field) %}
 
 {% if type == 'date' %}
-    {{ entity.get(field)|formatDate(false) }}
+    {{ entity.get(field)|crudlex_formatDate(false) }}
 
 {% elseif type == 'datetime' and entity.get(field) %}
-    {{ entity.get(field)|formatDateTime(field in ['created_at', 'updated_at']) }}
+    {{ entity.get(field)|crudlex_formatDateTime(field in ['created_at', 'updated_at']) }}
 
 {% elseif type == 'reference' and entity.get(field) %}
     {% set reference = entity.get(field) %}
@@ -68,10 +68,10 @@
         {% set value = entity.get(field) %}
         {% if value|length > 12 %}
             <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
-                <u><a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field)|basename|slice(0, 12) }}...</a></u>
+                <u><a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field)|crudlex_basename|slice(0, 12) }}...</a></u>
             </span>
         {% else %}
-            <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field)|basename }}</a>
+            <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field)|crudlex_basename }}</a>
         {% endif %}
     {% else %}
         <a href="{{ entity.get(field) }}" target="_blank">{{ entity.get(field) }}</a>
@@ -82,7 +82,7 @@
         {% set url = crud.generateURL('crudRenderFile', {entity: crudEntity, field: field, id: entity.get('id')}) %}
         {% if mode == 'list' %}
             {% set value = entity.get(field) %}
-            {% set fieldBasename = entity.get(field)|basename %}
+            {% set fieldBasename = entity.get(field)|crudlex_basename %}
             {% if value|length > 12 %}
                 <span class="tooltip-crudlex" data-toggle="tooltip" title="{{ entity.get(field) }}">
                     <u><a href="{{ url }}" target="_blank">{{ fieldBasename|slice(0, 12) }}...</a></u>
@@ -105,7 +105,7 @@
     <span class="glyphicon glyphicon-{{ entity.get(field) ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 
 {% elseif type == 'float' %}
-    {{ entity.get(field)|float }}
+    {{ entity.get(field)|crudlex_float }}
 
 {% elseif type == 'wysiwym' %}
     {{ entity.get(field)|raw }}

@@ -23,7 +23,7 @@
     $('.tooltip-crudlex').tooltip({'placement': 'auto'});
     $('.many-crudlex').select2({
     {% if crud.isManageI18n() %}
-        'language': '{{ sessionGet('locale', 'en') }}',
+        'language': '{{ crudlex_sessionGet('locale', 'en') }}',
     {% endif %}
         theme: 'bootstrap',
         tags: true,

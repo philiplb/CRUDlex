@@ -40,7 +40,7 @@
 
             {% set flashTypeAvailable = [ 'success', 'danger'] %}
             {% for flashType in flashTypeAvailable %}
-                {% for flash in sessionFlashBagGet(flashType) %}
+                {% for flash in crudlex_sessionFlashBagGet(flashType) %}
                   <div class="alert alert-{{ flashType }}" >
                       <button class="close" data-dismiss="alert">×</button>
                       {{ flash }}

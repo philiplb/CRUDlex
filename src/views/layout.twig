@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 
 {% set rtlLanguages = ['ar'] %}
-{% set locale = sessionGet('locale', 'en') %}
+{% set locale = crudlex_sessionGet('locale', 'en') %}
 {% set localeToFlag = {'en': 'gb', 'de': 'de', 'el': 'gr', 'fr': 'fr'} %}
 {% set localeDir = locale in rtlLanguages ? ' dir="rtl" ' : '' %}
 
@@ -59,7 +59,7 @@
 
             {% set flashTypeAvailable = [ 'success', 'danger'] %}
             {% for flashType in flashTypeAvailable %}
-                {% for flash in sessionFlashBagGet(flashType) %}
+                {% for flash in crudlex_sessionFlashBagGet(flashType) %}
                   <div class="alert alert-{{ flashType }}" >
                       <button class="close" data-dismiss="alert">×</button>
                       {{ flash }}
@@ -99,13 +99,13 @@
                       <small{{ localeDir|raw }}>{{ 'crudlex.chooseLanguage'|trans }}</small>
                       <div class="dropdown">
                           <a id="drop4" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
-                              <img src="{{ crud.generateURL('crudStatic', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ locale|languageName }}" /> {{ locale|languageName }}
+                              <img src="{{ crud.generateURL('crudStatic', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ locale|crudlex_languageName }}" /> {{ locale|crudlex_languageName }}
                           <span class="caret"></a>
                           <ul class="dropdown-menu" aria-labelledby="dLabel">
                               {% for locale in crud.getLocales() %}
                                   <li>
-                                      <a href="{{ crud.generateURL('crudSetLocale', {'locale': locale, 'redirect': getCurrentUri()}) }}">
-                                          <img src="{{ crud.generateURL('crudStatic', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ locale|languageName }}" /> {{ locale|languageName }}
+                                      <a href="{{ crud.generateURL('crudSetLocale', {'locale': locale, 'redirect': crudlex_getCurrentUri()}) }}">
+                                          <img src="{{ crud.generateURL('crudStatic', {file: 'images/blank.gif'}) }}" class="flag flag-{{ localeToFlag[locale] }}" alt="{{ locale|crudlex_languageName }}" /> {{ locale|crudlex_languageName }}
                                       </a>
                                   </li>
                               {% endfor %}
