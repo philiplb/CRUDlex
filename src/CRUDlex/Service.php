@@ -189,7 +189,7 @@ class Service
      * the translator to use
      * @param DataFactoryInterface $dataFactory
      * the data factory to use
-     * @param EntityDefinitionFactory $entityDefinitionFactory
+     * @param EntityDefinitionFactoryInterface $entityDefinitionFactory
      * the EntityDefinitionFactory to use
      * @param FilesystemInterface $filesystem
      * the filesystem to use

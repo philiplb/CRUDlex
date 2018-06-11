@@ -88,8 +88,8 @@ class EntityDefinition
     protected $filter;
 
     /**
-     * Holds the ServiceProvider.
-     * @var ServiceProvider
+     * Holds the service.
+     * @var Service
      */
     protected $service;
 

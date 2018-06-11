@@ -71,7 +71,7 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
         }
 
         $doValidate = !$app->offsetExists('crud.validateentitydefinition') || $app['crud.validateentitydefinition'] === true;
-        $validator = null;
+        $validator  = null;
         if ($doValidate) {
             $validator = $app->offsetExists('crud.entitydefinitionvalidator')
                 ? $app['crud.entitydefinitionvalidator']
@@ -80,8 +80,8 @@ class ServiceProvider implements ServiceProviderInterface, BootableProviderInter
 
         $app['crud'] = function() use ($app, $validator) {
             $crudFileCachingDirectory = $app->offsetExists('crud.filecachingdirectory') ? $app['crud.filecachingdirectory'] : null;
-            $entityDefinitionFactory = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
-            $result = new Service($app['crud.file'], $crudFileCachingDirectory, $app['url_generator'], $app['translator'], $app['crud.datafactory'], $entityDefinitionFactory, $app['crud.filesystem'], $validator);
+            $entityDefinitionFactory  = $app->offsetExists('crud.entitydefinitionfactory') ? $app['crud.entitydefinitionfactory'] : new EntityDefinitionFactory();
+            $result                   = new Service($app['crud.file'], $crudFileCachingDirectory, $app['url_generator'], $app['translator'], $app['crud.datafactory'], $entityDefinitionFactory, $app['crud.filesystem'], $validator);
             $result->setTemplate('layout', '@crud/layout.twig');
             return $result;
         };
