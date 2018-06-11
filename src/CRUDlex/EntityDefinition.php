@@ -11,8 +11,6 @@
 
 namespace CRUDlex;
 
-use CRUDlex\Silex\ServiceProvider;
-
 /**
  * The class for defining a single entity.
  */
@@ -93,7 +91,7 @@ class EntityDefinition
      * Holds the ServiceProvider.
      * @var ServiceProvider
      */
-    protected $serviceProvider;
+    protected $service;
 
     /**
      * Holds the locale.
@@ -189,18 +187,17 @@ class EntityDefinition
      * the labels  of the entity in the locales
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
-     * @param ServiceProvider $serviceProvider
+     * @param Service $service
      * The current service provider
      */
-    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider)
+    public function __construct($table, array $fields, $label, $localeLabels, array $standardFieldLabels, Service $service)
     {
-        $this->table               = $table;
-        $this->fields              = $fields;
-        $this->label               = $label;
-        $this->localeLabels        = $localeLabels;
-        $this->standardFieldLabels = $standardFieldLabels;
-        $this->serviceProvider     = $serviceProvider;
-
+        $this->table                = $table;
+        $this->fields               = $fields;
+        $this->label                = $label;
+        $this->localeLabels         = $localeLabels;
+        $this->standardFieldLabels  = $standardFieldLabels;
+        $this->service              = $service;
         $this->children             = [];
         $this->listFields           = [];
         $this->childrenLabelFields  = [];
@@ -357,25 +354,25 @@ class EntityDefinition
     }
 
     /**
-     * Gets the service provider.
+     * Gets the service.
      *
      * @return ServiceProvider
      * the service provider
      */
-    public function getServiceProvider()
+    public function getService()
     {
-        return $this->serviceProvider;
+        return $this->service;
     }
 
     /**
-     * Sets the service provider.
+     * Sets the service.
      *
-     * @param ServiceProvider $serviceProvider
-     * the new service provider
+     * @param Service $service
+     * the new service
      */
-    public function setServiceProvider(ServiceProvider $serviceProvider)
+    public function setService(Service $service)
     {
-        $this->serviceProvider = $serviceProvider;
+        $this->service = $service;
     }
 
     /**

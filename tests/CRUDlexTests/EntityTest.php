@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 class EntityTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $crudServiceProvider;
+    protected $crudService;
 
     protected $dataBook;
 
@@ -27,19 +27,19 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->crudServiceProvider = TestDBSetup::createServiceProvider();
-        $this->dataBook = $this->crudServiceProvider->getData('book');
-        $this->dataLibrary = $this->crudServiceProvider->getData('library');
+        $this->crudService = TestDBSetup::createService();
+        $this->dataBook = $this->crudService->getData('book');
+        $this->dataLibrary = $this->crudService->getData('library');
     }
 
     public function testGetSet()
     {
-        $definitionLibrary = $this->crudServiceProvider->getData('library')->getDefinition();
-        $library = $this->crudServiceProvider->getData('library')->createEmpty();
+        $definitionLibrary = $this->crudService->getData('library')->getDefinition();
+        $library = $this->crudService->getData('library')->createEmpty();
         $library->set('name', 'lib a');
-        $this->crudServiceProvider->getData('library')->create($library);
+        $this->crudService->getData('library')->create($library);
 
-        $definition = $this->crudServiceProvider->getData('book')->getDefinition();
+        $definition = $this->crudService->getData('book')->getDefinition();
         $entity = new Entity($definition);
         $entity->set('test', 'testdata');
         $read = $entity->get('test');
@@ -74,13 +74,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $expected = $library->get('id');
         $this->assertSame($expected, $read);
 
-        $entity = $this->crudServiceProvider->getData('book')->createEmpty();
+        $entity = $this->crudService->getData('book')->createEmpty();
         $entity->set('title', 'title a');
         $entity->set('author', 'author a');
         $entity->set('pages', 1);
         $entity->set('library', $library->get('id'));
         $entity->set('cover', 'cover a');
-        $this->crudServiceProvider->getData('book')->create($entity);
+        $this->crudService->getData('book')->create($entity);
 
         $library->set('libraryBook', [['id' => $entity->get('id')]]);
         $read = $library->get('libraryBook');
@@ -120,7 +120,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRaw()
     {
-        $definition = $this->crudServiceProvider->getData('book')->getDefinition();
+        $definition = $this->crudService->getData('book')->getDefinition();
         $entity = new Entity($definition);
         $entity->set('test', 'testdata');
         $read = $entity->getRaw('test');

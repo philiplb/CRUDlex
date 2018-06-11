@@ -21,8 +21,8 @@ class EntityEventsTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $crudServiceProvider = TestDBSetup::createServiceProvider();
-        $dataBook = $crudServiceProvider->getData('book');
+        $service = TestDBSetup::createService();
+        $dataBook = $service->getData('book');
         $this->entity = $dataBook->createEmpty();
     }
 

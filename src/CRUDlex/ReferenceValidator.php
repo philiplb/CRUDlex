@@ -34,7 +34,7 @@ class ReferenceValidator implements ValidatorInterface
         $definition      = $data->getDefinition();
         $paramsOperators = ['id' => '='];
         $referenceEntity = $definition->getSubTypeField($field, 'reference', 'entity');
-        $table           = $definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
+        $table           = $definition->getService()->getData($referenceEntity)->getDefinition()->getTable();
         $amount          = $data->countBy($table, $value, $paramsOperators, false);
         return $amount > 0;
     }

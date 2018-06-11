@@ -24,9 +24,9 @@ class EntityValidatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $crudServiceProvider = TestDBSetup::createServiceProvider();
-        $this->dataBook = $crudServiceProvider->getData('book');
-        $this->dataLibrary = $crudServiceProvider->getData('library');
+        $crudService = TestDBSetup::createService();
+        $this->dataBook = $crudService->getData('book');
+        $this->dataLibrary = $crudService->getData('library');
     }
 
     public function testValidate()

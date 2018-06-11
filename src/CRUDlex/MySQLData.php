@@ -100,7 +100,7 @@ class MySQLData extends AbstractData
                 ->where('`'.$child[1].'` = ?')
                 ->setParameter(0, $id)
             ;
-            $this->addSoftDeletionToQuery($this->getDefinition()->getServiceProvider()->getData($child[2])->getDefinition(), $queryBuilder);
+            $this->addSoftDeletionToQuery($this->getDefinition()->getService()->getData($child[2])->getDefinition(), $queryBuilder);
             $queryResult = $queryBuilder->execute();
             $result      = $queryResult->fetch(\PDO::FETCH_NUM);
             if ($result[0] > 0) {
@@ -118,12 +118,12 @@ class MySQLData extends AbstractData
      */
     protected function deleteManyToManyReferences(Entity $entity)
     {
-        foreach ($this->definition->getServiceProvider()->getEntities() as $entityName) {
-            $data = $this->definition->getServiceProvider()->getData($entityName);
+        foreach ($this->definition->getService()->getEntities() as $entityName) {
+            $data = $this->definition->getService()->getData($entityName);
             foreach ($data->getDefinition()->getFieldNames(true) as $field) {
                 if ($data->getDefinition()->getType($field) == 'many') {
                     $otherEntity = $data->getDefinition()->getSubTypeField($field, 'many', 'entity');
-                    $otherData   = $this->definition->getServiceProvider()->getData($otherEntity);
+                    $otherData   = $this->definition->getService()->getData($otherEntity);
                     if ($entity->getDefinition()->getTable() == $otherData->getDefinition()->getTable()) {
                         $thatField    = $data->getDefinition()->getSubTypeField($field, 'many', 'thatField');
                         $queryBuilder = $this->database->createQueryBuilder();
@@ -306,7 +306,7 @@ class MySQLData extends AbstractData
         $ids = $this->getReferenceIds($entities, $field);
 
         $referenceEntity = $this->definition->getSubTypeField($field, 'reference', 'entity');
-        $table           = $this->definition->getServiceProvider()->getData($referenceEntity)->getDefinition()->getTable();
+        $table           = $this->definition->getService()->getData($referenceEntity)->getDefinition()->getTable();
         $queryBuilder
             ->from('`'.$table.'`', '`'.$table.'`')
             ->where('id IN (?)')
@@ -368,7 +368,7 @@ class MySQLData extends AbstractData
         $thisField        = $this->definition->getSubTypeField($manyField, 'many', 'thisField');
         $thatField        = $this->definition->getSubTypeField($manyField, 'many', 'thatField');
         $entity           = $this->definition->getSubTypeField($manyField, 'many', 'entity');
-        $entityDefinition = $this->definition->getServiceProvider()->getData($entity)->getDefinition();
+        $entityDefinition = $this->definition->getService()->getData($entity)->getDefinition();
         $entityTable      = $entityDefinition->getTable();
         $nameSelect       = $nameField !== null ? ', t2.`'.$nameField.'` AS name' : '';
         $queryBuilder
@@ -592,7 +592,7 @@ class MySQLData extends AbstractData
         $nameSelect   = $nameField !== null ? ',`'.$nameField.'`' : '';
         $drivingField = $nameField ?: 'id';
 
-        $entityDefinition = $this->definition->getServiceProvider()->getData($entity)->getDefinition();
+        $entityDefinition = $this->definition->getService()->getData($entity)->getDefinition();
         $table            = $entityDefinition->getTable();
         $queryBuilder     = $this->database->createQueryBuilder();
         $queryBuilder
@@ -663,7 +663,7 @@ class MySQLData extends AbstractData
         $thisField        = $this->definition->getSubTypeField($field, 'many', 'thisField');
         $thatField        = $this->definition->getSubTypeField($field, 'many', 'thatField');
         $thatEntity       = $this->definition->getSubTypeField($field, 'many', 'entity');
-        $entityDefinition = $this->definition->getServiceProvider()->getData($thatEntity)->getDefinition();
+        $entityDefinition = $this->definition->getService()->getData($thatEntity)->getDefinition();
         $entityTable      = $entityDefinition->getTable();
         $queryBuilder     = $this->database->createQueryBuilder();
         $queryBuilder->select('t1.`'.$thisField.'` AS this, t1.`'.$thatField.'` AS that')

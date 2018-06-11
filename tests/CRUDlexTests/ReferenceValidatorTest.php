@@ -23,9 +23,9 @@ class ReferenceValidatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $crudServiceProvider = TestDBSetup::createServiceProvider();
-        $this->dataLibrary = $crudServiceProvider->getData('library');
-        $this->dataBook = $crudServiceProvider->getData('book');
+        $crudService = TestDBSetup::createService();
+        $this->dataLibrary = $crudService->getData('library');
+        $this->dataBook = $crudService->getData('book');
         $entityLibrary = $this->dataLibrary->createEmpty();
         $entityLibrary->set('name', 'lib a');
         $this->dataLibrary->create($entityLibrary);

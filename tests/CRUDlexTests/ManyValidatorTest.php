@@ -25,8 +25,8 @@ class ManyValidatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $crudServiceProvider = TestDBSetup::createServiceProvider();
-        $this->dataLibrary = $crudServiceProvider->getData('library');
+        $crudService = TestDBSetup::createService();
+        $this->dataLibrary = $crudService->getData('library');
         $this->entityLibrary = $this->dataLibrary->createEmpty();
         $this->entityLibrary->set('name', 'lib a');
         $this->dataLibrary->create($this->entityLibrary);
@@ -34,7 +34,7 @@ class ManyValidatorTest extends \PHPUnit_Framework_TestCase
         $entityLibrary->set('name', 'lib b');
         $this->dataLibrary->create($entityLibrary);
 
-        $dataBook = $crudServiceProvider->getData('book');
+        $dataBook = $crudService->getData('book');
         $this->entityBook = $dataBook->createEmpty();
         $this->entityBook->set('title', 'title');
         $this->entityBook->set('author', 'author');

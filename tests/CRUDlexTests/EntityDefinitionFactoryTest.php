@@ -14,15 +14,16 @@ namespace CRUDlexTests;
 use CRUDlex\EntityDefinition;
 use CRUDlex\Silex\ServiceProvider;
 use CRUDlex\EntityDefinitionFactory;
+use CRUDlexTestEnv\TestDBSetup;
 
 class EntityDefinitionFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testCreateEntityDefinition()
     {
-        $crudServiceProvider = new ServiceProvider();
+        $crudService = TestDBSetup::createService();
         $entityDefinitionFactory = new EntityDefinitionFactory();
-        $instance = $entityDefinitionFactory->createEntityDefinition('', [], '', [], [], $crudServiceProvider);
+        $instance = $entityDefinitionFactory->createEntityDefinition('', [], '', [], [], $crudService);
         $this->assertNotNull($instance);
         $this->assertTrue($instance instanceof EntityDefinition);
     }

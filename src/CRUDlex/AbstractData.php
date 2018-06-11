@@ -152,7 +152,7 @@ abstract class AbstractData
     protected function deleteChildren($id, $deleteCascade)
     {
         foreach ($this->definition->getChildren() as $childArray) {
-            $childData = $this->definition->getServiceProvider()->getData($childArray[2]);
+            $childData = $this->definition->getService()->getData($childArray[2]);
             $children  = $childData->listEntries([$childArray[1] => $id]);
             foreach ($children as $child) {
                 $result = $childData->events->shouldExecute($child, 'before', 'delete');

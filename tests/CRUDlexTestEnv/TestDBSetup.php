@@ -11,6 +11,9 @@
 
 namespace CRUDlexTestEnv;
 
+use CRUDlex\EntityDefinitionFactory;
+use CRUDlex\EntityDefinitionValidator;
+use CRUDlex\Service;
 use League\Flysystem\Adapter\NullAdapter;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
@@ -19,6 +22,8 @@ use Eloquent\Phony\Phpunit\Phony;
 
 use CRUDlex\MySQLDataFactory;
 use CRUDlex\Silex\ServiceProvider;
+use Silex\Provider\LocaleServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
 
 class TestDBSetup
 {
@@ -38,6 +43,11 @@ class TestDBSetup
                     'charset'   => 'utf8',
                 ]
             ]
+        ]);
+
+        $app->register(new LocaleServiceProvider());
+        $app->register(new TranslationServiceProvider(), [
+            'locale_fallbacks' => ['en'],
         ]);
 
         $app['db']->executeUpdate('DROP TABLE IF EXISTS libraryBook;');
@@ -119,7 +129,7 @@ class TestDBSetup
         return $app;
     }
 
-    public static function createServiceProvider($useUUIDs = false)
+    public static function createService($useUUIDs = false)
     {
         static::$filesystemHandle = Phony::partialMock('\\League\\Flysystem\\Filesystem', [new NullAdapter()]);
         static::$filesystemHandle->readStream->returns(null);
@@ -127,13 +137,14 @@ class TestDBSetup
         static::$filesystemHandle->getSize->returns(42);
 
         $app = static::createAppAndDB($useUUIDs);
-        $app['crud.filesystem'] = static::$filesystemHandle->get();
-        $app['crud.datafactory'] = new MySQLDataFactory($app['db'], $useUUIDs);
-        $app['crud.file'] = __DIR__.'/../crud.yml';
-        $crudServiceProvider = new ServiceProvider();
-        $crudServiceProvider->boot($app);
-        $crudServiceProvider->init(null, $app);
-        return $crudServiceProvider;
+        $crudFile = __DIR__.'/../crud.yml';
+        $dataFactory = new MySQLDataFactory($app['db'], $useUUIDs);
+        $entityDefinitionFactory = new EntityDefinitionFactory();
+        $filesystem = static::$filesystemHandle->get();
+        $validator = new EntityDefinitionValidator();
+
+        $service = new Service($crudFile, null, $app['url_generator'], $app['translator'], $dataFactory, $entityDefinitionFactory,  $filesystem, $validator);
+        return $service;
     }
 
     public static function getFilesystemHandle()

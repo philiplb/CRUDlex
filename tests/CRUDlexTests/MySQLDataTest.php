@@ -27,9 +27,9 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $crudServiceProvider = TestDBSetup::createServiceProvider();
-        $this->dataBook = $crudServiceProvider->getData('book');
-        $this->dataLibrary = $crudServiceProvider->getData('library');
+        $crudService = TestDBSetup::createService();
+        $this->dataBook = $crudService->getData('book');
+        $this->dataLibrary = $crudService->getData('library');
     }
 
     public function testCreate()
@@ -44,8 +44,8 @@ class MySQLDataTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateWithUUID()
     {
-        $crudServiceProvider = TestDBSetup::createServiceProvider(true);
-        $dataLibrary = $crudServiceProvider->getData('library');
+        $crudService = TestDBSetup::createService(true);
+        $dataLibrary = $crudService->getData('library');
 
         $entity = $dataLibrary->createEmpty();
         $entity->set('name', 'name');

@@ -26,9 +26,9 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $crudServiceProvider = TestDBSetup::createServiceProvider();
-        $this->definition = $crudServiceProvider->getData('book')->getDefinition();
-        $this->definitionLibrary = $crudServiceProvider->getData('library')->getDefinition();
+        $service = TestDBSetup::createService();
+        $this->definition = $service->getData('book')->getDefinition();
+        $this->definitionLibrary = $service->getData('library')->getDefinition();
     }
 
     public function testGetSetFieldNames()
@@ -245,14 +245,14 @@ class EntityDefinitionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($read, $expected);
     }
 
-    public function testGetSetServiceProvider()
+    public function testGetSetService()
     {
-        $read = $this->definition->getServiceProvider();
+        $read = $this->definition->getService();
         $this->assertNotNull($read);
 
-        $expected = new ServiceProvider();
-        $this->definition->setServiceProvider($expected);
-        $read = $this->definition->getServiceProvider();
+        $expected = TestDBSetup::createService();
+        $this->definition->setService($expected);
+        $read = $this->definition->getService();
         $this->assertSame($read, $expected);
     }
 

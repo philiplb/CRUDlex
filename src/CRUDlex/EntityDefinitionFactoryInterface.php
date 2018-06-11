@@ -11,8 +11,6 @@
 
 namespace CRUDlex;
 
-use CRUDlex\Silex\ServiceProvider;
-
 /**
  * Interface to make the creation of the EntityDefinitions flexible. To be handed into
  * the ServiceProvider registration via the key "crud.entitydefinitionfactory".
@@ -33,11 +31,11 @@ interface EntityDefinitionFactoryInterface
      * the labels  of the entity in the locales
      * @param array $standardFieldLabels
      * labels for the fields "id", "created_at" and "updated_at"
-     * @param ServiceProvider $serviceProvider
+     * @param Service $serviceProvider
      * The current service provider
      *
      * @return EntityDefinition
      * the new instance
      */
-    public function createEntityDefinition($table, array $fields, $label, $localeLabels, array $standardFieldLabels, ServiceProvider $serviceProvider);
+    public function createEntityDefinition($table, array $fields, $label, $localeLabels, array $standardFieldLabels, Service $serviceProvider);
 }
