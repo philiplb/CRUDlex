@@ -356,7 +356,7 @@ class EntityDefinition
     /**
      * Gets the service.
      *
-     * @return ServiceProvider
+     * @return Service
      * the service provider
      */
     public function getService()
