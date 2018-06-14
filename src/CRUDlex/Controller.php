@@ -12,16 +12,16 @@
 namespace CRUDlex;
 
 use League\Flysystem\Util\MimeType;
-use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+
 /**
- * This is the ControllerProvider offering all CRUD pages.
+ * This is the Controller offering all CRUD pages.
  *
- * It offers this routes:
+ * It offers functions for this routes:
  *
  * "/resource/static" serving static resources
  *
@@ -39,29 +39,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  *
  * "/{entity}/{id}/{field}/delete" POST only deletion of a file field of an entity instance
  */
-class ControllerProvider implements ControllerProviderInterface
-{
-
-    /**
-     * Generates the not found page.
-     *
-     * @param Application $app
-     * the Silex application
-     * @param string $error
-     * the cause of the not found error
-     *
-     * @return Response
-     * the rendered not found page with the status code 404
-     */
-    protected function getNotFoundPage(Application $app, $error)
-    {
-        return new Response($app['twig']->render('@crud/notFound.twig', [
-            'crud' => $app['crud'],
-            'error' => $error,
-            'crudEntity' => '',
-            'layout' => $app['crud']->getTemplate('layout', '', '')
-        ]), 404);
-    }
+class Controller {
 
     /**
      * Postprocesses the entity after modification by handling the uploaded
@@ -240,87 +218,24 @@ class ControllerProvider implements ControllerProviderInterface
     }
 
     /**
-     * Setups the templates.
+     * Generates the not found page.
      *
      * @param Application $app
-     * the Application instance of the Silex application
+     * the Silex application
+     * @param string $error
+     * the cause of the not found error
+     *
+     * @return Response
+     * the rendered not found page with the status code 404
      */
-    protected function setupTemplates(Application $app)
+    public function getNotFoundPage(Application $app, $error)
     {
-        if ($app->offsetExists('twig.loader.filesystem')) {
-            $app['twig.loader.filesystem']->addPath(__DIR__.'/../views/', 'crud');
-        }
-    }
-
-    /**
-     * Setups the routes.
-     *
-     * @param Application $app
-     * the Application instance of the Silex application
-     *
-     * @return mixed
-     * the created controller factory
-     */
-    protected function setupRoutes(Application $app)
-    {
-
-        $self                 = $this;
-        $localeAndCheckEntity = function(Request $request, Application $app) use ($self) {
-            $locale = $app['translator']->getLocale();
-            $app['crud']->setLocale($locale);
-            if (!$app['crud']->getData($request->get('entity'))) {
-                return $self->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-            }
-        };
-
-        $class   = get_class($this);
-        $factory = $app['controllers_factory'];
-        $factory->get('/resource/static', $class.'::staticFile')->bind('crudStatic');
-        $factory->match('/{entity}/create', $class.'::create')->bind('crudCreate')->before($localeAndCheckEntity, 10);
-        $factory->get('/{entity}', $class.'::showList')->bind('crudList')->before($localeAndCheckEntity, 10);
-        $factory->get('/{entity}/{id}', $class.'::show')->bind('crudShow')->before($localeAndCheckEntity, 10);
-        $factory->match('/{entity}/{id}/edit', $class.'::edit')->bind('crudEdit')->before($localeAndCheckEntity, 10);
-        $factory->post('/{entity}/{id}/delete', $class.'::delete')->bind('crudDelete')->before($localeAndCheckEntity, 10);
-        $factory->get('/{entity}/{id}/{field}/file', $class.'::renderFile')->bind('crudRenderFile')->before($localeAndCheckEntity, 10);
-        $factory->post('/{entity}/{id}/{field}/delete', $class.'::deleteFile')->bind('crudDeleteFile')->before($localeAndCheckEntity, 10);
-        $factory->get('/setting/locale/{locale}', $class.'::setLocale')->bind('crudSetLocale');
-
-        return $factory;
-    }
-
-    /**
-     * Setups i18n.
-     *
-     * @param Application $app
-     * the Application instance of the Silex application
-     */
-    protected function setupI18n(Application $app)
-    {
-        $app->before(function(Request $request, Application $app) {
-            $manageI18n = $app['crud']->isManageI18n();
-            if ($manageI18n) {
-                $locale = $app['session']->get('locale', 'en');
-                $app['translator']->setLocale($locale);
-            }
-        }, 1);
-    }
-
-    /**
-     * Implements ControllerProviderInterface::connect() connecting this
-     * controller.
-     *
-     * @param Application $app
-     * the Application instance of the Silex application
-     *
-     * @return \Silex\ControllerCollection
-     * this method is expected to return the used ControllerCollection instance
-     */
-    public function connect(Application $app)
-    {
-        $this->setupTemplates($app);
-        $factory = $this->setupRoutes($app);
-        $this->setupI18n($app);
-        return $factory;
+        return new Response($app['twig']->render('@crud/notFound.twig', [
+            'crud' => $app['crud'],
+            'error' => $error,
+            'crudEntity' => '',
+            'layout' => $app['crud']->getTemplate('layout', '', '')
+        ]), 404);
     }
 
     /**

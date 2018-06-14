@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CRUDlexTests;
+namespace CRUDlexTests\Silex;
 
 use CRUDlex\Silex\ServiceProvider;
 use League\Flysystem\Adapter\Local;
@@ -39,21 +39,21 @@ class ControllerProviderTest extends WebTestCase
         $app['session.test'] = true;
         $app['debug'] = true;
 
-        $this->filesystemHandle = Phony::partialMock('\\League\\Flysystem\\Filesystem', [new Local(__DIR__.'/../tmp')]);
+        $this->filesystemHandle = Phony::partialMock('\\League\\Flysystem\\Filesystem', [new Local(__DIR__.'/../../tmp')]);
         $filesystemMock = $this->filesystemHandle->get();
 
         $dataFactory = new \CRUDlex\MySQLDataFactory($app['db']);
         $app->register(new ServiceProvider(), [
-            'crud.file' => __DIR__ . '/../crud.yml',
+            'crud.file' => __DIR__ . '/../../crud.yml',
             'crud.datafactory' => $dataFactory,
             'crud.filesystem' => $filesystemMock
         ]);
 
         $app->register(new \Silex\Provider\TwigServiceProvider(), [
-            'twig.path' => __DIR__.'/../views'
+            'twig.path' => __DIR__.'/../../views'
         ]);
 
-        $app->mount('/crud', new \CRUDlex\ControllerProvider());
+        $app->mount('/crud', new \CRUDlex\Silex\ControllerProvider());
         $app->boot();
 
         $this->dataBook = $app['crud']->getData('book');
@@ -84,7 +84,7 @@ class ControllerProviderTest extends WebTestCase
         $library->set('name', 'lib a');
         $this->dataLibrary->create($library);
 
-        $file = __DIR__.'/../test1.xml';
+        $file = __DIR__.'/../../test1.xml';
 
         $client->request('POST', '/crud/book/create', [
             'title' => 'title',
@@ -327,7 +327,7 @@ class ControllerProviderTest extends WebTestCase
         $this->assertCount(1, $crawler->filter('html:contains("Could not edit, see the red marked fields.")'));
         $this->assertRegExp('/has-error/', $client->getResponse()->getContent());
 
-        $file = __DIR__.'/../test1.xml';
+        $file = __DIR__.'/../../test1.xml';
 
         $client->request('POST', '/crud/book/'.$entityBook->get('id').'/edit', [
             'version' => 0,
@@ -550,7 +550,7 @@ class ControllerProviderTest extends WebTestCase
         $library->set('name', 'lib a');
         $this->dataLibrary->create($library);
 
-        $file = __DIR__.'/../test1.xml';
+        $file = __DIR__.'/../../test1.xml';
 
         $client->request('POST', '/crud/book/create', [
             'title' => 'title',
@@ -590,7 +590,7 @@ class ControllerProviderTest extends WebTestCase
         $library->set('name', 'lib a');
         $this->dataLibrary->create($library);
 
-        $file = __DIR__.'/../test1.xml';
+        $file = __DIR__.'/../../test1.xml';
 
         $client->request('POST', '/crud/book/create', [
             'title' => 'title',

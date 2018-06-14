@@ -53,7 +53,7 @@ Now it's time to mount the Controller:
 
 .. code-block:: php
 
-    $app->mount('/crud', new CRUDlex\ControllerProvider());
+    $app->mount('/crud', new CRUDlex\Silex\ControllerProvider());
 
 And that's it. Your CRUD UI should be available now, for example if you
 defined a book entity in the crud.yml::
