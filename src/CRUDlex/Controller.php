@@ -16,9 +16,9 @@ use League\Flysystem\Util\MimeType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Environment;
 
 
@@ -53,13 +53,13 @@ class Controller {
 
     /**
      * Holds the session.
-     * @var Session
+     * @var SessionInterface
      */
     protected $session;
 
     /**
      * Holds the translator.
-     * @var Translator
+     * @var TranslatorInterface
      */
     protected $translator;
 
@@ -256,12 +256,12 @@ class Controller {
      * the used filesystem
      * @param Twig_Environment $twig
      * the Twig environment
-     * @param Session $session
+     * @param SessionInterface $session
      * the session service
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * the translation service
      */
-    public function __construct(Service $service, FilesystemInterface $filesystem, Twig_Environment $twig, Session $session, Translator $translator)
+    public function __construct(Service $service, FilesystemInterface $filesystem, Twig_Environment $twig, SessionInterface $session, TranslatorInterface $translator)
     {
         $this->service    = $service;
         $this->filesystem = $filesystem;
