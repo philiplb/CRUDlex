@@ -45,6 +45,8 @@ class Controller {
      * Postprocesses the entity after modification by handling the uploaded
      * files and setting the flash.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the current application
      * @param AbstractData $crudData
@@ -59,10 +61,9 @@ class Controller {
      * @return null|\Symfony\Component\HttpFoundation\RedirectResponse
      * the HTTP response of this modification
      */
-    protected function modifyFilesAndSetFlashBag(Application $app, AbstractData $crudData, Entity $instance, $entity, $mode)
+    protected function modifyFilesAndSetFlashBag(Request $request, Application $app, AbstractData $crudData, Entity $instance, $entity, $mode)
     {
         $id          = $instance->get('id');
-        $request     = $app['request_stack']->getCurrentRequest();
         $fileHandler = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
         $result      = $mode == 'edit' ? $fileHandler->updateFiles($crudData, $request, $instance, $entity) : $fileHandler->createFiles($crudData, $request, $instance, $entity);
         if (!$result) {
@@ -97,6 +98,8 @@ class Controller {
      * Validates and saves the new or updated entity and returns the appropriate HTTP
      * response.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the current application
      * @param AbstractData $crudData
@@ -111,11 +114,10 @@ class Controller {
      * @return Response
      * the HTTP response of this modification
      */
-    protected function modifyEntity(Application $app, AbstractData $crudData, Entity $instance, $entity, $edit)
+    protected function modifyEntity(Request $request, Application $app, AbstractData $crudData, Entity $instance, $entity, $edit)
     {
         $fieldErrors = [];
         $mode        = $edit ? 'edit' : 'create';
-        $request     = $app['request_stack']->getCurrentRequest();
         if ($request->getMethod() == 'POST') {
             $instance->populateViaRequest($request);
             $validator  = new EntityValidator($instance);
@@ -127,7 +129,7 @@ class Controller {
                 $this->setValidationFailedFlashes($app, $optimisticLocking, $mode);
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
-                $response = $modified ? $this->modifyFilesAndSetFlashBag($app, $crudData, $instance, $entity, $mode) : false;
+                $response = $modified ? $this->modifyFilesAndSetFlashBag($request, $app, $crudData, $instance, $entity, $mode) : false;
                 if ($response) {
                     return $response;
                 }
@@ -258,6 +260,8 @@ class Controller {
     /**
      * The controller for the "create" action.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the Silex application
      * @param string $entity
@@ -266,13 +270,12 @@ class Controller {
      * @return Response
      * the HTTP response of this action
      */
-    public function create(Application $app, $entity)
+    public function create(Request $request, Application $app, $entity)
     {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->createEmpty();
-        $request  = $app['request_stack']->getCurrentRequest();
         $instance->populateViaRequest($request);
-        return $this->modifyEntity($app, $crudData, $instance, $entity, false);
+        return $this->modifyEntity($request, $app, $crudData, $instance, $entity, false);
     }
 
     /**
@@ -387,6 +390,8 @@ class Controller {
     /**
      * The controller for the "edit" action.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the Silex application
      * @param string $entity
@@ -397,7 +402,7 @@ class Controller {
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function edit(Application $app, $entity, $id)
+    public function edit(Request $request, Application $app, $entity, $id)
     {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->get($id);
@@ -405,12 +410,14 @@ class Controller {
             return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
         }
 
-        return $this->modifyEntity($app, $crudData, $instance, $entity, true);
+        return $this->modifyEntity($request, $app, $crudData, $instance, $entity, true);
     }
 
     /**
      * The controller for the "delete" action.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the Silex application
      * @param string $entity
@@ -421,7 +428,7 @@ class Controller {
      * @return Response
      * redirects to the entity list page or 404 on invalid input
      */
-    public function delete(Application $app, $entity, $id)
+    public function delete(Request $request, Application $app, $entity, $id)
     {
         $crudData = $app['crud']->getData($entity);
         $instance = $crudData->get($id);
@@ -444,7 +451,7 @@ class Controller {
         }
 
         $redirectPage       = 'crudList';
-        $redirectParameters = $this->getAfterDeleteRedirectParameters($app['request_stack']->getCurrentRequest(), $entity, $redirectPage);
+        $redirectParameters = $this->getAfterDeleteRedirectParameters($request, $entity, $redirectPage);
 
         $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', [
             '%label%' => $crudData->getDefinition()->getLabel()
