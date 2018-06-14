@@ -64,14 +64,8 @@ class ControllerProvider implements ControllerProviderInterface
      */
     protected function setupRoutes(Application $app)
     {
-        $controller           = new Controller();
-        $localeAndCheckEntity = function(Request $request, Application $app) use ($controller) {
-            $locale = $app['translator']->getLocale();
-            $app['crud']->setLocale($locale);
-            if (!$app['crud']->getData($request->get('entity'))) {
-                return $controller->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
-            }
-        };
+        $controller = new Controller();
+        $localeAndCheckEntity = [$controller, 'setLocaleAndCheckEntity'];
         $factory = $app['controllers_factory'];
         $factory->get('/resource/static', [$controller, 'staticFile'])->bind('crudStatic');
         $factory->match('/{entity}/create', [$controller, 'create'])->bind('crudCreate')->before($localeAndCheckEntity, 10);

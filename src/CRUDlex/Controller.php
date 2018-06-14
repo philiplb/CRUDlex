@@ -239,6 +239,23 @@ class Controller {
     }
 
     /**
+     * Transfers the locale from the translator to CRUDlex and
+     *
+     * @param Request $request
+     * @param Application $app
+     * @return Response
+     */
+    public function setLocaleAndCheckEntity(Request $request, Application $app)
+    {
+        $locale = $app['translator']->getLocale();
+        $app['crud']->setLocale($locale);
+        if (!$app['crud']->getData($request->get('entity'))) {
+            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
+        }
+        return null;
+    }
+
+    /**
      * The controller for the "create" action.
      *
      * @param Application $app
