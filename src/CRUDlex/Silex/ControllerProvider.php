@@ -67,8 +67,7 @@ class ControllerProvider implements ControllerProviderInterface
 
         $controller = new Controller();
 
-        $self                 = $this;
-        $localeAndCheckEntity = function(Request $request, Application $app) use ($self, $controller) {
+        $localeAndCheckEntity = function(Request $request, Application $app) use ($controller) {
             $locale = $app['translator']->getLocale();
             $app['crud']->setLocale($locale);
             if (!$app['crud']->getData($request->get('entity'))) {
