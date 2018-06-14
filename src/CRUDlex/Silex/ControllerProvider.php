@@ -64,7 +64,7 @@ class ControllerProvider implements ControllerProviderInterface
      */
     protected function setupRoutes(Application $app)
     {
-        $controller           = new Controller();
+        $controller           = new Controller($app['crud'], $app['crud.filesystem'], $app['twig'], $app['session'], $app['translator']);
         $localeAndCheckEntity = [$controller, 'setLocaleAndCheckEntity'];
         $factory              = $app['controllers_factory'];
         $factory->get('/resource/static', [$controller, 'staticFile'])->bind('crudStatic');

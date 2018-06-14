@@ -11,11 +11,15 @@
 
 namespace CRUDlex;
 
+use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Util\MimeType;
-use Silex\Application;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Translation\Translator;
+use Twig_Environment;
 
 
 /**
@@ -42,13 +46,41 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class Controller {
 
     /**
+     * Holds the filesystme.
+     * @var FilesystemInterface
+     */
+    protected $filesystem;
+
+    /**
+     * Holds the session.
+     * @var Session
+     */
+    protected $session;
+
+    /**
+     * Holds the translator.
+     * @var Translator
+     */
+    protected $translator;
+
+    /**
+     * Holds the service.
+     * @var Service
+     */
+    protected $service;
+
+    /**
+     * Holds the Twig instance.
+     * @var Twig_Environment
+     */
+    protected $twig;
+
+    /**
      * Postprocesses the entity after modification by handling the uploaded
      * files and setting the flash.
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the current application
      * @param AbstractData $crudData
      * the data instance of the entity
      * @param Entity $instance
@@ -61,36 +93,34 @@ class Controller {
      * @return null|\Symfony\Component\HttpFoundation\RedirectResponse
      * the HTTP response of this modification
      */
-    protected function modifyFilesAndSetFlashBag(Request $request, Application $app, AbstractData $crudData, Entity $instance, $entity, $mode)
+    protected function modifyFilesAndSetFlashBag(Request $request, AbstractData $crudData, Entity $instance, $entity, $mode)
     {
         $id          = $instance->get('id');
-        $fileHandler = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
+        $fileHandler = new FileHandler($this->filesystem, $crudData->getDefinition());
         $result      = $mode == 'edit' ? $fileHandler->updateFiles($crudData, $request, $instance, $entity) : $fileHandler->createFiles($crudData, $request, $instance, $entity);
         if (!$result) {
             return null;
         }
-        $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.'.$mode.'.success', [
+        $this->session->getFlashBag()->add('success', $this->translator->trans('crudlex.'.$mode.'.success', [
             '%label%' => $crudData->getDefinition()->getLabel(),
             '%id%' => $id
         ]));
-        return $app->redirect($app['url_generator']->generate('crudShow', ['entity' => $entity, 'id' => $id]));
+        return new RedirectResponse($this->service->generateURL('crudShow', ['entity' => $entity, 'id' => $id]));
     }
 
     /**
      * Sets the flashes of a failed entity modification.
      *
-     * @param Application $app
-     * the current application
      * @param boolean $optimisticLocking
      * whether the optimistic locking failed
      * @param string $mode
      * the modification mode, either 'create' or 'edit'
      */
-    protected function setValidationFailedFlashes(Application $app, $optimisticLocking, $mode)
+    protected function setValidationFailedFlashes($optimisticLocking, $mode)
     {
-        $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.error'));
+        $this->session->getFlashBag()->add('danger', $this->translator->trans('crudlex.'.$mode.'.error'));
         if ($optimisticLocking) {
-            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.edit.locked'));
+            $this->session->getFlashBag()->add('danger', $this->translator->trans('crudlex.edit.locked'));
         }
     }
 
@@ -100,8 +130,6 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the current application
      * @param AbstractData $crudData
      * the data instance of the entity
      * @param Entity $instance
@@ -114,7 +142,7 @@ class Controller {
      * @return Response
      * the HTTP response of this modification
      */
-    protected function modifyEntity(Request $request, Application $app, AbstractData $crudData, Entity $instance, $entity, $edit)
+    protected function modifyEntity(Request $request, AbstractData $crudData, Entity $instance, $entity, $edit)
     {
         $fieldErrors = [];
         $mode        = $edit ? 'edit' : 'create';
@@ -126,25 +154,25 @@ class Controller {
             $fieldErrors = $validation['errors'];
             if (!$validation['valid']) {
                 $optimisticLocking = isset($fieldErrors['version']);
-                $this->setValidationFailedFlashes($app, $optimisticLocking, $mode);
+                $this->setValidationFailedFlashes($optimisticLocking, $mode);
             } else {
                 $modified = $edit ? $crudData->update($instance) : $crudData->create($instance);
-                $response = $modified ? $this->modifyFilesAndSetFlashBag($request, $app, $crudData, $instance, $entity, $mode) : false;
+                $response = $modified ? $this->modifyFilesAndSetFlashBag($request, $crudData, $instance, $entity, $mode) : false;
                 if ($response) {
                     return $response;
                 }
-                $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.'.$mode.'.failed'));
+                $this->session->getFlashBag()->add('danger', $this->translator->trans('crudlex.'.$mode.'.failed'));
             }
         }
 
-        return $app['twig']->render($app['crud']->getTemplate('template', 'form', $entity), [
-            'crud' => $app['crud'],
+        return $this->twig->render($this->service->getTemplate('template', 'form', $entity), [
+            'crud' => $this->service,
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'entity' => $instance,
             'mode' => $mode,
             'fieldErrors' => $fieldErrors,
-            'layout' => $app['crud']->getTemplate('layout', $mode, $entity)
+            'layout' => $this->service->getTemplate('layout', $mode, $entity)
         ]);
     }
 
@@ -181,7 +209,7 @@ class Controller {
      * Builds up the parameters of the list page filters.
      *
      * @param Request $request
-     * the current application
+     * the current request
      * @param EntityDefinition $definition
      * the current entity definition
      * @param array &$filter
@@ -220,23 +248,44 @@ class Controller {
     }
 
     /**
+     * Controller constructor.
+     *
+     * @param Service $service
+     * the CRUDlex service
+     * @param FilesystemInterface $filesystem
+     * the used filesystem
+     * @param Twig_Environment $twig
+     * the Twig environment
+     * @param Session $session
+     * the session service
+     * @param Translator $translator
+     * the translation service
+     */
+    public function __construct(Service $service, FilesystemInterface $filesystem, Twig_Environment $twig, Session $session, Translator $translator)
+    {
+        $this->service    = $service;
+        $this->filesystem = $filesystem;
+        $this->twig       = $twig;
+        $this->session    = $session;
+        $this->translator = $translator;
+    }
+
+    /**
      * Generates the not found page.
      *
-     * @param Application $app
-     * the Silex application
      * @param string $error
      * the cause of the not found error
      *
      * @return Response
      * the rendered not found page with the status code 404
      */
-    public function getNotFoundPage(Application $app, $error)
+    public function getNotFoundPage($error)
     {
-        return new Response($app['twig']->render('@crud/notFound.twig', [
-            'crud' => $app['crud'],
+        return new Response($this->twig->render('@crud/notFound.twig', [
+            'crud' => $this->service,
             'error' => $error,
             'crudEntity' => '',
-            'layout' => $app['crud']->getTemplate('layout', '', '')
+            'layout' => $this->service->getTemplate('layout', '', '')
         ]), 404);
     }
 
@@ -245,17 +294,15 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the Silex application
      * @return Response|null
      * null if everything is ok, a 404 response else
      */
-    public function setLocaleAndCheckEntity(Request $request, Application $app)
+    public function setLocaleAndCheckEntity(Request $request)
     {
-        $locale = $app['translator']->getLocale();
-        $app['crud']->setLocale($locale);
-        if (!$app['crud']->getData($request->get('entity'))) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.entityNotFound'));
+        $locale = $this->translator->getLocale();
+        $this->service->setLocale($locale);
+        if (!$this->service->getData($request->get('entity'))) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.entityNotFound'));
         }
         return null;
     }
@@ -265,20 +312,18 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the Silex application
      * @param string $entity
      * the current entity
      *
      * @return Response
      * the HTTP response of this action
      */
-    public function create(Request $request, Application $app, $entity)
+    public function create(Request $request, $entity)
     {
-        $crudData = $app['crud']->getData($entity);
+        $crudData = $this->service->getData($entity);
         $instance = $crudData->createEmpty();
         $instance->populateViaRequest($request);
-        return $this->modifyEntity($request, $app, $crudData, $instance, $entity, false);
+        return $this->modifyEntity($request, $crudData, $instance, $entity, false);
     }
 
     /**
@@ -286,17 +331,15 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the Silex application
      * @param string $entity
      * the current entity
      *
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function showList(Request $request, Application $app, $entity)
+    public function showList(Request $request, $entity)
     {
-        $crudData   = $app['crud']->getData($entity);
+        $crudData   = $this->service->getData($entity);
         $definition = $crudData->getDefinition();
 
         $filter          = [];
@@ -323,8 +366,8 @@ class Controller {
 
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
 
-        return $app['twig']->render($app['crud']->getTemplate('template', 'list', $entity), [
-            'crud' => $app['crud'],
+        return $this->twig->render($this->service->getTemplate('template', 'list', $entity), [
+            'crud' => $this->service,
             'crudEntity' => $entity,
             'crudData' => $crudData,
             'definition' => $definition,
@@ -337,15 +380,13 @@ class Controller {
             'filterActive' => $filterActive,
             'sortField' => $sortField,
             'sortAscending' => $sortAscending,
-            'layout' => $app['crud']->getTemplate('layout', 'list', $entity)
+            'layout' => $this->service->getTemplate('layout', 'list', $entity)
         ]);
     }
 
     /**
      * The controller for the "show" action.
      *
-     * @param Application $app
-     * the Silex application
      * @param string $entity
      * the current entity
      * @param string $id
@@ -354,12 +395,12 @@ class Controller {
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function show(Application $app, $entity, $id)
+    public function show($entity, $id)
     {
-        $crudData = $app['crud']->getData($entity);
+        $crudData = $this->service->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
         }
         $definition = $crudData->getDefinition();
 
@@ -370,7 +411,7 @@ class Controller {
                 $childField      = $child[1];
                 $childEntity     = $child[2];
                 $childLabelField = array_key_exists($childEntity, $childrenLabelFields) ? $childrenLabelFields[$childEntity] : 'id';
-                $childCrud       = $app['crud']->getData($childEntity);
+                $childCrud       = $this->service->getData($childEntity);
                 $children[]      = [
                     $childCrud->getDefinition()->getLabel(),
                     $childEntity,
@@ -381,12 +422,12 @@ class Controller {
             }
         }
 
-        return $app['twig']->render($app['crud']->getTemplate('template', 'show', $entity), [
-            'crud' => $app['crud'],
+        return $this->twig->render($this->service->getTemplate('template', 'show', $entity), [
+            'crud' => $this->service,
             'crudEntity' => $entity,
             'entity' => $instance,
             'children' => $children,
-            'layout' => $app['crud']->getTemplate('layout', 'show', $entity)
+            'layout' => $this->service->getTemplate('layout', 'show', $entity)
         ]);
     }
 
@@ -395,8 +436,6 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the Silex application
      * @param string $entity
      * the current entity
      * @param string $id
@@ -405,15 +444,15 @@ class Controller {
      * @return Response
      * the HTTP response of this action or 404 on invalid input
      */
-    public function edit(Request $request, Application $app, $entity, $id)
+    public function edit(Request $request, $entity, $id)
     {
-        $crudData = $app['crud']->getData($entity);
+        $crudData = $this->service->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
         }
 
-        return $this->modifyEntity($request, $app, $crudData, $instance, $entity, true);
+        return $this->modifyEntity($request, $crudData, $instance, $entity, true);
     }
 
     /**
@@ -421,8 +460,6 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the Silex application
      * @param string $entity
      * the current entity
      * @param string $id
@@ -431,42 +468,40 @@ class Controller {
      * @return Response
      * redirects to the entity list page or 404 on invalid input
      */
-    public function delete(Request $request, Application $app, $entity, $id)
+    public function delete(Request $request, $entity, $id)
     {
-        $crudData = $app['crud']->getData($entity);
+        $crudData = $this->service->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
         }
 
-        $fileHandler  = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
+        $fileHandler  = new FileHandler($this->filesystem, $crudData->getDefinition());
         $filesDeleted = $fileHandler->deleteFiles($crudData, $instance, $entity);
         $deleted      = $filesDeleted ? $crudData->delete($instance) : AbstractData::DELETION_FAILED_EVENT;
 
         if ($deleted === AbstractData::DELETION_FAILED_EVENT) {
-            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.failed'));
-            return $app->redirect($app['url_generator']->generate('crudShow', ['entity' => $entity, 'id' => $id]));
+            $this->session->getFlashBag()->add('danger', $this->translator->trans('crudlex.delete.failed'));
+            return new RedirectResponse($this->service->generateURL('crudShow', ['entity' => $entity, 'id' => $id]));
         } elseif ($deleted === AbstractData::DELETION_FAILED_STILL_REFERENCED) {
-            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.delete.error', [
+            $this->session->getFlashBag()->add('danger', $this->translator->trans('crudlex.delete.error', [
                 '%label%' => $crudData->getDefinition()->getLabel()
             ]));
-            return $app->redirect($app['url_generator']->generate('crudShow', ['entity' => $entity, 'id' => $id]));
+            return new RedirectResponse($this->service->generateURL('crudShow', ['entity' => $entity, 'id' => $id]));
         }
 
         $redirectPage       = 'crudList';
         $redirectParameters = $this->getAfterDeleteRedirectParameters($request, $entity, $redirectPage);
 
-        $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.delete.success', [
+        $this->session->getFlashBag()->add('success', $this->translator->trans('crudlex.delete.success', [
             '%label%' => $crudData->getDefinition()->getLabel()
         ]));
-        return $app->redirect($app['url_generator']->generate($redirectPage, $redirectParameters));
+        return new RedirectResponse($this->service->generateURL($redirectPage, $redirectParameters));
     }
 
     /**
      * The controller for the "render file" action.
      *
-     * @param Application $app
-     * the Silex application
      * @param string $entity
      * the current entity
      * @param string $id
@@ -477,23 +512,21 @@ class Controller {
      * @return Response
      * the rendered file
      */
-    public function renderFile(Application $app, $entity, $id, $field)
+    public function renderFile($entity, $id, $field)
     {
-        $crudData   = $app['crud']->getData($entity);
+        $crudData   = $this->service->getData($entity);
         $instance   = $crudData->get($id);
         $definition = $crudData->getDefinition();
         if (!$instance || $definition->getType($field) != 'file' || !$instance->get($field)) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
         }
-        $fileHandler = new FileHandler($app['crud.filesystem'], $definition);
+        $fileHandler = new FileHandler($this->filesystem, $definition);
         return $fileHandler->renderFile($instance, $entity, $field);
     }
 
     /**
      * The controller for the "delete file" action.
      *
-     * @param Application $app
-     * the Silex application
      * @param string $entity
      * the current entity
      * @param string $id
@@ -504,22 +537,22 @@ class Controller {
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function deleteFile(Application $app, $entity, $id, $field)
+    public function deleteFile($entity, $id, $field)
     {
-        $crudData = $app['crud']->getData($entity);
+        $crudData = $this->service->getData($entity);
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
         }
-        $fileHandler = new FileHandler($app['crud.filesystem'], $crudData->getDefinition());
+        $fileHandler = new FileHandler($this->filesystem, $crudData->getDefinition());
         if (!$crudData->getDefinition()->getField($field, 'required', false) && $fileHandler->deleteFile($crudData, $instance, $entity, $field)) {
             $instance->set($field, '');
             $crudData->update($instance);
-            $app['session']->getFlashBag()->add('success', $app['translator']->trans('crudlex.file.deleted'));
+            $this->session->getFlashBag()->add('success', $this->translator->trans('crudlex.file.deleted'));
         } else {
-            $app['session']->getFlashBag()->add('danger', $app['translator']->trans('crudlex.file.notDeleted'));
+            $this->session->getFlashBag()->add('danger', $this->translator->trans('crudlex.file.notDeleted'));
         }
-        return $app->redirect($app['url_generator']->generate('crudShow', ['entity' => $entity, 'id' => $id]));
+        return new RedirectResponse($this->service->generateURL('crudShow', ['entity' => $entity, 'id' => $id]));
     }
 
     /**
@@ -527,18 +560,16 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the Silex application
      *
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function staticFile(Request $request, Application $app)
+    public function staticFile(Request $request)
     {
         $fileParam = str_replace('..', '', $request->get('file'));
         $file      = __DIR__.'/../static/'.$fileParam;
         if (!$fileParam || !file_exists($file)) {
-            return $this->getNotFoundPage($app, $app['translator']->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
         }
 
         $mimeType = MimeType::detectByFilename($file);
@@ -562,26 +593,24 @@ class Controller {
      *
      * @param Request $request
      * the current request
-     * @param Application $app
-     * the Silex application
      * @param string $locale
      * the new locale
      *
      * @return Response
      * redirects to the instance details page or 404 on invalid input
      */
-    public function setLocale(Request $request, Application $app, $locale)
+    public function setLocale(Request $request, $locale)
     {
 
-        if (!in_array($locale, $app['crud']->getLocales())) {
-            return $this->getNotFoundPage($app, 'Locale '.$locale.' not found.');
+        if (!in_array($locale, $this->service->getLocales())) {
+            return $this->getNotFoundPage('Locale '.$locale.' not found.');
         }
 
-        $manageI18n = $app['crud']->isManageI18n();
+        $manageI18n = $this->service->isManageI18n();
         if ($manageI18n) {
-            $app['session']->set('locale', $locale);
+            $this->session->set('locale', $locale);
         }
         $redirect = $request->get('redirect');
-        return $app->redirect($redirect);
+        return new RedirectResponse($redirect);
     }
 }

@@ -53,8 +53,8 @@ class ControllerProviderTest extends WebTestCase
             'twig.path' => __DIR__.'/../../views'
         ]);
 
-        $app->mount('/crud', new \CRUDlex\Silex\ControllerProvider());
         $app->boot();
+        $app->mount('/crud', new \CRUDlex\Silex\ControllerProvider());
 
         $this->dataBook = $app['crud']->getData('book');
         $this->dataLibrary = $app['crud']->getData('library');
