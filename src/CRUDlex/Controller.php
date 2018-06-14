@@ -209,7 +209,7 @@ class Controller {
                         return ['id' => $value];
                     }, $filter[$filterField]);
                     $filterToUse[$filterField] = $filter[$filterField];
-                } else if (in_array($type, ['text', 'multiline', 'fixed'])){
+                } else if (in_array($type, ['text', 'multiline', 'fixed'])) {
                     $filterToUse[$filterField]     = '%'.$filter[$filterField].'%';
                     $filterOperators[$filterField] = 'LIKE';
                 }
