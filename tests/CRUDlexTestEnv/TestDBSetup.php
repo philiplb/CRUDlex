@@ -21,7 +21,6 @@ use Silex\Provider\DoctrineServiceProvider;
 use Eloquent\Phony\Phpunit\Phony;
 
 use CRUDlex\MySQLDataFactory;
-use CRUDlex\Silex\ServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 

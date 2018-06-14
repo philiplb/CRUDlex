@@ -12,7 +12,6 @@
 namespace CRUDlexTests;
 
 use CRUDlexTestEnv\TestDBSetup;
-use CRUDlex\Entity;
 use CRUDlex\EntityValidator;
 
 class EntityValidatorTest extends \PHPUnit_Framework_TestCase

@@ -11,8 +11,6 @@
 
 namespace CRUDlexTests\Silex;
 
-use Eloquent\Phony\Phpunit\Phony;
-
 use CRUDlex\Silex\ServiceProvider;
 use CRUDlex\MySQLDataFactory;
 use League\Flysystem\Filesystem;

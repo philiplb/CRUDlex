@@ -12,7 +12,6 @@
 namespace CRUDlexTests;
 
 use CRUDlex\EntityDefinition;
-use CRUDlex\Silex\ServiceProvider;
 use CRUDlex\EntityDefinitionFactory;
 use CRUDlexTestEnv\TestDBSetup;
 

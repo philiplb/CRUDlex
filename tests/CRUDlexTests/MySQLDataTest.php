@@ -11,9 +11,6 @@
 
 namespace CRUDlexTests;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
 use CRUDlex\AbstractData;
