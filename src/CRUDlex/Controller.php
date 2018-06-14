@@ -244,8 +244,11 @@ class Controller {
      * Transfers the locale from the translator to CRUDlex and
      *
      * @param Request $request
+     * the current request
      * @param Application $app
-     * @return Response
+     * the Silex application
+     * @return Response|null
+     * null if everything is ok, a 404 response else
      */
     public function setLocaleAndCheckEntity(Request $request, Application $app)
     {

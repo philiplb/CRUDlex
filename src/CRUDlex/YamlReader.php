@@ -77,7 +77,7 @@ class YamlReader
             'whitespace' => false,
             'recursion.detect' => false
         ]);
-        $cache = '<?php $crudlexCacheContent = '.$contentPHP.';';
+        $cache      = '<?php $crudlexCacheContent = '.$contentPHP.';';
         file_put_contents($this->getCacheFile($fileName), $cache);
     }
 

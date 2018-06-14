@@ -64,9 +64,9 @@ class ControllerProvider implements ControllerProviderInterface
      */
     protected function setupRoutes(Application $app)
     {
-        $controller = new Controller();
+        $controller           = new Controller();
         $localeAndCheckEntity = [$controller, 'setLocaleAndCheckEntity'];
-        $factory = $app['controllers_factory'];
+        $factory              = $app['controllers_factory'];
         $factory->get('/resource/static', [$controller, 'staticFile'])->bind('crudStatic');
         $factory->match('/{entity}/create', [$controller, 'create'])->bind('crudCreate')->before($localeAndCheckEntity, 10);
         $factory->get('/{entity}', [$controller, 'showList'])->bind('crudList')->before($localeAndCheckEntity, 10);
