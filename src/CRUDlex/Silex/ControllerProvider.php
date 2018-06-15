@@ -67,7 +67,7 @@ class ControllerProvider implements ControllerProviderInterface
     {
         $controller = $app->offsetExists('crud.controller') ? $app['crud.controller'] : new Controller($app['crud'], $app['crud.filesystem'], $app['twig'], $app['session'], $app['translator']);
         if (!$controller instanceof ControllerInterface) {
-            throw new \InvalidArgumentException('crud.controller doesn\'t implement CRUDlex\ControllerInterface.' );
+            throw new \InvalidArgumentException('crud.controller doesn\'t implement CRUDlex\ControllerInterface.');
         }
         $localeAndCheckEntity = [$controller, 'setLocaleAndCheckEntity'];
         $factory              = $app['controllers_factory'];
