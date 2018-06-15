@@ -71,6 +71,10 @@ class ControllerTest extends TestCase
         $twig->addFilter(new \Twig_SimpleFilter('trans', $foo));
         $twig->addFilter(new \Twig_SimpleFilter('crudlex_languageName', $foo));
         $twig->addFilter(new \Twig_SimpleFilter('crudlex_formatDate', $foo));
+        $twig->addFilter(new \Twig_SimpleFilter('crudlex_formatDateTime', $foo));
+        $twig->addFilter(new \Twig_SimpleFilter('crudlex_basename', $foo));
+        $twig->addFilter(new \Twig_SimpleFilter('crudlex_float', $foo));
+        $twig->addFilter(new \Twig_SimpleFilter('crudlex_arrayColumn', $foo));
 
         $crudFile = __DIR__.'/../crud.yml';
         $urlGeneratorMock = Phony::mock('Symfony\Component\\Routing\\Generator\\UrlGeneratorInterface');
@@ -168,6 +172,112 @@ class ControllerTest extends TestCase
         $request = new Request(['author' => 'myAuthor']);
         $response = $controller->create($request, 'book');
         $this->assertRegExp('/value="myAuthor"/', $response);
+    }
+
+    public function testShowList()
+    {
+        $controller = $this->createController();
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $library2 = $this->dataLibrary->createEmpty();
+        $library2->set('name', 'lib b');
+        $this->dataLibrary->create($library2);
+
+        $entityBook1 = $this->dataBook->createEmpty();
+        $entityBook1->set('title', 'titleA');
+        $entityBook1->set('author', 'author');
+        $entityBook1->set('pages', 111);
+        $entityBook1->set('price', 3.99);
+        $entityBook1->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook1);
+        $entityBook1Id = $entityBook1->get('id');
+
+        $entityBook2 = $this->dataBook->createEmpty();
+        $entityBook2->set('title', 'titleB');
+        $entityBook2->set('author', 'author');
+        $entityBook2->set('pages', 111);
+        $entityBook2->set('price', 3.99);
+        $entityBook2->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook2);
+
+        $library->set('libraryBook', [['id' => $entityBook1Id]]);
+        $this->dataLibrary->update($library);
+
+        $request = new Request();
+        $response = $controller->showList($request, 'book');
+        $this->assertRegExp('/lib a/', $response);
+        $this->assertRegExp('/titleA/', $response);
+        $this->assertRegExp('/titleB/', $response);
+
+        for ($i = 0; $i < 8; ++$i) {
+            $entityBookA = $this->dataBook->createEmpty();
+            $entityBookA->set('title', 'titleB'.$i);
+            $entityBookA->set('author', 'author'.$i);
+            $entityBookA->set('pages', 111);
+            $entityBookA->set('price', 3.99);
+            $entityBookA->set('library', $i % 2 == 0 ? $library->get('id') : $library2->get('id'));
+            $this->dataBook->create($entityBookA);
+        }
+
+        // Pagination
+        $this->dataBook->getDefinition()->setPageSize(5);
+        $response = $controller->showList($request, 'book');
+        $this->assertRegExp('/titleA/', $response);
+        $this->assertRegExp('/\>1\</', $response);
+        $this->assertRegExp('/\>2\</', $response);
+        $this->assertSame(strpos('>3<', $response), false);
+
+        $request = new Request(['crudPage' => '1']);
+        $response = $controller->showList($request, 'book');
+        $this->assertRegExp('/titleB3/', $response);
+
+        // Filter
+        $request = new Request(['crudFiltertitle' => 'titleB']);
+        $response = $controller->showList($request, 'book');
+        $this->assertRegExp('/titleB/', $response);
+        $this->assertRegExp('/titleB0/', $response);
+        $this->assertRegExp('/titleB1/', $response);
+        $this->assertRegExp('/titleB2/', $response);
+        $this->assertRegExp('/titleB3/', $response);
+        $this->assertNotRegExp('/titleA/', $response);
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib b1');
+        $library->set('isOpenOnSundays', true);
+        $this->dataLibrary->create($library);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib b2');
+        $library->set('isOpenOnSundays', true);
+        $this->dataLibrary->create($library);
+
+        $request = new Request(['crudFilterisOpenOnSundays' => 'true']);
+        $response = $controller->showList($request, 'library');
+        $this->assertRegExp('/lib b1/', $response);
+        $this->assertRegExp('/lib b2/', $response);
+        $this->assertNotRegExp('/lib a/', $response);
+
+        $request = new Request(['crudFilterlibraryBook' => [$entityBook1Id]]);
+        $response = $controller->showList($request, 'library');
+        $this->assertRegExp('/lib a/', $response);
+        $this->assertNotRegExp('/lib b1/', $response);
+        $this->assertNotRegExp('/lib b2/', $response);
+
+
+        $request = new Request(['crudFilterlibrary' => $library2->get('id')]);
+        $response = $controller->showList($request, 'book');
+        $this->assertRegExp('/titleB1/', $response);
+        $this->assertRegExp('/titleB3/', $response);
+        $this->assertRegExp('/titleB5/', $response);
+        $this->assertRegExp('/titleB7/', $response);
+        $this->assertNotRegExp('/titleB0/', $response);
+        $this->assertNotRegExp('/titleB2/', $response);
+        $this->assertNotRegExp('/titleB4/', $response);
+        $this->assertNotRegExp('/titleB6/', $response);
+        $this->assertNotRegExp('/titleB"/', $response);
+        $this->assertNotRegExp('/titleA/', $response);
     }
 
 }
