@@ -20,6 +20,7 @@ use Silex\Provider\DoctrineServiceProvider;
 
 use Eloquent\Phony\Phpunit\Phony;
 
+use Doctrine\DBAL\Connection;
 use CRUDlex\MySQLDataFactory;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
@@ -41,26 +42,15 @@ class TestDBSetup
         ];
     }
 
-    public static function createAppAndDB($useUUIDs = false)
+    public static function createDB(Connection $db, $useUUIDs)
     {
-        $app = new Application();
-        $app->register(new DoctrineServiceProvider(), [
-            'dbs.options' => [
-                'default' => static::getDBConfig()
-            ]
-        ]);
 
-        $app->register(new LocaleServiceProvider());
-        $app->register(new TranslationServiceProvider(), [
-            'locale_fallbacks' => ['en'],
-        ]);
+        $db->executeUpdate('DROP TABLE IF EXISTS libraryBook;');
+        $db->executeUpdate('DROP TABLE IF EXISTS book;');
+        $db->executeUpdate('DROP TABLE IF EXISTS library;');
 
-        $app['db']->executeUpdate('DROP TABLE IF EXISTS libraryBook;');
-        $app['db']->executeUpdate('DROP TABLE IF EXISTS book;');
-        $app['db']->executeUpdate('DROP TABLE IF EXISTS library;');
-
-        $app['db']->executeUpdate('SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";');
-        $app['db']->executeUpdate('SET time_zone = "+00:00"');
+        $db->executeUpdate('SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";');
+        $db->executeUpdate('SET time_zone = "+00:00"');
 
         $sql = 'CREATE TABLE IF NOT EXISTS `library` (';
         if ($useUUIDs) {
@@ -78,7 +68,7 @@ class TestDBSetup
             '  `planet` varchar(255) DEFAULT NULL,'.
             '  PRIMARY KEY (`id`)'.
             ') ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
-        $app['db']->executeUpdate($sql);
+        $db->executeUpdate($sql);
 
         $sql = 'CREATE TABLE IF NOT EXISTS `book` (';
 
@@ -98,10 +88,10 @@ class TestDBSetup
 
         if ($useUUIDs) {
             $sql .= '  `library` varchar(36) NOT NULL,'.
-                    '  `secondLibrary` varchar(36) DEFAULT NULL,';
+                '  `secondLibrary` varchar(36) DEFAULT NULL,';
         } else {
             $sql .= '  `library` int(11) NOT NULL,'.
-                    '  `secondLibrary` int(11) DEFAULT NULL,';
+                '  `secondLibrary` int(11) DEFAULT NULL,';
         }
 
         $sql .= '  `cover` varchar(255) DEFAULT NULL,'.
@@ -111,7 +101,7 @@ class TestDBSetup
             '  CONSTRAINT `book_ibfk_2` FOREIGN KEY (`secondLibrary`) REFERENCES `library` (`id`)'.
             ') ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
 
-        $app['db']->executeUpdate($sql);
+        $db->executeUpdate($sql);
 
 
         $sql = 'CREATE TABLE `libraryBook` (';
@@ -129,7 +119,25 @@ class TestDBSetup
             '  CONSTRAINT `librarybook_ibfk_2` FOREIGN KEY (`book`) REFERENCES `book` (`id`)'.
             ') ENGINE=InnoDB DEFAULT CHARSET=utf8;';
 
-        $app['db']->executeUpdate($sql);
+        $db->executeUpdate($sql);
+    }
+
+    public static function createAppAndDB($useUUIDs = false)
+    {
+        $app = new Application();
+        $app->register(new DoctrineServiceProvider(), [
+            'dbs.options' => [
+                'default' => static::getDBConfig()
+            ]
+        ]);
+
+        static::createDB($app['db'], $useUUIDs);
+
+        $app->register(new LocaleServiceProvider());
+        $app->register(new TranslationServiceProvider(), [
+            'locale_fallbacks' => ['en'],
+        ]);
+
 
         return $app;
     }
