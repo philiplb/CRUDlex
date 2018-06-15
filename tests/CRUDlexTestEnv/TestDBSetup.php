@@ -42,7 +42,7 @@ class TestDBSetup
         ];
     }
 
-    public static function createDB(Connection $db, $useUUIDs)
+    public static function createDB(Connection $db, $useUUIDs = false)
     {
 
         $db->executeUpdate('DROP TABLE IF EXISTS libraryBook;');
