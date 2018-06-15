@@ -13,8 +13,9 @@ namespace CRUDlexTests;
 
 use CRUDlex\EntityEvents;
 use CRUDlexTestEnv\TestDBSetup;
+use PHPUnit\Framework\TestCase;
 
-class EntityEventsTest extends \PHPUnit_Framework_TestCase
+class EntityEventsTest extends TestCase
 {
 
     protected $entity;

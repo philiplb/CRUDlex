@@ -13,10 +13,11 @@ namespace CRUDlexTests;
 
 use CRUDlex\FileHandler;
 use CRUDlexTestEnv\TestDBSetup;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
-class FileHandlerTest extends \PHPUnit_Framework_TestCase
+class FileHandlerTest extends TestCase
 {
 
     protected $dataBook;
@@ -70,6 +71,7 @@ class FileHandlerTest extends \PHPUnit_Framework_TestCase
         $filesystemHandle = TestDBSetup::getFilesystemHandle();
         $fileHandler = new FileHandler($filesystemHandle->get(), $this->dataBook->getDefinition());
         $fileHandler->deleteFiles($this->dataBook, $entityBook, 'book');
+        $this->assertTrue(true);
     }
 
     public function testDeleteFile()
@@ -89,6 +91,7 @@ class FileHandlerTest extends \PHPUnit_Framework_TestCase
         $filesystemHandle = TestDBSetup::getFilesystemHandle();
         $fileHandler = new FileHandler($filesystemHandle->get(), $this->dataBook->getDefinition());
         $fileHandler->deleteFile($this->dataBook, $entityBook, 'book', 'cover');
+        $this->assertTrue(true);
     }
 
     public function testCreateFiles()

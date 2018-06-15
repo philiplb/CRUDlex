@@ -14,8 +14,9 @@ namespace CRUDlexTests;
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
 use CRUDlex\AbstractData;
+use PHPUnit\Framework\TestCase;
 
-class MySQLDataTest extends \PHPUnit_Framework_TestCase
+class MySQLDataTest extends TestCase
 {
 
     protected $dataBook;

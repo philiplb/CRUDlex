@@ -15,10 +15,11 @@ use CRUDlex\Silex\ServiceProvider;
 use CRUDlex\MySQLDataFactory;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\NullAdapter;
+use PHPUnit\Framework\TestCase;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 
-class ServiceProviderTest extends \PHPUnit_Framework_TestCase
+class ServiceProviderTest extends TestCase
 {
 
     protected $crudFile;
@@ -86,7 +87,7 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase
             $app['crud']->getData('bar');
             $this->fail('Expected exception');
         } catch (\Exception $e) {
-            // Wanted.
+            $this->assertTrue(true);
         }
 
     }

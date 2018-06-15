@@ -12,9 +12,10 @@
 namespace CRUDlexTests;
 
 use CRUDlex\EntityDefinitionValidator;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
-class EntityDefinitionValidatorTest extends \PHPUnit_Framework_TestCase
+class EntityDefinitionValidatorTest extends TestCase
 {
 
     public function testValidate()
@@ -31,7 +32,7 @@ class EntityDefinitionValidatorTest extends \PHPUnit_Framework_TestCase
             $validator->validate(['foo' => 'bar']);
             $this->fail();
         } catch (\LogicException $e) {
-            // Expected
+            $this->assertTrue(true);
         } catch (\Exception $e) {
             $this->fail();
         }

@@ -13,8 +13,9 @@ namespace CRUDlexTests;
 
 use CRUDlex\YamlReader;
 use Eloquent\Phony\Phony;
+use PHPUnit\Framework\TestCase;
 
-class YamlReaderTest extends \PHPUnit_Framework_TestCase
+class YamlReaderTest extends TestCase
 {
 
     public function testInvalidFile()
@@ -22,8 +23,9 @@ class YamlReaderTest extends \PHPUnit_Framework_TestCase
         $reader = new YamlReader(null);
         try {
             $reader->read('foo');
+            $this->fail('Exception wanted.');
         } catch (\Exception $e) {
-            // Wanted.
+            $this->assertTrue(true);
         }
     }
 
@@ -31,6 +33,7 @@ class YamlReaderTest extends \PHPUnit_Framework_TestCase
     {
         $reader = new YamlReader(null);
         $reader->read(__DIR__.'/../emptyCrud.yml');
+        $this->assertTrue(true);
     }
 
     public function testRead()

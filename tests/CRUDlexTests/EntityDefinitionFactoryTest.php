@@ -14,8 +14,9 @@ namespace CRUDlexTests;
 use CRUDlex\EntityDefinition;
 use CRUDlex\EntityDefinitionFactory;
 use CRUDlexTestEnv\TestDBSetup;
+use PHPUnit\Framework\TestCase;
 
-class EntityDefinitionFactoryTest extends \PHPUnit_Framework_TestCase
+class EntityDefinitionFactoryTest extends TestCase
 {
 
     public function testCreateEntityDefinition()

@@ -13,8 +13,9 @@ namespace CRUDlexTests;
 
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\EntityDefinition;
+use PHPUnit\Framework\TestCase;
 
-class EntityDefinitionTest extends \PHPUnit_Framework_TestCase
+class EntityDefinitionTest extends TestCase
 {
 
     /** @var $definition EntityDefinition */

@@ -19,12 +19,13 @@ use CRUDlex\Service;
 use CRUDlex\MySQLDataFactory;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\NullAdapter;
+use PHPUnit\Framework\TestCase;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends TestCase
 {
 
     protected $crudFile;
@@ -64,7 +65,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             'locale_fallbacks' => ['en'],
         ]);
         $entityDefinitionFactory = new EntityDefinitionFactory();
-        $service = new Service($this->crudFile, null, $this->app['url_generator'], $this->app['translator'], $this->dataFactory, $entityDefinitionFactory,  $this->filesystem, $this->validator);
+        $service = new Service($this->crudFile, null, $this->app['url_generator'], $this->app['translator'], $this->dataFactory, $entityDefinitionFactory, $this->filesystem, $this->validator);
         return $service;
     }
 
@@ -76,7 +77,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             $this->createService();
             $this->fail('Expected exception');
         } catch (\Exception $e) {
-            // Wanted.
+            $this->assertTrue(true);
         }
 
         $this->crudFile = $oldCrudFile;

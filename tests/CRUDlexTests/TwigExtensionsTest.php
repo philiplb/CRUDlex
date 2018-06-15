@@ -12,8 +12,9 @@
 namespace CRUDlexTests;
 
 use CRUDlex\TwigExtensions;
+use PHPUnit\Framework\TestCase;
 
-class TwigExtensionsTest extends \PHPUnit_Framework_TestCase
+class TwigExtensionsTest extends TestCase
 {
 
     public function testLanguageName()

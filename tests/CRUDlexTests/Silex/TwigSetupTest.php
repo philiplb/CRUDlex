@@ -12,10 +12,11 @@
 namespace CRUDlexTests\Silex;
 
 use CRUDlex\Silex\TwigSetup;
+use PHPUnit\Framework\TestCase;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 
-class TwigSetupTest extends \PHPUnit_Framework_TestCase
+class TwigSetupTest extends TestCase
 {
 
     public function testRegisterTwigExtensions()

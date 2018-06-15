@@ -13,8 +13,9 @@ namespace CRUDlexTests;
 
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\UniqueValidator;
+use PHPUnit\Framework\TestCase;
 
-class UniqueValidatorTest extends \PHPUnit_Framework_TestCase
+class UniqueValidatorTest extends TestCase
 {
 
     protected $dataLibrary;

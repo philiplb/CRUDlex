@@ -12,6 +12,10 @@ Released: Upcoming
 - Attention: Moved the class "ServiceProvider" from the namespace "CRUDlex" to the namespace "CRUDlex\Silex"
 - Attention: Prefixed all Twig functions and filters with "crudlex_"
 - Replaced all Pimple calls to "app." in the templates with calls to the crud instance or new Twig functions
+- Updated dependencies:
+    - "phpunit/phpunit": "~7.2"
+    - "eloquent/phony": "~3.0"
+    - "eloquent/phony-phpunit": "~4.0"
 
 ## 0.13.0
 Released: 2018-02-12

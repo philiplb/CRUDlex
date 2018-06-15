@@ -13,10 +13,11 @@ namespace CRUDlexTests;
 
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\Entity;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
-class EntityTest extends \PHPUnit_Framework_TestCase
+class EntityTest extends TestCase
 {
 
     protected $crudService;

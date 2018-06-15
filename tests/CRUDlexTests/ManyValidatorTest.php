@@ -13,8 +13,9 @@ namespace CRUDlexTests;
 
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\ManyValidator;
+use PHPUnit\Framework\TestCase;
 
-class ManyValidatorTest extends \PHPUnit_Framework_TestCase
+class ManyValidatorTest extends TestCase
 {
 
     protected $dataLibrary;

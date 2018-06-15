@@ -13,8 +13,9 @@ namespace CRUDlexTests;
 
 use CRUDlexTestEnv\TestDBSetup;
 use CRUDlex\EntityValidator;
+use PHPUnit\Framework\TestCase;
 
-class EntityValidatorTest extends \PHPUnit_Framework_TestCase
+class EntityValidatorTest extends TestCase
 {
 
     protected $dataBook;
