@@ -61,3 +61,7 @@ And that's it. Your CRUD UI should be available now, for example if you
 defined a book entity in the crud.yml::
 
     http://.../crud/book
+
+You can override the used Controller instance in order to customize the behaviour. Simply extend from CRUDlex\Controller
+and adjust or implement CRUDlex\ControllerInterface. Then instantiate your class and set $app['crud.controller'] with
+it before mounting.

@@ -12,6 +12,7 @@
 namespace CRUDlex\Silex;
 
 use CRUDlex\Controller;
+use CRUDlex\ControllerInterface;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,7 +65,10 @@ class ControllerProvider implements ControllerProviderInterface
      */
     protected function setupRoutes(Application $app)
     {
-        $controller           = new Controller($app['crud'], $app['crud.filesystem'], $app['twig'], $app['session'], $app['translator']);
+        $controller = $app->offsetExists('crud.controller') ? $app['crud.controller'] : new Controller($app['crud'], $app['crud.filesystem'], $app['twig'], $app['session'], $app['translator']);
+        if (!$controller instanceof ControllerInterface) {
+            throw new \InvalidArgumentException('crud.controller doesn\'t implement CRUDlex\ControllerInterface.' );
+        }
         $localeAndCheckEntity = [$controller, 'setLocaleAndCheckEntity'];
         $factory              = $app['controllers_factory'];
         $factory->get('/resource/static', [$controller, 'staticFile'])->bind('crudStatic');
