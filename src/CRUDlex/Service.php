@@ -12,9 +12,9 @@
 namespace CRUDlex;
 
 use League\Flysystem\FilesystemInterface;
-use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * The Service setups and initializes the whole CRUD system and is initialized via the framework
@@ -52,13 +52,13 @@ class Service
     /**
      * Initializes the available locales.
      *
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * the translator
      *
      * @return array
      * the available locales
      */
-    protected function initLocales(Translator $translator)
+    protected function initLocales(TranslatorInterface $translator)
     {
         $locales   = $this->getLocales();
         $localeDir = __DIR__.'/../locales';
@@ -140,7 +140,7 @@ class Service
     /**
      * Creates and setups an EntityDefinition instance.
      *
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * the Translator to use for some standard field labels
      * @param EntityDefinitionFactoryInterface $entityDefinitionFactory
      * the EntityDefinitionFactory to use
@@ -154,7 +154,7 @@ class Service
      * @return EntityDefinition
      * the EntityDefinition good to go
      */
-    protected function createDefinition(Translator $translator, EntityDefinitionFactoryInterface $entityDefinitionFactory, array $locales, array $crud, $name)
+    protected function createDefinition(TranslatorInterface $translator, EntityDefinitionFactoryInterface $entityDefinitionFactory, array $locales, array $crud, $name)
     {
         $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
         $localeLabels        = $this->getLocaleLabels($locales, $crud);
@@ -183,9 +183,9 @@ class Service
      * the CRUD YAML file
      * @param string|null $crudFileCachingDirectory
      * the writable directory to store the CRUD YAML file cache
-     * @param UrlGenerator $urlGenerator
+     * @param UrlGeneratorInterface $urlGenerator
      * the URL generator to use
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * the translator to use
      * @param DataFactoryInterface $dataFactory
      * the data factory to use
@@ -196,7 +196,7 @@ class Service
      * @param EntityDefinitionValidatorInterface|null $validator
      * the validator to use, null if no validation required
      */
-    public function __construct($crudFile, $crudFileCachingDirectory, UrlGenerator $urlGenerator, Translator $translator, DataFactoryInterface $dataFactory, EntityDefinitionFactoryInterface $entityDefinitionFactory, FilesystemInterface $filesystem, ?EntityDefinitionValidatorInterface $validator)
+    public function __construct($crudFile, $crudFileCachingDirectory, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, DataFactoryInterface $dataFactory, EntityDefinitionFactoryInterface $entityDefinitionFactory, FilesystemInterface $filesystem, ?EntityDefinitionValidatorInterface $validator)
     {
 
         $this->urlGenerator = $urlGenerator;
