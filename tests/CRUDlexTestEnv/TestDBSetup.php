@@ -29,18 +29,24 @@ class TestDBSetup
 
     private static $filesystemHandle;
 
+    public static function getDBConfig()
+    {
+        return [
+            'host'      => '127.0.0.1',
+            'dbname'    => 'crudTest',
+            'user'      => 'root',
+            'password'  => '',
+            'charset'   => 'utf8',
+            'driver' => 'pdo_mysql',
+        ];
+    }
+
     public static function createAppAndDB($useUUIDs = false)
     {
         $app = new Application();
         $app->register(new DoctrineServiceProvider(), [
             'dbs.options' => [
-                'default' => [
-                    'host'      => '127.0.0.1',
-                    'dbname'    => 'crudTest',
-                    'user'      => 'root',
-                    'password'  => '',
-                    'charset'   => 'utf8',
-                ]
+                'default' => static::getDBConfig()
             ]
         ]);
 

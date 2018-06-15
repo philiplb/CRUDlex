@@ -13,6 +13,7 @@ namespace CRUDlexTests;
 
 use CRUDlex\EntityDefinitionFactory;
 use CRUDlex\EntityDefinitionValidator;
+use CRUDlexTestEnv\TestDBSetup;
 use Eloquent\Phony\Phpunit\Phony;
 
 use CRUDlex\Service;
@@ -43,13 +44,7 @@ class ServiceTest extends TestCase
         $this->app = new Application();
         $this->app->register(new DoctrineServiceProvider(), [
             'dbs.options' => [
-                'default' => [
-                    'host'      => '127.0.0.1',
-                    'dbname'    => 'crudTest',
-                    'user'      => 'root',
-                    'password'  => '',
-                    'charset'   => 'utf8',
-                ]
+                'default' => TestDBSetup::getDBConfig()
             ],
         ]);
         $this->crudFile = __DIR__.'/../crud.yml';

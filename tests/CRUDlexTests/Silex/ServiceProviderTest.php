@@ -13,6 +13,7 @@ namespace CRUDlexTests\Silex;
 
 use CRUDlex\Silex\ServiceProvider;
 use CRUDlex\MySQLDataFactory;
+use CRUDlexTestEnv\TestDBSetup;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\NullAdapter;
 use PHPUnit\Framework\TestCase;
@@ -33,13 +34,7 @@ class ServiceProviderTest extends TestCase
         $app = new Application();
         $app->register(new DoctrineServiceProvider(), [
             'dbs.options' => [
-                'default' => [
-                    'host'      => '127.0.0.1',
-                    'dbname'    => 'crudTest',
-                    'user'      => 'root',
-                    'password'  => '',
-                    'charset'   => 'utf8',
-                ]
+                'default' => TestDBSetup::getDBConfig()
             ],
         ]);
         $this->crudFile = __DIR__.'/../../crud.yml';
