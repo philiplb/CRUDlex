@@ -61,44 +61,6 @@ class ControllerProviderTest extends WebTestCase
         return $app;
     }
 
-    public function testShow()
-    {
-
-        $library = $this->dataLibrary->createEmpty();
-        $library->set('name', 'lib a');
-        $this->dataLibrary->create($library);
-
-        $entityBook = $this->dataBook->createEmpty();
-        $entityBook->set('title', 'titleA');
-        $entityBook->set('author', 'authorA');
-        $entityBook->set('pages', 111);
-        $entityBook->set('release', "2014-08-31");
-        $entityBook->set('library', $library->get('id'));
-        $this->dataBook->create($entityBook);
-
-        $client = $this->createClient();
-
-        $crawler = $client->request('GET', '/crud/foo/'.$entityBook->get('id'));
-        $this->assertTrue($client->getResponse()->isNotFound());
-        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
-
-        $crawler = $client->request('GET', '/crud/book/666');
-        $this->assertTrue($client->getResponse()->isNotFound());
-        $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
-
-        $crawler = $client->request('GET', '/crud/book/'.$entityBook->get('id'));
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("lib a")'));
-        $this->assertCount(1, $crawler->filter('html:contains("titleA")'));
-        $this->assertCount(1, $crawler->filter('html:contains("authorA")'));
-        $this->assertCount(1, $crawler->filter('html:contains("111")'));
-        $this->assertCount(1, $crawler->filter('html:contains("2014-08-31")'));
-
-        $crawler = $client->request('GET', '/crud/library/'.$library->get('id'));
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("titleA")'));
-    }
-
     public function testEdit()
     {
         $client = $this->createClient();

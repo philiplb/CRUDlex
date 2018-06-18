@@ -280,4 +280,35 @@ class ControllerTest extends TestCase
         $this->assertNotRegExp('/titleA/', $response);
     }
 
+    public function testShow()
+    {
+        $controller = $this->createController();
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleA');
+        $entityBook->set('author', 'authorA');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $response = $controller->show('book', '666');
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Instance not found/', $response->getContent());
+
+        $response = $controller->show('book', $entityBook->get('id'));
+        $this->assertRegExp('/lib a/', $response);
+        $this->assertRegExp('/titleA/', $response);
+        $this->assertRegExp('/authorA/', $response);
+        $this->assertRegExp('/111/', $response);
+
+
+        $response = $controller->show('library', $library->get('id'));
+        $this->assertRegExp('/titleA/', $response);
+    }
+
 }
