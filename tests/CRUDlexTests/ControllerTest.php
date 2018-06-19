@@ -415,4 +415,89 @@ class ControllerTest extends TestCase
 
     }
 
+
+    public function testDelete()
+    {
+        $controller = $this->createController();
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleA');
+        $entityBook->set('author', 'authorA');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $request = new Request();
+        $request->setMethod('POST');
+        $response = $controller->delete($request, 'book', '666');
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Instance not found\./', $response);
+
+        $this->dataLibrary->getDefinition()->setDeleteCascade(false);
+        $response = $controller->delete($request, 'library', $library->get('id'));
+        $this->assertTrue($response->isRedirect('redirecting'));
+        $flash = $this->session->getFlashBag()->get('danger');
+        $this->assertRegExp('/Could not delete Library as it is still referenced by another entity./', $flash[0]);
+
+        $response = $controller->delete($request, 'book', $entityBook->get('id'));
+        $this->assertTrue($response->isRedirect('redirecting'));
+        $flash = $this->session->getFlashBag()->get('success');
+        $this->assertRegExp('/Book deleted./', $flash[0]);
+
+        $bookDeleted = $this->dataBook->get($entityBook->get('id'));
+        $this->assertNull($bookDeleted);
+
+        // Test customizable redirection
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleA');
+        $entityBook->set('author', 'authorA');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $request = new Request([], [
+            'redirectEntity' => 'library',
+            'redirectId' => $library->get('id')
+        ]);
+        $controller->delete($request, 'book', $entityBook->get('id'));
+        $flash = $this->session->getFlashBag()->get('success');
+        $this->assertRegExp('/Book deleted./', $flash[0]);
+
+        $bookDeleted = $this->dataBook->get($entityBook->get('id'));
+        $this->assertNull($bookDeleted);
+
+        // Canceling events
+        $before = function(Entity $entity) {
+            return false;
+        };
+        $this->dataBook->getEvents()->push('before', 'delete', $before);
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleB');
+        $entityBook->set('author', 'authorB');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+        $request = new Request();
+        $request->setMethod('POST');
+        $controller->delete($request, 'book', $entityBook->get('id'));
+        $this->assertTrue($response->isRedirect('redirecting'));
+        $flash = $this->session->getFlashBag()->get('danger');
+        $this->assertRegExp('/Could not delete\./', $flash[0]);
+        $this->dataBook->getEvents()->pop('before', 'delete');
+
+        $this->dataBook->getEvents()->push('before', 'deleteFiles', $before);
+        $controller->delete($request, 'book', $entityBook->get('id'));
+        $this->assertTrue($response->isRedirect('redirecting'));
+        $flash = $this->session->getFlashBag()->get('danger');
+        $this->assertRegExp('/Could not delete\./', $flash[0]);
+        $this->dataBook->getEvents()->pop('before', 'deleteFiles');
+    }
+
 }
