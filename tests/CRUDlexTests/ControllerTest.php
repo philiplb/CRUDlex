@@ -500,4 +500,42 @@ class ControllerTest extends TestCase
         $this->dataBook->getEvents()->pop('before', 'deleteFiles');
     }
 
+    public function testRenderFile()
+    {
+        $controller = $this->createController();
+
+        $response = $controller->renderFile('book', '666', 'cover');
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Instance not found/', $response->getContent());
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $file = __DIR__.'/../test1.xml';
+        $request = new Request();
+        $request->setMethod('POST');
+        $request = new Request([], [
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ],[], [], [
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ]);
+        $request->setMethod('POST');
+        $controller->create($request, 'book');
+
+        $response = $controller->renderFile('book', '1', 'file');
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Instance not found/', $response->getContent());
+
+        $response = $controller->renderFile('book', '1', 'cover');
+        $this->assertRegExp('/test1/', $response);
+
+        $this->filesystemHandle->writeStream->once()->called();
+        $this->filesystemHandle->readStream->once()->called();
+    }
+
 }
