@@ -44,6 +44,8 @@ class ControllerTest extends TestCase
 
     private $filesystemHandle;
 
+    private $translator;
+
     protected function setUp()
     {
         $config = new \Doctrine\DBAL\Configuration();
@@ -54,7 +56,7 @@ class ControllerTest extends TestCase
     protected function createController()
     {
 
-        $translator = new Translator('en');
+        $this->translator = new Translator('en');
         $loader = new Twig_Loader_Filesystem();
         $loader->addPath(__DIR__.'/../../src/views/', 'crud');
         $twig = new Twig_Environment($loader);
@@ -86,11 +88,11 @@ class ControllerTest extends TestCase
 
         $validator = new EntityDefinitionValidator();
         $entityDefinitionFactory = new EntityDefinitionFactory();
-        $service = new Service($crudFile, null, $urlGeneratorMock->get(), $translator, $dataFactory, $entityDefinitionFactory, $filesystemMock, $validator);
+        $service = new Service($crudFile, null, $urlGeneratorMock->get(), $this->translator, $dataFactory, $entityDefinitionFactory, $filesystemMock, $validator);
         $service->setTemplate('layout', '@crud/layout.twig');
         $this->dataBook = $service->getData('book');
         $this->dataLibrary = $service->getData('library');
-        return new Controller($service, $filesystemMock, $twig, $this->session, $translator);
+        return new Controller($service, $filesystemMock, $twig, $this->session, $this->translator);
     }
 
     /**
@@ -628,6 +630,32 @@ class ControllerTest extends TestCase
         $response->send();
         $content = ob_get_clean();
         $this->assertTrue(strpos($content, '* Bootstrap v') !== false);
+    }
+
+    public function testSetLocale()
+    {
+        $controller = $this->createController();
+
+        $request = new Request([
+            'redirect' => '/crud/book'
+        ]);
+        $response = $controller->setLocale($request, 'foo');
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Locale foo not found\./', $response->getContent());
+
+        $response = $controller->setLocale($request, 'de');
+        $this->translator->setLocale('de');
+        $controller->setLocaleAndCheckEntity($request, 'book');
+        $this->assertTrue($response->isRedirect('/crud/book'));
+        $response = $controller->showList($request, 'book');
+        $this->assertRegExp('/Titel/', $response);
+
+        $response = $controller->setLocale($request, 'en');
+        $this->translator->setLocale('en');
+        $controller->setLocaleAndCheckEntity($request, 'book');
+        $this->assertTrue($response->isRedirect('/crud/book'));
+        $response = $controller->showList($request, 'book');
+        $this->assertRegExp('/Title/', $response);
     }
 
 }
