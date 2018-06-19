@@ -311,4 +311,108 @@ class ControllerTest extends TestCase
         $this->assertRegExp('/titleA/', $response);
     }
 
+    public function testEdit()
+    {
+        $controller = $this->createController();
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+
+        $entityBook = $this->dataBook->createEmpty();
+        $entityBook->set('title', 'titleA');
+        $entityBook->set('author', 'authorA');
+        $entityBook->set('pages', 111);
+        $entityBook->set('release', "2014-08-31");
+        $entityBook->set('library', $library->get('id'));
+        $this->dataBook->create($entityBook);
+
+        $request = new Request();
+        $response = $controller->edit($request, 'book', '666');
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Instance not found/', $response);
+
+        $response = $controller->edit($request, 'book', $entityBook->get('id'));
+        $this->assertRegExp('/titleA/', $response);
+        $this->assertRegExp('/Submit/', $response);
+        $this->assertRegExp('/Author/', $response);
+        $this->assertRegExp('/Pages/', $response);
+
+        $request->setMethod('POST');
+        $response = $controller->edit($request, 'book', $entityBook->get('id'));
+        $this->assertRegExp('/Could not edit, see the red marked fields./', $response);
+        $this->assertRegExp('/has-error/', $response);
+
+        $file = __DIR__.'/../test1.xml';
+
+        $request = new Request([], [
+            'version' => 0,
+            'title' => 'titleEdited',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ],[], [], [
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ]);
+        $request->setMethod('POST');
+        $response = $controller->edit($request, 'book', $entityBook->get('id'));
+        $this->assertTrue($response->isRedirect('redirecting'));
+
+        $bookEdited = $this->dataBook->get($entityBook->get('id'));
+        $this->assertSame($bookEdited->get('title'), 'titleEdited');
+
+        $this->filesystemHandle->writeStream->once()->called();
+        $this->filesystemHandle->readStream->never()->called();
+
+        // Optimistic locking
+        $response = $controller->edit($request, 'book', $entityBook->get('id'));
+        $this->assertRegExp('/There was a more up to date version of the data available\./', $response);
+
+        // Optimistic locking switched off
+        $this->dataBook->getDefinition()->setOptimisticLocking(false);
+        $request = new Request([], [
+            'title' => 'titleEdited2',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ],[], [], [
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ]);
+        $request->setMethod('POST');
+        $response = $controller->edit($request, 'book', $entityBook->get('id'));
+        $this->assertTrue($response->isRedirect('redirecting'));
+
+        $bookEdited = $this->dataBook->get($entityBook->get('id'));
+        $this->assertSame($bookEdited->get('title'), 'titleEdited2');
+        $this->dataBook->getDefinition()->setOptimisticLocking(true);
+
+        // Canceling events
+        $before = function(Entity $entity) {
+            return false;
+        };
+        $this->dataBook->getEvents()->push('before', 'update', $before);
+        $request = new Request([], [
+            'version' => 1,
+            'title' => 'titleEdited',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ],[], [], [
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ]);
+        $request->setMethod('POST');
+        $response = $controller->edit($request, 'book', $entityBook->get('id'));
+        $this->assertRegExp('/Could not edit\./', $response);
+        $this->dataBook->getEvents()->pop('before', 'update');
+
+        $this->dataBook->getEvents()->push('before', 'updateFiles', $before);
+        $response = $controller->edit($request, 'book', $entityBook->get('id'));
+        $this->assertRegExp('/Could not edit\./', $response);
+        $this->dataBook->getEvents()->pop('before', 'updateFiles');
+
+    }
+
 }
