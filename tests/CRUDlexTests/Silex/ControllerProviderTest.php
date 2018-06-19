@@ -61,36 +61,6 @@ class ControllerProviderTest extends WebTestCase
         return $app;
     }
 
-    public function testLayouts()
-    {
-        $client = $this->createClient();
-
-        $this->app['crud']->setTemplate('layout', 'layout.twig');
-        $this->app['crud']->setTemplate('layout.book', 'layoutBook.twig');
-        $this->app['crud']->setTemplate('layout.create', 'layoutCreate.twig');
-        $this->app['crud']->setTemplate('layout.show.library', 'layoutLibraryShow.twig');
-
-        $library = $this->dataLibrary->createEmpty();
-        $library->set('name', 'lib a');
-        $this->dataLibrary->create($library);
-
-        $crawler = $client->request('GET', '/crud/library');
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("Base layout")'));
-
-        $crawler = $client->request('GET', '/crud/book');
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("Book layout")'));
-
-        $crawler = $client->request('GET', '/crud/library/create');
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("Create layout")'));
-
-        $crawler = $client->request('GET', '/crud/library/1');
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("Library show layout")'));
-    }
-
     public function testRenderFile()
     {
         $client = $this->createClient();
