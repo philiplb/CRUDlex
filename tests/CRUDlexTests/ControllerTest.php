@@ -538,6 +538,64 @@ class ControllerTest extends TestCase
         $this->filesystemHandle->readStream->once()->called();
     }
 
+    public function testDeleteFile()
+    {
+        $controller = $this->createController();
+
+
+        $response = $controller->deleteFile('book', '666', 'cover');
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Instance not found/', $response->getContent());
+
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'lib a');
+        $this->dataLibrary->create($library);
+        $file = __DIR__.'/../test1.xml';
+        $request = new Request();
+        $request->setMethod('POST');
+        $request = new Request([], [
+            'title' => 'title',
+            'author' => 'author',
+            'pages' => 111,
+            'price' => 3.99,
+            'library' => $library->get('id')
+        ],[], [], [
+            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
+        ]);
+        $request->setMethod('POST');
+        $controller->create($request, 'book');
+
+        $response = $controller->deleteFile('book', '1', 'cover');
+        $this->assertTrue($response->isRedirect('redirecting'));
+        $flash = $this->session->getFlashBag()->get('danger');
+        $this->assertRegExp('/File could not be deleted\./', $flash[0]);
+
+        $this->dataBook->getDefinition()->setField('cover', 'required', false);
+
+        // Canceling events
+        $before = function(Entity $entity) {
+            return false;
+        };
+
+        $this->dataBook->getEvents()->push('before', 'deleteFile', $before);
+        $response = $controller->deleteFile('book', '1', 'cover');
+        $this->assertTrue($response->isRedirect('redirecting'));
+        $flash = $this->session->getFlashBag()->get('danger');
+        $this->assertRegExp('/File could not be deleted\./', $flash[0]);
+        $this->dataBook->getEvents()->pop('before', 'deleteFile');
+
+        // Sucessful deletion
+
+        $response = $controller->deleteFile('book', '1', 'cover');
+        $this->assertTrue($response->isRedirect('redirecting'));
+        $flash = $this->session->getFlashBag()->get('success');
+        $this->assertRegExp('/File deleted\./', $flash[1]); // $flash[0] is the created book
+
+        $this->filesystemHandle->writeStream->once()->called();
+        $this->filesystemHandle->readStream->never()->called();
+        $this->dataBook->getEvents()->pop('before', 'deleteFile');
+    }
+
     public function testStatic()
     {
         $controller = $this->createController();

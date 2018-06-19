@@ -61,69 +61,6 @@ class ControllerProviderTest extends WebTestCase
         return $app;
     }
 
-    public function testDeleteFile()
-    {
-        $client = $this->createClient();
-
-        $crawler = $client->request('POST', '/crud/foo/1/cover/delete');
-        $this->assertTrue($client->getResponse()->isNotFound());
-        $this->assertCount(1, $crawler->filter('html:contains("Entity not found")'));
-
-        $crawler = $client->request('POST', '/crud/book/666/cover/delete');
-        $this->assertTrue($client->getResponse()->isNotFound());
-        $this->assertCount(1, $crawler->filter('html:contains("Instance not found")'));
-
-        $library = $this->dataLibrary->createEmpty();
-        $library->set('name', 'lib a');
-        $this->dataLibrary->create($library);
-
-        $file = __DIR__.'/../../test1.xml';
-
-        $client->request('POST', '/crud/book/create', [
-            'title' => 'title',
-            'author' => 'author',
-            'pages' => 111,
-            'price' => 3.99,
-            'library' => $library->get('id')
-        ], [
-            'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
-        ]);
-
-        $client->request('POST', '/crud/book/1/cover/delete');
-        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
-        $crawler = $client->followRedirect();
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("File could not be deleted.")'));
-
-        $this->dataBook->getDefinition()->setField('cover', 'required', false);
-
-        // Canceling events
-        $before = function(Entity $entity) {
-            return false;
-        };
-
-        $this->dataBook->getEvents()->push('before', 'deleteFile', $before);
-        $client->request('POST', '/crud/book/1/cover/delete');
-        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
-        $crawler = $client->followRedirect();
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("File could not be deleted.")'));
-        $this->dataBook->getEvents()->pop('before', 'deleteFile');
-
-        // Sucessful deletion
-
-        $client->request('POST', '/crud/book/1/cover/delete');
-        $this->assertTrue($client->getResponse()->isRedirect('/crud/book/1'));
-        $crawler = $client->followRedirect();
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('html:contains("File deleted.")'));
-
-        $this->filesystemHandle->writeStream->once()->called();
-        $this->filesystemHandle->readStream->never()->called();
-
-
-    }
-
     public function testSettingsLocale()
     {
         $client = $this->createClient();
