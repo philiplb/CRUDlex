@@ -538,4 +538,38 @@ class ControllerTest extends TestCase
         $this->filesystemHandle->readStream->once()->called();
     }
 
+    public function testStatic()
+    {
+        $controller = $this->createController();
+
+        $request = new Request();
+        $response = $controller->staticFile($request);
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Resource not found\./', $response->getContent());
+
+        $request = new Request(['file' => 'abc']);
+        $response = $controller->staticFile($request);
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Resource not found\./', $response->getContent());
+
+        $request = new Request(['file' => 'css/../css/vendor/bootstrap/bootstrap.min.css']);
+        $response = $controller->staticFile($request);
+        $this->assertTrue($response->isNotFound());
+        $this->assertRegExp('/Resource not found\./', $response->getContent());
+
+        ob_start();
+        $request = new Request(['file' => 'css/vendor/bootstrap/bootstrap.min.css']);
+        $response = $controller->staticFile($request);
+        $response->send();
+        $content = ob_get_clean();
+        $this->assertTrue(strpos($content, '* Bootstrap v') !== false);
+
+        ob_start();
+        $request = new Request(['file' => 'js/vendor/bootstrap/bootstrap.min.js']);
+        $response = $controller->staticFile($request);
+        $response->send();
+        $content = ob_get_clean();
+        $this->assertTrue(strpos($content, '* Bootstrap v') !== false);
+    }
+
 }
