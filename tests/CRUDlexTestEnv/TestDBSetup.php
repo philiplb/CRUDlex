@@ -15,15 +15,15 @@ use CRUDlex\EntityDefinitionFactory;
 use CRUDlex\EntityDefinitionValidator;
 use CRUDlex\Service;
 use League\Flysystem\Adapter\NullAdapter;
-use Silex\Application;
-use Silex\Provider\DoctrineServiceProvider;
 
 use Eloquent\Phony\Phpunit\Phony;
 
 use Doctrine\DBAL\Connection;
 use CRUDlex\MySQLDataFactory;
-use Silex\Provider\LocaleServiceProvider;
-use Silex\Provider\TranslationServiceProvider;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Translation\Translator;
 
 class TestDBSetup
 {
@@ -122,26 +122,6 @@ class TestDBSetup
         $db->executeUpdate($sql);
     }
 
-    public static function createAppAndDB($useUUIDs = false)
-    {
-        $app = new Application();
-        $app->register(new DoctrineServiceProvider(), [
-            'dbs.options' => [
-                'default' => static::getDBConfig()
-            ]
-        ]);
-
-        static::createDB($app['db'], $useUUIDs);
-
-        $app->register(new LocaleServiceProvider());
-        $app->register(new TranslationServiceProvider(), [
-            'locale_fallbacks' => ['en'],
-        ]);
-
-
-        return $app;
-    }
-
     public static function createService($useUUIDs = false)
     {
         static::$filesystemHandle = Phony::partialMock('\\League\\Flysystem\\Filesystem', [new NullAdapter()]);
@@ -149,14 +129,21 @@ class TestDBSetup
         static::$filesystemHandle->getMimetype->returns('test');
         static::$filesystemHandle->getSize->returns(42);
 
-        $app = static::createAppAndDB($useUUIDs);
+        $config = new \Doctrine\DBAL\Configuration();
+        $db = \Doctrine\DBAL\DriverManager::getConnection(static::getDBConfig(), $config);
+        static::createDB($db, $useUUIDs);
+
+        $routes = new RouteCollection();
+        $context = new RequestContext();
+        $urlGenerator = new UrlGenerator($routes, $context);
+        $translator = new Translator('en');
         $crudFile = __DIR__.'/../crud.yml';
-        $dataFactory = new MySQLDataFactory($app['db'], $useUUIDs);
+        $dataFactory = new MySQLDataFactory($db, $useUUIDs);
         $entityDefinitionFactory = new EntityDefinitionFactory();
         $filesystem = static::$filesystemHandle->get();
         $validator = new EntityDefinitionValidator();
 
-        $service = new Service($crudFile, null, $app['url_generator'], $app['translator'], $dataFactory, $entityDefinitionFactory,  $filesystem, $validator);
+        $service = new Service($crudFile, null, $urlGenerator, $translator, $dataFactory, $entityDefinitionFactory,  $filesystem, $validator);
         return $service;
     }
 

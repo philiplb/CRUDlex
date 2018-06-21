@@ -21,10 +21,10 @@ use CRUDlex\MySQLDataFactory;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\NullAdapter;
 use PHPUnit\Framework\TestCase;
-use Silex\Application;
-use Silex\Provider\DoctrineServiceProvider;
-use Silex\Provider\LocaleServiceProvider;
-use Silex\Provider\TranslationServiceProvider;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Translation\Translator;
 
 class ServiceTest extends TestCase
 {
@@ -37,30 +37,26 @@ class ServiceTest extends TestCase
 
     protected $validator;
 
-    protected $app;
+    protected $urlGenerator;
 
     protected function setUp()
     {
-        $this->app = new Application();
-        $this->app->register(new DoctrineServiceProvider(), [
-            'dbs.options' => [
-                'default' => TestDBSetup::getDBConfig()
-            ],
-        ]);
+        $config = new \Doctrine\DBAL\Configuration();
+        $db = \Doctrine\DBAL\DriverManager::getConnection(TestDBSetup::getDBConfig(), $config);
         $this->crudFile = __DIR__.'/../crud.yml';
-        $this->dataFactory = new MySQLDataFactory($this->app['db']);
+        $this->dataFactory = new MySQLDataFactory($db);
         $this->filesystem = new Filesystem(new NullAdapter());
         $this->validator = new EntityDefinitionValidator();
+        $routes = new RouteCollection();
+        $context = new RequestContext();
+        $this->urlGenerator = new UrlGenerator($routes, $context);
     }
 
     protected function createService()
     {
-        $this->app->register(new LocaleServiceProvider());
-        $this->app->register(new TranslationServiceProvider(), [
-            'locale_fallbacks' => ['en'],
-        ]);
+        $translator = new Translator('en');
         $entityDefinitionFactory = new EntityDefinitionFactory();
-        $service = new Service($this->crudFile, null, $this->app['url_generator'], $this->app['translator'], $this->dataFactory, $entityDefinitionFactory, $this->filesystem, $this->validator);
+        $service = new Service($this->crudFile, null, $this->urlGenerator, $translator, $this->dataFactory, $entityDefinitionFactory, $this->filesystem, $this->validator);
         return $service;
     }
 
@@ -170,7 +166,7 @@ class ServiceTest extends TestCase
     {
         $urlGeneratorHandle = Phony::mock('\\Symfony\\Component\\Routing\\Generator\\UrlGenerator');
         $urlGeneratorHandle->generate->returns('foo');
-        $this->app['url_generator'] = $urlGeneratorHandle->get();
+        $this->urlGenerator = $urlGeneratorHandle->get();
         $service = $this->createService();
 
         $read = $service->generateURL('list', ['entity' => 'library']);
