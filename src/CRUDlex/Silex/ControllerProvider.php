@@ -87,18 +87,18 @@ class ControllerProvider implements ControllerProviderInterface
     /**
      * Setups i18n.
      *
+     * @param Request $request
+     * the current request
      * @param Application $app
      * the Application instance of the Silex application
      */
-    protected function setupI18n(Application $app)
+    public function setupI18n(Request $request, Application $app)
     {
-        $app->before(function(Request $request, Application $app) {
-            $manageI18n = $app['crud']->isManageI18n();
-            if ($manageI18n) {
-                $locale = $app['session']->get('locale', 'en');
-                $app['translator']->setLocale($locale);
-            }
-        }, 1);
+        $manageI18n = $app['crud']->isManageI18n();
+        if ($manageI18n) {
+            $locale = $app['session']->get('locale', 'en');
+            $app['translator']->setLocale($locale);
+        }
     }
 
     /**
@@ -115,7 +115,7 @@ class ControllerProvider implements ControllerProviderInterface
     {
         $this->setupTemplates($app);
         $factory = $this->setupRoutes($app);
-        $this->setupI18n($app);
+        $app->before([$this, 'setupI18n']);
         return $factory;
     }
 

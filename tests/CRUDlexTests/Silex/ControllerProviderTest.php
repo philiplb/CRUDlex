@@ -23,18 +23,16 @@ use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 class ControllerProviderTest extends TestCase
 {
 
-    public function testConnect()
+    private function getApp()
     {
         $app = new Application();
-        $defaultRoute = new Route();
-        $controllerCollectionHandle = Phony::partialMock('\\Silex\\ControllerCollection', [$defaultRoute]);
-        $app['controllers_factory'] = $controllerCollectionHandle->get();
         $app['session'] = new Session(new MockArraySessionStorage());
         $app->register(new LocaleServiceProvider());
         $app->register(new TranslationServiceProvider(), [
@@ -52,7 +50,25 @@ class ControllerProviderTest extends TestCase
             'crud.datafactory' => $dataFactory
         ]);
         $app->register(new TwigServiceProvider());
+        return $app;
+    }
 
+    public function testSetupI18n()
+    {
+        $app = $this->getApp();
+        $controllerProvider = new ControllerProvider();
+        $app['session']->set('locale', 'de');
+        $controllerProvider->setupI18n(new Request(), $app);
+        $actual = $app['translator']->getLocale();
+        $this->assertEquals('de', $actual);
+    }
+
+    public function testConnect()
+    {
+        $app = $this->getApp();
+        $defaultRoute = new Route();
+        $controllerCollectionHandle = Phony::partialMock('\\Silex\\ControllerCollection', [$defaultRoute]);
+        $app['controllers_factory'] = $controllerCollectionHandle->get();
         $controllerProvider = new ControllerProvider();
         $controllerProvider->connect($app);
         $controllerCollectionHandle->get->calledWith('/resource/static', '*');
