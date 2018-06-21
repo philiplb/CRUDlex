@@ -5,6 +5,7 @@ CRUDlex Changelog
 Released: Upcoming
 - Added PHP 7.2 as test target
 - Attention: Dropped support for PHP <= 7.1
+- Attention: CRUDlex is now not anymore dependent on Silex as framework; the Silex implementation got split to https://github.com/philiplb/CRUDlexSilex2 
 - Attention: Splitted the class ControllerProvider into Controller and Silex\ControllerProvider with Controller being customizable and implementing the new ControllerInterface
 - Attention: Splitted the class ServiceProvider into Service and Silex\ServiceProvider 
 - Attention: Changed the mechanism to define custom layouts and templates from Pimple keys like $app['crud.layout'] = 'myLayout.twig' to the Provider function $app['crud']->setTemplate('layout', 'myLayout.twig')
