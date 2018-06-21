@@ -11,25 +11,35 @@
             "email": "philip@philiplb.de"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/philiplb/sphpdox"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ptlis/MetaYaml"
+        }
+    ],
     "require": {
         "php": ">=7.1.3",
-        "symfony/twig-bridge": "~3.3",
+        "symfony/twig-bridge": "^4.1",
         "doctrine/dbal": "~2.5",
-        "symfony/http-foundation": "~3.3",
-        "symfony/routing": "~3.3",
-        "symfony/yaml": "~3.3",
-        "symfony/translation": "~3.3",
-        "symfony/intl": "~3.3",
+        "symfony/http-foundation": "^4.1",
+        "symfony/routing": "^4.1",
+        "symfony/yaml": "^4.1",
+        "symfony/translation": "^4.1",
+        "symfony/intl": "^4.1",
         "philiplb/valdi": "0.10.0",
-        "romaricdrigon/metayaml": "~1.1",
+        "romaricdrigon/metayaml": "dev-update-symfony-yaml-version",
         "riimu/kit-phpencoder": "^2.1",
         "league/flysystem": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.2",
-        "symfony/browser-kit": "~3.3",
-        "symfony/css-selector": "~3.3",
-        "sphpdox/sphpdox": "dev-master",
+        "symfony/browser-kit": "^4.1",
+        "symfony/css-selector": "^4.1",
+        "sphpdox/sphpdox": "dev-modernize-dependencies",
         "eloquent/phony": "~3.0",
         "eloquent/phony-phpunit": "~4.0"
     },
@@ -43,5 +53,7 @@
         "branch-alias": {
             "dev-master": "0.14.x-dev"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
