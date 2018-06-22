@@ -35,7 +35,7 @@ class Service
      * Holds the map for overriding templates.
      * @var array
      */
-    protected $templates = [];
+    protected $templates;
 
     /**
      * Holds whether CRUDlex manages i18n.
@@ -200,6 +200,9 @@ class Service
     {
 
         $this->urlGenerator = $urlGenerator;
+
+        $this->templates = [];
+        $this->setTemplate('layout', '@crud/layout.twig');
 
         $reader     = new YamlReader($crudFileCachingDirectory);
         $parsedYaml = $reader->read($crudFile);
