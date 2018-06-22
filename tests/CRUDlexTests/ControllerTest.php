@@ -118,15 +118,17 @@ class ControllerTest extends TestCase
 
         $request = new Request();
         $response = $controller->create($request, 'book');
-        $this->assertRegexp('/Submit/', $response);
-        $this->assertRegexp('/Author/', $response);
-        $this->assertRegexp('/Pages/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegexp('/Submit/', $response->getContent());
+        $this->assertRegexp('/Author/', $response->getContent());
+        $this->assertRegexp('/Pages/', $response->getContent());
 
         $request = new Request();
         $request->setMethod('POST');
         $response = $controller->create($request, 'book');
-        $this->assertRegexp('/Could not create, see the red marked fields./', $response);
-        $this->assertRegexp('/has-error/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegexp('/Could not create, see the red marked fields./', $response->getContent());
+        $this->assertRegexp('/has-error/', $response->getContent());
 
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'lib a');
@@ -162,18 +164,21 @@ class ControllerTest extends TestCase
         };
         $this->dataBook->getEvents()->push('before', 'create', $before);
         $response = $controller->create($request, 'book');
-        $this->assertRegExp('/Could not create\./', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/Could not create\./', $response->getContent());
         $this->dataBook->getEvents()->pop('before', 'create');
 
         $this->dataBook->getEvents()->push('before', 'createFiles', $before);
         $response = $controller->create($request, 'book');
-        $this->assertRegExp('/Could not create\./', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/Could not create\./', $response->getContent());
         $this->dataBook->getEvents()->pop('before', 'createFiles');
 
         // Prefilled form
         $request = new Request(['author' => 'myAuthor']);
         $response = $controller->create($request, 'book');
-        $this->assertRegExp('/value="myAuthor"/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/value="myAuthor"/', $response->getContent());
     }
 
     public function testShowList()
@@ -210,9 +215,10 @@ class ControllerTest extends TestCase
 
         $request = new Request();
         $response = $controller->showList($request, 'book');
-        $this->assertRegExp('/lib a/', $response);
-        $this->assertRegExp('/titleA/', $response);
-        $this->assertRegExp('/titleB/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/lib a/', $response->getContent());
+        $this->assertRegExp('/titleA/', $response->getContent());
+        $this->assertRegExp('/titleB/', $response->getContent());
 
         for ($i = 0; $i < 8; ++$i) {
             $entityBookA = $this->dataBook->createEmpty();
@@ -227,24 +233,27 @@ class ControllerTest extends TestCase
         // Pagination
         $this->dataBook->getDefinition()->setPageSize(5);
         $response = $controller->showList($request, 'book');
-        $this->assertRegExp('/titleA/', $response);
-        $this->assertRegExp('/\>1\</', $response);
-        $this->assertRegExp('/\>2\</', $response);
-        $this->assertSame(strpos('>3<', $response), false);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/titleA/', $response->getContent());
+        $this->assertRegExp('/\>1\</', $response->getContent());
+        $this->assertRegExp('/\>2\</', $response->getContent());
+        $this->assertSame(strpos('>3<', $response->getContent()), false);
 
         $request = new Request(['crudPage' => '1']);
         $response = $controller->showList($request, 'book');
-        $this->assertRegExp('/titleB3/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/titleB3/', $response->getContent());
 
         // Filter
         $request = new Request(['crudFiltertitle' => 'titleB']);
         $response = $controller->showList($request, 'book');
-        $this->assertRegExp('/titleB/', $response);
-        $this->assertRegExp('/titleB0/', $response);
-        $this->assertRegExp('/titleB1/', $response);
-        $this->assertRegExp('/titleB2/', $response);
-        $this->assertRegExp('/titleB3/', $response);
-        $this->assertNotRegExp('/titleA/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/titleB/', $response->getContent());
+        $this->assertRegExp('/titleB0/', $response->getContent());
+        $this->assertRegExp('/titleB1/', $response->getContent());
+        $this->assertRegExp('/titleB2/', $response->getContent());
+        $this->assertRegExp('/titleB3/', $response->getContent());
+        $this->assertNotRegExp('/titleA/', $response->getContent());
 
         $library = $this->dataLibrary->createEmpty();
         $library->set('name', 'lib b1');
@@ -257,29 +266,32 @@ class ControllerTest extends TestCase
 
         $request = new Request(['crudFilterisOpenOnSundays' => 'true']);
         $response = $controller->showList($request, 'library');
-        $this->assertRegExp('/lib b1/', $response);
-        $this->assertRegExp('/lib b2/', $response);
-        $this->assertNotRegExp('/lib a/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/lib b1/', $response->getContent());
+        $this->assertRegExp('/lib b2/', $response->getContent());
+        $this->assertNotRegExp('/lib a/', $response->getContent());
 
         $request = new Request(['crudFilterlibraryBook' => [$entityBook1Id]]);
         $response = $controller->showList($request, 'library');
-        $this->assertRegExp('/lib a/', $response);
-        $this->assertNotRegExp('/lib b1/', $response);
-        $this->assertNotRegExp('/lib b2/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/lib a/', $response->getContent());
+        $this->assertNotRegExp('/lib b1/', $response->getContent());
+        $this->assertNotRegExp('/lib b2/', $response->getContent());
 
 
         $request = new Request(['crudFilterlibrary' => $library2->get('id')]);
         $response = $controller->showList($request, 'book');
-        $this->assertRegExp('/titleB1/', $response);
-        $this->assertRegExp('/titleB3/', $response);
-        $this->assertRegExp('/titleB5/', $response);
-        $this->assertRegExp('/titleB7/', $response);
-        $this->assertNotRegExp('/titleB0/', $response);
-        $this->assertNotRegExp('/titleB2/', $response);
-        $this->assertNotRegExp('/titleB4/', $response);
-        $this->assertNotRegExp('/titleB6/', $response);
-        $this->assertNotRegExp('/titleB"/', $response);
-        $this->assertNotRegExp('/titleA/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/titleB1/', $response->getContent());
+        $this->assertRegExp('/titleB3/', $response->getContent());
+        $this->assertRegExp('/titleB5/', $response->getContent());
+        $this->assertRegExp('/titleB7/', $response->getContent());
+        $this->assertNotRegExp('/titleB0/', $response->getContent());
+        $this->assertNotRegExp('/titleB2/', $response->getContent());
+        $this->assertNotRegExp('/titleB4/', $response->getContent());
+        $this->assertNotRegExp('/titleB6/', $response->getContent());
+        $this->assertNotRegExp('/titleB"/', $response->getContent());
+        $this->assertNotRegExp('/titleA/', $response->getContent());
     }
 
     public function testShow()
@@ -303,14 +315,16 @@ class ControllerTest extends TestCase
         $this->assertRegExp('/Instance not found/', $response->getContent());
 
         $response = $controller->show('book', $entityBook->get('id'));
-        $this->assertRegExp('/lib a/', $response);
-        $this->assertRegExp('/titleA/', $response);
-        $this->assertRegExp('/authorA/', $response);
-        $this->assertRegExp('/111/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/lib a/', $response->getContent());
+        $this->assertRegExp('/titleA/', $response->getContent());
+        $this->assertRegExp('/authorA/', $response->getContent());
+        $this->assertRegExp('/111/', $response->getContent());
 
 
         $response = $controller->show('library', $library->get('id'));
-        $this->assertRegExp('/titleA/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/titleA/', $response->getContent());
     }
 
     public function testEdit()
@@ -335,15 +349,17 @@ class ControllerTest extends TestCase
         $this->assertRegExp('/Instance not found/', $response);
 
         $response = $controller->edit($request, 'book', $entityBook->get('id'));
-        $this->assertRegExp('/titleA/', $response);
-        $this->assertRegExp('/Submit/', $response);
-        $this->assertRegExp('/Author/', $response);
-        $this->assertRegExp('/Pages/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/titleA/', $response->getContent());
+        $this->assertRegExp('/Submit/', $response->getContent());
+        $this->assertRegExp('/Author/', $response->getContent());
+        $this->assertRegExp('/Pages/', $response->getContent());
 
         $request->setMethod('POST');
         $response = $controller->edit($request, 'book', $entityBook->get('id'));
-        $this->assertRegExp('/Could not edit, see the red marked fields./', $response);
-        $this->assertRegExp('/has-error/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/Could not edit, see the red marked fields./', $response->getContent());
+        $this->assertRegExp('/has-error/', $response->getContent());
 
         $file = __DIR__.'/../test1.xml';
 
@@ -369,7 +385,8 @@ class ControllerTest extends TestCase
 
         // Optimistic locking
         $response = $controller->edit($request, 'book', $entityBook->get('id'));
-        $this->assertRegExp('/There was a more up to date version of the data available\./', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/There was a more up to date version of the data available\./', $response->getContent());
 
         // Optimistic locking switched off
         $this->dataBook->getDefinition()->setOptimisticLocking(false);
@@ -407,12 +424,14 @@ class ControllerTest extends TestCase
         ]);
         $request->setMethod('POST');
         $response = $controller->edit($request, 'book', $entityBook->get('id'));
-        $this->assertRegExp('/Could not edit\./', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/Could not edit\./', $response->getContent());
         $this->dataBook->getEvents()->pop('before', 'update');
 
         $this->dataBook->getEvents()->push('before', 'updateFiles', $before);
         $response = $controller->edit($request, 'book', $entityBook->get('id'));
-        $this->assertRegExp('/Could not edit\./', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/Could not edit\./', $response->getContent());
         $this->dataBook->getEvents()->pop('before', 'updateFiles');
 
     }
@@ -648,14 +667,15 @@ class ControllerTest extends TestCase
         $controller->setLocaleAndCheckEntity($request, 'book');
         $this->assertTrue($response->isRedirect('/crud/book'));
         $response = $controller->showList($request, 'book');
-        $this->assertRegExp('/Titel/', $response);
+        $this->assertTrue($response->isOk());
+        $this->assertRegExp('/Titel/', $response->getContent());
 
         $response = $controller->setLocale($request, 'en');
         $this->translator->setLocale('en');
         $controller->setLocaleAndCheckEntity($request, 'book');
         $this->assertTrue($response->isRedirect('/crud/book'));
         $response = $controller->showList($request, 'book');
-        $this->assertRegExp('/Title/', $response);
+        $this->assertRegExp('/Title/', $response->getContent());
     }
 
 }

@@ -147,7 +147,7 @@ class Controller implements ControllerInterface {
             }
         }
 
-        return $this->twig->render($this->service->getTemplate('template', 'form', $entity), [
+        return new Response($this->twig->render($this->service->getTemplate('template', 'form', $entity), [
             'crud' => $this->service,
             'crudEntity' => $entity,
             'crudData' => $crudData,
@@ -155,7 +155,7 @@ class Controller implements ControllerInterface {
             'mode' => $mode,
             'fieldErrors' => $fieldErrors,
             'layout' => $this->service->getTemplate('layout', $mode, $entity)
-        ]);
+        ]));
     }
 
     /**
@@ -327,7 +327,7 @@ class Controller implements ControllerInterface {
 
         $entities = $crudData->listEntries($filterToUse, $filterOperators, $skip, $pageSize, $sortField, $sortAscending);
 
-        return $this->twig->render($this->service->getTemplate('template', 'list', $entity), [
+        return new Response($this->twig->render($this->service->getTemplate('template', 'list', $entity), [
             'crud' => $this->service,
             'crudEntity' => $entity,
             'crudData' => $crudData,
@@ -342,7 +342,7 @@ class Controller implements ControllerInterface {
             'sortField' => $sortField,
             'sortAscending' => $sortAscending,
             'layout' => $this->service->getTemplate('layout', 'list', $entity)
-        ]);
+        ]));
     }
 
     /**
@@ -375,13 +375,13 @@ class Controller implements ControllerInterface {
             }
         }
 
-        return $this->twig->render($this->service->getTemplate('template', 'show', $entity), [
+        return new Response($this->twig->render($this->service->getTemplate('template', 'show', $entity), [
             'crud' => $this->service,
             'crudEntity' => $entity,
             'entity' => $instance,
             'children' => $children,
             'layout' => $this->service->getTemplate('layout', 'show', $entity)
-        ]);
+        ]));
     }
 
     /**
