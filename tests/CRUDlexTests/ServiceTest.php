@@ -130,7 +130,7 @@ class ServiceTest extends TestCase
         $read = $service->getTemplate('layout', 'list', null);
         $this->assertSame($read, $expected);
 
-        $expected = '@crud/.twig';
+        $expected = '@crud/layout.twig';
         $read = $service->getTemplate('layout', null, 'book');
         $this->assertSame($read, $expected);
     }
