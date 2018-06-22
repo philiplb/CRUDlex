@@ -569,6 +569,16 @@ class EntityDefinition
         return $this->children;
     }
 
+
+    /**
+     * Sets the labels for the fields "id", "created_at" and "updated_at".
+     * @param array $standardFieldLabels
+     * labels for the fields "id", "created_at" and "updated_at"
+     */
+    public function setStandardFieldLabels(array $standardFieldLabels) {
+        $this->standardFieldLabels = $standardFieldLabels;
+    }
+
     /**
      * Sets the locale to be used.
      *

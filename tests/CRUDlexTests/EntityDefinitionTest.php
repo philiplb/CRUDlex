@@ -213,6 +213,15 @@ class EntityDefinitionTest extends TestCase
         $this->assertSame($read, $expected);
     }
 
+    public function testSetStandardFieldLabels()
+    {
+        $actual = $this->definition->getFieldLabel('id');
+        $this->assertEquals('Id', $actual);
+        $this->definition->setStandardFieldLabels(['id' => 'MyID']);
+        $actual = $this->definition->getFieldLabel('id');
+        $this->assertEquals('MyID', $actual);
+    }
+
     public function testGetSetChildrenLabelFields()
     {
         $read = $this->definitionLibrary->getChildrenLabelFields();
