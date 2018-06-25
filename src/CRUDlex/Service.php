@@ -13,8 +13,7 @@ namespace CRUDlex;
 
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * The Service setups and initializes the whole CRUD system and is initialized via the framework
@@ -50,22 +49,27 @@ class Service
     protected $urlGenerator;
 
     /**
-     * Initializes the available locales.
-     *
-     * @param Translator $translator
-     * the translator
+     * Gets the available locales.
      *
      * @return array
      * the available locales
      */
-    protected function initLocales(Translator $translator)
+    public static function getLocales()
     {
-        $locales   = $this->getLocales();
-        $localeDir = __DIR__.'/../locales';
-        $translator->addLoader('yaml', new YamlFileLoader());
-        foreach ($locales as $locale) {
-            $translator->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
+        $localeDir     = __DIR__.'/../locales';
+        $languageFiles = scandir($localeDir);
+        $locales       = [];
+        foreach ($languageFiles as $languageFile) {
+            if (in_array($languageFile, ['.', '..'])) {
+                continue;
+            }
+            $extensionPos = strpos($languageFile, '.yml');
+            if ($extensionPos !== false) {
+                $locale    = substr($languageFile, 0, $extensionPos);
+                $locales[] = $locale;
+            }
         }
+        sort($locales);
         return $locales;
     }
 
@@ -87,16 +91,15 @@ class Service
     /**
      * Gets a map with localized entity labels from the CRUD YML.
      *
-     * @param array $locales
-     * the available locales
      * @param array $crud
      * the CRUD entity map
      *
      * @return array
      * the map with localized entity labels
      */
-    protected function getLocaleLabels(array $locales, array $crud)
+    protected function getLocaleLabels(array $crud)
     {
+        $locales = $this->getLocales();
         $localeLabels = [];
         foreach ($locales as $locale) {
             if (array_key_exists('label_'.$locale, $crud)) {
@@ -140,12 +143,10 @@ class Service
     /**
      * Creates and setups an EntityDefinition instance.
      *
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * the Translator to use for some standard field labels
      * @param EntityDefinitionFactoryInterface $entityDefinitionFactory
      * the EntityDefinitionFactory to use
-     * @param array $locales
-     * the available locales
      * @param array $crud
      * the parsed YAML of a CRUD entity
      * @param string $name
@@ -154,10 +155,10 @@ class Service
      * @return EntityDefinition
      * the EntityDefinition good to go
      */
-    protected function createDefinition(Translator $translator, EntityDefinitionFactoryInterface $entityDefinitionFactory, array $locales, array $crud, $name)
+    protected function createDefinition(TranslatorInterface $translator, EntityDefinitionFactoryInterface $entityDefinitionFactory, array $crud, $name)
     {
         $label               = array_key_exists('label', $crud) ? $crud['label'] : $name;
-        $localeLabels        = $this->getLocaleLabels($locales, $crud);
+        $localeLabels        = $this->getLocaleLabels($crud);
         $standardFieldLabels = [
             'id' => $translator->trans('crudlex.label.id'),
             'created_at' => $translator->trans('crudlex.label.created_at'),
@@ -185,7 +186,7 @@ class Service
      * the writable directory to store the CRUD YAML file cache
      * @param UrlGeneratorInterface $urlGenerator
      * the URL generator to use
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * the translator to use
      * @param DataFactoryInterface $dataFactory
      * the data factory to use
@@ -196,7 +197,7 @@ class Service
      * @param EntityDefinitionValidatorInterface|null $validator
      * the validator to use, null if no validation required
      */
-    public function __construct($crudFile, $crudFileCachingDirectory, UrlGeneratorInterface $urlGenerator, Translator $translator, DataFactoryInterface $dataFactory, EntityDefinitionFactoryInterface $entityDefinitionFactory, FilesystemInterface $filesystem, ?EntityDefinitionValidatorInterface $validator)
+    public function __construct($crudFile, $crudFileCachingDirectory, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, DataFactoryInterface $dataFactory, EntityDefinitionFactoryInterface $entityDefinitionFactory, FilesystemInterface $filesystem, ?EntityDefinitionValidatorInterface $validator)
     {
 
         $this->urlGenerator = $urlGenerator;
@@ -211,10 +212,9 @@ class Service
             $validator->validate($parsedYaml);
         }
 
-        $locales     = $this->initLocales($translator);
         $this->datas = [];
         foreach ($parsedYaml as $name => $crud) {
-            $definition         = $this->createDefinition($translator, $entityDefinitionFactory, $locales, $crud, $name);
+            $definition         = $this->createDefinition($translator, $entityDefinitionFactory, $crud, $name);
             $this->datas[$name] = $dataFactory->createData($definition, $filesystem);
         }
 
@@ -336,31 +336,6 @@ class Service
         foreach ($this->datas as $data) {
             $data->getDefinition()->setLocale($locale);
         }
-    }
-
-    /**
-     * Gets the available locales.
-     *
-     * @return array
-     * the available locales
-     */
-    public function getLocales()
-    {
-        $localeDir     = __DIR__.'/../locales';
-        $languageFiles = scandir($localeDir);
-        $locales       = [];
-        foreach ($languageFiles as $languageFile) {
-            if (in_array($languageFile, ['.', '..'])) {
-                continue;
-            }
-            $extensionPos = strpos($languageFile, '.yml');
-            if ($extensionPos !== false) {
-                $locale    = substr($languageFile, 0, $extensionPos);
-                $locales[] = $locale;
-            }
-        }
-        sort($locales);
-        return $locales;
     }
 
     /**

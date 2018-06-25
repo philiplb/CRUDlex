@@ -137,9 +137,8 @@ class ServiceTest extends TestCase
 
     public function testGetLocales()
     {
-        $service = $this->createService();
         $expected = ['de', 'el', 'en', 'fr'];
-        $read = $service->getLocales();
+        $read = Service::getLocales();
         $this->assertSame($read, $expected);
     }
 

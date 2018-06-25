@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Eloquent\Phony\Phpunit\Phony;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
@@ -57,6 +58,15 @@ class ControllerTest extends TestCase
     {
 
         $this->translator = new Translator('en');
+
+        $locales = Service::getLocales();
+        $localeDir = __DIR__.'/../../src/locales';
+        $this->translator->addLoader('yaml', new YamlFileLoader());
+
+        foreach ($locales as $locale) {
+            $this->translator->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
+        }
+
         $loader = new Twig_Loader_Filesystem();
         $loader->addPath(__DIR__.'/../../src/views/', 'crud');
         $twig = new Twig_Environment($loader);

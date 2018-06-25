@@ -23,6 +23,7 @@ use CRUDlex\MySQLDataFactory;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
 
 class TestDBSetup
@@ -143,6 +144,13 @@ class TestDBSetup
         $filesystem = static::$filesystemHandle->get();
         $validator = new EntityDefinitionValidator();
 
+        $locales = Service::getLocales();
+        $localeDir = __DIR__.'/../../src/locales';
+        $translator->addLoader('yaml', new YamlFileLoader());
+
+        foreach ($locales as $locale) {
+            $translator->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
+        }
         $service = new Service($crudFile, null, $urlGenerator, $translator, $dataFactory, $entityDefinitionFactory,  $filesystem, $validator);
         return $service;
     }
