@@ -78,8 +78,15 @@ class FileHandlerTest extends TestCase
         $this->dataBook->create($entityBook);
         $filesystemHandle = TestDBSetup::getFilesystemHandle();
         $fileHandler = new FileHandler($filesystemHandle->get(), $this->dataBook->getDefinition());
-        $fileHandler->deleteFiles($this->dataBook, $entityBook, 'book');
-        $this->assertTrue(true);
+        $actual = $fileHandler->deleteFiles($this->dataBook, $entityBook, 'book');
+        $this->assertTrue($actual);
+
+        $this->dataBook->getEvents()->push('before', 'deleteFiles', function() {
+            return false;
+        });
+        $actual = $fileHandler->deleteFiles($this->dataBook, $entityBook, 'book');
+        $this->assertFalse($actual);
+        $this->dataBook->getEvents()->pop('before', 'deleteFiles');
     }
 
     public function testDeleteFile()
@@ -98,8 +105,15 @@ class FileHandlerTest extends TestCase
 
         $filesystemHandle = TestDBSetup::getFilesystemHandle();
         $fileHandler = new FileHandler($filesystemHandle->get(), $this->dataBook->getDefinition());
-        $fileHandler->deleteFile($this->dataBook, $entityBook, 'book', 'cover');
-        $this->assertTrue(true);
+        $actual = $fileHandler->deleteFile($this->dataBook, $entityBook, 'book', 'cover');
+        $this->assertTrue($actual);
+
+        $this->dataBook->getEvents()->push('before', 'deleteFile', function() {
+            return false;
+        });
+        $actual = $fileHandler->deleteFile($this->dataBook, $entityBook, 'book', 'cover');
+        $this->assertFalse($actual);
+        $this->dataBook->getEvents()->pop('before', 'deleteFile');
     }
 
     public function testCreateFiles()
