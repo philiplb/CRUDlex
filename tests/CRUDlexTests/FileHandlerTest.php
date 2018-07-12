@@ -43,12 +43,20 @@ class FileHandlerTest extends TestCase
         $entityBook->set('author', 'author');
         $entityBook->set('pages', 111);
         $entityBook->set('library', $entityLibrary->get('id'));
+        $entityBook->set('cover', 'test1.xml');
         $this->dataBook->create($entityBook);
 
         $filesystemHandle = TestDBSetup::getFilesystemHandle();
+        $file = fopen(__DIR__.'/../test1.xml', 'r'); // FileHandler will close it
+        $filesystemHandle->readStream->returns($file);
 
         $fileHandler = new FileHandler($filesystemHandle->get(), $this->dataBook->getDefinition());
-        $fileHandler->renderFile($entityBook, 'book', 'cover');
+        $response = $fileHandler->renderFile($entityBook, 'book', 'cover');
+        ob_start();
+        $response->sendContent();
+        $actual = ob_get_clean();
+        $expected = file_get_contents(__DIR__.'/../test1.xml');
+        $this->assertEquals($expected, $actual);
 
         $filesystemHandle->writeStream->never()->called();
         $filesystemHandle->readStream->once()->called();
