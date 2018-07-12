@@ -126,11 +126,22 @@ class FileHandlerTest extends TestCase
         ]);
 
         $filesystemHandle = TestDBSetup::getFilesystemHandle();
-        $fileHandler = new FileHandler($filesystemHandle->get(), $this->dataBook->getDefinition());
-        $fileHandler->createFiles($this->dataBook, $request, $entityBook, 'book');
+        $filesystemHandle->has->returns(true);
+        $filesystem = $filesystemHandle->get();
+        $filesystem->getConfig()->set('disable_asserts', true);
+        $fileHandler = new FileHandler($filesystem, $this->dataBook->getDefinition());
+        $actual = $fileHandler->createFiles($this->dataBook, $request, $entityBook, 'book');
+        $this->assertTrue($actual);
 
         $filesystemHandle->writeStream->once()->called();
         $filesystemHandle->readStream->never()->called();
+
+        $this->dataBook->getEvents()->push('before', 'createFiles', function () {
+            return false;
+        });
+        $actual = $fileHandler->createFiles($this->dataBook, $request, $entityBook, 'book');
+        $this->assertFalse($actual);
+        $this->dataBook->getEvents()->pop('before', 'createFiles');
     }
 
     public function testUpdateFiles()
