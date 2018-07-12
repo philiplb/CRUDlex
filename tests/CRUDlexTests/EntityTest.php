@@ -144,7 +144,8 @@ class EntityTest extends TestCase
         $book = $this->dataBook->createEmpty();
         $file = __DIR__.'/../test1.xml';
         $request = Request::create('', 'POST', [
-            'title' => 'a title'
+            'title' => 'a title',
+            'secondLibrary' => '',
         ], [], [
             'cover' => new UploadedFile($file, 'test1.xml', 'application/xml', filesize($file), null, true)
         ]);
