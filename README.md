@@ -34,6 +34,12 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. 
 - [Documentation 0.10.0](http://philiplb.github.io/CRUDlex/docs/html/0.10.0/)
 - [Documentation 0.9.10](http://philiplb.github.io/CRUDlex/docs/html/0.9.10/)
 
+How to generate the API documentation:
+
+```bash
+vendor/bin/sphpdox process CRUDlex src  
+```
+
 How to build the documentation:
 
 ```bash
