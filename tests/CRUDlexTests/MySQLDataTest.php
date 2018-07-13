@@ -662,6 +662,21 @@ class MySQLDataTest extends TestCase
 
         $read = $this->dataLibrary->hasManySet('libraryBook', [$book->get('id'), $book2->get('id')], $library2->get('id'));
         $this->assertTrue($read);
+
+        $config = new \Doctrine\DBAL\Configuration();
+        $db = \Doctrine\DBAL\DriverManager::getConnection(TestDBSetup::getDBConfig(), $config);
+        $db->executeUpdate('ALTER TABLE `book` ADD `deleted_at` datetime NULL');
+
+        $this->dataBook->getDefinition()->setHardDeletion(false);
+        $read = $this->dataLibrary->hasManySet('libraryBook', [$book->get('id'), $book2->get('id')]);
+        $this->assertTrue($read);
+
+        $this->dataBook->delete($book);
+        $read = $this->dataLibrary->hasManySet('libraryBook', [$book->get('id'), $book2->get('id')]);
+        $this->assertFalse($read);
+
+        $db->executeUpdate('ALTER TABLE `book` DROP `deleted_at`');
+        $this->dataBook->getDefinition()->setHardDeletion(true);
     }
 
 }
