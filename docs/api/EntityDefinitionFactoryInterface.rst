@@ -14,7 +14,7 @@ CRUDlex\\EntityDefinitionFactoryInterface
     Interface to make the creation of the EntityDefinitions flexible. To be handed into
     the ServiceProvider registration via the key "crud.entitydefinitionfactory".
 
-    .. php:method:: createEntityDefinition($table, $fields, $label, $localeLabels, $standardFieldLabels, ServiceProvider $serviceProvider)
+    .. php:method:: createEntityDefinition($table, $fields, $label, $localeLabels, $standardFieldLabels, Service $serviceProvider)
 
         Creates an EntityDefinition instance.
 
@@ -28,6 +28,6 @@ CRUDlex\\EntityDefinitionFactoryInterface
         :param $localeLabels: the labels  of the entity in the locales
         :type $standardFieldLabels: array
         :param $standardFieldLabels: labels for the fields "id", "created_at" and "updated_at"
-        :type $serviceProvider: ServiceProvider
+        :type $serviceProvider: Service
         :param $serviceProvider: The current service provider
         :returns: EntityDefinition the new instance

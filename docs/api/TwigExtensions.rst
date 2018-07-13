@@ -6,7 +6,7 @@ CRUDlex\\TwigExtensions
 
 .. php:class:: TwigExtensions
 
-    Provides and setups the Twig extensions like filters.
+    Provides the Twig extensions like filters.
 
     .. php:method:: formatTime($value, $timezone, $pattern)
 
@@ -27,13 +27,6 @@ CRUDlex\\TwigExtensions
         :type $pattern: string
         :param $pattern: the pattern with which the value is parsed and formatted
         :returns: string the formatted value
-
-    .. php:method:: registerTwigExtensions(Container $app)
-
-        Registers all extensions.
-
-        :type $app: Container
-        :param $app: the current application
 
     .. php:method:: getLanguageName($language)
 

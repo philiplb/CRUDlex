@@ -9,7 +9,7 @@ CRUDlex\\EntityDefinitionFactory
     Default implementation of the EntiyDefinitionFactoryInterface being used if the key "crud.entitydefinitionfactory" is
     not given during the registration of the ServiceProvider.
 
-    .. php:method:: createEntityDefinition($table, $fields, $label, $localeLabels, $standardFieldLabels, ServiceProvider $serviceProvider)
+    .. php:method:: createEntityDefinition($table, $fields, $label, $localeLabels, $standardFieldLabels, Service $serviceProvider)
 
         {@inheritdoc}
 
@@ -18,5 +18,5 @@ CRUDlex\\EntityDefinitionFactory
         :param $label:
         :param $localeLabels:
         :param $standardFieldLabels:
-        :type $serviceProvider: ServiceProvider
+        :type $serviceProvider: Service
         :param $serviceProvider:

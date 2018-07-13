@@ -78,11 +78,11 @@ CRUDlex\\EntityDefinition
 
         The fields offering to be filtered.
 
-    .. php:attr:: serviceProvider
+    .. php:attr:: service
 
-        protected ServiceProvider
+        protected Service
 
-        Holds the ServiceProvider.
+        Holds the service.
 
     .. php:attr:: locale
 
@@ -137,7 +137,7 @@ CRUDlex\\EntityDefinition
         :type $fieldNames: array
         :param $fieldNames: the field names to check
 
-    .. php:method:: __construct($table, $fields, $label, $localeLabels, $standardFieldLabels, ServiceProvider $serviceProvider)
+    .. php:method:: __construct($table, $fields, $label, $localeLabels, $standardFieldLabels, Service $service)
 
         Constructor.
 
@@ -151,8 +151,8 @@ CRUDlex\\EntityDefinition
         :param $localeLabels: the labels  of the entity in the locales
         :type $standardFieldLabels: array
         :param $standardFieldLabels: labels for the fields "id", "created_at" and "updated_at"
-        :type $serviceProvider: ServiceProvider
-        :param $serviceProvider: The current service provider
+        :type $service: Service
+        :param $service: The current service provider
 
     .. php:method:: getFieldNames($includeMany = false)
 
@@ -234,18 +234,18 @@ CRUDlex\\EntityDefinition
         :type $filter: array
         :param $filter: the fields to filter
 
-    .. php:method:: getServiceProvider()
+    .. php:method:: getService()
 
-        Gets the service provider.
+        Gets the service.
 
-        :returns: ServiceProvider the service provider
+        :returns: Service the service provider
 
-    .. php:method:: setServiceProvider(ServiceProvider $serviceProvider)
+    .. php:method:: setService(Service $service)
 
-        Sets the service provider.
+        Sets the service.
 
-        :type $serviceProvider: ServiceProvider
-        :param $serviceProvider: the new service provider
+        :type $service: Service
+        :param $service: the new service
 
     .. php:method:: getPublicFieldNames()
 
@@ -344,6 +344,13 @@ CRUDlex\\EntityDefinition
         Gets the referencing children to this definition.
 
         :returns: array an array with the children referencing the entity. All entries are arrays with three referencing elements: table, fieldName, entity
+
+    .. php:method:: setStandardFieldLabels($standardFieldLabels)
+
+        Sets the labels for the fields "id", "created_at" and "updated_at".
+
+        :type $standardFieldLabels: array
+        :param $standardFieldLabels: labels for the fields "id", "created_at" and "updated_at"
 
     .. php:method:: setLocale($locale)
 
