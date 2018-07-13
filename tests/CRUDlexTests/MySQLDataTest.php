@@ -32,10 +32,20 @@ class MySQLDataTest extends TestCase
 
     public function testCreate()
     {
-        $entity = $this->dataLibrary->createEmpty();
-        $entity->set('name', 'name');
-        $this->dataLibrary->create($entity);
-        $id = $entity->get('id');
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'name');
+        $this->dataLibrary->create($library);
+        $id = $library->get('id');
+        $this->assertNotNull($id);
+        $this->assertTrue($id > 0);
+
+        $book = $this->dataBook->createEmpty();
+        $book->set('title', 'title');
+        $book->set('author', 'author');
+        $book->set('pages', 111);
+        $book->set('library', ['id' => $library->get('id')]);
+        $this->dataBook->create($book);
+        $id = $book->get('id');
         $this->assertNotNull($id);
         $this->assertTrue($id > 0);
     }
