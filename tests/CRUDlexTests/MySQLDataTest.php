@@ -208,16 +208,33 @@ class MySQLDataTest extends TestCase
 
     public function testUpdate()
     {
-        $entity = $this->dataLibrary->createEmpty();
-        $entity->set('name', 'nameUpdate');
-        $this->dataLibrary->create($entity);
+        $library = $this->dataLibrary->createEmpty();
+        $library->set('name', 'nameUpdate');
+        $this->dataLibrary->create($library);
 
-        $entity->set('name', 'nameUpdated!');
-        $this->dataLibrary->update($entity);
-        $entityWritten = $this->dataLibrary->get($entity->get('id'));
+        $library->set('name', 'nameUpdated!');
+        $this->dataLibrary->update($library);
+        $entityWritten = $this->dataLibrary->get($library->get('id'));
         $read = $entityWritten->get('name');
         $expected = 'nameUpdated!';
         $this->assertSame($read, $expected);
+
+        $book = $this->dataBook->createEmpty();
+        $book->set('title', 'title');
+        $book->set('author', 'author');
+        $book->set('pages', 111);
+        $book->set('library', ['id' => $library->get('id')]);
+        $this->dataBook->create($book);
+
+        $book->set('title', 'titleUpdated');
+        $this->dataBook->update($book);
+        $entityWritten = $this->dataBook->get($book->get('id'));
+        $read = $entityWritten->get('title');
+        $expected = 'titleUpdated';
+        $this->assertSame($read, $expected);
+        $version = $entityWritten->get('version');
+        $expected = 1;
+        $this->assertSame($version, $expected);
     }
 
     public function testDelete()
