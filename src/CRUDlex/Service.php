@@ -99,7 +99,7 @@ class Service
      */
     protected function getLocaleLabels(array $crud)
     {
-        $locales = $this->getLocales();
+        $locales      = $this->getLocales();
         $localeLabels = [];
         foreach ($locales as $locale) {
             if (array_key_exists('label_'.$locale, $crud)) {
