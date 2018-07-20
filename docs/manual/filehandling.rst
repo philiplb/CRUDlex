@@ -22,11 +22,11 @@ In any way, overriding or not, the underlying FilesystemInterface is available v
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
@@ -48,11 +48,11 @@ And then configure it and hand it over to CRUDlex:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 

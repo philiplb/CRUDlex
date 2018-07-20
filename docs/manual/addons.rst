@@ -26,11 +26,11 @@ library add some CRUDlex events in your initialization:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
@@ -134,11 +134,11 @@ Simply instantiate and add it to your symfony/security configuration:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
@@ -162,11 +162,11 @@ might grab him like this:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 

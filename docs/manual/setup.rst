@@ -9,13 +9,13 @@ First, you have to add CRUDlex to your composer.json:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       .. code-block:: bash
 
           composer require "philiplb/crudlexsymfony4bundle"
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: bash
 
@@ -28,11 +28,11 @@ registered:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
@@ -55,11 +55,11 @@ objects:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
@@ -69,11 +69,11 @@ Now it's time to register the ServiceProvider itself:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
@@ -89,11 +89,11 @@ Now it's time to mount the Controller:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 

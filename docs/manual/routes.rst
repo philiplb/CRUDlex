@@ -28,11 +28,11 @@ Here is an example of how to add a middleware after mounting the ControllerProvi
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 

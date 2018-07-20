@@ -12,11 +12,11 @@ this point that the file is valid:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
@@ -31,11 +31,11 @@ and handing it in before registering the service provider:
 
 .. tabs::
 
-   .. tab:: Symfony 4
+   .. group-tab:: Symfony 4
 
       Todo
 
-   .. tab:: Silex 2
+   .. group-tab:: Silex 2
 
       .. code-block:: php
 
