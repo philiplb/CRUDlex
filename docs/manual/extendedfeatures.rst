@@ -234,9 +234,17 @@ Switch off I18n Management
 Per default, CRUDlex manages i18n for you. But this might be not desired in
 bigger projects with existing i18n management, so you can disable it on registration like this:
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud']->setManageI18n(false);
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud']->setManageI18n(false);
 
 --------------------------
 Initial Sorting Parameters
@@ -293,9 +301,17 @@ First, you have to create your id field as varchar(36):
 And then you have to activate it in the setup when creating the
 CRUDDataFactoryInterface:
 
-.. code-block:: php
+.. tabs::
 
-    $dataFactory = new CRUDlex\MySQLDataFactory($app['db'], true);
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $dataFactory = new CRUDlex\MySQLDataFactory($app['db'], true);
 
 ------------------------------
 Using the CRUD YAML file cache
@@ -307,11 +323,19 @@ for free by the opcode cache of PHP.
 
 To activate the caching, you simply pass a path to a writable directory on registration:
 
-.. code-block:: php
+.. tabs::
 
-    $app->register(new CRUDlex\ServiceProvider(), array(
-        'crud.filecachingdirectory' => '/path/to/a/writable/directory'
-    ));
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app->register(new CRUDlex\ServiceProvider(), [
+              'crud.filecachingdirectory' => '/path/to/a/writable/directory'
+          ]);
 
 Note that CRUDlex doesn't do any cache invalidation. You have to delete the cached files yourself if needed. This is the
 case if the crud.yml got modified for example.
@@ -323,12 +347,20 @@ Using an own Implementation of the EntityDefinition
 There might be the case where you want to use an own implementation derived from the EntityDefinition. In this case,
 you can hand in an own implementation of the EntityDefinitionFactory like this:
 
-.. code-block:: php
+.. tabs::
 
-    $entityDefinitionFactory = new MyOwnEntityDefinitionFactory();
-    $app->register(new CRUDlex\ServiceProvider(), array(
-        'crud.entitydefinitionfactory' => $entityDefinitionFactory
-    ));
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $entityDefinitionFactory = new MyOwnEntityDefinitionFactory();
+          $app->register(new CRUDlex\ServiceProvider(), [
+              'crud.entitydefinitionfactory' => $entityDefinitionFactory
+          ]);
 
 ---------------------------------------------
 Prepopulated Form Fields on the Creation Page
