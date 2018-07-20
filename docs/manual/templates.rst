@@ -10,9 +10,17 @@ overridable layout.
 
 In this case, you can override the template of a single page:
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud']->setTemplate('template.list.book', 'bookList.twig');
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud']->setTemplate('template.list.book', 'bookList.twig');
 
 Note the changed part "template" of the key!
 
