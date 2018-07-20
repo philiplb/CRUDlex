@@ -30,7 +30,11 @@ registered:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Assuming you are using the .env configuration:
+
+      .. code-block:: php
+
+          DATABASE_URL=mysql://<yourDBUser>:<yourDBPassword>@<yourHost>/<yourDBName>
 
    .. group-tab:: Silex 2
 
@@ -41,7 +45,7 @@ registered:
                   'default' => [
                       'host' => '<yourHost>',
                       'dbname' => '<yourDBName>',
-                      'user' => '<yourDBUser',
+                      'user' => '<yourDBUser>',
                       'password' => '<yourDBPassword>',
                       'charset' => 'utf8',
                   ]
@@ -57,7 +61,16 @@ objects:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      This is already setup with the default DBAL connection within the services and can be overwritten within the
+      *config/services.yaml*:
+
+      .. code-block:: yaml
+
+          crudlex.dataFactoryInterface:
+              public: true
+              class: "CRUDlex\\MySQLDataFactory"
+              arguments:
+                - "@doctrine.dbal.default_connection"
 
    .. group-tab:: Silex 2
 
@@ -65,13 +78,28 @@ objects:
 
           $dataFactory = new CRUDlex\MySQLDataFactory($app['db']);
 
-Now it's time to register the ServiceProvider itself:
+Now it's time to register the Service itself:
 
 .. tabs::
 
    .. group-tab:: Symfony 4
 
-      Todo
+      This is the default setup of the service you are able to overwrite within the *config/services.yaml*:
+
+      .. code-block:: yaml
+
+          crudlex.service:
+              public: true
+              class: "CRUDlex\\Service"
+              arguments:
+                - "%kernel.project_dir%/config/crud.yml"
+                - "%kernel.cache_dir%"
+                - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+                - "@translator"
+                - "@crudlex.dataFactoryInterface"
+                - "@crudlex.entityDefinitionFactoryInterface"
+                - "@crudlex.fileSystem"
+                - "@crudlex.entityDefinitionValidatorInterface"
 
    .. group-tab:: Silex 2
 
@@ -91,7 +119,13 @@ Now it's time to mount the Controller:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      The routes have to be added to the *config/routes.yaml*:
+
+      .. code-block:: php
+
+          crudlex:
+              resource: '@CRUDlexSymfony4Bundle/Resources/config/routes.yaml'
+              prefix: /crud
 
    .. group-tab:: Silex 2
 
