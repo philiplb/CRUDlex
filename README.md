@@ -46,6 +46,7 @@ How to build the documentation:
 # Install dependencies
 pip install Sphinx
 pip install tk.phpautodoc
+pip install sphinx_tabs
 # Generate:
 cd docs
 make html

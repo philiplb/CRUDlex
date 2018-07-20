@@ -30,7 +30,8 @@ import os
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinxcontrib.phpdomain'
+    'sphinxcontrib.phpdomain',
+    'sphinx_tabs.tabs'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
