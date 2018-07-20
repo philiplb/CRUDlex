@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'CRUDlex'
-copyright = u'2017, Philip Lehmann-Böhm'
+copyright = u'2018, Philip Lehmann-Böhm'
 author = u'Philip Lehmann-Böhm'
 
 # The version info for the project you're documenting, acts as replacement for
