@@ -1,8 +1,7 @@
 Routes
 ======
 
-The ControllerProvider adds a bunch of routes used by CRUDlex which are useful to know if one wants to link to them or
-add middleware.
+There are a bunch of routes used by CRUDlex which are useful to know if one wants to link to them or add middleware.
 
 ----
 List
@@ -27,10 +26,18 @@ Adding Middleware
 
 Here is an example of how to add a middleware after mounting the ControllerProvider:
 
-.. code-block:: php
+.. tabs::
 
-    $app->flush();
-    $route = $app['routes']->get('crudList');
-    $route->before(function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
-        // Do your stuff.
-    });
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app->flush();
+          $route = $app['routes']->get('crudList');
+          $route->before(function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
+              // Do your stuff.
+          });
