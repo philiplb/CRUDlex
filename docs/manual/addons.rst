@@ -24,10 +24,18 @@ following sub chapters.
 In order to get the salt generated and the password hashed, you have to let the
 library add some CRUDlex events in your initialization:
 
-.. code-block:: php
+.. tabs::
 
-    $crudUserSetup = new CRUDlex\UserSetup();
-    $crudUserSetup->addEvents($app['crud']->getData('user'));
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $crudUserSetup = new CRUDlex\UserSetup();
+          $crudUserSetup->addEvents($app['crud']->getData('user'));
 
 """""
 Users
@@ -124,17 +132,25 @@ The UserProvider
 
 Simply instantiate and add it to your symfony/security configuration:
 
-.. code-block:: php
+.. tabs::
 
-    $userProvider = new CRUDlex\UserProvider($app['crud']->getData('user'), $app['crud']->getData('userRole'));
-    $app->register(new Silex\Provider\SecurityServiceProvider(), array(
-        'security.firewalls' => array(
-            'admin' => array(
-                //...
-                'users' => $userProvider
-            ),
-        ),
-    ));
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $userProvider = new CRUDlex\UserProvider($app['crud']->getData('user'), $app['crud']->getData('userRole'));
+          $app->register(new Silex\Provider\SecurityServiceProvider(), [
+              'security.firewalls' => [
+                  'admin' => [
+                      //...
+                      'users' => $userProvider
+                  ],
+              ],
+          ]);
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -144,8 +160,16 @@ Accessing Data of the Logged in User
 In order to get the user data from the logged in user in your controller, you
 might grab him like this:
 
-.. code-block:: php
+.. tabs::
 
-    $user = $app['security.token_storage']->getToken()
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $user = $app['security.token_storage']->getToken()
 
 You get back a CRUDlex\\User instance having some getters, see the API docs.
