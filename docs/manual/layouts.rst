@@ -12,11 +12,19 @@ First of all, you need to place the Twig-templates in a folder known by the
 Twig service provider. Assuming you have your templates in the folder
 __DIR__.'/../views', you initialize the Twig service provider like this:
 
-.. code-block:: php
+.. tabs::
 
-    $app->register(new Silex\Provider\TwigServiceProvider(), array(
-        'twig.path' => _ _DIR_ _.'/../views'
-    ));
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app->register(new Silex\Provider\TwigServiceProvider(), [
+              'twig.path' => _ _DIR_ _.'/../views'
+          ]);
 
 A good starting point is the layout template coming with CRUDlex:
 src/views/layout.twig
@@ -32,9 +40,17 @@ Global
 If you want to override the general layout of all CRUDlex pages, you set the
 key "layout" template via the the setTemplate function of the provider:
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud']->setTemplate('layout', 'myLayout.twig');
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud']->setTemplate('layout', 'myLayout.twig');
 
 --------------
 Single Actions
@@ -50,9 +66,17 @@ You can override the layout of single actions:
 Just prepend a dot and the desired action at the key when defining the layout for it, for
 example the action "show":
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud']->setTemplate('layout.show', 'myShowLayout.twig');
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud']->setTemplate('layout.show', 'myShowLayout.twig');
 
 ---------------
 Single Entities
@@ -61,9 +85,17 @@ Single Entities
 To override the layout of a single entity, you prepend a dot and the desired
 entity name at the key, for example for the book entity:
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud']->setTemplate('layout.book', 'myBookLayout.twig');
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud']->setTemplate('layout.book', 'myBookLayout.twig');
 
 ---------------------------
 Single Actions of an Entity
@@ -73,9 +105,17 @@ The most specific layout you can set is for a single action of a specific
 entity. The key is "layout" plus a dot, the action, another dot and the entity. To
 override the create action of the book entity, you would define your layout like this:
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud']->setTemplate('layout.create.book', 'myCreateBookLayout.twig');
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud']->setTemplate('layout.create.book', 'myCreateBookLayout.twig');
 
 ----------------------------
 Your own Layout from Scratch
