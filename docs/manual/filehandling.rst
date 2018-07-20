@@ -20,9 +20,17 @@ FilesystemInterface can be overridden easily by setting a service called "crud.f
 
 In any way, overriding or not, the underlying FilesystemInterface is available via
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud.filesystem']
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud.filesystem']
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Overriding the Default Storage with Amazon S3 as Filesystem
@@ -38,24 +46,32 @@ First, get the AwsS3Adapter:
 
 And then configure it and hand it over to CRUDlex:
 
-.. code-block:: php
+.. tabs::
 
-    $client = S3Client::factory([
-        'credentials' => [
-            'key'    => $key,
-            'secret' => $secret
-        ],
-        'region' => $region,
-        'version' => 'latest',
-    ]);
-    $adapter = new \League\Flysystem\AwsS3v3\AwsS3Adapter($client, $bucket);
-    $filesystem = new \League\Flysystem\Filesystem($adapter);
-    $dataFactory = new \CRUDlex\MySQLDataFactory($app['db']);
-    $app->register(new \CRUDlex\ServiceProvider(), array(
-        'crud.file' => __DIR__ . '/../crud.yml',
-        'crud.datafactory' => $dataFactory,
-        'crud.filesystem' => $filesystem,
-    ));
+   .. tab:: Symfony 4
+
+      Todo
+
+   .. tab:: Silex 2
+
+      .. code-block:: php
+
+          $client = S3Client::factory([
+              'credentials' => [
+                  'key'    => $key,
+                  'secret' => $secret
+              ],
+              'region' => $region,
+              'version' => 'latest',
+          ]);
+          $adapter = new \League\Flysystem\AwsS3v3\AwsS3Adapter($client, $bucket);
+          $filesystem = new \League\Flysystem\Filesystem($adapter);
+          $dataFactory = new \CRUDlex\MySQLDataFactory($app['db']);
+          $app->register(new \CRUDlex\ServiceProvider(), [
+              'crud.file' => __DIR__ . '/../crud.yml',
+              'crud.datafactory' => $dataFactory,
+              'crud.filesystem' => $filesystem,
+          ]);
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Filesystem Storage Adapters
