@@ -9,16 +9,23 @@ This chapter shows you how to define your own layout templates on various
 levels.
 
 First of all, you need to place the Twig-templates in a folder known by the
-Twig service provider. Assuming you have your templates in the folder
-__DIR__.'/../views', you initialize the Twig service provider like this:
+Twig service.
 
 .. tabs::
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Add your path to the twig.yaml:
+
+      .. code-block:: yaml
+
+          twig:
+            paths: ['%kernel.project_dir%/templates']
 
    .. group-tab:: Silex 2
+
+      Assuming you have your templates in the folder
+      __DIR__.'/../views', you initialize the Twig like this:
 
       .. code-block:: php
 
@@ -44,7 +51,25 @@ key "layout" template via the the setTemplate function of the provider:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Place a call to setTemplate within your crudlex.service definition:
+
+      .. code-block:: yaml
+
+          crudlex.service:
+              public: true
+              class: "CRUDlex\\Service"
+              arguments:
+                - "%kernel.project_dir%/config/crud.yml"
+                - "%kernel.cache_dir%"
+                - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+                - "@translator"
+                - "@crudlex.dataFactoryInterface"
+                - "@crudlex.entityDefinitionFactoryInterface"
+                - "@crudlex.fileSystem"
+                - "@crudlex.entityDefinitionValidatorInterface"
+              calls:
+                - method: setTemplate
+                  arguments: ['layout', 'myLayout.twig']
 
    .. group-tab:: Silex 2
 
@@ -70,7 +95,25 @@ example the action "show":
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Place a call to setTemplate within your crudlex.service definition:
+
+      .. code-block:: yaml
+
+          crudlex.service:
+              public: true
+              class: "CRUDlex\\Service"
+              arguments:
+                - "%kernel.project_dir%/config/crud.yml"
+                - "%kernel.cache_dir%"
+                - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+                - "@translator"
+                - "@crudlex.dataFactoryInterface"
+                - "@crudlex.entityDefinitionFactoryInterface"
+                - "@crudlex.fileSystem"
+                - "@crudlex.entityDefinitionValidatorInterface"
+              calls:
+                - method: setTemplate
+                  arguments: ['layout.showk', 'myShowLayout.twig']
 
    .. group-tab:: Silex 2
 
@@ -89,7 +132,25 @@ entity name at the key, for example for the book entity:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Place a call to setTemplate within your crudlex.service definition:
+
+      .. code-block:: yaml
+
+          crudlex.service:
+              public: true
+              class: "CRUDlex\\Service"
+              arguments:
+                - "%kernel.project_dir%/config/crud.yml"
+                - "%kernel.cache_dir%"
+                - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+                - "@translator"
+                - "@crudlex.dataFactoryInterface"
+                - "@crudlex.entityDefinitionFactoryInterface"
+                - "@crudlex.fileSystem"
+                - "@crudlex.entityDefinitionValidatorInterface"
+              calls:
+                - method: setTemplate
+                  arguments: ['layout.book', 'myBookLayout.twig']
 
    .. group-tab:: Silex 2
 
@@ -109,7 +170,25 @@ override the create action of the book entity, you would define your layout like
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Place a call to setTemplate within your crudlex.service definition:
+
+      .. code-block:: yaml
+
+          crudlex.service:
+              public: true
+              class: "CRUDlex\\Service"
+              arguments:
+                - "%kernel.project_dir%/config/crud.yml"
+                - "%kernel.cache_dir%"
+                - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+                - "@translator"
+                - "@crudlex.dataFactoryInterface"
+                - "@crudlex.entityDefinitionFactoryInterface"
+                - "@crudlex.fileSystem"
+                - "@crudlex.entityDefinitionValidatorInterface"
+              calls:
+                - method: setTemplate
+                  arguments: ['layout.create.book', 'myCreateBookLayout.twig']
 
    .. group-tab:: Silex 2
 
