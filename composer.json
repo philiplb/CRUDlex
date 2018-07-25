@@ -35,7 +35,7 @@
         "phpunit/phpunit": "^7.2",
         "symfony/browser-kit": "^4.1",
         "symfony/css-selector": "^4.1",
-        "sphpdox/sphpdox": "dev-master",
+        "sphpdox/sphpdox": "dev-master#bc149dd0a0e3ec1f3e0d24d752552f54bfa17a53",
         "eloquent/phony": "^3.0",
         "eloquent/phony-phpunit": "^4.0"
     },
