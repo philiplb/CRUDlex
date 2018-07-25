@@ -16,7 +16,7 @@ Usually, this is the path to your index.php. So this example stores the image fi
 
 One big drawback here is that the application is not stateless anymore according to https://12factor.net/processes. But
 luckily, the file handling is done via `Flysystem <http://flysystem.thephpleague.com//>`_ and the used
-FilesystemInterface can be overridden easily by setting a service called "crud.filesystem".
+FilesystemInterface can be overridden easily.
 
 In any way, overriding or not, the underlying FilesystemInterface is available via
 
@@ -24,7 +24,7 @@ In any way, overriding or not, the underlying FilesystemInterface is available v
 
    .. group-tab:: Symfony 4
 
-      Todo
+      the service "crudlex.fileSystemAdapter".
 
    .. group-tab:: Silex 2
 
@@ -50,7 +50,25 @@ And then configure it and hand it over to CRUDlex:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      The Flysystem Adapter is integrated as service which can be overwritten. Here is an example using the S3 adapter:
+
+      .. code-block:: yaml
+
+          s3.client:
+            class: Aws\S3\S3Client
+            arguments:
+              -
+                version: "latest"
+                region: "<the AWS region>"
+                credentials:
+                  key: "<the AWS access key >"
+                  secret: "<the AWS secret access key>"
+          crudlex.fileSystemAdapter:
+            public: true
+            class: "League\\Flysystem\\AwsS3v3\\AwsS3Adapter"
+            arguments:
+              - "@s3.client"
+              - "<the AWS bucket name>"
 
    .. group-tab:: Silex 2
 
@@ -81,12 +99,10 @@ Many more adapters are available for Flysystem, including (as of writing):
 
 * Local
 * Azure
-* AWS S3 V2
-* AWS S3 V3
-* Copy.com
+* AWS S3
+* DigitalOcean Spaces
 * Dropbox
 * FTP
-* GridFS
 * Memory
 * Null / Test
 * Rackspace
