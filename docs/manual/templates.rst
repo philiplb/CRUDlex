@@ -14,7 +14,25 @@ In this case, you can override the template of a single page:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Place a call to setTemplate within your crudlex.service definition:
+
+      .. code-block:: yaml
+
+          crudlex.service:
+              public: true
+              class: "CRUDlex\\Service"
+              arguments:
+                - "%kernel.project_dir%/config/crud.yml"
+                - "%kernel.cache_dir%"
+                - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+                - "@translator"
+                - "@crudlex.dataFactoryInterface"
+                - "@crudlex.entityDefinitionFactoryInterface"
+                - "@crudlex.fileSystem"
+                - "@crudlex.entityDefinitionValidatorInterface"
+              calls:
+                - method: setTemplate
+                  arguments: ['template.list.book', 'bookList.twig']
 
    .. group-tab:: Silex 2
 
