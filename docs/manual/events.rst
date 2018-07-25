@@ -15,7 +15,17 @@ This is how you define an event which is executed before an entity is created:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      The boot method of the kernel is a possible place to define an event:
+
+      .. code-block:: php
+
+          public function boot() {
+              parent::boot();
+              $this->getContainer()->get('crudlex.service')->getData('library')->getEvents()->push('before', 'create', function(CRUDlex\Entity $entity) {
+                  // Do something with the entity which is about to be saved.
+                  return true;
+              });
+          }
 
    .. group-tab:: Silex 2
 
@@ -62,7 +72,9 @@ removed from the list and the closure is returned:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      .. code-block:: php
+
+          $closure = $this->getContainer()->get('crudlex.service')->getData('library')->getEvents()->pop('before', 'create');
 
    .. group-tab:: Silex 2
 
