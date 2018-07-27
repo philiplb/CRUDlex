@@ -14,7 +14,21 @@ this point that the file is valid:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      You can just leave out the last argument of the crudlex.service:
+
+      .. code-block:: yaml
+
+        crudlex.service:
+            public: true
+            class: "CRUDlex\\Service"
+            arguments:
+              - "%kernel.project_dir%/config/crud.yml"
+              - "%kernel.cache_dir%"
+              - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+              - "@translator"
+              - "@crudlex.dataFactoryInterface"
+              - "@crudlex.entityDefinitionFactoryInterface"
+              - "@crudlex.fileSystem"
 
    .. group-tab:: Silex 2
 
@@ -33,7 +47,22 @@ and handing it in before registering the service provider:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      As last argument:
+
+      .. code-block:: yaml
+
+        crudlex.service:
+            public: true
+            class: "CRUDlex\\Service"
+            arguments:
+              - "%kernel.project_dir%/config/crud.yml"
+              - "%kernel.cache_dir%"
+              - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+              - "@translator"
+              - "@crudlex.dataFactoryInterface"
+              - "@crudlex.entityDefinitionFactoryInterface"
+              - "@crudlex.fileSystem"
+              - "@crudlex.entityDefinitionValidatorInterface"
 
    .. group-tab:: Silex 2
 
