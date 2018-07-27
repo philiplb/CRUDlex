@@ -238,7 +238,25 @@ bigger projects with existing i18n management, so you can disable it on registra
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Place a call to setManageI18n within your crudlex.service definition:
+
+      .. code-block:: yaml
+
+          crudlex.service:
+              public: true
+              class: "CRUDlex\\Service"
+              arguments:
+                - "%kernel.project_dir%/config/crud.yml"
+                - "%kernel.cache_dir%"
+                - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+                - "@translator"
+                - "@crudlex.dataFactoryInterface"
+                - "@crudlex.entityDefinitionFactoryInterface"
+                - "@crudlex.fileSystem"
+                - "@crudlex.entityDefinitionValidatorInterface"
+              calls:
+                - method: setManageI18n
+                  arguments: [false]
 
    .. group-tab:: Silex 2
 
@@ -305,7 +323,14 @@ CRUDDataFactoryInterface:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      .. code-block:: php
+
+        crudlex.dataFactoryInterface:
+            public: true
+            class: "CRUDlex\\MySQLDataFactory"
+            arguments:
+              - "@doctrine.dbal.default_connection"
+              - true
 
    .. group-tab:: Silex 2
 
@@ -327,7 +352,23 @@ To activate the caching, you simply pass a path to a writable directory on regis
 
    .. group-tab:: Symfony 4
 
-      Todo
+      With Symfony 4, this feature is already activated and writes to %kernel.cache_dir%. It can be changed or even
+      deactivated by setting the service argument to an empty string like this:
+
+      .. code-block:: yaml
+
+        crudlex.service:
+            public: true
+            class: "CRUDlex\\Service"
+            arguments:
+              - "%kernel.project_dir%/config/crud.yml"
+              - ""
+              - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+              - "@translator"
+              - "@crudlex.dataFactoryInterface"
+              - "@crudlex.entityDefinitionFactoryInterface"
+              - "@crudlex.fileSystem"
+              - "@crudlex.entityDefinitionValidatorInterface"
 
    .. group-tab:: Silex 2
 
@@ -351,7 +392,20 @@ you can hand in an own implementation of the EntityDefinitionFactory like this:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      .. code-block:: yaml
+
+        crudlex.service:
+            public: true
+            class: "CRUDlex\\Service"
+            arguments:
+              - "%kernel.project_dir%/config/crud.yml"
+              - "%kernel.cache_dir%"
+              - "@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface"
+              - "@translator"
+              - "@crudlex.dataFactoryInterface"
+              - "@MyOwnEntityDefinitionFactoryService"
+              - "@crudlex.fileSystem"
+              - "@crudlex.entityDefinitionValidatorInterface"
 
    .. group-tab:: Silex 2
 
