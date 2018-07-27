@@ -19,25 +19,17 @@ This are the name of the routes added by the ControllerProvider.
 * **crudDeleteFile:** deletes a file of an entity (POST)
 * **crudSetLocale:** switches the locale of the UI (GET)
 
------------------
-Adding Middleware
------------------
+-------------------------
+Adding Silex 2 Middleware
+-------------------------
 
 
 Here is an example of how to add a middleware after mounting the ControllerProvider:
 
-.. tabs::
+.. code-block:: php
 
-   .. group-tab:: Symfony 4
-
-      Todo
-
-   .. group-tab:: Silex 2
-
-      .. code-block:: php
-
-          $app->flush();
-          $route = $app['routes']->get('crudList');
-          $route->before(function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
-              // Do your stuff.
-          });
+    $app->flush();
+    $route = $app['routes']->get('crudList');
+    $route->before(function(Symfony\Component\HttpFoundation\Request $request) use ($app) {
+        // Do your stuff.
+    });
