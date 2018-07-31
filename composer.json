@@ -2,7 +2,7 @@
     "name": "philiplb/crudlex",
     "type": "library",
     "description": "An easy to use CRUD generator for Silex.",
-    "keywords": ["silex", "crud", "admin generator"],
+    "keywords": ["symfony4", "silex", "crud", "admin generator"],
     "homepage": "https://github.com/philiplb/CRUDlex",
     "license": "MIT",
     "authors": [
