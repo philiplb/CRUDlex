@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="#"/>
         <link rel="next" title="Introduction" href="manual/introduction.html"/> 
 
@@ -101,7 +104,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -112,7 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -147,11 +150,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="#">Docs</a> &raquo;</li>
       
-    <li>Welcome to CRUDlex&#8217;s documentation!</li>
+    <li>Welcome to CRUDlex’s documentation!</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,7 +165,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="welcome-to-crudlex-s-documentation">
-<h1>Welcome to CRUDlex&#8217;s documentation!<a class="headerlink" href="#welcome-to-crudlex-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to CRUDlex’s documentation!<a class="headerlink" href="#welcome-to-crudlex-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>This is the documentation of CRUDlex, an easy to use CRUD generator for <a class="reference external" href="http://silex.sensiolabs.org/">Silex</a>.
 It describes every feature being available.</p>
 <p>Requirements:</p>
@@ -173,8 +176,8 @@ It describes every feature being available.</p>
 </ul>
 <img alt="_images/01_List.png" src="_images/01_List.png" />
 <p>Contents:</p>
-<div class="toctree-wrapper compound" id="manual">
-<p class="caption"><span class="caption-text">Manual</span><a class="headerlink" href="#manual" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Manual</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="manual/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual/setup.html">Setup</a></li>
@@ -235,7 +238,7 @@ It describes every feature being available.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="manual/routes.html">Routes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="manual/routes.html#list">List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manual/routes.html#adding-middleware">Adding Middleware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/routes.html#adding-silex-2-middleware">Adding Silex 2 Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="manual/extendedfeatures.html">Extended Features</a><ul>
@@ -276,14 +279,17 @@ It describes every feature being available.</p>
 <li class="toctree-l1"><a class="reference internal" href="manual/crudyamlreference.html">CRUD YAML Reference</a></li>
 </ul>
 </div>
-<div class="toctree-wrapper compound" id="api">
-<p class="caption"><span class="caption-text">API</span><a class="headerlink" href="#api" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/AbstractData.html">CRUDlex\AbstractData</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/MySQLData.html">CRUDlex\MySQLData</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ControllerInterface.html">CRUDlex\ControllerInterface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/Controller.html">CRUDlex\Controller</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/MySQLDataFactory.html">CRUDlex\MySQLDataFactory</a></li>
 </ul>
@@ -303,7 +309,7 @@ It describes every feature being available.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -314,8 +320,8 @@ It describes every feature being available.</p>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div>
 
@@ -336,7 +342,7 @@ It describes every feature being available.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Definition Validation" href="definitionvalidation.html"/>
         <link rel="prev" title="Events" href="events.html"/> 
@@ -92,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Optimistic Locking</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Optimistic Locking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
@@ -102,7 +105,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -113,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/optimisticlocking.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/optimisticlocking.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,7 +172,7 @@ each update of an entity. The current version is sent on submitting the edit for
 in the database. If those two values are not equal, someone else was faster in editing the entity. Now, the update is
 rejected as the new values in the database sent by the other person would be lost.</p>
 <p>This behaviour can be adjusted:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">optimisticLocking</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -180,7 +183,7 @@ rejected as the new values in the database sent by the other person would be los
 </pre></div>
 </div>
 <p>The default value is true and so optimistic locking is activated. If it is set to false, it is switched off and the
-version field is not used. Neither incremented nor checked on form submission. It then doesn&#8217;t need to exist in the
+version field is not used. Neither incremented nor checked on form submission. It then doesn’t need to exist in the
 database table.</p>
 </div>
 
@@ -203,7 +206,7 @@ database table.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

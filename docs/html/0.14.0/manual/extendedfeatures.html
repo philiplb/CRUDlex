@@ -28,8 +28,19 @@
   
 
   
+    <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/segment.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/menu.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.css" type="text/css" />
+  
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Addons" href="addons.html"/>
         <link rel="prev" title="Routes" href="routes.html"/> 
@@ -95,7 +106,7 @@
 <li class="toctree-l1"><a class="reference internal" href="optimisticlocking.html">Optimistic Locking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Extended Features</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extended Features</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#field-descriptions">Field Descriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#displayed-fields-in-the-list">Displayed Fields in the List</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pagination">Pagination</a></li>
@@ -126,7 +137,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -137,7 +148,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -176,7 +187,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/extendedfeatures.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/extendedfeatures.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -194,7 +205,7 @@
 <p>Sometimes, you want to guide the user a bit more and be more descriptive than
 just a label on the details and editpage of an entity. To do so, you can set a
 description per field. In this case, the author of a book is more informative:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -222,7 +233,7 @@ description per field. In this case, the author of a book is more informative:</
 <h2>Displayed Fields in the List<a class="headerlink" href="#displayed-fields-in-the-list" title="Permalink to this headline">¶</a></h2>
 <p>As an addition, we only want to show the author and title in the big list
 view of the books. We can do it by using the listFields entry:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -246,15 +257,15 @@ view of the books. We can do it by using the listFields entry:</p>
 </pre></div>
 </div>
 <p>It is a simple list referencing the fields. Note the usage of the internal
-fields &#8220;id&#8221;, &#8220;created_at&#8221; and &#8220;update_at&#8221;. &#8220;version&#8221; is not yet used and
-every row where &#8220;deleted_at&#8221; is not null is marked as deleted, so this field
+fields “id”, “created_at” and “update_at”. “version” is not yet used and
+every row where “deleted_at” is not null is marked as deleted, so this field
 would make no sense to display.</p>
 </div>
 <div class="section" id="pagination">
 <h2>Pagination<a class="headerlink" href="#pagination" title="Permalink to this headline">¶</a></h2>
 <p>Per default, 25 entities are listed per page on the list view. You can change
 this number by setting the <strong>pageSize</strong> parameter like this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -284,7 +295,7 @@ data types are presented.</p>
 <div class="section" id="filters">
 <h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
 <p>Currently, the listview contains all entries on the pages. Often, it is desirable to filter it in order to search for specific entries. The fields to be allowed to filter on can be easily added with a filter array just like the listFields. This is how the books view could be filtered by author and title:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">pageSize</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -313,8 +324,8 @@ data types are presented.</p>
 <div class="section" id="hard-deletion">
 <h2>Hard Deletion<a class="headerlink" href="#hard-deletion" title="Permalink to this headline">¶</a></h2>
 <p>By default, CRUDlex uses a soft deletion mechanism by only setting a deleted_at field. Hard deletion from the database
-can be activated though via the &#8220;hardDeletion&#8221; flag like this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+can be activated though via the “hardDeletion” flag like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">hardDeletion</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -323,7 +334,7 @@ can be activated though via the &#8220;hardDeletion&#8221; flag like this:</p>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
 </pre></div>
 </div>
-<p>If activated, the column &#8220;deleted_at&#8221; is not needed in the entities table.</p>
+<p>If activated, the column “deleted_at” is not needed in the entities table.</p>
 </div>
 <div class="section" id="group-entities-in-the-navigation-bar">
 <h2>Group entities in the Navigation Bar<a class="headerlink" href="#group-entities-in-the-navigation-bar" title="Permalink to this headline">¶</a></h2>
@@ -331,7 +342,7 @@ can be activated though via the &#8220;hardDeletion&#8221; flag like this:</p>
 too many entities or want to group based on relations between the entities, you
 can add a “navBarGroup” option. In this case we group library and books under
 “Learning Resources”:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">navBarGroup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Learning Resources</span>
@@ -364,7 +375,7 @@ can add a “navBarGroup” option. In this case we group library and books unde
 <p>You can translate the labels of the entities and their fields using some special
 label keys: <em>label_(locale)</em> with <em>(locale)</em> being your desired locale. Example
 for <strong>de</strong>:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
     <span class="l l-Scalar l-Scalar-Plain">label_de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Buch</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
@@ -389,13 +400,43 @@ for <strong>de</strong>:</p>
 <div class="section" id="switch-off-i18n-management">
 <h3>Switch off I18n Management<a class="headerlink" href="#switch-off-i18n-management" title="Permalink to this headline">¶</a></h3>
 <p>Per default, CRUDlex manages i18n for you. But this might be not desired in
-bigger projects, so you can disable it on registration like this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
-<span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
-<span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
-<span class="x">    &#39;crud.manageI18n&#39; =&gt; false</span>
-<span class="x">));</span>
+bigger projects with existing i18n management, so you can disable it on registration like this:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Place a call to setManageI18n within your crudlex.service definition:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">calls</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">setManageI18n</span>
+        <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">false</span><span class="p p-Indicator">]</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setManageI18n(false);</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -411,7 +452,7 @@ if set to false, the initial sort order is descending</li>
 </ul>
 <p>Here is an example where the books are sorted by their author in an descending
 order:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Book</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
     <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">author</span><span class="p p-Indicator">,</span> <span class="nv">title</span><span class="p p-Indicator">]</span>
@@ -430,20 +471,44 @@ order:</p>
 </pre></div>
 </div>
 <p>Attention: In the list view, it is not possible to sort by many fields as it
-doesn&#8217;t make that much sense.</p>
+doesn’t make that much sense.</p>
 </div>
 <div class="section" id="using-uuids-as-primary-key-instead-of-an-auto-incremented-value">
 <h2>Using UUIDs as Primary Key Instead of an Auto Incremented Value<a class="headerlink" href="#using-uuids-as-primary-key-instead-of-an-auto-incremented-value" title="Permalink to this headline">¶</a></h2>
 <p>CRUDMySQLData offers an option to use UUIDs as primary key instead of an auto
 incremented value.</p>
 <p>First, you have to create your id field as varchar(36):</p>
-<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
 </pre></div>
 </div>
 <p>And then you have to activate it in the setup when creating the
 CRUDDataFactoryInterface:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;], true);</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">crudlex.dataFactoryInterface:</span>
+<span class="x">    public: true</span>
+<span class="x">    class: &quot;CRUDlex\\MySQLDataFactory&quot;</span>
+<span class="x">    arguments:</span>
+<span class="x">      - &quot;@doctrine.dbal.default_connection&quot;</span>
+<span class="x">      - true</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;], true);</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="using-the-crud-yaml-file-cache">
@@ -452,36 +517,98 @@ CRUDDataFactoryInterface:</p>
 this, CRUDlex can cache the parsed content to a PHP file. Using a PHP file has the advantage, that this is then cached
 for free by the opcode cache of PHP.</p>
 <p>To activate the caching, you simply pass a path to a writable directory on registration:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
-<span class="x">    &#39;crud.filecachingdirectory&#39; =&gt; &#39;/path/to/a/writable/directory&#39;</span>
-<span class="x">));</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>With Symfony 4, this feature is already activated and writes to %kernel.cache_dir%. It can be changed or even
+deactivated by setting the service argument to an empty string like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
 </pre></div>
 </div>
-<p>Note that CRUDlex doesn&#8217;t do any cache invalidation. You have to delete the cached files yourself if needed. This is the
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), [</span>
+<span class="x">    &#39;crud.filecachingdirectory&#39; =&gt; &#39;/path/to/a/writable/directory&#39;</span>
+<span class="x">]);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that CRUDlex doesn’t do any cache invalidation. You have to delete the cached files yourself if needed. This is the
 case if the crud.yml got modified for example.</p>
 </div>
 <div class="section" id="using-an-own-implementation-of-the-entitydefinition">
 <h2>Using an own Implementation of the EntityDefinition<a class="headerlink" href="#using-an-own-implementation-of-the-entitydefinition" title="Permalink to this headline">¶</a></h2>
 <p>There might be the case where you want to use an own implementation derived from the EntityDefinition. In this case,
 you can hand in an own implementation of the EntityDefinitionFactory like this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$entityDefinitionFactory = new MyOwnEntityDefinitionFactory();</span>
-<span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
-<span class="x">    &#39;crud.entitydefinitionfactory&#39; =&gt; $entityDefinitionFactory</span>
-<span class="x">));</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@MyOwnEntityDefinitionFactoryService&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$entityDefinitionFactory = new MyOwnEntityDefinitionFactory();</span>
+<span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), [</span>
+<span class="x">    &#39;crud.entitydefinitionfactory&#39; =&gt; $entityDefinitionFactory</span>
+<span class="x">]);</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="prepopulated-form-fields-on-the-creation-page">
 <h2>Prepopulated Form Fields on the Creation Page<a class="headerlink" href="#prepopulated-form-fields-on-the-creation-page" title="Permalink to this headline">¶</a></h2>
 <p>You can set some initial values when you link the creation page from somewhere
 else by handing in the appropriate GET parameter. Example for the author of a
-book: .../book/create?author=MyAuthor</p>
+book: …/book/create?author=MyAuthor</p>
 </div>
 <div class="section" id="combine-with-the-web-profiler">
 <h2>Combine with the Web Profiler<a class="headerlink" href="#combine-with-the-web-profiler" title="Permalink to this headline">¶</a></h2>
-<p>If you want to use the package &#8220;silex/web-profiler&#8221;, you have to register the
+<p>If you want to use the package “silex/web-profiler”, you have to register the
 LocaleServiceProvider and TranslationServiceProvider on your own first:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\LocaleServiceProvider());</span>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\LocaleServiceProvider());</span>
 <span class="x">$app-&gt;register(new \Silex\Provider\TranslationServiceProvider(), array(</span>
 <span class="x">    &#39;locale_fallbacks&#39; =&gt; array(&#39;en&#39;),</span>
 <span class="x">));</span>
@@ -497,7 +624,7 @@ ControllerProvider is mounted to.</p>
 <div class="section" id="apache">
 <h3>Apache<a class="headerlink" href="#apache" title="Permalink to this headline">¶</a></h3>
 <p>The requests to the static route can be redirected to the static files:</p>
-<div class="highlight-apache"><div class="highlight"><pre><span></span><span class="nb">RewriteCond</span> %{REQUEST_FILENAME} !-f
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">RewriteCond</span> %{REQUEST_FILENAME} !-f
 <span class="nb">RewriteCond</span> %{QUERY_STRING} ^file=(.*)$
 <span class="nb">RewriteRule</span> &lt;mountPath&gt;/resource/static$ vendor/philiplb/crudlex/src/static/%1 [QSA,L]
 </pre></div>
@@ -506,7 +633,7 @@ ControllerProvider is mounted to.</p>
 <div class="section" id="nginx">
 <h3>nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h3>
 <p>A location with the try_files directive can serve the static files like this:</p>
-<div class="highlight-nginx"><div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/&lt;mountPath&gt;/resource/static</span> <span class="p">{</span>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/&lt;mountPath&gt;/resource/static</span> <span class="p">{</span>
     <span class="kn">try_files</span> <span class="s">/vendor/philiplb/crudlex/src/static/</span><span class="nv">$arg_file</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -534,7 +661,7 @@ ControllerProvider is mounted to.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>
@@ -565,6 +692,8 @@ ControllerProvider is mounted to.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/tabs.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.js"></script>
 
   
 

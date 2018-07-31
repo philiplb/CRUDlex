@@ -67,7 +67,7 @@ CRUDlex\\FileHandler
         :type $filesystem: FilesystemInterface
         :param $filesystem: the filesystem to use
         :type $entityDefinition: EntityDefinition
-        :param $entityDefinition:
+        :param $entityDefinition: the entity definition to use
 
     .. php:method:: renderFile(Entity $entity, $entityName, $field)
 

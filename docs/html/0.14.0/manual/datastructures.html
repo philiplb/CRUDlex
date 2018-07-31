@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Data Types" href="datatypes.html"/>
         <link rel="prev" title="Setup" href="setup.html"/> 
@@ -85,7 +88,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Data Structure Definition</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Structure Definition</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#entities">Entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fields">Fields</a></li>
 </ul>
@@ -106,7 +109,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -117,7 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -156,7 +159,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/datastructures.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/datastructures.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,28 +172,28 @@
   <div class="section" id="data-structure-definition">
 <h1>Data Structure Definition<a class="headerlink" href="#data-structure-definition" title="Permalink to this headline">¶</a></h1>
 <p>In the previous chapter, the ServiceProvider got the path to a crud.yml
-told. This is where CRUDlex gets it&#8217;s information about what tables with what
+told. This is where CRUDlex gets it’s information about what tables with what
 fields exists in your database. We will build up a valid, small example as we
 continue in this chapter.</p>
 <div class="section" id="entities">
 <h2>Entities<a class="headerlink" href="#entities" title="Permalink to this headline">¶</a></h2>
 <p>The first items in the crud.yml are the entities. Each entity is describing a
-single table with it&#8217;s fields. Let&#8217;s say we have two tables, libraries and
+single table with it’s fields. Let’s say we have two tables, libraries and
 books. So we define two entities with the same name. Note that this name is
 your choice, the table name of the database gets defined in a second.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
 <span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
 </pre></div>
 </div>
 <p>In this case, the entities would be available under this URLs (assuming you
-mounted the Controller under &#8220;/crud&#8221;):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>http://.../crud/library
-http://.../crud/book
+mounted the Controller under “/crud”):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//.../</span><span class="n">crud</span><span class="o">/</span><span class="n">library</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//.../</span><span class="n">crud</span><span class="o">/</span><span class="n">book</span>
 </pre></div>
 </div>
 <p>Now we declare the labels and the tables. The label is used for displaying
 links in the navigation and in some messages:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
 <span class="l l-Scalar l-Scalar-Plain">book</span><span class="p p-Indicator">:</span>
@@ -203,7 +206,7 @@ links in the navigation and in some messages:</p>
 <h2>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h2>
 <p>So far, so good. In our minimal example, a library has a name and a Book has
 an author, a title and the amount of pages as fields.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -225,7 +228,7 @@ an author, a title and the amount of pages as fields.</p>
             <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Pages</span>
 </pre></div>
 </div>
-<p>Note that the yml keys &#8220;name&#8221;, &#8220;author&#8221; and &#8220;title&#8221; directly name the database
+<p>Note that the yml keys “name”, “author” and “title” directly name the database
 column names. Each one has a type and a label here. The type defines the
 database type and the label is used in various places to display the field. In
 this example, only simple string types are used and an integer for the book
@@ -266,7 +269,7 @@ project for the exact table creation.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

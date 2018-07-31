@@ -28,8 +28,19 @@
   
 
   
+    <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/segment.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/menu.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.css" type="text/css" />
+  
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Events" href="events.html"/>
         <link rel="prev" title="Overriding Layouts" href="layouts.html"/> 
@@ -90,7 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filehandling.html">File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Overriding Templates</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overriding Templates</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#templates-included-by-the-layout">Templates Included by the Layout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#templates-for-the-single-action-pages">Templates for the Single Action Pages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#form-field-templates">Form Field Templates</a></li>
@@ -108,7 +119,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -119,7 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -158,7 +169,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/templates.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/templates.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,20 +181,54 @@
             
   <div class="section" id="overriding-templates">
 <h1>Overriding Templates<a class="headerlink" href="#overriding-templates" title="Permalink to this headline">¶</a></h1>
-<p>If you need to adjust the templates of single pages, you can&#8217;t achieve that with
+<p>If you need to adjust the templates of single pages, you can’t achieve that with
 just overriding the layout. Example: You want to add a button to the action
-column of the list page of the entity &#8220;book&#8221;. For that, you have to override the
-Twig block &#8220;content&#8221;. But with just the layout, you simply can&#8217;t. CRUDlex
-uses for this page a template &#8220;&#64;crud/list.twig&#8221; which extends the so far
+column of the list page of the entity “book”. For that, you have to override the
+Twig block “content”. But with just the layout, you simply can’t. CRUDlex
+uses for this page a template “&#64;crud/list.twig” which extends the so far
 overridable layout.</p>
 <p>In this case, you can override the template of a single page:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.template.list.book&#39;] = &#39;bookList.twig&#39;;</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Place a call to setTemplate within your crudlex.service definition:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">calls</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">setTemplate</span>
+        <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;template.list.book&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;bookList.twig&#39;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
-<p>Note the changed part &#8220;template&#8221; of the key!</p>
-<p>The rest of the internal template selection works like the layouts. You don&#8217;t
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;template.list.book&#39;, &#39;bookList.twig&#39;);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the changed part “template” of the key!</p>
+<p>The rest of the internal template selection works like the layouts. You don’t
 need to specify the entity if you want to adjust all list pages for example.</p>
-<p>Note that you find all used templates in &#8220;src/views/&#8221;, they give a good starting
+<p>Note that you find all used templates in “src/views/”, they give a good starting
 point to tweak.</p>
 <div class="section" id="templates-included-by-the-layout">
 <h2>Templates Included by the Layout<a class="headerlink" href="#templates-included-by-the-layout" title="Permalink to this headline">¶</a></h2>
@@ -195,7 +240,7 @@ point to tweak.</p>
 </div>
 <div class="section" id="templates-for-the-single-action-pages">
 <h2>Templates for the Single Action Pages<a class="headerlink" href="#templates-for-the-single-action-pages" title="Permalink to this headline">¶</a></h2>
-<p>This are the &#8220;root&#8221;-templates directly included in the layout.twig:</p>
+<p>This are the “root”-templates directly included in the layout.twig:</p>
 <ul class="simple">
 <li>form: The create and edit page (&#64;crud/form.twig)</li>
 <li>list: The list page (&#64;crud/list.twig)</li>
@@ -218,6 +263,7 @@ point to tweak.</p>
 <li>setField: The form field for the type set (&#64;crud/setField.twig)</li>
 <li>textField: The form field for the type text (&#64;crud/textField.twig)</li>
 <li>urlField: The form field for the type url (&#64;crud/urlField.twig)</li>
+<li>wysiwymField: The form field for the type wysiwym (&#64;crud/wysiwymField.twig)</li>
 </ul>
 </div>
 <div class="section" id="additional-templates">
@@ -249,7 +295,7 @@ point to tweak.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>
@@ -280,6 +326,8 @@ point to tweak.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/tabs.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.js"></script>
 
   
 

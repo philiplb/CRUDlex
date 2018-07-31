@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="up" title="CRUDlex\EntityDefinitionFactoryInterface" href="EntityDefinitionFactoryInterface.html"/>
         <link rel="next" title="CRUDlex\EntityDefinitionValidatorInterface" href="EntityDefinitionValidatorInterface.html"/>
@@ -103,12 +106,12 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">CRUDlex\EntityDefinitionFactory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CRUDlex\EntityDefinitionFactory</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
@@ -117,7 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -158,7 +161,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/EntityDefinitionFactory.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/EntityDefinitionFactory.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,23 +176,23 @@
 <dl class="class">
 <dt id="EntityDefinitionFactory">
 <em class="property">class </em><code class="descname">EntityDefinitionFactory</code><a class="headerlink" href="#EntityDefinitionFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default implementation of the EntiyDefinitionFactoryInterface being used if the key &#8220;crud.entitydefinitionfactory&#8221; is
+<dd><p>Default implementation of the EntiyDefinitionFactoryInterface being used if the key “crud.entitydefinitionfactory” is
 not given during the registration of the ServiceProvider.</p>
 <dl class="method">
 <dt id="EntityDefinitionFactory::createEntityDefinition">
-<code class="descname">createEntityDefinition</code><span class="sig-paren">(</span><em>$table</em>, <em>$fields</em>, <em>$label</em>, <em>$localeLabels</em>, <em>$standardFieldLabels</em>, <em>ServiceProvider $serviceProvider</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinitionFactory::createEntityDefinition" title="Permalink to this definition">¶</a></dt>
+<code class="descname">createEntityDefinition</code><span class="sig-paren">(</span><em>$table</em>, <em>$fields</em>, <em>$label</em>, <em>$localeLabels</em>, <em>$standardFieldLabels</em>, <em>Service $serviceProvider</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinitionFactory::createEntityDefinition" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$table</strong> &#8211; </li>
-<li><strong>$fields</strong> &#8211; </li>
-<li><strong>$label</strong> &#8211; </li>
-<li><strong>$localeLabels</strong> &#8211; </li>
-<li><strong>$standardFieldLabels</strong> &#8211; </li>
-<li><strong>$serviceProvider</strong> (<a class="reference internal" href="ServiceProvider.html#ServiceProvider" title="ServiceProvider"><em>ServiceProvider</em></a>) &#8211; </li>
+<li><strong>$table</strong> – </li>
+<li><strong>$fields</strong> – </li>
+<li><strong>$label</strong> – </li>
+<li><strong>$localeLabels</strong> – </li>
+<li><strong>$standardFieldLabels</strong> – </li>
+<li><strong>$serviceProvider</strong> (<a class="reference internal" href="Service.html#Service" title="Service"><em>Service</em></a>) – </li>
 </ul>
 </td>
 </tr>
@@ -220,7 +223,7 @@ not given during the registration of the ServiceProvider.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

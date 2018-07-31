@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\ManyValidator" href="ManyValidator.html"/>
         <link rel="prev" title="CRUDlex\EntityValidator" href="EntityValidator.html"/> 
@@ -102,7 +105,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -110,10 +113,10 @@
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityEvents.html">CRUDlex\EntityEvents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\FileHandler</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/FileHandler.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/FileHandler.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -192,9 +195,9 @@ file of the file field.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the entity name</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the file field in the entity</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the entity name</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity</li>
+<li><strong>$field</strong> (<em>string</em>) – the file field in the entity</li>
 </ul>
 </td>
 </tr>
@@ -214,9 +217,9 @@ file of the file field.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the just created entity</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-<li><strong>$function</strong> (<em>Closure</em>) &#8211; the function to perform, takes $entity, $entityName and $field as parameter</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the just created entity</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the name of the entity as this class here is not aware of it</li>
+<li><strong>$function</strong> (<em>Closure</em>) – the function to perform, takes $entity, $entityName and $field as parameter</li>
 </ul>
 </td>
 </tr>
@@ -233,11 +236,11 @@ file of the file field.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the AbstractData instance who should receive the events</li>
-<li><strong>$request</strong> (<em>Request</em>) &#8211; the HTTP request containing the file data</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the just manipulated entity</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the name of the performed action</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the AbstractData instance who should receive the events</li>
+<li><strong>$request</strong> (<em>Request</em>) – the HTTP request containing the file data</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the just manipulated entity</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the name of the entity as this class here is not aware of it</li>
+<li><strong>$action</strong> (<em>string</em>) – the name of the performed action</li>
 </ul>
 </td>
 </tr>
@@ -257,8 +260,8 @@ file of the file field.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$filesystem</strong> (<em>FilesystemInterface</em>) &#8211; the filesystem to use</li>
-<li><strong>$entityDefinition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; </li>
+<li><strong>$filesystem</strong> (<em>FilesystemInterface</em>) – the filesystem to use</li>
+<li><strong>$entityDefinition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) – the entity definition to use</li>
 </ul>
 </td>
 </tr>
@@ -276,9 +279,9 @@ like the file size, mimetype and name, too.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to render the file from</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field of the entity containing the file to be rendered</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to render the file from</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the name of the entity as this class here is not aware of it</li>
+<li><strong>$field</strong> (<em>string</em>) – the field of the entity containing the file to be rendered</li>
 </ul>
 </td>
 </tr>
@@ -298,9 +301,9 @@ like the file size, mimetype and name, too.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the AbstractData instance who should receive the events</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete the files from</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the AbstractData instance who should receive the events</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to delete the files from</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the name of the entity as this class here is not aware of it</li>
 </ul>
 </td>
 </tr>
@@ -320,10 +323,10 @@ like the file size, mimetype and name, too.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the AbstractData instance who should receive the events</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete the file from</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field of the entity containing the file to be deleted</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the AbstractData instance who should receive the events</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to delete the file from</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the name of the entity as this class here is not aware of it</li>
+<li><strong>$field</strong> (<em>string</em>) – the field of the entity containing the file to be deleted</li>
 </ul>
 </td>
 </tr>
@@ -343,10 +346,10 @@ like the file size, mimetype and name, too.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the AbstractData instance who should receive the events</li>
-<li><strong>$request</strong> (<em>Request</em>) &#8211; the HTTP request containing the file data</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the just created entity</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the AbstractData instance who should receive the events</li>
+<li><strong>$request</strong> (<em>Request</em>) – the HTTP request containing the file data</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the just created entity</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the name of the entity as this class here is not aware of it</li>
 </ul>
 </td>
 </tr>
@@ -366,10 +369,10 @@ like the file size, mimetype and name, too.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the AbstractData instance who should receive the events</li>
-<li><strong>$request</strong> (<em>Request</em>) &#8211; the HTTP request containing the file data</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the updated entity</li>
-<li><strong>$entityName</strong> (<em>string</em>) &#8211; the name of the entity as this class here is not aware of it</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the AbstractData instance who should receive the events</li>
+<li><strong>$request</strong> (<em>Request</em>) – the HTTP request containing the file data</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the updated entity</li>
+<li><strong>$entityName</strong> (<em>string</em>) – the name of the entity as this class here is not aware of it</li>
 </ul>
 </td>
 </tr>
@@ -403,7 +406,7 @@ like the file size, mimetype and name, too.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

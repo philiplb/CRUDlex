@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="File Handling" href="filehandling.html"/>
         <link rel="prev" title="Data Types" href="datatypes.html"/> 
@@ -87,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Constraints</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Constraints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filehandling.html">File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layouts.html">Overriding Layouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Overriding Templates</a></li>
@@ -102,7 +105,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -113,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/constraints.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/constraints.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,7 +176,7 @@ database with the same value of this field</li>
 </ul>
 <p>In our library/book example, we define a name of the library to be unique and
 mandatory and the title of a book should be required:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -197,9 +200,9 @@ mandatory and the title of a book should be required:</p>
                 <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">library</span>
 </pre></div>
 </div>
-<p>So it&#8217;s just as easy as adding either &#8220;required: true&#8221; or &#8220;unique: true&#8221; to the
-field definition. Note that both constraints are used for the field &#8220;name&#8221; in
-the entity &#8220;library&#8221;.</p>
+<p>So it’s just as easy as adding either “required: true” or “unique: true” to the
+field definition. Note that both constraints are used for the field “name” in
+the entity “library”.</p>
 </div>
 
 
@@ -221,7 +224,7 @@ the entity &#8220;library&#8221;.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

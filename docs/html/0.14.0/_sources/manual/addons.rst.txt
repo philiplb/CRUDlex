@@ -24,10 +24,26 @@ following sub chapters.
 In order to get the salt generated and the password hashed, you have to let the
 library add some CRUDlex events in your initialization:
 
-.. code-block:: php
+.. tabs::
 
-    $crudUserSetup = new CRUDlex\UserSetup();
-    $crudUserSetup->addEvents($app['crud']->getData('user'));
+   .. group-tab:: Symfony 4
+
+      The boot method of the kernel is a possible place to add the events:
+
+      .. code-block:: php
+
+          public function boot() {
+              parent::boot();
+              $crudUserSetup = new CRUDlex\UserSetup();
+              $crudUserSetup->addEvents($this->getContainer()->get('crudlex.service')->getData('user'));
+          }
+
+   .. group-tab:: Silex 2
+
+      .. code-block:: php
+
+          $crudUserSetup = new CRUDlex\UserSetup();
+          $crudUserSetup->addEvents($app['crud']->getData('user'));
 
 """""
 Users
@@ -122,19 +138,45 @@ In case you want to use the password reset features:
 The UserProvider
 ^^^^^^^^^^^^^^^^
 
-Simply instantiate and add it to your symfony/security configuration:
+Simply add the user provider to your symfony/security configuration:
 
-.. code-block:: php
+.. tabs::
 
-    $userProvider = new CRUDlex\UserProvider($app['crud']->getData('user'), $app['crud']->getData('userRole'));
-    $app->register(new Silex\Provider\SecurityServiceProvider(), array(
-        'security.firewalls' => array(
-            'admin' => array(
-                //...
-                'users' => $userProvider
-            ),
-        ),
-    ));
+   .. group-tab:: Symfony 4
+
+      Define the service (here the most simple way):
+
+
+      .. code-block:: yaml
+
+        CRUDlex\UserProvider:
+            public: true
+            class: "CRUDlex\\UserProvider"
+            arguments: ["@crudlex.service"]
+
+
+     Then, the symfony/security user provider is set:
+
+      .. code-block:: yaml
+
+          security:
+              providers:
+                  webservice:
+                      id: CRUDlex\UserProvider
+
+   .. group-tab:: Silex 2
+
+      .. code-block:: php
+
+          $userProvider = new CRUDlex\UserProvider($app['crud']);
+          $app->register(new Silex\Provider\SecurityServiceProvider(), [
+              'security.firewalls' => [
+                  'admin' => [
+                      //...
+                      'users' => $userProvider
+                  ],
+              ],
+          ]);
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -144,8 +186,26 @@ Accessing Data of the Logged in User
 In order to get the user data from the logged in user in your controller, you
 might grab him like this:
 
-.. code-block:: php
+.. tabs::
 
-    $user = $app['security.token_storage']->getToken()
+   .. group-tab:: Symfony 4
+
+      From within a controller, the user can be accessed via
+
+      .. code-block:: php
+
+          $user = $this->getUser();
+
+      This is a shortcut for using the service "security.token_storage":
+
+      .. code-block:: php
+
+          $user = $this->container->getParameter('security.token_storage')->getToken();
+
+   .. group-tab:: Silex 2
+
+      .. code-block:: php
+
+          $user = $app['security.token_storage']->getToken();
 
 You get back a CRUDlex\\User instance having some getters, see the API docs.

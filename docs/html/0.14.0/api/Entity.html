@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\EntityDefinition" href="EntityDefinition.html"/>
         <link rel="prev" title="CRUDlex\MySQLDataFactory" href="MySQLDataFactory.html"/> 
@@ -102,9 +105,9 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\Entity</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
@@ -113,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/Entity.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/Entity.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -193,8 +196,8 @@ With this objects, the data is passed arround and validated.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$value</strong> (<em>mixed</em>) &#8211; the value to convert</li>
-<li><strong>$type</strong> (<em>string</em>) &#8211; the type to convert to like &#8216;integer&#8217; or &#8216;float&#8217;</li>
+<li><strong>$value</strong> (<em>mixed</em>) – the value to convert</li>
+<li><strong>$type</strong> (<em>string</em>) – the type to convert to like ‘integer’ or ‘float’</li>
 </ul>
 </td>
 </tr>
@@ -214,7 +217,7 @@ With this objects, the data is passed arround and validated.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; the definition how this entity looks</li>
+<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) – the definition how this entity looks</li>
 </ul>
 </td>
 </tr>
@@ -231,8 +234,8 @@ With this objects, the data is passed arround and validated.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field</li>
-<li><strong>$value</strong> (<em>mixed</em>) &#8211; the value</li>
+<li><strong>$field</strong> (<em>string</em>) – the field</li>
+<li><strong>$value</strong> (<em>mixed</em>) – the value</li>
 </ul>
 </td>
 </tr>
@@ -250,7 +253,7 @@ This is usefull for input validation for example.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field</li>
+<li><strong>$field</strong> (<em>string</em>) – the field</li>
 </ul>
 </td>
 </tr>
@@ -270,7 +273,7 @@ This is usefull for input validation for example.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field</li>
+<li><strong>$field</strong> (<em>string</em>) – the field</li>
 </ul>
 </td>
 </tr>
@@ -304,7 +307,7 @@ This is usefull for input validation for example.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$request</strong> (<em>Request</em>) &#8211; the request to take the field data from</li>
+<li><strong>$request</strong> (<em>Request</em>) – the request to take the field data from</li>
 </ul>
 </td>
 </tr>
@@ -335,7 +338,7 @@ This is usefull for input validation for example.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

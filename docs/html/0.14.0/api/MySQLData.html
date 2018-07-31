@@ -30,9 +30,12 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="up" title="CRUDlex\AbstractData" href="AbstractData.html"/>
-        <link rel="next" title="CRUDlex\ControllerProvider" href="ControllerProvider.html"/>
+        <link rel="next" title="CRUDlex\ControllerInterface" href="ControllerInterface.html"/>
         <link rel="prev" title="CRUDlex\AbstractData" href="AbstractData.html"/> 
 
   
@@ -103,10 +106,10 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">CRUDlex\MySQLData</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CRUDlex\MySQLData</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -117,7 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -158,7 +161,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/MySQLData.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/MySQLData.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -236,10 +239,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; the entity definition which might have soft deletion activated</li>
-<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) &#8211; the query builder to add the deletion condition to</li>
-<li><strong>$fieldPrefix</strong> (<em>string</em>) &#8211; the prefix to add before the deleted_at field like an table alias</li>
-<li><strong>$method</strong> (<em>string</em>) &#8211; the method to use of the query builder, &#8220;where&#8221; or &#8220;andWhere&#8221;</li>
+<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) – the entity definition which might have soft deletion activated</li>
+<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) – the query builder to add the deletion condition to</li>
+<li><strong>$fieldPrefix</strong> (<em>string</em>) – the prefix to add before the deleted_at field like an table alias</li>
+<li><strong>$method</strong> (<em>string</em>) – the method to use of the query builder, “where” or “andWhere”</li>
 </ul>
 </td>
 </tr>
@@ -257,9 +260,9 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity with its fields and values</li>
-<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) &#8211; the upcoming query</li>
-<li><strong>$setMethod</strong> (<em>string</em>) &#8211; what method to use on the QueryBuilder: &#8216;setValue&#8217; or &#8216;set&#8217;</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity with its fields and values</li>
+<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) – the upcoming query</li>
+<li><strong>$setMethod</strong> (<em>string</em>) – what method to use on the QueryBuilder: ‘setValue’ or ‘set’</li>
 </ul>
 </td>
 </tr>
@@ -276,7 +279,7 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$id</strong> (<em>integer</em>) &#8211; the current entities id</li>
+<li><strong>$id</strong> (<em>integer</em>) – the current entities id</li>
 </ul>
 </td>
 </tr>
@@ -296,7 +299,7 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the referenced entity</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the referenced entity</li>
 </ul>
 </td>
 </tr>
@@ -313,8 +316,8 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
-<li><strong>$deleteCascade</strong> &#8211; </li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – </li>
+<li><strong>$deleteCascade</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -331,8 +334,8 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fields</strong> (<em>array</em>) &#8211; the many field names to fetch for</li>
-<li><strong>$params</strong> &#8211; </li>
+<li><strong>$fields</strong> (<em>array</em>) – the many field names to fetch for</li>
+<li><strong>$params</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -352,9 +355,9 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) &#8211; the query</li>
-<li><strong>$filter</strong> &#8211; </li>
-<li><strong>$filterOperators</strong> &#8211; </li>
+<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) – the query</li>
+<li><strong>$filter</strong> – </li>
+<li><strong>$filterOperators</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -371,9 +374,9 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) &#8211; the query</li>
-<li><strong>$skip</strong> (<em>integer|null</em>) &#8211; the rows to skip</li>
-<li><strong>$amount</strong> (<em>integer|null</em>) &#8211; the maximum amount of rows</li>
+<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) – the query</li>
+<li><strong>$skip</strong> (<em>integer|null</em>) – the rows to skip</li>
+<li><strong>$amount</strong> (<em>integer|null</em>) – the maximum amount of rows</li>
 </ul>
 </td>
 </tr>
@@ -390,9 +393,9 @@ to the entity.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) &#8211; the query</li>
-<li><strong>$sortField</strong> (<em>string|null</em>) &#8211; the sort field</li>
-<li><strong>$sortAscending</strong> (<em>boolean|null</em>) &#8211; true if sort ascending, false if descending</li>
+<li><strong>$queryBuilder</strong> (<em>QueryBuilder</em>) – the query</li>
+<li><strong>$sortField</strong> (<em>string|null</em>) – the sort field</li>
+<li><strong>$sortAscending</strong> (<em>boolean|null</em>) – true if sort ascending, false if descending</li>
 </ul>
 </td>
 </tr>
@@ -405,14 +408,14 @@ to the entity.</p>
 <code class="descname">fetchReferencesForField</code><span class="sig-paren">(</span><em>$entities</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::fetchReferencesForField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the id and name of referenced entities to the given entities. The
 reference field is before the raw id of the referenced entity and after
-the fetch, it&#8217;s an array with the keys id and name.</p>
+the fetch, it’s an array with the keys id and name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entities</strong> &#8211; </li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the reference field</li>
+<li><strong>$entities</strong> – </li>
+<li><strong>$field</strong> (<em>string</em>) – the reference field</li>
 </ul>
 </td>
 </tr>
@@ -428,7 +431,7 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string|null the new UUID or null if this instance isn&#8217;t configured to do so</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string|null the new UUID or null if this instance isn’t configured to do so</td>
 </tr>
 </tbody>
 </table>
@@ -444,8 +447,8 @@ many-to-many data.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$idToData</strong> (<em>array</em>) &#8211; a reference to the map entity id to raw entity data</li>
-<li><strong>$manyField</strong> &#8211; </li>
+<li><strong>$idToData</strong> (<em>array</em>) – a reference to the map entity id to raw entity data</li>
+<li><strong>$manyField</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -463,7 +466,7 @@ rows.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$rows</strong> (<em>array</em>) &#8211; the rows to enrich</li>
+<li><strong>$rows</strong> (<em>array</em>) – the rows to enrich</li>
 </ul>
 </td>
 </tr>
@@ -485,7 +488,7 @@ and then writes them again.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to save the many-to-many entries of</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to save the many-to-many entries of</li>
 </ul>
 </td>
 </tr>
@@ -498,13 +501,13 @@ and then writes them again.</p>
 <code class="descname">enrichWithReference</code><span class="sig-paren">(</span><em>$entities</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::enrichWithReference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the id and name of referenced entities to the given entities. Each
 reference field is before the raw id of the referenced entity and after
-the fetch, it&#8217;s an array with the keys id and name.</p>
+the fetch, it’s an array with the keys id and name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entities</strong> &#8211; </li>
+<li><strong>$entities</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -524,7 +527,7 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – </li>
 </ul>
 </td>
 </tr>
@@ -541,7 +544,7 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; </li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – </li>
 </ul>
 </td>
 </tr>
@@ -558,10 +561,10 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) &#8211; the entity definition</li>
-<li><strong>$filesystem</strong> (<em>FilesystemInterface</em>) &#8211; the filesystem to use</li>
-<li><strong>$database</strong> (<em>Connection</em>) &#8211; the Doctrine DBAL instance to use</li>
-<li><strong>$useUUIDs</strong> (<em>boolean</em>) &#8211; flag whether to use UUIDs as primary key</li>
+<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) – the entity definition</li>
+<li><strong>$filesystem</strong> (<em>FilesystemInterface</em>) – the filesystem to use</li>
+<li><strong>$database</strong> (<em>Connection</em>) – the Doctrine DBAL instance to use</li>
+<li><strong>$useUUIDs</strong> (<em>boolean</em>) – flag whether to use UUIDs as primary key</li>
 </ul>
 </td>
 </tr>
@@ -578,7 +581,7 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$id</strong> &#8211; </li>
+<li><strong>$id</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -588,19 +591,19 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 
 <dl class="method">
 <dt id="MySQLData::listEntries">
-<code class="descname">listEntries</code><span class="sig-paren">(</span><em>$filter =</em>, <span class="optional">[</span><span class="optional">]</span><em>$filterOperators =</em>, <span class="optional">[</span><span class="optional">]</span><em>$skip = null</em>, <em>$amount = null</em>, <em>$sortField = null</em>, <em>$sortAscending = null</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::listEntries" title="Permalink to this definition">¶</a></dt>
+<code class="descname">listEntries</code><span class="sig-paren">(</span><em>$filter = []</em>, <em>$filterOperators = []</em>, <em>$skip = null</em>, <em>$amount = null</em>, <em>$sortField = null</em>, <em>$sortAscending = null</em><span class="sig-paren">)</span><a class="headerlink" href="#MySQLData::listEntries" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$filter</strong> &#8211; </li>
-<li><strong>$filterOperators</strong> &#8211; </li>
-<li><strong>$skip</strong> &#8211; </li>
-<li><strong>$amount</strong> &#8211; </li>
-<li><strong>$sortField</strong> &#8211; </li>
-<li><strong>$sortAscending</strong> &#8211; </li>
+<li><strong>$filter</strong> – </li>
+<li><strong>$filterOperators</strong> – </li>
+<li><strong>$skip</strong> – </li>
+<li><strong>$amount</strong> – </li>
+<li><strong>$sortField</strong> – </li>
+<li><strong>$sortAscending</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -617,8 +620,8 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> &#8211; </li>
-<li><strong>$nameField</strong> &#8211; </li>
+<li><strong>$entity</strong> – </li>
+<li><strong>$nameField</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -635,10 +638,10 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$table</strong> &#8211; </li>
-<li><strong>$params</strong> &#8211; </li>
-<li><strong>$paramsOperators</strong> &#8211; </li>
-<li><strong>$excludeDeleted</strong> &#8211; </li>
+<li><strong>$table</strong> – </li>
+<li><strong>$params</strong> – </li>
+<li><strong>$paramsOperators</strong> – </li>
+<li><strong>$excludeDeleted</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -655,9 +658,9 @@ the fetch, it&#8217;s an array with the keys id and name.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$field</strong> &#8211; </li>
-<li><strong>$thatIds</strong> &#8211; </li>
-<li><strong>$excludeId</strong> &#8211; </li>
+<li><strong>$field</strong> – </li>
+<li><strong>$thatIds</strong> – </li>
+<li><strong>$excludeId</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -675,7 +678,7 @@ as keys and field values as values.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$row</strong> (<em>array</em>) &#8211; the array with the raw data</li>
+<li><strong>$row</strong> (<em>array</em>) – the array with the raw data</li>
 </ul>
 </td>
 </tr>
@@ -696,8 +699,8 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$id</strong> (<em>mixed</em>) &#8211; the id of the entity to enrich</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to enrich</li>
+<li><strong>$id</strong> (<em>mixed</em>) – the id of the entity to enrich</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to enrich</li>
 </ul>
 </td>
 </tr>
@@ -742,8 +745,8 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$id</strong> (<em>integer</em>) &#8211; the current entities id</li>
-<li><strong>$deleteCascade</strong> (<em>boolean</em>) &#8211; whether to delete children and sub children</li>
+<li><strong>$id</strong> (<em>integer</em>) – the current entities id</li>
+<li><strong>$deleteCascade</strong> (<em>boolean</em>) – whether to delete children and sub children</li>
 </ul>
 </td>
 </tr>
@@ -763,8 +766,8 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entities</strong> (<em>array</em>) &#8211; the entities to extract the ids</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the reference field</li>
+<li><strong>$entities</strong> (<em>array</em>) – the entities to extract the ids</li>
+<li><strong>$field</strong> (<em>string</em>) – the reference field</li>
 </ul>
 </td>
 </tr>
@@ -798,7 +801,7 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to persist</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to persist</li>
 </ul>
 </td>
 </tr>
@@ -818,7 +821,7 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity with the new data</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity with the new data</li>
 </ul>
 </td>
 </tr>
@@ -838,7 +841,7 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to delete</li>
 </ul>
 </td>
 </tr>
@@ -889,7 +892,7 @@ null or the defined value in case of fixed fields.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ControllerProvider.html" class="btn btn-neutral float-right" title="CRUDlex\ControllerProvider" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ControllerInterface.html" class="btn btn-neutral float-right" title="CRUDlex\ControllerInterface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="AbstractData.html" class="btn btn-neutral" title="CRUDlex\AbstractData" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -901,7 +904,7 @@ null or the defined value in case of fixed fields.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

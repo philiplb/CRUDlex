@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\UniqueValidator" href="UniqueValidator.html"/>
         <link rel="prev" title="CRUDlex\StreamedFileResponse" href="StreamedFileResponse.html"/> 
@@ -102,7 +105,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -113,9 +116,9 @@
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\TwigExtensions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="YamlReader.html">CRUDlex\YamlReader</a></li>
 </ul>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/TwigExtensions.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/TwigExtensions.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,7 +170,7 @@
 <dl class="class">
 <dt id="TwigExtensions">
 <em class="property">class </em><code class="descname">TwigExtensions</code><a class="headerlink" href="#TwigExtensions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provides and setups the Twig extensions like filters.</p>
+<dd><p>Provides the Twig extensions like filters.</p>
 <dl class="method">
 <dt id="TwigExtensions::formatTime">
 <code class="descname">formatTime</code><span class="sig-paren">(</span><em>$value</em>, <em>$timezone</em>, <em>$pattern</em><span class="sig-paren">)</span><a class="headerlink" href="#TwigExtensions::formatTime" title="Permalink to this definition">¶</a></dt>
@@ -176,38 +179,21 @@ parameter.</p>
 <p>If the value is false (like null), an empty string is returned. Else, the
 value is tried to be parsed as datetime via the given pattern. If that
 fails, it is tried to be parsed with the pattern
-&#8216;Y-m-d H:i:s&#8217;. If that fails, the value is returned unchanged. Else, it is
+‘Y-m-d H:i:s’. If that fails, the value is returned unchanged. Else, it is
 returned formatted with the given pattern. The effect is to shorten
-&#8216;Y-m-d H:i:s&#8217; to &#8216;Y-m-d&#8217; for example.</p>
+‘Y-m-d H:i:s’ to ‘Y-m-d’ for example.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$value</strong> (<em>string</em>) &#8211; the value to be formatted</li>
-<li><strong>$timezone</strong> (<em>string</em>) &#8211; the timezone of the value</li>
-<li><strong>$pattern</strong> (<em>string</em>) &#8211; the pattern with which the value is parsed and formatted</li>
+<li><strong>$value</strong> (<em>string</em>) – the value to be formatted</li>
+<li><strong>$timezone</strong> (<em>string</em>) – the timezone of the value</li>
+<li><strong>$pattern</strong> (<em>string</em>) – the pattern with which the value is parsed and formatted</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the formatted value</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="TwigExtensions::registerTwigExtensions">
-<code class="descname">registerTwigExtensions</code><span class="sig-paren">(</span><em>Container $app</em><span class="sig-paren">)</span><a class="headerlink" href="#TwigExtensions::registerTwigExtensions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Registers all extensions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$app</strong> (<em>Container</em>) &#8211; the current application</li>
-</ul>
 </td>
 </tr>
 </tbody>
@@ -223,7 +209,7 @@ returned formatted with the given pattern. The effect is to shorten
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$language</strong> (<em>string</em>) &#8211; the language code of the desired language name</li>
+<li><strong>$language</strong> (<em>string</em>) – the language code of the desired language name</li>
 </ul>
 </td>
 </tr>
@@ -243,7 +229,7 @@ returned formatted with the given pattern. The effect is to shorten
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$float</strong> (<em>float</em>) &#8211; the float to format</li>
+<li><strong>$float</strong> (<em>float</em>) – the float to format</li>
 </ul>
 </td>
 </tr>
@@ -257,14 +243,14 @@ returned formatted with the given pattern. The effect is to shorten
 <dl class="method">
 <dt id="TwigExtensions::formatDate">
 <code class="descname">formatDate</code><span class="sig-paren">(</span><em>$value</em>, <em>$isUTC</em><span class="sig-paren">)</span><a class="headerlink" href="#TwigExtensions::formatDate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats the given value to a date of the format &#8216;Y-m-d&#8217;.</p>
+<dd><p>Formats the given value to a date of the format ‘Y-m-d’.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$value</strong> (<em>string</em>) &#8211; the value, might be of the format &#8216;Y-m-d H:i&#8217; or &#8216;Y-m-d&#8217;</li>
-<li><strong>$isUTC</strong> (<em>boolean</em>) &#8211; whether the given value is in UTC</li>
+<li><strong>$value</strong> (<em>string</em>) – the value, might be of the format ‘Y-m-d H:i’ or ‘Y-m-d’</li>
+<li><strong>$isUTC</strong> (<em>boolean</em>) – whether the given value is in UTC</li>
 </ul>
 </td>
 </tr>
@@ -278,14 +264,14 @@ returned formatted with the given pattern. The effect is to shorten
 <dl class="method">
 <dt id="TwigExtensions::formatDateTime">
 <code class="descname">formatDateTime</code><span class="sig-paren">(</span><em>$value</em>, <em>$isUTC</em><span class="sig-paren">)</span><a class="headerlink" href="#TwigExtensions::formatDateTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats the given value to a date of the format &#8216;Y-m-d H:i&#8217;.</p>
+<dd><p>Formats the given value to a date of the format ‘Y-m-d H:i’.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$value</strong> (<em>string</em>) &#8211; the value, might be of the format &#8216;Y-m-d H:i&#8217;</li>
-<li><strong>$isUTC</strong> (<em>boolean</em>) &#8211; whether the given value is in UTC</li>
+<li><strong>$value</strong> (<em>string</em>) – the value, might be of the format ‘Y-m-d H:i’</li>
+<li><strong>$isUTC</strong> (<em>boolean</em>) – whether the given value is in UTC</li>
 </ul>
 </td>
 </tr>
@@ -319,7 +305,7 @@ returned formatted with the given pattern. The effect is to shorten
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

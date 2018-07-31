@@ -39,7 +39,7 @@ Contents:
    :caption: API
 
    api/AbstractData
-   api/ControllerProvider
+   api/ControllerInterface
    api/DataFactoryInterface
    api/Entity
    api/EntityDefinition
@@ -50,7 +50,7 @@ Contents:
    api/FileHandler
    api/ManyValidator
    api/ReferenceValidator
-   api/ServiceProvider
+   api/Service
    api/StreamedFileResponse
    api/TwigExtensions
    api/UniqueValidator

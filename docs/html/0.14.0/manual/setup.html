@@ -28,8 +28,19 @@
   
 
   
+    <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/segment.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/menu.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.css" type="text/css" />
+  
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Data Structure Definition" href="datastructures.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
@@ -84,7 +95,7 @@
                 <p class="caption"><span class="caption-text">Manual</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
@@ -102,7 +113,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -113,7 +124,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -152,7 +163,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/setup.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/setup.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,50 +178,172 @@
 <p>This chapter guides you through a minimal setup. Further options like overriding
 templates are discussed in later sections.</p>
 <p>First, you have to add CRUDlex to your composer.json:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>composer require <span class="s2">&quot;philiplb/crudlex&quot;</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>composer require <span class="s2">&quot;philiplb/crudlexsymfony4bundle&quot;</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>composer require <span class="s2">&quot;philiplb/crudlexsilex2&quot;</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>Then comes the actual setup. Currently, only MySQL is supported. Although the
 database layer is kept in an abstract way, so in future more data stores will
 come. It relies on the DoctrineServiceProvider which has to be initialized and
 registered:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\DoctrineServiceProvider(), array(</span>
-<span class="x">    &#39;dbs.options&#39; =&gt; array(</span>
-<span class="x">        &#39;default&#39; =&gt; array(</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Assuming you are using the .env configuration:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">DATABASE_URL=mysql://&lt;yourDBUser&gt;:&lt;yourDBPassword&gt;@&lt;yourHost&gt;/&lt;yourDBName&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\DoctrineServiceProvider(), [</span>
+<span class="x">    &#39;dbs.options&#39; =&gt; [</span>
+<span class="x">        &#39;default&#39; =&gt; [</span>
 <span class="x">            &#39;host&#39; =&gt; &#39;&lt;yourHost&gt;&#39;,</span>
 <span class="x">            &#39;dbname&#39; =&gt; &#39;&lt;yourDBName&gt;&#39;,</span>
-<span class="x">            &#39;user&#39; =&gt; &#39;&lt;yourDBUser&#39;,</span>
+<span class="x">            &#39;user&#39; =&gt; &#39;&lt;yourDBUser&gt;&#39;,</span>
 <span class="x">            &#39;password&#39; =&gt; &#39;&lt;yourDBPassword&gt;&#39;,</span>
 <span class="x">            &#39;charset&#39; =&gt; &#39;utf8&#39;,</span>
-<span class="x">        )</span>
-<span class="x">    )</span>
-<span class="x">));</span>
+<span class="x">        ]</span>
+<span class="x">    ]</span>
+<span class="x">]);</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>Now follows the setup of CRUDlex itself. First of all, we create an instance
 of the MySQLDataFactory, internally taking care of creating MySQL-DB-access
 objects:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;]);</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>This is already setup with the default DBAL connection within the services and can be overwritten within the
+<em>config/services.yaml</em>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.dataFactoryInterface</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\MySQLDataFactory&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@doctrine.dbal.default_connection&quot;</span>
 </pre></div>
 </div>
-<p>Now it&#8217;s time to register the ServiceProvider itself:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), array(</span>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;]);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now it’s time to register the Service itself:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>This is the default setup of the service you are able to overwrite within the <em>config/services.yaml</em>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\Silex\ServiceProvider(), [</span>
 <span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
 <span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory</span>
-<span class="x">));</span>
+<span class="x">]);</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>The content of the crud.yml (or whatever you name it) will be discussed in the
 next chapter.</p>
-<p>Now it&#8217;s time to mount the Controller:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;mount(&#39;/crud&#39;, new CRUDlex\ControllerProvider());</span>
+<p>Now it’s time to mount the Controller:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>The routes have to be added to the <em>config/routes.yaml</em>:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">crudlex:</span>
+<span class="x">    resource: &#39;@CRUDlexSymfony4Bundle/Resources/config/routes.yaml&#39;</span>
+<span class="x">    prefix: /crud</span>
 </pre></div>
 </div>
-<p>And that&#8217;s it. Your CRUD UI should be available now, for example if you
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;boot();</span>
+<span class="x">$app-&gt;mount(&#39;/crud&#39;, new CRUDlex\Silex\ControllerProvider());</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It has to happen after the application has been booted as some access to service providers happen inside.
+And that’s it. Your CRUD UI should be available now, for example if you
 defined a book entity in the crud.yml:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>http://.../crud/book
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//.../</span><span class="n">crud</span><span class="o">/</span><span class="n">book</span>
 </pre></div>
 </div>
+<p>You can override the used Controller instance in order to customize the behaviour. Simply extend from CRUDlexController
+and adjust or implement CRUDlexControllerInterface. Then instantiate your class and set $app[‘crud.controller’] with
+it before mounting.</p>
 </div>
 
 
@@ -232,7 +365,7 @@ defined a book entity in the crud.yml:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>
@@ -263,6 +396,8 @@ defined a book entity in the crud.yml:</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/tabs.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.js"></script>
 
   
 

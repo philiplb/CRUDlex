@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\EntityValidator" href="EntityValidator.html"/>
         <link rel="prev" title="CRUDlex\EntityDefinitionValidator" href="EntityDefinitionValidator.html"/> 
@@ -102,18 +105,18 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\EntityEvents</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\EntityEvents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/EntityEvents.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/EntityEvents.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -184,9 +187,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity having the event chain to execute</li>
-<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity having the event chain to execute</li>
+<li><strong>$moment</strong> (<em>string</em>) – the “moment” of the event, can be either “before” or “after”</li>
+<li><strong>$action</strong> (<em>string</em>) – the “action” of the event, can be either “create”, “update” or “delete”</li>
 </ul>
 </td>
 </tr>
@@ -205,16 +208,16 @@ have this signature:
 function (Entity $entity)
 and has to return true or false.
 The events are executed one after another in the added order as long as
-they return &#8220;true&#8221;. The first event returning &#8220;false&#8221; will stop the
+they return “true”. The first event returning “false” will stop the
 process.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
-<li><strong>$function</strong> (<em>Closure</em>) &#8211; the event function to be called if set</li>
+<li><strong>$moment</strong> (<em>string</em>) – the “moment” of the event, can be either “before” or “after”</li>
+<li><strong>$action</strong> (<em>string</em>) – the “action” of the event, can be either “create”, “update” or “delete”</li>
+<li><strong>$function</strong> (<em>Closure</em>) – the event function to be called if set</li>
 </ul>
 </td>
 </tr>
@@ -231,8 +234,8 @@ process.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$moment</strong> (<em>string</em>) &#8211; the &#8220;moment&#8221; of the event, can be either &#8220;before&#8221; or &#8220;after&#8221;</li>
-<li><strong>$action</strong> (<em>string</em>) &#8211; the &#8220;action&#8221; of the event, can be either &#8220;create&#8221;, &#8220;update&#8221; or &#8220;delete&#8221;</li>
+<li><strong>$moment</strong> (<em>string</em>) – the “moment” of the event, can be either “before” or “after”</li>
+<li><strong>$action</strong> (<em>string</em>) – the “action” of the event, can be either “create”, “update” or “delete”</li>
 </ul>
 </td>
 </tr>
@@ -266,7 +269,7 @@ process.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

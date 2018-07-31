@@ -28,8 +28,19 @@
   
 
   
+    <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/segment.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/menu.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.css" type="text/css" />
+  
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Overriding Templates" href="templates.html"/>
         <link rel="prev" title="File Handling" href="filehandling.html"/> 
@@ -89,7 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filehandling.html">File Handling</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Overriding Layouts</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overriding Layouts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#global">Global</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#single-actions">Single Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#single-entities">Single Entities</a></li>
@@ -109,7 +120,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -120,7 +131,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -159,7 +170,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/layouts.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/layouts.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -172,17 +183,39 @@
   <div class="section" id="overriding-layouts">
 <h1>Overriding Layouts<a class="headerlink" href="#overriding-layouts" title="Permalink to this headline">¶</a></h1>
 <p>Each CRUDlex page extends from a certain layout with the default
-&#8220;&#64;crud/layout.twig&#8221;.</p>
-<p>In most cases you don&#8217;t want to use this standard layout coming with CRUDlex.
+“&#64;crud/layout.twig”.</p>
+<p>In most cases you don’t want to use this standard layout coming with CRUDlex.
 This chapter shows you how to define your own layout templates on various
 levels.</p>
 <p>First of all, you need to place the Twig-templates in a folder known by the
-Twig service provider. Assuming you have your templates in the folder
-__DIR__.&#8217;/../views&#8217;, you initialize the Twig service provider like this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\TwigServiceProvider(), array(</span>
-<span class="x">    &#39;twig.path&#39; =&gt; _ _DIR_ _.&#39;/../views&#39;</span>
-<span class="x">));</span>
+Twig service.</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Add your path to the twig.yaml:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">twig</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">paths</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;%kernel.project_dir%/templates&#39;</span><span class="p p-Indicator">]</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<p>Assuming you have your templates in the folder
+__DIR__.’/../views’, you initialize the Twig like this:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\TwigServiceProvider(), [</span>
+<span class="x">    &#39;twig.path&#39; =&gt; _ _DIR_ _.&#39;/../views&#39;</span>
+<span class="x">]);</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>A good starting point is the layout template coming with CRUDlex:
 src/views/layout.twig</p>
@@ -191,10 +224,44 @@ override the general ones. The following subchapters are ordered in this
 hierarchy, from general to specific.</p>
 <div class="section" id="global">
 <h2>Global<a class="headerlink" href="#global" title="Permalink to this headline">¶</a></h2>
-<p>If you want to override the general layout of all CRUDlex pages, you set this
-property of your Silex Application instance:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.layout&#39;] = &#39;myLayout.twig&#39;;</span>
+<p>If you want to override the general layout of all CRUDlex pages, you set the
+key “layout” template via the the setTemplate function of the provider:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Place a call to setTemplate within your crudlex.service definition:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">calls</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">setTemplate</span>
+        <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;layout&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;myLayout.twig&#39;</span><span class="p p-Indicator">]</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout&#39;, &#39;myLayout.twig&#39;);</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="single-actions">
@@ -206,49 +273,151 @@ property of your Silex Application instance:</p>
 <li>show</li>
 <li>edit</li>
 </ul>
-<p>Just prepend a dot and the desired action when defining the layout for it, for
-example the action &#8220;show&#8221;:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.layout.show&#39;] = &#39;myShowLayout.twig&#39;;</span>
+<p>Just prepend a dot and the desired action at the key when defining the layout for it, for
+example the action “show”:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Place a call to setTemplate within your crudlex.service definition:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">calls</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">setTemplate</span>
+        <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;layout.showk&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;myShowLayout.twig&#39;</span><span class="p p-Indicator">]</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout.show&#39;, &#39;myShowLayout.twig&#39;);</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="single-entities">
 <h2>Single Entities<a class="headerlink" href="#single-entities" title="Permalink to this headline">¶</a></h2>
 <p>To override the layout of a single entity, you prepend a dot and the desired
-entity name, for example for the book entity:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.layout.book&#39;] = &#39;myBookLayout.twig&#39;;</span>
+entity name at the key, for example for the book entity:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Place a call to setTemplate within your crudlex.service definition:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">calls</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">setTemplate</span>
+        <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;layout.book&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;myBookLayout.twig&#39;</span><span class="p p-Indicator">]</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout.book&#39;, &#39;myBookLayout.twig&#39;);</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="single-actions-of-an-entity">
 <h2>Single Actions of an Entity<a class="headerlink" href="#single-actions-of-an-entity" title="Permalink to this headline">¶</a></h2>
 <p>The most specific layout you can set is for a single action of a specific
-entity. The prefix is a dot, the action another dot and the entity. To override
-the create action of the book entity, you would define your layout like this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.layout.create.book&#39;] = &#39;myCreateBookLayout.twig&#39;;</span>
+entity. The key is “layout” plus a dot, the action, another dot and the entity. To
+override the create action of the book entity, you would define your layout like this:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>Place a call to setTemplate within your crudlex.service definition:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.project_dir%/config/crud.yml&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;%kernel.cache_dir%&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@translator&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.dataFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionFactoryInterface&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.fileSystem&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;@crudlex.entityDefinitionValidatorInterface&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">calls</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">method</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">setTemplate</span>
+        <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;layout.create.book&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;myCreateBookLayout.twig&#39;</span><span class="p p-Indicator">]</span>
 </pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout.create.book&#39;, &#39;myCreateBookLayout.twig&#39;);</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="your-own-layout-from-scratch">
 <h2>Your own Layout from Scratch<a class="headerlink" href="#your-own-layout-from-scratch" title="Permalink to this headline">¶</a></h2>
 <p>If you want to start from scratch, it is recommended to use the layout coming
 with CRUDlex as a starting point:
-&#8220;vendor/philiplb/crudlex/src/views/layout.twig&#8221;</p>
+“vendor/philiplb/crudlex/src/views/layout.twig”</p>
 <p>This one shows a menu with all defined entities linking to their list view.</p>
-<p>First, you have to define a block called &#8220;content&#8221;.
+<p>First, you have to define a block called “content”.
 This is where CRUDlex renders itself into:</p>
-<div class="highlight-twig"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-twig notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>In the head-section, you should include the template &#8220;&#64;crud/header.twig&#8221;:</p>
-<div class="highlight-twig"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;@crud/header.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<p>In the head-section, you should include the template “&#64;crud/header.twig”:</p>
+<div class="highlight-twig notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;@crud/header.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <p>This one includes all needed CSS files like Bootstrap 3 and the CSS of the
 datetime picker. Have a look at its content if you already include Bootstrap.</p>
 <p>At the bottom of the page before the closing body tag, you include the template
-&#8220;&#64;crud/footer.twig&#8221;:</p>
-<div class="highlight-twig"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;@crud/footer.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+“&#64;crud/footer.twig”:</p>
+<div class="highlight-twig notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;@crud/footer.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <p>It includes the JavaScript of:</p>
@@ -259,8 +428,8 @@ datetime picker. Have a look at its content if you already include Bootstrap.</p
 <li>Datetimepicker</li>
 </ul>
 <p>Plus it initializes the datepickers, the datetimepickers and tooltips.</p>
-<p>It&#8217;s also recommended to include flashes in your own layout like this:</p>
-<div class="highlight-twig"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">app.session.flashBag</span> <span class="k">is</span> <span class="nf">defined</span> <span class="cp">%}</span><span class="x"></span>
+<p>It’s also recommended to include flashes in your own layout like this:</p>
+<div class="highlight-twig notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">app.session.flashBag</span> <span class="k">is</span> <span class="nf">defined</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">    </span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">flashTypeAvailable</span> <span class="o">=</span> <span class="o">[</span> <span class="s1">&#39;success&#39;</span><span class="o">,</span> <span class="s1">&#39;danger&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">flashType</span> <span class="k">in</span> <span class="nv">flashTypeAvailable</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">        </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">flash</span> <span class="k">in</span> <span class="nv">app.session.flashBag.get</span><span class="o">(</span><span class="nv">flashType</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
@@ -274,7 +443,7 @@ datetime picker. Have a look at its content if you already include Bootstrap.</p
 </pre></div>
 </div>
 <p>And some CSS classes to implement:</p>
-<div class="highlight-css"><div class="highlight"><pre><span></span><span class="nc">.btn-crudlex</span> <span class="p">{</span>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nc">.btn-crudlex</span> <span class="p">{</span>
     <span class="nb">margin</span><span class="o">:</span> <span class="m">5px</span> <span class="m">5px</span> <span class="m">5px</span> <span class="m">5px</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="nc">.tooltip-crudlex</span> <span class="p">{</span>
@@ -304,7 +473,7 @@ datetime picker. Have a look at its content if you already include Bootstrap.</p
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>
@@ -335,6 +504,8 @@ datetime picker. Have a look at its content if you already include Bootstrap.</p
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/tabs.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.js"></script>
 
   
 

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\MySQLData" href="MySQLData.html"/>
         <link rel="prev" title="CRUD YAML Reference" href="../manual/crudyamlreference.html"/> 
@@ -101,11 +104,11 @@
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\AbstractData</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\AbstractData</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="MySQLData.html">CRUDlex\MySQLData</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -116,7 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -155,7 +158,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/AbstractData.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/AbstractData.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -224,8 +227,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the id of the entry to delete</li>
-<li><strong>$deleteCascade</strong> (<em>boolean</em>) &#8211; whether to delete children and subchildren</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the id of the entry to delete</li>
+<li><strong>$deleteCascade</strong> (<em>boolean</em>) – whether to delete children and subchildren</li>
 </ul>
 </td>
 </tr>
@@ -246,7 +249,7 @@ as keys and field values as values.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$row</strong> (<em>array</em>) &#8211; the array with the raw data</li>
+<li><strong>$row</strong> (<em>array</em>) – the array with the raw data</li>
 </ul>
 </td>
 </tr>
@@ -267,8 +270,8 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$id</strong> (<em>mixed</em>) &#8211; the id of the entity to enrich</li>
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to enrich</li>
+<li><strong>$id</strong> (<em>mixed</em>) – the id of the entity to enrich</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to enrich</li>
 </ul>
 </td>
 </tr>
@@ -313,8 +316,8 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$id</strong> (<em>integer</em>) &#8211; the current entities id</li>
-<li><strong>$deleteCascade</strong> (<em>boolean</em>) &#8211; whether to delete children and sub children</li>
+<li><strong>$id</strong> (<em>integer</em>) – the current entities id</li>
+<li><strong>$deleteCascade</strong> (<em>boolean</em>) – whether to delete children and sub children</li>
 </ul>
 </td>
 </tr>
@@ -334,8 +337,8 @@ id, version, created_at, updated_at</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entities</strong> (<em>array</em>) &#8211; the entities to extract the ids</li>
-<li><strong>$field</strong> (<em>string</em>) &#8211; the reference field</li>
+<li><strong>$entities</strong> (<em>array</em>) – the entities to extract the ids</li>
+<li><strong>$field</strong> (<em>string</em>) – the reference field</li>
 </ul>
 </td>
 </tr>
@@ -356,7 +359,7 @@ datasource.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to persist</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to persist</li>
 </ul>
 </td>
 </tr>
@@ -377,7 +380,7 @@ same id.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity with the new data</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity with the new data</li>
 </ul>
 </td>
 </tr>
@@ -411,7 +414,7 @@ same id.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$id</strong> (<em>string</em>) &#8211; the id</li>
+<li><strong>$id</strong> (<em>string</em>) – the id</li>
 </ul>
 </td>
 </tr>
@@ -424,7 +427,7 @@ same id.</p>
 
 <dl class="method">
 <dt id="AbstractData::listEntries">
-<code class="descname">listEntries</code><span class="sig-paren">(</span><em>$filter =</em>, <span class="optional">[</span><span class="optional">]</span><em>$filterOperators =</em>, <span class="optional">[</span><span class="optional">]</span><em>$skip = null</em>, <em>$amount = null</em>, <em>$sortField = null</em>, <em>$sortAscending = null</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::listEntries" title="Permalink to this definition">¶</a></dt>
+<code class="descname">listEntries</code><span class="sig-paren">(</span><em>$filter = []</em>, <em>$filterOperators = []</em>, <em>$skip = null</em>, <em>$amount = null</em>, <em>$sortField = null</em>, <em>$sortAscending = null</em><span class="sig-paren">)</span><a class="headerlink" href="#AbstractData::listEntries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a list of entities fullfilling the given filter or all if no
 selection was given.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -432,12 +435,12 @@ selection was given.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$filter</strong> (<em>array</em>) &#8211; the filter all resulting entities must fulfill, the keys as field names</li>
-<li><strong>$filterOperators</strong> (<em>array</em>) &#8211; the operators of the filter like &#8220;=&#8221; defining the full condition of the field</li>
-<li><strong>$skip</strong> (<em>integer|null</em>) &#8211; if given and not null, it specifies the amount of rows to skip</li>
-<li><strong>$amount</strong> (<em>integer|null</em>) &#8211; if given and not null, it specifies the maximum amount of rows to retrieve</li>
-<li><strong>$sortField</strong> (<em>string|null</em>) &#8211; if given and not null, it specifies the field to sort the entries</li>
-<li><strong>$sortAscending</strong> (<em>boolean|null</em>) &#8211; if given and not null, it specifies that the sort order is ascending, descending else</li>
+<li><strong>$filter</strong> (<em>array</em>) – the filter all resulting entities must fulfill, the keys as field names</li>
+<li><strong>$filterOperators</strong> (<em>array</em>) – the operators of the filter like “=” defining the full condition of the field</li>
+<li><strong>$skip</strong> (<em>integer|null</em>) – if given and not null, it specifies the amount of rows to skip</li>
+<li><strong>$amount</strong> (<em>integer|null</em>) – if given and not null, it specifies the maximum amount of rows to retrieve</li>
+<li><strong>$sortField</strong> (<em>string|null</em>) – if given and not null, it specifies the field to sort the entries</li>
+<li><strong>$sortAscending</strong> (<em>boolean|null</em>) – if given and not null, it specifies that the sort order is ascending, descending else</li>
 </ul>
 </td>
 </tr>
@@ -457,7 +460,7 @@ selection was given.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to persist</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to persist</li>
 </ul>
 </td>
 </tr>
@@ -477,7 +480,7 @@ selection was given.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity with the new data</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity with the new data</li>
 </ul>
 </td>
 </tr>
@@ -497,7 +500,7 @@ selection was given.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to delete</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to delete</li>
 </ul>
 </td>
 </tr>
@@ -518,8 +521,8 @@ reference type fields for example.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$entity</strong> (<em>string</em>) &#8211; the entity</li>
-<li><strong>$nameField</strong> (<em>string</em>) &#8211; the field defining the name of the rows</li>
+<li><strong>$entity</strong> (<em>string</em>) – the entity</li>
+<li><strong>$nameField</strong> (<em>string</em>) – the field defining the name of the rows</li>
 </ul>
 </td>
 </tr>
@@ -540,10 +543,10 @@ parameters.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$table</strong> (<em>string</em>) &#8211; the table to count in</li>
-<li><strong>$params</strong> (<em>array</em>) &#8211; an array with the field names as keys and field values as values</li>
-<li><strong>$paramsOperators</strong> (<em>array</em>) &#8211; the operators of the parameters like &#8220;=&#8221; defining the full condition of the field</li>
-<li><strong>$excludeDeleted</strong> (<em>boolean</em>) &#8211; false, if soft deleted entries in the datasource should be counted, too</li>
+<li><strong>$table</strong> (<em>string</em>) – the table to count in</li>
+<li><strong>$params</strong> (<em>array</em>) – an array with the field names as keys and field values as values</li>
+<li><strong>$paramsOperators</strong> (<em>array</em>) – the operators of the parameters like “=” defining the full condition of the field</li>
+<li><strong>$excludeDeleted</strong> (<em>boolean</em>) – false, if soft deleted entries in the datasource should be counted, too</li>
 </ul>
 </td>
 </tr>
@@ -564,9 +567,9 @@ like it is given (no subset, no superset).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$field</strong> (<em>string</em>) &#8211; the many field</li>
-<li><strong>$thatIds</strong> (<em>array</em>) &#8211; the id set to check</li>
-<li><strong>$excludeId</strong> (<em>string|null</em>) &#8211; one optional own id to exclude from the check</li>
+<li><strong>$field</strong> (<em>string</em>) – the many field</li>
+<li><strong>$thatIds</strong> (<em>array</em>) – the id set to check</li>
+<li><strong>$excludeId</strong> (<em>string|null</em>) – one optional own id to exclude from the check</li>
 </ul>
 </td>
 </tr>
@@ -629,7 +632,7 @@ null or the defined value in case of fixed fields.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

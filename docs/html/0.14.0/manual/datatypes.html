@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Constraints" href="constraints.html"/>
         <link rel="prev" title="Data Structure Definition" href="datastructures.html"/> 
@@ -86,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Data Types</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Types</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#text">Text</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#multiline">Multiline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#wysiwym">WYSIWYM</a></li>
@@ -123,7 +126,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -134,7 +137,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -173,7 +176,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/datatypes.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/datatypes.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -189,7 +192,7 @@
 the related MySQL-types.</p>
 <div class="section" id="text">
 <h2>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
 </pre></div>
 </div>
 <p>A single text line, no further parameters. Related MySQL-types:</p>
@@ -204,7 +207,7 @@ the related MySQL-types.</p>
 </div>
 <div class="section" id="multiline">
 <h2>Multiline<a class="headerlink" href="#multiline" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiline</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiline</span>
 </pre></div>
 </div>
 <p>A multi text line allowing linebreaks, no further parameters. Related MySQL-types:</p>
@@ -219,13 +222,13 @@ the related MySQL-types.</p>
 <p>If the field is shown in the list view and the value is longer than 27
 characters, the rest is cut and replaced with three dots. The full text is still
 available as tooltip in the list view though. Example with 50 characters:</p>
-<p>&#8220;Lorem ipsum dolor sit amet, consetetur sadipscing&#8221;</p>
+<p>“Lorem ipsum dolor sit amet, consetetur sadipscing”</p>
 <p>Would be shown in the list view as:</p>
-<p>&#8220;Lorem ipsum dolor sit amet,...&#8221;</p>
+<p>“Lorem ipsum dolor sit amet,…”</p>
 </div>
 <div class="section" id="wysiwym">
 <h2>WYSIWYM<a class="headerlink" href="#wysiwym" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiline</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiline</span>
 </pre></div>
 </div>
 <p>A visual WYSIWYM (what you see is what you mean) editor producing HTML. Related
@@ -242,7 +245,7 @@ MySQL-types:</p>
 </div>
 <div class="section" id="url">
 <h2>Url<a class="headerlink" href="#url" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">url</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">url</span>
 </pre></div>
 </div>
 <p>A single text line representing an URL, no further parameters. Related
@@ -255,21 +258,21 @@ MySQL-types:</p>
 <li>MEDIUMTEXT</li>
 <li>LONGTEXT</li>
 </ul>
-<p>The only difference to the type &#8220;text&#8221; is that url fields are clickable in the
+<p>The only difference to the type “text” is that url fields are clickable in the
 list and show view. They are shortened in the list view to their base name in
 order to save space. A value of:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>http://www.foo.com/bar.txt
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bar</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
 <p>would lead to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>http://www.foo.com/bar.txt
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bar</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-<p>on click and is shortened to &#8220;bar.txt&#8221; in the list.</p>
+<p>on click and is shortened to “bar.txt” in the list.</p>
 </div>
 <div class="section" id="integer">
 <h2>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
 </pre></div>
 </div>
 <p>An integer, no further parameters. Related MySQL-types:</p>
@@ -283,7 +286,7 @@ order to save space. A value of:</p>
 </div>
 <div class="section" id="float">
 <h2>Float<a class="headerlink" href="#float" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
 <span class="l l-Scalar l-Scalar-Plain">floatStep</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>
 </pre></div>
 </div>
@@ -294,11 +297,11 @@ order to save space. A value of:</p>
 <li>DOUBLE (recommended)</li>
 <li>REAL</li>
 </ul>
-<p>The parameter &#8220;floatStep&#8221; is to set the step size in the form field.</p>
+<p>The parameter “floatStep” is to set the step size in the form field.</p>
 </div>
 <div class="section" id="boolean">
 <h2>Boolean<a class="headerlink" href="#boolean" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
 </pre></div>
 </div>
 <p>A boolean value, either true or false, no further parameters. Related MySQL-type:</p>
@@ -309,7 +312,7 @@ order to save space. A value of:</p>
 </div>
 <div class="section" id="date">
 <h2>Date<a class="headerlink" href="#date" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>
 </pre></div>
 </div>
 <p>A date value without time, no further parameters. Related MySQL-types:</p>
@@ -321,7 +324,7 @@ order to save space. A value of:</p>
 </div>
 <div class="section" id="datetime">
 <h2>Datetime<a class="headerlink" href="#datetime" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">datetime</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">datetime</span>
 </pre></div>
 </div>
 <p>A date value with time, no further parameters. Related MySQL-type:</p>
@@ -332,7 +335,7 @@ order to save space. A value of:</p>
 </div>
 <div class="section" id="set">
 <h2>Set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">set</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">set</span>
 <span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">red</span><span class="p p-Indicator">,</span> <span class="nv">green</span><span class="p p-Indicator">,</span> <span class="nv">blue</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
@@ -345,12 +348,12 @@ order to save space. A value of:</p>
 <li>MEDIUMTEXT</li>
 <li>LONGTEXT</li>
 </ul>
-<p>In this example, the user has the choice between the three colors &#8220;red&#8221;, &#8220;green&#8221;
-and &#8220;blue&#8221;.</p>
+<p>In this example, the user has the choice between the three colors “red”, “green”
+and “blue”.</p>
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">reference</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">reference</span>
 <span class="l l-Scalar l-Scalar-Plain">reference</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">nameField</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">otherName</span>
   <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">otherEntity</span>
@@ -368,11 +371,11 @@ the referenced <em>entity</em>.</p>
 <p>The <em>nameField</em> is optional. If it is not given, only the id of the referenced
 <em>entity</em> is shown.</p>
 <p>The optional parameter <em>hideId</em> allows to display the reference without its id, if set to <em>true</em>.</p>
-<p>Think about a book in a library. The library is stored in the table &#8220;library&#8221; and
-has a field &#8220;name&#8221;. A book belongs to a library, so it has an integer field
-&#8220;library&#8221; referencing ids of libraries. Here is the needed yml for this
+<p>Think about a book in a library. The library is stored in the table “library” and
+has a field “name”. A book belongs to a library, so it has an integer field
+“library” referencing ids of libraries. Here is the needed yml for this
 book-library relationship:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -397,7 +400,7 @@ book-library relationship:</p>
 <h3>Show Children<a class="headerlink" href="#show-children" title="Permalink to this headline">¶</a></h3>
 <p>If you want to show the children (books in this case) on the details page of the
 parent (library), you can activate it via the childrenLabelFields:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">childrenLabelFields</span><span class="p p-Indicator">:</span>
@@ -426,11 +429,11 @@ defined, it falls back to the id field.</p>
 </div>
 <div class="section" id="cascading-children-deletion">
 <h3>Cascading Children Deletion<a class="headerlink" href="#cascading-children-deletion" title="Permalink to this headline">¶</a></h3>
-<p>The default setup is, that referenced entities can&#8217;t be deleted until their
-children are deleted. In this case, a library can&#8217;t be deleted until all of its
+<p>The default setup is, that referenced entities can’t be deleted until their
+children are deleted. In this case, a library can’t be deleted until all of its
 books are gone. You can force children deletion by using the <em>deleteCascade</em>
 setting like this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">childrenLabelFields</span><span class="p p-Indicator">:</span>
@@ -457,8 +460,8 @@ setting like this:</p>
 </div>
 <div class="section" id="mysql-foreign-key-hint">
 <h3>MySQL Foreign Key Hint<a class="headerlink" href="#mysql-foreign-key-hint" title="Permalink to this headline">¶</a></h3>
-<p>Don&#8217;t forget to set the MySQL foreign key.</p>
-<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">book</span><span class="o">`</span>
+<p>Don’t forget to set the MySQL foreign key.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">book</span><span class="o">`</span>
 <span class="k">ADD</span> <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">book_ibfk_1</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">library</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">lib</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -466,7 +469,7 @@ setting like this:</p>
 </div>
 <div class="section" id="many">
 <h2>Many<a class="headerlink" href="#many" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">libraryBook</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">libraryBook</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">many</span>
     <span class="l l-Scalar l-Scalar-Plain">many</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">entity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">book</span>
@@ -478,7 +481,7 @@ setting like this:</p>
 </div>
 <p>A many-to-many relation. For MySQL, the field key is the name of the cross table.
 So the sample above translates to this structure:</p>
-<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">libraryBook</span><span class="o">`</span> <span class="p">(</span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">libraryBook</span><span class="o">`</span> <span class="p">(</span>
   <span class="o">`</span><span class="n">library</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="o">`</span><span class="n">book</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="k">KEY</span> <span class="o">`</span><span class="n">library</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">library</span><span class="o">`</span><span class="p">),</span>
@@ -501,9 +504,9 @@ named with the entity field of the many key</li>
 <li><strong>hideId</strong> (optional) allows to display the reference without its id, if set to <em>true</em>.</li>
 </ul>
 <p>Think about a library having many books and a book being in many libraries.
-The library is stored in the table &#8220;library&#8221; and has a field &#8220;name&#8221;. Here is
+The library is stored in the table “library” and has a field “name”. Here is
 the needed yml for this book-library many-to-many relationship:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -527,14 +530,14 @@ the needed yml for this book-library many-to-many relationship:</p>
 </pre></div>
 </div>
 <p>Attention: In the list view, it is not possible to sort by many fields as it
-doesn&#8217;t make that much sense.</p>
+doesn’t make that much sense.</p>
 </div>
 <div class="section" id="file">
 <h2>File<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h2>
 <p>CRUDlex supports the handling of files. They get uploaded with the create or
 edit form, can be viewed, removed and replaced.</p>
 <p>To have an image field for our library, you would declare it like this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -546,9 +549,9 @@ edit form, can be viewed, removed and replaced.</p>
 <p>The images are stored in the filesystem relative to your index.php within the
 subfolder you give with the path parameter.</p>
 <p>If you edit an entity with a file and re-upload it or if you delete the file or
-if you delete the entity, the current implementation is defensive and doesn&#8217;t
+if you delete the entity, the current implementation is defensive and doesn’t
 physically delete the files.</p>
-<p>See the <a class="reference internal" href="filehandling.html"><em>File Handling</em></a> chapter for more details.</p>
+<p>See the <a class="reference internal" href="filehandling.html"><span class="doc">File Handling</span></a> chapter for more details.</p>
 <p>Related MySQL-types:</p>
 <ul class="simple">
 <li>CHAR</li>
@@ -561,7 +564,7 @@ physically delete the files.</p>
 </div>
 <div class="section" id="fixed">
 <h2>Fixed<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">fixed</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">fixed</span>
 <span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
 </pre></div>
 </div>
@@ -601,7 +604,7 @@ physically delete the files.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

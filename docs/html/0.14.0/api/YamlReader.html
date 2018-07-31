@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="prev" title="CRUDlex\UniqueValidator" href="UniqueValidator.html"/> 
 
@@ -101,7 +104,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -112,11 +115,11 @@
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\YamlReader</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\YamlReader</a></li>
 </ul>
 
             
@@ -151,7 +154,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/YamlReader.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/YamlReader.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -184,7 +187,7 @@ It is a simple PHP class internally.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fileName</strong> (<em>string</em>) &#8211; the file to cache</li>
+<li><strong>$fileName</strong> (<em>string</em>) – the file to cache</li>
 </ul>
 </td>
 </tr>
@@ -204,7 +207,7 @@ It is a simple PHP class internally.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fileName</strong> (<em>string</em>) &#8211; the cache file to read from</li>
+<li><strong>$fileName</strong> (<em>string</em>) – the cache file to read from</li>
 </ul>
 </td>
 </tr>
@@ -224,8 +227,8 @@ It is a simple PHP class internally.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$fileName</strong> (<em>string</em>) &#8211; the original filename</li>
-<li><strong>$content</strong> (<em>array</em>) &#8211; the content to cache</li>
+<li><strong>$fileName</strong> (<em>string</em>) – the original filename</li>
+<li><strong>$content</strong> (<em>array</em>) – the content to cache</li>
 </ul>
 </td>
 </tr>
@@ -242,7 +245,7 @@ It is a simple PHP class internally.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$cachePath</strong> (<em>string|null</em>) &#8211; if given, the path for the cache files which should be a writable directory</li>
+<li><strong>$cachePath</strong> (<em>string|null</em>) – if given, the path for the cache files which should be a writable directory</li>
 </ul>
 </td>
 </tr>
@@ -260,7 +263,7 @@ it goes wrong, it throws an exception.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$fileName</strong> (<em>string</em>) &#8211; the file to read</li>
+<li><strong>$fileName</strong> (<em>string</em>) – the file to read</li>
 </ul>
 </td>
 </tr>
@@ -292,7 +295,7 @@ it goes wrong, it throws an exception.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

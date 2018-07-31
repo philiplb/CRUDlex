@@ -11,12 +11,30 @@ certain moments and can even interrupt the modification of the data.
 
 This is how you define an event which is executed before an entity is created:
 
-.. code-block:: php
+.. tabs::
 
-    $app['crud']->getData('library')->getEvents()->push('before', 'create', function(CRUDlex\Entity $entity) {
-        // Do something with the entity which is about to be saved.
-        return true;
-    });
+   .. group-tab:: Symfony 4
+
+      The boot method of the kernel is a possible place to define an event:
+
+      .. code-block:: php
+
+          public function boot() {
+              parent::boot();
+              $this->getContainer()->get('crudlex.service')->getData('library')->getEvents()->push('before', 'create', function(CRUDlex\Entity $entity) {
+                  // Do something with the entity which is about to be saved.
+                  return true;
+              });
+          }
+
+   .. group-tab:: Silex 2
+
+      .. code-block:: php
+
+          $app['crud']->getData('library')->getEvents()->push('before', 'create', function(CRUDlex\Entity $entity) {
+              // Do something with the entity which is about to be saved.
+              return true;
+          });
 
 This code should go in your setup directly after the ServiceProvider is
 registered.
@@ -50,8 +68,18 @@ deleted.
 With *pop*, the last added event of the given moment and action is
 removed from the list and the closure is returned:
 
-.. code-block:: php
+.. tabs::
 
-    $closure = $app['crud']->getData('library')->getEvents()->pop('before', 'create');
+   .. group-tab:: Symfony 4
+
+      .. code-block:: php
+
+          $closure = $this->getContainer()->get('crudlex.service')->getData('library')->getEvents()->pop('before', 'create');
+
+   .. group-tab:: Silex 2
+
+      .. code-block:: php
+
+          $closure = $app['crud']->getData('library')->getEvents()->pop('before', 'create');
 
 If no more events are available, *pop* will return *null*.

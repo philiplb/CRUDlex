@@ -28,8 +28,19 @@
   
 
   
+    <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/segment.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/menu.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.css" type="text/css" />
+  
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="Overriding Layouts" href="layouts.html"/>
         <link rel="prev" title="Constraints" href="constraints.html"/> 
@@ -88,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structure Definition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constraints.html">Constraints</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">File Handling</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">File Handling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overriding-the-default-storage-with-amazon-s3-as-filesystem">Overriding the Default Storage with Amazon S3 as Filesystem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#filesystem-storage-adapters">Filesystem Storage Adapters</a></li>
 </ul>
@@ -106,7 +117,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -117,7 +128,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -156,7 +167,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/filehandling.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/filehandling.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,7 +181,7 @@
 <h1>File Handling<a class="headerlink" href="#file-handling" title="Permalink to this headline">¶</a></h1>
 <p>By default, CRUDlex uses the filesystem to store uploaded files. The current working directory is taken as root here.
 Usually, this is the path to your index.php. So this example stores the image files under &lt;workingDirectory&gt;/uploads</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">library</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lib</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Library</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -181,20 +192,68 @@ Usually, this is the path to your index.php. So this example stores the image fi
 </div>
 <p>One big drawback here is that the application is not stateless anymore according to <a class="reference external" href="https://12factor.net/processes">https://12factor.net/processes</a>. But
 luckily, the file handling is done via <a class="reference external" href="http://flysystem.thephpleague.com//">Flysystem</a> and the used
-FilesystemInterface can be overridden easily by setting a service called &#8220;crud.filesystem&#8221;.</p>
+FilesystemInterface can be overridden easily.</p>
 <p>In any way, overriding or not, the underlying FilesystemInterface is available via</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.filesystem&#39;]</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+the service “crudlex.fileSystemAdapter”.</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.filesystem&#39;]</span>
 </pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="overriding-the-default-storage-with-amazon-s3-as-filesystem">
 <h2>Overriding the Default Storage with Amazon S3 as Filesystem<a class="headerlink" href="#overriding-the-default-storage-with-amazon-s3-as-filesystem" title="Permalink to this headline">¶</a></h2>
 <p>Here is an example of using Amazon S3 as storage.</p>
 <p>First, get the AwsS3Adapter:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>composer require league/flysystem-aws-s3-v3
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>composer require league/flysystem-aws-s3-v3
 </pre></div>
 </div>
 <p>And then configure it and hand it over to CRUDlex:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$client = S3Client::factory([</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>The Flysystem Adapter is integrated as service which can be overwritten. Here is an example using the S3 adapter:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">s3.client</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Aws\S3\S3Client</span>
+  <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span>
+      <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="s">&quot;latest&quot;</span>
+      <span class="l l-Scalar l-Scalar-Plain">region</span><span class="p p-Indicator">:</span> <span class="s">&quot;&lt;the</span><span class="nv"> </span><span class="s">AWS</span><span class="nv"> </span><span class="s">region&gt;&quot;</span>
+      <span class="l l-Scalar l-Scalar-Plain">credentials</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span> <span class="s">&quot;&lt;the</span><span class="nv"> </span><span class="s">AWS</span><span class="nv"> </span><span class="s">access</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">&gt;&quot;</span>
+        <span class="l l-Scalar l-Scalar-Plain">secret</span><span class="p p-Indicator">:</span> <span class="s">&quot;&lt;the</span><span class="nv"> </span><span class="s">AWS</span><span class="nv"> </span><span class="s">secret</span><span class="nv"> </span><span class="s">access</span><span class="nv"> </span><span class="s">key&gt;&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">crudlex.fileSystemAdapter</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;League\\Flysystem\\AwsS3v3\\AwsS3Adapter&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;@s3.client&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;&lt;the</span><span class="nv"> </span><span class="s">AWS</span><span class="nv"> </span><span class="s">bucket</span><span class="nv"> </span><span class="s">name&gt;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$client = S3Client::factory([</span>
 <span class="x">    &#39;credentials&#39; =&gt; [</span>
 <span class="x">        &#39;key&#39;    =&gt; $key,</span>
 <span class="x">        &#39;secret&#39; =&gt; $secret</span>
@@ -205,12 +264,14 @@ FilesystemInterface can be overridden easily by setting a service called &#8220;
 <span class="x">$adapter = new \League\Flysystem\AwsS3v3\AwsS3Adapter($client, $bucket);</span>
 <span class="x">$filesystem = new \League\Flysystem\Filesystem($adapter);</span>
 <span class="x">$dataFactory = new \CRUDlex\MySQLDataFactory($app[&#39;db&#39;]);</span>
-<span class="x">$app-&gt;register(new \CRUDlex\ServiceProvider(), array(</span>
+<span class="x">$app-&gt;register(new \CRUDlex\ServiceProvider(), [</span>
 <span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;/../crud.yml&#39;,</span>
 <span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory,</span>
 <span class="x">    &#39;crud.filesystem&#39; =&gt; $filesystem,</span>
-<span class="x">));</span>
+<span class="x">]);</span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="filesystem-storage-adapters">
@@ -219,12 +280,10 @@ FilesystemInterface can be overridden easily by setting a service called &#8220;
 <ul class="simple">
 <li>Local</li>
 <li>Azure</li>
-<li>AWS S3 V2</li>
-<li>AWS S3 V3</li>
-<li>Copy.com</li>
+<li>AWS S3</li>
+<li>DigitalOcean Spaces</li>
 <li>Dropbox</li>
 <li>FTP</li>
-<li>GridFS</li>
 <li>Memory</li>
 <li>Null / Test</li>
 <li>Rackspace</li>
@@ -257,7 +316,7 @@ FilesystemInterface can be overridden easily by setting a service called &#8220;
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>
@@ -288,6 +347,8 @@ FilesystemInterface can be overridden easily by setting a service called &#8220;
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/tabs.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.js"></script>
 
   
 

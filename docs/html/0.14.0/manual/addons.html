@@ -28,8 +28,19 @@
   
 
   
+    <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/segment.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/menu.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.css" type="text/css" />
+  
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="CRUD YAML Reference" href="crudyamlreference.html"/>
         <link rel="prev" title="Extended Features" href="extendedfeatures.html"/> 
@@ -96,7 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="definitionvalidation.html">Definition Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extendedfeatures.html">Extended Features</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Addons</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Addons</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#crudlexuser">CRUDlexUser</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#the-admin-panel">The Admin Panel</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#users">Users</a></li>
@@ -115,7 +126,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
@@ -126,7 +137,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -165,7 +176,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/manual/addons.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/manual/addons.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -191,13 +202,37 @@ offering in order to connect the users with the application.</p>
 following sub chapters.</p>
 <p>In order to get the salt generated and the password hashed, you have to let the
 library add some CRUDlex events in your initialization:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$crudUserSetup = new CRUDlex\UserSetup();</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>The boot method of the kernel is a possible place to add the events:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">public function boot() {</span>
+<span class="x">    parent::boot();</span>
+<span class="x">    $crudUserSetup = new CRUDlex\UserSetup();</span>
+<span class="x">    $crudUserSetup-&gt;addEvents($this-&gt;getContainer()-&gt;get(&#39;crudlex.service&#39;)-&gt;getData(&#39;user&#39;));</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$crudUserSetup = new CRUDlex\UserSetup();</span>
 <span class="x">$crudUserSetup-&gt;addEvents($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;));</span>
 </pre></div>
 </div>
+</div>
+</div>
 <div class="section" id="users">
 <h4>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -228,7 +263,7 @@ library add some CRUDlex events in your initialization:</p>
 </div>
 <p>Plus any more fields you need.</p>
 <p>Recommended for the password reset features:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">email</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">email</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">E-Mail</span>
     <span class="l l-Scalar l-Scalar-Plain">required</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -238,7 +273,7 @@ library add some CRUDlex events in your initialization:</p>
 </div>
 <div class="section" id="roles">
 <h4>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">role</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">role</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Roles</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">role</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -253,7 +288,7 @@ library add some CRUDlex events in your initialization:</p>
 <div class="section" id="password-reset">
 <h3>Password Reset<a class="headerlink" href="#password-reset" title="Permalink to this headline">¶</a></h3>
 <p>In case you want to use the password reset features:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">passwordReset</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">passwordReset</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Password Resets</span>
     <span class="l l-Scalar l-Scalar-Plain">table</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">password_reset</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -276,25 +311,83 @@ library add some CRUDlex events in your initialization:</p>
 </div>
 <div class="section" id="the-userprovider">
 <h3>The UserProvider<a class="headerlink" href="#the-userprovider" title="Permalink to this headline">¶</a></h3>
-<p>Simply instantiate and add it to your symfony/security configuration:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$userProvider = new CRUDlex\UserProvider($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;), $app[&#39;crud&#39;]-&gt;getData(&#39;userRole&#39;));</span>
-<span class="x">$app-&gt;register(new Silex\Provider\SecurityServiceProvider(), array(</span>
-<span class="x">    &#39;security.firewalls&#39; =&gt; array(</span>
-<span class="x">        &#39;admin&#39; =&gt; array(</span>
+<p>Simply add the user provider to your symfony/security configuration:</p>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<blockquote>
+<div><p>Define the service (here the most simple way):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">CRUDlex\UserProvider</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\UserProvider&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">arguments</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;@crudlex.service&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Then, the symfony/security user provider is set:</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">security</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">providers</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">webservice</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">CRUDlex\UserProvider</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$userProvider = new CRUDlex\UserProvider($app[&#39;crud&#39;]);</span>
+<span class="x">$app-&gt;register(new Silex\Provider\SecurityServiceProvider(), [</span>
+<span class="x">    &#39;security.firewalls&#39; =&gt; [</span>
+<span class="x">        &#39;admin&#39; =&gt; [</span>
 <span class="x">            //...</span>
 <span class="x">            &#39;users&#39; =&gt; $userProvider</span>
-<span class="x">        ),</span>
-<span class="x">    ),</span>
-<span class="x">));</span>
+<span class="x">        ],</span>
+<span class="x">    ],</span>
+<span class="x">]);</span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="accessing-data-of-the-logged-in-user">
 <h3>Accessing Data of the Logged in User<a class="headerlink" href="#accessing-data-of-the-logged-in-user" title="Permalink to this headline">¶</a></h3>
 <p>In order to get the user data from the logged in user in your controller, you
 might grab him like this:</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="x">$user = $app[&#39;security.token_storage&#39;]-&gt;getToken()</span>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
+<div class="docutils container">
+Symfony 4</div>
+</div>
+<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="docutils container">
+Silex 2</div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<p>From within a controller, the user can be accessed via</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$user = $this-&gt;getUser();</span>
 </pre></div>
+</div>
+<p>This is a shortcut for using the service “security.token_storage”:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$user = $this-&gt;container-&gt;getParameter(&#39;security.token_storage&#39;)-&gt;getToken();</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$user = $app[&#39;security.token_storage&#39;]-&gt;getToken();</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>You get back a CRUDlex\User instance having some getters, see the API docs.</p>
 </div>
@@ -320,7 +413,7 @@ might grab him like this:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>
@@ -351,6 +444,8 @@ might grab him like this:</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/tabs.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_tabs/semantic-ui-2.2.10/tab.min.js"></script>
 
   
 

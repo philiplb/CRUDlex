@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CRUDlex 0.14.0 documentation" href="../index.html"/>
         <link rel="next" title="CRUDlex\FileHandler" href="FileHandler.html"/>
         <link rel="prev" title="CRUDlex\EntityEvents" href="EntityEvents.html"/> 
@@ -102,18 +105,18 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ControllerProvider.html">CRUDlex\ControllerProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="EntityEvents.html">CRUDlex\EntityEvents</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\EntityValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceProvider.html">CRUDlex\ServiceProvider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
@@ -152,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/EntityValidator.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/EntityValidator.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -192,9 +195,9 @@ entity definition type.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field for the rules</li>
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance to use for validation</li>
-<li><strong>$validator</strong> (<em>Validator</em>) &#8211; the validator to use</li>
+<li><strong>$field</strong> (<em>string</em>) – the field for the rules</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the data instance to use for validation</li>
+<li><strong>$validator</strong> (<em>Validator</em>) – the validator to use</li>
 </ul>
 </td>
 </tr>
@@ -215,8 +218,8 @@ entity definition constraints.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$field</strong> (<em>string</em>) &#8211; the field for the rules</li>
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance to use for validation</li>
+<li><strong>$field</strong> (<em>string</em>) – the field for the rules</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the data instance to use for validation</li>
 </ul>
 </td>
 </tr>
@@ -237,8 +240,8 @@ definition.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data instance to use for validation</li>
-<li><strong>$validator</strong> (<em>Validator</em>) &#8211; the validator to use</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the data instance to use for validation</li>
+<li><strong>$validator</strong> (<em>Validator</em>) – the validator to use</li>
 </ul>
 </td>
 </tr>
@@ -272,7 +275,7 @@ definition.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) &#8211; the entity to validate</li>
+<li><strong>$entity</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity to validate</li>
 </ul>
 </td>
 </tr>
@@ -289,12 +292,12 @@ definition.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) &#8211; the data access instance used for counting things</li>
-<li><strong>$expectedVersion</strong> (<em>integer</em>) &#8211; the version to perform the optimistic locking check on</li>
+<li><strong>$data</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the data access instance used for counting things</li>
+<li><strong>$expectedVersion</strong> (<em>integer</em>) – the version to perform the optimistic locking check on</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array an array with the fields &#8220;valid&#8221; and &#8220;errors&#8221;; valid provides a quick check whether the given entity passes the validation and errors is an array with all errored fields as keys and arrays as values; this field arrays contains the actual errors on the field: &#8220;boolean&#8221;, &#8220;floating&#8221;, &#8220;integer&#8221;, &#8220;dateTime&#8221; (for dates and datetime fields), &#8220;inSet&#8221;, &#8220;reference&#8221;, &#8220;required&#8221;, &#8220;unique&#8221;, &#8220;value&#8221; (only for the version field, set if the optimistic locking failed).</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array an array with the fields “valid” and “errors”; valid provides a quick check whether the given entity passes the validation and errors is an array with all errored fields as keys and arrays as values; this field arrays contains the actual errors on the field: “boolean”, “floating”, “integer”, “dateTime” (for dates and datetime fields), “inSet”, “reference”, “required”, “unique”, “value” (only for the version field, set if the optimistic locking failed).</p>
 </td>
 </tr>
 </tbody>
@@ -324,7 +327,7 @@ definition.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Philip Lehmann-Böhm.
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
 
     </p>
   </div>

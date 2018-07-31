@@ -1,8 +1,7 @@
 Routes
 ======
 
-The ControllerProvider adds a bunch of routes used by CRUDlex which are useful to know if one wants to link to them or
-add middleware.
+There are a bunch of routes used by CRUDlex which are useful to know if one wants to link to them or add middleware.
 
 ----
 List
@@ -20,9 +19,9 @@ This are the name of the routes added by the ControllerProvider.
 * **crudDeleteFile:** deletes a file of an entity (POST)
 * **crudSetLocale:** switches the locale of the UI (GET)
 
------------------
-Adding Middleware
------------------
+-------------------------
+Adding Silex 2 Middleware
+-------------------------
 
 
 Here is an example of how to add a middleware after mounting the ControllerProvider:
