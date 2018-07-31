@@ -1,7 +1,7 @@
 CRUDlex
 =======
 
-CRUDlex is an easy to use, well documented and tested CRUD generator for Silex. It is very useful to generate admin pages for example.
+CRUDlex is an easy to use, well documented and tested CRUD generator for Symfony 4 and Silex 2. It is very useful to generate admin pages for example.
 
 [![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/CRUDlex)
 
@@ -78,14 +78,12 @@ care about notes in the changelog when upgrading.
 For a complete example, checkout the sample project with the classic libraries
 and books:
 
-[CRUDlex Sample](https://github.com/philiplb/CRUDlexSample)
+[CRUDlex Silex 2 Sample](https://github.com/philiplb/CRUDlexSilex2Sample)
 
 ### Addons
 
 There are several surrounding projects around CRUDlex:
 
-* [CRUDlexAmazonS3FileProcessor](https://github.com/philiplb/CRUDlexAmazonS3FileProcessor):
-  Handling the file uploads via Amazon S3
 * [CRUDlexUser](https://github.com/philiplb/CRUDlexUser):
   A library offering an user provider for symfony/security
 
