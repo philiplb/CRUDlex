@@ -28,7 +28,15 @@ library add some CRUDlex events in your initialization:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      The boot method of the kernel is a possible place to add the events:
+
+      .. code-block:: php
+
+          public function boot() {
+              parent::boot();
+              $crudUserSetup = new CRUDlex\UserSetup();
+              $crudUserSetup->addEvents($this->getContainer()->get('crudlex.service')->getData('user'));
+          }
 
    .. group-tab:: Silex 2
 
@@ -130,19 +138,37 @@ In case you want to use the password reset features:
 The UserProvider
 ^^^^^^^^^^^^^^^^
 
-Simply instantiate and add it to your symfony/security configuration:
+Simply add the user provider to your symfony/security configuration:
 
 .. tabs::
 
    .. group-tab:: Symfony 4
 
-      Todo
+      Define the service (here the most simple way):
+
+
+      .. code-block:: yaml
+
+        CRUDlex\UserProvider:
+            public: true
+            class: "CRUDlex\\UserProvider"
+            arguments: ["@crudlex.service"]
+
+
+     Then, the symfony/security user provider is set:
+
+      .. code-block:: yaml
+
+          security:
+              providers:
+                  webservice:
+                      id: CRUDlex\UserProvider
 
    .. group-tab:: Silex 2
 
       .. code-block:: php
 
-          $userProvider = new CRUDlex\UserProvider($app['crud']->getData('user'), $app['crud']->getData('userRole'));
+          $userProvider = new CRUDlex\UserProvider($app['crud']);
           $app->register(new Silex\Provider\SecurityServiceProvider(), [
               'security.firewalls' => [
                   'admin' => [
@@ -164,12 +190,22 @@ might grab him like this:
 
    .. group-tab:: Symfony 4
 
-      Todo
+      From within a controller, the user can be accessed via
+
+      .. code-block:: php
+
+          $user = $this->getUser();
+
+      This is a shortcut for using the service "security.token_storage":
+
+      .. code-block:: php
+
+          $user = $this->container->getParameter('security.token_storage')->getToken();
 
    .. group-tab:: Silex 2
 
       .. code-block:: php
 
-          $user = $app['security.token_storage']->getToken()
+          $user = $app['security.token_storage']->getToken();
 
 You get back a CRUDlex\\User instance having some getters, see the API docs.
