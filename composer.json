@@ -11,12 +11,6 @@
             "email": "philip@philiplb.de"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/ptlis/MetaYaml"
-        }
-    ],
     "require": {
         "php": ">=7.1.3",
         "symfony/twig-bridge": "^4.1",
@@ -27,7 +21,7 @@
         "symfony/translation": "^4.1",
         "symfony/intl": "^4.1",
         "philiplb/valdi": "0.10.0",
-        "romaricdrigon/metayaml": "dev-update-symfony-yaml-version",
+        "romaricdrigon/metayaml": "dev-master#1481b99679b29cbb50c88f3e10e4951ac64b8ad3",
         "riimu/kit-phpencoder": "^2.1",
         "league/flysystem": "^1.0"
     },
@@ -49,7 +43,5 @@
         "branch-alias": {
             "dev-master": "0.14.x-dev"
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
