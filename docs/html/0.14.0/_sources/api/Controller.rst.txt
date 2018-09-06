@@ -109,6 +109,7 @@ CRUDlex\\Controller
         :param $filterToUse: reference, will hold a map of fields to integers (0 or 1) which boolean filters are active
         :type $filterOperators: array
         :param $filterOperators: reference, will hold a map of fields to operators for AbstractData::listEntries()
+        :returns: array the raw filter query parameters
 
     .. php:method:: getNotFoundPage($error)
 
