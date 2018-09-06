@@ -202,12 +202,17 @@ class Controller implements ControllerInterface {
      * reference, will hold a map of fields to integers (0 or 1) which boolean filters are active
      * @param array $filterOperators
      * reference, will hold a map of fields to operators for AbstractData::listEntries()
+     *
+     * @return array
+     * the raw filter query parameters
      */
     protected function buildUpListFilter(Request $request, EntityDefinition $definition, &$filter, &$filterActive, &$filterToUse, &$filterOperators)
     {
+        $rawFilter = [];
         foreach ($definition->getFilter() as $filterField) {
-            $type                 = $definition->getType($filterField);
-            $filter[$filterField] = $request->get('crudFilter'.$filterField);
+            $type                    = $definition->getType($filterField);
+            $filter[$filterField]    = $request->get('crudFilter'.$filterField);
+            $rawFilter[$filterField] = $filter[$filterField];
             if ($filter[$filterField]) {
                 $filterActive                  = true;
                 $filterToUse[$filterField]     = $filter[$filterField];
@@ -227,6 +232,7 @@ class Controller implements ControllerInterface {
                 }
             }
         }
+        return $rawFilter;
     }
 
     /**
@@ -307,7 +313,7 @@ class Controller implements ControllerInterface {
         $filterActive    = false;
         $filterToUse     = [];
         $filterOperators = [];
-        $this->buildUpListFilter($request, $definition, $filter, $filterActive, $filterToUse, $filterOperators);
+        $rawFilter       = $this->buildUpListFilter($request, $definition, $filter, $filterActive, $filterToUse, $filterOperators);
 
         $pageSize = $definition->getPageSize();
         $total    = $crudData->countBy($definition->getTable(), $filterToUse, $filterOperators, true);
@@ -338,6 +344,7 @@ class Controller implements ControllerInterface {
             'page' => $page,
             'total' => $total,
             'filter' => $filter,
+            'rawFilter' => $rawFilter,
             'filterActive' => $filterActive,
             'sortField' => $sortField,
             'sortAscending' => $sortAscending,

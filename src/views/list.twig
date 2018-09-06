@@ -15,7 +15,7 @@
 
     {% set filterParams = {} %}
     {% if filterActive %}
-        {% for filterField, filterValue in filter %}
+        {% for filterField, filterValue in rawFilter %}
             {% set filterParams = filterParams|merge({('crudFilter' ~ filterField): filterValue}) %}
         {% endfor %}
     {% endif %}
