@@ -1,8 +1,11 @@
 CRUDlex Changelog
 =================
 
-## 0.14.0
+## 0.15.0
 Released: Upcoming
+
+## 0.14.0
+Released: 2018-09-07
 - Added PHP 7.2 as test target
 - Attention: Dropped support for PHP <= 7.1
 - Attention: CRUDlex is now not anymore dependent on Silex as framework; the Silex implementation got split to https://github.com/philiplb/CRUDlexSilex2 

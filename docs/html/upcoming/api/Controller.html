@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CRUDlex\Controller &mdash; CRUDlex 0.15.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="CRUDlex 0.15.0 documentation" href="../index.html"/>
+        <link rel="up" title="CRUDlex\ControllerInterface" href="ControllerInterface.html"/>
+        <link rel="next" title="CRUDlex\DataFactoryInterface" href="DataFactoryInterface.html"/>
+        <link rel="prev" title="CRUDlex\ControllerInterface" href="ControllerInterface.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.15.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manual/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/filehandling.html">File Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/optimisticlocking.html">Optimistic Locking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/definitionvalidation.html">Definition Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/routes.html">Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/addons.html">Addons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/crudyamlreference.html">CRUD YAML Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CRUDlex\Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinition.html">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityEvents.html">CRUDlex\EntityEvents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YamlReader.html">CRUDlex\YamlReader</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="ControllerInterface.html">CRUDlex\ControllerInterface</a> &raquo;</li>
+      
+    <li>CRUDlex\Controller</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/Controller.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="crudlex-controller">
+<h1>CRUDlex\Controller<a class="headerlink" href="#crudlex-controller" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Controller">
+<em class="property">class </em><code class="descname">Controller</code><a class="headerlink" href="#Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the ControllerInterface.</p>
+<dl class="attr">
+<dt id="Controller::$filesystem">
+<em class="property">property </em><code class="descname">filesystem</code><a class="headerlink" href="#Controller::$filesystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected FilesystemInterface</p>
+<p>Holds the filesystme.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="Controller::$session">
+<em class="property">property </em><code class="descname">session</code><a class="headerlink" href="#Controller::$session" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected SessionInterface</p>
+<p>Holds the session.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="Controller::$translator">
+<em class="property">property </em><code class="descname">translator</code><a class="headerlink" href="#Controller::$translator" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected TranslatorInterface</p>
+<p>Holds the translator.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="Controller::$service">
+<em class="property">property </em><code class="descname">service</code><a class="headerlink" href="#Controller::$service" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected Service</p>
+<p>Holds the service.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="Controller::$twig">
+<em class="property">property </em><code class="descname">twig</code><a class="headerlink" href="#Controller::$twig" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected Twig_Environment</p>
+<p>Holds the Twig instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::modifyFilesAndSetFlashBag">
+<code class="descname">modifyFilesAndSetFlashBag</code><span class="sig-paren">(</span><em>Request $request</em>, <em>AbstractData $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$mode</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::modifyFilesAndSetFlashBag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Postprocesses the entity after modification by handling the uploaded
+files and setting the flash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$request</strong> (<em>Request</em>) – the current request</li>
+<li><strong>$crudData</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the data instance of the entity</li>
+<li><strong>$instance</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity</li>
+<li><strong>$entity</strong> (<em>string</em>) – the name of the entity</li>
+<li><strong>$mode</strong> (<em>string</em>) – whether to ‘edit’ or to ‘create’ the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">null|SymfonyComponentHttpFoundationRedirectResponse the HTTP response of this modification</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::setValidationFailedFlashes">
+<code class="descname">setValidationFailedFlashes</code><span class="sig-paren">(</span><em>$optimisticLocking</em>, <em>$mode</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::setValidationFailedFlashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the flashes of a failed entity modification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$optimisticLocking</strong> (<em>boolean</em>) – whether the optimistic locking failed</li>
+<li><strong>$mode</strong> (<em>string</em>) – the modification mode, either ‘create’ or ‘edit’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::modifyEntity">
+<code class="descname">modifyEntity</code><span class="sig-paren">(</span><em>Request $request</em>, <em>AbstractData $crudData</em>, <em>Entity $instance</em>, <em>$entity</em>, <em>$edit</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::modifyEntity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates and saves the new or updated entity and returns the appropriate
+HTTP
+response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$request</strong> (<em>Request</em>) – the current request</li>
+<li><strong>$crudData</strong> (<a class="reference internal" href="AbstractData.html#AbstractData" title="AbstractData"><em>AbstractData</em></a>) – the data instance of the entity</li>
+<li><strong>$instance</strong> (<a class="reference internal" href="Entity.html#Entity" title="Entity"><em>Entity</em></a>) – the entity</li>
+<li><strong>$entity</strong> (<em>string</em>) – the name of the entity</li>
+<li><strong>$edit</strong> (<em>boolean</em>) – whether to edit (true) or to create (false) the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the HTTP response of this modification</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::getAfterDeleteRedirectParameters">
+<code class="descname">getAfterDeleteRedirectParameters</code><span class="sig-paren">(</span><em>Request $request</em>, <em>$entity</em>, <em>$redirectPage</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::getAfterDeleteRedirectParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the parameters for the redirection after deleting an entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$request</strong> (<em>Request</em>) – the current request</li>
+<li><strong>$entity</strong> (<em>string</em>) – the entity name</li>
+<li><strong>$redirectPage</strong> (<em>string</em>) – reference, where the page to redirect to will be stored</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array&lt;string,string&gt; the parameters of the redirection, entity and id</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::buildUpListFilter">
+<code class="descname">buildUpListFilter</code><span class="sig-paren">(</span><em>Request $request</em>, <em>EntityDefinition $definition</em>, <em>$filter</em>, <em>$filterActive</em>, <em>$filterToUse</em>, <em>$filterOperators</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::buildUpListFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds up the parameters of the list page filters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$request</strong> (<em>Request</em>) – the current request</li>
+<li><strong>$definition</strong> (<a class="reference internal" href="EntityDefinition.html#EntityDefinition" title="EntityDefinition"><em>EntityDefinition</em></a>) – the current entity definition</li>
+<li><strong>$filter</strong> – </li>
+<li><strong>$filterActive</strong> (<em>boolean</em>) – reference, will be true if at least one filter is active</li>
+<li><strong>$filterToUse</strong> (<em>array</em>) – reference, will hold a map of fields to integers (0 or 1) which boolean filters are active</li>
+<li><strong>$filterOperators</strong> (<em>array</em>) – reference, will hold a map of fields to operators for AbstractData::listEntries()</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array the raw filter query parameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::getNotFoundPage">
+<code class="descname">getNotFoundPage</code><span class="sig-paren">(</span><em>$error</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::getNotFoundPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the not found page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$error</strong> (<em>string</em>) – the cause of the not found error</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Response the rendered not found page with the status code 404</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::__construct">
+<code class="descname">__construct</code><span class="sig-paren">(</span><em>Service $service</em>, <em>FilesystemInterface $filesystem</em>, <em>Twig_Environment $twig</em>, <em>SessionInterface $session</em>, <em>TranslatorInterface $translator</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::__construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controller constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$service</strong> (<a class="reference internal" href="Service.html#Service" title="Service"><em>Service</em></a>) – the CRUDlex service</li>
+<li><strong>$filesystem</strong> (<em>FilesystemInterface</em>) – the used filesystem</li>
+<li><strong>$twig</strong> (<em>Twig_Environment</em>) – the Twig environment</li>
+<li><strong>$session</strong> (<em>SessionInterface</em>) – the session service</li>
+<li><strong>$translator</strong> (<em>TranslatorInterface</em>) – the translation service</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::setLocaleAndCheckEntity">
+<code class="descname">setLocaleAndCheckEntity</code><span class="sig-paren">(</span><em>Request $request</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::setLocaleAndCheckEntity" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Request $request</em>, <em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::create" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) – </li>
+<li><strong>$entity</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::showList">
+<code class="descname">showList</code><span class="sig-paren">(</span><em>Request $request</em>, <em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::showList" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) – </li>
+<li><strong>$entity</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>$entity</em>, <em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::show" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$entity</strong> – </li>
+<li><strong>$id</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::edit">
+<code class="descname">edit</code><span class="sig-paren">(</span><em>Request $request</em>, <em>$entity</em>, <em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::edit" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) – </li>
+<li><strong>$entity</strong> – </li>
+<li><strong>$id</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>Request $request</em>, <em>$entity</em>, <em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::delete" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) – </li>
+<li><strong>$entity</strong> – </li>
+<li><strong>$id</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::renderFile">
+<code class="descname">renderFile</code><span class="sig-paren">(</span><em>$entity</em>, <em>$id</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::renderFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$entity</strong> – </li>
+<li><strong>$id</strong> – </li>
+<li><strong>$field</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::deleteFile">
+<code class="descname">deleteFile</code><span class="sig-paren">(</span><em>$entity</em>, <em>$id</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::deleteFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$entity</strong> – </li>
+<li><strong>$id</strong> – </li>
+<li><strong>$field</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::staticFile">
+<code class="descname">staticFile</code><span class="sig-paren">(</span><em>Request $request</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::staticFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Controller::setLocale">
+<code class="descname">setLocale</code><span class="sig-paren">(</span><em>Request $request</em>, <em>$locale</em><span class="sig-paren">)</span><a class="headerlink" href="#Controller::setLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="mailto:{&#37;&#52;&#48;inheritdoc">{<span>&#64;</span>inheritdoc</a>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$request</strong> (<em>Request</em>) – </li>
+<li><strong>$locale</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DataFactoryInterface.html" class="btn btn-neutral float-right" title="CRUDlex\DataFactoryInterface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ControllerInterface.html" class="btn btn-neutral" title="CRUDlex\ControllerInterface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.15.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

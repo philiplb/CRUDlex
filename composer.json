@@ -1,8 +1,8 @@
 {
     "name": "philiplb/crudlex",
     "type": "library",
-    "description": "An easy to use CRUD generator for Silex.",
-    "keywords": ["symfony4", "silex", "crud", "admin generator"],
+    "description": "An easy to use CRUD generator for Silex and Symfony 4.",
+    "keywords": ["symfony", "silex", "crud", "admin generator"],
     "homepage": "https://github.com/philiplb/CRUDlex",
     "license": "MIT",
     "authors": [
@@ -41,7 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.14.x-dev"
+            "dev-master": "0.15.x-dev"
         }
     }
 }

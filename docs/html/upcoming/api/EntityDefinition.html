@@ -1,0 +1,1132 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CRUDlex\EntityDefinition &mdash; CRUDlex 0.15.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="CRUDlex 0.15.0 documentation" href="../index.html"/>
+        <link rel="next" title="CRUDlex\EntityDefinitionFactoryInterface" href="EntityDefinitionFactoryInterface.html"/>
+        <link rel="prev" title="CRUDlex\Entity" href="Entity.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CRUDlex
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.15.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manual/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datastructures.html">Data Structure Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/datatypes.html">Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/filehandling.html">File Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/layouts.html">Overriding Layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/templates.html">Overriding Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/optimisticlocking.html">Optimistic Locking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/definitionvalidation.html">Definition Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/routes.html">Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/extendedfeatures.html">Extended Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/addons.html">Addons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/crudyamlreference.html">CRUD YAML Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AbstractData.html">CRUDlex\AbstractData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerInterface.html">CRUDlex\ControllerInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataFactoryInterface.html">CRUDlex\DataFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Entity.html">CRUDlex\Entity</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CRUDlex\EntityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionFactoryInterface.html">CRUDlex\EntityDefinitionFactoryInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityDefinitionValidatorInterface.html">CRUDlex\EntityDefinitionValidatorInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityEvents.html">CRUDlex\EntityEvents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EntityValidator.html">CRUDlex\EntityValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileHandler.html">CRUDlex\FileHandler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManyValidator.html">CRUDlex\ManyValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReferenceValidator.html">CRUDlex\ReferenceValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Service.html">CRUDlex\Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StreamedFileResponse.html">CRUDlex\StreamedFileResponse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwigExtensions.html">CRUDlex\TwigExtensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UniqueValidator.html">CRUDlex\UniqueValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="YamlReader.html">CRUDlex\YamlReader</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CRUDlex</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>CRUDlex\EntityDefinition</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/EntityDefinition.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="crudlex-entitydefinition">
+<h1>CRUDlex\EntityDefinition<a class="headerlink" href="#crudlex-entitydefinition" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="EntityDefinition">
+<em class="property">class </em><code class="descname">EntityDefinition</code><a class="headerlink" href="#EntityDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The class for defining a single entity.</p>
+<dl class="attr">
+<dt id="EntityDefinition::$table">
+<em class="property">property </em><code class="descname">table</code><a class="headerlink" href="#EntityDefinition::$table" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected string</p>
+<p>The table where the data is stored.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$fields">
+<em class="property">property </em><code class="descname">fields</code><a class="headerlink" href="#EntityDefinition::$fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected array</p>
+<p>Holds all fields in the same structure as in the CRUD YAML file.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$label">
+<em class="property">property </em><code class="descname">label</code><a class="headerlink" href="#EntityDefinition::$label" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected string</p>
+<p>The label for the entity.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$localeLabels">
+<em class="property">property </em><code class="descname">localeLabels</code><a class="headerlink" href="#EntityDefinition::$localeLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected array</p>
+<p>The labels  of the entity in the locales.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$children">
+<em class="property">property </em><code class="descname">children</code><a class="headerlink" href="#EntityDefinition::$children" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected array</p>
+<p>An array with the children referencing the entity. All entries are
+arrays with three referencing elements: table, fieldName, entity</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$standardFieldLabels">
+<em class="property">property </em><code class="descname">standardFieldLabels</code><a class="headerlink" href="#EntityDefinition::$standardFieldLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected array</p>
+<p>Labels for the fields “id”, “created_at” and “updated_at”.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$listFields">
+<em class="property">property </em><code class="descname">listFields</code><a class="headerlink" href="#EntityDefinition::$listFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected array</p>
+<p>An array containing the fields which should appear in the list view
+of the entity.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$childrenLabelFields">
+<em class="property">property </em><code class="descname">childrenLabelFields</code><a class="headerlink" href="#EntityDefinition::$childrenLabelFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected array</p>
+<p>The fields used to display the children on the details page of an entity.
+The keys are the entity names as in the CRUD YAML and the values are the
+field names.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$deleteCascade">
+<em class="property">property </em><code class="descname">deleteCascade</code><a class="headerlink" href="#EntityDefinition::$deleteCascade" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected bool</p>
+<p>Whether to delete its children when an instance is deleted.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$pageSize">
+<em class="property">property </em><code class="descname">pageSize</code><a class="headerlink" href="#EntityDefinition::$pageSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected int</p>
+<p>The amount of items to display per page on the listview.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$filter">
+<em class="property">property </em><code class="descname">filter</code><a class="headerlink" href="#EntityDefinition::$filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected array</p>
+<p>The fields offering to be filtered.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$service">
+<em class="property">property </em><code class="descname">service</code><a class="headerlink" href="#EntityDefinition::$service" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected Service</p>
+<p>Holds the service.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$locale">
+<em class="property">property </em><code class="descname">locale</code><a class="headerlink" href="#EntityDefinition::$locale" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected string</p>
+<p>Holds the locale.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$initialSortField">
+<em class="property">property </em><code class="descname">initialSortField</code><a class="headerlink" href="#EntityDefinition::$initialSortField" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected string</p>
+<p>Holds the initial sort field.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$initialSortAscending">
+<em class="property">property </em><code class="descname">initialSortAscending</code><a class="headerlink" href="#EntityDefinition::$initialSortAscending" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected bool</p>
+<p>Holds the initial sort order.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$hardDeletion">
+<em class="property">property </em><code class="descname">hardDeletion</code><a class="headerlink" href="#EntityDefinition::$hardDeletion" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected bool</p>
+<p>Holds whether hard deletion is activated.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$navBarGroup">
+<em class="property">property </em><code class="descname">navBarGroup</code><a class="headerlink" href="#EntityDefinition::$navBarGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected string</p>
+<p>Holds if the entity must be displayed grouped in the nav bar.</p>
+</dd></dl>
+
+<dl class="attr">
+<dt id="EntityDefinition::$optimisticLocking">
+<em class="property">property </em><code class="descname">optimisticLocking</code><a class="headerlink" href="#EntityDefinition::$optimisticLocking" title="Permalink to this definition">¶</a></dt>
+<dd><p>protected bool</p>
+<p>Holds whether optimistic locking is switched on.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getFilteredFieldNames">
+<code class="descname">getFilteredFieldNames</code><span class="sig-paren">(</span><em>$exclude</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFilteredFieldNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the field names exluding the given ones.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$exclude</strong> (<em>string[]</em>) – the field names to exclude</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">array all field names excluding the given ones</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::checkFieldNames">
+<code class="descname">checkFieldNames</code><span class="sig-paren">(</span><em>$reference</em>, <em>$fieldNames</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::checkFieldNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the given field names are declared and existing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$reference</strong> (<em>string</em>) – a hint towards the source of an invalid field name</li>
+<li><strong>$fieldNames</strong> (<em>array</em>) – the field names to check</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::__construct">
+<code class="descname">__construct</code><span class="sig-paren">(</span><em>$table</em>, <em>$fields</em>, <em>$label</em>, <em>$localeLabels</em>, <em>$standardFieldLabels</em>, <em>Service $service</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::__construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$table</strong> (<em>string</em>) – the table of the entity</li>
+<li><strong>$fields</strong> (<em>array</em>) – the field structure just like the CRUD YAML</li>
+<li><strong>$label</strong> (<em>string</em>) – the label of the entity</li>
+<li><strong>$localeLabels</strong> (<em>array</em>) – the labels  of the entity in the locales</li>
+<li><strong>$standardFieldLabels</strong> (<em>array</em>) – labels for the fields “id”, “created_at” and “updated_at”</li>
+<li><strong>$service</strong> (<a class="reference internal" href="Service.html#Service" title="Service"><em>Service</em></a>) – The current service provider</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getFieldNames">
+<code class="descname">getFieldNames</code><span class="sig-paren">(</span><em>$includeMany = false</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFieldNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all field names, including the implicit ones like “id” or
+“created_at”.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$includeMany</strong> (<em>boolean</em>) – whether to include the many fields as well</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string[] the field names</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setListFields">
+<code class="descname">setListFields</code><span class="sig-paren">(</span><em>$listFields</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setListFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the field names to be used in the listview.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$listFields</strong> (<em>array</em>) – the field names to be used in the listview</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getListFields">
+<code class="descname">getListFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getListFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the field names to be used in the listview. If they were not
+specified,
+all public field names are returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the field names to be used in the listview</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getChildrenLabelFields">
+<code class="descname">getChildrenLabelFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getChildrenLabelFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the fields used to display the children on the details page</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setChildrenLabelFields">
+<code class="descname">setChildrenLabelFields</code><span class="sig-paren">(</span><em>$childrenLabelFields</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setChildrenLabelFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the fields used to display the children on the details page of an
+entity. The keys are the entity names as in the CRUD YAML and the values
+are the field names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$childrenLabelFields</strong> (<em>array</em>) – the fields used to display the children on the details page</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::isDeleteCascade">
+<code class="descname">isDeleteCascade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isDeleteCascade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets whether to delete its children when an instance is deleted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if so</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setDeleteCascade">
+<code class="descname">setDeleteCascade</code><span class="sig-paren">(</span><em>$deleteCascade</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setDeleteCascade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets whether to delete its children when an instance is deleted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$deleteCascade</strong> (<em>boolean</em>) – whether to delete its children when an instance is deleted</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getPageSize">
+<code class="descname">getPageSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getPageSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the amount of items to display per page on the listview.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">integer the amount of items to display per page on the listview</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setPageSize">
+<code class="descname">setPageSize</code><span class="sig-paren">(</span><em>$pageSize</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setPageSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the amount of items to display per page on the listview.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$pageSize</strong> (<em>integer</em>) – the amount of items to display per page on the listview</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getFilter">
+<code class="descname">getFilter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the fields offering a filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the fields to filter</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setFilter">
+<code class="descname">setFilter</code><span class="sig-paren">(</span><em>$filter</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the fields offering a filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$filter</strong> (<em>array</em>) – the fields to filter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getService">
+<code class="descname">getService</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getService" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the service.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Service the service provider</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setService">
+<code class="descname">setService</code><span class="sig-paren">(</span><em>Service $service</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setService" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the service.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$service</strong> (<a class="reference internal" href="Service.html#Service" title="Service"><em>Service</em></a>) – the new service</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getPublicFieldNames">
+<code class="descname">getPublicFieldNames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getPublicFieldNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the public field names. The internal fields “version” and
+“deleted_at” are filtered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the public field names</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getEditableFieldNames">
+<code class="descname">getEditableFieldNames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getEditableFieldNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the field names which are editable. Not editable are fields like the
+id or the created_at.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array the editable field names</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getReadOnlyFields">
+<code class="descname">getReadOnlyFields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getReadOnlyFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the read only field names like the id or the created_at.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string[] the read only field names</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getType">
+<code class="descname">getType</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the type of a field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fieldName</strong> (<em>string</em>) – the field name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the type or null on invalid field name</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setType">
+<code class="descname">setType</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the type of a field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$fieldName</strong> (<em>string</em>) – the field name</li>
+<li><strong>$value</strong> (<em>string</em>) – the new field type</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getFieldLabel">
+<code class="descname">getFieldLabel</code><span class="sig-paren">(</span><em>$fieldName</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getFieldLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the label of a field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fieldName</strong> (<em>string</em>) – the field name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the label of the field or the field name if no label is set in the CRUD YAML</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setFieldLabel">
+<code class="descname">setFieldLabel</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setFieldLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the label of a field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$fieldName</strong> (<em>string</em>) – the field name</li>
+<li><strong>$value</strong> (<em>string</em>) – the new label of the field</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getTable">
+<code class="descname">getTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the table where the data is stored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string the table where the data is stored</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setTable">
+<code class="descname">setTable</code><span class="sig-paren">(</span><em>$table</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the table where the data is stored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$table</strong> (<em>string</em>) – the new table where the data is stored</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getLabel">
+<code class="descname">getLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the label for the entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string the label for the entity</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setLabel">
+<code class="descname">setLabel</code><span class="sig-paren">(</span><em>$label</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the label for the entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$label</strong> (<em>string</em>) – the new label for the entity</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::addChild">
+<code class="descname">addChild</code><span class="sig-paren">(</span><em>$table</em>, <em>$fieldName</em>, <em>$entity</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::addChild" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a child to this definition in case the other
+definition has a reference to this one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$table</strong> (<em>string</em>) – the table of the referencing definition</li>
+<li><strong>$fieldName</strong> (<em>string</em>) – the field name of the referencing definition</li>
+<li><strong>$entity</strong> (<em>string</em>) – the entity of the referencing definition</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getChildren">
+<code class="descname">getChildren</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getChildren" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the referencing children to this definition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">array an array with the children referencing the entity. All entries are arrays with three referencing elements: table, fieldName, entity</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setStandardFieldLabels">
+<code class="descname">setStandardFieldLabels</code><span class="sig-paren">(</span><em>$standardFieldLabels</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setStandardFieldLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the labels for the fields “id”, “created_at” and “updated_at”.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$standardFieldLabels</strong> (<em>array</em>) – labels for the fields “id”, “created_at” and “updated_at”</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setLocale">
+<code class="descname">setLocale</code><span class="sig-paren">(</span><em>$locale</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the locale to be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$locale</strong> (<em>string</em>) – the locale to be used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getLocale">
+<code class="descname">getLocale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the locale to be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">null|string the locale to be used.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setInitialSortField">
+<code class="descname">setInitialSortField</code><span class="sig-paren">(</span><em>$initialSortField</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setInitialSortField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the initial sort field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$initialSortField</strong> (<em>string</em>) – the new initial sort field</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getInitialSortField">
+<code class="descname">getInitialSortField</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getInitialSortField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the initial sort field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string the initial sort field</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setInitialSortAscending">
+<code class="descname">setInitialSortAscending</code><span class="sig-paren">(</span><em>$initialSortAscending</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setInitialSortAscending" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets whether the initial sort order is ascending.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$initialSortAscending</strong> (<em>boolean</em>) – the initial sort order, true if ascending</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::isInitialSortAscending">
+<code class="descname">isInitialSortAscending</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isInitialSortAscending" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets whether the initial sort order is ascending.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean the initial sort order, true if ascending</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setHardDeletion">
+<code class="descname">setHardDeletion</code><span class="sig-paren">(</span><em>$hardDeletion</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setHardDeletion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the hard deletion state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$hardDeletion</strong> (<em>boolean</em>) – the hard deletion state</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::isHardDeletion">
+<code class="descname">isHardDeletion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::isHardDeletion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the hard deletion state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean the hard deletion state</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getNavBarGroup">
+<code class="descname">getNavBarGroup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getNavBarGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the navigation bar group where the entity belongs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string the navigation bar group where the entity belongs</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setNavBarGroup">
+<code class="descname">setNavBarGroup</code><span class="sig-paren">(</span><em>$navBarGroup</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setNavBarGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the navigation bar group where the entity belongs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$navBarGroup</strong> (<em>string</em>) – the navigation bar group where the entity belongs</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::hasOptimisticLocking">
+<code class="descname">hasOptimisticLocking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::hasOptimisticLocking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether optimistic locking via the version field is activated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if optimistic locking is activated</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setOptimisticLocking">
+<code class="descname">setOptimisticLocking</code><span class="sig-paren">(</span><em>$optimisticLocking</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setOptimisticLocking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets whether optimistic locking via the version field is activated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$optimisticLocking</strong> (<em>boolean</em>) – true if optimistic locking is activated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getSubTypeField">
+<code class="descname">getSubTypeField</code><span class="sig-paren">(</span><em>$fieldName</em>, <em>$subType</em>, <em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getSubTypeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a sub field of an field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$fieldName</strong> (<em>string</em>) – the field name of the sub type</li>
+<li><strong>$subType</strong> (<em>string</em>) – the sub type like “reference” or “many”</li>
+<li><strong>$key</strong> (<em>string</em>) – the key of the value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string the value of the sub field</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::getField">
+<code class="descname">getField</code><span class="sig-paren">(</span><em>$name</em>, <em>$key</em>, <em>$default = null</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::getField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the value of a field key.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$name</strong> (<em>string</em>) – the name of the field</li>
+<li><strong>$key</strong> (<em>string</em>) – the value of the key</li>
+<li><strong>$default</strong> (<em>mixed</em>) – the default value to return if nothing is found</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">mixed the value of the field key or null if not existing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="EntityDefinition::setField">
+<code class="descname">setField</code><span class="sig-paren">(</span><em>$name</em>, <em>$key</em>, <em>$value</em><span class="sig-paren">)</span><a class="headerlink" href="#EntityDefinition::setField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the value of a field key. If the field or the key in the field
+don’t exist, they get created.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$name</strong> (<em>string</em>) – the name of the field</li>
+<li><strong>$key</strong> (<em>string</em>) – the value of the key</li>
+<li><strong>$value</strong> (<em>mixed</em>) – the new value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="EntityDefinitionFactoryInterface.html" class="btn btn-neutral float-right" title="CRUDlex\EntityDefinitionFactoryInterface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Entity.html" class="btn btn-neutral" title="CRUDlex\Entity" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Philip Lehmann-Böhm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.15.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

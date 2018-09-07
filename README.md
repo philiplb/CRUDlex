@@ -45,12 +45,16 @@ care about notes in the changelog when upgrading.
 
 ## Documentation
 
-- [Documentation 0.14.0](http://philiplb.github.io/CRUDlex/docs/html/0.14.0/) (upcoming)
+- [Documentation 0.14.0](http://philiplb.github.io/CRUDlex/docs/html/0.14.0/)
 - [Documentation 0.13.0](http://philiplb.github.io/CRUDlex/docs/html/0.13.0/)
 - [Documentation 0.12.0](http://philiplb.github.io/CRUDlex/docs/html/0.12.0/)
 - [Documentation 0.11.0](http://philiplb.github.io/CRUDlex/docs/html/0.11.0/)
 - [Documentation 0.10.0](http://philiplb.github.io/CRUDlex/docs/html/0.10.0/)
 - [Documentation 0.9.10](http://philiplb.github.io/CRUDlex/docs/html/0.9.10/)
+
+Upcoming development version:
+
+- [Documentation Upcoming](http://philiplb.github.io/CRUDlex/docs/html/upcoming/)
 
 ### Sample Project
 
