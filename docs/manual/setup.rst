@@ -15,6 +15,13 @@ First, you have to add CRUDlex to your composer.json:
 
           composer require "philiplb/crudlexsymfony4bundle"
 
+      One of the requirements is unfortunately not stable so this has to be added to your composer.json:
+
+      .. code-block:: js
+
+          "minimum-stability": "dev",
+          "prefer-stable": true ,
+
    .. group-tab:: Silex 2
 
       .. code-block:: bash
