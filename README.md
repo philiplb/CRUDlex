@@ -25,6 +25,24 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Symfony
 [![Latest Stable Version](https://poser.pugx.org/philiplb/crudlex/v/stable.svg)](https://packagist.org/packages/philiplb/crudlex)
 [![Latest Unstable Version](https://poser.pugx.org/philiplb/crudlex/v/unstable.svg)](https://packagist.org/packages/philiplb/crudlex) [![License](https://poser.pugx.org/philiplb/crudlex/license.svg)](https://packagist.org/packages/philiplb/crudlex)
 
+[![Build Status](https://travis-ci.org/philiplb/CRUDlex.svg?branch=master)](https://travis-ci.org/philiplb/CRUDlex)
+[![Code Coverage](https://scrutinizer-ci.com/g/philiplb/CRUDlex/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/philiplb/CRUDlex/?branch=master)
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa/mini.png)](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/philiplb/CRUDlex/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/philiplb/CRUDlex/?branch=master)
+
+## Usage
+
+As CRUDlex is framework agnostic, it is not used directly. There are framework specific implementations available:
+
+- [CRUDlex Symfony 4 Bundle](https://github.com/philiplb/CRUDlexSymfony4Bundle)
+- [CRUDlex Silex 2](https://github.com/philiplb/CRUDlexSilex2)
+
+Head over to the documentation for setup instructions.
+
+CRUDlex uses [SemVer](http://semver.org/) for versioning. Currently, the API changes quickly due to be < 1.0.0, so take
+care about notes in the changelog when upgrading.
+
 ## Documentation
 
 - [Documentation 0.14.0](http://philiplb.github.io/CRUDlex/docs/html/0.14.0/) (upcoming)
@@ -34,51 +52,13 @@ CRUDlex is an easy to use, well documented and tested CRUD generator for Symfony
 - [Documentation 0.10.0](http://philiplb.github.io/CRUDlex/docs/html/0.10.0/)
 - [Documentation 0.9.10](http://philiplb.github.io/CRUDlex/docs/html/0.9.10/)
 
-How to generate the API documentation:
-
-```bash
-vendor/bin/sphpdox process CRUDlex src  
-```
-
-How to build the documentation:
-
-```bash
-# Install dependencies
-pip install Sphinx
-pip install tk.phpautodoc
-pip install sphinx_tabs
-# Generate:
-cd docs
-make html
-```
-
-## Package
-
-CRUDlex uses [SemVer](http://semver.org/) for versioning. Currently, the API changes quickly due to be < 1.0.0, so take
-care about notes in the changelog when upgrading.
-
-### Stable
-
-```json
-"require": {
-    "philiplb/crudlex": "0.13.0"
-}
-```
-
-### Bleeding Edge
-
-```json
-"require": {
-    "philiplb/crudlex": "0.14.x-dev"
-}
-```
-
 ### Sample Project
 
 For a complete example, checkout the sample project with the classic libraries
 and books:
 
-[CRUDlex Silex 2 Sample](https://github.com/philiplb/CRUDlexSilex2Sample)
+- [CRUDlex Symfony 4 Sample](https://github.com/philiplb/CRUDlexSymfony4BundleSample)
+- [CRUDlex Silex 2 Sample](https://github.com/philiplb/CRUDlexSilex2Sample)
 
 ### Addons
 
@@ -125,12 +105,22 @@ The CRUDlex API itself is documented here:
 * [0.9.6](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.6/)
 * [0.9.5](http://philiplb.github.io/CRUDlex/docs/html/api/0.9.5/)
 
-## Build Status
+## Build Notes
 
-[![Build Status](https://travis-ci.org/philiplb/CRUDlex.svg?branch=master)](https://travis-ci.org/philiplb/CRUDlex)
-[![Code Coverage](https://scrutinizer-ci.com/g/philiplb/CRUDlex/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/philiplb/CRUDlex/?branch=master)
+How to generate the API documentation:
 
-## Code Quality
+```bash
+vendor/bin/sphpdox process CRUDlex src  
+```
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa/mini.png)](https://insight.sensiolabs.com/projects/97dc69bd-12df-430e-ad5b-c9335ff401fa)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/philiplb/CRUDlex/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/philiplb/CRUDlex/?branch=master)
+How to build the documentation:
+
+```bash
+# Install dependencies
+pip install Sphinx
+pip install tk.phpautodoc
+pip install sphinx_tabs
+# Generate:
+cd docs
+make html
+```
