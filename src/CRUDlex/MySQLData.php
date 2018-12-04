@@ -598,7 +598,7 @@ class MySQLData extends AbstractData
         $queryBuilder
             ->select('id'.$nameSelect)
             ->from('`'.$table.'`', 't1')
-            ->orderBy($drivingField)
+            ->orderBy('`'.$drivingField.'`')
         ;
         $this->addSoftDeletionToQuery($entityDefinition, $queryBuilder);
         $queryResult    = $queryBuilder->execute();
