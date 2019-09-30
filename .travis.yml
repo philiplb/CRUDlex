@@ -7,6 +7,8 @@
 # file that was distributed with this source code.
 #
 
+services:
+    - mysql
 language: php
 before_script:
     - mysql -e 'CREATE DATABASE crudTest;'
