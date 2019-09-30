@@ -67,7 +67,7 @@ class TwigExtensions
      */
     public function getLanguageName($language)
     {
-        return Intl::getLanguageBundle()->getLanguageName($language, $language, $language);
+        return Intl::getLanguageBundle()->getLanguageName($language, null, $language);
     }
 
     /**

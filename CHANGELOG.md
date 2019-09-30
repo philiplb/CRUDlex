@@ -4,6 +4,7 @@ CRUDlex Changelog
 ## 0.15.0
 Released: Upcoming
 - Fixed a crash where the namefield of a many relation is a MySQL keyword, thanks to https://github.com/th-lange
+- Fixed a timeout within the fetching of the language names
 
 ## 0.14.0
 Released: 2018-09-07
