@@ -17,6 +17,7 @@ script: vendor/bin/phpunit --coverage-clover=coverage.clover
 php:
     - 7.1
     - 7.2
+    - 7.3
 after_script:
     - wget https://scrutinizer-ci.com/ocular.phar
     - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
