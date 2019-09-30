@@ -306,12 +306,13 @@ class MySQLData extends AbstractData
         $ids = $this->getReferenceIds($entities, $field);
 
         $referenceEntity = $this->definition->getSubTypeField($field, 'reference', 'entity');
-        $table           = $this->definition->getService()->getData($referenceEntity)->getDefinition()->getTable();
+        $thatDefinition  = $this->definition->getService()->getData($referenceEntity)->getDefinition();
+        $table           = $thatDefinition->getTable();
         $queryBuilder
             ->from('`'.$table.'`', '`'.$table.'`')
             ->where('id IN (?)')
         ;
-        $this->addSoftDeletionToQuery($this->definition, $queryBuilder);
+        $this->addSoftDeletionToQuery($thatDefinition, $queryBuilder);
         if ($nameField) {
             $queryBuilder->select('id', $nameField);
         } else {
