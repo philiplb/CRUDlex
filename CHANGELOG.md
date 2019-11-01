@@ -6,6 +6,7 @@ Released: Upcoming
 - Fixed a crash where the namefield of a many relation is a MySQL keyword, thanks to https://github.com/th-lange
 - Fixed a timeout within the fetching of the language names
 - Fixed a crash if a referenced entity had hard deletion
+- Fixed a crash if a route of a non existent entity was requested, properly returning an HTTP 404 now
 - Updated dependencies:
     - "philiplb/valdi": "0.12.0"
 

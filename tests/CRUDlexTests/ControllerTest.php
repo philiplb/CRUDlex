@@ -127,6 +127,10 @@ class ControllerTest extends TestCase
         $controller = $this->createController();
 
         $request = new Request();
+        $response = $controller->create($request, 'nonExistent');
+        $this->assertTrue($response->isNotFound());
+
+        $request = new Request();
         $response = $controller->create($request, 'book');
         $this->assertTrue($response->isOk());
         $this->assertRegexp('/Submit/', $response->getContent());
@@ -223,6 +227,13 @@ class ControllerTest extends TestCase
         $library->set('libraryBook', [['id' => $entityBook1Id]]);
         $this->dataLibrary->update($library);
 
+        // Non existing entity
+
+        $request = new Request();
+        $response = $controller->showList($request, 'nonExisting');
+        $this->assertTrue($response->isNotFound());
+
+        // Default list
         $request = new Request();
         $response = $controller->showList($request, 'book');
         $this->assertTrue($response->isOk());
@@ -320,6 +331,9 @@ class ControllerTest extends TestCase
         $entityBook->set('library', $library->get('id'));
         $this->dataBook->create($entityBook);
 
+        $response = $controller->show('nonExistant', $entityBook->get('id'));
+        $this->assertTrue($response->isNotFound());
+
         $response = $controller->show('book', '666');
         $this->assertTrue($response->isNotFound());
         $this->assertRegExp('/Instance not found/', $response->getContent());
@@ -352,6 +366,10 @@ class ControllerTest extends TestCase
         $entityBook->set('release', "2014-08-31");
         $entityBook->set('library', $library->get('id'));
         $this->dataBook->create($entityBook);
+
+        $request = new Request();
+        $response = $controller->edit($request, 'nonExistent', $entityBook->get('id'));
+        $this->assertTrue($response->isNotFound());
 
         $request = new Request();
         $response = $controller->edit($request, 'book', '666');
@@ -465,6 +483,11 @@ class ControllerTest extends TestCase
 
         $request = new Request();
         $request->setMethod('POST');
+        $response = $controller->delete($request, 'nonExistant', $library->get('id'));
+        $this->assertTrue($response->isNotFound());
+
+        $request = new Request();
+        $request->setMethod('POST');
         $response = $controller->delete($request, 'book', '666');
         $this->assertTrue($response->isNotFound());
         $this->assertRegExp('/Instance not found\./', $response);
@@ -535,6 +558,9 @@ class ControllerTest extends TestCase
     {
         $controller = $this->createController();
 
+        $response = $controller->renderFile('nonExistant', '1', 'cover');
+        $this->assertTrue($response->isNotFound());
+
         $response = $controller->renderFile('book', '666', 'cover');
         $this->assertTrue($response->isNotFound());
         $this->assertRegExp('/Instance not found/', $response->getContent());
@@ -573,6 +599,8 @@ class ControllerTest extends TestCase
     {
         $controller = $this->createController();
 
+        $response = $controller->deleteFile('nonExistant', '1', 'cover');
+        $this->assertTrue($response->isNotFound());
 
         $response = $controller->deleteFile('book', '666', 'cover');
         $this->assertTrue($response->isNotFound());

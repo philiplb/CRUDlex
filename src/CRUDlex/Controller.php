@@ -296,6 +296,9 @@ class Controller implements ControllerInterface {
     public function create(Request $request, $entity)
     {
         $crudData = $this->service->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+        }
         $instance = $crudData->createEmpty();
         $instance->populateViaRequest($request);
         return $this->modifyEntity($request, $crudData, $instance, $entity, false);
@@ -306,7 +309,10 @@ class Controller implements ControllerInterface {
      */
     public function showList(Request $request, $entity)
     {
-        $crudData   = $this->service->getData($entity);
+        $crudData = $this->service->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+        }
         $definition = $crudData->getDefinition();
 
         $filter          = [];
@@ -358,6 +364,9 @@ class Controller implements ControllerInterface {
     public function show($entity, $id)
     {
         $crudData = $this->service->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
@@ -397,6 +406,9 @@ class Controller implements ControllerInterface {
     public function edit(Request $request, $entity, $id)
     {
         $crudData = $this->service->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
@@ -411,6 +423,9 @@ class Controller implements ControllerInterface {
     public function delete(Request $request, $entity, $id)
     {
         $crudData = $this->service->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
@@ -444,7 +459,10 @@ class Controller implements ControllerInterface {
      */
     public function renderFile($entity, $id, $field)
     {
-        $crudData   = $this->service->getData($entity);
+        $crudData = $this->service->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+        }
         $instance   = $crudData->get($id);
         $definition = $crudData->getDefinition();
         if (!$instance || $definition->getType($field) != 'file' || !$instance->get($field)) {
@@ -460,6 +478,9 @@ class Controller implements ControllerInterface {
     public function deleteFile($entity, $id, $field)
     {
         $crudData = $this->service->getData($entity);
+        if (!$crudData) {
+            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+        }
         $instance = $crudData->get($id);
         if (!$instance) {
             return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
