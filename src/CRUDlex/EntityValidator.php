@@ -55,7 +55,7 @@ class EntityValidator
             'float' => ['floating'],
             'integer' => ['integer'],
             'date' => ['dateTime', 'Y-m-d'],
-            'datetime' => ['or', $validator, ['dateTime', 'Y-m-d H:i'], ['dateTime', 'Y-m-d H:i:s']],
+            'datetime' => ['or', $validator, [['dateTime', 'Y-m-d H:i']], [['dateTime', 'Y-m-d H:i:s']]],
             'set' => array_merge(['inSet'], $setItems),
             'reference' => ['reference', $data, $field],
             'many' => ['many', $data, $field]
