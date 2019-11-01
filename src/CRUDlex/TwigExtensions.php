@@ -11,7 +11,8 @@
 
 namespace CRUDlex;
 
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Exception\MissingResourceException;
+use Symfony\Component\Intl\Languages;
 
 /**
  * Provides the Twig extensions like filters.
@@ -67,7 +68,11 @@ class TwigExtensions
      */
     public function getLanguageName($language)
     {
-        return Intl::getLanguageBundle()->getLanguageName($language, null, $language);
+        try {
+            return Languages::getName($language, $language);
+        } catch (MissingResourceException $e) {
+            return null;
+        }
     }
 
     /**
