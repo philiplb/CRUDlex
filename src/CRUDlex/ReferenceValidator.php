@@ -25,7 +25,7 @@ class ReferenceValidator implements ValidatorInterface
     public function isValid($value, array $parameters)
     {
 
-        if (key_exists('id', $value) && in_array($value['id'], [null, ''])) {
+        if (in_array($value, [null, ''])) {
             return true;
         }
 
@@ -35,7 +35,7 @@ class ReferenceValidator implements ValidatorInterface
         $paramsOperators = ['id' => '='];
         $referenceEntity = $definition->getSubTypeField($field, 'reference', 'entity');
         $table           = $definition->getService()->getData($referenceEntity)->getDefinition()->getTable();
-        $amount          = $data->countBy($table, $value, $paramsOperators, false);
+        $amount          = $data->countBy($table, ['id' => $value], $paramsOperators, false);
         return $amount > 0;
     }
 

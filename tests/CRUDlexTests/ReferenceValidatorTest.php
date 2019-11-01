@@ -37,16 +37,16 @@ class ReferenceValidatorTest extends TestCase
 
         $validator = new ReferenceValidator();
         $parameters = [$this->dataBook, 'library'];
-        $read = $validator->isValid(['id' => 1], $parameters);
+        $read = $validator->isValid(1, $parameters);
         $this->assertTrue($read);
 
-        $read = $validator->isValid(['id' => 2], $parameters);
+        $read = $validator->isValid(2, $parameters);
         $this->assertFalse($read);
 
-        $read = $validator->isValid(['id' => null], $parameters);
+        $read = $validator->isValid(null, $parameters);
         $this->assertTrue($read);
 
-        $read = $validator->isValid(['id' => ''], $parameters);
+        $read = $validator->isValid('', $parameters);
         $this->assertTrue($read);
 
     }
