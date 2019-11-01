@@ -63,7 +63,7 @@ class TwigExtensions
      * @param string $language
      * the language code of the desired language name
      *
-     * @return string
+     * @return string|null
      * the language name in the given language or null if not available
      */
     public function getLanguageName($language)
