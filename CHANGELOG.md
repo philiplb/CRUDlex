@@ -9,6 +9,12 @@ Released: Upcoming
 - Fixed a crash if a route of a non existent entity was requested, properly returning an HTTP 404 now
 - Updated dependencies:
     - "philiplb/valdi": "^1.0"
+    - "symfony/http-foundation": "^4.4"
+    - "symfony/routing": "^4.4"
+    - "symfony/yaml": "^4.4"
+    - "symfony/translation": "^4.4"
+    - "symfony/intl": "^4.4"
+    - "symfony/twig-bridge": "^4.4"
 
 ## 0.14.0
 Released: 2018-09-07
