@@ -29,8 +29,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
-use Twig_Environment;
-use Twig_Loader_Filesystem;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+use Twig\TwigFunction;
+use Twig\TwigFilter;
 
 class ControllerTest extends TestCase
 {
@@ -67,26 +69,26 @@ class ControllerTest extends TestCase
             $this->translator->addResource('yaml', $localeDir.'/'.$locale.'.yml', $locale);
         }
 
-        $loader = new Twig_Loader_Filesystem();
+        $loader = new FilesystemLoader();
         $loader->addPath(__DIR__.'/../../src/views/', 'crud');
-        $twig = new Twig_Environment($loader);
+        $twig = new Environment($loader);
         $foo = function() {
             return 'foo';
         };
         $this->session = new Session(new MockArraySessionStorage());
-        $twig->addFunction(new \Twig_SimpleFunction('crudlex_getCurrentUri', $foo));
-        $twig->addFunction(new \Twig_SimpleFunction('crudlex_sessionGet', $foo));
+        $twig->addFunction(new TwigFunction('crudlex_getCurrentUri', $foo));
+        $twig->addFunction(new TwigFunction('crudlex_sessionGet', $foo));
         $session = $this->session;
-        $twig->addFunction(new \Twig_SimpleFunction('crudlex_sessionFlashBagGet', function($type) use ($session) {
+        $twig->addFunction(new TwigFunction('crudlex_sessionFlashBagGet', function($type) use ($session) {
             return $session->getFlashBag()->get($type);
         }));
-        $twig->addFilter(new \Twig_SimpleFilter('trans', $foo));
-        $twig->addFilter(new \Twig_SimpleFilter('crudlex_languageName', $foo));
-        $twig->addFilter(new \Twig_SimpleFilter('crudlex_formatDate', $foo));
-        $twig->addFilter(new \Twig_SimpleFilter('crudlex_formatDateTime', $foo));
-        $twig->addFilter(new \Twig_SimpleFilter('crudlex_basename', $foo));
-        $twig->addFilter(new \Twig_SimpleFilter('crudlex_float', $foo));
-        $twig->addFilter(new \Twig_SimpleFilter('crudlex_arrayColumn', $foo));
+        $twig->addFilter(new TwigFilter('trans', $foo));
+        $twig->addFilter(new TwigFilter('crudlex_languageName', $foo));
+        $twig->addFilter(new TwigFilter('crudlex_formatDate', $foo));
+        $twig->addFilter(new TwigFilter('crudlex_formatDateTime', $foo));
+        $twig->addFilter(new TwigFilter('crudlex_basename', $foo));
+        $twig->addFilter(new TwigFilter('crudlex_float', $foo));
+        $twig->addFilter(new TwigFilter('crudlex_arrayColumn', $foo));
 
         $crudFile = __DIR__.'/../crud.yml';
         $urlGeneratorMock = Phony::mock('Symfony\Component\\Routing\\Generator\\UrlGeneratorInterface');

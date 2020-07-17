@@ -261,14 +261,14 @@ class Controller implements ControllerInterface {
      * the CRUDlex service
      * @param FilesystemInterface $filesystem
      * the used filesystem
-     * @param Twig_Environment $twig
+     * @param \Twig\Environment $twig
      * the Twig environment
      * @param SessionInterface $session
      * the session service
      * @param TranslatorInterface $translator
      * the translation service
      */
-    public function __construct(Service $service, FilesystemInterface $filesystem, Twig_Environment $twig, SessionInterface $session, TranslatorInterface $translator)
+    public function __construct(Service $service, FilesystemInterface $filesystem, \Twig\Environment $twig, SessionInterface $session, TranslatorInterface $translator)
     {
         $this->service    = $service;
         $this->filesystem = $filesystem;
