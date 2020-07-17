@@ -202,18 +202,18 @@ offering in order to connect the users with the application.</p>
 following sub chapters.</p>
 <p>In order to get the salt generated and the password hashed, you have to let the
 library add some CRUDlex events in your initialization:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>The boot method of the kernel is a possible place to add the events:</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">public function boot() {</span>
 <span class="x">    parent::boot();</span>
@@ -223,7 +223,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$crudUserSetup = new CRUDlex\UserSetup();</span>
 <span class="x">$crudUserSetup-&gt;addEvents($app[&#39;crud&#39;]-&gt;getData(&#39;user&#39;));</span>
 </pre></div>
@@ -312,18 +312,18 @@ Silex 2</div>
 <div class="section" id="the-userprovider">
 <h3>The UserProvider<a class="headerlink" href="#the-userprovider" title="Permalink to this headline">¶</a></h3>
 <p>Simply add the user provider to your symfony/security configuration:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <blockquote>
 <div><p>Define the service (here the most simple way):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">CRUDlex\UserProvider</span><span class="p p-Indicator">:</span>
@@ -343,7 +343,7 @@ Silex 2</div>
 </div>
 </div></blockquote>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$userProvider = new CRUDlex\UserProvider($app[&#39;crud&#39;]);</span>
 <span class="x">$app-&gt;register(new Silex\Provider\SecurityServiceProvider(), [</span>
 <span class="x">    &#39;security.firewalls&#39; =&gt; [</span>
@@ -362,18 +362,18 @@ Silex 2</div>
 <h3>Accessing Data of the Logged in User<a class="headerlink" href="#accessing-data-of-the-logged-in-user" title="Permalink to this headline">¶</a></h3>
 <p>In order to get the user data from the logged in user in your controller, you
 might grab him like this:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>From within a controller, the user can be accessed via</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$user = $this-&gt;getUser();</span>
 </pre></div>
@@ -383,7 +383,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$user = $app[&#39;security.token_storage&#39;]-&gt;getToken();</span>
 </pre></div>
 </div>

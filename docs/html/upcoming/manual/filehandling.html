@@ -194,20 +194,20 @@ Usually, this is the path to your index.php. So this example stores the image fi
 luckily, the file handling is done via <a class="reference external" href="http://flysystem.thephpleague.com//">Flysystem</a> and the used
 FilesystemInterface can be overridden easily.</p>
 <p>In any way, overriding or not, the underlying FilesystemInterface is available via</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 the service “crudlex.fileSystemAdapter”.</div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud.filesystem&#39;]</span>
 </pre></div>
 </div>
@@ -221,18 +221,18 @@ the service “crudlex.fileSystemAdapter”.</div>
 </pre></div>
 </div>
 <p>And then configure it and hand it over to CRUDlex:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>The Flysystem Adapter is integrated as service which can be overwritten. Here is an example using the S3 adapter:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">s3.client</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Aws\S3\S3Client</span>
@@ -252,7 +252,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$client = S3Client::factory([</span>
 <span class="x">    &#39;credentials&#39; =&gt; [</span>
 <span class="x">        &#39;key&#39;    =&gt; $key,</span>

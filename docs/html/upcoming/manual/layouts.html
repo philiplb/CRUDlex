@@ -189,25 +189,25 @@ This chapter shows you how to define your own layout templates on various
 levels.</p>
 <p>First of all, you need to place the Twig-templates in a folder known by the
 Twig service.</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Add your path to the twig.yaml:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">twig</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">paths</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;%kernel.project_dir%/templates&#39;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <p>Assuming you have your templates in the folder
 __DIR__.’/../views’, you initialize the Twig like this:</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\TwigServiceProvider(), [</span>
@@ -226,18 +226,18 @@ hierarchy, from general to specific.</p>
 <h2>Global<a class="headerlink" href="#global" title="Permalink to this headline">¶</a></h2>
 <p>If you want to override the general layout of all CRUDlex pages, you set the
 key “layout” template via the the setTemplate function of the provider:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Place a call to setTemplate within your crudlex.service definition:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -257,7 +257,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout&#39;, &#39;myLayout.twig&#39;);</span>
 </pre></div>
 </div>
@@ -275,18 +275,18 @@ Silex 2</div>
 </ul>
 <p>Just prepend a dot and the desired action at the key when defining the layout for it, for
 example the action “show”:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Place a call to setTemplate within your crudlex.service definition:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -306,7 +306,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout.show&#39;, &#39;myShowLayout.twig&#39;);</span>
 </pre></div>
 </div>
@@ -317,18 +317,18 @@ Silex 2</div>
 <h2>Single Entities<a class="headerlink" href="#single-entities" title="Permalink to this headline">¶</a></h2>
 <p>To override the layout of a single entity, you prepend a dot and the desired
 entity name at the key, for example for the book entity:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Place a call to setTemplate within your crudlex.service definition:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -348,7 +348,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout.book&#39;, &#39;myBookLayout.twig&#39;);</span>
 </pre></div>
 </div>
@@ -360,18 +360,18 @@ Silex 2</div>
 <p>The most specific layout you can set is for a single action of a specific
 entity. The key is “layout” plus a dot, the action, another dot and the entity. To
 override the create action of the book entity, you would define your layout like this:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Place a call to setTemplate within your crudlex.service definition:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -391,7 +391,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;layout.create.book&#39;, &#39;myCreateBookLayout.twig&#39;);</span>
 </pre></div>
 </div>

@@ -6,7 +6,7 @@ It describes every feature being available.
 
 Requirements:
 
-* PHP >= 7.1
+* PHP >= 7.2
 * For the MySQL driver: MySQL >= 5.1
 * For the file uploads: PECL fileinfo >= 0.1.0
 

@@ -188,18 +188,18 @@ Twig block “content”. But with just the layout, you simply can’t. CRUDlex
 uses for this page a template “&#64;crud/list.twig” which extends the so far
 overridable layout.</p>
 <p>In this case, you can override the template of a single page:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Place a call to setTemplate within your crudlex.service definition:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -219,7 +219,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setTemplate(&#39;template.list.book&#39;, &#39;bookList.twig&#39;);</span>
 </pre></div>
 </div>

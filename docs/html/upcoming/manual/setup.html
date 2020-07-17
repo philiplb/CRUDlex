@@ -178,18 +178,18 @@
 <p>This chapter guides you through a minimal setup. Further options like overriding
 templates are discussed in later sections.</p>
 <p>First, you have to add CRUDlex to your composer.json:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>composer require <span class="s2">&quot;philiplb/crudlexsymfony4bundle&quot;</span>
 </pre></div>
 </div>
@@ -199,7 +199,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>composer require <span class="s2">&quot;philiplb/crudlexsilex2&quot;</span>
 </pre></div>
 </div>
@@ -209,24 +209,24 @@ Silex 2</div>
 database layer is kept in an abstract way, so in future more data stores will
 come. It relies on the DoctrineServiceProvider which has to be initialized and
 registered:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Assuming you are using the .env configuration:</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">DATABASE_URL=mysql://&lt;yourDBUser&gt;:&lt;yourDBPassword&gt;@&lt;yourHost&gt;/&lt;yourDBName&gt;</span>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new Silex\Provider\DoctrineServiceProvider(), [</span>
 <span class="x">    &#39;dbs.options&#39; =&gt; [</span>
 <span class="x">        &#39;default&#39; =&gt; [</span>
@@ -245,18 +245,18 @@ Silex 2</div>
 <p>Now follows the setup of CRUDlex itself. First of all, we create an instance
 of the MySQLDataFactory, internally taking care of creating MySQL-DB-access
 objects:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>This is already setup with the default DBAL connection within the services and can be overwritten within the
 <em>config/services.yaml</em>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.dataFactoryInterface</span><span class="p p-Indicator">:</span>
@@ -267,25 +267,25 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;]);</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Now it’s time to register the Service itself:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>This is the default setup of the service you are able to overwrite within the <em>config/services.yaml</em>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -302,7 +302,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\Silex\ServiceProvider(), [</span>
 <span class="x">    &#39;crud.file&#39; =&gt; __DIR__ . &#39;&lt;yourCrud.yml&gt;&#39;,</span>
 <span class="x">    &#39;crud.datafactory&#39; =&gt; $dataFactory</span>
@@ -314,18 +314,18 @@ Silex 2</div>
 <p>The content of the crud.yml (or whatever you name it) will be discussed in the
 next chapter.</p>
 <p>Now it’s time to mount the Controller:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>The routes have to be added to the <em>config/routes.yaml</em>:</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">crudlex:</span>
 <span class="x">    resource: &#39;@CRUDlexSymfony4Bundle/Resources/config/routes.yaml&#39;</span>
@@ -333,7 +333,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;boot();</span>
 <span class="x">$app-&gt;mount(&#39;/crud&#39;, new CRUDlex\Silex\ControllerProvider());</span>
 </pre></div>

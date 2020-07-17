@@ -401,18 +401,18 @@ for <strong>de</strong>:</p>
 <h3>Switch off I18n Management<a class="headerlink" href="#switch-off-i18n-management" title="Permalink to this headline">¶</a></h3>
 <p>Per default, CRUDlex manages i18n for you. But this might be not desired in
 bigger projects with existing i18n management, so you can disable it on registration like this:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>Place a call to setManageI18n within your crudlex.service definition:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -432,7 +432,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app[&#39;crud&#39;]-&gt;setManageI18n(false);</span>
 </pre></div>
 </div>
@@ -483,18 +483,18 @@ incremented value.</p>
 </div>
 <p>And then you have to activate it in the setup when creating the
 CRUDDataFactoryInterface:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">crudlex.dataFactoryInterface:</span>
 <span class="x">    public: true</span>
 <span class="x">    class: &quot;CRUDlex\\MySQLDataFactory&quot;</span>
@@ -504,7 +504,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$dataFactory = new CRUDlex\MySQLDataFactory($app[&#39;db&#39;], true);</span>
 </pre></div>
 </div>
@@ -517,18 +517,18 @@ Silex 2</div>
 this, CRUDlex can cache the parsed content to a PHP file. Using a PHP file has the advantage, that this is then cached
 for free by the opcode cache of PHP.</p>
 <p>To activate the caching, you simply pass a path to a writable directory on registration:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <p>With Symfony 4, this feature is already activated and writes to %kernel.cache_dir%. It can be changed or even
 deactivated by setting the service argument to an empty string like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
@@ -546,7 +546,7 @@ deactivated by setting the service argument to an empty string like this:</p>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), [</span>
 <span class="x">    &#39;crud.filecachingdirectory&#39; =&gt; &#39;/path/to/a/writable/directory&#39;</span>
 <span class="x">]);</span>
@@ -561,18 +561,18 @@ case if the crud.yml got modified for example.</p>
 <h2>Using an own Implementation of the EntityDefinition<a class="headerlink" href="#using-an-own-implementation-of-the-entitydefinition" title="Permalink to this headline">¶</a></h2>
 <p>There might be the case where you want to use an own implementation derived from the EntityDefinition. In this case,
 you can hand in an own implementation of the EntityDefinitionFactory like this:</p>
-<div class="sphinx-tabs docutils container">
-<div class="ui top attached tabular menu sphinx-menu docutils container">
-<div class="active item sphinx-data-tab-U3ltZm9ueSA0 docutils container">
-<div class="docutils container">
+<div class="sphinx-tabs container">
+<div class="ui top attached tabular menu sphinx-menu container">
+<div class="active item sphinx-data-tab-U3ltZm9ueSA0 container">
+<div class="container">
 Symfony 4</div>
 </div>
-<div class="item sphinx-data-tab-U2lsZXggMg== docutils container">
-<div class="docutils container">
+<div class="item sphinx-data-tab-U2lsZXggMg== container">
+<div class="container">
 Silex 2</div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U3ltZm9ueSA0 active container">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">crudlex.service</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">public</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
     <span class="l l-Scalar l-Scalar-Plain">class</span><span class="p p-Indicator">:</span> <span class="s">&quot;CRUDlex\\Service&quot;</span>
@@ -588,7 +588,7 @@ Silex 2</div>
 </pre></div>
 </div>
 </div>
-<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== docutils container">
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-U2lsZXggMg== container">
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$entityDefinitionFactory = new MyOwnEntityDefinitionFactory();</span>
 <span class="x">$app-&gt;register(new CRUDlex\ServiceProvider(), [</span>
 <span class="x">    &#39;crud.entitydefinitionfactory&#39; =&gt; $entityDefinitionFactory</span>

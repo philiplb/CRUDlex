@@ -3,6 +3,8 @@ CRUDlex Changelog
 
 ## 0.15.0
 Released: Upcoming
+- Attention: the support for PHP 7.1 has been dropped
+- Added PHP 7.4 support
 - Fixed a crash where the namefield of a many relation is a MySQL keyword, thanks to https://github.com/th-lange
 - Fixed a timeout within the fetching of the language names
 - Fixed a crash if a referenced entity had hard deletion
