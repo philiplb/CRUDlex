@@ -15,6 +15,8 @@ Released: Upcoming
     - "symfony/translation": "^4.4"
     - "symfony/intl": "^4.4"
     - "symfony/twig-bridge": "^4.4"
+    - "doctrine/dbal": "^2.10"
+    - "riimu/kit-phpencoder": "^2.4"
 
 ## 0.14.0
 Released: 2018-09-07
