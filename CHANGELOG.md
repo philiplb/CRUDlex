@@ -8,7 +8,7 @@ Released: Upcoming
 - Fixed a crash if a referenced entity had hard deletion
 - Fixed a crash if a route of a non existent entity was requested, properly returning an HTTP 404 now
 - Updated dependencies:
-    - "philiplb/valdi": "0.12.0"
+    - "philiplb/valdi": "^1.0"
 
 ## 0.14.0
 Released: 2018-09-07
@@ -16,7 +16,7 @@ Released: 2018-09-07
 - Attention: Dropped support for PHP <= 7.1
 - Attention: CRUDlex is now not anymore dependent on Silex as framework; the Silex implementation got split to https://github.com/philiplb/CRUDlexSilex2; a Symfony 4 implementation is done at https://github.com/philiplb/CRUDlexSymfony4Bundle
 - Attention: Splitted the class ControllerProvider into Controller and Silex\ControllerProvider with Controller being customizable and implementing the new ControllerInterface
-- Attention: Splitted the class ServiceProvider into Service and Silex\ServiceProvider 
+- Attention: Splitted the class ServiceProvider into Service and Silex\ServiceProvider
 - Attention: Changed the mechanism to define custom layouts and templates from Pimple keys like $app['crud.layout'] = 'myLayout.twig' to the Provider function $app['crud']->setTemplate('layout', 'myLayout.twig')
 - Attention: Changed the i18n management flag from the Pimple key "crud.manageI18n" to the Provider functions $app['crud']->isManageI18n() and $app['crud']->setManageI18n()
 - Attention: Moved the class "ServiceProvider" from the namespace "CRUDlex" to the namespace "CRUDlex\Silex"
@@ -98,7 +98,7 @@ Released: 2017-04-02
     - "symfony/yaml": "~3.2"
     - flatpickr 2.4.8
     - jQuery 3.2.1
-    
+
 ## 0.10.0
 Released: 2016-09-18
 - Added a new data type implementing a many-to-many relationship called "many", sponsored by [italic](https://github.com/italic)

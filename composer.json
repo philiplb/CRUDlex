@@ -20,7 +20,7 @@
         "symfony/yaml": "^4.1",
         "symfony/translation": "^4.1",
         "symfony/intl": "^4.1",
-        "philiplb/valdi": "0.12.0",
+        "philiplb/valdi": "^1.0",
         "romaricdrigon/metayaml": "dev-master#1481b99679b29cbb50c88f3e10e4951ac64b8ad3",
         "riimu/kit-phpencoder": "^2.1",
         "league/flysystem": "^1.0"
