@@ -69,9 +69,9 @@ class EntityEvents
      */
     public function push($moment, $action, \Closure $function)
     {
-        $events                            = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : [];
-        $events[]                          = $function;
-        $this->events[$moment.'.'.$action] = $events;
+        $newEvents                         = isset($this->events[$moment.'.'.$action]) ? $this->events[$moment.'.'.$action] : [];
+        $newEvents[]                       = $function;
+        $this->events[$moment.'.'.$action] = $newEvents;
     }
 
     /**
