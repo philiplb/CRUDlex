@@ -123,8 +123,7 @@ class Entity
         }
 
         $type  = $this->definition->getType($field);
-        $value = $this->toType($this->entity[$field], $type);
-        return $value;
+        return $this->toType($this->entity[$field], $type);
     }
 
     /**
