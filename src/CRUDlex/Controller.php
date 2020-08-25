@@ -28,6 +28,16 @@ use Twig_Environment;
 class Controller implements ControllerInterface {
 
     /**
+     * Often used i18n key.
+     */
+    const TR_RESOURCE_NOT_FOUND = 'crudlex.resourceNotFound';
+
+    /**
+     * Often used i18n key.
+     */
+    const TR_INSTANCE_NOT_FOUND = 'crudlex.instanceNotFound';
+
+    /**
      * Holds the filesystme.
      * @var FilesystemInterface
      */
@@ -297,7 +307,7 @@ class Controller implements ControllerInterface {
     {
         $crudData = $this->service->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
         $instance = $crudData->createEmpty();
         $instance->populateViaRequest($request);
@@ -311,7 +321,7 @@ class Controller implements ControllerInterface {
     {
         $crudData = $this->service->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
         $definition = $crudData->getDefinition();
 
@@ -365,11 +375,11 @@ class Controller implements ControllerInterface {
     {
         $crudData = $this->service->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_INSTANCE_NOT_FOUND));
         }
         $definition = $crudData->getDefinition();
 
@@ -407,11 +417,11 @@ class Controller implements ControllerInterface {
     {
         $crudData = $this->service->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_INSTANCE_NOT_FOUND));
         }
 
         return $this->modifyEntity($request, $crudData, $instance, $entity, true);
@@ -424,11 +434,11 @@ class Controller implements ControllerInterface {
     {
         $crudData = $this->service->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_INSTANCE_NOT_FOUND));
         }
 
         $fileHandler  = new FileHandler($this->filesystem, $crudData->getDefinition());
@@ -461,12 +471,12 @@ class Controller implements ControllerInterface {
     {
         $crudData = $this->service->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
         $instance   = $crudData->get($id);
         $definition = $crudData->getDefinition();
         if (!$instance || $definition->getType($field) != 'file' || !$instance->get($field)) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_INSTANCE_NOT_FOUND));
         }
         $fileHandler = new FileHandler($this->filesystem, $definition);
         return $fileHandler->renderFile($instance, $entity, $field);
@@ -479,11 +489,11 @@ class Controller implements ControllerInterface {
     {
         $crudData = $this->service->getData($entity);
         if (!$crudData) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
         $instance = $crudData->get($id);
         if (!$instance) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.instanceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_INSTANCE_NOT_FOUND));
         }
         $fileHandler = new FileHandler($this->filesystem, $crudData->getDefinition());
         if (!$crudData->getDefinition()->getField($field, 'required', false) && $fileHandler->deleteFile($crudData, $instance, $entity, $field)) {
@@ -504,7 +514,7 @@ class Controller implements ControllerInterface {
         $fileParam = str_replace('..', '', $request->get('file'));
         $file      = __DIR__.'/../static/'.$fileParam;
         if (!$fileParam || !file_exists($file)) {
-            return $this->getNotFoundPage($this->translator->trans('crudlex.resourceNotFound'));
+            return $this->getNotFoundPage($this->translator->trans(static::TR_RESOURCE_NOT_FOUND));
         }
 
         $mimeType = MimeType::detectByFilename($file);
